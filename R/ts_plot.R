@@ -53,25 +53,26 @@
 theme_ts <- function(base_family = getOption("ts_font", "sans")){
   # 'Source Sans Pro'  # does not work on mac
   # 'Slabo 13px'
-  theme_bw(base_family=base_family) +
-  theme(line = element_line(color = "grey30", size = 0.4),
+  theme_minimal(base_family=base_family) +
+  theme(
+        # line = element_line(color = "grey30", size = 0.4),
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
         plot.title = element_text(margin = margin(10, 0, 5, 0), hjust = 0, size = 14),
         plot.subtitle = element_text(margin = margin(0, 0, 9, 0), hjust = 0),
         # panel.grid = element_line(colour = NULL, linetype = 3), 
         # panel.grid.major = element_line(colour = "grey30"), 
-        panel.grid.major = element_line(size = 0.2), 
-        panel.grid.major.x = element_blank(), 
-        panel.grid.minor = element_blank(),
+        panel.grid = element_line(size = 0.2), 
+        # panel.grid.major.x = element_blank(), 
+        # panel.grid.minor = element_blank(),
         legend.title = element_blank(),
         legend.text = element_text(size = 10),
         legend.position = "bottom",
-        legend.direction = "horizontal",
-        axis.ticks.x = element_line(color = "grey30"),
-        axis.ticks.y = element_blank(),
-        panel.border = element_blank(),
-        axis.line.x =  element_line()
+        legend.direction = "horizontal"
+        # axis.ticks.x = element_line(color = "grey30"),
+        # axis.ticks.y = element_blank(),
+        # panel.border = element_blank(),
+        # axis.line.x =  element_line()
     )
 }
 
