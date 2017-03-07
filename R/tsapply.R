@@ -22,6 +22,8 @@ tsapply.xts <- function(x, FUN, ...){
 #' @export
 #' @method tsapply ts
 tsapply.ts <- function(x, FUN, ...){
+
+  # exactly the same as above, does that make sense?
   ll <- list()
   for (i in 1:NCOL(x)){
     ll[[i]] <- FUN(na.omit(x[, i]), ...)
