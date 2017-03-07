@@ -45,3 +45,35 @@ as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable",
   
   z
 }
+
+#' @export
+#' @method as_xts data.table
+as_xts.data.table <- function(x, time.name = "time", variable.name = "variable", value.name = "value"){
+  cnames <- colnames(x)
+  stopifnot(time.name %in% cnames)
+
+  stopifnot(requireNamespace("data.table"))
+
+  as_xts_core <- function(x){
+    setcolorder(x, c(time.name, value.name))
+    as.xts(x)
+  }
+  if (variable.name %in% cnames){
+    stopifnot(value.name %in% cnames)
+    ll.xts <- lapply(split(x, x[[variable.name]]), as_xts_core)
+    z <- do.call("cbind", ll.xts)
+    colnames(z) <- names(ll.xts)
+  } else {
+    if (!value.name %in% cnames){
+      if (NCOL(x) == 2){
+        colnames(x)[!colnames(x) %in% time.name] <- "value"
+      }
+      stopifnot(value.name %in% cnames)
+    }
+    z <- as_xts_core(x)
+    colnames(z) <- deparse(substitute(x))
+  }
+  
+  z
+}
+

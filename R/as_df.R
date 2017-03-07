@@ -38,12 +38,6 @@ as_df.ts <- function(x, ...){
 
 
 
-#' @export
-#' @method as_ts data.frame
-as_ts.data.frame <- function(x, time.name = "time", variable.name = "variable", value.name = "value"){
-  as_ts(as_xts(x, time.name = time.name, variable.name = variable.name, value.name = value.name))
-}
-
 
 
 
