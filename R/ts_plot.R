@@ -58,7 +58,7 @@ theme_ts <- function(base_family = getOption("ts_font", "sans")){
         # line = element_line(color = "grey30", size = 0.4),
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
-        plot.title = element_text(margin = margin(10, 0, 5, 0), hjust = 0, size = 14),
+        plot.title = element_text(margin = margin(10, 0, 7, 0), hjust = 0, size = 14),
         plot.subtitle = element_text(margin = margin(0, 0, 9, 0), hjust = 0),
         # panel.grid = element_line(colour = NULL, linetype = 3), 
         # panel.grid.major = element_line(colour = "grey30"), 
