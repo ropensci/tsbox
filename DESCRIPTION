@@ -1,0 +1,18 @@
+Package: tsbox
+Type: Package
+Title: Toolbox for Working for Time Series
+Version: 0.0.1
+Date: 2017-03-07
+Author: Christoph Sax
+Maintainer: Christoph Sax <christoph.sax@gmail.com>
+Description: Toolbox for Working for Time Series
+Depends:
+    xts
+Imports: 
+    ggplot2
+Suggests: 
+    dplyr,
+    data.table
+License: GPL-3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.0
