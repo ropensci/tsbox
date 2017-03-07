@@ -16,17 +16,19 @@
 # said he will correct it. Let's see...
 #
 #' @export
-ts_trend <- function (x, ...) UseMethod("ts_trend")
-
+tstrend <- function (x, ...) UseMethod("tstrend")
 
 
 #' @export
-#' @method ts_trend xts
-ts_trend.xts <- function(x, degree = 2, span = NULL){
+#' @method tstrend xts
+tstrend.xts <- function(x, degree = 2, span = NULL){
+  if (NCOL(x) > 1){
+    return(tsapply(x, tstrend))
+  }
 
   if (is.null(span)){
     span <- loess_aic_span_optim(x = x, degree = degree)
-    message("'span' automatically set to: ", span)
+    message(names(x), ": 'span' automatically set to ", formatC(span, 3))
   }
   
   m <- loess(x ~ seq(x), span = span, degree = degree)
@@ -62,8 +64,8 @@ loess_aic_span_optim <- function(x, degree = 2){
 
 
 #' @export
-#' @method ts_trend ts
-ts_trend.ts <- function(x, ...){
-  as_ts(ts_trend(as_xts(x), ...))
+#' @method tstrend ts
+tstrend.ts <- function(x, ...){
+  as_ts(tstrend(as_xts(x), ...))
 }
 
