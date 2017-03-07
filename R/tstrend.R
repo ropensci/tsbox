@@ -69,3 +69,22 @@ tstrend.ts <- function(x, ...){
   as_ts(tstrend(as_xts(x), ...))
 }
 
+
+
+#' @export
+#' @method tstrend data.frame
+tstrend.data.frame <- function(x, ...){
+  as_df(tstrend(as_xts(x), ...))
+}
+
+
+#' @export
+#' @method tstrend data.table
+tstrend.data.table <- function(x, ...){
+  as_dt(tstrend(as_xts(x), ...))
+}
+
+
+
+
+

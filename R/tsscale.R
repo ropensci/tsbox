@@ -16,3 +16,14 @@ tsscale.ts <- function(x, ...){
 }
 
 
+#' @export
+#' @method tsscale data.frame
+tsscale.data.frame <- function(x, ...){
+  as_df(tsscale(as_xts(x), ...))
+}
+
+#' @export
+#' @method tsscale data.table
+tsscale.data.table <- function(x, ...){
+  as_dt(tsscale(as_xts(x), ...))
+}

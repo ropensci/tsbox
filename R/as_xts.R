@@ -60,7 +60,7 @@ as_xts.data.table <- function(x, time.name = "time", variable.name = "variable",
   }
   if (variable.name %in% cnames){
     stopifnot(value.name %in% cnames)
-    ll.xts <- lapply(split(x, x[[variable.name]]), as_xts_core)
+    ll.xts <- lapply(split(x[, c(time.name, value.name), with = FALSE], x[[variable.name]]), as_xts_core)
     z <- do.call("cbind", ll.xts)
     colnames(z) <- names(ll.xts)
   } else {

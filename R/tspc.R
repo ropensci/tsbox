@@ -25,6 +25,24 @@ tspc.xts <- function(x, ...){
 
 
 #' @export
+#' @method tspc data.frame
+tspc.data.frame <- function(x, ...){
+  as_df(tspc(as_ts(x)))
+}
+
+
+#' @export
+#' @method tspc data.table
+tspc.data.table <- function(x, ...){
+  as_dt(tspcy(as_ts(x)))
+}
+
+
+
+
+
+
+#' @export
 tspcy <- function (x, ...) UseMethod("tspcy")
 
 #' @export
@@ -42,3 +60,16 @@ tspcy.xts <- function(x, ...){
   as_xts(tspcy(as_ts(x)))
 }
 
+
+#' @export
+#' @method tspcy data.frame
+tspcy.data.frame <- function(x, ...){
+  as_df(tspcy(as_ts(x)))
+}
+
+
+#' @export
+#' @method tspcy data.table
+tspcy.data.table <- function(x, ...){
+  as_dt(tspcy(as_ts(x)))
+}
