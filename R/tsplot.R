@@ -19,9 +19,9 @@
 #' ds <- plyr::ddply(df, "gp", plyr::summarise, mean = mean(y), sd = sd(y))
 #' ggplot() +
 #'   geom_point(data = df, aes(x = gp, y = y)) +
-#'   geom_point(data = ds, aes(x = gp, y = mean), size = 3, color = ts_colors()[2]) +
+#'   geom_point(data = ds, aes(x = gp, y = mean), size = 3, color = tscolors()[2]) +
 #'   geom_errorbar(data = ds, aes(x = gp, y = mean,
-#'                     ymin = mean - sd, ymax = mean + sd), , color = ts_colors()[3], width = 0.1) +
+#'                     ymin = mean - sd, ymax = mean + sd), , color = tscolors()[3], width = 0.1) +
 #'   theme_ts() + ggtitle("Prettifying ggplot", subtitle = "with the dataseries.org theme")
 #' 
 #' ### and a real scatter plot
@@ -35,7 +35,7 @@
 #' p <- qplot(rnorm(200), rnorm(200)) +
 #'   theme_ts_scatter() + 
 #'   ggtitle("Drink and drive", subtitle = "fuel consumption and automobile design") + 
-#'   xlab("weight (1000 lbs)") + ylab("miles/(US) gallon") + geom_smooth(color = ts_colors()[2])
+#'   xlab("weight (1000 lbs)") + ylab("miles/(US) gallon") + geom_smooth(color = tscolors()[2])
 #' 
 #' ### and bar plot
 #' dat1 <- data.frame(
@@ -91,7 +91,7 @@ theme_ts_scatter <- function(){
 
 #' @export
 #' @rdname theme_ts
-ts_colors <- function(){
+tscolors <- function(){
       c(
         "#4D4D4D",
         "#5DA5DA",
@@ -108,13 +108,13 @@ ts_colors <- function(){
 #' @export
 #' @rdname theme_ts
 scale_color_ts <- function(...) {
-    discrete_scale("colour", "ds", scales::manual_pal(ts_colors()), ...)
+    discrete_scale("colour", "ds", scales::manual_pal(tscolors()), ...)
 }
 
 #' @export
 #' @rdname theme_ts
 scale_fill_ts <- function (...) {
-    discrete_scale("fill", "ds", scales::manual_pal(ts_colors()), ...)
+    discrete_scale("fill", "ds", scales::manual_pal(tscolors()), ...)
 }
 
 
@@ -154,11 +154,12 @@ tsplot.xts <- function(x, title = NULL, subtitle = NULL, ...){
 }
 
 tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
+  df <- df[!is.na(df$value), ]
   n <- NCOL(df)
   if (n == 2){
-    p <- ggplot(df, aes(x = Index, y = Value)) 
+    p <- ggplot(df, aes(x = time, y = value)) 
   } else if (n == 3){
-    p <- ggplot(df, aes(x = Index, y = Value, color = Series)) 
+    p <- ggplot(df, aes(x = time, y = value, color = variable)) 
   } else {
     stop("df has wrong col dim")
   }
@@ -176,7 +177,7 @@ tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
 }
 
 #' @export
-ts_ggsave <- function(filename = "myfig.pdf", width = 8, height = 5, ...){
+tssave <- function(filename = "myfig.pdf", width = 8, height = 5, ...){
   ggsave(filename = filename, width = width, height = height, ...)
   browseURL(filename)
 }

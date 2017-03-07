@@ -7,34 +7,42 @@
 
 
 #' @export
-as_df <- function (x, melt = TRUE, ...) UseMethod("as_df")
+as_df <- function (x, ...) UseMethod("as_df")
 
 
 #' @import zoo
 #' @export
 #' @method as_df xts
-as_df.xts <- function(x){
+as_df.xts <- function(x, melt = TRUE){
+  if (!melt) stop("not yet implemented")
+
   df <- zoo::fortify.zoo(zoo::as.zoo(x), melt = TRUE)
+  colnames(df) <- c("time", "variable", "value")
   if (NCOL(x) == 1){
-    df$Series <- NULL
+    df$variable <- NULL
   }
-  if (any(class(df$Index) %in% c("yearqtr", "yearmon"))){
-    df$Index <- zoo::as.Date.yearmon(df$Index)
+  if (any(class(df$time) %in% c("yearqtr", "yearmon"))){
+    df$time <- zoo::as.Date.yearmon(df$time)
   }
+
   df
 }
 
 
 #' @export
 #' @method as_df ts
-as_df.ts <- function(x){
-  as_df(as.xts(x))
+as_df.ts <- function(x, ...){
+  as_df(as.xts(x), ...)
 }
 
 
 
 
-
+#' @export
+#' @method as_ts data.frame
+as_ts.data.frame <- function(x, time.name = "time", variable.name = "variable", value.name = "value"){
+  as_ts(as_xts(x, time.name = time.name, variable.name = variable.name, value.name = value.name))
+}
 
 
 
