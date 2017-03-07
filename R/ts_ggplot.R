@@ -122,37 +122,37 @@ scale_fill_ts <- function (...) {
 #' 
 #' @examples
 #' library(mytools)
-#' ts_ggplot(AirPassengers) + ggtitle("Airline passengers", subtitle = "The classic Box & Jenkins airline data")
-#' ts_ggplot(cbind(total = ldeaths, female = fdeaths, male = mdeaths))
+#' ts_plot(AirPassengers) + ggtitle("Airline passengers", subtitle = "The classic Box & Jenkins airline data")
+#' ts_plot(cbind(total = ldeaths, female = fdeaths, male = mdeaths))
 #' 
 #' library(Quandl)
-#' ts_ggplot(Quandl("FRED/GDPMC1", "xts"))
+#' ts_plot(Quandl("FRED/GDPMC1", "xts"))
 #' ggsave("myfig.pdf", width = 8, height = 5)
 #' @export
-ts_ggplot <- function (x, title = NULL, subtitle = NULL, ...) UseMethod("ts_ggplot")
+ts_plot <- function (x, title = NULL, subtitle = NULL, ...) UseMethod("ts_plot")
 
 #' @export
-#' @method ts_ggplot numeric
-ts_ggplot.numeric <- function(x, title = NULL, subtitle = NULL, ...){
-  ts_ggplot(ts(x), title = title, subtitle = subtitle, ...)
+#' @method ts_plot numeric
+ts_plot.numeric <- function(x, title = NULL, subtitle = NULL, ...){
+  ts_plot(ts(x), title = title, subtitle = subtitle, ...)
 }
 
 
 #' @export
-#' @method ts_ggplot ts
-ts_ggplot.ts <- function(x, title = NULL, subtitle = NULL, ...){
+#' @method ts_plot ts
+ts_plot.ts <- function(x, title = NULL, subtitle = NULL, ...){
   df <- as_df(x)
-  ts_ggplot_core(df, title = title, subtitle = subtitle, ...)
+  ts_plot_core(df, title = title, subtitle = subtitle, ...)
 }
   
 #' @export
-#' @method ts_ggplot xts
-ts_ggplot.xts <- function(x, title = NULL, subtitle = NULL, ...){
+#' @method ts_plot xts
+ts_plot.xts <- function(x, title = NULL, subtitle = NULL, ...){
   df <- as_df(x)
-  ts_ggplot_core(df, title = title, subtitle = subtitle, ...)
+  ts_plot_core(df, title = title, subtitle = subtitle, ...)
 }
 
-ts_ggplot_core <- function(df, title = NULL, subtitle = NULL, ...){
+ts_plot_core <- function(df, title = NULL, subtitle = NULL, ...){
   n <- NCOL(df)
   if (n == 2){
     p <- ggplot(df, aes(x = Index, y = Value)) 
