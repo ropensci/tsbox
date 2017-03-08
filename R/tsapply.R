@@ -1,9 +1,7 @@
 
-#' @export
 tsapply <- function (x, ...) UseMethod("tsapply")
 
 
-#' @export
 #' @method tsapply xts
 tsapply.xts <- function(x, FUN, ...){
   stopifnot(inherits(x, "xts"))
@@ -19,7 +17,6 @@ tsapply.xts <- function(x, FUN, ...){
 
 
 
-#' @export
 #' @method tsapply ts
 tsapply.ts <- function(x, FUN, ...){
   

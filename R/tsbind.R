@@ -1,7 +1,15 @@
-# x <- as_xts(AirPassengers)
-# x <- x[-3]
-# ll <- tsbind(x, AirPassengers)
 
+#' Bind any time series vertically or horizontally
+#' 
+#' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @examples
+#'
+#' tsbind(as_df(EuStockMarkets), AirPassengers)
+#' tsbind(EuStockMarkets, mdeaths)
+#' 
+#' tsrbind(as_df(mdeaths), AirPassengers)
+#' tsrbind(as_xts(AirPassengers), mdeaths)
+#' 
 #' @export
 tsbind <- function(...){
 

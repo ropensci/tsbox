@@ -2,19 +2,48 @@
 % Please edit documentation in R/tsplot.R
 \name{tsplot}
 \alias{tsplot}
-\title{Beautiful Graphics}
+\alias{tsplot.numeric}
+\alias{tsplot.ts}
+\alias{tsplot.xts}
+\alias{tsplot.data.frame}
+\alias{tsplot.data.table}
+\title{Plot Time Series}
 \usage{
 tsplot(x, title = NULL, subtitle = NULL, ...)
+
+\method{tsplot}{numeric}(x, title = NULL, subtitle = NULL, ...)
+
+\method{tsplot}{ts}(x, title = NULL, subtitle = NULL, ...)
+
+\method{tsplot}{xts}(x, title = NULL, subtitle = NULL, ...)
+
+\method{tsplot}{data.frame}(x, title = NULL, subtitle = NULL, ...)
+
+\method{tsplot}{data.table}(x, title = NULL, subtitle = NULL, ...)
+}
+\arguments{
+\item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+
+\item{title}{title}
+
+\item{subtitle}{subtitle}
+
+\item{...}{addtiional arguments, passed to ggplot.}
 }
 \description{
-Beautiful Graphics
+Plot Time Series
 }
 \examples{
-library(mytools)
-tsplot(AirPassengers) + ggtitle("Airline passengers", subtitle = "The classic Box & Jenkins airline data")
-tsplot(cbind(total = ldeaths, female = fdeaths, male = mdeaths))
+\dontrun{
+library(tsbox)
+tsplot(AirPassengers) + 
+  ggtitle("Airline passengers", 
+           subtitle = "The classic Box & Jenkins airline data")
+tsplot(tsbind(total = ldeaths, female = fdeaths, male = mdeaths))
+
 
 library(Quandl)
 tsplot(Quandl("FRED/GDPMC1", "xts"))
 ggsave("myfig.pdf", width = 8, height = 5)
+}
 }

@@ -5,11 +5,17 @@ Version: 0.0.1
 Date: 2017-03-07
 Author: Christoph Sax
 Maintainer: Christoph Sax <christoph.sax@gmail.com>
-Description: Time Series Toolbox
+Description: A toolbox to deal with time series. Built around a set of
+  converters, which reliably convert time series stored as "ts", "xts",
+  "data.frame" or "data.table" to each other. Because this works, we can define
+  a set of tools that work the same way for each class. And, we can write a plot
+  function that just works.
 Depends:
     xts
 Imports: 
-    ggplot2
+    ggplot2,
+    scales,
+    zoo
 Suggests: 
     dplyr,
     data.table

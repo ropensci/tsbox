@@ -2,15 +2,12 @@
 % Please edit documentation in R/tsplot.R
 \name{theme_ts}
 \alias{theme_ts}
-\alias{theme_ts_scatter}
 \alias{tscolors}
 \alias{scale_color_ts}
 \alias{scale_fill_ts}
-\title{ggplot theme for dataseries.org}
+\title{ggplot Theme for tsbox}
 \usage{
-theme_ts(base_family = getOption("ts_font", "sans"))
-
-theme_ts_scatter()
+theme_ts(base_family = getOption("ts_font", "sans"), base_size = "")
 
 tscolors()
 
@@ -18,13 +15,20 @@ scale_color_ts(...)
 
 scale_fill_ts(...)
 }
+\arguments{
+\item{base_family}{base font family}
+
+\item{base_size}{base font size}
+
+\item{...}{aruments passed to subfunctions}
+}
 \description{
-ggplot theme for dataseries.org
+ggplot Theme for tsbox
 }
 \examples{
 library(tsbox)
-df <- as_df(cbind(total = ldeaths, female = fdeaths, male = mdeaths))
-
+df <- as_df(tsbind(total = ldeaths, female = fdeaths, male = mdeaths))
+ \dontrun{
 ggplot(df, aes(x = Index, y = Value, color = Series)) + 
   geom_line() +
   ggtitle('Deaths by lung diseases', subtitle = 'United Kindom, per year') + 
@@ -33,40 +37,5 @@ ggplot(df, aes(x = Index, y = Value, color = Series)) +
 
 ggsave("myfig.pdf", width = 8, height = 5)
 browseURL("myfig.pdf")
-
-
-### a non time series example (from ggplot help)
-df <- data.frame(gp = factor(rep(letters[1:3], each = 10)), y = rnorm(30))
-ds <- plyr::ddply(df, "gp", plyr::summarise, mean = mean(y), sd = sd(y))
-ggplot() +
-  geom_point(data = df, aes(x = gp, y = y)) +
-  geom_point(data = ds, aes(x = gp, y = mean), size = 3, color = tscolors()[2]) +
-  geom_errorbar(data = ds, aes(x = gp, y = mean,
-                    ymin = mean - sd, ymax = mean + sd), , color = tscolors()[3], width = 0.1) +
-  theme_ts() + ggtitle("Prettifying ggplot", subtitle = "with the dataseries.org theme")
-
-### and a real scatter plot
-ggplot(mtcars, aes(x=wt, y=mpg, color = as.factor(gear))) + geom_point(size = 3) + 
-  theme_ts_scatter() + scale_color_ts() + 
-  ggtitle("Drink and drive", subtitle = "fuel consumption and automobile design") + 
-  xlab("weight (1000 lbs)") + ylab("miles/(US) gallon") +
-  theme(legend.title = element_text()) + labs(color = "Gears")
-  
-### with additional geoms
-p <- qplot(rnorm(200), rnorm(200)) +
-  theme_ts_scatter() + 
-  ggtitle("Drink and drive", subtitle = "fuel consumption and automobile design") + 
-  xlab("weight (1000 lbs)") + ylab("miles/(US) gallon") + geom_smooth(color = tscolors()[2])
-
-### and bar plot
-dat1 <- data.frame(
-    sex = factor(c("Female","Female","Male","Male")),
-    time = factor(c("Lunch","Dinner","Lunch","Dinner"), levels=c("Lunch","Dinner")),
-    total_bill = c(13.53, 16.81, 16.24, 17.42)
-)
-ggplot(data=dat1, aes(x=time, y=total_bill, fill=sex)) +
-    geom_bar(stat="identity", position=position_dodge(), width=0.4) + theme_ts() + scale_fill_ts() + 
-    ggtitle("Battle of the sexes", subtitle = "not sure what the data is about")
-
-    
+}
 }

@@ -3,11 +3,15 @@
 
 
 #' @export
+#' @rdname as_xts
 as_data.table <- function (x, ...) {
   stopifnot(requireNamespace("data.table"))
-  as.data.table(as_df(x, ...))
+  data.table::as.data.table(as_df(x, ...))
 }
 
 
 #' @export
-as_dt <- as_data.table
+#' @rdname as_xts
+as_dt <- as_data.table <- function (x, ...) {
+  data.table::as.data.table(x, ...)
+}

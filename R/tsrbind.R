@@ -2,6 +2,7 @@
 # x <- x[-3]
 # ll <- tsrbind(AirPassengers, AirPassengers)
 
+#' @rdname tsbind
 #' @export
 tsrbind <- function(...){
 

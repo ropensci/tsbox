@@ -1,9 +1,31 @@
+
+#' Convert everything to everything
+#' 
+#' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @param ... additional arguments, passed to methods
+#' @param time.name time name
+#' @param variable.name  variable name
+#' @param value.name  value name
+#' @examples
+#'
+#' x.ts <- tsbind(mdeaths, fdeaths) 
+#' x.xts <- as_xts(x.ts)
+#' x.df <- as_df(x.xts)
+#' \dontrun{
+#' library(data.table)
+#' x.dt <- as_dt(x.df) 
+#' }
+#' 
 #' @export
+#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts
+#' @importFrom utils browseURL
+#' 
 as_xts <- function (x, ...) UseMethod("as_xts")
 
 #' @export
 #' @method as_xts ts
-as_xts.ts <- function(x){
+#' @rdname as_xts
+as_xts.ts <- function(x, ...){
   stopifnot(inherits(x, "ts"))
 
   m <- as.zoo(x)
@@ -25,15 +47,17 @@ as_xts.ts <- function(x){
 
 
 #' @export
+#' @rdname as_xts
 #' @method as_xts xts
-as_xts.xts <- function(x){
+as_xts.xts <- function(x, ...){
   x
 }
 
 
 #' @export
+#' @rdname as_xts
 #' @method as_xts data.frame
-as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable", value.name = "value"){
+as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable", value.name = "value", ...){
   cnames <- colnames(x)
   stopifnot(time.name %in% cnames)
 
@@ -60,15 +84,16 @@ as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable",
 }
 
 #' @export
+#' @rdname as_xts
 #' @method as_xts data.table
-as_xts.data.table <- function(x, time.name = "time", variable.name = "variable", value.name = "value"){
+as_xts.data.table <- function(x, time.name = "time", variable.name = "variable", value.name = "value", ...){
   cnames <- colnames(x)
   stopifnot(time.name %in% cnames)
 
   stopifnot(requireNamespace("data.table"))
 
   as_xts_core <- function(x){
-    setcolorder(x, c(time.name, value.name))
+    data.table::setcolorder(x, c(time.name, value.name))
     as.xts(x)
   }
   if (variable.name %in% cnames){

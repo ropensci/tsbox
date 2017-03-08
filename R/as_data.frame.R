@@ -1,25 +1,21 @@
 
-
-# library(dataseries)
-# sent <- ds("CCI.CCIIR", "xts")
-# gdp <- ts_pc(ds("GDP.PBRTT.A.R", "xts"))
-# ts_ggplot(ts_scale(ts_cbind(sent, gdp)))
-
-
-
 #' @export
+#' @rdname as_xts
 as_data.frame <- function (x, ...) UseMethod("as_data.frame")
 
 
 #' @export
-as_df <- as_data.frame
+#' @rdname as_xts
+as_df <- as_data.table <- function (x, ...) {
+  as_data.frame(x, ...)
+}
 
-
-#' @import zoo
+#' @import zoo xts
+#' @rdname as_xts
 #' @export
 #' @method as_data.frame xts
-as_data.frame.xts <- function(x, melt = TRUE){
-  if (!melt) stop("not yet implemented")
+as_data.frame.xts <- function(x, ...){
+  # if (!melt) stop("not yet implemented")
 
   df <- zoo::fortify.zoo(zoo::as.zoo(x), melt = TRUE)
   colnames(df) <- c("time", "variable", "value")
@@ -34,6 +30,7 @@ as_data.frame.xts <- function(x, melt = TRUE){
 }
 
 #' @export
+#' @rdname as_xts
 #' @method as_data.frame ts
 as_data.frame.ts <- function(x, ...){
   as_data.frame(as_xts(x), ...)
@@ -41,6 +38,7 @@ as_data.frame.ts <- function(x, ...){
 
 
 #' @export
+#' @rdname as_xts
 #' @method as_data.frame data.frame
 as_data.frame.data.frame <- function(x, ...){
   x

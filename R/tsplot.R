@@ -1,9 +1,12 @@
-#' ggplot theme for dataseries.org
+#' ggplot Theme for tsbox
 #' 
+#' @param base_family base font family
+#' @param base_size base font size
+#' @param ... aruments passed to subfunctions
 #' @examples
 #' library(tsbox)
-#' df <- as_df(cbind(total = ldeaths, female = fdeaths, male = mdeaths))
-#' 
+#' df <- as_df(tsbind(total = ldeaths, female = fdeaths, male = mdeaths))
+#'  \dontrun{
 #' ggplot(df, aes(x = Index, y = Value, color = Series)) + 
 #'   geom_line() +
 #'   ggtitle('Deaths by lung diseases', subtitle = 'United Kindom, per year') + 
@@ -12,48 +15,13 @@
 #' 
 #' ggsave("myfig.pdf", width = 8, height = 5)
 #' browseURL("myfig.pdf")
-#' 
-#' 
-#' ### a non time series example (from ggplot help)
-#' df <- data.frame(gp = factor(rep(letters[1:3], each = 10)), y = rnorm(30))
-#' ds <- plyr::ddply(df, "gp", plyr::summarise, mean = mean(y), sd = sd(y))
-#' ggplot() +
-#'   geom_point(data = df, aes(x = gp, y = y)) +
-#'   geom_point(data = ds, aes(x = gp, y = mean), size = 3, color = tscolors()[2]) +
-#'   geom_errorbar(data = ds, aes(x = gp, y = mean,
-#'                     ymin = mean - sd, ymax = mean + sd), , color = tscolors()[3], width = 0.1) +
-#'   theme_ts() + ggtitle("Prettifying ggplot", subtitle = "with the dataseries.org theme")
-#' 
-#' ### and a real scatter plot
-#' ggplot(mtcars, aes(x=wt, y=mpg, color = as.factor(gear))) + geom_point(size = 3) + 
-#'   theme_ts_scatter() + scale_color_ts() + 
-#'   ggtitle("Drink and drive", subtitle = "fuel consumption and automobile design") + 
-#'   xlab("weight (1000 lbs)") + ylab("miles/(US) gallon") +
-#'   theme(legend.title = element_text()) + labs(color = "Gears")
-#'   
-#' ### with additional geoms
-#' p <- qplot(rnorm(200), rnorm(200)) +
-#'   theme_ts_scatter() + 
-#'   ggtitle("Drink and drive", subtitle = "fuel consumption and automobile design") + 
-#'   xlab("weight (1000 lbs)") + ylab("miles/(US) gallon") + geom_smooth(color = tscolors()[2])
-#' 
-#' ### and bar plot
-#' dat1 <- data.frame(
-#'     sex = factor(c("Female","Female","Male","Male")),
-#'     time = factor(c("Lunch","Dinner","Lunch","Dinner"), levels=c("Lunch","Dinner")),
-#'     total_bill = c(13.53, 16.81, 16.24, 17.42)
-#' )
-#' ggplot(data=dat1, aes(x=time, y=total_bill, fill=sex)) +
-#'     geom_bar(stat="identity", position=position_dodge(), width=0.4) + theme_ts() + scale_fill_ts() + 
-#'     ggtitle("Battle of the sexes", subtitle = "not sure what the data is about")
-#' 
-#'     
-#' @import ggplot2 extrafont
+#' }
+#' @import ggplot2
 #' @export
-theme_ts <- function(base_family = getOption("ts_font", "sans")){
+theme_ts <- function(base_family = getOption("ts_font", "sans"), base_size = ""){
   # 'Source Sans Pro'  # does not work on mac
   # 'Slabo 13px'
-  theme_minimal(base_family=base_family) +
+  theme_minimal(base_family = base_family, base_size = base_size) +
   theme(
         # line = element_line(color = "grey30", size = 0.4),
         axis.title.x = element_blank(),
@@ -76,17 +44,17 @@ theme_ts <- function(base_family = getOption("ts_font", "sans")){
     )
 }
 
-#' @export
-#' @rdname theme_ts
-theme_ts_scatter <- function(){
-  theme_ts() +
-  theme(axis.title.x = element_text(margin = margin(8, 0, 0, 0), size = 10),
-        axis.title.y = element_text(margin = margin(0, 8, 0, 0), angle = 90, size = 10),
-        panel.grid.major.x = element_line(colour = "black"), 
-        axis.line.x =  element_blank(),
-        axis.ticks.x = element_blank()
-    )
-}
+# #' @export
+# #' @rdname theme_ts
+# theme_ts_scatter <- function(){
+#   theme_ts() +
+#   theme(axis.title.x = element_text(margin = margin(8, 0, 0, 0), size = 10),
+#         axis.title.y = element_text(margin = margin(0, 8, 0, 0), angle = 90, size = 10),
+#         panel.grid.major.x = element_line(colour = "black"), 
+#         axis.line.x =  element_blank(),
+#         axis.ticks.x = element_blank()
+#     )
+# }
 
 
 #' @export
@@ -106,6 +74,7 @@ tscolors <- function(){
 }
 
 #' @export
+#' @import scales
 #' @rdname theme_ts
 scale_color_ts <- function(...) {
     discrete_scale("colour", "ds", scales::manual_pal(tscolors()), ...)
@@ -119,27 +88,36 @@ scale_fill_ts <- function (...) {
 
 
 
-#' Beautiful Graphics
-#' 
+#' Plot Time Series
+#' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @param title title
+#' @param subtitle subtitle
+#' @param ... addtiional arguments, passed to ggplot.
 #' @examples
-#' library(mytools)
-#' tsplot(AirPassengers) + ggtitle("Airline passengers", subtitle = "The classic Box & Jenkins airline data")
-#' tsplot(cbind(total = ldeaths, female = fdeaths, male = mdeaths))
+#' \dontrun{
+#' library(tsbox)
+#' tsplot(AirPassengers) + 
+#'   ggtitle("Airline passengers", 
+#'            subtitle = "The classic Box & Jenkins airline data")
+#' tsplot(tsbind(total = ldeaths, female = fdeaths, male = mdeaths))
+#' 
 #' 
 #' library(Quandl)
 #' tsplot(Quandl("FRED/GDPMC1", "xts"))
 #' ggsave("myfig.pdf", width = 8, height = 5)
+#' }
 #' @export
 tsplot <- function (x, title = NULL, subtitle = NULL, ...) UseMethod("tsplot")
 
 #' @export
+#' @rdname tsplot
 #' @method tsplot numeric
 tsplot.numeric <- function(x, title = NULL, subtitle = NULL, ...){
   tsplot(ts(x), title = title, subtitle = subtitle, ...)
 }
 
-
 #' @export
+#' @rdname tsplot
 #' @method tsplot ts
 tsplot.ts <- function(x, title = NULL, subtitle = NULL, ...){
   df <- as_data.frame(x)
@@ -147,6 +125,7 @@ tsplot.ts <- function(x, title = NULL, subtitle = NULL, ...){
 }
   
 #' @export
+#' @rdname tsplot
 #' @method tsplot xts
 tsplot.xts <- function(x, title = NULL, subtitle = NULL, ...){
   df <- as_data.frame(x)
@@ -154,24 +133,26 @@ tsplot.xts <- function(x, title = NULL, subtitle = NULL, ...){
 }
 
 #' @export
+#' @rdname tsplot
 #' @method tsplot data.frame
 tsplot.data.frame <- function(x, title = NULL, subtitle = NULL, ...){
   tsplot_core(x, title = title, subtitle = subtitle, ...)
 }
 
 #' @export
+#' @rdname tsplot
 #' @method tsplot data.table
 tsplot.data.table <- function(x, title = NULL, subtitle = NULL, ...){
   tsplot_core(x, title = title, subtitle = subtitle, ...)
 }
 
 tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
-  df <- df[!is.na(df$value), ]
+  df <- df[!is.na(df[, 'value']), ]
   n <- NCOL(df)
   if (n == 2){
-    p <- ggplot(df, aes(x = time, y = value)) 
+    p <- ggplot(df, aes_string(x = 'time', y = 'value')) 
   } else if (n == 3){
-    p <- ggplot(df, aes(x = time, y = value, color = variable)) 
+    p <- ggplot(df, aes_string(x = 'time', y = 'value', color = 'variable'))
   } else {
     stop("df has wrong col dim")
   }
@@ -188,6 +169,19 @@ tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
   p
 }
 
+#' ggsave, optimized for time series
+#' 
+#' @param filename filename
+#' @param width width
+#' @param height height
+#' @param open should the graph be opened?
+#' @param ... aruments passed to ggsave
+#' @examples
+#' \dontrun{
+#' tsplot(AirPassengers)
+#' tssave()
+#' }
+#' @import ggplot2
 #' @export
 tssave <- function(filename = "myfig.pdf", width = 8, height = 5, ..., open = TRUE){
   ggsave(filename = filename, width = width, height = height, ...)

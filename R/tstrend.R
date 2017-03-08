@@ -1,10 +1,10 @@
 
-# Optimal Loess Parameter by AIC
+# Optimal Loess Parameter by AIC
 # 
 # Hurvich, C.M., Simonoff, J.S., and Tsai, C. L. 1998. Smoothing 
 # parameter selection in nonparametric regression using an improved 
 # Akaike Information Criterion. Journal of the Royal Statistical 
-# Society B 60: 271–293.
+# Society B 60: 271-293.
 # 
 # http://www.stat.washington.edu/courses/stat527/s13/readings/j_royal_stat_soc_b1998.pdf
 # 
@@ -13,15 +13,20 @@
 # careful: the loess.as function from package fANCOVA is WRONG. It uses
 #    aicc = log(sigma2) + 1 + 2 * (2 * (trace + 1)) / (n - trace - 2)
 # which is not what the paper says. One 2 too much! The Author, wangx6@ccf.org, 
-# said he will correct it. Let's see...
+# said he will correct it. Let's see...
 #
+
+
 #' @export
+#' @rdname tspc
 tstrend <- function (x, ...) UseMethod("tstrend")
 
-
+#' @param degree see ?loess
+#' @param span see ?loess
 #' @export
 #' @method tstrend xts
-tstrend.xts <- function(x, degree = 2, span = NULL){
+#' @rdname tspc
+tstrend.xts <- function(x, degree = 2, span = NULL, ...){
   if (NCOL(x) > 1){
     return(tsapply(x, tstrend))
   }
@@ -43,7 +48,7 @@ tstrend.xts <- function(x, degree = 2, span = NULL){
   #           upperCI = 1.96 * pp$se.fit + pp$fit
   #           )
 
-  reclass(z, x)
+  xts::reclass(z, x)
 }
 
 
@@ -64,6 +69,7 @@ loess_aic_span_optim <- function(x, degree = 2){
 
 
 #' @export
+#' @rdname tspc
 #' @method tstrend ts
 tstrend.ts <- function(x, ...){
   as_ts(tstrend(as_xts(x), ...))
@@ -72,6 +78,7 @@ tstrend.ts <- function(x, ...){
 
 
 #' @export
+#' @rdname tspc
 #' @method tstrend data.frame
 tstrend.data.frame <- function(x, ...){
   as_df(tstrend(as_xts(x), ...))
@@ -79,6 +86,7 @@ tstrend.data.frame <- function(x, ...){
 
 
 #' @export
+#' @rdname tspc
 #' @method tstrend data.table
 tstrend.data.table <- function(x, ...){
   as_dt(tstrend(as_xts(x), ...))

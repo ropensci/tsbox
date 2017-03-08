@@ -1,11 +1,11 @@
 Time Series Toolbox
 ===================
 
-A toolbox to deal with time series in R. Built around a set of converters, that
+A toolbox to deal with time series in R. Built around a set of converters, which
 *reliably* convert time series stored as`ts`, `xts`, `data.frame` or
 `data.table` to each other. Because this works, we can define a set of tools
-that work *identically* for each class. And, we can write a plot method that
-*just works*.
+that work *the same way* for each class. And, we can write a plot function that
+*just works*!
 
 To install:
 ```
@@ -24,7 +24,7 @@ x.df <- as_df(x.xts)
 x.dt <- as_dt(x.df)
 ```
 
-### Use same methods for ts, xts, data.frame or data.table
+### Use same generic functions for ts, xts, data.frame or data.table
 
 All functions start with `ts`, so you use it with auto complete.
 

@@ -1,9 +1,11 @@
 #' @export
+#' @rdname as_xts
 as_ts <- function (x, ...) UseMethod("as_ts")
 
 #' @export
+#' @rdname as_xts
 #' @method as_ts xts
-as_ts.xts <- function(x) {
+as_ts.xts <- function(x, ...) {
 
   p <- xts::periodicity(x)
   if (p$scale == "monthly"){
@@ -25,23 +27,22 @@ as_ts.xts <- function(x) {
   z
 
 
-  # start <- c(as.POSIXlt(index(x[1]))$year + 1900L, as.POSIXlt(index(x[1]))$mon + 1L)
-
-  # TODO extend for bi monthly, semi yearly
-
-
-  
-
 }
 
 
 
-
+#' @export
+#' @rdname as_xts
+#' @method as_ts data.frame
+as_ts.data.frame <- function(x, time.name = "time", variable.name = "variable", value.name = "value", ...){
+  as_ts(as_xts(x, time.name = time.name, variable.name = variable.name, value.name = value.name))
+}
 
 
 #' @export
-#' @method as_ts data.frame
-as_ts.data.frame <- function(x, time.name = "time", variable.name = "variable", value.name = "value"){
+#' @rdname as_xts
+#' @method as_ts data.table
+as_ts.data.table <- function(x, time.name = "time", variable.name = "variable", value.name = "value", ...){
   as_ts(as_xts(x, time.name = time.name, variable.name = variable.name, value.name = value.name))
 }
 
