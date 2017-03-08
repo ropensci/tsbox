@@ -189,9 +189,10 @@ tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
 }
 
 #' @export
-tssave <- function(filename = "myfig.pdf", width = 8, height = 5, ...){
+tssave <- function(filename = "myfig.pdf", width = 8, height = 5, ..., open = TRUE){
   ggsave(filename = filename, width = width, height = height, ...)
-  browseURL(filename)
+
+  if (open) browseURL(filename)
 }
 
 
