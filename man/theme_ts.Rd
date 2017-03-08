@@ -7,7 +7,7 @@
 \alias{scale_fill_ts}
 \title{ggplot Theme for tsbox}
 \usage{
-theme_ts(base_family = getOption("ts_font", "sans"), base_size = "")
+theme_ts(base_family = getOption("ts_font", ""), base_size = 11)
 
 tscolors()
 
