@@ -4,9 +4,7 @@ tsfill <- function(x){
   na.approx(x)
 }
 
-#' Convert everything to everything
-#' 
-#' Convert everything to everything
+#' Utility Functions for Time Series
 #' 
 #' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @param ... additional arguments, passed to methods
