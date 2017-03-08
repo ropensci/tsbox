@@ -62,7 +62,7 @@ as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable",
   stopifnot(time.name %in% cnames)
 
   as_xts_core <- function(x){
-    xts(x = x[[time.name]], order.by = x[[time.name]])
+    xts(x = x[[value.name]], order.by = x[[time.name]])
   }
   if (variable.name %in% cnames){
     stopifnot(value.name %in% cnames)
