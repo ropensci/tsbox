@@ -5,3 +5,4 @@ notifications:
   email:
     recipients:
       - christoph.sax@gmail.com
+      
