@@ -47,6 +47,9 @@ as_ts.data.table <- function(x, time.name = "time", variable.name = "variable", 
 }
 
 
+as_ts.ts <- function(x, ...){
+  x
+}
 
 
 
