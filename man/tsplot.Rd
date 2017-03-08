@@ -44,6 +44,14 @@ tsplot(tsbind(total = ldeaths, female = fdeaths, male = mdeaths))
 
 library(Quandl)
 tsplot(Quandl("FRED/GDPMC1", "xts"))
-ggsave("myfig.pdf", width = 8, height = 5)
+
+library(dataseries)
+dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
+tsplot(tsscale(tswin(tsbind(`GDP Growth` = tspc(dta[, 'GDP.PBRTT.A.R']), 
+                            `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']), 
+                     start = "1995-01-01")),
+       title = "GDP and Consumer Sentiment",
+       subtitle = "normalized values")
+
 }
 }

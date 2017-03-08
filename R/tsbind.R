@@ -6,6 +6,10 @@
 #'
 #' tsbind(as_df(EuStockMarkets), AirPassengers)
 #' tsbind(EuStockMarkets, mdeaths)
+#'
+#' # labelling:
+#' tsbind(`International Airline Passengers` = as_xts(AirPassengers), 
+#'        `Deaths from Lung Diseases` = ldeaths)
 #' 
 #' tsrbind(as_df(mdeaths), AirPassengers)
 #' tsrbind(as_xts(AirPassengers), mdeaths)
