@@ -67,6 +67,8 @@ tsplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
 # a pdf with an aspect ratio that works well for time series
 tssave()          
 ```
+![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.pdf)
+
 
 It uses [ggplot2](https://CRAN.R-project.org/package=ggplot2), so you can 
 continue the usual way:
