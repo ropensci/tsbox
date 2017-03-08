@@ -1,22 +1,23 @@
 - [ ] tsbox
-  - [ ] as_xts(), as_ts(), as_df()
-  - [ ] ts_plot(), ts_ggplot()
-  - [ ] theme_ts()
+  - [X] as_xts(), as_ts(), as_df()
+  - [X] ts_plot(), ts_ggplot()
+  - [X] theme_ts()
   - [ ] par_ts()
-  - [ ] ts_colors()
+  - [X] ts_colors()
 
-  - [ ] ts_pcy()
-  - [ ] ts_pc()
-  - [ ] ts_diff()
-  - [ ] ts_diffy()
-  - [ ] ts_scale()
-  - [ ] ts_trend()
-  - [ ] ts_seas()
-  - [ ] ts_forecast()
+  - [X] tspcy()
+  - [X] tspc()
+  - [ ] tsdiff()
+  - [ ] tsdiffy()
+  - [X] tsscale()
+  - [X] tstrend()
+  - [X] tsseas()
+  - [ ] tsforecast()
 
-  - [ ] ts_cbind()
-  - [ ] ts_tofreq()
+  - [ ] tsbind()
+  - [ ] tsrbind()
 
+  - [ ] tsforcefreq()
 
 # Motvation
 

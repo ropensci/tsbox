@@ -63,11 +63,17 @@ tsrbind(as_xts(AirPassengers), mdeaths)
 ### And plot just about everything
 
 ```
-tsplot(tsbind(EuStockMarkets, austres, AirPassengers))
-
+tsplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
 # a pdf with an aspect ratio that works well for time series
 tssave()          
 ```
 
+It uses [ggplot2](https://CRAN.R-project.org/package=ggplot2), so you can 
+continue the usual way:
 
+```
+tsplot(tsscale(tsbind(discoveries, austres, AirPassengers))) + 
+  theme_grey()
+
+```
 
