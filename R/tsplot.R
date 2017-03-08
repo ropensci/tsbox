@@ -89,21 +89,19 @@ scale_fill_ts <- function (...) {
 
 
 #' Plot Time Series
-#' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @param title title
 #' @param subtitle subtitle
-#' @param ... addtiional arguments, passed to ggplot.
 #' @examples
 #' \dontrun{
 #' library(tsbox)
-#' tsplot(AirPassengers) + 
-#'   ggtitle("Airline passengers", 
-#'            subtitle = "The classic Box & Jenkins airline data")
-#' tsplot(tsbind(total = ldeaths, female = fdeaths, male = mdeaths))
+#' tsplot(AirPassengers, title = "Airline passengers", 
+#'        subtitle = "The classic Box & Jenkins airline data")
+#' tsplot(total = ldeaths, female = fdeaths, male = mdeaths)
 #' 
 #' 
 #' library(Quandl)
-#' tsplot(Quandl("FRED/GDPMC1", "xts"))
+#' tsplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
 #' 
 #' library(dataseries)
 #' dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
@@ -115,43 +113,46 @@ scale_fill_ts <- function (...) {
 #' 
 #' }
 #' @export
-tsplot <- function (x, title = NULL, subtitle = NULL, ...) UseMethod("tsplot")
+tsplot <- function (..., title = NULL, subtitle = NULL) UseMethod("tsplot")
 
 #' @export
 #' @rdname tsplot
 #' @method tsplot numeric
-tsplot.numeric <- function(x, title = NULL, subtitle = NULL, ...){
-  tsplot(ts(x), title = title, subtitle = subtitle, ...)
+tsplot.numeric <- function(..., title = NULL, subtitle = NULL){
+  x <- tsbind(...)
+  tsplot(ts(x), title = title, subtitle = subtitle)
 }
 
 #' @export
 #' @rdname tsplot
 #' @method tsplot ts
-tsplot.ts <- function(x, title = NULL, subtitle = NULL, ...){
-  df <- as_data.frame(x)
-  tsplot_core(df, title = title, subtitle = subtitle, ...)
+tsplot.ts <- function(..., title = NULL, subtitle = NULL){
+  df <- as_data.frame(tsbind(...))
+  tsplot_core(df, title = title, subtitle = subtitle)
 }
   
 #' @export
 #' @rdname tsplot
 #' @method tsplot xts
-tsplot.xts <- function(x, title = NULL, subtitle = NULL, ...){
-  df <- as_data.frame(x)
-  tsplot_core(df, title = title, subtitle = subtitle, ...)
+tsplot.xts <- function(..., title = NULL, subtitle = NULL){
+  df <- as_data.frame(tsbind(...))
+  tsplot_core(df, title = title, subtitle = subtitle)
 }
 
 #' @export
 #' @rdname tsplot
 #' @method tsplot data.frame
-tsplot.data.frame <- function(x, title = NULL, subtitle = NULL, ...){
-  tsplot_core(x, title = title, subtitle = subtitle, ...)
+tsplot.data.frame <- function(..., title = NULL, subtitle = NULL){
+  x <- tsbind(...)
+  tsplot_core(x, title = title, subtitle = subtitle)
 }
 
 #' @export
 #' @rdname tsplot
 #' @method tsplot data.table
-tsplot.data.table <- function(x, title = NULL, subtitle = NULL, ...){
-  tsplot_core(x, title = title, subtitle = subtitle, ...)
+tsplot.data.table <- function(..., title = NULL, subtitle = NULL){
+  x <- tsbind(...)
+  tsplot_core(x, title = title, subtitle = subtitle)
 }
 
 tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){

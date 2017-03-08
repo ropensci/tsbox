@@ -9,26 +9,24 @@
 \alias{tsplot.data.table}
 \title{Plot Time Series}
 \usage{
-tsplot(x, title = NULL, subtitle = NULL, ...)
+tsplot(..., title = NULL, subtitle = NULL)
 
-\method{tsplot}{numeric}(x, title = NULL, subtitle = NULL, ...)
+\method{tsplot}{numeric}(..., title = NULL, subtitle = NULL)
 
-\method{tsplot}{ts}(x, title = NULL, subtitle = NULL, ...)
+\method{tsplot}{ts}(..., title = NULL, subtitle = NULL)
 
-\method{tsplot}{xts}(x, title = NULL, subtitle = NULL, ...)
+\method{tsplot}{xts}(..., title = NULL, subtitle = NULL)
 
-\method{tsplot}{data.frame}(x, title = NULL, subtitle = NULL, ...)
+\method{tsplot}{data.frame}(..., title = NULL, subtitle = NULL)
 
-\method{tsplot}{data.table}(x, title = NULL, subtitle = NULL, ...)
+\method{tsplot}{data.table}(..., title = NULL, subtitle = NULL)
 }
 \arguments{
-\item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+\item{...}{time series objects, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
 \item{title}{title}
 
 \item{subtitle}{subtitle}
-
-\item{...}{addtiional arguments, passed to ggplot.}
 }
 \description{
 Plot Time Series
@@ -36,14 +34,13 @@ Plot Time Series
 \examples{
 \dontrun{
 library(tsbox)
-tsplot(AirPassengers) + 
-  ggtitle("Airline passengers", 
-           subtitle = "The classic Box & Jenkins airline data")
-tsplot(tsbind(total = ldeaths, female = fdeaths, male = mdeaths))
+tsplot(AirPassengers, title = "Airline passengers", 
+       subtitle = "The classic Box & Jenkins airline data")
+tsplot(total = ldeaths, female = fdeaths, male = mdeaths)
 
 
 library(Quandl)
-tsplot(Quandl("FRED/GDPMC1", "xts"))
+tsplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
 
 library(dataseries)
 dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
