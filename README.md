@@ -1,32 +1,34 @@
 Time Series Toolbox
 ===================
 
-Very alpha!
+A toolbox to deal with time series in R. Built around a set of converters, that
+*reliably* convert time series stored as`ts`, `xts`, `data.frame` or
+`data.table` to each other. Because this works, we can define a set of tools
+that work *identically* for each class. And, we can write a plot method that
+*just works*.
 
+To install:
 ```
 devtools::install_github("christophsax/tsbox")
-
 ```
 
-
-Examples:
+### Convert everything to everything
 
 ```
-
 library(tsbox)
-library(data.table)
-
-# Convert everything to everything
+library(data.table)  # if you want to use the 'data.table' methods
 
 x.ts <- tsbind(mdeaths, fdeaths) 
 x.xts <- as_xts(x.ts)
-x.df <- as_df(x.ts)
-x.dt <- as_dt(x.ts)
+x.df <- as_df(x.xts)
+x.dt <- as_dt(x.df)
+```
 
+### Use same methods for ts, xts, data.frame or data.table
 
+All functions start with `ts`, so you use it with auto complete.
 
-# Use same methods for ts, xts, data.frame or data.table
-
+```
 tsscale(x.ts)
 tsscale(x.xts)
 tsscale(x.df)
@@ -46,4 +48,26 @@ tspcy(x.ts)
 tspcy(x.xts)
 tspcy(x.df)
 tspcy(x.dt)
+```
+
+### Bind any time series vertically or horizontally
+
+```
+tsbind(as_dt(EuStockMarkets), AirPassengers)
+tsbind(EuStockMarkets, mdeaths)
+
+tsrbind(as_dt(mdeaths), AirPassengers)
+tsrbind(as_xts(AirPassengers), mdeaths)
+```
+
+### And plot just about everything
+
+```
+tsplot(tsbind(EuStockMarkets, austres, AirPassengers))
+
+# a pdf with an aspect ratio that works well for time series
+tssave()          
+```
+
+
 

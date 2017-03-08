@@ -142,15 +142,27 @@ tsplot.numeric <- function(x, title = NULL, subtitle = NULL, ...){
 #' @export
 #' @method tsplot ts
 tsplot.ts <- function(x, title = NULL, subtitle = NULL, ...){
-  df <- as_df(x)
+  df <- as_data.frame(x)
   tsplot_core(df, title = title, subtitle = subtitle, ...)
 }
   
 #' @export
 #' @method tsplot xts
 tsplot.xts <- function(x, title = NULL, subtitle = NULL, ...){
-  df <- as_df(x)
+  df <- as_data.frame(x)
   tsplot_core(df, title = title, subtitle = subtitle, ...)
+}
+
+#' @export
+#' @method tsplot data.frame
+tsplot.data.frame <- function(x, title = NULL, subtitle = NULL, ...){
+  tsplot_core(x, title = title, subtitle = subtitle, ...)
+}
+
+#' @export
+#' @method tsplot data.table
+tsplot.data.table <- function(x, title = NULL, subtitle = NULL, ...){
+  tsplot_core(x, title = title, subtitle = subtitle, ...)
 }
 
 tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){

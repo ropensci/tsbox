@@ -5,10 +5,23 @@ as_xts <- function (x, ...) UseMethod("as_xts")
 #' @method as_xts ts
 as_xts.ts <- function(x){
   stopifnot(inherits(x, "ts"))
+
   m <- as.zoo(x)
-  index(m) <- zoo::as.Date.yearmon(index(m))
+  f <- frequency(x)
+
+  if (f == 4 ){
+    index(m) <- zoo::as.yearqtr(index(m))
+  } else if (f == 12){
+    index(m) <- zoo::as.Date.yearmon(index(m))
+  } else {
+    index(m) <- time_to_date(x)
+  }
+  
   as.xts(m)
 }
+
+
+
 
 
 #' @export

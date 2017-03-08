@@ -7,9 +7,9 @@ tsbind <- function(...){
 
 
   ll <- list(...)
-  # cl <- vapply(ll, function(e) class(e)[1], "")
 
-  # TODO: keep df only and ts/mts only as their classes
+  desired.class <- desired_class(ll)
+
   ll.xts <- lapply(ll, as_xts)
 
   lcnames <- lapply(ll.xts, colnames)
@@ -36,6 +36,6 @@ tsbind <- function(...){
   z <- do.call("cbind", ll.xts)
   colnames(z) <- unlist(lcnames)
  
-  z
+  as_(desired.class)(z)
 
 }
