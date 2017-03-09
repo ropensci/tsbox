@@ -42,7 +42,8 @@ tsfill <- function(x){
 #' @export
 tspc <- function (x, ...) UseMethod("tspc")
 
-
+#' @export
+#' @rdname tspc
 #' @method tspc ts
 tspc.ts <- function(x, ...){
   if (NCOL(x) > 1){
@@ -51,21 +52,24 @@ tspc.ts <- function(x, ...){
   100 * ((x / stats::lag(x, -1)) - 1)
 }
 
-
+#' @export
+#' @rdname tspc
 #' @method tspc xts
 tspc.xts <- function(x, ...){
   as_xts(tspc(as_ts(x)))
 }
 
 
-
+#' @export
+#' @rdname tspc
 #' @method tspc data.frame
 tspc.data.frame <- function(x, ...){
   as_df(tspc(as_ts(x)))
 }
 
 
-
+#' @export
+#' @rdname tspc
 #' @method tspc data.table
 tspc.data.table <- function(x, ...){
   as_dt(tspcy(as_ts(x)))
