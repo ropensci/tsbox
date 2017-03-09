@@ -67,7 +67,7 @@ tsrbind(as_xts(AirPassengers), mdeaths)
 ```
 tsplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
 ```
-![](https://github.com/christophsax/tsbox/raw/master/inst/docs/graph.jpg)
+![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
 
 
 It uses [ggplot2](https://CRAN.R-project.org/package=ggplot2), so you can 

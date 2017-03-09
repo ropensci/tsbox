@@ -193,6 +193,7 @@ tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
 #' @param filename filename
 #' @param width width
 #' @param height height
+#' @param device device
 #' @param open should the graph be opened?
 #' @param ... aruments passed to ggsave
 #' @examples
@@ -202,8 +203,9 @@ tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
 #' }
 #' @import ggplot2
 #' @export
-tssave <- function(filename = "myfig.pdf", width = 8, height = 5, ..., open = TRUE){
-  ggsave(filename = filename, width = width, height = height, ...)
+tssave <- function(filename = "myfig.pdf", width = 8, height = 5, device = "pdf", ..., open = TRUE){
+  filename <- gsub(".pdf$", paste0(".", device), filename)
+  ggsave(filename = filename, width = width, height = height, device = device, ...)
 
   if (open) browseURL(filename)
 }
