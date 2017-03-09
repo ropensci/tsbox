@@ -38,6 +38,15 @@ relevant_class <- function(x){
 
 
 
+
+# These functions should rewritten more carefully. Leap year adjustment is too
+# ad hoc, and messes with really low frequencies, such as decades. 
+
+# Perhaps a different treatment for lf series.
+
+# also: testcases with back and forth conversions!!
+
+
 time_to_date <- function(x){
   stopifnot(inherits(x, "ts"))
 
