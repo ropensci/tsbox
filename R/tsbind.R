@@ -52,7 +52,7 @@ tsbind <- function(...){
 
   z <- do.call("cbind", ll.xts)
   colnames(z) <- unlist(lcnames)
- 
+
   as_(desired.class)(z)
 
 }
