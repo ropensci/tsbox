@@ -38,6 +38,11 @@ tsplot(AirPassengers, title = "Airline passengers",
        subtitle = "The classic Box & Jenkins airline data")
 tsplot(total = ldeaths, female = fdeaths, male = mdeaths)
 
+tsplot(tsbind(sunspot.month, sunspot.year, lynx))
+tsplot(tsscale(tsbind(airmiles, co2, JohnsonJohnson, discoveries)))
+tsplot(EuStockMarkets)
+tsplot(sunspot.month, sunspot.year, lynx)
+tsplot(tsscale(tsbind(Nile, nottem, USAccDeaths)))
 
 library(Quandl)
 tsplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")

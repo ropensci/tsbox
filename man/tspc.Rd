@@ -26,7 +26,7 @@
 \alias{tswin.ts}
 \alias{tswin.data.frame}
 \alias{tswin.data.table}
-\title{Convert everything to everything}
+\title{Utility Functions for Time Series}
 \usage{
 tspc(x, ...)
 
@@ -92,7 +92,7 @@ tswin(x, ...)
 \item{end}{end date, string, Date or POSIXct}
 }
 \description{
-Convert everything to everything
+Utility Functions for Time Series
 }
 \examples{
 library(tsbox)
