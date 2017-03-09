@@ -4,10 +4,10 @@ Time Series Toolbox
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
 A toolbox to deal with time series in R. Built around a set of converters, which
-*reliably* convert time series stored as`ts`, `xts`, `data.frame` or
-`data.table` to each other. Because this works, we can define a set of tools
-that work *the same way* for each class. And, we can write a plot function that
-*just works*!
+**reliably** convert time series stored as`ts`, `xts`, `data.frame` or
+`data.table` to each other. Because it works, we can define a set of tools that
+work **identially** for each class. And, we can write a plot function that
+**just works**!
 
 To install:
 ```
@@ -28,7 +28,7 @@ x.dt <- as_dt(x.df)
 
 ### Use same generic functions for ts, xts, data.frame or data.table
 
-All functions start with `ts`, so you use it with auto complete.
+All functions start with `ts`, so you use them with auto complete (press Tab).
 
 ```
 tsscale(x.ts)
