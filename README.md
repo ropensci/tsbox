@@ -54,7 +54,7 @@ tsrbind(as_xts(AirPassengers), mdeaths)
 ### And plot just about everything
 
 ```
-tsplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
+tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
 ```
 ![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
 
