@@ -13,6 +13,7 @@
 \alias{as_ts.xts}
 \alias{as_ts.data.frame}
 \alias{as_ts.data.table}
+\alias{as_ts.ts}
 \alias{as_xts}
 \alias{as_xts.ts}
 \alias{as_xts.xts}
@@ -43,6 +44,8 @@ as_ts(x, ...)
 
 \method{as_ts}{data.table}(x, time.name = "time",
   variable.name = "variable", value.name = "value", ...)
+
+\method{as_ts}{ts}(x, ...)
 
 as_xts(x, ...)
 

@@ -46,7 +46,9 @@ as_ts.data.table <- function(x, time.name = "time", variable.name = "variable", 
   as_ts(as_xts(x, time.name = time.name, variable.name = variable.name, value.name = value.name))
 }
 
-
+#' @export
+#' @rdname as_xts
+#' @method as_ts ts
 as_ts.ts <- function(x, ...){
   x
 }
