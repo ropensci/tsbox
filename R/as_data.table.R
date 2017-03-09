@@ -6,12 +6,12 @@
 #' @rdname as_xts
 as_data.table <- function (x, ...) {
   stopifnot(requireNamespace("data.table"))
-  data.table::as.data.table(as_df(x, ...))
+  data.table::as.data.table(as_data.frame(x, ...))
 }
 
 
 #' @export
 #' @rdname as_xts
-as_dt <- as_data.table <- function (x, ...) {
+as_dt <- function (x, ...) {
   data.table::as.data.table(x, ...)
 }

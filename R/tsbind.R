@@ -30,29 +30,38 @@ tsbind <- function(...){
     call.names <- lapply(substitute(placeholderFunction(...))[-1], deparse)
     relevant.names <- call.names 
     if (!is.null(names(call.names))){
+
       for (i in 1:length(call.names)){
-        if (names(call.names)[i] == ""){  
-          # 3. prio: use variable names if nothing else is given
-          if (is.null(colnames(ll.xts[[i]]))){
-            relevant.names[[i]] <- call.names[[i]]
-          } else {
-            # 2. prio: use colnames if given
-            cn <- colnames(ll.xts[[i]])
-            stopifnot(length(cn) == 1)
-            relevant.names[[i]] <- cn
+
+        # only do this for single series
+        if (is.single[i]){
+
+          if (names(call.names)[i] == ""){  
+            # 3. prio: use variable names if nothing else is given
+            if (is.null(colnames(ll.xts[[i]]))){
+              relevant.names[[i]] <- call.names[[i]]
+            } else {
+              # 2. prio: use colnames if given
+              cn <- colnames(ll.xts[[i]])
+
+              browser()
+              stopifnot(length(cn) == 1)
+              relevant.names[[i]] <- cn
+            }
+          } else {       
+            # 1. prio: always use name for single series if given
+            relevant.names[[i]] <- names(call.names)[i]
           }
-        } else {       
-          # 1. prio: always use name for single series if given
-          relevant.names[[i]] <- names(call.names)[i]
         }
       }
+      
     }
     lcnames[is.single] <- relevant.names[is.single]
   }
 
   z <- do.call("cbind", ll.xts)
   colnames(z) <- unlist(lcnames)
- 
+
   as_(desired.class)(z)
 
 }

@@ -168,8 +168,10 @@ tsplot.data.frame <- function(..., title = NULL, subtitle = NULL){
 #' @rdname tsplot
 #' @method tsplot data.table
 tsplot.data.table <- function(..., title = NULL, subtitle = NULL){
-  # this probably more efficent than the data.frame method
+
+  # a bit a mystery that as_data.frame.data.table is not working...
   x <- as_data.frame(tsbind(...))  
+
   tsplot_core(x, title = title, subtitle = subtitle)
 }
 
