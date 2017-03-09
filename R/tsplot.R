@@ -29,8 +29,8 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 11){
         # line = element_line(color = "grey30", size = 0.4),
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
-        plot.title = element_text(color = "grey10", face = "bold", margin = margin(t = half_line * 2, b = half_line * 1.2), hjust = 0, size = rel(1.2)),
-        plot.subtitle = element_text(color = "grey10", margin = margin(b = half_line * 1.2), size = rel(0.9), hjust = 0),
+        plot.title = element_text(color = "grey10", face = "bold", margin = margin(t = half_line * 2, b = half_line * 0.7), hjust = 0, size = rel(1.2)),
+        plot.subtitle = element_text(color = "grey10", margin = margin(t = 0, b = half_line * 1.2), size = rel(0.85), hjust = 0),
         # panel.grid = element_line(colour = NULL, linetype = 3), 
         # panel.grid.major = element_line(colour = "grey30"), 
         panel.grid = element_line(size = 0.2), 
@@ -39,7 +39,7 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 11){
 
         axis.text = element_text(color = "grey10", size = rel(0.7)),
         legend.title = element_blank(),
-        legend.text = element_text(color = "grey10", size = rel(0.9)),
+        legend.text = element_text(color = "grey10", size = rel(0.85)),
         legend.position = "bottom",
         legend.direction = "horizontal"
         # axis.ticks.x = element_line(color = "grey30"),
@@ -188,14 +188,15 @@ tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
   p
 }
 
+
 #' ggsave, optimized for time series
 #' 
 #' @param filename filename
 #' @param width width
 #' @param height height
 #' @param device device
-#' @param open should the graph be opened?
 #' @param ... aruments passed to ggsave
+#' @param open should the graph be opened?
 #' @examples
 #' \dontrun{
 #' tsplot(AirPassengers)

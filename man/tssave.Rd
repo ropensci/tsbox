@@ -4,7 +4,8 @@
 \alias{tssave}
 \title{ggsave, optimized for time series}
 \usage{
-tssave(filename = "myfig.pdf", width = 8, height = 5, ..., open = TRUE)
+tssave(filename = "myfig.pdf", width = 8, height = 5, device = "pdf",
+  ..., open = TRUE)
 }
 \arguments{
 \item{filename}{filename}
@@ -12,6 +13,8 @@ tssave(filename = "myfig.pdf", width = 8, height = 5, ..., open = TRUE)
 \item{width}{width}
 
 \item{height}{height}
+
+\item{device}{device}
 
 \item{...}{aruments passed to ggsave}
 
