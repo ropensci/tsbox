@@ -2,6 +2,10 @@
 % Please edit documentation in R/tspc.R, R/tsscale.R, R/tstrend.R, R/tswin.R
 \name{tspc}
 \alias{tspc}
+\alias{tspc.ts}
+\alias{tspc.xts}
+\alias{tspc.data.frame}
+\alias{tspc.data.table}
 \alias{tspcy}
 \alias{tspcy.ts}
 \alias{tspcy.xts}
@@ -25,6 +29,14 @@
 \title{Utility Functions for Time Series}
 \usage{
 tspc(x, ...)
+
+\method{tspc}{ts}(x, ...)
+
+\method{tspc}{xts}(x, ...)
+
+\method{tspc}{data.frame}(x, ...)
+
+\method{tspc}{data.table}(x, ...)
 
 tspcy(x, ...)
 

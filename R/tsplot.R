@@ -31,7 +31,7 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 11){
         axis.title.y = element_blank(),
         plot.title = element_text(color = "grey10", face = "bold", margin = margin(t = half_line * 2, b = half_line * 0.7), hjust = 0, size = rel(1.2)),
         plot.subtitle = element_text(color = "grey10", margin = margin(t = 0, b = half_line * 1.2), size = rel(0.9), hjust = 0),
-        plot.caption = element_text(color = "grey10", margin = margin(t = 0, b = half_line * 1.2), size = rel(0.8)),
+        plot.caption = element_text(color = "grey50", margin = margin(t = 0, b = half_line * 1.2), size = rel(0.8)),
 
         # panel.grid = element_line(colour = NULL, linetype = 3), 
         # panel.grid.major = element_line(colour = "grey10"), 
