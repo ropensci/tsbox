@@ -76,7 +76,6 @@ continue the usual way:
 ```
 tsplot(tsscale(tsbind(discoveries, austres, AirPassengers))) + 
   theme_grey()
-
 ```
 
 
