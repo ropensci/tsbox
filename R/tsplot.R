@@ -69,16 +69,20 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 11){
 #' @rdname theme_ts
 tscolors <- function(){
       c(
-        "#4D4D4D",
-        "#5DA5DA",
-        "#FAA43A",
-        "#60BD68",
-        "#F15854",
-        "#B276B2",
-        "#DECF3F",
-        "#F17CB0",
-        "#B2912F"
-      )
+  "#4D4D4D",
+"#5DA5DA",
+"#FAA43A",
+"#60BD68",
+"#F15854",
+"#B276B2",
+"#DECF3F",
+"#F17CB0",
+"#B2912F",
+"#4afff0", "#34bdcc", "#4f61a1", "#461e78", "#440a4f", "#c3fbc4",
+"#85f9d6", "#79c7ad", "#a6cc7a", "#dfff7b",
+"#8d7b88", "#4e414f", "#baadb5", "#2d2538", "#837a80", "#fff68f",
+"#800080", "#f8b1cc", "#c29bff", "#8d0808"
+)
 }
 
 #' @export
@@ -171,10 +175,23 @@ tsplot.data.table <- function(..., title = NULL, subtitle = NULL){
 
 tsplot_core <- function(df, title = NULL, subtitle = NULL){
   df <- df[!is.na(df[, 'value']), ]
+
+
+
   n <- NCOL(df)
   if (n == 2){
     p <- ggplot(df, aes_string(x = 'time', y = 'value')) 
   } else if (n == 3){
+
+    # numeric variable 'levels'
+    if (class(df$variable) %in% c("integer", "numeric")){
+      df[,'variable'] <- as.character(df[,'variable'])
+    }
+
+    if (length(unique(df[,'variable'])) > 29) {
+      stop(length(unique(df[,'variable'])), " time series supplied. Maximum is 29.",  call. = FALSE)
+    }
+
     p <- ggplot(df, aes_string(x = 'time', y = 'value', color = 'variable'))
   } else {
     stop("df has wrong col dim")

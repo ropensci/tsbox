@@ -3,6 +3,8 @@ Time Series Toolbox
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
+*This an very early version, so expect major changes. I am happy for [feedback](mailto::christoph.sax@gmail.com)*
+
 A toolbox to deal with time series in R. Built around a set of converters, which
 **reliably** convert time series stored as`ts`, `xts`, `data.frame` or
 `data.table` to each other. Because it works, we can define a set of tools that
