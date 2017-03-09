@@ -32,7 +32,7 @@ as_xts.ts <- function(x, ...){
   f <- frequency(x)
 
   if (f == 4 ){
-    index(m) <- zoo::as.yearqtr(index(m))
+    index(m) <- zoo::as.Date.yearqtr(index(m))
   } else if (f == 12){
     index(m) <- zoo::as.Date.yearmon(index(m))
   } else {

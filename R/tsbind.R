@@ -20,7 +20,6 @@ tsbind <- function(...){
   ll <- list(...)
 
   if (length(ll) == 1) return(ll[[1]])
-
   desired.class <- desired_class(ll)
   ll.xts <- lapply(ll, as_xts)
 

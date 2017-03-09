@@ -65,7 +65,7 @@ tsrbind(as_xts(AirPassengers), mdeaths)
 ### And plot just about everything
 
 ```
-tsplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
+tsplot(tsscale(tsbind(discoveries, austres, AirPassengers)), title = "Where is the Connection?", subtitle = "Normalized data")
 ```
 ![](https://github.com/christophsax/tsbox/raw/master/inst/docs/graph.jpg)
 
