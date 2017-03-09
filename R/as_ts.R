@@ -8,7 +8,11 @@ as_ts <- function (x, ...) UseMethod("as_ts")
 as_ts.xts <- function(x, ...) {
 
   p <- xts::periodicity(x)
-  if (p$scale == "monthly"){
+  if (p$scale == "yearly"){
+    ti <- as.POSIXlt(index(x))$year + 1900L
+    f <- 1
+    z <- ts(coredata(x), start = ti[1], frequency = f)
+  } else if (p$scale == "monthly"){
     f = 12
     index(x) <- zoo::as.yearmon(index(x))
     z <- as.ts(as.zoo(x))
@@ -22,6 +26,8 @@ as_ts.xts <- function(x, ...) {
     f <- length(ti) /  (ti[length(ti)] - ti[1])
     z <- ts(coredata(x), start = ti[1], frequency = f)
 
+  } else {
+    stop("freq not yet implemented")
   }
 
   z
