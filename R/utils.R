@@ -11,7 +11,7 @@ desired_class <- function(ll){
   if (length(z) == 1){
     if (z == "ts"){
       # no "ts" if mixed frequecies
-      if (length(unique(vapply(ll, frequency, 1)) > 1)) return("xts")
+      if (length(unique(vapply(ll, frequency, 1))) > 1) return("xts")
     }
     return(z)
   } else {
