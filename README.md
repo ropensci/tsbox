@@ -37,19 +37,8 @@ tsscale(x.df)
 tsscale(x.dt)
 
 tstrend(x.ts)
-tstrend(x.xts)
-tstrend(x.df)
-tstrend(x.dt)
-
 tspc(x.ts)
-tspc(x.xts)
-tspc(x.df)
-tspc(x.dt)
-
 tspcy(x.ts)
-tspcy(x.xts)
-tspcy(x.df)
-tspcy(x.dt)
 ```
 
 ### Bind any time series vertically or horizontally
