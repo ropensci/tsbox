@@ -6,7 +6,7 @@ Time Series Toolbox
 A toolbox to deal with time series in R. Built around a set of converters, which
 **reliably** convert time series stored as`ts`, `xts`, `data.frame` or
 `data.table` to each other. Because it works, we can define a set of tools that
-work **identially** for each class. And, we can write a plot function that
+work **identially** for each class. And, we can use a plot function that
 **just works**!
 
 To install:
