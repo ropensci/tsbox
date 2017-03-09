@@ -4,7 +4,7 @@
 \alias{tssave}
 \title{ggsave, optimized for time series}
 \usage{
-tssave(filename = "myfig.pdf", width = 8, height = 5, device = "pdf",
+tssave(filename = "myfig.pdf", width = 7, height = 4, device = "pdf",
   ..., open = TRUE)
 }
 \arguments{

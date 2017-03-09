@@ -156,7 +156,7 @@ tsplot.xts <- function(..., title = NULL, subtitle = NULL){
 #' @rdname tsplot
 #' @method tsplot data.frame
 tsplot.data.frame <- function(..., title = NULL, subtitle = NULL){
-  x <- tsbind(...)
+  x <- as_data.frame(tsbind(...))
   tsplot_core(x, title = title, subtitle = subtitle)
 }
 
@@ -164,11 +164,12 @@ tsplot.data.frame <- function(..., title = NULL, subtitle = NULL){
 #' @rdname tsplot
 #' @method tsplot data.table
 tsplot.data.table <- function(..., title = NULL, subtitle = NULL){
-  x <- tsbind(...)
+  # this probably more efficent than the data.frame method
+  x <- as_data.frame(tsbind(...))  
   tsplot_core(x, title = title, subtitle = subtitle)
 }
 
-tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
+tsplot_core <- function(df, title = NULL, subtitle = NULL){
   df <- df[!is.na(df[, 'value']), ]
   n <- NCOL(df)
   if (n == 2){
@@ -181,7 +182,7 @@ tsplot_core <- function(df, title = NULL, subtitle = NULL, ...){
   p <- p + 
   geom_line() +
   ylab("") + 
-  theme_ts(...) + 
+  theme_ts() + 
   scale_color_ts() 
 
   if (!is.null(title) | !is.null(subtitle)){
