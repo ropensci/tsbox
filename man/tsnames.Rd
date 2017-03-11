@@ -6,6 +6,7 @@
 \alias{tsnames.xts}
 \alias{tsnames.data.frame}
 \alias{tsnames.data.table}
+\alias{settsnames}
 \alias{settsnames.ts}
 \alias{settsnames.xts}
 \alias{settsnames.data.frame}
@@ -21,6 +22,8 @@ tsnames(x, ...)
 \method{tsnames}{data.frame}(x, ...)
 
 \method{tsnames}{data.table}(x, ...)
+
+settsnames(x, value)
 
 \method{settsnames}{ts}(x, value)
 

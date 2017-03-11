@@ -54,6 +54,7 @@ tsnames.data.table <- function(x, ...){
 
 
 #' @export
+#' @rdname tsnames
 settsnames <- function (x, value) UseMethod("settsnames")
 
 #' @export

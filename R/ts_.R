@@ -1,6 +1,24 @@
-# universal constructor for ts functions
+load_suggested_packages <- function(pkg){
+  rns <- vapply(pkg, requireNamespace, TRUE)
+  
+  if (any(!rns)){
+    pkgv <- dput(pkg[!rns])
 
-ts_ <- function(FUN = diff, class = "ts", multiple = TRUE){
+
+    stop("Additional packages needed. To install, use:\n\n  install.packages(\"", pkgv, "\")", call. = FALSE)
+  }
+}
+
+
+
+#' universal constructor for ts functions
+#' @param FUN function, to be made available to all time series classes
+#' @param class class that the function uses as its first argument
+#' @param multiple can the function handle multiple series. If set to false, the 
+#'   wrapper will loop through each series.
+#' @param packages that are required for the functionality.
+#' @export
+ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL){
 
   all.classes <- c("ts", "mts", "data.frame", "data.table")
   stopifnot(class %in% all.classes)
@@ -8,6 +26,7 @@ ts_ <- function(FUN = diff, class = "ts", multiple = TRUE){
   # if the function can handle multiple time series
   if (multiple){
     z <- function(x, ...){
+      load_suggested_packages(suggested)
       stopifnot(class %in% all.classes)
       desired.class <- relevant_class(x)
       tsn <- tsnames(x)
@@ -18,6 +37,7 @@ ts_ <- function(FUN = diff, class = "ts", multiple = TRUE){
     } 
   } else {
      z <- function(x, ...){
+      load_suggested_packages(suggested)
       stopifnot(class %in% all.classes)
       desired.class <- relevant_class(x)
       tsn <- tsnames(x)
@@ -30,8 +50,35 @@ ts_ <- function(FUN = diff, class = "ts", multiple = TRUE){
   return(z)
 }
 
+#' @export
 tsdiff <- ts_(diff)
 
+#' @export
+tswindow <- ts_(window)
+
+#' @export
+tslag <- ts_(lag)
+
+#' @export
+tscycle <- ts_(cycle)
+
+#' @export
+tsforecast <- ts_(function(x) forecast(x)$mean, multiple = FALSE, suggested = "forecast")
+
+
+
+
+
+
+
+
+# This is how tspc could be written mauch simpler
+# tspc <- ts_(function(x, ...){
+#   if (NCOL(x) > 1){
+#     return(tsapply(x, tspc))
+#   }
+#   100 * ((x / stats::lag(x, -1)) - 1)
+# })
 
 # tsdiff(as_xts(AirPassengers))
 

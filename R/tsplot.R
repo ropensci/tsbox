@@ -41,7 +41,7 @@
 #' }
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
-#' @importFrom grDevices dev.off pdf
+#' @importFrom grDevices dev.off pdf bmp jpeg png tiff
 tsplot <- function(..., title, subtitle){
   x <- as_xts(tsbind(...))
 
