@@ -1,3 +1,5 @@
+.tsbox <- new.env(parent = emptyenv())
+
 #' Plot Time Series
 #' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @param title title
@@ -57,9 +59,10 @@ tsplot <- function(..., title, subtitle){
   op <- par(no.readonly = TRUE) # restore par on exit
   on.exit(par(op))
 
-  lwd <- 2
-  cex <- 0.9
+  lwd <- 1.5
+  cex <- 0.8
   title.cex <- 1.2
+  text.col <- "grey10"
 
   # c(bottom, left, top, right)
   if (NCOL(x) > 1){
@@ -69,7 +72,7 @@ tsplot <- function(..., title, subtitle){
   }
 
   if (has.legend) {
-    mar.b <- 4
+    mar.b <- 4.5
   } else {
     mar.b <- 2
   }
@@ -81,7 +84,7 @@ tsplot <- function(..., title, subtitle){
   } else {
     mar.t <- 1
   }
-  par(mar =  c(mar.b, 3, mar.t, 1))
+  par(mar =  c(mar.b, 3, mar.t, 2))
 
   tind <- as.POSIXct(index(x))
   tnum <- as.numeric(tind)
@@ -102,19 +105,21 @@ tsplot <- function(..., title, subtitle){
       yaxt="n")
 
   axis(2, at=axTicks(2), labels=sprintf("%s", axTicks(2)),
-      las=1, cex.axis=0.8, col=NA, line = -0.5)
+      las=1, cex.axis=0.8, col=NA, line = -0.5, col.axis = text.col)
 
   axis(side = 1, at = (xticks), 
        labels = xlabels, 
-       las=1, cex.axis=0.8, col=NA, line = 0.5, tick = TRUE, padj = -2)
+       las=1, cex.axis=0.8, col=NA, line = 0.5, tick = TRUE, padj = -2, col.axis = text.col)
 
   # Gridlines
   abline(h = axTicks(2), v = xticks, col = "grey50", lty = "dotted", lwd = 0.3)
 
   # Lines
   for (i in seq(NCOL(coredata(x)))){
-    lines(y = coredata(x)[,i], 
-        x = tind, col = col[i], lwd = lwd)
+    cd <- x[,i]
+    cd <- cd[!is.na(cd)]
+    lines(y = coredata(cd), 
+        x = as.numeric(as.POSIXct(index(cd))), col = col[i], lwd = lwd)
   }
 
   # Second layer, with legend and title
@@ -125,19 +130,45 @@ tsplot <- function(..., title, subtitle){
 
   if (has.title) {
     mtext(title, 
-          cex = title.cex, side = 3, line = 0, adj = 0, font = 2) 
+          cex = title.cex, side = 3, line = 0, adj = 0, font = 2, col = text.col) 
   }
   if (has.subtitle) {
     shift <- if (has.title) -1.2 else 0
     mtext(subtitle, 
-          cex = cex, side = 3, line = shift, adj = 0) 
+          cex = cex, side = 3, line = shift, adj = 0, col = text.col) 
   }
 
   if (has.legend){
     legend("bottomleft", 
         legend = cnames, horiz = TRUE, 
-        bty = "n", lty = 1, lwd = lwd, col = col, cex = cex, adj = 0)
+        bty = "n", lty = 1, lwd = lwd, col = col, cex = cex, adj = 0, text.col = text.col)
 
   }
+  cl <- match.call()
+  assign("lastplot_call", cl, envir = .tsbox)
+
 }
+
+
+
+lastplot_call <- function(){
+  get("lastplot_call", envir = .tsbox)
+}
+
+tssave <- function(filename = "myfig.pdf", width = 8, height = 4, device = "pdf", ..., open = TRUE){
+  filename <- gsub(".pdf$", paste0(".", device), filename)
+
+  cl <- lastplot_call()
+  if (is.null(cl) || !inherits(cl, "call")){
+    stop("tsplot must be called first.")
+  }
+
+  pdf(file = filename,  width = width, height = height)
+  eval(cl, envir = parent.frame())
+  dev.off()
+  # ggsave(filename = filename, width = width, height = height, device = device, ...)
+
+  if (open) browseURL(filename)
+}
+
 
