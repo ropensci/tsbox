@@ -182,7 +182,6 @@ tssave <- function(filename = "myfig.pdf", width = 8, height = 4, device = "pdf"
 
   eval(cl, envir = parent.frame())
   dev.off()
-  # ggsave(filename = filename, width = width, height = height, device = device, ...)
 
   if (open) browseURL(filename)
 }
