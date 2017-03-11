@@ -61,12 +61,10 @@ tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, 'D
 ![](https://github.com/christophsax/tsbox/raw/base-graphic/inst/docs/myfig.png)
 
 
-If you are into [ggplot2](https://CRAN.R-project.org/package=ggplot2) the is
-also a function that let you work the usual way:
+There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 ```
-tsggplot(tsscale(tsbind(discoveries, austres, AirPassengers))) + 
-  theme_grey()
+tsggplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
 ```
 
 
