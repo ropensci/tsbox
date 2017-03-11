@@ -3,7 +3,7 @@ Time Series Toolbox
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
-*This an very early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
+*This a very early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
 A toolbox to deal with time series in R. Built around a set of converters, which
 **reliably** convert time series stored as`ts`, `xts`, `data.frame` or
@@ -58,7 +58,7 @@ tsrbind(as_xts(AirPassengers), mdeaths)
 ```
 tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
 ```
-![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
+![](https://github.com/christophsax/tsbox/raw/base-graphic/inst/docs/myfig.png)
 
 
 If you are into [ggplot2](https://CRAN.R-project.org/package=ggplot2) the is
