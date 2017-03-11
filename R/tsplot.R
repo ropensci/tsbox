@@ -40,6 +40,8 @@
 #' 
 #' }
 #' @export
+#' @importFrom graphics abline axis axTicks legend lines mtext par plot
+#' @importFrom grDevices dev.off pdf
 tsplot <- function(..., title, subtitle){
   x <- as_xts(tsbind(...))
 
@@ -163,7 +165,39 @@ tssave <- function(filename = "myfig.pdf", width = 8, height = 4, device = "pdf"
     stop("tsplot must be called first.")
   }
 
-  pdf(file = filename,  width = width, height = height)
+# bmp(filename = "Rplot%03d.bmp",
+#     width = 480, height = 480, units = "px", pointsize = 12,
+#     bg = "white", res = NA, ...,
+#     type = c("cairo", "Xlib", "quartz"), antialias)
+
+# jpeg(filename = "Rplot%03d.jpeg",
+#      width = 480, height = 480, units = "px", pointsize = 12,
+#      quality = 75,
+#      bg = "white", res = NA, ...,
+#      type = c("cairo", "Xlib", "quartz"), antialias)
+
+# png(filename = "Rplot%03d.png",
+#     width = 480, height = 480, units = "px", pointsize = 12,
+#      bg = "white",  res = NA, ...,
+#     type = c("cairo", "cairo-png", "Xlib", "quartz"), antialias)
+
+# tiff(filename = "Rplot%03d.tiff",
+#      width = 480, height = 480, units = "px", pointsize = 12,
+#      compression = c("none", "rle", "lzw", "jpeg", "zip", "lzw+p", "zip+p"),
+#      bg = "white", res = NA,  ...,
+#      type = c("cairo", "Xlib", "quartz"), antialias)
+
+
+
+  if (device == "pdf"){
+    pdf(file = filename,  width = width, height = height)
+  } else if (device == "png"){
+    png(file = filename,  width = width, height = height, units = "in", res = 150)
+  } else {
+    stop("device not supported.")
+  }
+
+
   eval(cl, envir = parent.frame())
   dev.off()
   # ggsave(filename = filename, width = width, height = height, device = device, ...)
