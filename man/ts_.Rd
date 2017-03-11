@@ -2,9 +2,27 @@
 % Please edit documentation in R/ts_.R
 \name{ts_}
 \alias{ts_}
+\alias{tsdiff}
+\alias{tswindow}
+\alias{tslag}
+\alias{tscycle}
+\alias{tsforecast}
+\alias{tsforecast}
 \title{universal constructor for ts functions}
 \usage{
 ts_(FUN, class = "ts", multiple = TRUE, suggested = NULL)
+
+tsdiff(x, ...)
+
+tswindow(x, ...)
+
+tslag(x, ...)
+
+tscycle(x, ...)
+
+tsforecast(x, ...)
+
+tsforecast(x, ...)
 }
 \arguments{
 \item{FUN}{function, to be made available to all time series classes}
@@ -18,4 +36,11 @@ wrapper will loop through each series.}
 }
 \description{
 universal constructor for ts functions
+}
+\examples{
+tsplot(
+    tsbind(AirPassengers, mdeaths),
+    tsforecast(tsbind(AirPassengers, mdeaths))
+)
+
 }

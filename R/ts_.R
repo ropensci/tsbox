@@ -1,10 +1,7 @@
 load_suggested_packages <- function(pkg){
   rns <- vapply(pkg, requireNamespace, TRUE)
-  
   if (any(!rns)){
     pkgv <- dput(pkg[!rns])
-
-
     stop("Additional packages needed. To install, use:\n\n  install.packages(\"", pkgv, "\")", call. = FALSE)
   }
 }
@@ -12,12 +9,19 @@ load_suggested_packages <- function(pkg){
 
 
 #' universal constructor for ts functions
+#' 
 #' @param FUN function, to be made available to all time series classes
 #' @param class class that the function uses as its first argument
 #' @param multiple can the function handle multiple series. If set to false, the 
 #'   wrapper will loop through each series.
 #' @param packages that are required for the functionality.
 #' @export
+#' @examples
+#' tsplot(
+#'     tsbind(AirPassengers, mdeaths),
+#'     tsforecast(tsbind(AirPassengers, mdeaths))
+#' )
+#' 
 ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL){
 
   all.classes <- c("ts", "mts", "data.frame", "data.table")
@@ -51,19 +55,28 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL){
 }
 
 #' @export
+#' @rdname ts_
 tsdiff <- ts_(diff)
 
 #' @export
+#' @rdname ts_
 tswindow <- ts_(window)
 
 #' @export
+#' @rdname ts_
 tslag <- ts_(lag)
 
 #' @export
+#' @rdname ts_
 tscycle <- ts_(cycle)
 
 #' @export
-tsforecast <- ts_(function(x) forecast(x)$mean, multiple = FALSE, suggested = "forecast")
+#' @rdname ts_
+tsforecast <- ts_(function(x) forecast::forecast(x)$mean, multiple = FALSE, suggested = "forecast")
+
+#' @export
+#' @rdname ts_
+tsforecast <- ts_(function(x) forecast::forecast(x)$mean, multiple = FALSE, suggested = "forecast")
 
 
 

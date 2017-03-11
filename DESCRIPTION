@@ -18,7 +18,8 @@ Imports:
     zoo
 Suggests: 
     dplyr,
-    data.table
+    data.table,
+    forecast
 License: GPL-3
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.0
