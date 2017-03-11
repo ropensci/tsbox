@@ -58,7 +58,7 @@ tsrbind(as_xts(AirPassengers), mdeaths)
 ```
 tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
 ```
-![](https://github.com/christophsax/tsbox/raw/base-graphic/inst/docs/myfig.png)
+![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
 
 
 There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
