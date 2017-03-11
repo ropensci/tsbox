@@ -1,5 +1,9 @@
 
-
+#' Universal Converter Function
+#' 
+#' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @return returns a function
+#' @export
 as_ <- function(x = "xts"){
   # print(x)
   stopifnot(x %in% c("xts", "ts", "data.frame", "data.table"))
@@ -20,6 +24,11 @@ desired_class <- function(ll){
 }
 
 
+
+#' Extract the Relavant Class
+#' 
+#' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @export
 relevant_class <- function(x){
   if (inherits(x, "ts")){
     return("ts")
@@ -98,7 +107,6 @@ date_to_time <- function(x){
 
   z0[findInterval(id, z)]
 }
-
 
 
 
