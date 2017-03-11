@@ -165,34 +165,16 @@ tssave <- function(filename = "myfig.pdf", width = 8, height = 4, device = "pdf"
     stop("tsplot must be called first.")
   }
 
-# bmp(filename = "Rplot%03d.bmp",
-#     width = 480, height = 480, units = "px", pointsize = 12,
-#     bg = "white", res = NA, ...,
-#     type = c("cairo", "Xlib", "quartz"), antialias)
-
-# jpeg(filename = "Rplot%03d.jpeg",
-#      width = 480, height = 480, units = "px", pointsize = 12,
-#      quality = 75,
-#      bg = "white", res = NA, ...,
-#      type = c("cairo", "Xlib", "quartz"), antialias)
-
-# png(filename = "Rplot%03d.png",
-#     width = 480, height = 480, units = "px", pointsize = 12,
-#      bg = "white",  res = NA, ...,
-#     type = c("cairo", "cairo-png", "Xlib", "quartz"), antialias)
-
-# tiff(filename = "Rplot%03d.tiff",
-#      width = 480, height = 480, units = "px", pointsize = 12,
-#      compression = c("none", "rle", "lzw", "jpeg", "zip", "lzw+p", "zip+p"),
-#      bg = "white", res = NA,  ...,
-#      type = c("cairo", "Xlib", "quartz"), antialias)
-
-
-
   if (device == "pdf"){
     pdf(file = filename,  width = width, height = height)
   } else if (device == "png"){
     png(file = filename,  width = width, height = height, units = "in", res = 150)
+  } else if (device == "bmp"){
+    bmp(file = filename,  width = width, height = height, units = "in", res = 150)
+  } else if (device == "jpeg"){
+    jpeg(file = filename,  width = width, height = height, units = "in", res = 150)
+  } else if (device == "tiff"){
+    tiff(file = filename,  width = width, height = height, units = "in", res = 150)
   } else {
     stop("device not supported.")
   }
