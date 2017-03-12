@@ -20,6 +20,10 @@ as_data.frame.xts <- function(x, ...){
   colnames(df) <- c("time", "variable", "value")
   if (NCOL(x) == 1){
     df$variable <- NULL
+  } else {
+    if (is.factor(df$variable)){
+      df$variable <- as.character(df$variable)
+    }
   }
   if (any(class(df$time) %in% c("yearqtr", "yearmon"))){
     df$time <- zoo::as.Date.yearmon(df$time)

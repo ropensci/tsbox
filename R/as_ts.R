@@ -30,7 +30,7 @@ as_ts.xts <- function(x, ...) {
     stop("freq not yet implemented")
   }
 
-  z
+  settsnames(z, tsnames(x))
 
 
 }

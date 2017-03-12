@@ -3,7 +3,7 @@ Time Series Toolbox
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
-*This a very early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
+*This is a very early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
 A toolbox to deal with time series in R. Built around a set of converters, which
 **reliably** convert time series stored as`ts`, `xts`, `data.frame` or
@@ -33,14 +33,20 @@ x.dt <- as_dt(x.df)
 All functions start with `ts`, so you use them with auto complete (press Tab).
 
 ```
-tsscale(x.ts)
+tsscale(x.ts)  # normalization
 tsscale(x.xts)
 tsscale(x.df)
 tsscale(x.dt)
 
-tstrend(x.ts)
+tstrend(x.ts)  # loess trend line
 tspc(x.ts)
 tspcy(x.ts)
+tslag(x.ts)
+tsprcomp(tsbind(mdeaths, fdeaths))  # first principal component
+
+# with external packages
+tsforecast(x.ts)  # ets forecast
+tsseas(x.ts)  # X-13 seasonal adjustment
 ```
 
 ### Bind any time series vertically or horizontally
