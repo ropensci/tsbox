@@ -12,13 +12,13 @@ work **identially** for each class. And,we can use a plot function that
 **just works**!
 
 To install:
-```
+```r
 devtools::install_github(christophsax/tsbox)
 ```
 
 ### Convert everything to everything
 
-```
+```r
 library(tsbox)
 library(data.table)  # if you want to use the 'data.table' methods
 
@@ -32,7 +32,7 @@ x.dt <- as_dt(x.df)
 
 All functions start with `ts`,so you use them with auto complete (press Tab).
 
-```
+```r
 tsscale(x.ts)  # normalization
 tsscale(x.xts)
 tsscale(x.df)
@@ -51,7 +51,7 @@ tsseas(x.ts)  # X-13 seasonal adjustment
 
 ### Bind any time series vertically or horizontally
 
-```
+```r
 tsbind(as_dt(EuStockMarkets),AirPassengers)
 tsbind(EuStockMarkets,mdeaths)
 
@@ -61,7 +61,7 @@ tsrbind(as_xts(AirPassengers),mdeaths)
 
 ### And plot just about everything
 
-```
+```r
 tsplot(tsscale(tsbind(mdeaths,austres,AirPassengers,DAX = EuStockMarkets[,'DAX'])))
 ```
 ![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
@@ -69,7 +69,7 @@ tsplot(tsscale(tsbind(mdeaths,austres,AirPassengers,DAX = EuStockMarkets[,'DAX']
 
 There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
-```
+```r
 tsggplot(tsscale(tsbind(discoveries,austres,AirPassengers)))
 ```
 
@@ -82,13 +82,13 @@ The `ts_` function is a constructor function for ts objects. Use it to wrap any
 function that works with time series. The defaults are set to `ts`,so wrapping
 base functions for `ts` objects is as simple as:
 
-```
+```r
 tsdiff <- ts_(diff)
 ```
 
 Or a more complex example,which uses an external package:
 
-```
+```r
 tsforecast <- ts_(function(x,...) forecast::forecast(x,...)$mean,
 multiple = FALSE,suggested = forecast)
 ```
@@ -114,5 +114,5 @@ dta %>%
 
 ### License
 
-*tsbox* is free and open source,licensed under GPL-3.
+*tsbox* is free and open source, licensed under GPL-3.
 
