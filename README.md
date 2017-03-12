@@ -3,12 +3,12 @@ Time Series Toolbox
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
-*This is a very early version,so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
+*This is a very early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
-A toolbox to deal with time series in R. Built around a set of converters,which
+A toolbox to deal with time series in R. Built around a set of converters, which
 **reliably** convert time series stored as`ts`,`xts`,`data.frame` or
-`data.table` to each other. Because it works,we can define a set of tools that
-work **identially** for each class. And,we can use a plot function that
+`data.table` to each other. Because it works, we can define a set of tools that
+work **identially** for each class. And, we can use a plot function that
 **just works**!
 
 To install:
@@ -28,9 +28,9 @@ x.df <- as_df(x.xts)
 x.dt <- as_dt(x.df)
 ```
 
-### Use same generic functions for ts,xts,data.frame or data.table
+### Use same generic functions for ts, xts, data.frame or data.table
 
-All functions start with `ts`,so you use them with auto complete (press Tab).
+All functions start with `ts`, so you use them with auto complete (press Tab).
 
 ```r
 tsscale(x.ts)  # normalization
@@ -79,14 +79,14 @@ tsggplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
 #### Writing ts functions
 
 The `ts_` function is a constructor function for ts objects. Use it to wrap any
-function that works with time series. The defaults are set to `ts`,so wrapping
+function that works with time series. The defaults are set to `ts`, so wrapping
 base functions for `ts` objects is as simple as:
 
 ```r
 tsdiff <- ts_(diff)
 ```
 
-Or a more complex example,which uses an external package:
+Or a more complex example, which uses an external package:
 
 ```r
 tsforecast <- ts_(
