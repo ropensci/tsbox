@@ -3,36 +3,50 @@
 - Ts Functions
 
   - [X] as_xts(), as_ts(), as_df()
-  - [X] ts_plot(), ts_ggplot()
-  - [X] theme_ts()
-  - [X] ts_colors()
-
-
+  - [X] tsplot(), tsggplot(), theme_ts() (-> theme_tsbox)
+  - [X] ts_colors() (-> tsbox_colors)
+  
   - [X] tsdiff()
-  - [ ] tsdiffy()
-  - [X] tsscale()
-  - [X] tstrend()
   - [X] tsseas()
   - [X] tsforecast()
-
   - [X] tsbind()
   - [X] tsrbind()
 
-  - [ ] tsforcefreq()
   - [ ] Rewrite existing generics / methods, using ts
   
     - [ ] tspcy()
     - [ ] tspc()
-
+    - [ ] tsdiffy()
+    - [ ] tstrend() -> tsloess
+    - [ ] tsscale()
+    
+  - [ ] Cleaner documentation on ts Functions:
+    - first argumetn is a single or multiple time series
+    - additional arguments via dots, but help should be available for the methods as well. 
+      Can we do this? Ideally, the pop up rstudio should show what tsloess is doing?
+    - Overview of all available ts Funktions.
+  
 - Backend
 
-  - [ ] date_to_time, time_to_date: Rewrite carefully
-  - [ ] extensive back and forth testing of the converters
-  
-- Longterm
+  - [X] date_to_time, time_to_date: Rewrite carefully
+  - [X] back and forth testing of the converters
+
+- Frequency etc
+
+  - [ ] regularity check for xts
+  - [ ] forcing xts into regularity
+  - [ ] tools for frequency conversion
+
+- Graph etc
+
+  - [ ] legend in base plot needs tweaking
+
+- Beyond release
 
   - [ ] tsdygraphs
   - [ ] iframe option
+  - [ ] 'theme' for base plot
+
 
 # Motivation
 
