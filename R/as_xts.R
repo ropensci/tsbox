@@ -27,21 +27,45 @@ as_xts <- function (x, ...) UseMethod("as_xts")
 #' @rdname as_xts
 as_xts.ts <- function(x, ...){
   stopifnot(inherits(x, "ts"))
+  ind <- ts_to_POSIXct(x)
+  x0 <- unclass(x)
+  attr(x0,"tsp") <- NULL
 
-  m <- as.zoo(x)
-  f <- frequency(x)
+  z <- xts(x0, order.by = ind)
+  settsnames(z, tsnames(x))
 
-  if (f == 4 ){
-    index(m) <- zoo::as.Date.yearqtr(index(m))
-  } else if (f == 12){
-    index(m) <- zoo::as.Date.yearmon(index(m))
-  } else {
-    index(m) <- time_to_date(x)
-  }
+  # m <- as.zoo(x)
+  # f <- frequency(x)
+
+  # if (f == 4 ){
+  #   index(m) <- zoo::as.Date.yearqtr(index(m))
+  # } else if (f == 12){
+  #   index(m) <- zoo::as.Date.yearmon(index(m))
+  # } else {
+  #   index(m) <- time_to_date(x)
+  # }
   
-  as.xts(m)
+  # as.xts(m)
 }
 
+
+
+# as_xts.ts <- function(x, ...){
+#   stopifnot(inherits(x, "ts"))
+
+#   m <- as.zoo(x)
+#   f <- frequency(x)
+
+#   if (f == 4 ){
+#     index(m) <- zoo::as.Date.yearqtr(index(m))
+#   } else if (f == 12){
+#     index(m) <- zoo::as.Date.yearmon(index(m))
+#   } else {
+#     index(m) <- time_to_date(x)
+#   }
+  
+#   as.xts(m)
+# }
 
 
 
