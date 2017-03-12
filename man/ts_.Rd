@@ -7,7 +7,8 @@
 \alias{tslag}
 \alias{tscycle}
 \alias{tsforecast}
-\alias{tsforecast}
+\alias{tsseas}
+\alias{tsprcomp}
 \title{universal constructor for ts functions}
 \usage{
 ts_(FUN, class = "ts", multiple = TRUE, suggested = NULL)
@@ -22,7 +23,9 @@ tscycle(x, ...)
 
 tsforecast(x, ...)
 
-tsforecast(x, ...)
+tsseas(x, ...)
+
+tsprcomp(x, ...)
 }
 \arguments{
 \item{FUN}{function, to be made available to all time series classes}
@@ -32,7 +35,11 @@ tsforecast(x, ...)
 \item{multiple}{can the function handle multiple series. If set to false, the
 wrapper will loop through each series.}
 
-\item{packages}{that are required for the functionality.}
+\item{suggested}{packages that are required for the functionality.}
+
+\item{...}{arguments passed to underlying functions.}
+
+\item{n}{how many princial components should be extracted}
 }
 \description{
 universal constructor for ts functions

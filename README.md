@@ -33,14 +33,20 @@ x.dt <- as_dt(x.df)
 All functions start with `ts`, so you use them with auto complete (press Tab).
 
 ```
-tsscale(x.ts)
+tsscale(x.ts)  # normalization
 tsscale(x.xts)
 tsscale(x.df)
 tsscale(x.dt)
 
-tstrend(x.ts)
+tstrend(x.ts)  # loess trend line
 tspc(x.ts)
 tspcy(x.ts)
+tslag(x.ts)
+tsprcomp(tsbind(mdeaths, fdeaths))  # first principal component
+
+# with external packages
+tsforecast(x.ts)  # ets forecast
+tsseas(x.ts)  # X-13 seasonal adjustment
 ```
 
 ### Bind any time series vertically or horizontally

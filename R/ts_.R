@@ -14,7 +14,8 @@ load_suggested_packages <- function(pkg){
 #' @param class class that the function uses as its first argument
 #' @param multiple can the function handle multiple series. If set to false, the 
 #'   wrapper will loop through each series.
-#' @param packages that are required for the functionality.
+#' @param suggested packages that are required for the functionality.
+#' @param ... arguments passed to underlying functions.
 #' @export
 #' @examples
 #' tsplot(
@@ -55,28 +56,41 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL){
 }
 
 #' @export
+#' @importFrom stats window lag cycle
 #' @rdname ts_
 tsdiff <- ts_(diff)
 
 #' @export
 #' @rdname ts_
-tswindow <- ts_(window)
+tswindow <- ts_(stats::window)
 
 #' @export
 #' @rdname ts_
-tslag <- ts_(lag)
+tslag <- ts_(stats::lag)
 
 #' @export
 #' @rdname ts_
-tscycle <- ts_(cycle)
+tscycle <- ts_(stats::cycle)
 
 #' @export
 #' @rdname ts_
-tsforecast <- ts_(function(x) forecast::forecast(x)$mean, multiple = FALSE, suggested = "forecast")
+tsforecast <- ts_(function(x, ...) forecast::forecast(x, ...)$mean, 
+                  multiple = FALSE, suggested = "forecast")
 
 #' @export
 #' @rdname ts_
-tsforecast <- ts_(function(x) forecast::forecast(x)$mean, multiple = FALSE, suggested = "forecast")
+tsseas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)),
+              multiple = FALSE, suggested = "seasonal")
+
+#' @export
+#' @param n how many princial components should be extracted
+#' @rdname ts_
+tsprcomp <- ts_(function(x, n = 1, ...) {
+  ts(predict(prcomp(x))[,1:n], start = start(x), frequency = frequency(x))
+})
+
+
+
 
 
 
