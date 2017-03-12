@@ -17,7 +17,7 @@
 #' }
 #' 
 #' @export
-#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts
+#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp
 #' @importFrom utils browseURL
 #' 
 as_xts <- function (x, ...) UseMethod("as_xts")

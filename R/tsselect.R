@@ -5,7 +5,9 @@
 #' @examples
 #' 
 #' all.equal(as_ts(mdeaths), tsselect(as_ts(tsbind(mdeaths, fdeaths)), 'mdeaths'))
-#' all.equal(as_xts(mdeaths), tsselect(as_xts(tsbind(mdeaths, fdeaths)), 'mdeaths'), check.attributes = FALSE)
+#' all.equal(as_xts(mdeaths), 
+#'           tsselect(as_xts(tsbind(mdeaths, fdeaths)), 'mdeaths'), 
+#'           check.attributes = FALSE)
 #' all.equal(as_df(mdeaths), tsselect(as_df(tsbind(mdeaths, fdeaths)), 'mdeaths'))
 #' 
 #' \dontrun{
@@ -37,7 +39,7 @@ tsselect.xts <- function(x, var){
 #' @rdname tsselect
 #' @method tsselect data.frame
 tsselect.data.frame <- function(x, var){
-  z <- subset(x, variable %in% var)
+  z <- x[x$variable %in% var, ]
   if (length(var) ==  1) z[['variable']] <- NULL
   z
 }
@@ -49,7 +51,7 @@ tsselect.data.frame <- function(x, var){
 tsselect.data.table <- function(x, var){
 
   # not clear: x seem to b a data.frame here
-  z <- as_data.table(subset(x, variable %in% var))
+  z <- as_data.table(x[x$variable %in% var, ])
   if (length(var) ==  1) z[['variable']] <- NULL
   z
   # q <- parse(text = paste("variable %in%", paste(deparse(var), collapse = "")))
