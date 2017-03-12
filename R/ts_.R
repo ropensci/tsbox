@@ -17,6 +17,7 @@ load_suggested_packages <- function(pkg){
 #' @param suggested packages that are required for the functionality.
 #' @param ... arguments passed to underlying functions.
 #' @param x s time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @param ensure.names logical, whether the series in the output should have the same names as the input
 #' @export
 #' @examples
 #' tsplot(
@@ -24,7 +25,7 @@ load_suggested_packages <- function(pkg){
 #'     tsforecast(tsbind(AirPassengers, mdeaths))
 #' )
 #' 
-ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL){
+ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.names = TRUE){
 
   all.classes <- c("ts", "mts", "data.frame", "data.table")
   stopifnot(class %in% all.classes)
@@ -38,7 +39,7 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL){
       tsn <- tsnames(x)
       z <- FUN(as_(class)(x), ...)
       z <- as_(desired.class)(z)
-      z <- settsnames(z, tsn)
+      if (ensure.names) z <- settsnames(z, tsn)
       z
     } 
   } else {
@@ -49,7 +50,7 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL){
       tsn <- tsnames(x)
       z <- tsapply(as_(class)(x), FUN, ...)
       z <- as_(desired.class)(z)
-      z <- settsnames(z, tsn)
+      if (ensure.names) z <- settsnames(z, tsn)
       z
     } 
   } 
@@ -89,7 +90,7 @@ tsseas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)),
 # @param scale should the data be scaled?
 tsprcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
   ts(predict(prcomp(x, scale = scale, ...))[,1:n], start = start(x), frequency = frequency(x))
-})
+}, ensure.names = FALSE)
 
 
 

@@ -11,7 +11,8 @@
 \alias{tsprcomp}
 \title{universal constructor for ts functions}
 \usage{
-ts_(FUN, class = "ts", multiple = TRUE, suggested = NULL)
+ts_(FUN, class = "ts", multiple = TRUE, suggested = NULL,
+  ensure.names = TRUE)
 
 tsdiff(x, ...)
 
@@ -36,6 +37,8 @@ tsprcomp(x, ...)
 wrapper will loop through each series.}
 
 \item{suggested}{packages that are required for the functionality.}
+
+\item{ensure.names}{logical, whether the series in the output should have the same names as the input}
 
 \item{x}{s time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
