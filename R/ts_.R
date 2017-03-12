@@ -84,7 +84,9 @@ tsseas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)),
               multiple = FALSE, suggested = "seasonal")
 
 #' @export
+#' @rdname ts_
 #' @param n how many princial components should be extracted
+#' @param scale should the data be scaled?
 tsprcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
   ts(predict(prcomp(x, scale = scale, ...))[,1:n], start = start(x), frequency = frequency(x))
 })

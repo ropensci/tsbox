@@ -168,13 +168,13 @@ tssave <- function(filename = "myfig.pdf", width = 8, height = 4, device = "pdf"
   if (device == "pdf"){
     pdf(file = filename,  width = width, height = height)
   } else if (device == "png"){
-    png(file = filename,  width = width, height = height, units = "in", res = 150)
+    png(filename = filename,  width = width, height = height, units = "in", res = 150)
   } else if (device == "bmp"){
-    bmp(file = filename,  width = width, height = height, units = "in", res = 150)
+    bmp(filename = filename,  width = width, height = height, units = "in", res = 150)
   } else if (device == "jpeg"){
-    jpeg(file = filename,  width = width, height = height, units = "in", res = 150)
+    jpeg(filename = filename,  width = width, height = height, units = "in", res = 150)
   } else if (device == "tiff"){
-    tiff(file = filename,  width = width, height = height, units = "in", res = 150)
+    tiff(filename = filename,  width = width, height = height, units = "in", res = 150)
   } else {
     stop("device not supported.")
   }
