@@ -19,7 +19,8 @@ Imports:
 Suggests: 
     dplyr,
     data.table,
-    forecast
+    forecast,
+    testthat
 License: GPL-3
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.0
