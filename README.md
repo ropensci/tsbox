@@ -42,7 +42,7 @@ tstrend(x.ts)  # loess trend line
 tspc(x.ts)
 tspcy(x.ts)
 tslag(x.ts)
-tsprcomp(tsbind(mdeaths,fdeaths))  # first principal component
+tsprcomp(tsbind(mdeaths, fdeaths))  # first principal component
 
 # with external packages
 tsforecast(x.ts)  # ets forecast
