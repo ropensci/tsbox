@@ -16,6 +16,7 @@ load_suggested_packages <- function(pkg){
 #'   wrapper will loop through each series.
 #' @param suggested packages that are required for the functionality.
 #' @param ... arguments passed to underlying functions.
+#' @param x s time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @export
 #' @examples
 #' tsplot(
@@ -84,7 +85,6 @@ tsseas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)),
 
 #' @export
 #' @param n how many princial components should be extracted
-#' @rdname ts_
 tsprcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
   ts(predict(prcomp(x, scale = scale, ...))[,1:n], start = start(x), frequency = frequency(x))
 })
