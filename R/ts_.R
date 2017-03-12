@@ -81,6 +81,13 @@ tsforecast <- ts_(function(x, ...) forecast::forecast(x, ...)$mean,
 
 #' @export
 #' @rdname ts_
+tsforecast.auto.arima  <- ts_(
+  function(x, ...) {
+    forecast::forecast(forecast::auto.arima(x), ...)$mean
+  }, multiple = FALSE, suggested = "forecast")
+
+#' @export
+#' @rdname ts_
 tsseas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)),
               multiple = FALSE, suggested = "seasonal")
 

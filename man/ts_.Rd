@@ -7,6 +7,7 @@
 \alias{tslag}
 \alias{tscycle}
 \alias{tsforecast}
+\alias{tsforecast.auto.arima}
 \alias{tsseas}
 \alias{tsprcomp}
 \title{universal constructor for ts functions}
@@ -23,6 +24,8 @@ tslag(x, ...)
 tscycle(x, ...)
 
 tsforecast(x, ...)
+
+tsforecast.auto.arima(x, ...)
 
 tsseas(x, ...)
 
