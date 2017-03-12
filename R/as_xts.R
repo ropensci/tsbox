@@ -17,7 +17,7 @@
 #' }
 #' 
 #' @export
-#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts
+#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp
 #' @importFrom utils browseURL
 #' 
 as_xts <- function (x, ...) UseMethod("as_xts")
@@ -27,21 +27,45 @@ as_xts <- function (x, ...) UseMethod("as_xts")
 #' @rdname as_xts
 as_xts.ts <- function(x, ...){
   stopifnot(inherits(x, "ts"))
+  ind <- ts_to_POSIXct(x)
+  x0 <- unclass(x)
+  attr(x0,"tsp") <- NULL
 
-  m <- as.zoo(x)
-  f <- frequency(x)
+  z <- xts(x0, order.by = ind)
+  settsnames(z, tsnames(x))
 
-  if (f == 4 ){
-    index(m) <- zoo::as.Date.yearqtr(index(m))
-  } else if (f == 12){
-    index(m) <- zoo::as.Date.yearmon(index(m))
-  } else {
-    index(m) <- time_to_date(x)
-  }
+  # m <- as.zoo(x)
+  # f <- frequency(x)
+
+  # if (f == 4 ){
+  #   index(m) <- zoo::as.Date.yearqtr(index(m))
+  # } else if (f == 12){
+  #   index(m) <- zoo::as.Date.yearmon(index(m))
+  # } else {
+  #   index(m) <- time_to_date(x)
+  # }
   
-  as.xts(m)
+  # as.xts(m)
 }
 
+
+
+# as_xts.ts <- function(x, ...){
+#   stopifnot(inherits(x, "ts"))
+
+#   m <- as.zoo(x)
+#   f <- frequency(x)
+
+#   if (f == 4 ){
+#     index(m) <- zoo::as.Date.yearqtr(index(m))
+#   } else if (f == 12){
+#     index(m) <- zoo::as.Date.yearmon(index(m))
+#   } else {
+#     index(m) <- time_to_date(x)
+#   }
+  
+#   as.xts(m)
+# }
 
 
 
@@ -66,9 +90,16 @@ as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable",
   }
   if (variable.name %in% cnames){
     stopifnot(value.name %in% cnames)
-    ll.xts <- lapply(split(x, x[[variable.name]]), as_xts_core)
+
+    var <- x[[variable.name]]
+
+    # factor in split causes reordering, thus [unique(var)]
+    ll.df <- split(x, var)[unique(var)]
+    ll.xts <- lapply(ll.df, as_xts_core)
+
     z <- do.call("cbind", ll.xts)
     colnames(z) <- names(ll.xts)
+
   } else {
     if (!value.name %in% cnames){
       if (NCOL(x) == 2){
@@ -98,7 +129,12 @@ as_xts.data.table <- function(x, time.name = "time", variable.name = "variable",
   }
   if (variable.name %in% cnames){
     stopifnot(value.name %in% cnames)
-    ll.xts <- lapply(split(x[, c(time.name, value.name), with = FALSE], x[[variable.name]]), as_xts_core)
+
+    var <- x[[variable.name]]
+
+    ll.xts <- lapply(split(x[, c(time.name, value.name), with = FALSE], var), 
+                     as_xts_core)[unique(var)]
+    
     z <- do.call("cbind", ll.xts)
     colnames(z) <- names(ll.xts)
   } else {

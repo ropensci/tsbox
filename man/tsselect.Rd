@@ -29,7 +29,9 @@ Set and Variables from Multiple Time Series
 \examples{
 
 all.equal(as_ts(mdeaths), tsselect(as_ts(tsbind(mdeaths, fdeaths)), 'mdeaths'))
-all.equal(as_xts(mdeaths), tsselect(as_xts(tsbind(mdeaths, fdeaths)), 'mdeaths'), check.attributes = FALSE)
+all.equal(as_xts(mdeaths), 
+          tsselect(as_xts(tsbind(mdeaths, fdeaths)), 'mdeaths'), 
+          check.attributes = FALSE)
 all.equal(as_df(mdeaths), tsselect(as_df(tsbind(mdeaths, fdeaths)), 'mdeaths'))
 
 \dontrun{
