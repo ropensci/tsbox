@@ -13,5 +13,5 @@ as_data.table <- function (x, ...) {
 #' @export
 #' @rdname as_xts
 as_dt <- function (x, ...) {
-  data.table::as.data.table(x, ...)
+  as_data.table(x, ...)
 }

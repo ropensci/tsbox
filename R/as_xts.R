@@ -94,7 +94,7 @@ as_xts.data.table <- function(x, time.name = "time", variable.name = "variable",
 
   as_xts_core <- function(x){
     data.table::setcolorder(x, c(time.name, value.name))
-    as.xts(x)
+    data.table::as.xts.data.table(x)
   }
   if (variable.name %in% cnames){
     stopifnot(value.name %in% cnames)
