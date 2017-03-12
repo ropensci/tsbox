@@ -86,7 +86,7 @@ tsplot <- function(..., title, subtitle){
   } else {
     mar.t <- 1
   }
-  par(mar =  c(mar.b, 3, mar.t, 2))
+  par(mar =  c(mar.b, 3, mar.t, 1.4))
 
   tind <- as.POSIXct(index(x))
   tnum <- as.numeric(tind)
