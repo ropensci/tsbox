@@ -99,6 +99,7 @@ the user to install the package that is needed for the underlying function.
 
 #### Using tsbox in a dplyr / pipe workflow
 
+```r
 library(dplyr)
 library(tsbox)
 
@@ -108,7 +109,7 @@ dta %>%
   tsbind(lmdeaths = tslag(tsselect(dta,'mdeaths'),-1)) %>%
   tspredictlm(mdeaths ~ lmdeaths + fdeaths) %>%
   tsplot()
-
+```
 
 
 ### License
