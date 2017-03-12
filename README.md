@@ -13,7 +13,7 @@ work **identially** for each class. And, we can use a plot function that
 
 To install:
 ```r
-devtools::install_github(christophsax/tsbox)
+devtools::install_github("christophsax/tsbox")
 ```
 
 ### Convert everything to everything
