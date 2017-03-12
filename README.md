@@ -22,7 +22,7 @@ devtools::install_github(christophsax/tsbox)
 library(tsbox)
 library(data.table)  # if you want to use the 'data.table' methods
 
-x.ts <- tsbind(mdeaths,fdeaths)
+x.ts <- tsbind(mdeaths, fdeaths)
 x.xts <- as_xts(x.ts)
 x.df <- as_df(x.xts)
 x.dt <- as_dt(x.df)
@@ -52,17 +52,17 @@ tsseas(x.ts)  # X-13 seasonal adjustment
 ### Bind any time series vertically or horizontally
 
 ```r
-tsbind(as_dt(EuStockMarkets),AirPassengers)
-tsbind(EuStockMarkets,mdeaths)
+tsbind(as_dt(EuStockMarkets), AirPassengers)
+tsbind(EuStockMarkets, mdeaths)
 
-tsrbind(as_dt(mdeaths),AirPassengers)
-tsrbind(as_xts(AirPassengers),mdeaths)
+tsrbind(as_dt(mdeaths), AirPassengers)
+tsrbind(as_xts(AirPassengers), mdeaths)
 ```
 
 ### And plot just about everything
 
 ```r
-tsplot(tsscale(tsbind(mdeaths,austres,AirPassengers,DAX = EuStockMarkets[,'DAX'])))
+tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
 ```
 ![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
 
@@ -70,7 +70,7 @@ tsplot(tsscale(tsbind(mdeaths,austres,AirPassengers,DAX = EuStockMarkets[,'DAX']
 There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 ```r
-tsggplot(tsscale(tsbind(discoveries,austres,AirPassengers)))
+tsggplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
 ```
 
 
@@ -89,8 +89,12 @@ tsdiff <- ts_(diff)
 Or a more complex example,which uses an external package:
 
 ```r
-tsforecast <- ts_(function(x,...) forecast::forecast(x,...)$mean,
-multiple = FALSE,suggested = forecast)
+tsforecast <- ts_(
+  function(x, ...) {
+    forecast::forecast(x, ...)$mean
+  },
+  multiple = FALSE, suggested = forecast
+  )
 ```
 
 Note that the `ts_` function deals with all the conversion stuff and also ask
@@ -103,10 +107,10 @@ the user to install the package that is needed for the underlying function.
 library(dplyr)
 library(tsbox)
 
-dta <- as_df(tsbind(mdeaths,fdeaths))
+dta <- as_df(tsbind(mdeaths, fdeaths))
 
 dta %>%
-  tsbind(lmdeaths = tslag(tsselect(dta,'mdeaths'),-1)) %>%
+  tsbind(lmdeaths = tslag(tsselect(dta, 'mdeaths'), -1)) %>%
   tspredictlm(mdeaths ~ lmdeaths + fdeaths) %>%
   tsplot()
 ```
