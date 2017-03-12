@@ -90,9 +90,16 @@ as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable",
   }
   if (variable.name %in% cnames){
     stopifnot(value.name %in% cnames)
-    ll.xts <- lapply(split(x, x[[variable.name]]), as_xts_core)
+
+    var <- x[[variable.name]]
+
+    # factor in split causes reordering, thus [unique(var)]
+    ll.df <- split(x, var)[unique(var)]
+    ll.xts <- lapply(ll.df, as_xts_core)
+
     z <- do.call("cbind", ll.xts)
     colnames(z) <- names(ll.xts)
+
   } else {
     if (!value.name %in% cnames){
       if (NCOL(x) == 2){
@@ -122,7 +129,12 @@ as_xts.data.table <- function(x, time.name = "time", variable.name = "variable",
   }
   if (variable.name %in% cnames){
     stopifnot(value.name %in% cnames)
-    ll.xts <- lapply(split(x[, c(time.name, value.name), with = FALSE], x[[variable.name]]), as_xts_core)
+
+    var <- x[[variable.name]]
+
+    ll.xts <- lapply(split(x[, c(time.name, value.name), with = FALSE], var), 
+                     as_xts_core)[unique(var)]
+    
     z <- do.call("cbind", ll.xts)
     colnames(z) <- names(ll.xts)
   } else {
