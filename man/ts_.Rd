@@ -40,10 +40,6 @@ wrapper will loop through each series.}
 \item{x}{s time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
 \item{...}{arguments passed to underlying functions.}
-
-\item{n}{how many princial components should be extracted}
-
-\item{scale}{should the data be scaled?}
 }
 \description{
 universal constructor for ts functions
