@@ -78,9 +78,9 @@ tsggplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
 
 #### Writing ts functions
 
-The `ts_` function is a constructor function for ts objects. Use it to wrap any
-function that works with time series. The defaults are set to `ts`, so wrapping
-base functions for `ts` objects is as simple as:
+The `ts_` function is a constructor function for tsbox time series functions.
+Use it to wrap any function that works with time series. The defaults are set to
+`ts`, so wrapping base functions for `ts` objects is as simple as:
 
 ```r
 tsdiff <- ts_(diff)
@@ -97,8 +97,9 @@ tsforecast <- ts_(
   )
 ```
 
-Note that the `ts_` function deals with all the conversion stuff and also ask
-the user to install the package that is needed for the underlying function.
+Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
+function so that it can be used with mulitple time series and also ask the user
+to install the required packages.
 
 
 #### Using tsbox in a dplyr / pipe workflow
