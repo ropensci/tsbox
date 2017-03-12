@@ -27,7 +27,7 @@ load_suggested_packages <- function(pkg){
 #' 
 ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.names = TRUE){
 
-  all.classes <- c("ts", "mts", "data.frame", "data.table")
+  all.classes <- c("ts", "xts", "data.frame", "data.table")
   stopifnot(class %in% all.classes)
 
   # if the function can handle multiple time series
@@ -95,16 +95,29 @@ tsseas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)),
 #' @rdname ts_
 # @param n how many princial components should be extracted
 # @param scale should the data be scaled?
-tsprcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
-  ts(predict(prcomp(x, scale = scale, ...))[,1:n], start = start(x), frequency = frequency(x))
+tsprcomp <- ts_(function(x, ...) {
+  ts(predict(prcomp(x, scale = TRUE, ...))[,1:n], start = start(x), frequency = frequency(x))
 }, ensure.names = FALSE)
 
 
 
 
+#' @export
+#' @rdname ts_
+tsresidlm <- ts_(function(x, formula, ...) {
+  m <- lm(formula = formula, data = as.data.frame(na.omit(x)), ...)
+  # message(paste(capture.output(summary(m)), collapse = "\n"))
+  reclass(resid(m), na.omit(x))
+}, class = "xts", ensure.names = FALSE)
 
 
-
+#' @export
+#' @rdname ts_
+tspredictlm <- ts_(function(x, formula, ...) {
+  m <- lm(formula = formula, data = as.data.frame(na.omit(x)), ...)
+  # message(paste(capture.output(summary(m)), collapse = "\n"))
+  reclass(predict(m), na.omit(x))
+}, class = "xts", ensure.names = FALSE)
 
 
 

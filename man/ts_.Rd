@@ -10,6 +10,8 @@
 \alias{tsforecast.auto.arima}
 \alias{tsseas}
 \alias{tsprcomp}
+\alias{tsresidlm}
+\alias{tspredictlm}
 \title{universal constructor for ts functions}
 \usage{
 ts_(FUN, class = "ts", multiple = TRUE, suggested = NULL,
@@ -30,6 +32,10 @@ tsforecast.auto.arima(x, ...)
 tsseas(x, ...)
 
 tsprcomp(x, ...)
+
+tsresidlm(x, ...)
+
+tspredictlm(x, ...)
 }
 \arguments{
 \item{FUN}{function, to be made available to all time series classes}

@@ -3,17 +3,17 @@ Time Series Toolbox
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
-*This is a very early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
+*This is a very early version,so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
-A toolbox to deal with time series in R. Built around a set of converters, which
-**reliably** convert time series stored as`ts`, `xts`, `data.frame` or
-`data.table` to each other. Because it works, we can define a set of tools that
-work **identially** for each class. And, we can use a plot function that
+A toolbox to deal with time series in R. Built around a set of converters,which
+**reliably** convert time series stored as`ts`,`xts`,`data.frame` or
+`data.table` to each other. Because it works,we can define a set of tools that
+work **identially** for each class. And,we can use a plot function that
 **just works**!
 
 To install:
 ```
-devtools::install_github("christophsax/tsbox")
+devtools::install_github(christophsax/tsbox)
 ```
 
 ### Convert everything to everything
@@ -22,15 +22,15 @@ devtools::install_github("christophsax/tsbox")
 library(tsbox)
 library(data.table)  # if you want to use the 'data.table' methods
 
-x.ts <- tsbind(mdeaths, fdeaths) 
+x.ts <- tsbind(mdeaths,fdeaths)
 x.xts <- as_xts(x.ts)
 x.df <- as_df(x.xts)
 x.dt <- as_dt(x.df)
 ```
 
-### Use same generic functions for ts, xts, data.frame or data.table
+### Use same generic functions for ts,xts,data.frame or data.table
 
-All functions start with `ts`, so you use them with auto complete (press Tab).
+All functions start with `ts`,so you use them with auto complete (press Tab).
 
 ```
 tsscale(x.ts)  # normalization
@@ -42,7 +42,7 @@ tstrend(x.ts)  # loess trend line
 tspc(x.ts)
 tspcy(x.ts)
 tslag(x.ts)
-tsprcomp(tsbind(mdeaths, fdeaths))  # first principal component
+tsprcomp(tsbind(mdeaths,fdeaths))  # first principal component
 
 # with external packages
 tsforecast(x.ts)  # ets forecast
@@ -52,17 +52,17 @@ tsseas(x.ts)  # X-13 seasonal adjustment
 ### Bind any time series vertically or horizontally
 
 ```
-tsbind(as_dt(EuStockMarkets), AirPassengers)
-tsbind(EuStockMarkets, mdeaths)
+tsbind(as_dt(EuStockMarkets),AirPassengers)
+tsbind(EuStockMarkets,mdeaths)
 
-tsrbind(as_dt(mdeaths), AirPassengers)
-tsrbind(as_xts(AirPassengers), mdeaths)
+tsrbind(as_dt(mdeaths),AirPassengers)
+tsrbind(as_xts(AirPassengers),mdeaths)
 ```
 
 ### And plot just about everything
 
 ```
-tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
+tsplot(tsscale(tsbind(mdeaths,austres,AirPassengers,DAX = EuStockMarkets[,'DAX'])))
 ```
 ![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
 
@@ -70,11 +70,48 @@ tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, 'D
 There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 ```
-tsggplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
+tsggplot(tsscale(tsbind(discoveries,austres,AirPassengers)))
 ```
+
+
+### More expamples
+
+#### Writing ts functions
+
+The `ts_` function is a constructor function for ts objects. Use it to wrap any
+function that works with time series. The defaults are set to `ts`,so wrapping
+base functions for `ts` objects is as simple as:
+
+```
+tsdiff <- ts_(diff)
+```
+
+Or a more complex example,which uses an external package:
+
+```
+tsforecast <- ts_(function(x,...) forecast::forecast(x,...)$mean,
+multiple = FALSE,suggested = forecast)
+```
+
+Note that the `ts_` function deals with all the conversion stuff and also ask
+the user to install the package that is needed for the underlying function.
+
+
+#### Using tsbox in a dplyr / pipe workflow
+
+library(dplyr)
+library(tsbox)
+
+dta <- as_df(tsbind(mdeaths,fdeaths))
+
+dta %>%
+  tsbind(lmdeaths = tslag(tsselect(dta,'mdeaths'),-1)) %>%
+  tspredictlm(mdeaths ~ lmdeaths + fdeaths) %>%
+  tsplot()
+
 
 
 ### License
 
-*tsbox* is free and open source, licensed under GPL-3. 
+*tsbox* is free and open source,licensed under GPL-3.
 
