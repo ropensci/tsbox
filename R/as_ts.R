@@ -7,15 +7,16 @@ as_ts <- function (x, ...) UseMethod("as_ts")
 #' @method as_ts xts
 as_ts.xts <- function(x, ...) {
 
-  if (NCOL(x) > 1) {
-    zl <- list()
-    for (i in 1:NCOL(x)){
-      zl[[i]] <- as_ts(na.omit(x[,i]))
-    }
-    z <- do.call(cbind, zl)
-    z <- settsnames(z, tsnames(x))
-    return(z)
-  }
+  # if (NCOL(x) > 1) {
+  #   zl <- list()
+  #   for (i in 1:NCOL(x)){
+  #     zl[[i]] <- as_ts(na.omit(x[,i]))
+  #   }
+
+  #   z <- do.call(cbind, zl)
+  #   z <- settsnames(z, tsnames(x))
+  #   return(z)
+  # }
 
   # check regularity
   ud <- unique(round(diff(as.numeric(index(x)))))
