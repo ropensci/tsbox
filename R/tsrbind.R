@@ -1,6 +1,8 @@
 # x <- as_xts(AirPassengers)
 # x <- x[-3]
 # ll <- tsrbind(AirPassengers, AirPassengers)
+# ll <- tsrbind(mdeaths, AirPassengers)
+
 
 #' @rdname tsbind
 #' @export
