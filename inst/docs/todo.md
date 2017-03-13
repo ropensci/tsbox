@@ -1,5 +1,6 @@
 # Stuff
 
+
 - Ts Functions
 
   - [X] as_xts(), as_ts(), as_df()
@@ -30,6 +31,8 @@
 
   - [X] date_to_time, time_to_date: Rewrite carefully
   - [X] back and forth testing of the converters
+  - [ ] remove zoo import, import xts
+  - [ ] suggest ggplot
 
 - Frequency etc
 

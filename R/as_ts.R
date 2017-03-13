@@ -7,12 +7,25 @@ as_ts <- function (x, ...) UseMethod("as_ts")
 #' @method as_ts xts
 as_ts.xts <- function(x, ...) {
 
-  # TODO check regularity
+  if (NCOL(x) > 1) {
+    zl <- list()
+    for (i in 1:NCOL(x)){
+      zl[[i]] <- as_ts(na.omit(x[,i]))
+    }
+    z <- do.call(cbind, zl)
+    z <- settsnames(z, tsnames(x))
+    return(z)
+  }
+
+  # check regularity
+  ud <- unique(round(diff(as.numeric(index(x)))))
+  if (length(ud) > 1) {
+    stop("some dates in xts are not equally spaced. Equality must be enforced, but the tools to do so still need to be implemented.")
+  } 
 
   tsp <- POSIXct_to_tsp(as.POSIXct(index(x)))
   z <- ts(coredata(x), start = tsp[1], frequency = tsp[3])
 
-  settsnames(z, tsnames(x))
 }
 
 
