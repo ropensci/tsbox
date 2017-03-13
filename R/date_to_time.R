@@ -38,6 +38,19 @@ POSIXct_to_dectime <- function(x){
 
 # --- exact convertors ---------------------------------------------------------
 
+check_regularity <- function(x){
+  stopifnot(inherits(x, "POSIXct"))
+  dd <- round(diff(as.numeric(x)))
+  if ((max(dd) - min(dd)) > 1000){
+    stop("some dates in xts are not equally spaced. Equality must be enforced, but the tools to do so still need to be implemented.")
+  }
+  if ((max(dd) - min(dd)) > 100){
+    message("series seem not to be completely equally spaced, but may be still ok for ts conversion.")
+  }
+}
+
+
+
 
 ts_to_POSIXct <- function(x){
   stopifnot(inherits(x, "ts"))
@@ -49,13 +62,7 @@ ts_to_POSIXct <- function(x){
 
 POSIXct_to_tsp <- function(x){
 
-  ud <- round(diff(as.numeric(index(x))))
-  if (length(ud) > 1) {
-    message("sd: ", sd(ud), "range: ", range(ud))
-    if (max(ud) - min(ud) > 1000){
-      stop("some dates in xts are not equally spaced. Equality must be enforced, but the tools to do so still need to be implemented.")
-    }
-  } 
+  check_regularity(x)
 
   stopifnot(inherits(x, "POSIXct"))
   start <- POSIXct_to_dectime(x[1])

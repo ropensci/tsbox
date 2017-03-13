@@ -3,7 +3,8 @@
 library(testthat)
 library(data.table) 
 library(tsbox)
-
+library(dplyr)
+library(tsbox)
 
 context("data time conversion")
 
@@ -61,46 +62,42 @@ test_that("some trickier situations work properly", {
 
 test_that("examples from README.md work properly", {
 
- library(tsbox)
-library(data.table)  # if you want to use the 'data.table' methods
+  x.ts <- tsbind(mdeaths, fdeaths)
+  x.xts <- as_xts(x.ts)
+  x.df <- as_df(x.xts)
+  x.dt <- as_dt(x.df)
 
-x.ts <- tsbind(mdeaths, fdeaths)
-x.xts <- as_xts(x.ts)
-x.df <- as_df(x.xts)
-x.dt <- as_dt(x.df)
+  tsscale(x.ts)  # normalization
+  tsscale(x.xts)
+  tsscale(x.df)
+  tsscale(x.dt)
 
-tsscale(x.ts)  # normalization
-tsscale(x.xts)
-tsscale(x.df)
-tsscale(x.dt)
+  tstrend(x.ts)  # loess trend line
+  tspc(x.ts)
+  tspcy(x.ts)
+  tslag(x.ts)
+  tsprcomp(tsbind(mdeaths, fdeaths))  # first principal component
 
-tstrend(x.ts)  # loess trend line
-tspc(x.ts)
-tspcy(x.ts)
-tslag(x.ts)
-tsprcomp(tsbind(mdeaths, fdeaths))  # first principal component
+  # with external packages
+  tsforecast(x.ts)  # ets forecast
+  # tsseas(x.ts)  # X-13 seasonal adjustment
 
-# with external packages
-tsforecast(x.ts)  # ets forecast
-# tsseas(x.ts)  # X-13 seasonal adjustment
+  tsbind(as_dt(EuStockMarkets), AirPassengers)
+  tsbind(EuStockMarkets, mdeaths)
 
-tsbind(as_dt(EuStockMarkets), AirPassengers)
-tsbind(EuStockMarkets, mdeaths)
+  tsrbind(as_dt(mdeaths), AirPassengers)
+  tsrbind(as_xts(AirPassengers), mdeaths)
 
-tsrbind(as_dt(mdeaths), AirPassengers)
-tsrbind(as_xts(AirPassengers), mdeaths)
+  tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
+  tsggplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
 
-tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
-tsggplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
-library(dplyr)
-library(tsbox)
 
-dta <- as_df(tsbind(mdeaths, fdeaths))
+  dta <- as_df(tsbind(mdeaths, fdeaths))
 
-dta %>%
-  tsbind(lmdeaths = tslag(tsselect(dta, 'mdeaths'), -1)) %>%
-  tspredictlm(mdeaths ~ lmdeaths + fdeaths) %>%
-  tsplot()
+  dta %>%
+    tsbind(lmdeaths = tslag(tsselect(dta, 'mdeaths'), -1)) %>%
+    tspredictlm(mdeaths ~ lmdeaths + fdeaths) %>%
+    tsplot()
 
 
 })

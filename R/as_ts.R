@@ -19,14 +19,18 @@ as_ts.xts <- function(x, ...) {
   # }
 
   # check regularity
-  
+
   # ud <- unique(round(diff(as.numeric(index(x)))))
   # if (length(ud) > 1) {
   #   stop("some dates in xts are not equally spaced. Equality must be enforced, but the tools to do so still need to be implemented.")
   # } 
 
   tsp <- Date_POSIXct_to_tsp(index(x))
-  z <- ts(coredata(x), start = tsp[1], frequency = tsp[3])
+
+  cdta <- coredata(x)
+  if (NCOL(cdta) == 1) cdta <- as.numeric(cdta)
+
+  z <- ts(cdta, start = tsp[1], frequency = tsp[3])
 
 }
 
