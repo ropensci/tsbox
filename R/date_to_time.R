@@ -48,6 +48,15 @@ ts_to_POSIXct <- function(x){
 }
 
 POSIXct_to_tsp <- function(x){
+
+  ud <- round(diff(as.numeric(index(x))))
+  if (length(ud) > 1) {
+    message("sd: ", sd(ud), "range: ", range(ud))
+    if (max(ud) - min(ud) > 1000){
+      stop("some dates in xts are not equally spaced. Equality must be enforced, but the tools to do so still need to be implemented.")
+    }
+  } 
+
   stopifnot(inherits(x, "POSIXct"))
   start <- POSIXct_to_dectime(x[1])
   end <- POSIXct_to_dectime(x[length(x)])
@@ -59,7 +68,7 @@ POSIXct_to_tsp <- function(x){
 
 
 
-# --- heuristic convertors ---------------------------------------------------------
+# --- heuristic convertors -----------------------------------------------------
 
 
 ts_to_Date_POSIXct <- function(x){
@@ -123,7 +132,7 @@ ts_to_Date_POSIXct <- function(x){
 
 
 in_range <- function(x, min, max, tol = 1000){
-  (all(ds < (max + tol)) & all(ds > (min - tol)))
+  (all(x < (max + tol)) & all(x > (min - tol)))
 }
 
 
@@ -141,7 +150,9 @@ Date_POSIXct_to_tsp <- function(x){
     start <- y + (1 / (m - 1))
   } else if (in_range(ds, 7776000, 7948800)){
     f <- 4
-    if (!(m %in% (c(1, 4, 7, 10)))) stop("Quarterly data needs to specified as start of period (currently)")
+    if (!(m %in% (c(1, 4, 7, 10)))) { 
+      stop("Quarterly data needs to specified as start of period (currently)")
+    }
     # 3*((1:4)-1)+1   ## oposite
     start <- c(y, ((m - 1) / 3) + 1)
   } else if (in_range(ds, 2419200, 2678400)){
