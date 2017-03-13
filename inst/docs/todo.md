@@ -29,7 +29,9 @@
     - Overview of all available ts Funktions.
 
 - Type Conversion
-
+  
+  - [ ] rewrite as_xts.ts, to include f = 2, f = 6, f = 0.1, f = 0.5, f = 0.05, f = 0.01
+  - [ ] Ensure a Date to be regular, by filling NAs 
 
 - Frequency Conversion
 
