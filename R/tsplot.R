@@ -157,7 +157,17 @@ lastplot_call <- function(){
   get("lastplot_call", envir = .tsbox)
 }
 
-tssave <- function(filename = "myfig.pdf", width = 8, height = 4, device = "pdf", ..., open = TRUE){
+
+#' Save Previous Plot
+#' 
+#' @param ... additional arguments
+#' @param open open
+#' @param device device
+#' @param height height
+#' @param width width
+#' @param filename filename
+#' @export
+tssave <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
   filename <- gsub(".pdf$", paste0(".", device), filename)
 
   cl <- lastplot_call()

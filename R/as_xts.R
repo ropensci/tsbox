@@ -27,7 +27,7 @@ as_xts <- function (x, ...) UseMethod("as_xts")
 #' @rdname as_xts
 as_xts.ts <- function(x, ...){
   stopifnot(inherits(x, "ts"))
-  ind <- ts_to_POSIXct(x)
+  ind <- ts_to_Date_POSIXct(x)
   x0 <- unclass(x)
   attr(x0,"tsp") <- NULL
 

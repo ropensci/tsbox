@@ -19,23 +19,30 @@
     - [ ] tsdiffy()
     - [ ] tstrend() -> tsloess
     - [ ] tsscale()
-    
-  - [ ] Cleaner documentation on ts Functions:
-    - first argumetn is a single or multiple time series
-    - additional arguments via dots, but help should be available for the methods as well. 
+
+- Documentation
+
+  - [ ] ts Functions:
+    - first argument is a single or multiple time series
+    - additional arguments via dots, but help should be available as well. 
       Can we do this? Ideally, the pop up rstudio should show what tsloess is doing?
     - Overview of all available ts Funktions.
+
+- Type Conversion
   
-- Backend
+  - [ ] rewrite as_xts.ts, to include f = 2, f = 6, f = 0.1, f = 0.5, f = 0.05, f = 0.01
+  - [ ] Ensure a Date to be regular, by filling NAs 
 
-  - [X] date_to_time, time_to_date: Rewrite carefully
-  - [X] back and forth testing of the converters
-
-- Frequency etc
+- Frequency Conversion
 
   - [ ] regularity check for xts
   - [ ] forcing xts into regularity
   - [ ] tools for frequency conversion
+
+- Package
+
+  - [ ] remove zoo import, import xts
+  - [ ] suggest ggplot
 
 - Graph etc
 

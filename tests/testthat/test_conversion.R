@@ -1,9 +1,8 @@
-
-
 library(testthat)
 library(data.table) 
 library(tsbox)
-
+library(dplyr)
+library(tsbox)
 
 context("data time conversion")
 
@@ -41,3 +40,19 @@ test_that("conversion between objects works as expected", {
   expect_equal(as_dt(as_df(x.dt)), x.dt)
 
 })
+
+
+
+test_that("some trickier situations work properly", {
+
+  tsbind(
+      tsbind(AirPassengers, mdeaths),
+      tsforecast(tsbind(AirPassengers, mdeaths))
+  )
+
+  # this is a tricky one: a function to detect NAs?
+  # tsrbind(AirPassengers, mdeaths)
+
+})
+
+

@@ -20,8 +20,15 @@ tsbind <- function(...){
   ll <- list(...)
 
   if (length(ll) == 1) return(ll[[1]])
+
   desired.class <- desired_class(ll)
-  ll.xts <- lapply(ll, as_xts)
+
+  # currently we treat ts-only bind separately, if of same freq
+  if (desired.class == "ts"){
+    ll.xts <- ll
+  } else {
+    ll.xts <- lapply(ll, as_xts)
+  }
 
   lcnames <- lapply(ll.xts, colnames)
   is.single <- vapply(ll.xts, function(e) NCOL(e) == 1L, FALSE)
@@ -44,7 +51,6 @@ tsbind <- function(...){
               # 2. prio: use colnames if given
               cn <- colnames(ll.xts[[i]])
 
-              browser()
               stopifnot(length(cn) == 1)
               relevant.names[[i]] <- cn
             }
