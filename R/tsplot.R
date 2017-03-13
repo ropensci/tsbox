@@ -62,7 +62,7 @@ tsplot <- function(..., title, subtitle){
   on.exit(par(op))
 
   lwd <- 1.5
-  cex <- 0.8
+  cex <- 0.9
   title.cex <- 1.2
   text.col <- "grey10"
 
