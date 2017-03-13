@@ -10,7 +10,7 @@
 check_regularity <- function(x){
 
   stopifnot(inherits(x, "POSIXct"))
-  dd <- diff(as.integer(x))
+  dd <- diff(as.numeric(x))
 
   if ((max(dd) - min(dd)) > 1000){
     stop("some dates in xts are not equally spaced. Equality must be enforced, but the tools to do so still need to be implemented.")

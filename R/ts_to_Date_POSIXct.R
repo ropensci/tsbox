@@ -160,7 +160,7 @@ Date_POSIXct_to_tsp <- function(x){
     if (d != 1){
       stop("Data needs to specified as start of period (currently)")
     }
-    z <- tsp(ts(x, f = f, start = start))  # a bit inefficient
+    z <- tsp(ts(x, frequency = f, start = start))  # a bit inefficient
   } else {
     # non heuristic conversion
     z <- POSIXct_to_tsp(as.POSIXct(x))
