@@ -24,7 +24,7 @@ as_ts.xts <- function(x, ...) {
     stop("some dates in xts are not equally spaced. Equality must be enforced, but the tools to do so still need to be implemented.")
   } 
 
-  tsp <- POSIXct_to_tsp(as.POSIXct(index(x)))
+  tsp <- Date_POSIXct_to_tsp(index(x))
   z <- ts(coredata(x), start = tsp[1], frequency = tsp[3])
 
 }
