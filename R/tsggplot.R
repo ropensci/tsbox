@@ -199,7 +199,7 @@ tsggplot_core <- function(df, title = NULL, subtitle = NULL){
 #' }
 #' @import ggplot2
 #' @export
-tsggsave <- function(filename = "myfig.pdf", width = 8, height = 4, device = "pdf", ..., open = TRUE){
+tsggsave <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
   filename <- gsub(".pdf$", paste0(".", device), filename)
   ggsave(filename = filename, width = width, height = height, device = device, ...)
 
