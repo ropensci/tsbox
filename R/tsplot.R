@@ -114,7 +114,7 @@ tsplot <- function(..., title, subtitle){
        las=1, cex.axis=0.8, col=NA, line = 0.5, tick = TRUE, padj = -2, col.axis = text.col)
 
   # Gridlines
-  abline(h = axTicks(2), v = xticks, col = "grey50", lty = "dotted", lwd = 0.3)
+  abline(h = axTicks(2), v = xticks, col = "grey80", lty = "dotted", lwd = 0.5)
 
   # Lines
   for (i in seq(NCOL(coredata(x)))){
