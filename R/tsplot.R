@@ -42,7 +42,7 @@
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
-tsplot <- function(..., title, subtitle){
+tsplot <- function(..., title, subtitle, ylab = ""){
   x <- as_xts(tsbind(...))
 
   if (missing("title")){
@@ -66,6 +66,11 @@ tsplot <- function(..., title, subtitle){
   title.cex <- 1.2
   text.col <- "grey10"
 
+  axis.text.col <- text.col
+  # axis.text.col <- "grey50"
+
+  col.lab <- axis.text.col
+
   # c(bottom, left, top, right)
   if (NCOL(x) > 1){
     has.legend <- TRUE
@@ -86,7 +91,14 @@ tsplot <- function(..., title, subtitle){
   } else {
     mar.t <- 1
   }
-  par(mar =  c(mar.b, 3, mar.t, 1.4))
+
+  if (ylab == ""){
+    mar.l <- 3
+  } else {
+    mar.l <- 4
+  }
+
+  par(mar =  c(mar.b, mar.l , mar.t, 1.4), col.lab = col.lab, cex.lab=0.8)
 
   tind <- as.POSIXct(index(x))
   tnum <- as.numeric(tind)
@@ -103,15 +115,15 @@ tsplot <- function(..., title, subtitle){
   # Main Plot
   plot(x = tind, type = "n",lty=1, pch=19, col=1,
       cex=1.5, lwd=1, las=1, bty="n", xaxt="n",
-      xlim=xlim, ylim=ylim, xlab="", ylab="",
+      xlim=xlim, ylim=ylim, xlab="", ylab=ylab,
       yaxt="n")
 
   axis(2, at=axTicks(2), labels=sprintf("%s", axTicks(2)),
-      las=1, cex.axis=0.8, col=NA, line = -0.5, col.axis = text.col)
+      las=1, cex.axis=0.8, col=NA, line = -0.5, col.axis = axis.text.col)
 
   axis(side = 1, at = (xticks), 
        labels = xlabels, 
-       las=1, cex.axis=0.8, col=NA, line = 0.5, tick = TRUE, padj = -2, col.axis = text.col)
+       las=1, cex.axis=0.8, col=NA, line = 0.5, tick = TRUE, padj = -2, col.axis = axis.text.col)
 
   # Gridlines
   abline(h = axTicks(2), v = xticks, col = "grey80", lty = "dotted", lwd = 0.5)

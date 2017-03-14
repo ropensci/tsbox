@@ -35,7 +35,7 @@ tsplot(..., title, subtitle)
 Plot Time Series
 }
 \examples{
-\dontrun{
+
 library(tsbox)
 tsplot(AirPassengers, title = "Airline passengers", 
        subtitle = "The classic Box & Jenkins airline data")
@@ -56,7 +56,7 @@ tsggplot(tsscale(tsbind(airmiles, co2, JohnsonJohnson, discoveries)))
 tsggplot(EuStockMarkets)
 tsggplot(sunspot.month, sunspot.year, lynx)
 tsggplot(tsscale(tsbind(Nile, nottem, USAccDeaths)))
-
+\dontrun{
 library(Quandl)
 tsggplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
 

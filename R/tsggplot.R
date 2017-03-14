@@ -18,7 +18,7 @@
 #' }
 #' @import ggplot2
 #' @export
-theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 11){
+theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
   # 'Source Sans Pro'  # does not work on mac
   # 'Slabo 13px'
 

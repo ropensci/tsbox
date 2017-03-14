@@ -91,7 +91,7 @@ as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable",
   if (variable.name %in% cnames){
     stopifnot(value.name %in% cnames)
 
-    var <- x[[variable.name]]
+    var <- as.character(x[[variable.name]])
 
     # factor in split causes reordering, thus [unique(var)]
     ll.df <- split(x, var)[unique(var)]
@@ -130,7 +130,7 @@ as_xts.data.table <- function(x, time.name = "time", variable.name = "variable",
   if (variable.name %in% cnames){
     stopifnot(value.name %in% cnames)
 
-    var <- x[[variable.name]]
+    var <- as.character(x[[variable.name]])
 
     ll.xts <- lapply(split(x[, c(time.name, value.name), with = FALSE], var), 
                      as_xts_core)[unique(var)]
