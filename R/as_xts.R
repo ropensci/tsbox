@@ -98,7 +98,7 @@ as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable",
     ll.xts <- lapply(ll.df, as_xts_core)
 
     z <- do.call("cbind", ll.xts)
-    colnames(z) <- names(ll.xts)
+    names(z) <- names(ll.xts)
 
   } else {
     if (!value.name %in% cnames){
@@ -108,7 +108,7 @@ as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable",
       stopifnot(value.name %in% cnames)
     }
     z <- as_xts_core(x)
-    colnames(z) <- deparse(substitute(x))
+    names(z) <- deparse(substitute(x))
   }
   
   z
@@ -136,7 +136,7 @@ as_xts.data.table <- function(x, time.name = "time", variable.name = "variable",
                      as_xts_core)[unique(var)]
     
     z <- do.call("cbind", ll.xts)
-    colnames(z) <- names(ll.xts)
+    names(z) <- names(ll.xts)
   } else {
     if (!value.name %in% cnames){
       if (NCOL(x) == 2){
@@ -145,7 +145,7 @@ as_xts.data.table <- function(x, time.name = "time", variable.name = "variable",
       stopifnot(value.name %in% cnames)
     }
     z <- as_xts_core(x)
-    colnames(z) <- deparse(substitute(x))
+    names(z) <- deparse(substitute(x))
   }
   
   z

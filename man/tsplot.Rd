@@ -22,7 +22,7 @@ tsggplot(..., title = NULL, subtitle = NULL)
 
 \method{tsggplot}{data.table}(..., title = NULL, subtitle = NULL)
 
-tsplot(..., title, subtitle)
+tsplot(..., title, subtitle, ylab = "")
 }
 \arguments{
 \item{...}{time series objects, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
