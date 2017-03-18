@@ -27,9 +27,11 @@ tsplot(..., title, subtitle, ylab = "")
 \arguments{
 \item{...}{time series objects, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
-\item{title}{title}
+\item{title}{title (optional)}
 
-\item{subtitle}{subtitle}
+\item{subtitle}{subtitle (optional)}
+
+\item{ylab}{ylab (optional)}
 }
 \description{
 Plot Time Series

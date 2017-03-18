@@ -2,8 +2,9 @@
 
 #' Plot Time Series
 #' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
-#' @param title title
-#' @param subtitle subtitle
+#' @param title title (optional)
+#' @param subtitle subtitle (optional)
+#' @param ylab ylab (optional)
 #' @examples
 #' 
 #' library(tsbox)
