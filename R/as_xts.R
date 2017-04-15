@@ -96,7 +96,7 @@ as_xts.data.frame <- function(x,
   stopifnot(time.name %in% cnames)
 
   as_xts_core <- function(x){
-    if (!any(class(x[[value.name]]) %in% c("POSIXct", "Date"))){
+    if (!any(class(x[[time.name]]) %in% c("POSIXct", "Date"))){
       x[[time.name]] <- anytime::anydate(as.character(x[[time.name]]))
     }
     xts(x = x[[value.name]], order.by = x[[time.name]])

@@ -16,7 +16,7 @@ test_that("two way conversion", {
 })
 
 
-test_that("conversion between objects works as expected", {
+test_that("conversion between objects works as expected: ldeaths", {
 
   x.ts <- tsbind(mdeaths, fdeaths)
   x.xts <- as_xts(x.ts)
@@ -38,7 +38,56 @@ test_that("conversion between objects works as expected", {
   expect_equal(as_dt(as_ts(x.dt)), x.dt)
   expect_equal(as_dt(as_xts(x.dt)), x.dt)
   expect_equal(as_dt(as_df(x.dt)), x.dt)
+})
 
+
+test_that("conversion between objects works as expected: discoveries", {
+
+  x.ts <- discoveries
+  x.xts <- as_xts(x.ts)
+  x.df <- as_df(x.xts)
+  x.dt <- as_dt(x.df)
+
+  expect_equal(as_ts(as_xts(x.ts)), x.ts)
+  expect_equal(as_ts(as_df(x.ts)), x.ts)
+  expect_equal(as_ts(as_dt(x.ts)), x.ts)
+
+  expect_equal(as_xts(as_ts(x.xts)), x.xts)
+  expect_equal(unname(as_xts(as_df(x.xts))), x.xts)
+  expect_equal(unname(as_xts(as_dt(x.xts))), x.xts)
+
+  expect_equal(as_df(as_ts(x.df)), x.df)
+  expect_equal(as_df(as_xts(x.df)), x.df)
+  expect_equal(as_df(as_dt(x.df)), x.df)
+
+  expect_equal(as_dt(as_ts(x.dt)), x.dt)
+  expect_equal(as_dt(as_xts(x.dt)), x.dt)
+  expect_equal(as_dt(as_df(x.dt)), x.dt)
+})
+
+
+test_that("conversion between objects works as expected: EuStockMarkets", {
+
+  x.ts <- EuStockMarkets
+  x.xts <- as_xts(x.ts)
+  x.df <- as_df(x.xts)
+  x.dt <- as_dt(x.df)
+
+  expect_equal(as_ts(as_xts(x.ts)), x.ts)
+  expect_equal(as_ts(as_df(x.ts)), x.ts)
+  expect_equal(as_ts(as_dt(x.ts)), x.ts)
+
+  expect_equal(as_xts(as_ts(x.xts)), x.xts)
+  expect_equal(as_xts(as_df(x.xts)), x.xts)
+  expect_equal(as_xts(as_dt(x.xts)), x.xts)
+
+  expect_equal(as_df(as_ts(x.df)), x.df)
+  expect_equal(as_df(as_xts(x.df)), x.df)
+  expect_equal(as_df(as_dt(x.df)), x.df)
+
+  expect_equal(as_dt(as_ts(x.dt)), x.dt)
+  expect_equal(as_dt(as_xts(x.dt)), x.dt)
+  expect_equal(as_dt(as_df(x.dt)), x.dt)
 })
 
 
@@ -54,5 +103,36 @@ test_that("some trickier situations work properly", {
   # tsrbind(AirPassengers, mdeaths)
 
 })
+
+
+
+
+
+
+
+test_that("selecting and binding works as expected", {
+
+  dta <- as_df(tsbind(mdeaths, fdeaths))
+  expect_equal(mdeaths, as_ts(tsselect(dta, 'mdeaths')))
+
+})
+
+
+
+test_that("selecting and binding works as expected", {
+  # manipulation of col names do not affect calculations
+
+  op <- options(tsbox.var.name = "Haha",
+                tsbox.time.name = "Hoho",
+                tsbox.value.name = "Hihi")
+  on.exit(options(op))
+  dta <- as_df(as_dt(as_xts(tsbind(mdeaths, fdeaths))))
+  expect_equal(mdeaths, as_ts(as_dt(tsselect(dta, 'mdeaths'))))
+})
+
+
+
+
+
 
 

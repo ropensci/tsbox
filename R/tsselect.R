@@ -16,12 +16,12 @@
 #' }
 #' 
 #' @export
-tsselect <- function (x, var) UseMethod("tsselect")
+tsselect <- function (x, var, ...) UseMethod("tsselect")
 
 #' @export
 #' @rdname tsselect
 #' @method tsselect ts
-tsselect.ts <- function(x, var){
+tsselect.ts <- function(x, var, ...){
   if (NCOL(x) > 1) x[, var] else x
 }
 
@@ -38,9 +38,9 @@ tsselect.xts <- function(x, var){
 #' @export
 #' @rdname tsselect
 #' @method tsselect data.frame
-tsselect.data.frame <- function(x, var){
-  z <- x[x$variable %in% var, ]
-  if (length(var) ==  1) z[['variable']] <- NULL
+tsselect.data.frame <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
+  z <- x[x[[var.name]] %in% var, ]
+  if (length(var) ==  1) z[[var.name]] <- NULL
   z
 }
 
@@ -48,11 +48,11 @@ tsselect.data.frame <- function(x, var){
 #' @export
 #' @rdname tsselect
 #' @method tsselect data.table
-tsselect.data.table <- function(x, var){
+tsselect.data.table <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
 
   # not clear: x seem to b a data.frame here
-  z <- as_data.table(x[x$variable %in% var, ])
-  if (length(var) ==  1) z[['variable']] <- NULL
+  z <- as_data.table(x[x[[var.name]] %in% var, ])
+  if (length(var) ==  1) z[[var.name]] <- NULL
   z
   # q <- parse(text = paste("variable %in%", paste(deparse(var), collapse = "")))
   # data.table:::`[.data.table`(x, eval(q))

@@ -44,9 +44,6 @@
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
 tsplot <- function(..., title, subtitle, ylab = ""){
-  
-  op <- options(tsbox.variable.name = variable.name)
-  on.exit(options(op))
 
   x <- as_xts(tsbind(...))
 

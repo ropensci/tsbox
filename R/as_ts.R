@@ -31,7 +31,7 @@ as_ts.xts <- function(x, ...) {
   if (NCOL(cdta) == 1) cdta <- as.numeric(cdta)
 
   z <- ts(cdta, start = tsp[1], frequency = tsp[3])
-
+  z
 }
 
 
