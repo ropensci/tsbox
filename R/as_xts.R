@@ -93,6 +93,8 @@ as_xts.data.frame <- function(x,
                               var.name = getOption("tsbox.var.name", "var"), 
                               value.name = getOption("tsbox.value.name", "value"), ...){
   cnames <- colnames(x)
+  if (!time.name %in% cnames) stop("No column '", time.name, "' in data frame", call. = FALSE)
+
   stopifnot(time.name %in% cnames)
 
   as_xts_core <- function(x){
@@ -102,8 +104,7 @@ as_xts.data.frame <- function(x,
     xts(x = x[[value.name]], order.by = x[[time.name]])
   }
   if (var.name %in% cnames){
-    stopifnot(value.name %in% cnames)
-
+    if (!value.name %in% cnames) stop("No column '", value.name, "' in data frame", call. = FALSE)
     var <- as.character(x[[var.name]])
 
     # factor in split causes reordering, thus [unique(var)]
@@ -118,7 +119,7 @@ as_xts.data.frame <- function(x,
       if (NCOL(x) == 2){
         colnames(x)[!colnames(x) %in% time.name] <- "value"
       }
-      stopifnot(value.name %in% cnames)
+      if (!value.name %in% cnames) stop("No column '", value.name, "' in data frame.", call. = FALSE)
     }
     z <- as_xts_core(x)
     names(z) <- deparse(substitute(x))
@@ -135,7 +136,8 @@ as_xts.data.table <- function(x,
                               var.name = getOption("tsbox.var.name", "var"), 
                               value.name = getOption("tsbox.value.name", "value"), ...){
   cnames <- colnames(x)
-  stopifnot(time.name %in% cnames)
+
+  if (!time.name %in% cnames) stop("No column '", time.name, "' in data table.", call. = FALSE)
 
   stopifnot(requireNamespace("data.table"))
 
@@ -148,7 +150,7 @@ as_xts.data.table <- function(x,
     data.table::as.xts.data.table(x)
   }
   if (var.name %in% cnames){
-    stopifnot(value.name %in% cnames)
+    if (!value.name %in% cnames) stop("No column '", value.name, "' in data table.", call. = FALSE)
 
     var <- as.character(x[[var.name]])
     uvar <- unique(var)
@@ -165,7 +167,8 @@ as_xts.data.table <- function(x,
       if (NCOL(x) == 2){
         colnames(x)[!colnames(x) %in% time.name] <- "value"
       }
-      stopifnot(value.name %in% cnames)
+
+     if (!value.name %in% cnames) stop("No column '", value.name, "' in data table.", call. = FALSE)
     }
     z <- as_xts_core(x)
     names(z) <- deparse(substitute(x))

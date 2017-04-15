@@ -2,6 +2,8 @@
 #' 
 #' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @param var character, time series to be selectd
+#' @param var.name name of the column that contains `var`
+#' @param ... arguments passed to methods
 #' @examples
 #' 
 #' all.equal(as_ts(mdeaths), tsselect(as_ts(tsbind(mdeaths, fdeaths)), 'mdeaths'))
@@ -28,7 +30,7 @@ tsselect.ts <- function(x, var, ...){
 #' @export
 #' @rdname tsselect
 #' @method tsselect xts
-tsselect.xts <- function(x, var){
+tsselect.xts <- function(x, var, ...){
   z <- x[, var]
   # we usually forget the names of single time series
   if (length(var) ==  1) colnames(z) <- NULL
