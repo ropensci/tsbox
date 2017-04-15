@@ -26,7 +26,9 @@ as_data.frame(x, ...)
 
 as_df(x, ...)
 
-\method{as_data.frame}{xts}(x, ...)
+\method{as_data.frame}{xts}(x, time.name = getOption("tsbox.time.name",
+  "time"), var.name = getOption("tsbox.var.name", "var"),
+  value.name = getOption("tsbox.value.name", "value"), ...)
 
 \method{as_data.frame}{ts}(x, ...)
 
@@ -69,16 +71,22 @@ as_xts(x, ...)
 
 \item{...}{additional arguments, passed to methods}
 
-\item{time.name}{time name}
+\item{time.name}{time name (default: \code{"time"})}
 
-\item{value.name}{value name}
+\item{var.name}{var name (default: \code{"var"})}
 
-\item{var.name}{var name}
+\item{value.name}{value name (default: \code{"time"})}
 }
 \description{
 Convert everything to everything
 }
 \examples{
+
+# optionally changes column names (data.frame and data.table) methods
+options(tsbox.time.name = "Date",
+        tsbox.value.name = "Value",
+        tsbox.var.name = "Variable"
+        )
 
 x.ts <- tsbind(mdeaths, fdeaths) 
 x.xts <- as_xts(x.ts)

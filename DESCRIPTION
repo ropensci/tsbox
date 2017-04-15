@@ -15,7 +15,8 @@ Depends:
 Imports: 
     ggplot2,
     scales,
-    zoo
+    zoo,
+    anytime
 Suggests: 
     dplyr,
     data.table,

@@ -14,19 +14,24 @@ as_df <- function (x, ...) {
 #' @rdname as_xts
 #' @export
 #' @method as_data.frame xts
-as_data.frame.xts <- function(x, ...){
+as_data.frame.xts <- function(x, 
+                              time.name = getOption("tsbox.time.name", "time"), 
+                              var.name = getOption("tsbox.var.name", "var"), 
+                              value.name = getOption("tsbox.value.name", "value"), ...){
   # if (!melt) stop("not yet implemented")
+
+  
   df <- zoo::fortify.zoo(zoo::as.zoo(x), melt = TRUE)
-  colnames(df) <- c("time", "variable", "value")
+  colnames(df) <- c(time.name, var.name, value.name)
   if (NCOL(x) == 1){
-    df$variable <- NULL
+    df[[var.name]] <- NULL
   } else {
-    if (is.factor(df$variable)){
-      df$variable <- as.character(df$variable)
+    if (is.factor(df[[var.name]])){
+      df[[var.name]] <- as.character(df[[var.name]])
     }
   }
-  if (any(class(df$time) %in% c("yearqtr", "yearmon"))){
-    df$time <- zoo::as.Date.yearmon(df$time)
+  if (any(class(df[[time.name]]) %in% c("yearqtr", "yearmon"))){
+    df[[time.name]] <- zoo::as.Date.yearmon(df[[time.name]])
   }
 
   df

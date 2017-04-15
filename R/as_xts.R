@@ -3,11 +3,17 @@
 #' 
 #' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @param ... additional arguments, passed to methods
-#' @param time.name time name
-#' @param var.name  var name
-#' @param value.name  value name
+#' @param time.name time name (default: `"time"`)
+#' @param var.name  var name (default: `"var"`)
+#' @param value.name  value name (default: `"time"`)
 #' @examples
 #'
+#' # optionally changes column names (data.frame and data.table) methods
+#' options(tsbox.time.name = "Date",
+#'         tsbox.value.name = "Value",
+#'         tsbox.var.name = "Variable"
+#'         )
+#' 
 #' x.ts <- tsbind(mdeaths, fdeaths) 
 #' x.xts <- as_xts(x.ts)
 #' x.df <- as_df(x.xts)
@@ -17,6 +23,7 @@
 #' }
 #' 
 #' @export
+#' @importFrom anytime anydate
 #' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp
 #' @importFrom utils browseURL
 #' 
@@ -89,8 +96,8 @@ as_xts.data.frame <- function(x,
   stopifnot(time.name %in% cnames)
 
   as_xts_core <- function(x){
-    if (!class(x[[1]]) %in% c("POSIXct", "Date")){
-      x[[time.name]] <- anytime::anytime(x[[time.name]])
+    if (!any(class(x[[value.name]]) %in% c("POSIXct", "Date"))){
+      x[[time.name]] <- anytime::anydate(as.character(x[[time.name]]))
     }
     xts(x = x[[value.name]], order.by = x[[time.name]])
   }
@@ -134,8 +141,9 @@ as_xts.data.table <- function(x,
 
   as_xts_core <- function(x){
     data.table::setcolorder(x, c(time.name, value.name))
-    if (!class(x[[1]]) %in% c("POSIXct", "Date", "IDate")){
-      x[[1]] <- anytime::anytime(x[[1]])
+    if (!any(class(x[[1]]) %in% c("POSIXct", "Date", "IDate"))){
+
+      x[[1]] <- anytime::anydate(as.character(x[[1]]))
     }
     data.table::as.xts.data.table(x)
   }
