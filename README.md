@@ -30,7 +30,7 @@ x.dt <- as_dt(x.df)
 x.tbl <- as_tbl(x.dt)
 ```
 
-### Use same generic functions for ts, xts, data.frame or data.table
+### Use same functions for ts, xts, data.frame, data.table or tibble
 
 All functions start with `ts`, so you use them with auto complete (press Tab).
 

@@ -68,10 +68,6 @@ tswin(x, ...)
 \item{start}{start date, string, Date or POSIXct}
 
 \item{end}{end date, string, Date or POSIXct}
-
-\item{degree}{see ?loess}
-
-\item{span}{see ?loess}
 }
 \description{
 Utility Functions for Time Series

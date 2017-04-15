@@ -19,6 +19,7 @@ Imports:
     anytime
 Suggests: 
     dplyr,
+    tibble,
     data.table,
     forecast,
     testthat

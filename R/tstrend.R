@@ -11,8 +11,6 @@
 # code inspiration from: https://gist.github.com/kylebgorman/6444612
 
 
-#' @param degree see ?loess
-#' @param span see ?loess
 #' @export
 #' @rdname tspc
 tstrend <- ts_(function(x, degree = 2, span = NULL, ...){

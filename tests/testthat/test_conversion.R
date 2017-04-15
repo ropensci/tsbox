@@ -88,6 +88,7 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
   x.ts <- EuStockMarkets
   x.xts <- as_xts(x.ts)
   x.df <- as_df(x.xts)
+  x.dt <- as_dt(x.df)
   x.tbl <- as_tbl(x.dt)
 
   expect_equal(as_ts(as_xts(x.ts)), x.ts)

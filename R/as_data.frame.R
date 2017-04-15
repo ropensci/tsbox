@@ -67,3 +67,11 @@ as_data.frame.data.frame <- function(x, ...){
 as_data.frame.data.table <- function(x, ...){
   as.data.frame(x)
 }
+
+
+#' @export
+#' @rdname as_xts
+#' @method as_data.frame tbl
+as_data.frame.tbl <- function(x, ...){
+  as.data.frame(x)
+}

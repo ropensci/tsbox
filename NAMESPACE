@@ -2,6 +2,7 @@
 
 S3method(as_data.frame,data.frame)
 S3method(as_data.frame,data.table)
+S3method(as_data.frame,tbl)
 S3method(as_data.frame,ts)
 S3method(as_data.frame,xts)
 S3method(as_ts,data.frame)

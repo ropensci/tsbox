@@ -9,6 +9,7 @@
 \alias{as_data.frame.ts}
 \alias{as_data.frame.data.frame}
 \alias{as_data.frame.data.table}
+\alias{as_data.frame.tbl}
 \alias{as_data.table}
 \alias{as_dt}
 \alias{as_ts}
@@ -38,6 +39,8 @@ as_df(x, ...)
 \method{as_data.frame}{data.frame}(x, ...)
 
 \method{as_data.frame}{data.table}(x, ...)
+
+\method{as_data.frame}{tbl}(x, ...)
 
 as_data.table(x, ...)
 
