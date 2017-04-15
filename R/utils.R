@@ -6,7 +6,7 @@
 #' @export
 as_ <- function(x = "xts"){
   # print(x)
-  stopifnot(x %in% c("xts", "ts", "data.frame", "data.table"))
+  stopifnot(x %in% c("xts", "ts", "data.frame", "data.table", "tbl"))
   get(paste0("as_", x))
 }
 
@@ -39,8 +39,11 @@ relevant_class <- function(x){
   if (inherits(x, "data.table")){
     return("data.table")
   }
+  if (inherits(x, "tbl")){
+    return("tbl")
+  }
   if (inherits(x, "data.frame")){
-    return("data.table")
+    return("data.frame")
   }
 }
 

@@ -61,5 +61,12 @@ tsselect.data.table <- function(x, var, var.name = getOption("tsbox.var.name", "
 }
 
 
+#' @export
+#' @rdname tsselect
+#' @method tsselect tbl
+tsselect.tbl <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
+  as_tbl(tsselect(as.data.frame(x), var = var, var.name = var.name, ...))
+}
+
 
 

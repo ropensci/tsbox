@@ -75,6 +75,12 @@ tspc.data.table <- function(x, ...){
   as_dt(tspcy(as_ts(x)))
 }
 
+#' @export
+#' @rdname tspc
+#' @method tspc tbl
+tspc.tbl <- function(x, ...){
+  as_tbl(tspcy(as_ts(x)))
+}
 
 
 
@@ -116,3 +122,11 @@ tspcy.data.frame <- function(x, ...){
 tspcy.data.table <- function(x, ...){
   as_dt(tspcy(as_ts(x)))
 }
+
+#' @export
+#' @rdname tspc
+#' @method tspcy tbl
+tspcy.tbl <- function(x, ...){
+  as_tbl(tspcy(as_ts(x)))
+}
+

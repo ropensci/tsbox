@@ -44,3 +44,10 @@ tswin.data.table <- function(x, ...){
 }
 
 
+#' @export
+#' @rdname tspc
+#' @method tswin tbl
+tswin.tbl <- function(x, ...){
+  as_data.table(tswin(as_xts(x), ...))
+}
+

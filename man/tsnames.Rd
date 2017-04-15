@@ -6,11 +6,13 @@
 \alias{tsnames.xts}
 \alias{tsnames.data.frame}
 \alias{tsnames.data.table}
+\alias{tsnames.tbl}
 \alias{settsnames}
 \alias{settsnames.ts}
 \alias{settsnames.xts}
 \alias{settsnames.data.frame}
 \alias{settsnames.data.table}
+\alias{settsnames.tbl}
 \title{Set and Extract Names of Time Series}
 \usage{
 tsnames(x, ...)
@@ -23,6 +25,8 @@ tsnames(x, ...)
 
 \method{tsnames}{data.table}(x, ...)
 
+\method{tsnames}{tbl}(x, ...)
+
 settsnames(x, value)
 
 \method{settsnames}{ts}(x, value)
@@ -32,6 +36,8 @@ settsnames(x, value)
 \method{settsnames}{data.frame}(x, value)
 
 \method{settsnames}{data.table}(x, value)
+
+\method{settsnames}{tbl}(x, value)
 }
 \arguments{
 \item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}

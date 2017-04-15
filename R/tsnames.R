@@ -41,16 +41,26 @@ tsnames.xts <- function(x, ...){
 #' @rdname tsnames
 #' @method tsnames data.frame
 tsnames.data.frame <- function(x, ...){
-  unique(x$variable)
+  var.name = getOption("tsbox.var.name", "var")
+  unique(x[[var.name]])
 }
-
 
 #' @export
 #' @rdname tsnames
 #' @method tsnames data.table
 tsnames.data.table <- function(x, ...){
-  unique(x$variable)
+  var.name = getOption("tsbox.var.name", "var")
+  unique(x[[var.name]])
 }
+
+#' @export
+#' @rdname tsnames
+#' @method tsnames tbl
+tsnames.tbl <- function(x, ...){
+  var.name = getOption("tsbox.var.name", "var")
+  unique(x[[var.name]])
+}
+
 
 
 #' @export
@@ -75,23 +85,46 @@ settsnames.xts <- function(x, value){
 #' @rdname tsnames
 #' @method settsnames data.frame
 settsnames.data.frame <- function(x, value){
+  var.name = getOption("tsbox.var.name", "var")
   if (NCOL(x) == 3){
-    z <- set_unique(x$variable, value)
+    z <- x
+    z[[var.name]] <- set_unique(x[[var.name]], value)
   } else {
     z <- x
   }
   z
 }
 
+
 #' @export
 #' @rdname tsnames
 #' @method settsnames data.table
 settsnames.data.table <- function(x, value){
+  var.name = getOption("tsbox.var.name", "var")
   if (NCOL(x) == 3){
-    x$variable <- set_unique(x$variable, value)
-  } 
-  x
+    z <- x
+    z[[var.name]] <- set_unique(x[[var.name]], value)
+  } else {
+    z <- x
+  }
+  z
 }
+
+
+#' @export
+#' @rdname tsnames
+#' @method settsnames tbl
+settsnames.tbl <- function(x, value){
+  var.name = getOption("tsbox.var.name", "var")
+  if (NCOL(x) == 3){
+    z <- x
+    z[[var.name]] <- set_unique(x[[var.name]], value)
+  } else {
+    z <- x
+  }
+  z
+}
+
 
 
 

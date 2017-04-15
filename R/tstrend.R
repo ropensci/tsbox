@@ -9,31 +9,24 @@
 # http://www.stat.washington.edu/courses/stat527/s13/readings/j_royal_stat_soc_b1998.pdf
 # 
 # code inspiration from: https://gist.github.com/kylebgorman/6444612
-#
-# careful: the loess.as function from package fANCOVA is WRONG. It uses
-#    aicc = log(sigma2) + 1 + 2 * (2 * (trace + 1)) / (n - trace - 2)
-# which is not what the paper says. One 2 too much! The Author, wangx6@ccf.org, 
-# said he will correct it. Let's see...
-#
 
-
-#' @export
-#' @rdname tspc
-tstrend <- function (x, ...) UseMethod("tstrend")
 
 #' @param degree see ?loess
 #' @param span see ?loess
 #' @export
-#' @method tstrend xts
 #' @rdname tspc
-tstrend.xts <- function(x, degree = 2, span = NULL, ...){
+tstrend <- ts_(function(x, degree = 2, span = NULL, ...){
   if (NCOL(x) > 1){
     return(tsapply(x, tstrend))
   }
 
   if (is.null(span)){
     span <- loess_aic_span_optim(x = x, degree = degree)
-    message(names(x), ": 'span' automatically set to ", formatC(span, 3))
+    if (!is.null(names(x))) {
+      message(names(x), ": 'span' automatically set to ", formatC(span, 3))
+    } else {
+      message("'span' automatically set to ", formatC(span, 3))
+    }
   }
   
   m <- loess(x ~ seq(x), span = span, degree = degree)
@@ -49,7 +42,7 @@ tstrend.xts <- function(x, degree = 2, span = NULL, ...){
   #           )
 
   xts::reclass(z, x)
-}
+}, class = "xts") 
 
 
 loess_aic_span_optim <- function(x, degree = 2){
@@ -68,29 +61,29 @@ loess_aic_span_optim <- function(x, degree = 2){
 
 
 
-#' @export
-#' @rdname tspc
-#' @method tstrend ts
-tstrend.ts <- function(x, ...){
-  as_ts(tstrend(as_xts(x), ...))
-}
+# #' @export
+# #' @rdname tspc
+# #' @method tstrend ts
+# tstrend.ts <- function(x, ...){
+#   as_ts(tstrend(as_xts(x), ...))
+# }
 
 
 
-#' @export
-#' @rdname tspc
-#' @method tstrend data.frame
-tstrend.data.frame <- function(x, ...){
-  as_df(tstrend(as_xts(x), ...))
-}
+# #' @export
+# #' @rdname tspc
+# #' @method tstrend data.frame
+# tstrend.data.frame <- function(x, ...){
+#   as_df(tstrend(as_xts(x), ...))
+# }
 
 
-#' @export
-#' @rdname tspc
-#' @method tstrend data.table
-tstrend.data.table <- function(x, ...){
-  as_dt(tstrend(as_xts(x), ...))
-}
+# #' @export
+# #' @rdname tspc
+# #' @method tstrend data.table
+# tstrend.data.table <- function(x, ...){
+#   as_dt(tstrend(as_xts(x), ...))
+# }
 
 
 

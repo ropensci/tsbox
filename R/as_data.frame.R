@@ -1,3 +1,10 @@
+#' @export
+#' @rdname as_xts
+as_tbl <-  function (x, ...) {
+  stopifnot(requireNamespace("tibble"))
+  tibble::as_data_frame(as_data.frame(x, ...))
+}
+
 
 #' @export
 #' @rdname as_xts

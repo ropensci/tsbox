@@ -48,4 +48,10 @@ tsapply.data.table <- function(x, FUN, ...){
   as_data.table(tsapply(as_xts(x), FUN, ...))
 }
 
+#' @method tsapply tbl
+#' @export
+tsapply.tbl <- function(x, FUN, ...){
+  as_tbl(tsapply(as_xts(x), FUN, ...))
+}
+
 

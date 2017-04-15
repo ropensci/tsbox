@@ -22,22 +22,33 @@ test_that("conversion between objects works as expected: ldeaths", {
   x.xts <- as_xts(x.ts)
   x.df <- as_df(x.xts)
   x.dt <- as_dt(x.df)
+  x.tbl <- as_tbl(x.dt)
 
   expect_equal(as_ts(as_xts(x.ts)), x.ts)
   expect_equal(as_ts(as_df(x.ts)), x.ts)
   expect_equal(as_ts(as_dt(x.ts)), x.ts)
+  expect_equal(as_ts(as_tbl(x.ts)), x.ts)
 
   expect_equal(as_xts(as_ts(x.xts)), x.xts)
   expect_equal(as_xts(as_df(x.xts)), x.xts)
   expect_equal(as_xts(as_dt(x.xts)), x.xts)
+  expect_equal(as_xts(as_tbl(x.xts)), x.xts)
 
   expect_equal(as_df(as_ts(x.df)), x.df)
   expect_equal(as_df(as_xts(x.df)), x.df)
   expect_equal(as_df(as_dt(x.df)), x.df)
+  expect_equal(as_df(as_tbl(x.df)), x.df)
 
   expect_equal(as_dt(as_ts(x.dt)), x.dt)
   expect_equal(as_dt(as_xts(x.dt)), x.dt)
   expect_equal(as_dt(as_df(x.dt)), x.dt)
+  expect_equal(as_dt(as_tbl(x.dt)), x.dt)
+
+  expect_equal(as_tbl(as_ts(x.tbl)), x.tbl)
+  expect_equal(as_tbl(as_xts(x.tbl)), x.tbl)
+  expect_equal(as_tbl(as_df(x.tbl)), x.tbl)
+  expect_equal(as_tbl(as_dt(x.tbl)), x.tbl)
+
 })
 
 
@@ -47,22 +58,28 @@ test_that("conversion between objects works as expected: discoveries", {
   x.xts <- as_xts(x.ts)
   x.df <- as_df(x.xts)
   x.dt <- as_dt(x.df)
+  x.tbl <- as_tbl(x.dt)
 
   expect_equal(as_ts(as_xts(x.ts)), x.ts)
   expect_equal(as_ts(as_df(x.ts)), x.ts)
   expect_equal(as_ts(as_dt(x.ts)), x.ts)
+  expect_equal(as_ts(as_tbl(x.ts)), x.ts)
 
   expect_equal(as_xts(as_ts(x.xts)), x.xts)
   expect_equal(unname(as_xts(as_df(x.xts))), x.xts)
   expect_equal(unname(as_xts(as_dt(x.xts))), x.xts)
+  expect_equal(unname(as_xts(as_tbl(x.xts))), x.xts)
 
   expect_equal(as_df(as_ts(x.df)), x.df)
   expect_equal(as_df(as_xts(x.df)), x.df)
   expect_equal(as_df(as_dt(x.df)), x.df)
+  expect_equal(as_dt(as_tbl(x.dt)), x.dt)
 
   expect_equal(as_dt(as_ts(x.dt)), x.dt)
   expect_equal(as_dt(as_xts(x.dt)), x.dt)
   expect_equal(as_dt(as_df(x.dt)), x.dt)
+  expect_equal(as_tbl(as_dt(x.tbl)), x.tbl)
+
 })
 
 
@@ -71,23 +88,32 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
   x.ts <- EuStockMarkets
   x.xts <- as_xts(x.ts)
   x.df <- as_df(x.xts)
-  x.dt <- as_dt(x.df)
+  x.tbl <- as_tbl(x.dt)
 
   expect_equal(as_ts(as_xts(x.ts)), x.ts)
   expect_equal(as_ts(as_df(x.ts)), x.ts)
   expect_equal(as_ts(as_dt(x.ts)), x.ts)
+  expect_equal(as_ts(as_tbl(x.ts)), x.ts)
 
   expect_equal(as_xts(as_ts(x.xts)), x.xts)
   expect_equal(as_xts(as_df(x.xts)), x.xts)
   expect_equal(as_xts(as_dt(x.xts)), x.xts)
+  expect_equal(as_xts(as_tbl(x.xts)), x.xts)
 
   expect_equal(as_df(as_ts(x.df)), x.df)
   expect_equal(as_df(as_xts(x.df)), x.df)
   expect_equal(as_df(as_dt(x.df)), x.df)
+  expect_equal(as_df(as_tbl(x.df)), x.df)
 
   expect_equal(as_dt(as_ts(x.dt)), x.dt)
   expect_equal(as_dt(as_xts(x.dt)), x.dt)
   expect_equal(as_dt(as_df(x.dt)), x.dt)
+  expect_equal(as_dt(as_tbl(x.dt)), x.dt)
+
+  expect_equal(as_tbl(as_ts(x.tbl)), x.tbl)
+  expect_equal(as_tbl(as_xts(x.tbl)), x.tbl)
+  expect_equal(as_tbl(as_df(x.tbl)), x.tbl)
+  expect_equal(as_tbl(as_dt(x.tbl)), x.tbl)
 })
 
 
@@ -128,6 +154,7 @@ test_that("selecting and binding works as expected", {
   on.exit(options(op))
   dta <- as_df(as_dt(as_xts(tsbind(mdeaths, fdeaths))))
   expect_equal(mdeaths, as_ts(as_dt(tsselect(dta, 'mdeaths'))))
+  expect_equal(as_ts(tsselect(as_tbl(tsbind(fdeaths, mdeaths)), "mdeaths")), mdeaths)
 })
 
 

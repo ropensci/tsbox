@@ -2,25 +2,10 @@
 % Please edit documentation in R/tsggplot.R, R/tsplot.R
 \name{tsggplot}
 \alias{tsggplot}
-\alias{tsggplot.numeric}
-\alias{tsggplot.ts}
-\alias{tsggplot.xts}
-\alias{tsggplot.data.frame}
-\alias{tsggplot.data.table}
 \alias{tsplot}
 \title{Plot Time Series}
 \usage{
 tsggplot(..., title = NULL, subtitle = NULL)
-
-\method{tsggplot}{numeric}(..., title = NULL, subtitle = NULL)
-
-\method{tsggplot}{ts}(..., title = NULL, subtitle = NULL)
-
-\method{tsggplot}{xts}(..., title = NULL, subtitle = NULL)
-
-\method{tsggplot}{data.frame}(..., title = NULL, subtitle = NULL)
-
-\method{tsggplot}{data.table}(..., title = NULL, subtitle = NULL)
 
 tsplot(..., title, subtitle, ylab = "")
 }

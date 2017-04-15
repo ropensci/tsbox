@@ -102,52 +102,8 @@ scale_fill_ts <- function (...) {
 
 #' @rdname tsplot
 #' @export
-tsggplot <- function (..., title = NULL, subtitle = NULL) UseMethod("tsggplot")
-
-#' @export
-#' @rdname tsplot
-#' @method tsggplot numeric
-tsggplot.numeric <- function(..., title = NULL, subtitle = NULL){
-  x <- tsbind(...)
-  tsggplot(ts(x), title = title, subtitle = subtitle)
-}
-
-#' @export
-#' @rdname tsplot
-#' @method tsggplot ts
-tsggplot.ts <- function(..., title = NULL, subtitle = NULL){
+tsggplot <- function (..., title = NULL, subtitle = NULL) {
   df <- as_data.frame(tsbind(...))
-  tsggplot_core(df, title = title, subtitle = subtitle)
-}
-  
-#' @export
-#' @rdname tsplot
-#' @method tsggplot xts
-tsggplot.xts <- function(..., title = NULL, subtitle = NULL){
-  df <- as_data.frame(tsbind(...))
-  tsggplot_core(df, title = title, subtitle = subtitle)
-}
-
-#' @export
-#' @rdname tsplot
-#' @method tsggplot data.frame
-tsggplot.data.frame <- function(..., title = NULL, subtitle = NULL){
-  x <- as_data.frame(tsbind(...))
-  tsggplot_core(x, title = title, subtitle = subtitle)
-}
-
-#' @export
-#' @rdname tsplot
-#' @method tsggplot data.table
-tsggplot.data.table <- function(..., title = NULL, subtitle = NULL){
-
-  # a bit a mystery that as_data.frame.data.table is not working...
-  x <- as_data.frame(tsbind(...))  
-
-  tsggplot_core(x, title = title, subtitle = subtitle)
-}
-
-tsggplot_core <- function(df, title = NULL, subtitle = NULL){
 
   time.name = getOption("tsbox.time.name", "time")
   var.name = getOption("tsbox.var.name", "var")
@@ -182,7 +138,90 @@ tsggplot_core <- function(df, title = NULL, subtitle = NULL){
     p <- p + ggtitle(label = title, subtitle = subtitle)
   }
   p
+
 }
+
+# UseMethod("tsggplot")
+
+# #' @export
+# #' @rdname tsplot
+# #' @method tsggplot numeric
+# tsggplot.numeric <- function(..., title = NULL, subtitle = NULL){
+#   x <- tsbind(...)
+#   tsggplot(ts(x), title = title, subtitle = subtitle)
+# }
+
+# #' @export
+# #' @rdname tsplot
+# #' @method tsggplot ts
+# tsggplot.ts <- function(..., title = NULL, subtitle = NULL){
+#   df <- as_data.frame(tsbind(...))
+#   tsggplot_core(df, title = title, subtitle = subtitle)
+# }
+  
+# #' @export
+# #' @rdname tsplot
+# #' @method tsggplot xts
+# tsggplot.xts <- function(..., title = NULL, subtitle = NULL){
+#   df <- as_data.frame(tsbind(...))
+#   tsggplot_core(df, title = title, subtitle = subtitle)
+# }
+
+# #' @export
+# #' @rdname tsplot
+# #' @method tsggplot data.frame
+# tsggplot.data.frame <- function(..., title = NULL, subtitle = NULL){
+#   x <- as_data.frame(tsbind(...))
+#   tsggplot_core(x, title = title, subtitle = subtitle)
+# }
+
+# #' @export
+# #' @rdname tsplot
+# #' @method tsggplot data.table
+# tsggplot.data.table <- function(..., title = NULL, subtitle = NULL){
+
+#   # a bit a mystery that as_data.frame.data.table is not working...
+#   x <- as_data.frame(tsbind(...))  
+
+#   tsggplot_core(x, title = title, subtitle = subtitle)
+# }
+
+# tsggplot_core <- function(df, title = NULL, subtitle = NULL){
+
+#   time.name = getOption("tsbox.time.name", "time")
+#   var.name = getOption("tsbox.var.name", "var")
+#   value.name = getOption("tsbox.value.name", "value")
+
+#   df <- df[!is.na(df[, value.name]), ]
+
+#   n <- NCOL(df)
+#   stopifnot(n > 1)
+#   if (n == 2){
+#     p <- ggplot(df, aes_string(x = time.name, y = value.name)) 
+#   } else if (n > 2){
+
+#     # numeric variable 'levels'
+#     if (class(df[[var.name]]) %in% c("integer", "numeric")){
+#       df[[var.name]] <- as.character(df[[var.name]])
+#     }
+
+#     if (length(unique(df[[var.name]])) > 29) {
+#       stop(length(unique(df[[var.name]])), " time series supplied. Maximum is 29.",  call. = FALSE)
+#     }
+#     p <- ggplot(df, aes_string(x = time.name, y = value.name, color = var.name))
+#   } 
+#   p <- p + 
+#   geom_line() +
+#   ylab("") + 
+#   theme_ts() + 
+#   scale_color_ts() 
+
+#   if (!is.null(title) | !is.null(subtitle)){
+#     if (is.null(title)) title <- ""  # subtitle only
+#     p <- p + ggtitle(label = title, subtitle = subtitle)
+#   }
+#   p
+# }
 
 
 #' ggsave, optimized for time series

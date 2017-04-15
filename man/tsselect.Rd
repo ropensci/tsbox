@@ -6,6 +6,7 @@
 \alias{tsselect.xts}
 \alias{tsselect.data.frame}
 \alias{tsselect.data.table}
+\alias{tsselect.tbl}
 \title{Set and Variables from Multiple Time Series}
 \usage{
 tsselect(x, var, ...)
@@ -19,6 +20,9 @@ tsselect(x, var, ...)
 
 \method{tsselect}{data.table}(x, var, var.name = getOption("tsbox.var.name",
   "var"), ...)
+
+\method{tsselect}{tbl}(x, var, var.name = getOption("tsbox.var.name", "var"),
+  ...)
 }
 \arguments{
 \item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}

@@ -6,8 +6,7 @@ Time Series Toolbox
 *This is a very early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
 A toolbox to deal with time series in R. Built around a set of converters, which
-**reliably** convert time series stored as`ts`,`xts`,`data.frame` or
-`data.table` to each other. Because it works, we can define a set of tools that
+**reliably** convert time series stored as`ts`,`xts`,`data.frame`, `data.table` or `tibble` to each other. Because it works, we can define a set of tools that
 work **identially** for each class. And, we can use a plot function that
 **just works**!
 
@@ -21,11 +20,13 @@ devtools::install_github("christophsax/tsbox")
 ```r
 library(tsbox)
 library(data.table)  # if you want to use the 'data.table' methods
+library(dplyr)       # if you want to use the 'tibble' methods
 
 x.ts <- tsbind(mdeaths, fdeaths)
 x.xts <- as_xts(x.ts)
 x.df <- as_df(x.xts)
 x.dt <- as_dt(x.df)
+x.tbl <- as_tbl(x.dt)
 ```
 
 ### Use same generic functions for ts, xts, data.frame or data.table
@@ -37,6 +38,7 @@ tsscale(x.ts)  # normalization
 tsscale(x.xts)
 tsscale(x.df)
 tsscale(x.dt)
+tsscale(x.tbl)
 
 tstrend(x.ts)  # loess trend line
 tspc(x.ts)
@@ -46,7 +48,7 @@ tsprcomp(tsbind(mdeaths, fdeaths))  # first principal component
 
 # with external packages
 tsforecast(x.ts)  # ets forecast
-tsseas(x.ts)  # X-13 seasonal adjustment
+tsseas(x.ts)      # X-13 seasonal adjustment
 ```
 
 ### Bind any time series vertically or horizontally

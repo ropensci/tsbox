@@ -27,7 +27,7 @@ load_suggested_packages <- function(pkg){
 #' 
 ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.names = TRUE){
 
-  all.classes <- c("ts", "xts", "data.frame", "data.table")
+  all.classes <- c("ts", "xts", "data.frame", "data.table", "tbl")
   stopifnot(class %in% all.classes)
 
   # if the function can handle multiple time series
@@ -61,6 +61,14 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.nam
 #' @importFrom stats window lag cycle
 #' @rdname ts_
 tsdiff <- ts_(diff)
+
+#' @export
+#' @rdname ts_
+tsscale <- ts_(function(x, ...){
+  z <- scale.default(unclass(x), ...)
+  xts::reclass(z, x)
+}, class = "xts")
+
 
 #' @export
 #' @rdname ts_

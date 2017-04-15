@@ -3,6 +3,7 @@
 \name{ts_}
 \alias{ts_}
 \alias{tsdiff}
+\alias{tsscale}
 \alias{tswindow}
 \alias{tslag}
 \alias{tscycle}
@@ -18,6 +19,8 @@ ts_(FUN, class = "ts", multiple = TRUE, suggested = NULL,
   ensure.names = TRUE)
 
 tsdiff(x, ...)
+
+tsscale(x, ...)
 
 tswindow(x, ...)
 
