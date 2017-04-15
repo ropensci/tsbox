@@ -4,7 +4,7 @@
 #' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @param ... additional arguments, passed to methods
 #' @param time.name time name
-#' @param variable.name  variable name
+#' @param var.name  var name
 #' @param value.name  value name
 #' @examples
 #'
@@ -81,17 +81,23 @@ as_xts.xts <- function(x, ...){
 #' @export
 #' @rdname as_xts
 #' @method as_xts data.frame
-as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable", value.name = "value", ...){
+as_xts.data.frame <- function(x, 
+                              time.name = getOption("tsbox.time.name", "time"), 
+                              var.name = getOption("tsbox.var.name", "var"), 
+                              value.name = getOption("tsbox.value.name", "value"), ...){
   cnames <- colnames(x)
   stopifnot(time.name %in% cnames)
 
   as_xts_core <- function(x){
+    if (!class(x[[1]]) %in% c("POSIXct", "Date")){
+      x[[time.name]] <- anytime::anytime(x[[time.name]])
+    }
     xts(x = x[[value.name]], order.by = x[[time.name]])
   }
-  if (variable.name %in% cnames){
+  if (var.name %in% cnames){
     stopifnot(value.name %in% cnames)
 
-    var <- as.character(x[[variable.name]])
+    var <- as.character(x[[var.name]])
 
     # factor in split causes reordering, thus [unique(var)]
     ll.df <- split(x, var)[unique(var)]
@@ -117,7 +123,10 @@ as_xts.data.frame <- function(x, time.name = "time", variable.name = "variable",
 #' @export
 #' @rdname as_xts
 #' @method as_xts data.table
-as_xts.data.table <- function(x, time.name = "time", variable.name = "variable", value.name = "value", ...){
+as_xts.data.table <- function(x, 
+                              time.name = getOption("tsbox.time.name", "time"), 
+                              var.name = getOption("tsbox.var.name", "var"), 
+                              value.name = getOption("tsbox.value.name", "value"), ...){
   cnames <- colnames(x)
   stopifnot(time.name %in% cnames)
 
@@ -125,16 +134,22 @@ as_xts.data.table <- function(x, time.name = "time", variable.name = "variable",
 
   as_xts_core <- function(x){
     data.table::setcolorder(x, c(time.name, value.name))
+    if (!class(x[[1]]) %in% c("POSIXct", "Date", "IDate")){
+      x[[1]] <- anytime::anytime(x[[1]])
+    }
     data.table::as.xts.data.table(x)
   }
-  if (variable.name %in% cnames){
+  if (var.name %in% cnames){
     stopifnot(value.name %in% cnames)
 
-    var <- as.character(x[[variable.name]])
+    var <- as.character(x[[var.name]])
+    uvar <- unique(var)
+    if (length(uvar) > 100){
+      stop("too many series.")
+    }
 
     ll.xts <- lapply(split(x[, c(time.name, value.name), with = FALSE], var), 
-                     as_xts_core)[unique(var)]
-    
+                     as_xts_core)[uvar]
     z <- do.call("cbind", ll.xts)
     names(z) <- names(ll.xts)
   } else {

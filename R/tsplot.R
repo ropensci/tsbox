@@ -43,7 +43,12 @@
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
-tsplot <- function(..., title, subtitle, ylab = ""){
+tsplot <- function(..., title, subtitle, ylab = "", 
+                   variable.name = getOption("tsbox.variable.name", "variable")){
+  
+  op <- options(tsbox.variable.name = variable.name)
+  on.exit(options(op))
+
   x <- as_xts(tsbind(...))
 
   if (missing("title")){

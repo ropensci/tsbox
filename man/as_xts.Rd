@@ -56,11 +56,13 @@ as_xts(x, ...)
 
 \method{as_xts}{xts}(x, ...)
 
-\method{as_xts}{data.frame}(x, time.name = "time",
-  variable.name = "variable", value.name = "value", ...)
+\method{as_xts}{data.frame}(x, time.name = getOption("tsbox.time.name",
+  "time"), var.name = getOption("tsbox.var.name", "var"),
+  value.name = getOption("tsbox.value.name", "value"), ...)
 
-\method{as_xts}{data.table}(x, time.name = "time",
-  variable.name = "variable", value.name = "value", ...)
+\method{as_xts}{data.table}(x, time.name = getOption("tsbox.time.name",
+  "time"), var.name = getOption("tsbox.var.name", "var"),
+  value.name = getOption("tsbox.value.name", "value"), ...)
 }
 \arguments{
 \item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
@@ -69,9 +71,9 @@ as_xts(x, ...)
 
 \item{time.name}{time name}
 
-\item{variable.name}{variable name}
-
 \item{value.name}{value name}
+
+\item{var.name}{var name}
 }
 \description{
 Convert everything to everything

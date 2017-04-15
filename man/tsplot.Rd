@@ -22,7 +22,8 @@ tsggplot(..., title = NULL, subtitle = NULL)
 
 \method{tsggplot}{data.table}(..., title = NULL, subtitle = NULL)
 
-tsplot(..., title, subtitle, ylab = "")
+tsplot(..., title, subtitle, ylab = "",
+  variable.name = getOption("tsbox.variable.name", "variable"))
 }
 \arguments{
 \item{...}{time series objects, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
