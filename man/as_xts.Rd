@@ -44,11 +44,9 @@ as_ts(x, ...)
 
 \method{as_ts}{xts}(x, ...)
 
-\method{as_ts}{data.frame}(x, time.name = "time",
-  variable.name = "variable", value.name = "value", ...)
+\method{as_ts}{data.frame}(x, ...)
 
-\method{as_ts}{data.table}(x, time.name = "time",
-  variable.name = "variable", value.name = "value", ...)
+\method{as_ts}{data.table}(x, ...)
 
 \method{as_ts}{ts}(x, ...)
 

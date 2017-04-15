@@ -72,16 +72,16 @@ as_ts.xts <- function(x, ...) {
 #' @export
 #' @rdname as_xts
 #' @method as_ts data.frame
-as_ts.data.frame <- function(x, time.name = "time", variable.name = "variable", value.name = "value", ...){
-  as_ts(as_xts(x, time.name = time.name, variable.name = variable.name, value.name = value.name))
+as_ts.data.frame <- function(x, ...){
+  as_ts(as_xts(x, ...))
 }
 
 
 #' @export
 #' @rdname as_xts
 #' @method as_ts data.table
-as_ts.data.table <- function(x, time.name = "time", variable.name = "variable", value.name = "value", ...){
-  as_ts(as_xts(x, time.name = time.name, variable.name = variable.name, value.name = value.name))
+as_ts.data.table <- function(x, ...){
+  as_ts(as_xts(x, ...))
 }
 
 #' @export
