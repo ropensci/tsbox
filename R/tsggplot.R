@@ -148,11 +148,12 @@ tsggplot.data.table <- function(..., title = NULL, subtitle = NULL){
 }
 
 tsggplot_core <- function(df, title = NULL, subtitle = NULL){
-  df <- df[!is.na(df[, 'value']), ]
 
   time.name = getOption("tsbox.time.name", "time")
   var.name = getOption("tsbox.var.name", "var")
   value.name = getOption("tsbox.value.name", "value")
+
+  df <- df[!is.na(df[, value.name]), ]
 
   n <- NCOL(df)
   stopifnot(n > 1)
