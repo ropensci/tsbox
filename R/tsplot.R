@@ -44,6 +44,7 @@
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
 tsplot <- function(..., title, subtitle, ylab = ""){
+
   x <- as_xts(tsbind(...))
 
   if (missing("title")){

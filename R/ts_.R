@@ -121,7 +121,6 @@ tspredictlm <- ts_(function(x, formula, ...) {
 
 
 
-
 # This is how tspc could be written mauch simpler
 # tspc <- ts_(function(x, ...){
 #   if (NCOL(x) > 1){

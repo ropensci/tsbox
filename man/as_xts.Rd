@@ -26,7 +26,9 @@ as_data.frame(x, ...)
 
 as_df(x, ...)
 
-\method{as_data.frame}{xts}(x, ...)
+\method{as_data.frame}{xts}(x, time.name = getOption("tsbox.time.name",
+  "time"), var.name = getOption("tsbox.var.name", "var"),
+  value.name = getOption("tsbox.value.name", "value"), ...)
 
 \method{as_data.frame}{ts}(x, ...)
 
@@ -42,11 +44,9 @@ as_ts(x, ...)
 
 \method{as_ts}{xts}(x, ...)
 
-\method{as_ts}{data.frame}(x, time.name = "time",
-  variable.name = "variable", value.name = "value", ...)
+\method{as_ts}{data.frame}(x, ...)
 
-\method{as_ts}{data.table}(x, time.name = "time",
-  variable.name = "variable", value.name = "value", ...)
+\method{as_ts}{data.table}(x, ...)
 
 \method{as_ts}{ts}(x, ...)
 
@@ -56,27 +56,35 @@ as_xts(x, ...)
 
 \method{as_xts}{xts}(x, ...)
 
-\method{as_xts}{data.frame}(x, time.name = "time",
-  variable.name = "variable", value.name = "value", ...)
+\method{as_xts}{data.frame}(x, time.name = getOption("tsbox.time.name",
+  "time"), var.name = getOption("tsbox.var.name", "var"),
+  value.name = getOption("tsbox.value.name", "value"), ...)
 
-\method{as_xts}{data.table}(x, time.name = "time",
-  variable.name = "variable", value.name = "value", ...)
+\method{as_xts}{data.table}(x, time.name = getOption("tsbox.time.name",
+  "time"), var.name = getOption("tsbox.var.name", "var"),
+  value.name = getOption("tsbox.value.name", "value"), ...)
 }
 \arguments{
 \item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
 \item{...}{additional arguments, passed to methods}
 
-\item{time.name}{time name}
+\item{time.name}{time name (default: \code{"time"})}
 
-\item{variable.name}{variable name}
+\item{var.name}{var name (default: \code{"var"})}
 
-\item{value.name}{value name}
+\item{value.name}{value name (default: \code{"time"})}
 }
 \description{
 Convert everything to everything
 }
 \examples{
+
+# optionally changes column names (data.frame and data.table) methods
+options(tsbox.time.name = "Date",
+        tsbox.value.name = "Value",
+        tsbox.var.name = "Variable"
+        )
 
 x.ts <- tsbind(mdeaths, fdeaths) 
 x.xts <- as_xts(x.ts)

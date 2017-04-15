@@ -141,7 +141,8 @@ Date_POSIXct_to_tsp <- function(x){
   
   if (in_range(ds, 31536000, 31622400)){
     f <- 1
-    start <- y + (1 / (m - 1))
+    start <- y
+    # start <- y + (1 / (m - 1))  
   } else if (in_range(ds, 7776000, 7948800)){
     f <- 4
     if (!(m %in% (c(1, 4, 7, 10)))) { 

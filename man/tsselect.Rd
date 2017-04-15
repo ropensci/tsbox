@@ -8,20 +8,26 @@
 \alias{tsselect.data.table}
 \title{Set and Variables from Multiple Time Series}
 \usage{
-tsselect(x, var)
+tsselect(x, var, ...)
 
-\method{tsselect}{ts}(x, var)
+\method{tsselect}{ts}(x, var, ...)
 
-\method{tsselect}{xts}(x, var)
+\method{tsselect}{xts}(x, var, ...)
 
-\method{tsselect}{data.frame}(x, var)
+\method{tsselect}{data.frame}(x, var, var.name = getOption("tsbox.var.name",
+  "var"), ...)
 
-\method{tsselect}{data.table}(x, var)
+\method{tsselect}{data.table}(x, var, var.name = getOption("tsbox.var.name",
+  "var"), ...)
 }
 \arguments{
 \item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
 \item{var}{character, time series to be selectd}
+
+\item{...}{arguments passed to methods}
+
+\item{var.name}{name of the column that contains \code{var}}
 }
 \description{
 Set and Variables from Multiple Time Series

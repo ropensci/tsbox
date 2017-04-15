@@ -148,28 +148,29 @@ tsggplot.data.table <- function(..., title = NULL, subtitle = NULL){
 }
 
 tsggplot_core <- function(df, title = NULL, subtitle = NULL){
-  df <- df[!is.na(df[, 'value']), ]
 
+  time.name = getOption("tsbox.time.name", "time")
+  var.name = getOption("tsbox.var.name", "var")
+  value.name = getOption("tsbox.value.name", "value")
 
+  df <- df[!is.na(df[, value.name]), ]
 
   n <- NCOL(df)
+  stopifnot(n > 1)
   if (n == 2){
-    p <- ggplot(df, aes_string(x = 'time', y = 'value')) 
-  } else if (n == 3){
+    p <- ggplot(df, aes_string(x = time.name, y = value.name)) 
+  } else if (n > 2){
 
     # numeric variable 'levels'
-    if (class(df$variable) %in% c("integer", "numeric")){
-      df[,'variable'] <- as.character(df[,'variable'])
+    if (class(df[[var.name]]) %in% c("integer", "numeric")){
+      df[[var.name]] <- as.character(df[[var.name]])
     }
 
-    if (length(unique(df[,'variable'])) > 29) {
-      stop(length(unique(df[,'variable'])), " time series supplied. Maximum is 29.",  call. = FALSE)
+    if (length(unique(df[[var.name]])) > 29) {
+      stop(length(unique(df[[var.name]])), " time series supplied. Maximum is 29.",  call. = FALSE)
     }
-
-    p <- ggplot(df, aes_string(x = 'time', y = 'value', color = 'variable'))
-  } else {
-    stop("df has wrong col dim")
-  }
+    p <- ggplot(df, aes_string(x = time.name, y = value.name, color = var.name))
+  } 
   p <- p + 
   geom_line() +
   ylab("") + 
