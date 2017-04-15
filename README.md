@@ -6,9 +6,10 @@ Time Series Toolbox
 *This is a very early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
 A toolbox to deal with time series in R. Built around a set of converters, which
-**reliably** convert time series stored as`ts`,`xts`,`data.frame`, `data.table` or `tibble` to each other. Because it works, we can define a set of tools that
-work **identially** for each class. And, we can use a plot function that
-**just works**!
+*reliably* convert time series stored as **ts**, **xts**, **data.frame**,
+**data.table** or  **tibble** to each other. Because it works, we can define a
+set of tools that work *identially* for each class. And, we can use a plot
+function that *just works*!
 
 To install:
 ```r
@@ -58,7 +59,7 @@ tsbind(as_dt(EuStockMarkets), AirPassengers)
 tsbind(EuStockMarkets, mdeaths)
 
 tsrbind(as_dt(mdeaths), AirPassengers)
-tsrbind(as_xts(AirPassengers), mdeaths)
+tsrbind(as_xts(AirPassengers), as_tbl(mdeaths))
 ```
 
 ### And plot just about everything
@@ -110,7 +111,7 @@ to install the required packages.
 library(dplyr)
 library(tsbox)
 
-dta <- as_df(tsbind(mdeaths, fdeaths))
+dta <- as_tbl(tsbind(mdeaths, fdeaths))
 
 dta %>%
   tsbind(lmdeaths = tslag(tsselect(dta, 'mdeaths'), -1)) %>%
