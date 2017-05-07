@@ -31,29 +31,45 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.nam
   stopifnot(class %in% all.classes)
 
   # if the function can handle multiple time series
-  if (multiple){
-    z <- function(x, ...){
-      load_suggested_packages(suggested)
-      stopifnot(class %in% all.classes)
-      desired.class <- relevant_class(x)
-      tsn <- ts_names(x)
-      z <- FUN(coerce_to_(class)(x), ...)
-      z <- coerce_to_(desired.class)(z)
-      if (ensure.names) z <- ts_set_names(z, tsn)
-      z
-    } 
-  } else {
-     z <- function(x, ...){
-      load_suggested_packages(suggested)
-      stopifnot(class %in% all.classes)
-      desired.class <- relevant_class(x)
-      tsn <- ts_names(x)
-      z <- ts_apply(coerce_to_(class)(x), FUN, ...)
-      z <- coerce_to_(desired.class)(z)
-      if (ensure.names) z <- ts_set_names(z, tsn)
-      z
-    } 
-  } 
+  if (ensure.names){
+    if (multiple){
+      z <- substitute(function(x, ...){
+        load_suggested_packages(suggested)
+        stopifnot(class %in% all.classes)
+        z <- FUN(coerce_to_(class)(x), ...)
+        z <- coerce_to_(relevant_class(x))(z)
+        z <- ts_set_names(z, ts_names(x))
+        z
+      })
+    } else {
+       z <- substitute(function(x, ...){
+        load_suggested_packages(suggested)
+        stopifnot(class %in% all.classes)
+        z <- ts_apply(coerce_to_(class)(x), FUN, ...)
+        z <- coerce_to_(relevant_class(x))(z)
+        z <- ts_set_names(z, ts_names(x))
+        z
+      })
+    }  
+  } else{
+    if (multiple){
+      z <- substitute(function(x, ...){
+        load_suggested_packages(suggested)
+        stopifnot(class %in% all.classes)
+        z <- FUN(coerce_to_(class)(x), ...)
+        z <- coerce_to_(relevant_class(x))(z)
+        z
+      })
+    } else {
+       z <- substitute(function(x, ...){
+        load_suggested_packages(suggested)
+        stopifnot(class %in% all.classes)
+        z <- ts_apply(coerce_to_(class)(x), FUN, ...)
+        z <- coerce_to_(relevant_class(x))(z)
+        z
+      })
+    }  
+  }
   return(z)
 }
 
@@ -90,8 +106,14 @@ ts_forecast <- ts_(function(x, ...) forecast::forecast(x, ...)$mean,
 #' @export
 #' @rdname ts_
 ts_forecast.auto.arima  <- ts_(
-  function(x, ...) {
-    forecast::forecast(forecast::auto.arima(x), ...)$mean
+  function(x, confint = FALSE, ...) {
+    m <- forecast::forecast(forecast::auto.arima(x), ...)
+    if (confint){
+      z <- ts_bind(mean = m$mean, lower = m$lower, upper = m$upper)
+    } else {
+      z <- m$mean
+    }
+    z
   }, multiple = FALSE, suggested = "forecast")
 
 #' @export
