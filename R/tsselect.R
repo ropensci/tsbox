@@ -6,31 +6,31 @@
 #' @param ... arguments passed to methods
 #' @examples
 #' 
-#' all.equal(as_ts(mdeaths), tsselect(as_ts(tsbind(mdeaths, fdeaths)), 'mdeaths'))
-#' all.equal(as_xts(mdeaths), 
-#'           tsselect(as_xts(tsbind(mdeaths, fdeaths)), 'mdeaths'), 
+#' all.equal(ts_ts(mdeaths), ts_select(ts_ts(ts_cbind(mdeaths, fdeaths)), 'mdeaths'))
+#' all.equal(ts_xts(mdeaths), 
+#'           ts_select(ts_xts(ts_cbind(mdeaths, fdeaths)), 'mdeaths'), 
 #'           check.attributes = FALSE)
-#' all.equal(as_df(mdeaths), tsselect(as_df(tsbind(mdeaths, fdeaths)), 'mdeaths'))
+#' all.equal(ts_df(mdeaths), ts_select(ts_df(ts_cbind(mdeaths, fdeaths)), 'mdeaths'))
 #' 
 #' \dontrun{
 #' library(data.table)  # if you want to use the 'data.table' methods
-#' all.equal(as_dt(mdeaths), tsselect(as_dt(tsbind(mdeaths, fdeaths)), 'mdeaths'))
+#' all.equal(ts_dt(mdeaths), ts_select(ts_dt(ts_cbind(mdeaths, fdeaths)), 'mdeaths'))
 #' }
 #' 
 #' @export
-tsselect <- function (x, var, ...) UseMethod("tsselect")
+ts_select <- function (x, var, ...) UseMethod("ts_select")
 
 #' @export
-#' @rdname tsselect
-#' @method tsselect ts
-tsselect.ts <- function(x, var, ...){
+#' @rdname ts_select
+#' @method ts_select ts
+ts_select.ts <- function(x, var, ...){
   if (NCOL(x) > 1) x[, var] else x
 }
 
 #' @export
-#' @rdname tsselect
-#' @method tsselect xts
-tsselect.xts <- function(x, var, ...){
+#' @rdname ts_select
+#' @method ts_select xts
+ts_select.xts <- function(x, var, ...){
   z <- x[, var]
   # we usually forget the names of single time series
   if (length(var) ==  1) colnames(z) <- NULL
@@ -38,9 +38,9 @@ tsselect.xts <- function(x, var, ...){
 }
 
 #' @export
-#' @rdname tsselect
-#' @method tsselect data.frame
-tsselect.data.frame <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
+#' @rdname ts_select
+#' @method ts_select data.frame
+ts_select.data.frame <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
   z <- x[x[[var.name]] %in% var, ]
   if (length(var) ==  1) z[[var.name]] <- NULL
   z
@@ -48,12 +48,12 @@ tsselect.data.frame <- function(x, var, var.name = getOption("tsbox.var.name", "
 
 
 #' @export
-#' @rdname tsselect
-#' @method tsselect data.table
-tsselect.data.table <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
+#' @rdname ts_select
+#' @method ts_select data.table
+ts_select.data.table <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
 
   # not clear: x seem to b a data.frame here
-  z <- as_data.table(x[x[[var.name]] %in% var, ])
+  z <- ts_data.table(x[x[[var.name]] %in% var, ])
   if (length(var) ==  1) z[[var.name]] <- NULL
   z
   # q <- parse(text = paste("variable %in%", paste(deparse(var), collapse = "")))
@@ -62,10 +62,10 @@ tsselect.data.table <- function(x, var, var.name = getOption("tsbox.var.name", "
 
 
 #' @export
-#' @rdname tsselect
-#' @method tsselect tbl
-tsselect.tbl <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
-  as_tbl(tsselect(as.data.frame(x), var = var, var.name = var.name, ...))
+#' @rdname ts_select
+#' @method ts_select tbl
+ts_select.tbl <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
+  ts_tbl(ts_select(as.data.frame(x), var = var, var.name = var.name, ...))
 }
 
 

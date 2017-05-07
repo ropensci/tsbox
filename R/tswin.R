@@ -1,14 +1,14 @@
 #' @export
-#' @rdname tspc
+#' @rdname ts_pc
 #' @export
-tswin <- function (x, ...) UseMethod("tswin")
+ts_window <- function (x, ...) UseMethod("ts_window")
 
 #' @export
 #' @param start start date, string, Date or POSIXct
 #' @param end end date, string, Date or POSIXct
-#' @rdname tspc
-#' @method tswin xts
-tswin.xts <- function(x, start = NULL, end = NULL, ...){
+#' @rdname ts_pc
+#' @method ts_window xts
+ts_window.xts <- function(x, start = NULL, end = NULL, ...){
   z <- x
   if (!is.null(start)){
     z <- z[paste0(as.POSIXct(start), "/")]
@@ -20,34 +20,34 @@ tswin.xts <- function(x, start = NULL, end = NULL, ...){
 }
 
 #' @export
-#' @rdname tspc
-#' @method tswin ts
-tswin.ts <- function(x, ...){
-  as_ts(tswin(as_xts(x), ...))
+#' @rdname ts_pc
+#' @method ts_window ts
+ts_window.ts <- function(x, ...){
+  ts_ts(ts_window(ts_xts(x), ...))
 }
 
 
 #' @export
-#' @rdname tspc
-#' @method tswin data.frame
-tswin.data.frame <- function(x, ...){
-  as_data.frame(tswin(as_xts(x), ...))
+#' @rdname ts_pc
+#' @method ts_window data.frame
+ts_window.data.frame <- function(x, ...){
+  ts_data.frame(ts_window(ts_xts(x), ...))
 }
 
 
 
 #' @export
-#' @rdname tspc
-#' @method tswin data.table
-tswin.data.table <- function(x, ...){
-  as_data.table(tswin(as_xts(x), ...))
+#' @rdname ts_pc
+#' @method ts_window data.table
+ts_window.data.table <- function(x, ...){
+  ts_data.table(ts_window(ts_xts(x), ...))
 }
 
 
 #' @export
-#' @rdname tspc
-#' @method tswin tbl
-tswin.tbl <- function(x, ...){
-  as_data.table(tswin(as_xts(x), ...))
+#' @rdname ts_pc
+#' @method ts_window tbl
+ts_window.tbl <- function(x, ...){
+  ts_data.table(ts_window(ts_xts(x), ...))
 }
 

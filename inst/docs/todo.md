@@ -2,23 +2,23 @@
 
 - Ts Functions
 
-  - [X] as_xts(), as_ts(), as_df()
-  - [X] tsplot(), tsggplot(), theme_ts() (-> theme_tsbox)
+  - [X] ts_xts(), ts_ts(), ts_df()
+  - [X] ts_plot(), ts_ggplot(), theme_ts() (-> theme_tsbox)
   - [X] ts_colors() (-> tsbox_colors)
   
-  - [X] tsdiff()
-  - [X] tsseas()
-  - [X] tsforecast()
-  - [X] tsbind()
-  - [X] tsrbind()
+  - [X] ts_diff()
+  - [X] ts_seas()
+  - [X] ts_forecast()
+  - [X] ts_cbind()
+  - [X] ts_rbind()
 
   - [ ] Rewrite existing generics / methods, using ts
   
-    - [ ] tspcy()
-    - [ ] tspc()
-    - [ ] tsdiffy()
-    - [ ] tstrend() -> tsloess
-    - [ ] tsscale()
+    - [ ] ts_pcy()
+    - [ ] ts_pc()
+    - [ ] ts_diffy()
+    - [ ] ts_trend() -> tsloess
+    - [ ] ts_scale()
 
 - Documentation
 
@@ -30,7 +30,7 @@
 
 - Type Conversion
   
-  - [ ] rewrite as_xts.ts, to include f = 2, f = 6, f = 0.1, f = 0.5, f = 0.05, f = 0.01
+  - [ ] rewrite ts_xts.ts, to include f = 2, f = 6, f = 0.1, f = 0.5, f = 0.05, f = 0.01
   - [ ] Ensure a Date to be regular, by filling NAs 
 
 - Frequency Conversion

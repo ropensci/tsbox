@@ -8,32 +8,32 @@
 #' @examples
 #' 
 #' library(tsbox)
-#' tsplot(AirPassengers, title = "Airline passengers", 
+#' ts_plot(AirPassengers, title = "Airline passengers", 
 #'        subtitle = "The classic Box & Jenkins airline data")
-#' tsplot(total = ldeaths, female = fdeaths, male = mdeaths)
+#' ts_plot(total = ldeaths, female = fdeaths, male = mdeaths)
 #' 
-#' tsplot(tsbind(sunspot.month, sunspot.year, lynx))
-#' tsplot(tsscale(tsbind(airmiles, co2, JohnsonJohnson, discoveries)))
-#' tsplot(EuStockMarkets)
-#' tsplot(sunspot.month, sunspot.year, lynx)
-#' tsplot(tsscale(tsbind(Nile, nottem, USAccDeaths)))
+#' ts_plot(ts_cbind(sunspot.month, sunspot.year, lynx))
+#' ts_plot(ts_scale(ts_cbind(airmiles, co2, JohnsonJohnson, discoveries)))
+#' ts_plot(EuStockMarkets)
+#' ts_plot(sunspot.month, sunspot.year, lynx)
+#' ts_plot(ts_scale(ts_cbind(Nile, nottem, USAccDeaths)))
 #' 
-#' tsggplot(AirPassengers, title = "Airline passengers", 
+#' ts_ggplot(AirPassengers, title = "Airline passengers", 
 #'        subtitle = "The classic Box & Jenkins airline data")
-#' tsggplot(total = ldeaths, female = fdeaths, male = mdeaths)
+#' ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
 #' 
-#' tsggplot(tsbind(sunspot.month, sunspot.year, lynx))
-#' tsggplot(tsscale(tsbind(airmiles, co2, JohnsonJohnson, discoveries)))
-#' tsggplot(EuStockMarkets)
-#' tsggplot(sunspot.month, sunspot.year, lynx)
-#' tsggplot(tsscale(tsbind(Nile, nottem, USAccDeaths)))
+#' ts_ggplot(ts_cbind(sunspot.month, sunspot.year, lynx))
+#' ts_ggplot(ts_scale(ts_cbind(airmiles, co2, JohnsonJohnson, discoveries)))
+#' ts_ggplot(EuStockMarkets)
+#' ts_ggplot(sunspot.month, sunspot.year, lynx)
+#' ts_ggplot(ts_scale(ts_cbind(Nile, nottem, USAccDeaths)))
 #' \dontrun{
 #' library(Quandl)
-#' tsggplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
+#' ts_ggplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
 #' 
 #' library(dataseries)
 #' dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
-#' tsggplot(tsscale(tswin(tsbind(`GDP Growth` = tspc(dta[, 'GDP.PBRTT.A.R']), 
+#' ts_ggplot(ts_scale(ts_window(ts_cbind(`GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']), 
 #'                             `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']), 
 #'                      start = "1995-01-01")),
 #'        title = "GDP and Consumer Sentiment",
@@ -43,9 +43,9 @@
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
-tsplot <- function(..., title, subtitle, ylab = ""){
+ts_plot <- function(..., title, subtitle, ylab = ""){
 
-  x <- as_xts(tsbind(...))
+  x <- ts_xts(ts_cbind(...))
 
   if (missing("title")){
     has.title <- FALSE
@@ -111,7 +111,7 @@ tsplot <- function(..., title, subtitle, ylab = ""){
   xticks <- pretty(tind)
   xlabels <- format(xticks, "%Y")
 
-  col <- tscolors()[1:NCOL(coredata(x))]
+  col <- ts_colors()[1:NCOL(coredata(x))]
   cnames <- colnames(coredata(x))
 
   # Main Plot
@@ -181,12 +181,12 @@ lastplot_call <- function(){
 #' @param width width
 #' @param filename filename
 #' @export
-tssave <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
+ts_save <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
   filename <- gsub(".pdf$", paste0(".", device), filename)
 
   cl <- lastplot_call()
   if (is.null(cl) || !inherits(cl, "call")){
-    stop("tsplot must be called first.")
+    stop("ts_plot must be called first.")
   }
 
   if (device == "pdf"){

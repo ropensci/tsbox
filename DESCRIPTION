@@ -25,4 +25,4 @@ Suggests:
     testthat
 License: GPL-3
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1

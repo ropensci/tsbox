@@ -2,14 +2,14 @@
 % Please edit documentation in R/tsggplot.R
 \name{theme_ts}
 \alias{theme_ts}
-\alias{tscolors}
+\alias{ts_colors}
 \alias{scale_color_ts}
 \alias{scale_fill_ts}
 \title{ggplot Theme for tsbox}
 \usage{
 theme_ts(base_family = getOption("ts_font", ""), base_size = 12)
 
-tscolors()
+ts_colors()
 
 scale_color_ts(...)
 
@@ -27,7 +27,7 @@ ggplot Theme for tsbox
 }
 \examples{
 library(tsbox)
-df <- as_df(tsbind(total = ldeaths, female = fdeaths, male = mdeaths))
+df <- ts_df(ts_cbind(total = ldeaths, female = fdeaths, male = mdeaths))
  \dontrun{
 ggplot(df, aes(x = Index, y = Value, color = Series)) + 
   geom_line() +

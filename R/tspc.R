@@ -11,75 +11,75 @@ tsfill <- function(x){
 #' @examples
 #' library(tsbox)
 #' 
-#' x.ts <- tsbind(mdeaths, fdeaths) 
-#' x.xts <- as_xts(x.ts)
-#' x.df <- as_df(x.xts)
+#' x.ts <- ts_cbind(mdeaths, fdeaths) 
+#' x.xts <- ts_xts(x.ts)
+#' x.df <- ts_df(x.xts)
 #'
-#' tsscale(x.ts)
-#' tsscale(x.xts)
-#' tsscale(x.df)
-#' tstrend(x.ts)
-#' tstrend(x.xts)
-#' tstrend(x.df)
+#' ts_scale(x.ts)
+#' ts_scale(x.xts)
+#' ts_scale(x.df)
+#' ts_trend(x.ts)
+#' ts_trend(x.xts)
+#' ts_trend(x.df)
 #' 
-#' tspc(x.ts)
-#' tspc(x.xts)
-#' tspc(x.df)
+#' ts_pc(x.ts)
+#' ts_pc(x.xts)
+#' ts_pc(x.df)
 #' 
-#' tspcy(x.ts)
-#' tspcy(x.xts)
-#' tspcy(x.df)
+#' ts_pcy(x.ts)
+#' ts_pcy(x.xts)
+#' ts_pcy(x.df)
 #' 
 #' \dontrun{
 #' library(data.table)  # if you want to use the 'data.table' methods
-#' x.dt <- as_dt(x.df)
-#' tsscale(x.dt)
-#' tstrend(x.dt)
-#' tspc(x.dt)
-#' tspcy(x.dt)
+#' x.dt <- ts_dt(x.df)
+#' ts_scale(x.dt)
+#' ts_trend(x.dt)
+#' ts_pc(x.dt)
+#' ts_pcy(x.dt)
 #' }
 #' 
 #' @export
-tspc <- function (x, ...) UseMethod("tspc")
+ts_pc <- function (x, ...) UseMethod("ts_pc")
 
 #' @export
-#' @rdname tspc
-#' @method tspc ts
-tspc.ts <- function(x, ...){
+#' @rdname ts_pc
+#' @method ts_pc ts
+ts_pc.ts <- function(x, ...){
   if (NCOL(x) > 1){
-    return(tsapply(x, tspc))
+    return(ts_apply(x, ts_pc))
   }
   100 * ((x / stats::lag(x, -1)) - 1)
 }
 
 #' @export
-#' @rdname tspc
-#' @method tspc xts
-tspc.xts <- function(x, ...){
-  as_xts(tspc(as_ts(x)))
+#' @rdname ts_pc
+#' @method ts_pc xts
+ts_pc.xts <- function(x, ...){
+  ts_xts(ts_pc(ts_ts(x)))
 }
 
 
 #' @export
-#' @rdname tspc
-#' @method tspc data.frame
-tspc.data.frame <- function(x, ...){
-  as_df(tspc(as_ts(x)))
+#' @rdname ts_pc
+#' @method ts_pc data.frame
+ts_pc.data.frame <- function(x, ...){
+  ts_df(ts_pc(ts_ts(x)))
 }
 
 
 #' @export
-#' @rdname tspc
-#' @method tspc data.table
-tspc.data.table <- function(x, ...){
-  as_dt(tspcy(as_ts(x)))
+#' @rdname ts_pc
+#' @method ts_pc data.table
+ts_pc.data.table <- function(x, ...){
+  ts_dt(ts_pcy(ts_ts(x)))
 }
 
 #' @export
-#' @rdname tspc
-#' @method tspc tbl
-tspc.tbl <- function(x, ...){
-  as_tbl(tspcy(as_ts(x)))
+#' @rdname ts_pc
+#' @method ts_pc tbl
+ts_pc.tbl <- function(x, ...){
+  ts_tbl(ts_pcy(ts_ts(x)))
 }
 
 
@@ -87,46 +87,46 @@ tspc.tbl <- function(x, ...){
 
 
 #' @export
-#' @rdname tspc
-tspcy <- function (x, ...) UseMethod("tspcy")
+#' @rdname ts_pc
+ts_pcy <- function (x, ...) UseMethod("ts_pcy")
 
 #' @export
-#' @rdname tspc
-#' @method tspcy ts
-tspcy.ts <- function(x, ...){
+#' @rdname ts_pc
+#' @method ts_pcy ts
+ts_pcy.ts <- function(x, ...){
   if (NCOL(x) > 1){
-    return(tsapply(x, tspcy))
+    return(ts_apply(x, ts_pcy))
   }
   100 * ((x / stats::lag(x, -frequency(x))) - 1)
 }
 
 #' @export
-#' @rdname tspc
-#' @method tspcy xts
-tspcy.xts <- function(x, ...){
-  as_xts(tspcy(as_ts(x)))
+#' @rdname ts_pc
+#' @method ts_pcy xts
+ts_pcy.xts <- function(x, ...){
+  ts_xts(ts_pcy(ts_ts(x)))
 }
 
 
 #' @export
-#' @rdname tspc
-#' @method tspcy data.frame
-tspcy.data.frame <- function(x, ...){
-  as_df(tspcy(as_ts(x)))
+#' @rdname ts_pc
+#' @method ts_pcy data.frame
+ts_pcy.data.frame <- function(x, ...){
+  ts_df(ts_pcy(ts_ts(x)))
 }
 
 
 #' @export
-#' @rdname tspc
-#' @method tspcy data.table
-tspcy.data.table <- function(x, ...){
-  as_dt(tspcy(as_ts(x)))
+#' @rdname ts_pc
+#' @method ts_pcy data.table
+ts_pcy.data.table <- function(x, ...){
+  ts_dt(ts_pcy(ts_ts(x)))
 }
 
 #' @export
-#' @rdname tspc
-#' @method tspcy tbl
-tspcy.tbl <- function(x, ...){
-  as_tbl(tspcy(as_ts(x)))
+#' @rdname ts_pc
+#' @method ts_pcy tbl
+ts_pcy.tbl <- function(x, ...){
+  ts_tbl(ts_pcy(ts_ts(x)))
 }
 

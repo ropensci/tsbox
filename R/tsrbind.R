@@ -1,12 +1,12 @@
-# x <- as_xts(AirPassengers)
+# x <- ts_xts(AirPassengers)
 # x <- x[-3]
-# ll <- tsrbind(AirPassengers, AirPassengers)
-# ll <- tsrbind(mdeaths, AirPassengers)
+# ll <- ts_rbind(AirPassengers, AirPassengers)
+# ll <- ts_rbind(mdeaths, AirPassengers)
 
 
-#' @rdname tsbind
+#' @rdname ts_cbind
 #' @export
-tsrbind <- function(...){
+ts_rbind <- function(...){
 
   ll <- list(...)
 
@@ -14,7 +14,7 @@ tsrbind <- function(...){
   # cl <- vapply(ll, function(e) class(e)[1], "")
 
   # TODO: keep df only and ts/mts only as their classes
-  ll.xts <- lapply(ll, as_xts)
+  ll.xts <- lapply(ll, ts_xts)
   llnames <- lapply(substitute(placeholderFunction(...))[-1], deparse)
 
 
@@ -48,7 +48,7 @@ tsrbind <- function(...){
   }
 
  
-  as_(desired.class)(z)
+  coerce_to_(desired.class)(z)
 
 }
 

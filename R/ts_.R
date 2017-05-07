@@ -20,9 +20,9 @@ load_suggested_packages <- function(pkg){
 #' @param ensure.names logical, whether the series in the output should have the same names as the input
 #' @export
 #' @examples
-#' tsplot(
-#'     tsbind(AirPassengers, mdeaths),
-#'     tsforecast(tsbind(AirPassengers, mdeaths))
+#' ts_plot(
+#'     ts_cbind(AirPassengers, mdeaths),
+#'     ts_forecast(ts_cbind(AirPassengers, mdeaths))
 #' )
 #' 
 ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.names = TRUE){
@@ -36,10 +36,10 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.nam
       load_suggested_packages(suggested)
       stopifnot(class %in% all.classes)
       desired.class <- relevant_class(x)
-      tsn <- tsnames(x)
-      z <- FUN(as_(class)(x), ...)
-      z <- as_(desired.class)(z)
-      if (ensure.names) z <- settsnames(z, tsn)
+      tsn <- ts_names(x)
+      z <- FUN(coerce_to_(class)(x), ...)
+      z <- coerce_to_(desired.class)(z)
+      if (ensure.names) z <- ts_set_names(z, tsn)
       z
     } 
   } else {
@@ -47,10 +47,10 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.nam
       load_suggested_packages(suggested)
       stopifnot(class %in% all.classes)
       desired.class <- relevant_class(x)
-      tsn <- tsnames(x)
-      z <- tsapply(as_(class)(x), FUN, ...)
-      z <- as_(desired.class)(z)
-      if (ensure.names) z <- settsnames(z, tsn)
+      tsn <- ts_names(x)
+      z <- ts_apply(coerce_to_(class)(x), FUN, ...)
+      z <- coerce_to_(desired.class)(z)
+      if (ensure.names) z <- ts_set_names(z, tsn)
       z
     } 
   } 
@@ -60,11 +60,11 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.nam
 #' @export
 #' @importFrom stats window lag cycle
 #' @rdname ts_
-tsdiff <- ts_(diff)
+ts_diff <- ts_(diff)
 
 #' @export
 #' @rdname ts_
-tsscale <- ts_(function(x, ...){
+ts_scale <- ts_(function(x, ...){
   z <- scale.default(unclass(x), ...)
   xts::reclass(z, x)
 }, class = "xts")
@@ -72,38 +72,38 @@ tsscale <- ts_(function(x, ...){
 
 #' @export
 #' @rdname ts_
-tswindow <- ts_(stats::window)
+ts_windowdow <- ts_(stats::window)
 
 #' @export
 #' @rdname ts_
-tslag <- ts_(stats::lag)
+ts_lag <- ts_(stats::lag)
 
 #' @export
 #' @rdname ts_
-tscycle <- ts_(stats::cycle)
+ts_cycle <- ts_(stats::cycle)
 
 #' @export
 #' @rdname ts_
-tsforecast <- ts_(function(x, ...) forecast::forecast(x, ...)$mean, 
+ts_forecast <- ts_(function(x, ...) forecast::forecast(x, ...)$mean, 
                   multiple = FALSE, suggested = "forecast")
 
 #' @export
 #' @rdname ts_
-tsforecast.auto.arima  <- ts_(
+ts_forecast.auto.arima  <- ts_(
   function(x, ...) {
     forecast::forecast(forecast::auto.arima(x), ...)$mean
   }, multiple = FALSE, suggested = "forecast")
 
 #' @export
 #' @rdname ts_
-tsseas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)),
+ts_seas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)),
               multiple = FALSE, suggested = "seasonal")
 
 #' @export
 #' @rdname ts_
 # @param n how many princial components should be extracted
 # @param scale should the data be scaled?
-tsprcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
+ts_prcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
   ts(predict(prcomp(x, scale = scale, ...))[,1:n], start = start(x), frequency = frequency(x))
 }, ensure.names = FALSE)
 
@@ -112,7 +112,7 @@ tsprcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
 
 #' @export
 #' @rdname ts_
-tsresidlm <- ts_(function(x, formula, ...) {
+ts_residlm <- ts_(function(x, formula, ...) {
   m <- lm(formula = formula, data = as.data.frame(na.omit(x)), ...)
   # message(paste(capture.output(summary(m)), collapse = "\n"))
   reclass(resid(m), na.omit(x))
@@ -121,7 +121,7 @@ tsresidlm <- ts_(function(x, formula, ...) {
 
 #' @export
 #' @rdname ts_
-tspredictlm <- ts_(function(x, formula, ...) {
+ts_predictlm <- ts_(function(x, formula, ...) {
   m <- lm(formula = formula, data = as.data.frame(na.omit(x)), ...)
   # message(paste(capture.output(summary(m)), collapse = "\n"))
   reclass(predict(m), na.omit(x))
@@ -129,15 +129,15 @@ tspredictlm <- ts_(function(x, formula, ...) {
 
 
 
-# This is how tspc could be written mauch simpler
-# tspc <- ts_(function(x, ...){
+# This is how ts_pc could be written mauch simpler
+# ts_pc <- ts_(function(x, ...){
 #   if (NCOL(x) > 1){
-#     return(tsapply(x, tspc))
+#     return(ts_apply(x, ts_pc))
 #   }
 #   100 * ((x / stats::lag(x, -1)) - 1)
 # })
 
-# tsdiff(as_xts(AirPassengers))
+# ts_diff(ts_xts(AirPassengers))
 
 
 

@@ -14,12 +14,12 @@
 #'         tsbox.var.name = "Variable"
 #'         )
 #' 
-#' x.ts <- tsbind(mdeaths, fdeaths) 
-#' x.xts <- as_xts(x.ts)
-#' x.df <- as_df(x.xts)
+#' x.ts <- ts_cbind(mdeaths, fdeaths) 
+#' x.xts <- ts_xts(x.ts)
+#' x.df <- ts_df(x.xts)
 #' \dontrun{
 #' library(data.table)
-#' x.dt <- as_dt(x.df) 
+#' x.dt <- ts_dt(x.df) 
 #' }
 #' 
 #' @export
@@ -27,19 +27,19 @@
 #' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp
 #' @importFrom utils browseURL
 #' 
-as_xts <- function (x, ...) UseMethod("as_xts")
+ts_xts <- function (x, ...) UseMethod("ts_xts")
 
 #' @export
-#' @method as_xts ts
-#' @rdname as_xts
-as_xts.ts <- function(x, ...){
+#' @method ts_xts ts
+#' @rdname ts_xts
+ts_xts.ts <- function(x, ...){
   stopifnot(inherits(x, "ts"))
   ind <- ts_to_Date_POSIXct(x)
   x0 <- unclass(x)
   attr(x0,"tsp") <- NULL
 
   z <- xts(x0, order.by = ind)
-  settsnames(z, tsnames(x))
+  ts_set_names(z, ts_names(x))
 
   # m <- as.zoo(x)
   # f <- frequency(x)
@@ -57,7 +57,7 @@ as_xts.ts <- function(x, ...){
 
 
 
-# as_xts.ts <- function(x, ...){
+# ts_xts.ts <- function(x, ...){
 #   stopifnot(inherits(x, "ts"))
 
 #   m <- as.zoo(x)
@@ -78,17 +78,17 @@ as_xts.ts <- function(x, ...){
 
 
 #' @export
-#' @rdname as_xts
-#' @method as_xts xts
-as_xts.xts <- function(x, ...){
+#' @rdname ts_xts
+#' @method ts_xts xts
+ts_xts.xts <- function(x, ...){
   x
 }
 
 
 #' @export
-#' @rdname as_xts
-#' @method as_xts data.frame
-as_xts.data.frame <- function(x, 
+#' @rdname ts_xts
+#' @method ts_xts data.frame
+ts_xts.data.frame <- function(x, 
                               time.name = getOption("tsbox.time.name", "time"), 
                               var.name = getOption("tsbox.var.name", "var"), 
                               value.name = getOption("tsbox.value.name", "value"), ...){
@@ -97,7 +97,7 @@ as_xts.data.frame <- function(x,
 
   stopifnot(time.name %in% cnames)
 
-  as_xts_core <- function(x){
+  ts_xts_core <- function(x){
     if (!any(class(x[[time.name]]) %in% c("POSIXct", "Date"))){
       x[[time.name]] <- anytime::anydate(as.character(x[[time.name]]))
     }
@@ -109,7 +109,7 @@ as_xts.data.frame <- function(x,
 
     # factor in split causes reordering, thus [unique(var)]
     ll.df <- split(x, var)[unique(var)]
-    ll.xts <- lapply(ll.df, as_xts_core)
+    ll.xts <- lapply(ll.df, ts_xts_core)
 
     z <- do.call("cbind", ll.xts)
     names(z) <- names(ll.xts)
@@ -121,7 +121,7 @@ as_xts.data.frame <- function(x,
       }
       if (!value.name %in% cnames) stop("No column '", value.name, "' in data frame.", call. = FALSE)
     }
-    z <- as_xts_core(x)
+    z <- ts_xts_core(x)
     names(z) <- deparse(substitute(x))
   }
   
@@ -129,9 +129,9 @@ as_xts.data.frame <- function(x,
 }
 
 #' @export
-#' @rdname as_xts
-#' @method as_xts data.table
-as_xts.data.table <- function(x, 
+#' @rdname ts_xts
+#' @method ts_xts data.table
+ts_xts.data.table <- function(x, 
                               time.name = getOption("tsbox.time.name", "time"), 
                               var.name = getOption("tsbox.var.name", "var"), 
                               value.name = getOption("tsbox.value.name", "value"), ...){
@@ -141,7 +141,7 @@ as_xts.data.table <- function(x,
 
   stopifnot(requireNamespace("data.table"))
 
-  as_xts_core <- function(x){
+  ts_xts_core <- function(x){
     data.table::setcolorder(x, c(time.name, value.name))
     if (!any(class(x[[1]]) %in% c("POSIXct", "Date", "IDate"))){
 
@@ -159,7 +159,7 @@ as_xts.data.table <- function(x,
     }
 
     ll.xts <- lapply(split(x[, c(time.name, value.name), with = FALSE], var), 
-                     as_xts_core)[uvar]
+                     ts_xts_core)[uvar]
     z <- do.call("cbind", ll.xts)
     names(z) <- names(ll.xts)
   } else {
@@ -170,7 +170,7 @@ as_xts.data.table <- function(x,
 
      if (!value.name %in% cnames) stop("No column '", value.name, "' in data table.", call. = FALSE)
     }
-    z <- as_xts_core(x)
+    z <- ts_xts_core(x)
     names(z) <- deparse(substitute(x))
   }
   

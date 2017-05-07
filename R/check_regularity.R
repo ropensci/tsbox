@@ -1,5 +1,5 @@
 
-# x <- as.POSIXct(index(rbind(as_xts(AirPassengers), as_xts(mdeaths))))
+# x <- as.POSIXct(index(rbind(ts_xts(AirPassengers), ts_xts(mdeaths))))
 
 # stopifnot(inherits(x, "POSIXct"))
 # dd <- diff(as.integer(x))
