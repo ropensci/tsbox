@@ -6,57 +6,57 @@
 #' @param ... additional arguments, passed to methods
 #' @examples
 #' 
-#' x.ts <- tsbind(mdeaths, fdeaths) 
-#' x.xts <- as_xts(x.ts)
-#' x.df <- as_df(x.xts)
+#' x.ts <- ts_bind(mdeaths, fdeaths) 
+#' x.xts <- ts_xts(x.ts)
+#' x.df <- ts_df(x.xts)
 #'
-#' tsnames(x.ts)
-#' tsnames(x.xts)
-#' tsnames(x.df)
+#' ts_names(x.ts)
+#' ts_names(x.xts)
+#' ts_names(x.df)
 #' 
 #' \dontrun{
 #' library(data.table)  # if you want to use the 'data.table' methods
-#' x.dt <- as_dt(x.df)
-#' tsnames(x.dt)
+#' x.dt <- ts_dt(x.df)
+#' ts_names(x.dt)
 #' }
 #' 
 #' @export
-tsnames <- function (x, ...) UseMethod("tsnames")
+ts_names <- function (x, ...) UseMethod("ts_names")
 
 #' @export
-#' @rdname tsnames
-#' @method tsnames ts
-tsnames.ts <- function(x, ...){
+#' @rdname ts_names
+#' @method ts_names ts
+ts_names.ts <- function(x, ...){
   if (NCOL(x) > 1) colnames(x) else NULL
 }
 
 #' @export
-#' @rdname tsnames
-#' @method tsnames xts
-tsnames.xts <- function(x, ...){
+#' @rdname ts_names
+#' @method ts_names xts
+ts_names.xts <- function(x, ...){
   colnames(x)
 }
 
 #' @export
-#' @rdname tsnames
-#' @method tsnames data.frame
-tsnames.data.frame <- function(x, ...){
+#' @rdname ts_names
+#' @method ts_names data.frame
+ts_names.data.frame <- function(x, ...){
   var.name = getOption("tsbox.var.name", "var")
   unique(x[[var.name]])
 }
 
 #' @export
-#' @rdname tsnames
-#' @method tsnames data.table
-tsnames.data.table <- function(x, ...){
+#' @rdname ts_names
+#' @method ts_names data.table
+ts_names.data.table <- function(x, ...){
   var.name = getOption("tsbox.var.name", "var")
   unique(x[[var.name]])
 }
 
 #' @export
-#' @rdname tsnames
-#' @method tsnames tbl
-tsnames.tbl <- function(x, ...){
+#' @rdname ts_names
+#' @method ts_names tbl
+ts_names.tbl <- function(x, ...){
   var.name = getOption("tsbox.var.name", "var")
   unique(x[[var.name]])
 }
@@ -64,27 +64,27 @@ tsnames.tbl <- function(x, ...){
 
 
 #' @export
-#' @rdname tsnames
-settsnames <- function (x, value) UseMethod("settsnames")
+#' @rdname ts_names
+ts_set_names <- function (x, value) UseMethod("ts_set_names")
 
 #' @export
-#' @rdname tsnames
-#' @method settsnames ts
-settsnames.ts <- function(x, value){
+#' @rdname ts_names
+#' @method ts_set_names ts
+ts_set_names.ts <- function(x, value){
   if (NCOL(x) > 1) `colnames<-`(x, value) else x 
 }
 
 #' @export
-#' @rdname tsnames
-#' @method settsnames xts
-settsnames.xts <- function(x, value){
+#' @rdname ts_names
+#' @method ts_set_names xts
+ts_set_names.xts <- function(x, value){
   `colnames<-`(x, value)
 }
 
 #' @export
-#' @rdname tsnames
-#' @method settsnames data.frame
-settsnames.data.frame <- function(x, value){
+#' @rdname ts_names
+#' @method ts_set_names data.frame
+ts_set_names.data.frame <- function(x, value){
   var.name = getOption("tsbox.var.name", "var")
   if (NCOL(x) == 3){
     z <- x
@@ -97,9 +97,9 @@ settsnames.data.frame <- function(x, value){
 
 
 #' @export
-#' @rdname tsnames
-#' @method settsnames data.table
-settsnames.data.table <- function(x, value){
+#' @rdname ts_names
+#' @method ts_set_names data.table
+ts_set_names.data.table <- function(x, value){
   var.name = getOption("tsbox.var.name", "var")
   if (NCOL(x) == 3){
     z <- x
@@ -112,9 +112,9 @@ settsnames.data.table <- function(x, value){
 
 
 #' @export
-#' @rdname tsnames
-#' @method settsnames tbl
-settsnames.tbl <- function(x, value){
+#' @rdname ts_names
+#' @method ts_set_names tbl
+ts_set_names.tbl <- function(x, value){
   var.name = getOption("tsbox.var.name", "var")
   if (NCOL(x) == 3){
     z <- x

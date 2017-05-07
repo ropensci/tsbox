@@ -4,18 +4,18 @@
 #' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @examples
 #'
-#' tsbind(as_df(EuStockMarkets), AirPassengers)
-#' tsbind(EuStockMarkets, mdeaths)
+#' ts_bind(ts_df(EuStockMarkets), AirPassengers)
+#' ts_bind(EuStockMarkets, mdeaths)
 #'
 #' # labelling:
-#' tsbind(`International Airline Passengers` = as_xts(AirPassengers), 
+#' ts_bind(`International Airline Passengers` = ts_xts(AirPassengers), 
 #'        `Deaths from Lung Diseases` = ldeaths)
 #' 
-#' tsrbind(as_df(mdeaths), AirPassengers)
-#' tsrbind(as_xts(AirPassengers), mdeaths)
+#' ts_rbind(ts_df(mdeaths), AirPassengers)
+#' ts_rbind(ts_xts(AirPassengers), mdeaths)
 #' 
 #' @export
-tsbind <- function(...){
+ts_bind <- function(...){
 
   ll <- list(...)
 
@@ -27,7 +27,7 @@ tsbind <- function(...){
   if (desired.class == "ts"){
     ll.xts <- ll
   } else {
-    ll.xts <- lapply(ll, as_xts)
+    ll.xts <- lapply(ll, ts_xts)
   }
 
   lcnames <- lapply(ll.xts, colnames)
@@ -68,6 +68,6 @@ tsbind <- function(...){
   z <- do.call("cbind", ll.xts)
   colnames(z) <- unlist(lcnames)
 
-  as_(desired.class)(z)
+  coerce_to_(desired.class)(z)
 
 }

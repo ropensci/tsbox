@@ -4,12 +4,12 @@
 #' @param FUN a function that can applied on the corresponding object
 #' @param ... additional arguments, passed to FUN
 #' @export
-tsapply <- function (x, FUN, ...) UseMethod("tsapply")
+ts_apply <- function (x, FUN, ...) UseMethod("ts_apply")
 
 
-#' @method tsapply xts
+#' @method ts_apply xts
 #' @export
-tsapply.xts <- function(x, FUN, ...){
+ts_apply.xts <- function(x, FUN, ...){
   ll <- list()
   for (i in 1:NCOL(x)){
     ll[[i]] <- FUN(na.omit(x[, i]), ...)
@@ -20,9 +20,9 @@ tsapply.xts <- function(x, FUN, ...){
 }
 
 
-#' @method tsapply ts
+#' @method ts_apply ts
 #' @export
-tsapply.ts <- function(x, FUN, ...){
+ts_apply.ts <- function(x, FUN, ...){
   if (NCOL(x) == 1) return(FUN(x, ...))
   ll <- list()
   for (i in 1:NCOL(x)){
@@ -33,25 +33,25 @@ tsapply.ts <- function(x, FUN, ...){
   z
 
   # This should work better with internal NAs
-  # as_ts(tsapply(as_xts(x), FUN, ...))
+  # ts_ts(ts_apply(ts_xts(x), FUN, ...))
 }
 
-#' @method tsapply data.frame
+#' @method ts_apply data.frame
 #' @export
-tsapply.data.frame <- function(x, FUN, ...){
-  as_data.frame(tsapply(as_xts(x), FUN, ...))
+ts_apply.data.frame <- function(x, FUN, ...){
+  ts_data.frame(ts_apply(ts_xts(x), FUN, ...))
 }
 
-#' @method tsapply data.table
+#' @method ts_apply data.table
 #' @export
-tsapply.data.table <- function(x, FUN, ...){
-  as_data.table(tsapply(as_xts(x), FUN, ...))
+ts_apply.data.table <- function(x, FUN, ...){
+  ts_data.table(ts_apply(ts_xts(x), FUN, ...))
 }
 
-#' @method tsapply tbl
+#' @method ts_apply tbl
 #' @export
-tsapply.tbl <- function(x, FUN, ...){
-  as_tbl(tsapply(as_xts(x), FUN, ...))
+ts_apply.tbl <- function(x, FUN, ...){
+  ts_tbl(ts_apply(ts_xts(x), FUN, ...))
 }
 
 

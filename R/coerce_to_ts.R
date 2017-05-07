@@ -1,20 +1,20 @@
 #' @export
-#' @rdname as_xts
-as_ts <- function (x, ...) UseMethod("as_ts")
+#' @rdname ts_xts
+ts_ts <- function (x, ...) UseMethod("ts_ts")
 
 #' @export
-#' @rdname as_xts
-#' @method as_ts xts
-as_ts.xts <- function(x, ...) {
+#' @rdname ts_xts
+#' @method ts_ts xts
+ts_ts.xts <- function(x, ...) {
 
   # if (NCOL(x) > 1) {
   #   zl <- list()
   #   for (i in 1:NCOL(x)){
-  #     zl[[i]] <- as_ts(na.omit(x[,i]))
+  #     zl[[i]] <- ts_ts(na.omit(x[,i]))
   #   }
 
   #   z <- do.call(cbind, zl)
-  #   z <- settsnames(z, tsnames(x))
+  #   z <- ts_set_names(z, ts_names(x))
   #   return(z)
   # }
 
@@ -36,7 +36,7 @@ as_ts.xts <- function(x, ...) {
 
 
 
-# as_ts.xts <- function(x, ...) {
+# ts_ts.xts <- function(x, ...) {
 
 #   p <- xts::periodicity(x)
 #   if (p$scale == "yearly"){
@@ -61,7 +61,7 @@ as_ts.xts <- function(x, ...) {
 #     stop("freq not yet implemented")
 #   }
 
-#   settsnames(z, tsnames(x))
+#   ts_set_names(z, ts_names(x))
 
 
 # }
@@ -70,24 +70,24 @@ as_ts.xts <- function(x, ...) {
 
 
 #' @export
-#' @rdname as_xts
-#' @method as_ts data.frame
-as_ts.data.frame <- function(x, ...){
-  as_ts(as_xts(x, ...))
+#' @rdname ts_xts
+#' @method ts_ts data.frame
+ts_ts.data.frame <- function(x, ...){
+  ts_ts(ts_xts(x, ...))
 }
 
 
 #' @export
-#' @rdname as_xts
-#' @method as_ts data.table
-as_ts.data.table <- function(x, ...){
-  as_ts(as_xts(x, ...))
+#' @rdname ts_xts
+#' @method ts_ts data.table
+ts_ts.data.table <- function(x, ...){
+  ts_ts(ts_xts(x, ...))
 }
 
 #' @export
-#' @rdname as_xts
-#' @method as_ts ts
-as_ts.ts <- function(x, ...){
+#' @rdname ts_xts
+#' @method ts_ts ts
+ts_ts.ts <- function(x, ...){
   x
 }
 

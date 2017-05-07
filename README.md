@@ -23,11 +23,11 @@ library(tsbox)
 library(data.table)  # if you want to use the 'data.table' methods
 library(dplyr)       # if you want to use the 'tibble' methods
 
-x.ts <- tsbind(mdeaths, fdeaths)
-x.xts <- as_xts(x.ts)
-x.df <- as_df(x.xts)
-x.dt <- as_dt(x.df)
-x.tbl <- as_tbl(x.dt)
+x.ts <- ts_bind(mdeaths, fdeaths)
+x.xts <- ts_xts(x.ts)
+x.df <- ts_df(x.xts)
+x.dt <- ts_dt(x.df)
+x.tbl <- ts_tbl(x.dt)
 ```
 
 ### Use same functions for ts, xts, data.frame, data.table or tibble
@@ -35,37 +35,37 @@ x.tbl <- as_tbl(x.dt)
 All functions start with `ts`, so you use them with auto complete (press Tab).
 
 ```r
-tsscale(x.ts)  # normalization
-tsscale(x.xts)
-tsscale(x.df)
-tsscale(x.dt)
-tsscale(x.tbl)
+ts_scale(x.ts)  # normalization
+ts_scale(x.xts)
+ts_scale(x.df)
+ts_scale(x.dt)
+ts_scale(x.tbl)
 
-tstrend(x.ts)  # loess trend line
-tspc(x.ts)
-tspcy(x.ts)
-tslag(x.ts)
-tsprcomp(tsbind(mdeaths, fdeaths))  # first principal component
+ts_trend(x.ts)  # loess trend line
+ts_pc(x.ts)
+ts_pcy(x.ts)
+ts_lag(x.ts)
+ts_prcomp(ts_bind(mdeaths, fdeaths))  # first principal component
 
 # with external packages
-tsforecast(x.ts)  # ets forecast
-tsseas(x.ts)      # X-13 seasonal adjustment
+ts_forecast(x.ts)  # ets forecast
+ts_seas(x.ts)      # X-13 seasonal adjustment
 ```
 
 ### Bind any time series vertically or horizontally
 
 ```r
-tsbind(as_dt(EuStockMarkets), AirPassengers)
-tsbind(EuStockMarkets, mdeaths)
+ts_bind(ts_dt(EuStockMarkets), AirPassengers)
+ts_bind(EuStockMarkets, mdeaths)
 
-tsrbind(as_dt(mdeaths), AirPassengers)
-tsrbind(as_xts(AirPassengers), as_tbl(mdeaths))
+ts_rbind(ts_dt(mdeaths), AirPassengers)
+ts_rbind(ts_xts(AirPassengers), ts_tbl(mdeaths))
 ```
 
 ### And plot just about everything
 
 ```r
-tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
+ts_plot(ts_scale(ts_bind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
 ```
 ![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
 
@@ -73,7 +73,7 @@ tsplot(tsscale(tsbind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DA
 There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 ```r
-tsggplot(tsscale(tsbind(discoveries, austres, AirPassengers)))
+ts_ggplot(ts_scale(ts_bind(discoveries, austres, AirPassengers)))
 ```
 
 
@@ -86,13 +86,13 @@ Use it to wrap any function that works with time series. The defaults are set to
 `ts`, so wrapping base functions for `ts` objects is as simple as:
 
 ```r
-tsdiff <- ts_(diff)
+ts_diff <- ts_(diff)
 ```
 
 Or a more complex example, which uses an external package:
 
 ```r
-tsforecast <- ts_(
+ts_forecast <- ts_(
   function(x, ...) {
     forecast::forecast(x, ...)$mean
   },
@@ -111,12 +111,12 @@ to install the required packages.
 library(dplyr)
 library(tsbox)
 
-dta <- as_tbl(tsbind(mdeaths, fdeaths))
+dta <- ts_tbl(ts_bind(mdeaths, fdeaths))
 
 dta %>%
-  tsbind(lmdeaths = tslag(tsselect(dta, 'mdeaths'), -1)) %>%
-  tspredictlm(mdeaths ~ lmdeaths + fdeaths) %>%
-  tsplot()
+  ts_bind(lmdeaths = ts_lag(ts_select(dta, 'mdeaths'), -1)) %>%
+  ts_predictlm(mdeaths ~ lmdeaths + fdeaths) %>%
+  ts_plot()
 ```
 
 

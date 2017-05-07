@@ -2,7 +2,7 @@ Package: tsbox
 Type: Package
 Title: Time Series Toolbox
 Version: 0.0.6
-Date: 2017-04-15
+Date: 2017-05-07
 Author: Christoph Sax
 Maintainer: Christoph Sax <christoph.sax@gmail.com>
 Description: A toolbox to deal with time series. Built around a set of
@@ -18,11 +18,12 @@ Imports:
     zoo,
     anytime
 Suggests: 
+    testthat,
     dplyr,
     tibble,
     data.table,
     forecast,
-    testthat
+    seasonal,
 License: GPL-3
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1

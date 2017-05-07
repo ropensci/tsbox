@@ -12,10 +12,10 @@
 
 
 #' @export
-#' @rdname tspc
-tstrend <- ts_(function(x, degree = 2, span = NULL, ...){
+#' @rdname ts_pc
+ts_trend <- ts_(function(x, degree = 2, span = NULL, ...){
   if (NCOL(x) > 1){
-    return(tsapply(x, tstrend))
+    return(ts_apply(x, ts_trend))
   }
 
   if (is.null(span)){
@@ -60,27 +60,27 @@ loess_aic_span_optim <- function(x, degree = 2){
 
 
 # #' @export
-# #' @rdname tspc
-# #' @method tstrend ts
-# tstrend.ts <- function(x, ...){
-#   as_ts(tstrend(as_xts(x), ...))
+# #' @rdname ts_pc
+# #' @method ts_trend ts
+# ts_trend.ts <- function(x, ...){
+#   ts_ts(ts_trend(ts_xts(x), ...))
 # }
 
 
 
 # #' @export
-# #' @rdname tspc
-# #' @method tstrend data.frame
-# tstrend.data.frame <- function(x, ...){
-#   as_df(tstrend(as_xts(x), ...))
+# #' @rdname ts_pc
+# #' @method ts_trend data.frame
+# ts_trend.data.frame <- function(x, ...){
+#   ts_df(ts_trend(ts_xts(x), ...))
 # }
 
 
 # #' @export
-# #' @rdname tspc
-# #' @method tstrend data.table
-# tstrend.data.table <- function(x, ...){
-#   as_dt(tstrend(as_xts(x), ...))
+# #' @rdname ts_pc
+# #' @method ts_trend data.table
+# ts_trend.data.table <- function(x, ...){
+#   ts_dt(ts_trend(ts_xts(x), ...))
 # }
 
 

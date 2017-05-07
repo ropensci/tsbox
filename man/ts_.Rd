@@ -2,43 +2,40 @@
 % Please edit documentation in R/ts_.R
 \name{ts_}
 \alias{ts_}
-\alias{tsdiff}
-\alias{tsscale}
-\alias{tswindow}
-\alias{tslag}
-\alias{tscycle}
-\alias{tsforecast}
-\alias{tsforecast.auto.arima}
-\alias{tsseas}
-\alias{tsprcomp}
-\alias{tsresidlm}
-\alias{tspredictlm}
+\alias{ts_diff}
+\alias{ts_scale}
+\alias{ts_lag}
+\alias{ts_cycle}
+\alias{ts_forecast}
+\alias{ts_forecast.auto.arima}
+\alias{ts_seas}
+\alias{ts_prcomp}
+\alias{ts_residlm}
+\alias{ts_predictlm}
 \title{universal constructor for ts functions}
 \usage{
 ts_(FUN, class = "ts", multiple = TRUE, suggested = NULL,
   ensure.names = TRUE)
 
-tsdiff(x, ...)
+ts_diff(x, ...)
 
-tsscale(x, ...)
+ts_scale(x, ...)
 
-tswindow(x, ...)
+ts_lag(x, ...)
 
-tslag(x, ...)
+ts_cycle(x, ...)
 
-tscycle(x, ...)
+ts_forecast(x, ...)
 
-tsforecast(x, ...)
+ts_forecast.auto.arima(x, ...)
 
-tsforecast.auto.arima(x, ...)
+ts_seas(x, ...)
 
-tsseas(x, ...)
+ts_prcomp(x, ...)
 
-tsprcomp(x, ...)
+ts_residlm(x, ...)
 
-tsresidlm(x, ...)
-
-tspredictlm(x, ...)
+ts_predictlm(x, ...)
 }
 \arguments{
 \item{FUN}{function, to be made available to all time series classes}
@@ -60,9 +57,9 @@ wrapper will loop through each series.}
 universal constructor for ts functions
 }
 \examples{
-tsplot(
-    tsbind(AirPassengers, mdeaths),
-    tsforecast(tsbind(AirPassengers, mdeaths))
+ts_plot(
+    ts_bind(AirPassengers, mdeaths),
+    ts_forecast(ts_bind(AirPassengers, mdeaths))
 )
 
 }

@@ -4,10 +4,10 @@
 #' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @return returns a function
 #' @export
-as_ <- function(x = "xts"){
+coerce_to_ <- function(x = "xts"){
   # print(x)
   stopifnot(x %in% c("xts", "ts", "data.frame", "data.table", "tbl"))
-  get(paste0("as_", x))
+  get(paste0("ts_", x))
 }
 
 desired_class <- function(ll){

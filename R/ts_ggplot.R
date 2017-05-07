@@ -5,7 +5,7 @@
 #' @param ... aruments passed to subfunctions
 #' @examples
 #' library(tsbox)
-#' df <- as_df(tsbind(total = ldeaths, female = fdeaths, male = mdeaths))
+#' df <- ts_df(ts_bind(total = ldeaths, female = fdeaths, male = mdeaths))
 #'  \dontrun{
 #' ggplot(df, aes(x = Index, y = Value, color = Series)) + 
 #'   geom_line() +
@@ -67,7 +67,7 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
 
 #' @export
 #' @rdname theme_ts
-tscolors <- function(){
+ts_colors <- function(){
       c(
   "#4D4D4D",
 "#5DA5DA",
@@ -89,21 +89,21 @@ tscolors <- function(){
 #' @import scales
 #' @rdname theme_ts
 scale_color_ts <- function(...) {
-    discrete_scale("colour", "ds", scales::manual_pal(tscolors()), ...)
+    discrete_scale("colour", "ds", scales::manual_pal(ts_colors()), ...)
 }
 
 #' @export
 #' @rdname theme_ts
 scale_fill_ts <- function (...) {
-    discrete_scale("fill", "ds", scales::manual_pal(tscolors()), ...)
+    discrete_scale("fill", "ds", scales::manual_pal(ts_colors()), ...)
 }
 
 
 
-#' @rdname tsplot
+#' @rdname ts_plot
 #' @export
-tsggplot <- function (..., title = NULL, subtitle = NULL) {
-  df <- as_data.frame(tsbind(...))
+ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
+  df <- ts_data.frame(ts_bind(...))
 
   time.name = getOption("tsbox.time.name", "time")
   var.name = getOption("tsbox.var.name", "var")
@@ -141,52 +141,52 @@ tsggplot <- function (..., title = NULL, subtitle = NULL) {
 
 }
 
-# UseMethod("tsggplot")
+# UseMethod("ts_ggplot")
 
 # #' @export
-# #' @rdname tsplot
-# #' @method tsggplot numeric
-# tsggplot.numeric <- function(..., title = NULL, subtitle = NULL){
-#   x <- tsbind(...)
-#   tsggplot(ts(x), title = title, subtitle = subtitle)
+# #' @rdname ts_plot
+# #' @method ts_ggplot numeric
+# ts_ggplot.numeric <- function(..., title = NULL, subtitle = NULL){
+#   x <- ts_bind(...)
+#   ts_ggplot(ts(x), title = title, subtitle = subtitle)
 # }
 
 # #' @export
-# #' @rdname tsplot
-# #' @method tsggplot ts
-# tsggplot.ts <- function(..., title = NULL, subtitle = NULL){
-#   df <- as_data.frame(tsbind(...))
-#   tsggplot_core(df, title = title, subtitle = subtitle)
+# #' @rdname ts_plot
+# #' @method ts_ggplot ts
+# ts_ggplot.ts <- function(..., title = NULL, subtitle = NULL){
+#   df <- ts_data.frame(ts_bind(...))
+#   ts_ggplot_core(df, title = title, subtitle = subtitle)
 # }
   
 # #' @export
-# #' @rdname tsplot
-# #' @method tsggplot xts
-# tsggplot.xts <- function(..., title = NULL, subtitle = NULL){
-#   df <- as_data.frame(tsbind(...))
-#   tsggplot_core(df, title = title, subtitle = subtitle)
+# #' @rdname ts_plot
+# #' @method ts_ggplot xts
+# ts_ggplot.xts <- function(..., title = NULL, subtitle = NULL){
+#   df <- ts_data.frame(ts_bind(...))
+#   ts_ggplot_core(df, title = title, subtitle = subtitle)
 # }
 
 # #' @export
-# #' @rdname tsplot
-# #' @method tsggplot data.frame
-# tsggplot.data.frame <- function(..., title = NULL, subtitle = NULL){
-#   x <- as_data.frame(tsbind(...))
-#   tsggplot_core(x, title = title, subtitle = subtitle)
+# #' @rdname ts_plot
+# #' @method ts_ggplot data.frame
+# ts_ggplot.data.frame <- function(..., title = NULL, subtitle = NULL){
+#   x <- ts_data.frame(ts_bind(...))
+#   ts_ggplot_core(x, title = title, subtitle = subtitle)
 # }
 
 # #' @export
-# #' @rdname tsplot
-# #' @method tsggplot data.table
-# tsggplot.data.table <- function(..., title = NULL, subtitle = NULL){
+# #' @rdname ts_plot
+# #' @method ts_ggplot data.table
+# ts_ggplot.data.table <- function(..., title = NULL, subtitle = NULL){
 
-#   # a bit a mystery that as_data.frame.data.table is not working...
-#   x <- as_data.frame(tsbind(...))  
+#   # a bit a mystery that ts_data.frame.data.table is not working...
+#   x <- ts_data.frame(ts_bind(...))  
 
-#   tsggplot_core(x, title = title, subtitle = subtitle)
+#   ts_ggplot_core(x, title = title, subtitle = subtitle)
 # }
 
-# tsggplot_core <- function(df, title = NULL, subtitle = NULL){
+# ts_ggplot_core <- function(df, title = NULL, subtitle = NULL){
 
 #   time.name = getOption("tsbox.time.name", "time")
 #   var.name = getOption("tsbox.var.name", "var")
@@ -234,12 +234,12 @@ tsggplot <- function (..., title = NULL, subtitle = NULL) {
 #' @param open should the graph be opened?
 #' @examples
 #' \dontrun{
-#' tsggplot(AirPassengers)
-#' tssave()
+#' ts_ggplot(AirPassengers)
+#' ts_save()
 #' }
 #' @import ggplot2
 #' @export
-tsggsave <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
+ts_ggsave <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
   filename <- gsub(".pdf$", paste0(".", device), filename)
   ggsave(filename = filename, width = width, height = height, device = device, ...)
 
