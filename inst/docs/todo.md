@@ -9,7 +9,7 @@
   - [X] ts_diff()
   - [X] ts_seas()
   - [X] ts_forecast()
-  - [X] ts_cbind()
+  - [X] ts_bind()
   - [X] ts_rbind()
 
   - [ ] Rewrite existing generics / methods, using ts

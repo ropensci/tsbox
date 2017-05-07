@@ -92,7 +92,7 @@ options(tsbox.time.name = "Date",
         tsbox.var.name = "Variable"
         )
 
-x.ts <- ts_cbind(mdeaths, fdeaths) 
+x.ts <- ts_bind(mdeaths, fdeaths) 
 x.xts <- ts_xts(x.ts)
 x.df <- ts_df(x.xts)
 \dontrun{

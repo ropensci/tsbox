@@ -5,7 +5,7 @@
 #' @param ... aruments passed to subfunctions
 #' @examples
 #' library(tsbox)
-#' df <- ts_df(ts_cbind(total = ldeaths, female = fdeaths, male = mdeaths))
+#' df <- ts_df(ts_bind(total = ldeaths, female = fdeaths, male = mdeaths))
 #'  \dontrun{
 #' ggplot(df, aes(x = Index, y = Value, color = Series)) + 
 #'   geom_line() +
@@ -103,7 +103,7 @@ scale_fill_ts <- function (...) {
 #' @rdname ts_plot
 #' @export
 ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
-  df <- ts_data.frame(ts_cbind(...))
+  df <- ts_data.frame(ts_bind(...))
 
   time.name = getOption("tsbox.time.name", "time")
   var.name = getOption("tsbox.var.name", "var")
@@ -147,7 +147,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # #' @rdname ts_plot
 # #' @method ts_ggplot numeric
 # ts_ggplot.numeric <- function(..., title = NULL, subtitle = NULL){
-#   x <- ts_cbind(...)
+#   x <- ts_bind(...)
 #   ts_ggplot(ts(x), title = title, subtitle = subtitle)
 # }
 
@@ -155,7 +155,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # #' @rdname ts_plot
 # #' @method ts_ggplot ts
 # ts_ggplot.ts <- function(..., title = NULL, subtitle = NULL){
-#   df <- ts_data.frame(ts_cbind(...))
+#   df <- ts_data.frame(ts_bind(...))
 #   ts_ggplot_core(df, title = title, subtitle = subtitle)
 # }
   
@@ -163,7 +163,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # #' @rdname ts_plot
 # #' @method ts_ggplot xts
 # ts_ggplot.xts <- function(..., title = NULL, subtitle = NULL){
-#   df <- ts_data.frame(ts_cbind(...))
+#   df <- ts_data.frame(ts_bind(...))
 #   ts_ggplot_core(df, title = title, subtitle = subtitle)
 # }
 
@@ -171,7 +171,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # #' @rdname ts_plot
 # #' @method ts_ggplot data.frame
 # ts_ggplot.data.frame <- function(..., title = NULL, subtitle = NULL){
-#   x <- ts_data.frame(ts_cbind(...))
+#   x <- ts_data.frame(ts_bind(...))
 #   ts_ggplot_core(x, title = title, subtitle = subtitle)
 # }
 
@@ -181,7 +181,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # ts_ggplot.data.table <- function(..., title = NULL, subtitle = NULL){
 
 #   # a bit a mystery that ts_data.frame.data.table is not working...
-#   x <- ts_data.frame(ts_cbind(...))  
+#   x <- ts_data.frame(ts_bind(...))  
 
 #   ts_ggplot_core(x, title = title, subtitle = subtitle)
 # }

@@ -4,18 +4,18 @@
 #' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @examples
 #'
-#' ts_cbind(ts_df(EuStockMarkets), AirPassengers)
-#' ts_cbind(EuStockMarkets, mdeaths)
+#' ts_bind(ts_df(EuStockMarkets), AirPassengers)
+#' ts_bind(EuStockMarkets, mdeaths)
 #'
 #' # labelling:
-#' ts_cbind(`International Airline Passengers` = ts_xts(AirPassengers), 
+#' ts_bind(`International Airline Passengers` = ts_xts(AirPassengers), 
 #'        `Deaths from Lung Diseases` = ldeaths)
 #' 
 #' ts_rbind(ts_df(mdeaths), AirPassengers)
 #' ts_rbind(ts_xts(AirPassengers), mdeaths)
 #' 
 #' @export
-ts_cbind <- function(...){
+ts_bind <- function(...){
 
   ll <- list(...)
 

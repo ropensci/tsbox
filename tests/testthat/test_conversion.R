@@ -18,7 +18,7 @@ test_that("two way conversion", {
 
 test_that("conversion between objects works as expected: ldeaths", {
 
-  x.ts <- ts_cbind(mdeaths, fdeaths)
+  x.ts <- ts_bind(mdeaths, fdeaths)
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
@@ -121,9 +121,9 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
 
 test_that("some trickier situations work properly", {
 
-  ts_cbind(
-      ts_cbind(AirPassengers, mdeaths),
-      ts_forecast(ts_cbind(AirPassengers, mdeaths))
+  ts_bind(
+      ts_bind(AirPassengers, mdeaths),
+      ts_forecast(ts_bind(AirPassengers, mdeaths))
   )
 
   # this is a tricky one: a function to detect NAs?
@@ -139,7 +139,7 @@ test_that("some trickier situations work properly", {
 
 test_that("selecting and binding works as expected", {
 
-  dta <- ts_df(ts_cbind(mdeaths, fdeaths))
+  dta <- ts_df(ts_bind(mdeaths, fdeaths))
   expect_equal(mdeaths, ts_ts(ts_select(dta, 'mdeaths')))
 
 })
@@ -153,9 +153,9 @@ test_that("selecting and binding works as expected", {
                 tsbox.time.name = "Hoho",
                 tsbox.value.name = "Hihi")
   on.exit(options(op))
-  dta <- ts_df(ts_dt(ts_xts(ts_cbind(mdeaths, fdeaths))))
+  dta <- ts_df(ts_dt(ts_xts(ts_bind(mdeaths, fdeaths))))
   expect_equal(mdeaths, ts_ts(ts_dt(ts_select(dta, 'mdeaths'))))
-  expect_equal(ts_ts(ts_select(ts_tbl(ts_cbind(fdeaths, mdeaths)), "mdeaths")), mdeaths)
+  expect_equal(ts_ts(ts_select(ts_tbl(ts_bind(fdeaths, mdeaths)), "mdeaths")), mdeaths)
 })
 
 

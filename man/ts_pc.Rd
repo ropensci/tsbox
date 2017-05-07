@@ -75,7 +75,7 @@ Utility Functions for Time Series
 \examples{
 library(tsbox)
 
-x.ts <- ts_cbind(mdeaths, fdeaths) 
+x.ts <- ts_bind(mdeaths, fdeaths) 
 x.xts <- ts_xts(x.ts)
 x.df <- ts_df(x.xts)
 
