@@ -70,7 +70,9 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.nam
       })
     }  
   }
-  return(z)
+
+  f <- eval(z, parent.frame())
+  f
 }
 
 #' @export
@@ -96,7 +98,7 @@ ts_lag <- ts_(stats::lag)
 
 #' @export
 #' @rdname ts_
-ts_cycle <- ts_(stats::cycle)
+ts_cycle <- ts_(stats::cycle, multiple = FALSE)
 
 #' @export
 #' @rdname ts_

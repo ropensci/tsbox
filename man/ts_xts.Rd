@@ -66,9 +66,8 @@ ts_xts(x, ...)
   "time"), var.name = getOption("tsbox.var.name", "var"),
   value.name = getOption("tsbox.value.name", "value"), ...)
 
-\method{ts_xts}{data.table}(x, time.name = getOption("tsbox.time.name",
-  "time"), var.name = getOption("tsbox.var.name", "var"),
-  value.name = getOption("tsbox.value.name", "value"), ...)
+\method{ts_xts}{data.table}(x, time.name = "time", var.name = "var",
+  value.name = "value", ...)
 }
 \arguments{
 \item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
