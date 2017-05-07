@@ -76,7 +76,7 @@ ts_ <- function(FUN, class = "ts", multiple = TRUE, suggested = NULL, ensure.nam
 }
 
 #' @export
-#' @importFrom stats window lag cycle
+#' @importFrom stats window lag cycle lm prcomp start
 #' @rdname ts_
 ts_diff <- ts_(diff)
 
@@ -86,11 +86,6 @@ ts_scale <- ts_(function(x, ...){
   z <- scale.default(unclass(x), ...)
   xts::reclass(z, x)
 }, class = "xts")
-
-
-#' @export
-#' @rdname ts_
-ts_window <- ts_(stats::window)
 
 #' @export
 #' @rdname ts_
@@ -114,8 +109,9 @@ ts_forecast.auto.arima  <- ts_(
 
 #' @export
 #' @rdname ts_
-ts_seas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)),
-              multiple = FALSE, suggested = "seasonal")
+ts_seas <- ts_(function(x, ...) {
+    seasonal::final(seasonal::seas(x, ...))
+  }, multiple = FALSE, suggested = "seasonal")
 
 #' @export
 #' @rdname ts_

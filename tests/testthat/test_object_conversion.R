@@ -4,15 +4,40 @@ library(tsbox)
 library(dplyr)
 library(tsbox)
 
-context("data time conversion")
 
-test_that("two way conversion", {
-  expect_equal(tsbox:::POSIXct_to_tsp(tsbox:::ts_to_POSIXct(AirPassengers)), tsp(AirPassengers))
-  expect_equal(tsbox:::POSIXct_to_tsp(tsbox:::ts_to_POSIXct(EuStockMarkets)), tsp(EuStockMarkets))
-  expect_equal(tsbox:::POSIXct_to_tsp(tsbox:::ts_to_POSIXct(discoveries)), tsp(discoveries))
-  expect_equal(tsbox:::POSIXct_to_tsp(tsbox:::ts_to_POSIXct(mdeaths)), tsp(mdeaths))
-  expect_equal(tsbox:::POSIXct_to_tsp(tsbox:::ts_to_POSIXct(uspop)), tsp(uspop))
-  expect_equal(tsbox:::POSIXct_to_tsp(tsbox:::ts_to_POSIXct(austres)), tsp(austres))
+context("basic conversion handling")
+
+test_that("conversion produces right classes", {
+  expect_s3_class(ts_xts(AirPassengers), "xts")
+  expect_s3_class(ts_ts(AirPassengers), "ts")
+  expect_s3_class(ts_df(AirPassengers), "data.frame")
+  expect_s3_class(ts_dt(AirPassengers), "data.table")
+  expect_s3_class(ts_tbl(AirPassengers), "tbl_df")
+
+  expect_s3_class(ts_xts(ts_xts(AirPassengers)), "xts")
+  expect_s3_class(ts_ts(ts_xts(AirPassengers)), "ts")
+  expect_s3_class(ts_df(ts_xts(AirPassengers)), "data.frame")
+  expect_s3_class(ts_dt(ts_xts(AirPassengers)), "data.table")
+  expect_s3_class(ts_tbl(ts_xts(AirPassengers)), "tbl_df")
+
+  expect_s3_class(ts_xts(ts_df(AirPassengers)), "xts")
+  expect_s3_class(ts_ts(ts_df(AirPassengers)), "ts")
+  expect_s3_class(ts_df(ts_df(AirPassengers)), "data.frame")
+  expect_s3_class(ts_dt(ts_df(AirPassengers)), "data.table")
+  expect_s3_class(ts_tbl(ts_df(AirPassengers)), "tbl_df")
+
+  expect_s3_class(ts_xts(ts_dt(AirPassengers)), "xts")
+  expect_s3_class(ts_ts(ts_dt(AirPassengers)), "ts")
+  expect_s3_class(ts_df(ts_dt(AirPassengers)), "data.frame")
+  expect_s3_class(ts_dt(ts_dt(AirPassengers)), "data.table")
+  expect_s3_class(ts_tbl(ts_dt(AirPassengers)), "tbl_df")
+
+  expect_s3_class(ts_xts(ts_tbl(AirPassengers)), "xts")
+  expect_s3_class(ts_ts(ts_tbl(AirPassengers)), "ts")
+  expect_s3_class(ts_df(ts_tbl(AirPassengers)), "data.frame")
+  expect_s3_class(ts_dt(ts_tbl(AirPassengers)), "data.table")
+  expect_s3_class(ts_tbl(ts_tbl(AirPassengers)), "tbl_df")
+
 })
 
 
@@ -132,11 +157,6 @@ test_that("some trickier situations work properly", {
 })
 
 
-
-
-
-
-
 test_that("selecting and binding works as expected", {
 
   dta <- ts_df(ts_bind(mdeaths, fdeaths))
@@ -146,21 +166,23 @@ test_that("selecting and binding works as expected", {
 
 
 
-test_that("selecting and binding works as expected", {
-  # manipulation of col names do not affect calculations
+test_that("colname guessing works as expected", {
 
-  op <- options(tsbox.var.name = "Haha",
-                tsbox.time.name = "Hoho",
-                tsbox.value.name = "Hihi")
-  on.exit(options(op))
-  dta <- ts_df(ts_dt(ts_xts(ts_bind(mdeaths, fdeaths))))
-  expect_equal(mdeaths, ts_ts(ts_dt(ts_select(dta, 'mdeaths'))))
-  expect_equal(ts_ts(ts_select(ts_tbl(ts_bind(fdeaths, mdeaths)), "mdeaths")), mdeaths)
+  # 3 cols
+  x.df <- ts_tbl(ts_bind(mdeaths, fdeaths)) %>% 
+    setNames(c("Haha", "Hoho", "Hihi"))
+  
+  x.dt <- as.data.table(x.df)
+  expect_equal(mdeaths, ts_select(ts_ts(ts_xts(ts_df(x.df))), 'mdeaths'))
+  expect_equal(mdeaths, ts_select(ts_ts(ts_df(ts_xts(ts_ts(x.dt)))), 'mdeaths'))
+
+  # 2 cols
+  x.df <- ts_tbl(AirPassengers) %>% 
+    setNames(c("Haha", "Hoho"))
+  
+  x.dt <- as.data.table(x.df)
+  expect_equal(AirPassengers, ts_select(ts_ts(ts_xts(ts_df(x.df))), 'AirPassengers'))
+  expect_equal(AirPassengers, ts_select(ts_ts(ts_df(ts_xts(ts_ts(x.dt)))), 'AirPassengers'))
+
 })
-
-
-
-
-
-
 

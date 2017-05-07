@@ -4,7 +4,6 @@
 \alias{ts_}
 \alias{ts_diff}
 \alias{ts_scale}
-\alias{ts_window}
 \alias{ts_lag}
 \alias{ts_cycle}
 \alias{ts_forecast}
@@ -21,8 +20,6 @@ ts_(FUN, class = "ts", multiple = TRUE, suggested = NULL,
 ts_diff(x, ...)
 
 ts_scale(x, ...)
-
-ts_window(x, ...)
 
 ts_lag(x, ...)
 

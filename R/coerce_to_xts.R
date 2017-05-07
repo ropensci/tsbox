@@ -88,7 +88,7 @@ ts_xts.xts <- function(x, ...){
 
 guess_time.var.value.name <- function(df, time.name, var.name, value.name){
   cnames <- colnames(df)
-  cclasses <- vapply(df, class, "")
+  cclasses <- lapply(df, class)
 
   i.am.in.guessing.mood <- FALSE
 
@@ -101,7 +101,7 @@ guess_time.var.value.name <- function(df, time.name, var.name, value.name){
 
   if (!var.name %in% cnames) {
     if (NCOL(df) > 2){
-      if ((cclasses[2] %in% c("factor", "character")) && (i.am.in.guessing.mood)){
+      if ((any(cclasses[[2]] %in% c("factor", "character"))) && (i.am.in.guessing.mood)){
         var.name <- cnames[2]
         message("Using second column name '", cnames[2], "' as 'var.name'")
       }
@@ -111,7 +111,7 @@ guess_time.var.value.name <- function(df, time.name, var.name, value.name){
 
   if (!value.name %in% cnames) {
     if (NCOL(df) == 2){
-      if ((cclasses[2] %in% c("numeric", "integer"))){
+      if ((any(cclasses[[2]] %in% c("numeric", "integer")))){
         value.name <- cnames[2]
         message("Using second column name '", cnames[2], "' as 'value.name'")
       } else {
@@ -137,9 +137,9 @@ guess_time.var.value.name <- function(df, time.name, var.name, value.name){
 #' @rdname ts_xts
 #' @method ts_xts data.frame
 ts_xts.data.frame <- function(x, 
-                              time.name = getOption("tsbox.time.name", "time"), 
-                              var.name = getOption("tsbox.var.name", "var"), 
-                              value.name = getOption("tsbox.value.name", "value"), ...){
+                              time.name = "time", 
+                              var.name = "var", 
+                              value.name = "value", ...){
 
   tvv <- guess_time.var.value.name(x, time.name, var.name, value.name)
 
@@ -176,7 +176,7 @@ ts_xts.data.table <- function(x,
                               time.name = "time", 
                               var.name = "var", 
                               value.name = "value", ...){
-  as.data.table(ts_xts(x, time.name = time.name, var.name = var.name, value.name = value.name))
+  ts_xts(as.data.frame(x), time.name = time.name, var.name = var.name, value.name = value.name)
 }
 
 

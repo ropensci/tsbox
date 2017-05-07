@@ -62,9 +62,8 @@ ts_xts(x, ...)
 
 \method{ts_xts}{xts}(x, ...)
 
-\method{ts_xts}{data.frame}(x, time.name = getOption("tsbox.time.name",
-  "time"), var.name = getOption("tsbox.var.name", "var"),
-  value.name = getOption("tsbox.value.name", "value"), ...)
+\method{ts_xts}{data.frame}(x, time.name = "time", var.name = "var",
+  value.name = "value", ...)
 
 \method{ts_xts}{data.table}(x, time.name = "time", var.name = "var",
   value.name = "value", ...)
