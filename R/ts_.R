@@ -88,7 +88,7 @@ ts_scale <- ts_(function(x, ...){
 
 #' @export
 #' @rdname ts_
-ts_windowdow <- ts_(stats::window)
+ts_window <- ts_(stats::window)
 
 #' @export
 #' @rdname ts_
@@ -107,13 +107,7 @@ ts_forecast <- ts_(function(x, ...) forecast::forecast(x, ...)$mean,
 #' @rdname ts_
 ts_forecast.auto.arima  <- ts_(
   function(x, confint = FALSE, ...) {
-    m <- forecast::forecast(forecast::auto.arima(x), ...)
-    if (confint){
-      z <- ts_bind(mean = m$mean, lower = m$lower, upper = m$upper)
-    } else {
-      z <- m$mean
-    }
-    z
+    forecast::forecast(forecast::auto.arima(x), ...)$mean
   }, multiple = FALSE, suggested = "forecast")
 
 #' @export

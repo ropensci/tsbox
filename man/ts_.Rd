@@ -5,7 +5,7 @@
 \alias{ts_}
 \alias{ts_diff}
 \alias{ts_scale}
-\alias{ts_windowdow}
+\alias{ts_window}
 \alias{ts_lag}
 \alias{ts_cycle}
 \alias{ts_forecast}
@@ -24,7 +24,7 @@ ts_diff
 
 ts_scale
 
-ts_windowdow
+ts_window(x, ...)
 
 ts_lag
 
@@ -54,9 +54,9 @@ wrapper will loop through each series.}
 
 \item{ensure.names}{logical, whether the series in the output should have the same names as the input}
 
-\item{...}{arguments passed to underlying functions.}
-
 \item{x}{s time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+
+\item{...}{arguments passed to underlying functions.}
 }
 \description{
 universal constructor for ts functions
