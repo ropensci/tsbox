@@ -101,7 +101,7 @@ guess_time.var.value.name <- function(df, time.name, var.name, value.name){
 
   if (!var.name %in% cnames) {
     if (NCOL(df) > 2){
-      if ((any(cclasses[[2]] %in% c("factor", "character"))) && (i.am.in.guessing.mood)){
+      if (i.am.in.guessing.mood){
         var.name <- cnames[2]
         message("Using second column name '", cnames[2], "' as 'var.name'")
       }
