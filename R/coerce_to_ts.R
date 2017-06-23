@@ -25,7 +25,7 @@ ts_ts.xts <- function(x, ...) {
   #   stop("some dates in xts are not equally spaced. Equality must be enforced, but the tools to do so still need to be implemented.")
   # } 
 
-  tsp <- Date_POSIXct_to_tsp(index(x))
+  tsp <- Date_date_time_to_tsp(index(x))
 
   cdta <- coredata(x)
   if (NCOL(cdta) == 1) cdta <- as.numeric(cdta)

@@ -10,7 +10,7 @@
 #' @method ts_ts dts
 ts_ts.dts <- function(x, ...) {
   wx <- spread_dts(x)
-  tsp <- Date_POSIXct_to_tsp(wx[, time])
+  tsp <- Date_date_time_to_tsp(wx[, time])
   cdta <- wx[, -1]
   if (NCOL(cdta) == 1) cdta <- as.numeric(cdta)
   z <- ts(cdta, start = tsp[1], frequency = tsp[3])
@@ -23,7 +23,7 @@ ts_ts.dts <- function(x, ...) {
 dts.ts <- function(x, ...){
   stopifnot(inherits(x, "ts"))
 
-  timec <- ts_to_Date_POSIXct(x)
+  timec <- ts_to_date_time
 
   dta <- as.data.table(x)
 

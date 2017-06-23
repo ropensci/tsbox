@@ -1,71 +1,6 @@
 
-# --- Convertors for dectime to POSIXct and back -------------------------------
 
-seconds_since_70 <- function(year){
-  sq <- seq(as.POSIXct("1990-01-01", tz = ""), 
-            to = as.POSIXct("2010-01-01", tz = ""), 
-            by = "1 year")
-  as.numeric(seq(as.POSIXct(paste0(year, "-01-01")), length.out = 2, by = "1 year"))
-}
-
-dectime_to_POSIXct <- function(x){
-  stopifnot(length(x) == 1)
-  year <- floor(x)
-  intra <- x-year
-  ss70 <- seconds_since_70(year)
-  as.POSIXct(ss70[1] + diff(ss70) * intra, origin = "1970-01-01", tz = "")
-}
-
-POSIXct_to_dectime <- function(x){
-  stopifnot(length(x) == 1)
-  year <- as.POSIXlt(x)$year + 1900L
-  ss70 <- seconds_since_70(year)
-
-  intra <- (as.numeric(x) - ss70[1]) / diff(ss70)
-  year + intra
-}
-
-
-# Extensive test
-
-# sq <- seq(as.POSIXct("0001-01-01", tz = ""), 
-#           to = as.POSIXct("2500-01-01", tz = ""), 
-#           by = "1 hour")
-# random.dates <- sample(sq, 1000)
-# 
-# z <- vapply(random.dates, function(e) all.equal(dectime_to_POSIXct(POSIXct_to_dectime(# x)),x), TRUE)
-# all(z)  # TRUE
-
-# --- exact convertors ---------------------------------------------------------
-
-
-ts_to_POSIXct <- function(x){
-  stopifnot(inherits(x, "ts"))
-  if (NCOL(x) > 1) x <- x[,1]
-  seq(from = dectime_to_POSIXct(tsp(x)[1]),
-      to = dectime_to_POSIXct(tsp(x)[2]),
-      length.out = length(x))
-}
-
-POSIXct_to_tsp <- function(x){
-
-  check_regularity(x)
-
-  stopifnot(inherits(x, "POSIXct"))
-  start <- POSIXct_to_dectime(x[1])
-  end <- POSIXct_to_dectime(x[length(x)])
-  f <- (length(x) - 1) / (end - start)
-  c(start, end, f)
-}
-
-
-
-
-
-# --- heuristic convertors -----------------------------------------------------
-
-
-ts_to_Date_POSIXct <- function(x){
+ts_to_date_time <- function(x){
   stopifnot(inherits(x, "ts"))
   if (NCOL(x) > 1) x <- x[,1]
 
@@ -108,17 +43,17 @@ ts_to_Date_POSIXct <- function(x){
 
 # not too bad how this works for most series
 
-# ts_to_Date_POSIXct(AirPassengers)
-# ts_to_Date_POSIXct(uspop)
-# ts_to_Date_POSIXct(austres)
-# ts_to_Date_POSIXct(EuStockMarkets)
+# ts_to_date_time(AirPassengers)
+# ts_to_date_time(uspop)
+# ts_to_date_time(austres)
+# ts_to_date_time(EuStockMarkets)
 
 
 
 # # utility function to find POSIXct range (for coding only)
 # find_range <- function(x){
 #   ser <- ts(rep(1, 1000), f = x, start = 1800)
-#   range(diff(as.numeric(as.POSIXct(ts_to_Date_POSIXct(ser)))))
+#   range(diff(as.numeric(as.POSIXct(ts_to_date_time(ser)))))
 # }
 
 # find_range(12)
@@ -130,7 +65,7 @@ in_range <- function(x, min, max, tol = 1000){
 }
 
 
-Date_POSIXct_to_tsp <- function(x){ 
+date_time_to_tsp <- function(x){ 
 
   st <- as.POSIXlt(x[1])
   y <- st$year + 1900L
@@ -164,10 +99,7 @@ Date_POSIXct_to_tsp <- function(x){
     z <- tsp(ts(x, frequency = f, start = start))  # a bit inefficient
   } else {
     # non heuristic conversion
-    z <- POSIXct_to_tsp(as.POSIXct(x))
+    z <- date_time_to_tsp(as.POSIXct(x))
   }
   z
 }
-
-
-
