@@ -37,7 +37,7 @@ ts_to_POSIXct <- function(x){
       length.out = length(x))
 }
 
-date_time_to_tsp <- function(x){
+POSIXct_to_tsp <- function(x){
   check_regularity(x)
   stopifnot(inherits(x, "POSIXct"))
   start <- POSIXct_to_dectime(x[1])

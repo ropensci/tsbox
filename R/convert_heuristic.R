@@ -99,7 +99,7 @@ date_time_to_tsp <- function(x){
     z <- tsp(ts(x, frequency = f, start = start))  # a bit inefficient
   } else {
     # non heuristic conversion
-    z <- date_time_to_tsp(as.POSIXct(x))
+    z <- POSIXct_to_tsp(as.POSIXct(x))
   }
   z
 }

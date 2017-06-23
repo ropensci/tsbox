@@ -22,7 +22,7 @@ dts.numeric <- function(x, time, var){
 
 # x <- bind_dts(lapply(paste0("var", 1:100), function(e) dts(rnorm(100), time = seq(as.Date("2001-01-01"), length.out = 100, by = "day"), var = e)))
 
-
+#' @export
 add_dts_class <- function(x){
   class(x) <- c("dts", class(x))
   x

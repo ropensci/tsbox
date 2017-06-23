@@ -10,9 +10,13 @@
 #' @method ts_ts dts
 ts_ts.dts <- function(x, ...) {
   wx <- spread_dts(x)
-  tsp <- Date_date_time_to_tsp(wx[, time])
+  tsp <- date_time_to_tsp(wx[, time])
   cdta <- wx[, -1]
-  if (NCOL(cdta) == 1) cdta <- as.numeric(cdta)
+  if (NCOL(cdta) == 1) {
+    cdta <- as.numeric(cdta[[1]])
+  } else {
+    cdta <- as.matrix(cdta)
+  }
   z <- ts(cdta, start = tsp[1], frequency = tsp[3])
   z
 }
