@@ -1,7 +1,7 @@
 Package: tsbox
 Type: Package
 Title: Time Series Toolbox
-Version: 0.0.7
+Version: 0.0.8
 Date: 2017-05-07
 Author: Christoph Sax
 Maintainer: Christoph Sax <christoph.sax@gmail.com>
@@ -10,12 +10,8 @@ Description: A toolbox to deal with time series. Built around a set of
   "data.frame" or "data.table" to each other. Because this works, we can define
   a set of tools that work the same way for each class. And, we can write a plot
   function that just works.
-Depends:
-    xts
 Imports: 
-    ggplot2,
-    scales,
-    zoo,
+    data.table,
     anytime
 Suggests: 
     testthat,
@@ -24,6 +20,8 @@ Suggests:
     data.table,
     forecast,
     seasonal,
+    xts,
+    ggplot2
 License: GPL-3
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1

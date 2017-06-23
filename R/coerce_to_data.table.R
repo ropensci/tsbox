@@ -4,6 +4,7 @@
 
 #' @export
 #' @rdname ts_xts
+#' @import data.table
 ts_data.table <- function (x, ...) {
   stopifnot(requireNamespace("data.table"))
   data.table::as.data.table(ts_data.frame(x, ...))

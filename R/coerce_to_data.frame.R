@@ -17,7 +17,6 @@ ts_df <- function (x, ...) {
   ts_data.frame(x, ...)
 }
 
-#' @import zoo xts
 #' @rdname ts_xts
 #' @export
 #' @method ts_data.frame xts

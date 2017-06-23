@@ -16,7 +16,6 @@
 #' ggsave("myfig.pdf", width = 8, height = 5)
 #' browseURL("myfig.pdf")
 #' }
-#' @import ggplot2
 #' @export
 theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
   # 'Source Sans Pro'  # does not work on mac
@@ -86,7 +85,6 @@ ts_colors <- function(){
 }
 
 #' @export
-#' @import scales
 #' @rdname theme_ts
 scale_color_ts <- function(...) {
     discrete_scale("colour", "ds", scales::manual_pal(ts_colors()), ...)
@@ -237,7 +235,6 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 #' ts_ggplot(AirPassengers)
 #' ts_save()
 #' }
-#' @import ggplot2
 #' @export
 ts_ggsave <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
   filename <- gsub(".pdf$", paste0(".", device), filename)
