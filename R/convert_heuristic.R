@@ -2,43 +2,40 @@
 
 ts_to_date_time <- function(x){
   stopifnot(inherits(x, "ts"))
+
+  # if 'mts', only consider first column
   if (NCOL(x) > 1) x <- x[,1]
 
-  # basic strucuture from the xts package
+  first.year <- tsp(x)[1] %/% 1
+  first.subperiod <- tsp(x)[1] %%  1
+  fr <- frequency(x)
 
-  # But: 
-  # - assuming time is measured in years, which makes conversion easier
-
-  # Anything we can do wiht a weekly series? 
-
-  # e.g. ts(rnorm(50), start = 1, f = 7)?  
-  # Probably not. So this would currently be read as a a regular
-  # 1/7 period, starting in year 1. Seems ok to me.
-
-  # - TODO more frequencies
-
-  # # heuristic converions
-  if(frequency(x) == 1) {
-
-    # perhaps we can make this more general: if subperiod is hole number, 
-    # threat it as, month, quarter, semester
-    y <- tsp(x)[1] %/% 1
-    m <- tsp(x)[1] %%  1
-    if (m %% (1/12) == 0) {
-      m <- ifelse(length(m) < 1, 1, floor(m * 12) + 1)
-      from <- as.Date(ISOdate(year = y, month = m, day = 1))
-      z <- seq.Date(from, length.out = length(x), by = "1 year")
-    }
-  } else if(frequency(x) == 4) {
-    z <- as.Date(as.yearqtr(time(x)))
-  } else if(frequency(x) == 12) {
-    z <- as.Date(as.yearmon(time(x)))
-  } else {
-    # non heuristic conversion
-    z <- ts_to_POSIXct(x)
+  if (first.subperiod %% (1 / fr) != 0){
+    stop("Suberiod is not dividable by fr. Could be also a rounding problem.")
   }
 
-  z
+  # make more general?
+  by.string <- switch(as.character(fr), 
+                      `0.1`      = "10 year",
+                      `1`        = "1 year",
+                      `2`        = "6 month",
+                      `4`        = "1 quarter",
+                      `12`       = "1 month"
+                      # `365.25`   = "1 day"   
+                      )
+
+  if (is.null(by.string)){   # non heuristic conversion as fall back
+    return(ts_to_POSIXct(x))
+  }
+
+  month.per.unit <- 12 / fr
+  first.month <- (first.subperiod * fr) * month.per.unit + 1
+  first.Date <- as.Date(ISOdate(year = first.year, 
+                                month = first.month, 
+                                day = 1))
+
+
+  seq.Date(first.Date, length.out = length(x), by = by.string)
 }
 
 # not too bad how this works for most series

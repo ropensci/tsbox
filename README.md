@@ -1,15 +1,25 @@
-Time Series Toolbox
-===================
+R Time Series Toolbox
+=====================
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
-*This is a very early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
+*This is an early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
-A toolbox to deal with time series in R. Built around a set of converters, which
-*reliably* convert time series stored as **ts**, **xts**, **data.frame**,
-**data.table** or  **tibble** to each other. Because it works, we can define a
-set of tools that work *identially* for each class. And, we can use a plot
-function that *just works*!
+
+tsbox provides tools that are *agnostic* towards time series concepts. 
+The R ecosystem knows a [vast number](https://cran.r-project.org/web/views/TimeSeries.html) 
+of time series standards. Instead of creating the ulitmate
+[15th](https://xkcd.com/927/) time series class, tsbox provides a set of tools
+that are agnostic towards the existing standards. The tools also allow you to
+handle time series as plain data frames, thus making it easy to deal with time
+series in a [dplyr](https://CRAN.R-project.org/package=dplyr) or
+[data.table](https://CRAN.R-project.org/package=data.table) workflow.
+
+tsbox is built around a set of converters, which reliably convert time series
+stored as **ts**, **xts**, **data.frame**, **data.table** or  **tibble** to each
+other. Because this works smoothly, we can define a set of tools that work
+*identially* for each class. And, we can write a plot function that simply
+works!
 
 To install:
 ```r
