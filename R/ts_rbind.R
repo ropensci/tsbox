@@ -14,18 +14,17 @@ ts_rbind <- function(...){
   # cl <- vapply(ll, function(e) class(e)[1], "")
 
   # TODO: keep df only and ts/mts only as their classes
-  ll.xts <- lapply(ll, ts_xts)
+  ll.dts <- lapply(ll, ts_dts)
   llnames <- lapply(substitute(placeholderFunction(...))[-1], deparse)
 
-
-  nc <- vapply(ll.xts, NCOL, 1L)
+  nc <- vapply(ll.dts, NCOL, 1L)
 
   if (length(nc) == 1){
     # rbind multiple series if a single object is given
-    o1 <- ll.xts[[1]]
-    ll.xts <- list()
+    o1 <- ll.dts[[1]]
+    ll.dts <- list()
     for (i in 1:NCOL(o1)){
-      ll.xts[[i]] <- o1[, i]
+      ll.dts[[i]] <- o1[, i]
     }
     llnames <- colnames(o1)
   }
@@ -34,17 +33,19 @@ ts_rbind <- function(...){
     stop("number of columns differ: ", paste(unique(nc), collapse = ", "))
   }
 
-  z <- ll.xts[[1]]
+  z <- ll.dts[[1]]
 
-  ind0 <- index(ll.xts[[1]])
-  for (i in 2:length(ll.xts)){
-    indi <- index(ll.xts[[i]])
+  ind0 <- ll.dts[[1]][, time]
+
+
+  for (i in 2:length(ll.dts)){
+    indi <- ll.dts[[i]][, time]
     dup <- indi %in% ind0
     if (any(dup)) {
       message("duplicate timestamps removed in: ", llnames[i])
     }
-    z <- rbind(z, ll.xts[[i]][!dup])
-    ind0 <- index(z)
+    z <- rbind(z, ll.dts[[i]][!dup])
+    ind0 <- z[, time]
   }
 
  

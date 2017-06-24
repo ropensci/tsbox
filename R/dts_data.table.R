@@ -4,10 +4,22 @@ ts_data.table <- function (x, ...) UseMethod("ts_data.table")
 #' @export
 #' @method ts_dts data.table
 ts_dts.data.table <- function(x, ...){
+
   tvv <- guess_time_var_value(x)
-  z <- x[, c(tvv[['time.name']], tvv[['value.name']], tvv[['var.name']]), with = FALSE]
-  setnames(z, c("time", "value", "var"))
-  z[, time := anydate(time)]
+
+  if (NCOL(x) == 2){
+    z <- x[, c(tvv[['time.name']], tvv[['value.name']]), with = FALSE]
+    setnames(z, c("time", "value"))
+    z[, var := "x"]
+  } else {
+    z <- x[, c(tvv[['time.name']], tvv[['value.name']], tvv[['var.name']]), with = FALSE]
+    setnames(z, c("time", "value", "var"))
+  }
+
+  if (!class(z$time)[1] %in% c("POSIXct", "Date")){
+    z[, time := anytime(time)]
+  }
+  
   add_dts_class(z)
 }
 

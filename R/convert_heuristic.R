@@ -10,7 +10,7 @@ ts_to_date_time <- function(x){
   first.subperiod <- tsp(x)[1] %%  1
   fr <- frequency(x)
 
-  if (first.subperiod %% (1 / fr) != 0){
+  if (abs(first.subperiod %% (1 / fr)) > 1e-8){
     stop("Suberiod is not dividable by fr. Could be also a rounding problem.")
   }
 

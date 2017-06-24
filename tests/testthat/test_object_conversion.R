@@ -91,9 +91,9 @@ test_that("conversion between objects works as expected: discoveries", {
   expect_equal(ts_ts(ts_tbl(x.ts)), x.ts)
 
   expect_equal(ts_xts(ts_ts(x.xts)), x.xts)
-  expect_equal(unname(ts_xts(ts_df(x.xts))), x.xts)
-  expect_equal(unname(ts_xts(ts_dt(x.xts))), x.xts)
-  expect_equal(unname(ts_xts(ts_tbl(x.xts))), x.xts)
+  expect_equal(ts_xts(ts_df(x.xts)), x.xts)
+  expect_equal(ts_xts(ts_dt(x.xts)), x.xts)
+  expect_equal(ts_xts(ts_tbl(x.xts)), x.xts)
 
   expect_equal(ts_df(ts_ts(x.df)), x.df)
   expect_equal(ts_df(ts_xts(x.df)), x.df)
@@ -157,6 +157,13 @@ test_that("some trickier situations work properly", {
 })
 
 
+test_that("2 colum data.frames work as expected", {
+  x <- ts_dt(AirPassengers)
+  x[, var := NULL]
+  ts_dts(x)
+})
+
+
 test_that("selecting and binding works as expected", {
 
   dta <- ts_df(ts_bind(mdeaths, fdeaths))
@@ -178,6 +185,7 @@ test_that("colname guessing works as expected", {
 
   # 2 cols
   x.df <- ts_tbl(AirPassengers) %>% 
+    select(-var) %>% 
     setNames(c("Haha", "Hoho"))
   
   x.dt <- as.data.table(x.df)

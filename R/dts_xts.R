@@ -7,7 +7,8 @@ ts_xts <- function (x, ...) UseMethod("ts_xts")
 #' @method ts_xts dts
 ts_xts.dts <- function(x){
   stopifnot(requireNamespace("xts"))
-  xts::as.xts(spread_dts(x))
+  z <- spread_dts(x)
+  xts::xts(x = as.matrix(z[, -1]), order.by = z[, time])
 }
 
 
@@ -22,12 +23,15 @@ ts_dts.xts <- function(x){
   stopifnot(requireNamespace("xts"))
 
   idx <- attr(x, "index")
+  tclass <- attr(idx, "tclass")
+  attributes(idx) <- NULL
+
   dta <- as.data.frame(x, row.names = FALSE)
 
-  if (attr(idx, "tclass") == "Date"){
-    time <- as.Date(suppressWarnings(as.POSIXct(idx, origin = "1970-01-01", tz = "GMT")))
-  } else if (attr(idx, "tclass") == "POSIXct"){
-    time <- suppressWarnings(as.POSIXct(idx, origin = "1970-01-01", tz = "GMT"))
+  if (tclass[1] == "Date"){
+    time <- as.Date(as.POSIXct(idx, origin = "1970-01-01"))
+  } else if (tclass[1] == "POSIXct"){
+    time <- as.POSIXct(idx, origin = "1970-01-01")
   }
 
   z <- data.table(time = time, dta)

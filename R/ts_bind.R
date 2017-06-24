@@ -25,31 +25,31 @@ ts_bind <- function(...){
 
   # currently we treat ts-only bind separately, if of same freq
   if (desired.class == "ts"){
-    ll.xts <- ll
+    ll.dts <- ll
   } else {
-    ll.xts <- lapply(ll, ts_xts)
+    ll.dts <- lapply(ll, ts_dts)
   }
 
-  lcnames <- lapply(ll.xts, colnames)
-  is.single <- vapply(ll.xts, function(e) NCOL(e) == 1L, FALSE)
+  lcnames <- lapply(ll.dts, colnames)
+  is.single <- vapply(ll.dts, function(e) NCOL(e) == 1L, FALSE)
 
   if (any(is.single)){
     call.names <- lapply(substitute(placeholderFunction(...))[-1], deparse)
     relevant.names <- call.names 
+
     if (!is.null(names(call.names))){
-
       for (i in 1:length(call.names)){
-
         # only do this for single series
         if (is.single[i]){
 
+          # TODO colnames seems silly here...
           if (names(call.names)[i] == ""){  
             # 3. prio: use variable names if nothing else is given
-            if (is.null(colnames(ll.xts[[i]]))){
+            if (is.null(colnames(ll.dts[[i]]))){
               relevant.names[[i]] <- call.names[[i]]
             } else {
               # 2. prio: use colnames if given
-              cn <- colnames(ll.xts[[i]])
+              cn <- colnames(ll.dts[[i]])
 
               stopifnot(length(cn) == 1)
               relevant.names[[i]] <- cn
@@ -65,8 +65,17 @@ ts_bind <- function(...){
     lcnames[is.single] <- relevant.names[is.single]
   }
 
-  z <- do.call("cbind", ll.xts)
-  colnames(z) <- unlist(lcnames)
+  # currently we treat ts-only bind separately, if of same freq
+  if (desired.class == "ts"){
+    z <- do.call("cbind", ll.dts)
+    colnames(z) <- unlist(lcnames)
+  } else {
+    ll.dts <- lapply(ll, ts_dts)
+
+    # rename var as in lcnames
+    ll.dts <- Map(function(dt, vname) dt[, var := vname], dt = ll.dts, vname = unlist(lcnames))
+    z <- rbindlist(ll.dts)
+  }
 
   coerce_to_(desired.class)(z)
 

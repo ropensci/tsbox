@@ -10,6 +10,7 @@ ts_ts <- function (x, ...) UseMethod("ts_ts")
 
 #' @method ts_ts dts
 ts_ts.dts <- function(x, ...) {
+
   wx <- spread_dts(x)
   tsp <- date_time_to_tsp(wx[, time])
   cdta <- wx[, -1]
@@ -25,11 +26,12 @@ ts_ts.dts <- function(x, ...) {
 
 #' @method ts_dts ts
 ts_dts.ts <- function(x, ...){
+
   stopifnot(inherits(x, "ts"))
 
   timec <- ts_to_date_time(x)
 
-  dta <- data.table(x)
+  dta <- data.table(as.matrix(x))
 
   dta[, time := timec]
 
