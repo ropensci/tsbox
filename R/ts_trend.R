@@ -40,7 +40,7 @@ ts_trend <- ts_(function(x, degree = 2, span = NULL, ...){
   #           )
 
   xts::reclass(z, x)
-}, class = "xts") 
+}, used.class = "xts") 
 
 
 loess_aic_span_optim <- function(x, degree = 2){

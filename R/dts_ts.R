@@ -4,10 +4,31 @@
 
 # x <- bind_dts(lapply(paste0("var", 1:100), function(e) ts_dts(rnorm(100), time = seq(as.Date("2001-01-01"), length.out = 100, by = "month"), var = e)))
 
+#' Convert everything to everything
+#' 
+#' @param x a time series object, either `ts`, `data.frame`, `data.table`, `tibble` or `xts`.
+#' @param ... additional arguments, passed to methods
+#' @examples
+#'
+#' x.ts <- ts_bind(mdeaths, fdeaths) 
+#' x.df <- ts_df(x.xts)
+#' x.dt <- ts_dt(x.xts)
+#' \dontrun{
+#' library(xts)
+#' x.xts <- ts_xts(x.ts)
+#' library(dplyr)
+#' x.tbl <- ts_tbl(x.ts)
+#' }
+#' 
 #' @export
+#' @import data.table
+#' @importFrom anytime anydate
+#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp
+#' @importFrom utils browseURL
+#' @import data.table 
 ts_ts <- function (x, ...) UseMethod("ts_ts")
 
-
+#' @export
 #' @method ts_ts dts
 ts_ts.dts <- function(x, ...) {
 
@@ -23,7 +44,7 @@ ts_ts.dts <- function(x, ...) {
   z
 }
 
-
+#' @export
 #' @method ts_dts ts
 ts_dts.ts <- function(x, ...){
 

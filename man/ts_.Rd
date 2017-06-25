@@ -3,55 +3,46 @@
 \name{ts_}
 \alias{ts_}
 \alias{ts_diff}
-\alias{ts_scale}
 \alias{ts_lag}
 \alias{ts_cycle}
-\alias{ts_forecast}
-\alias{ts_forecast.auto.arima}
-\alias{ts_seas}
+\alias{ts_forecast_mean}
+\alias{ts_forecast_auto.arima_mean}
+\alias{ts_seas_final}
 \alias{ts_prcomp}
-\alias{ts_residlm}
-\alias{ts_predictlm}
 \title{universal constructor for ts functions}
 \usage{
-ts_(FUN, class = "ts", multiple = TRUE, suggested = NULL,
-  ensure.names = TRUE)
+ts_(FUN, used.class = "ts", multi.series = TRUE,
+  suggested.packages = NULL, ensure.names = TRUE)
 
 ts_diff(x, ...)
-
-ts_scale(x, ...)
 
 ts_lag(x, ...)
 
 ts_cycle(x, ...)
 
-ts_forecast(x, ...)
+ts_forecast_mean(x, ...)
 
-ts_forecast.auto.arima(x, ...)
+ts_forecast_auto.arima_mean(x, ...)
 
-ts_seas(x, ...)
+ts_seas_final(x, ...)
 
 ts_prcomp(x, ...)
-
-ts_residlm(x, ...)
-
-ts_predictlm(x, ...)
 }
 \arguments{
 \item{FUN}{function, to be made available to all time series classes}
 
-\item{class}{class that the function uses as its first argument}
-
-\item{multiple}{can the function handle multiple series. If set to false, the
+\item{multi.series}{can the function handle multiple series. If set to false, the
 wrapper will loop through each series.}
 
-\item{suggested}{packages that are required for the functionality.}
+\item{suggested.packages}{packages that are required for the functionality.}
 
 \item{ensure.names}{logical, whether the series in the output should have the same names as the input}
 
 \item{x}{s time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
 \item{...}{arguments passed to underlying functions.}
+
+\item{class}{class that the function uses as its first argument}
 }
 \description{
 universal constructor for ts functions

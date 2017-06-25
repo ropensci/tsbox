@@ -1,5 +1,6 @@
 
 #' @export
+#' @name ts_ts
 ts_xts <- function (x, ...) UseMethod("ts_xts")
 
 

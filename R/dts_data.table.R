@@ -1,3 +1,5 @@
+#' @name ts_ts
+#' @export
 ts_data.table <- function (x, ...) UseMethod("ts_data.table")
 
 

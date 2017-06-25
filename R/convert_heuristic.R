@@ -29,11 +29,11 @@ ts_to_date_time <- function(x){
   }
 
   month.per.unit <- 12 / fr
-  first.month <- (first.subperiod * fr) * month.per.unit + 1
+  first.month <- round((first.subperiod * fr) * month.per.unit + 1)
   first.Date <- as.Date(ISOdate(year = first.year, 
-                                month = first.month, 
+                                month = first.month,
                                 day = 1))
-
+  stopifnot(!is.na(first.Date))
 
   seq.Date(first.Date, length.out = length(x), by = by.string)
 }

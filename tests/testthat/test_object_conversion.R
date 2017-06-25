@@ -148,7 +148,7 @@ test_that("some trickier situations work properly", {
 
   ts_bind(
       ts_bind(AirPassengers, mdeaths),
-      ts_forecast(ts_bind(AirPassengers, mdeaths))
+      ts_forecast_mean(ts_bind(AirPassengers, mdeaths))
   )
 
   # this is a tricky one: a function to detect NAs?

@@ -10,35 +10,11 @@
 
 
 
-#' Convert everything to everything
-#' 
-#' @param x a time series object, either `ts`, `data.frame`, `data.table`, `tibble` or `xts`.
-#' @param ... additional arguments, passed to methods
-#' @param time.name time name (default: `"time"`)
-#' @param var.name  var name (default: `"var"`)
-#' @param value.name  value name (default: `"time"`)
-#' @examples
-#'
-#' x.ts <- ts_bind(mdeaths, fdeaths) 
-#' x.df <- ts_df(x.xts)
-#' x.dt <- ts_dt(x.xts)
-#' \dontrun{
-#' library(xts)
-#' x.xts <- ts_xts(x.ts)
-#' library(dplyr)
-#' x.tbl <- ts_tbl(x.ts)
-#' }
-#' 
 #' @export
-#' @import data.table
-#' @importFrom anytime anydate
-#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp
-#' @importFrom utils browseURL
-#' @import data.table 
+#' @name ts_ts
 ts_dts <- function(x, ...) UseMethod("ts_dts")
 
 #' @export
-#' @method ts_dts numeric
 ts_dts.numeric <- function(x, time, var){
   z <- data.table(time = time, value = x, var = var)
   add_dts_class(z)
@@ -61,7 +37,6 @@ ts_dts.numeric <- function(x, time, var){
 # all.equal(x, gx)
 
 #' @export
-#' @method ts_bind dts
 ts_bind.dts <- function(...){
   ll <- list(...)
   if (!inherits(ll[[1]], "dts")){
@@ -75,7 +50,6 @@ ts_bind.dts <- function(...){
 
 
 #' @export
-#' @method ts_bind dts
 ts_select.dts <- function(x, vars){
   stopifnot(inherits(x, "dts"))
   z <- x[var %in% vars]
@@ -83,7 +57,6 @@ ts_select.dts <- function(x, vars){
 }
 
 #' @export
-#' @method ts_bind dts
 ts_window.dts <- function(x, start = NULL, end = NULL){
   if (!is.null(start)) {
     start <- as.Date(start)

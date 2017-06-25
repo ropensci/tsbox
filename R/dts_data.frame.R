@@ -9,6 +9,7 @@ ts_dts.data.frame <- function(x, ...){
 
 
 #' @export
+#' @name ts_ts
 ts_data.frame <- function (x, ...) UseMethod("ts_data.frame")
 
 #' @export
@@ -18,11 +19,13 @@ ts_data.frame.dts <- function(x, ...){
 }
 
 #' @export
+#' @export
 ts_tbl <-  function (x, ...) {
   stopifnot(requireNamespace("tibble"))
   tibble::as_data_frame(ts_data.table(x, ...))
 }
 
+#' @export
 #' @export
 ts_df <- function (x, ...) {
   ts_data.frame(x, ...)
