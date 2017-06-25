@@ -45,7 +45,7 @@
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
 ts_plot <- function(..., title, subtitle, ylab = ""){
 
-  x <- ts_xts(ts_bind(...))
+  x <- ts_dts(ts_bind(...))
 
   if (missing("title")){
     has.title <- FALSE
@@ -74,7 +74,7 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
   col.lab <- axis.text.col
 
   # c(bottom, left, top, right)
-  if (NCOL(x) > 1){
+  if (var_n(x) > 1){
     has.legend <- TRUE
   } else{
     has.legend <- FALSE
@@ -102,17 +102,17 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
 
   par(mar =  c(mar.b, mar.l , mar.t, 1.4), col.lab = col.lab, cex.lab=0.8)
 
-  tind <- as.POSIXct(index(x))
+  tind <- as.POSIXct(x[, time])
   tnum <- as.numeric(tind)
 
   xlim <- range(tnum)
-  ylim <- range(coredata(x), na.rm = TRUE)
+  ylim <- range(x[, value], na.rm = TRUE)
 
   xticks <- pretty(tind)
   xlabels <- format(xticks, "%Y")
 
-  col <- ts_colors()[1:NCOL(coredata(x))]
-  cnames <- colnames(coredata(x))
+  col <- colors_tsbox()[1:var_n(x)]
+  cnames <- var_names(x)
 
   # Main Plot
   plot(x = tind, type = "n",lty=1, pch=19, col=1,
@@ -131,11 +131,13 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
   abline(h = axTicks(2), v = xticks, col = "grey80", lty = "dotted", lwd = 0.5)
 
   # Lines
-  for (i in seq(NCOL(coredata(x)))){
-    cd <- x[,i]
-    cd <- cd[!is.na(cd)]
-    lines(y = coredata(cd), 
-        x = as.numeric(as.POSIXct(index(cd))), col = col[i], lwd = lwd)
+  all.vars <- var_names(x)
+  for (i in seq(all.vars)){
+    vari <- all.vars[i]
+    cd <- x[var == vari]
+    cd <- cd[!is.na(value)]
+    lines(y = cd[, value], 
+        x = as.numeric(as.POSIXct(cd[, time])), col = col[i], lwd = lwd)
   }
 
   # Second layer, with legend and title

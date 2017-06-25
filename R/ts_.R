@@ -27,7 +27,7 @@ load_suggested_packages <- function(pkg){
 #' 
 ts_ <- function(FUN, used.class = "ts", multi.series = TRUE, suggested.packages = NULL, ensure.names = TRUE){
 
-  all.classes <- c("ts", "xts", "data.frame", "data.table", "tbl", "dts")
+  all.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", "dts")
   stopifnot(used.class %in% all.classes)
 
   # if the function can handle multiple time series
@@ -35,7 +35,7 @@ ts_ <- function(FUN, used.class = "ts", multi.series = TRUE, suggested.packages 
     if (multi.series){
       z <- substitute(function(x, ...){
         load_suggested_packages(suggested.packages)
-        stopifnot(class(x) %in% all.classes)
+        stopifnot(class(x)[1] %in% all.classes)
         z <- FUN(coerce_to_(used.class)(x), ...)
         z <- coerce_to_(relevant_class(x))(z)
         z <- ts_set_names(z, ts_names(x))
@@ -44,7 +44,7 @@ ts_ <- function(FUN, used.class = "ts", multi.series = TRUE, suggested.packages 
     } else {
       z <- substitute(function(x, ...){
         load_suggested_packages(suggested.packages)
-        stopifnot(class(x) %in% all.classes)
+        stopifnot(class(x)[1] %in% all.classes)
         z <- ts_apply(coerce_to_(used.class)(x), FUN, ...)
         z <- coerce_to_(relevant_class(x))(z)
         z <- ts_set_names(z, ts_names(x))
@@ -55,7 +55,7 @@ ts_ <- function(FUN, used.class = "ts", multi.series = TRUE, suggested.packages 
     if (multi.series){
       z <- substitute(function(x, ...){
         load_suggested_packages(suggested.packages)
-        stopifnot(class(x) %in% all.classes)
+        stopifnot(class(x)[1] %in% all.classes)
         z <- FUN(coerce_to_(used.class)(x), ...)
         z <- coerce_to_(relevant_class(x))(z)
         z
@@ -63,7 +63,7 @@ ts_ <- function(FUN, used.class = "ts", multi.series = TRUE, suggested.packages 
     } else {
        z <- substitute(function(x, ...){
         load_suggested_packages(suggested.packages)
-        stopifnot(class(x) %in% all.classes)
+        stopifnot(class(x)[1] %in% all.classes)
         z <- ts_apply(coerce_to_(used.class)(x), FUN, ...)
         z <- coerce_to_(relevant_class(x))(z)
         z

@@ -22,7 +22,7 @@
 #' 
 #' @export
 #' @import data.table
-#' @importFrom anytime anydate
+#' @importFrom anytime anydate anytime
 #' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp
 #' @importFrom utils browseURL
 #' @import data.table 

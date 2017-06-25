@@ -48,4 +48,12 @@ relevant_class <- function(x){
 }
 
 
+var_n <- function(x){
+  stopifnot(inherits(x, "dts"))
+  length(unique(x[, var]))
+}
 
+var_names <- function(x){
+  stopifnot(inherits(x, "dts"))
+  unique(x[, var])
+}

@@ -2,18 +2,18 @@
 % Please edit documentation in R/ts_ggplot.R
 \name{theme_ts}
 \alias{theme_ts}
-\alias{ts_colors}
-\alias{scale_color_ts}
-\alias{scale_fill_ts}
+\alias{colors_tsbox}
+\alias{scale_color_tsbox}
+\alias{scale_fill_tsbox}
 \title{ggplot Theme for tsbox}
 \usage{
 theme_ts(base_family = getOption("ts_font", ""), base_size = 12)
 
-ts_colors()
+colors_tsbox()
 
-scale_color_ts(...)
+scale_color_tsbox(...)
 
-scale_fill_ts(...)
+scale_fill_tsbox(...)
 }
 \arguments{
 \item{base_family}{base font family}
@@ -33,7 +33,7 @@ ggplot(df, aes(x = Index, y = Value, color = Series)) +
   geom_line() +
   ggtitle('Deaths by lung diseases', subtitle = 'United Kindom, per year') + 
   theme_ts() + 
-  scale_color_ts() 
+  scale_color_tsbox() 
 
 ggsave("myfig.pdf", width = 8, height = 5)
 browseURL("myfig.pdf")
