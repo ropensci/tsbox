@@ -31,9 +31,8 @@ ts_ts <- function (x, ...) UseMethod("ts_ts")
 #' @export
 #' @method ts_ts dts
 ts_ts.dts <- function(x, ...) {
-
   wx <- spread_dts(x)
-  tsp <- date_time_to_tsp(wx[, time])
+  tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
   if (NCOL(cdta) == 1) {
     cdta <- as.numeric(cdta[[1]])

@@ -102,7 +102,7 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
 
   par(mar =  c(mar.b, mar.l , mar.t, 1.4), col.lab = col.lab, cex.lab=0.8)
 
-  tind <- as.POSIXct(x[, time])
+  tind <- as.POSIXct(x[[1]])
   tnum <- as.numeric(tind)
 
   xlim <- range(tnum)
@@ -137,7 +137,7 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
     cd <- x[var == vari]
     cd <- cd[!is.na(value)]
     lines(y = cd[, value], 
-        x = as.numeric(as.POSIXct(cd[, time])), col = col[i], lwd = lwd)
+        x = as.numeric(as.POSIXct(cd[[1]])), col = col[i], lwd = lwd)
   }
 
   # Second layer, with legend and title

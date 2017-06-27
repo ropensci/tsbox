@@ -2,9 +2,13 @@
 #' @export
 spread_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
-  z <- dcast(x, time ~ var)
+  time.name <- colnames(x)[1]
+
+  # in a dts, time is always at first position, so no guessing needed
+
+  z <- dcast(x, as.formula(paste(time.name, "~ var")))
   # keep order as in input
-  setcolorder(z, c("time", x[, unique(var)]))
+  setcolorder(z, c(time.name, x[, unique(var)]))
   z
 }
 

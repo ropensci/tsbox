@@ -9,7 +9,7 @@ ts_xts <- function (x, ...) UseMethod("ts_xts")
 ts_xts.dts <- function(x){
   stopifnot(requireNamespace("xts"))
   z <- spread_dts(x)
-  xts::xts(x = as.matrix(z[, -1]), order.by = z[, time])
+  xts::xts(x = as.matrix(z[, -1]), order.by = z[[1]])
 }
 
 
