@@ -48,6 +48,7 @@ relevant_class <- function(x){
 }
 
 
+# These should be substituted by generics
 var_n <- function(x){
   stopifnot(inherits(x, "dts"))
   length(unique(x[, var]))

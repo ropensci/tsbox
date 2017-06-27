@@ -1,51 +1,96 @@
 
-
-guess_time_var_value <- function(x){
-
-  time.name = "time"
-  var.name = "var"
-  value.name = "value"
-
-  x <- x[1:5,]
-
-  cnames <- colnames(x)
-  cclasses <- lapply(x, class)
-
-  i.am.in.guessing.mood <- FALSE
-
-  if (!time.name %in% cnames) {
-    if (cclasses[1] %in% c("character", "Date", "POSIXct")){
-      message("Using first column name '", cnames[1], "' as 'time.name'")
-      time.name <- cnames[1]
-      i.am.in.guessing.mood <- TRUE
-    } else {
-      stop('First column not of class "character", "Date" or "POSIXct". To be specific, use a colum named "time".')
-    }
+is_time <- function(x){
+  if (class(x)[1] %in% c("Date", "POSIXct")) return(TRUE)   # beyond doubt
+  # use a short vector for time detection
+  if (length(x) > 20){
+    x <- c(x[1:3],                                  # first 3
+           x[(length(x)%/%2-1):(length(x)%/%2+1)],  # middle 3
+           x[(length(x)-2):(length(x))])            # lost 3
   }
-  stopifnot(time.name %in% cnames)
-
-  if (!value.name %in% cnames) {
-    if ((any(cclasses[[2]] %in% c("numeric", "integer")))){
-        value.name <- cnames[2]
-        message("Using second column name '", cnames[2], "' as 'value.name'")
-    } else {
-      stop('Second column does not look like a value column. To be specific, use a colum named "value".')
-    }
-  }
-  stopifnot(value.name %in% cnames)
-
-  if (!var.name %in% cnames) {
-    if (NCOL(x) > 2){
-      var.name <- cnames[3]
-      message("Using thrid column name '", cnames[3], "' as 'var.name'")
-      i.am.in.guessing.mood <- TRUE
-      stopifnot(var.name %in% cnames)
-    }
-  }
-
-
-
-  list(time.name = time.name,
-       var.name = var.name,
-       value.name = value.name)
+  x <- as.character(x)
+  all(!is.na(anytime(x)))
 }
+
+is_value <- function(x){
+  class(x)[1] %in% c("numeric")
+}
+
+
+
+guess_time <- function(x){
+  stopifnot(inherits(x, "data.frame"))
+  cnames <- colnames(x)
+  if ("time" %in% cnames) return("time")
+
+  z <- NA
+  for (cname.i in cnames){
+    if (is_time(x[[cname.i]])) {
+      z <- cname.i
+      break
+    }
+  }
+
+  if (is.na(z)){
+    stop("No time column detected. To be explict, name time column as 'time'.")
+  }
+  z
+}
+
+
+guess_value <- function(x, time.name = "time"){
+  stopifnot(inherits(x, "data.frame"))
+  cnames <- colnames(x)
+  stopifnot(time.name %in% cnames)
+  if ("value" %in% cnames) return("value")
+
+  cnames <- setdiff(cnames, time.name)
+
+  z <- NA
+  for (cname.i in cnames){
+    if (is_value(x[[cname.i]])) {
+      z <- cname.i
+      break
+    }
+  }
+  if (is.na(z)){
+    stop("No value column detected. To be explict, name value column as 'value'.")
+  }
+  z
+}
+
+
+# is_var <- function(x){
+#   class(x)[1] %in% c("character", "factor")
+# }
+
+# guess_var <- function(x, time.name = "time", value.name = "value"){
+#   stopifnot(inherits(x, "data.frame"))
+#   cnames <- colnames(x)
+#   stopifnot(time.name %in% cnames)
+#   stopifnot(value.name %in% cnames)
+
+#   if ("var" %in% cnames) return("var")
+
+#   cnames <- setdiff(cnames, c(time.name, value.name))
+
+#   z <- NA
+#   for (cname.i in cnames){
+#     if (is_var(x[[cname.i]])) {
+#       z <- cname.i
+#       break
+#     }
+#   }
+  
+#   z
+# }
+
+guess_time_value <- function(x){
+  time.name <- guess_time(x)
+  value.name <- guess_value(x, time.name = time.name)
+  # var.name <- guess_var(x, time.name = time.name, value.name = value.name)
+
+  c(time.name = time.name,
+    value.name = value.name)
+}
+
+

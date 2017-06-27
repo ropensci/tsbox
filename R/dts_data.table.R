@@ -3,25 +3,36 @@
 ts_data.table <- function (x, ...) UseMethod("ts_data.table")
 
 
+
+
+as_time_or_date <- function(x){
+  if (inherits(x, "Date")) {
+    return(x)
+  }
+  if (inherits(x, "POSIXct")) {
+    return(x)
+  }
+  anytime(as.character(x))
+}
+
 #' @export
 #' @method ts_dts data.table
 ts_dts.data.table <- function(x, ...){
 
-  tvv <- guess_time_var_value(x)
+  tv <- guess_time_value(x)
 
   if (NCOL(x) == 2){
-    z <- x[, c(tvv[['time.name']], tvv[['value.name']]), with = FALSE]
-    setnames(z, c("time", "value"))
-    z[, var := "x"]
+    z <- x[, tv, with = FALSE]
+    z$var <- deparse(substitute(x))
   } else {
-    z <- x[, c(tvv[['time.name']], tvv[['value.name']], tvv[['var.name']]), with = FALSE]
-    setnames(z, c("time", "value", "var"))
+    tvdiff <- setdiff(names(x), tv)
+    z <- x[, c(tv, tvdiff), with = FALSE]
   }
 
-  if (!class(z$time)[1] %in% c("POSIXct", "Date")){
-    z[, time := anytime(time)]
-  }
-  
+  setnames(z, tv[1], "time")
+  z[, time := as_time_or_date(time)]
+  setnames(z, "time", tv[1])
+
   add_dts_class(z)
 }
 

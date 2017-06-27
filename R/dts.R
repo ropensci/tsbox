@@ -12,7 +12,9 @@
 
 #' @export
 #' @name ts_ts
-ts_dts <- function(x, ...) UseMethod("ts_dts")
+ts_dts <- function(x, ...) {
+  UseMethod("ts_dts")
+}
 
 #' @export
 ts_dts.numeric <- function(x, time, var){
@@ -30,7 +32,7 @@ ts_dts.numeric <- function(x, time, var){
 
 # x <- bind_dts(lapply(paste0("var", 1:100), function(e) ts_dts(rnorm(100), time = seq(as.Date("2001-01-01"), length.out = 100, by = "day"), var = e)))
 # sx <- spread_dts(x)
-# gx <- gather_dts(sx)
+# gx <- gather_core(sx)
 
 # setkey(gx)
 # setkey(x)

@@ -51,12 +51,13 @@ ts_dts.ts <- function(x, ...){
   stopifnot(inherits(x, "ts"))
 
   timec <- ts_to_date_time(x)
-
-  dta <- data.table(as.matrix(x))
-
+  m <- as.matrix(x)
+  if (NCOL(m) == 1) {
+    colnames(m) <- deparse(substitute(x))
+  }
+  dta <- data.table(m)
   dta[, time := timec]
-
-  gather_dts(dta)
+  gather_core(dta)
 }
 
 

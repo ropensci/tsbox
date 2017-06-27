@@ -9,11 +9,11 @@ spread_dts <- function(x) {
 }
 
 #' @export
-gather_dts <- function(x){
+gather_core <- function(x){
   stopifnot(inherits(x, "data.table"))
-  z <- melt(x, id.vars = "time", variable.name = "var", variable.factor = FALSE)
-  setcolorder(z, c("time", "value", "var"))
-  add_dts_class(z)
+  time.name <- guess_time(x)
+  z <- melt(x, id.vars = time.name, variable.name = "var", variable.factor = FALSE)
+  ts_dts(z)
 }
 
 #' @export

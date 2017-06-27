@@ -42,7 +42,7 @@ ts_dts.xts <- function(x){
   #   single.var.name <- "x"  # TODO
   #   z[, var := single.var.name]
   # }
-  gather_dts(z)
+  gather_core(z)
 }
 
 
