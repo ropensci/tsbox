@@ -41,6 +41,18 @@ ts_gather.tbl <- function(x, ...){
 
 
 
+#' @export
+gather_core <- function(x){
+  stopifnot(inherits(x, "data.table"))
+  time.name <- guess_time(x)
+  z <- melt(x, id.vars = time.name, variable.name = "var", variable.factor = FALSE)
+  ts_dts(z)
+}
+
+
+
+
+
 
 #' @export
 ts_spread <- function (x, ...) UseMethod("ts_spread")
@@ -80,4 +92,29 @@ ts_spread.data.table <- function(x, ...){
 ts_spread.tbl <- function(x, ...){
   ts_data.table(ts_spread(ts_dts(x), ...))
 }
+
+#' @export
+#' @rdname ts_gather
+#' @method ts_spread dts
+ts_spread.dts <- function(x, ...){
+  spread_core(x)
+  # ts_data.table(ts_spread(ts_dts(x), ...))
+}
+
+
+#' @export
+spread_core <- function(x) {
+  stopifnot(inherits(x, "dts"))
+  time.name <- colnames(x)[1]
+  value.name <- colnames(x)[2]
+  var.name <- colnames(x)[3]
+
+  # in a dts, time is always at first position, so no guessing needed
+
+  z <- dcast(x, as.formula(paste(time.name, "~", var.name)), value.var = value.name)
+  # keep order as in input
+  setcolorder(z, c(time.name, unique(x[[var.name]])))
+  z
+}
+
 

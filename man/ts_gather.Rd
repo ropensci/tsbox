@@ -12,6 +12,7 @@
 \alias{ts_spread.data.frame}
 \alias{ts_spread.data.table}
 \alias{ts_spread.tbl}
+\alias{ts_spread.dts}
 \title{Reshaping Multiple Time Series}
 \usage{
 ts_gather(x, ...)
@@ -35,6 +36,8 @@ ts_gather(x, ...)
 \method{ts_spread}{data.table}(x, ...)
 
 \method{ts_spread}{tbl}(x, ...)
+
+\method{ts_spread}{dts}(x, ...)
 }
 \description{
 Reshaping Multiple Time Series

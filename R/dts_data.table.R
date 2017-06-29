@@ -12,7 +12,11 @@ as_time_or_date <- function(x){
   if (inherits(x, "POSIXct")) {
     return(x)
   }
-  anytime(as.character(x))
+
+  # We want to return a date unless its really a time....
+  anydate(as.character(x))
+
+  # anytime(as.character(x))
 }
 
 #' @export

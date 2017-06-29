@@ -19,6 +19,16 @@ ts_apply.xts <- function(x, FUN, ...){
   z
 }
 
+ts_apply.dts <- function(x, FUN, ...){
+  ll <- list()
+  for (i in 1:NCOL(x)){
+    ll[[i]] <- FUN(na.omit(x[, i]), ...)
+  }
+  z <- do.call("cbind", ll)
+  colnames(z) <- colnames(x)
+  z
+}
+
 
 #' @method ts_apply ts
 #' @export

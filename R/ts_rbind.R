@@ -26,7 +26,7 @@ ts_rbind <- function(...){
     for (i in 1:NCOL(o1)){
       ll.dts[[i]] <- o1[, i]
     }
-    llnames <- colnames(o1)
+    llnames <- ts_varnames(o1)
   }
 
   if (length(unique(nc)) != 1){
@@ -35,17 +35,33 @@ ts_rbind <- function(...){
 
   z <- ll.dts[[1]]
 
-  ind0 <- ll.dts[[1]][, time]
+  time.name <- colnames(z)[1]
 
+  time.class <- class(z[[1]])[1]
+
+  ind0 <- ll.dts[[1]][[1]]
 
   for (i in 2:length(ll.dts)){
-    indi <- ll.dts[[i]][, time]
+    indi <- ll.dts[[i]][[1]]
     dup <- indi %in% ind0
     if (any(dup)) {
       message("duplicate timestamps removed in: ", llnames[i])
     }
-    z <- rbind(z, ll.dts[[i]][!dup])
-    ind0 <- z[, time]
+
+    z1 <- ll.dts[[i]][!dup]
+
+    # make sure time.name is the same everywhere, i.e., as in the first obj
+    if (colnames(z1)[1] != time.name){
+      colnames(z1)[1] <- time.name
+    }
+
+    if (class(z1[[1]])[1] != time.class){
+      if (time.class == "Date") as_fun <- as.Date
+      if (time.class == "POSIXct") as_fun <- as.POSIXct
+      z1[[1]] <- as_fun(z1[[1]])
+    }
+    z <- rbind(z,  rm_dts_class(z1))
+    ind0 <- z[[1]]
   }
 
  

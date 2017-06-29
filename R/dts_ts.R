@@ -28,10 +28,33 @@
 #' @import data.table 
 ts_ts <- function (x, ...) UseMethod("ts_ts")
 
+
+
+# general function to combine cols in data.tables
+combine_cols_dt <- function(dt, cols){
+  # probably not the best way to do it
+  qq.str <- paste0("var := paste(",  paste(cols, collapse = ", "), ", sep = '_')")
+  qq <- parse(text = qq.str)
+  z <- dt[, eval(qq)]
+  z[, (cols) := NULL]  # but this is the right way to do it
+
+  return(z)
+}
+
+
+combine_var_dts <- function(x){
+  stopifnot(inherits(x, "dts"))
+  if (NCOL(x) <= 3) return(x)
+  var.names <- colnames(x)[-c(1, 2)]
+  z <- combine_cols_dt(x, var.names)
+  z
+}
+
 #' @export
 #' @method ts_ts dts
 ts_ts.dts <- function(x, ...) {
-  wx <- spread_dts(x)
+  x <- combine_var_dts(x)
+  wx <- spread_core(x)
   tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
   if (NCOL(cdta) == 1) {
@@ -45,14 +68,18 @@ ts_ts.dts <- function(x, ...) {
 
 #' @export
 #' @method ts_dts ts
-ts_dts.ts <- function(x, ...){
+ts_dts.ts <- function(x, name = NULL, ...){
 
   stopifnot(inherits(x, "ts"))
 
   timec <- ts_to_date_time(x)
   m <- as.matrix(x)
   if (NCOL(m) == 1) {
-    colnames(m) <- deparse(substitute(x))
+    if (is.null(name)){
+      colnames(m) <- deparse(substitute(x))
+    } else {
+      colnames(m) <- name
+    }
   }
   dta <- data.table(m)
   dta[, time := timec]
@@ -74,19 +101,19 @@ ts_ts.ts <- function(x, ...){
 #' @export
 #' @method ts_xts ts
 ts_xts.ts <- function(x, ...){
-  ts_xts(ts_dts(x, ...))
+  ts_xts(ts_dts(x, name = deparse(substitute(x)), ...))
 }
 
 #' @export
 #' @method ts_data.frame ts
 ts_data.frame.ts <- function(x, ...){
-  ts_data.frame(ts_dts(x, ...))
+  ts_data.frame(ts_dts(x, name = deparse(substitute(x)), ...))
 }
 
 #' @export
 #' @method ts_data.table ts
 ts_data.table.ts <- function(x, ...){
-  ts_data.table(ts_dts(x, ...))
+  ts_data.table(ts_dts(x, name = deparse(substitute(x)), ...))
 }
 
 

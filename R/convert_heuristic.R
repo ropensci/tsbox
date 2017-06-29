@@ -47,13 +47,13 @@ ts_to_date_time <- function(x){
 
 
 
-# # utility function to find POSIXct range (for coding only)
-# find_range <- function(x){
-#   ser <- ts(rep(1, 1000), f = x, start = 1800)
-#   range(diff(as.numeric(as.POSIXct(ts_to_date_time(ser)))))
-# }
+# utility function to find POSIXct range (for coding only)
+find_range <- function(x){
+  ser <- ts(rep(1, 1000), f = x, start = 1800)
+  range(diff(as.numeric(as.POSIXct(ts_to_date_time(ser)))))
+}
 
-# find_range(12)
+# find_range(0.1)
 
 
 
@@ -70,8 +70,13 @@ date_time_to_tsp <- function(x){
   d <- st$mday
 
   ds <- range(diff(as.numeric(as.POSIXct(x))))
-  
-  if (in_range(ds, 31536000, 31622400)){
+
+  # TODO Write more efficiently, and use unified lookup table 
+  # (same as in ts_to_date_time())
+  if (in_range(ds, 315532800, 315619200)) {
+    f <- 0.1
+    start <- y
+  } else if (in_range(ds, 31536000, 31622400)){
     f <- 1
     start <- y
     # start <- y + (1 / (m - 1))  
