@@ -1,7 +1,4 @@
 library(testthat)
-library(data.table) 
-library(tsbox)
-library(dplyr)
 library(tsbox)
 
 
@@ -176,6 +173,7 @@ test_that("selecting and binding works as expected", {
 test_that("colname guessing works as expected", {
 
   # 3 cols
+  library(dplyr)
   x.df <- ts_tbl(ts_c(mdeaths, fdeaths)) %>% 
     setNames(c("Haha", "Hoho", "Hihi"))
   

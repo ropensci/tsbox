@@ -51,7 +51,8 @@ ts_xts.data.frame <- function(x, ...){
 #' @export
 #' @method ts_data.frame data.frame
 ts_data.frame.data.frame <- function(x, ...){
-  x
+  # makes sure a tbl_df is converted to a data.frame
+  ts_data.frame(ts_dts(x, ...))
 }
 
 #' @export

@@ -1,7 +1,4 @@
 library(testthat)
-library(data.table) 
-library(tsbox)
-library(dplyr)
 library(tsbox)
 
 
@@ -42,7 +39,12 @@ library(tsbox)
 context("tricky stuff")
 
 
-# ts_c(EuStockMarkets, mdeaths, fdeaths)
+expect_s3_class(ts_c(EuStockMarkets, mdeaths, fdeaths), "data.table")
+
+x <- ts_c(ts_df(ts_c(mdeaths, fdeaths)), AirPassengers)
+expect_equal(ts_ts(ts_select(x, "AirPassengers")), AirPassengers)
+
+
 
 # Error in rbindlist(ll.dts) : 
 #   Class attributes at column 1 of input list at position 2 does not match with column 1 of input list at position 1. Coercion of objects of class 'factor' alone is handled internally by rbind/rbindlist at the moment.

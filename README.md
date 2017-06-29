@@ -30,8 +30,6 @@ devtools::install_github("christophsax/tsbox")
 
 ```r
 library(tsbox)
-library(data.table)  # if you want to use the 'data.table' methods
-library(dplyr)       # if you want to use the 'tibble' methods
 
 x.ts <- ts_c(mdeaths, fdeaths)
 x.xts <- ts_xts(x.ts)
