@@ -4,7 +4,7 @@
 # ll <- ts_rbind(mdeaths, AirPassengers)
 
 
-#' @rdname ts_bind
+#' @rdname ts_c
 #' @export
 ts_rbind <- function(...){
 

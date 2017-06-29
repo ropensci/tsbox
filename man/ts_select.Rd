@@ -38,15 +38,15 @@ Set and Variables from Multiple Time Series
 }
 \examples{
 
-all.equal(ts_ts(mdeaths), ts_select(ts_ts(ts_bind(mdeaths, fdeaths)), 'mdeaths'))
+all.equal(ts_ts(mdeaths), ts_select(ts_ts(ts_c(mdeaths, fdeaths)), 'mdeaths'))
 all.equal(ts_xts(mdeaths), 
-          ts_select(ts_xts(ts_bind(mdeaths, fdeaths)), 'mdeaths'), 
+          ts_select(ts_xts(ts_c(mdeaths, fdeaths)), 'mdeaths'), 
           check.attributes = FALSE)
-all.equal(ts_df(mdeaths), ts_select(ts_df(ts_bind(mdeaths, fdeaths)), 'mdeaths'))
+all.equal(ts_df(mdeaths), ts_select(ts_df(ts_c(mdeaths, fdeaths)), 'mdeaths'))
 
 \dontrun{
 library(data.table)  # if you want to use the 'data.table' methods
-all.equal(ts_dt(mdeaths), ts_select(ts_dt(ts_bind(mdeaths, fdeaths)), 'mdeaths'))
+all.equal(ts_dt(mdeaths), ts_select(ts_dt(ts_c(mdeaths, fdeaths)), 'mdeaths'))
 }
 
 }

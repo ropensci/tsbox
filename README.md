@@ -33,7 +33,7 @@ library(tsbox)
 library(data.table)  # if you want to use the 'data.table' methods
 library(dplyr)       # if you want to use the 'tibble' methods
 
-x.ts <- ts_bind(mdeaths, fdeaths)
+x.ts <- ts_c(mdeaths, fdeaths)
 x.xts <- ts_xts(x.ts)
 x.df <- ts_df(x.xts)
 x.dt <- ts_dt(x.df)
@@ -55,7 +55,7 @@ ts_trend(x.ts)  # loess trend line
 ts_pc(x.ts)
 ts_pcy(x.ts)
 ts_lag(x.ts)
-ts_prcomp(ts_bind(mdeaths, fdeaths))  # first principal component
+ts_prcomp(ts_c(mdeaths, fdeaths))  # first principal component
 
 # with external packages
 ts_forecast(x.ts)  # ets forecast
@@ -65,8 +65,8 @@ ts_seas(x.ts)      # X-13 seasonal adjustment
 ### Bind any time series vertically or horizontally
 
 ```r
-ts_bind(ts_dt(EuStockMarkets), AirPassengers)
-ts_bind(EuStockMarkets, mdeaths)
+ts_c(ts_dt(EuStockMarkets), AirPassengers)
+ts_c(EuStockMarkets, mdeaths)
 
 ts_rbind(ts_dt(mdeaths), AirPassengers)
 ts_rbind(ts_xts(AirPassengers), ts_tbl(mdeaths))
@@ -75,7 +75,7 @@ ts_rbind(ts_xts(AirPassengers), ts_tbl(mdeaths))
 ### And plot just about everything
 
 ```r
-ts_plot(ts_scale(ts_bind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
+ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
 ```
 ![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
 
@@ -83,7 +83,7 @@ ts_plot(ts_scale(ts_bind(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,
 There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 ```r
-ts_ggplot(ts_scale(ts_bind(discoveries, austres, AirPassengers)))
+ts_ggplot(ts_scale(ts_c(discoveries, austres, AirPassengers)))
 ```
 
 
@@ -121,10 +121,10 @@ to install the required packages.
 library(dplyr)
 library(tsbox)
 
-dta <- ts_tbl(ts_bind(mdeaths, fdeaths))
+dta <- ts_tbl(ts_c(mdeaths, fdeaths))
 
 dta %>%
-  ts_bind(lmdeaths = ts_lag(ts_select(dta, 'mdeaths'), -1)) %>%
+  ts_c(lmdeaths = ts_lag(ts_select(dta, 'mdeaths'), -1)) %>%
   ts_predictlm(mdeaths ~ lmdeaths + fdeaths) %>%
   ts_plot()
 ```

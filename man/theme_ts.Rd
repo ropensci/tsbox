@@ -27,7 +27,7 @@ ggplot Theme for tsbox
 }
 \examples{
 library(tsbox)
-df <- ts_df(ts_bind(total = ldeaths, female = fdeaths, male = mdeaths))
+df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
  \dontrun{
 ggplot(df, aes(x = Index, y = Value, color = Series)) + 
   geom_line() +

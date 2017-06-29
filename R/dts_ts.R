@@ -10,7 +10,7 @@
 #' @param ... additional arguments, passed to methods
 #' @examples
 #'
-#' x.ts <- ts_bind(mdeaths, fdeaths) 
+#' x.ts <- ts_c(mdeaths, fdeaths) 
 #' x.df <- ts_df(x.xts)
 #' x.dt <- ts_dt(x.xts)
 #' \dontrun{

@@ -9,8 +9,9 @@ library(tsbox)
 
 # Major Things
 
-# - [ ] ts_rbind, rbind, binding POSIXct and Data should result in POSIXct, 
+# - [ ] ts_rbind, ts_c, binding POSIXct and Data should result in POSIXct, 
 #       also should have the same var naming behavior)
+# perhaps this can be done by letting ts_rbind calling ts_c
 
 # - [ ] unified handling of deparse(substitute(x))
 
@@ -41,7 +42,7 @@ library(tsbox)
 context("tricky stuff")
 
 
-# ts_bind(EuStockMarkets, mdeaths, fdeaths)
+# ts_c(EuStockMarkets, mdeaths, fdeaths)
 
 # Error in rbindlist(ll.dts) : 
 #   Class attributes at column 1 of input list at position 2 does not match with column 1 of input list at position 1. Coercion of objects of class 'factor' alone is handled internally by rbind/rbindlist at the moment.
@@ -56,7 +57,7 @@ context("tricky stuff")
 
 
 test_that("ts_gather and ts_spread work both ways.", {
-  a <- ts_df(ts_bind(AirPassengers, mdeaths, fdeaths))
+  a <- ts_df(ts_c(AirPassengers, mdeaths, fdeaths))
   expect_equal(a, ts_gather(ts_spread(a)))
 
   b <- ts_tbl(ts_dt(EuStockMarkets))

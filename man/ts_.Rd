@@ -49,8 +49,8 @@ universal constructor for ts functions
 }
 \examples{
 ts_plot(
-    ts_bind(AirPassengers, mdeaths),
-    ts_forecast(ts_bind(AirPassengers, mdeaths))
+    ts_c(AirPassengers, mdeaths),
+    ts_forecast(ts_c(AirPassengers, mdeaths))
 )
 
 }

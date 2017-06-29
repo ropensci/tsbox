@@ -39,7 +39,7 @@ ts_dts.numeric <- function(x, time, var){
 # all.equal(x, gx)
 
 #' @export
-ts_bind.dts <- function(...){
+ts_c.dts <- function(...){
   ll <- list(...)
   if (!inherits(ll[[1]], "dts")){
     ll <- ll[[1]]

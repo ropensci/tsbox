@@ -11,7 +11,7 @@ tsfill <- function(x){
 #' @examples
 #' library(tsbox)
 #' 
-#' x.ts <- ts_bind(mdeaths, fdeaths) 
+#' x.ts <- ts_c(mdeaths, fdeaths) 
 #' x.xts <- ts_xts(x.ts)
 #' x.df <- ts_df(x.xts)
 #'

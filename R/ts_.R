@@ -21,8 +21,8 @@ load_suggested_packages <- function(pkg){
 #' @export
 #' @examples
 #' ts_plot(
-#'     ts_bind(AirPassengers, mdeaths),
-#'     ts_forecast(ts_bind(AirPassengers, mdeaths))
+#'     ts_c(AirPassengers, mdeaths),
+#'     ts_forecast(ts_c(AirPassengers, mdeaths))
 #' )
 #' 
 ts_ <- function(FUN, used.class = "ts", multi.series = TRUE, suggested.packages = NULL, ensure.names = TRUE){

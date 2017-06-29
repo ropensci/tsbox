@@ -43,7 +43,7 @@ test_that("conversion produces right classes", {
 
 test_that("conversion between objects works as expected: ldeaths", {
 
-  x.ts <- ts_bind(mdeaths, fdeaths)
+  x.ts <- ts_c(mdeaths, fdeaths)
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
@@ -146,9 +146,9 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
 
 test_that("some trickier situations work properly", {
 
-  ts_bind(
-      ts_bind(AirPassengers, mdeaths),
-      ts_forecast_mean(ts_bind(AirPassengers, mdeaths))
+  ts_c(
+      ts_c(AirPassengers, mdeaths),
+      ts_forecast_mean(ts_c(AirPassengers, mdeaths))
   )
 
   # this is a tricky one: a function to detect NAs?
@@ -166,7 +166,7 @@ test_that("2 colum data.frames work as expected", {
 
 test_that("selecting and binding works as expected", {
 
-  dta <- ts_df(ts_bind(mdeaths, fdeaths))
+  dta <- ts_df(ts_c(mdeaths, fdeaths))
   expect_equal(mdeaths, ts_ts(ts_select(dta, 'mdeaths')))
 
 })
@@ -176,7 +176,7 @@ test_that("selecting and binding works as expected", {
 test_that("colname guessing works as expected", {
 
   # 3 cols
-  x.df <- ts_tbl(ts_bind(mdeaths, fdeaths)) %>% 
+  x.df <- ts_tbl(ts_c(mdeaths, fdeaths)) %>% 
     setNames(c("Haha", "Hoho", "Hihi"))
   
   x.dt <- as.data.table(x.df)
