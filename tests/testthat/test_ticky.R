@@ -9,12 +9,17 @@ library(tsbox)
 
 # Major Things
 
-# - [ ] ts_rbind, rbind, binding POSIXct and Data should result in POSIXct
+# - [ ] ts_rbind, rbind, binding POSIXct and Data should result in POSIXct, 
+#       also should have the same var naming behavior)
+
 # - [ ] unified handling of deparse(substitute(x))
 
+# - heuristic = TURE to all conversion functions?
+# - var.names = NULL
+# var.names <- detect_var_names(var.names, deparse(substitute(x)))
+
+
 # - [ ] reclassing of numeric, matrix output, similar to xts::reclass
-
-
 
     #' @export
     #' @rdname ts_
@@ -23,6 +28,14 @@ library(tsbox)
     #   xts::reclass(z, x)
     # }, class = "xts")
 
+# - [ ] a cleaner ts_ function
+
+
+# - [ ] Lookup table for heuristic frequency conversion
+
+
+
+# - [ ] Tools to enforce regularity (major and quite separate task)
 
 
 context("tricky stuff")
