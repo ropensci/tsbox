@@ -143,10 +143,10 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
 
 test_that("some trickier situations work properly", {
 
-  ts_c(
-      ts_c(AirPassengers, mdeaths),
-      ts_forecast_mean(ts_c(AirPassengers, mdeaths))
-  )
+  # ts_c(
+  #     ts_c(AirPassengers, mdeaths),
+  #     ts_forecast_mean(ts_c(AirPassengers, mdeaths))
+  # )
 
   # this is a tricky one: a function to detect NAs?
   # ts_rbind(AirPassengers, mdeaths)

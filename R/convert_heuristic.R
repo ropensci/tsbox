@@ -64,6 +64,10 @@ in_range <- function(x, min, max, tol = 1000){
 
 date_time_to_tsp <- function(x){ 
 
+  if (length(x) <= 1) {
+    stop("Time series too short for frequency detection.", call. = FALSE)
+  }
+
   st <- as.POSIXlt(x[1])
   y <- st$year + 1900L
   m <- st$mon + 1L

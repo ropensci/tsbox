@@ -14,6 +14,7 @@
 \alias{ts_pcy.data.table}
 \alias{ts_pcy.tbl}
 \alias{ts_trend}
+\alias{ts_trend}
 \alias{ts_window}
 \title{Utility Functions for Time Series}
 \usage{
@@ -41,7 +42,9 @@ ts_pcy(x, ...)
 
 \method{ts_pcy}{tbl}(x, ...)
 
-ts_trend(x, ...)
+ts_trend(x, degree = 2, span = NULL, ...)
+
+ts_trend(x, degree = 2, span = NULL, ...)
 
 ts_window(x, start = NULL, end = NULL)
 }

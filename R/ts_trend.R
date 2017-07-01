@@ -15,7 +15,7 @@
 #' @rdname ts_pc
 ts_trend <- ts_(function(x, degree = 2, span = NULL, ...){
   if (NCOL(x) > 1){
-    return(ts_apply(x, ts_trend))
+    return(ts_apply_dts(ts_dts(x), ts_trend))
   }
 
   if (is.null(span)){
@@ -39,8 +39,47 @@ ts_trend <- ts_(function(x, degree = 2, span = NULL, ...){
   #           upperCI = 1.96 * pp$se.fit + pp$fit
   #           )
 
-  xts::reclass(z, x)
+  ts_reclass(z, x)
 }, specific.class = "xts") 
+
+
+
+# ts_trend(ts_c(mdeaths, fdeaths))
+
+#' @export
+#' @rdname ts_pc
+ts_trend <- function(x, degree = 2, span = NULL, ...){
+
+  z <- ts_dts(x)
+
+  if (ts_nvar(z) > 1){
+    stop("vectorization needs to redone. Run on single series only for the moment.")
+    # return(ts_reclass(ts_apply_dts_SD(z, ts_trend, degree = 2, span = span), x))
+  }
+
+  if (is.null(span)){
+    span <- loess_aic_span_optim(x = z[[2]], degree = degree)
+    message(ts_varnames(z), ": 'span' automatically set to ", formatC(span, 3))
+  }
+  
+  m <- loess(z[[2]] ~ seq(z[[2]]), span = span, degree = degree)
+
+  # also compute standard errors
+  pp <- predict(m)
+
+
+  z[, value := pp]
+
+  # z <- cbind(mean = pp$fit, 
+  #           lowerCI = -1.96 * pp$se.fit + pp$fit, 
+  #           upperCI = 1.96 * pp$se.fit + pp$fit
+  #           )
+
+  ts_reclass(z, x)
+}
+
+
+
 
 
 loess_aic_span_optim <- function(x, degree = 2){

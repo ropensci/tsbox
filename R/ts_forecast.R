@@ -31,7 +31,7 @@ ts_forecast_auto.arima_mean  <- function(x, xreg = NULL, h = 2, ...){
 }
 
 #' @export
-ts_forecast_mean  <- function(xL, h = 2, ...){
+ts_forecast_mean  <- function(x, h = 2, ...){
   x0 <- x
   x <- ts_na_omit(x)
   z <- forecast::forecast(x)$mean

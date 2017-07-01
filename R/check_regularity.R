@@ -13,7 +13,7 @@ check_regularity <- function(x){
   dd <- diff(as.numeric(x))
 
   if ((max(dd) - min(dd)) > 1000){
-    stop("some dates are not equally spaced. Equality should be enforced, but the tools are not yet implemented.")
+    stop("Some dates are not equally spaced. \n\nEquality should be enforced, but the tools are not yet implemented.", call. = FALSE)
   }
   if ((max(dd) - min(dd)) > 100){
     message("series seem not to be completely equally spaced, but may be still ok for ts conversion.")

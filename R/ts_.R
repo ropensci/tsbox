@@ -75,35 +75,35 @@ ts_ <- function(FUN, specific.class = "ts", multi.series = TRUE, suggested.packa
   f
 }
 
-#' @export
-#' @importFrom stats window lag cycle lm prcomp start
-#' @rdname ts_
-ts_diff <- ts_(diff)
+# #' @export
+# #' @importFrom stats window lag cycle lm prcomp start
+# #' @rdname ts_
+# ts_diff <- ts_(diff)
 
 
-#' @export
-#' @rdname ts_
-ts_lag <- ts_(stats::lag)
+# #' @export
+# #' @rdname ts_
+# # ts_lag <- ts_(stats::lag)
 
-#' @export
-#' @rdname ts_
-ts_cycle <- ts_(stats::cycle, multi.series = FALSE)
+# #' @export
+# #' @rdname ts_
+# ts_cycle <- ts_(stats::cycle, multi.series = FALSE)
 
 
 
-#' @export
-#' @rdname ts_
-ts_seas_final <- ts_(function(x, ...) {
-    seasonal::final(seasonal::seas(x, ...))
-  }, multi.series = FALSE, suggested.packages = "seasonal")
+# #' @export
+# #' @rdname ts_
+# ts_seas_final <- ts_(function(x, ...) {
+#     seasonal::final(seasonal::seas(x, ...))
+#   }, multi.series = FALSE, suggested.packages = "seasonal")
 
-#' @export
-#' @rdname ts_
-# @param n how many princial components should be extracted
-# @param scale should the data be scaled?
-ts_prcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
-  ts(predict(prcomp(x, scale = scale, ...))[,1:n], start = start(x), frequency = frequency(x))
-}, ensure.names = FALSE)
+# #' @export
+# #' @rdname ts_
+# # @param n how many princial components should be extracted
+# # @param scale should the data be scaled?
+# ts_prcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
+#   ts(predict(prcomp(x, scale = scale, ...))[,1:n], start = start(x), frequency = frequency(x))
+# }, ensure.names = FALSE)
 
 
 

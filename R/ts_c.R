@@ -11,12 +11,12 @@
 #' ts_c(`International Airline Passengers` = ts_xts(AirPassengers), 
 #'        `Deaths from Lung Diseases` = ldeaths)
 #' 
-#' ts_rbind(ts_df(mdeaths), AirPassengers)
+#' ts_c(ts_df(mdeaths), AirPassengers)
 #' ts_rbind(ts_xts(AirPassengers), mdeaths)
 #' 
 #' @export
 ts_c <- function(...){
-
+# browser()
   ll <- list(...)
 
   if (length(ll) == 1) return(ll[[1]])
@@ -69,12 +69,27 @@ ts_c <- function(...){
     z <- do.call("cbind", ll.dts)
     colnames(z) <- unlist(vnames)
   } else {
-
+# browser()
     # rename var as in vnames
-    ll.dts <- Map(function(dt, vname) dt[, var := vname], dt = ll.dts, vname = unlist(vnames))
-    z <- rbindlist(ll.dts)
+    ll.dts[is.nameable] <- Map(function(dt, vname) dt[, var := vname], dt = ll.dts[is.nameable], vname = unlist(vnames[is.nameable]))
+    z <- rbindlist_with_unified_class(ll.dts)
   }
-
   coerce_to_(desired.class)(z)
 
 }
+
+
+# ll <- ll.dts
+rbindlist_with_unified_class <- function(ll){
+  cl <- vapply(ll, function(e) class(e[[1]])[1], "")
+  if (length(unique(cl)) > 1) {
+    ll[cl == "Date"] <-  lapply(ll[cl == "Date"], function(e) change_class.data.table(e, colnames(e)[1], "as.POSIXct"))
+  }
+  rbindlist(ll)
+}
+
+
+
+
+
+

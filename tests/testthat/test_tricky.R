@@ -41,27 +41,11 @@ library(tsbox)
 context("tricky stuff")
 
 
-expect_s3_class(ts_c(EuStockMarkets, mdeaths, fdeaths), "data.table")
-
-x <- ts_c(ts_df(ts_c(mdeaths, fdeaths)), AirPassengers)
-expect_equal(ts_ts(ts_select(x, "AirPassengers")), AirPassengers)
-
-# Error in rbindlist(ll.dts) : 
-#   Class attributes at column 1 of input list at position 2 does not match with column 1 of input list at position 1. Coercion of objects of class 'factor' alone is handled internally by rbind/rbindlist at the moment.
-
-
 
 # error w short series
 
 
-# that works
-a <- ts_dts(window(AirPassengers, end = c(1949, 2)))
-ts_ts(a)
 
-a <- ts_dts(window(AirPassengers, end = c(1949, 1)))
-
-# that should give a decent error
-ts_ts(a)  
 
 
 
@@ -94,6 +78,20 @@ ts_ts(a)
 # ts_ts(ts_dts(dta[arten == "4489"]))
 
 
+
+
+
+test_that("Some trickier stuff works.", {
+
+  expect_s3_class(ts_c(EuStockMarkets, mdeaths, fdeaths), "data.frame")
+
+  x <- ts_c(ts_df(ts_c(mdeaths, fdeaths)), AirPassengers)
+  expect_equal(ts_ts(ts_select(x, "AirPassengers")), AirPassengers)
+
+  # series of length 2
+  a <- ts_dts(window(AirPassengers, end = c(1949, 2)))
+  ts_ts(a)
+})
 
 
 

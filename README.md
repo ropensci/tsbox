@@ -49,15 +49,13 @@ ts_scale(x.df)
 ts_scale(x.dt)
 ts_scale(x.tbl)
 
-ts_trend(x.ts)  # loess trend line
+ts_trend(AirPassengers)  # loess trend line
 ts_pc(x.ts)
 ts_pcy(x.ts)
 ts_lag(x.ts)
-ts_prcomp(ts_c(mdeaths, fdeaths))  # first principal component
 
 # with external packages
-ts_forecast(x.ts)  # ets forecast
-ts_seas(x.ts)      # X-13 seasonal adjustment
+ts_forecast_mean(mdeaths)  # ets forecast
 ```
 
 ### Bind any time series vertically or horizontally
@@ -123,7 +121,6 @@ dta <- ts_tbl(ts_c(mdeaths, fdeaths))
 
 dta %>%
   ts_c(lmdeaths = ts_lag(ts_select(dta, 'mdeaths'), -1)) %>%
-  ts_predictlm(mdeaths ~ lmdeaths + fdeaths) %>%
   ts_plot()
 ```
 
