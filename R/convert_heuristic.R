@@ -49,7 +49,7 @@ ts_to_date_time <- function(x){
 
 # utility function to find POSIXct range (for coding only)
 find_range <- function(x){
-  ser <- ts(rep(1, 1000), f = x, start = 1800)
+  ser <- ts(rep(1, 1000), frequency = x, start = 1800)
   range(diff(as.numeric(as.POSIXct(ts_to_date_time(ser)))))
 }
 

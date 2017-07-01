@@ -2,13 +2,18 @@
 % Please edit documentation in R/ts_.R
 \name{ts_}
 \alias{ts_}
+\alias{ts_diff}
 \title{universal constructor for ts functions}
 \usage{
 ts_(FUN, specific.class = "ts", multi.series = TRUE,
   suggested.packages = NULL, ensure.names = TRUE)
+
+ts_diff(x, ...)
 }
 \arguments{
 \item{FUN}{function, to be made available to all time series classes}
+
+\item{specific.class}{class that the function uses as its first argument}
 
 \item{multi.series}{can the function handle multiple series. If set to false, the
 wrapper will loop through each series.}
@@ -17,11 +22,9 @@ wrapper will loop through each series.}
 
 \item{ensure.names}{logical, whether the series in the output should have the same names as the input}
 
-\item{class}{class that the function uses as its first argument}
+\item{x}{s time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
 \item{...}{arguments passed to underlying functions.}
-
-\item{x}{s time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 }
 \description{
 universal constructor for ts functions
@@ -29,7 +32,7 @@ universal constructor for ts functions
 \examples{
 ts_plot(
     ts_c(AirPassengers, mdeaths),
-    ts_forecast_mean(ts_c(AirPassengers, mdeaths))
+    ts_forecast_mean(AirPassengers)
 )
 
 }

@@ -48,6 +48,7 @@ ts_data.table.dts <- function(x, ...){
 
 
 #' @export
+#' @name ts_ts
 ts_dt <- function (x, ...) {
   ts_data.table(x, ...)
 }

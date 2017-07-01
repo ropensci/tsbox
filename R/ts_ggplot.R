@@ -242,7 +242,9 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 #' @export
 ts_ggsave <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
   filename <- gsub(".pdf$", paste0(".", device), filename)
-  ggsave(filename = filename, width = width, height = height, device = device, ...)
+  stopifnot(requireNamespace("ggplot2"))
+
+  ggplot2::ggsave(filename = filename, width = width, height = height, device = device, ...)
 
   if (open) browseURL(filename)
 }

@@ -1,8 +1,9 @@
 
 # just an alias, but we could do more here
-tsfill <- function(x){
-  na.approx(x)
-}
+# tsfill <- function(x){
+#   na.approx(x)
+# }
+
 
 #' Utility Functions for Time Series
 #' 
@@ -18,13 +19,11 @@ tsfill <- function(x){
 #' ts_scale(x.ts)
 #' ts_scale(x.xts)
 #' ts_scale(x.df)
-#' ts_trend(x.ts)
-#' ts_trend(x.xts)
-#' ts_trend(x.df)
+#' ts_trend(AirPassengers)
 #' 
 #' ts_pc(x.ts)
-#' ts_pc(x.xts)
-#' ts_pc(x.df)
+#' # ts_pc(x.xts)
+#' # ts_pc(x.df)
 #' 
 #' ts_pcy(x.ts)
 #' ts_pcy(x.xts)

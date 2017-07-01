@@ -17,11 +17,11 @@ Suggests:
     testthat,
     dplyr,
     tibble,
-    data.table,
     forecast,
     seasonal,
     xts,
-    ggplot2
+    ggplot2,
+    scales
 License: GPL-3
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1

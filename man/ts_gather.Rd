@@ -2,16 +2,29 @@
 % Please edit documentation in R/ts_reshape.R
 \name{ts_gather}
 \alias{ts_gather}
+\alias{ts_gather}
 \alias{ts_gather.ts}
+\alias{ts_gather}
 \alias{ts_gather.xts}
+\alias{ts_gather}
 \alias{ts_gather.data.frame}
+\alias{ts_gather}
 \alias{ts_gather.data.table}
+\alias{ts_gather}
 \alias{ts_gather.tbl}
+\alias{ts_gather}
+\alias{ts_spread}
+\alias{ts_gather}
 \alias{ts_spread.ts}
+\alias{ts_gather}
 \alias{ts_spread.xts}
+\alias{ts_gather}
 \alias{ts_spread.data.frame}
+\alias{ts_gather}
 \alias{ts_spread.data.table}
+\alias{ts_gather}
 \alias{ts_spread.tbl}
+\alias{ts_gather}
 \alias{ts_spread.dts}
 \title{Reshaping Multiple Time Series}
 \usage{
@@ -27,6 +40,8 @@ ts_gather(x, ...)
 
 \method{ts_gather}{tbl}(x, ...)
 
+ts_spread(x, ...)
+
 \method{ts_spread}{ts}(x, ...)
 
 \method{ts_spread}{xts}(x, ...)
@@ -38,6 +53,11 @@ ts_gather(x, ...)
 \method{ts_spread}{tbl}(x, ...)
 
 \method{ts_spread}{dts}(x, ...)
+}
+\arguments{
+\item{x}{any time series object}
+
+\item{...}{arguments passed to subfuntions (ignored)}
 }
 \description{
 Reshaping Multiple Time Series

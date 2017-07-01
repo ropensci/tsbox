@@ -11,7 +11,7 @@ load_suggested <- function(pkg){
 #' universal constructor for ts functions
 #' 
 #' @param FUN function, to be made available to all time series classes
-#' @param class class that the function uses as its first argument
+#' @param specific.class class that the function uses as its first argument
 #' @param multi.series can the function handle multiple series. If set to false, the 
 #'   wrapper will loop through each series.
 #' @param suggested.packages packages that are required for the functionality.
@@ -22,7 +22,7 @@ load_suggested <- function(pkg){
 #' @examples
 #' ts_plot(
 #'     ts_c(AirPassengers, mdeaths),
-#'     ts_forecast_mean(ts_c(AirPassengers, mdeaths))
+#'     ts_forecast_mean(AirPassengers)
 #' )
 #' 
 ts_ <- function(FUN, specific.class = "ts", multi.series = TRUE, suggested.packages = NULL, ensure.names = TRUE){
@@ -75,10 +75,10 @@ ts_ <- function(FUN, specific.class = "ts", multi.series = TRUE, suggested.packa
   f
 }
 
-# #' @export
-# #' @importFrom stats window lag cycle lm prcomp start
-# #' @rdname ts_
-# ts_diff <- ts_(diff)
+#' @export
+#' @importFrom stats window lag cycle lm prcomp start window
+#' @rdname ts_
+ts_diff <- ts_(diff)
 
 
 # #' @export

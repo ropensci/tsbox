@@ -1,4 +1,7 @@
 #' @export
+#' @name ts_ts
+#' @param lag defined as in dplyr, opposite to R base
+#' @param fill how to fill missing values
 ts_lag <- function(x, lag = 1, fill = NA){
   z <- ts_dts(x)
 

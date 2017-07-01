@@ -9,29 +9,24 @@
 \alias{ts_select.tbl}
 \title{Set and Variables from Multiple Time Series}
 \usage{
-ts_select(x, var, ...)
+ts_select(x, vars, ...)
 
-\method{ts_select}{ts}(x, var, ...)
+\method{ts_select}{ts}(x, vars, ...)
 
-\method{ts_select}{xts}(x, var, ...)
+\method{ts_select}{xts}(x, vars, ...)
 
-\method{ts_select}{data.frame}(x, var, var.name = getOption("tsbox.var.name",
-  "var"), ...)
+\method{ts_select}{data.frame}(x, vars, ...)
 
-\method{ts_select}{data.table}(x, var, var.name = getOption("tsbox.var.name",
-  "var"), ...)
+\method{ts_select}{data.table}(x, vars, ...)
 
-\method{ts_select}{tbl}(x, var, var.name = getOption("tsbox.var.name", "var"),
-  ...)
+\method{ts_select}{tbl}(x, vars, ...)
 }
 \arguments{
 \item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
-\item{var}{character, time series to be selectd}
+\item{vars}{character, time series to be selectd}
 
 \item{...}{arguments passed to methods}
-
-\item{var.name}{name of the column that contains \code{var}}
 }
 \description{
 Set and Variables from Multiple Time Series

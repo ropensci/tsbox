@@ -11,44 +11,15 @@
 # code inspiration from: https://gist.github.com/kylebgorman/6444612
 
 
-#' @export
-#' @rdname ts_pc
-ts_trend <- ts_(function(x, degree = 2, span = NULL, ...){
-  if (NCOL(x) > 1){
-    return(ts_apply_dts(ts_dts(x), ts_trend))
-  }
-
-  if (is.null(span)){
-    span <- loess_aic_span_optim(x = x, degree = degree)
-    if (!is.null(names(x))) {
-      message(names(x), ": 'span' automatically set to ", formatC(span, 3))
-    } else {
-      message("'span' automatically set to ", formatC(span, 3))
-    }
-  }
-  
-  m <- loess(x ~ seq(x), span = span, degree = degree)
-
-  # also compute standard errors
-  pp <- predict(m, se = TRUE)
-
-  z <- pp$fit
-
-  # z <- cbind(mean = pp$fit, 
-  #           lowerCI = -1.96 * pp$se.fit + pp$fit, 
-  #           upperCI = 1.96 * pp$se.fit + pp$fit
-  #           )
-
-  ts_reclass(z, x)
-}, specific.class = "xts") 
-
-
 
 # ts_trend(ts_c(mdeaths, fdeaths))
 
+#' Loess smoothing
+#' @param x any time series object
+#' @param degree degree of Loess smoothing
+#' @param span smoothing parameter, if NULL, automated search
 #' @export
-#' @rdname ts_pc
-ts_trend <- function(x, degree = 2, span = NULL, ...){
+ts_trend <- function(x, degree = 2, span = NULL){
 
   z <- ts_dts(x)
 

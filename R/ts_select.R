@@ -1,8 +1,7 @@
 #' Set and Variables from Multiple Time Series
 #' 
 #' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
-#' @param var character, time series to be selectd
-#' @param var.name name of the column that contains `var`
+#' @param vars character, time series to be selectd
 #' @param ... arguments passed to methods
 #' @examples
 #' 
@@ -18,54 +17,54 @@
 #' }
 #' 
 #' @export
-ts_select <- function (x, var, ...) UseMethod("ts_select")
+ts_select <- function (x, vars, ...) UseMethod("ts_select")
+
+#' @export
+ts_select.dts <- function(x, vars, ...){
+  stopifnot(inherits(x, "dts"))
+  z <- x[var %in% vars]
+  add_dts_class(z)
+}
+
 
 #' @export
 #' @rdname ts_select
 #' @method ts_select ts
-ts_select.ts <- function(x, var, ...){
-  if (NCOL(x) > 1) x[, var] else x
+ts_select.ts <- function(x, vars, ...){
+  if (NCOL(x) > 1) x[, vars] else x
 }
 
 #' @export
 #' @rdname ts_select
 #' @method ts_select xts
-ts_select.xts <- function(x, var, ...){
-  z <- x[, var]
+ts_select.xts <- function(x, vars, ...){
+  z <- x[, vars]
   # we usually forget the names of single time series
-  if (length(var) ==  1) colnames(z) <- NULL
+  if (length(vars) ==  1) colnames(z) <- NULL
   z
 }
 
 #' @export
 #' @rdname ts_select
 #' @method ts_select data.frame
-ts_select.data.frame <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
-  z <- x[x[[var.name]] %in% var, ]
-  if (length(var) ==  1) z[[var.name]] <- NULL
-  z
+ts_select.data.frame <- function(x, vars, ...){
+  ts_reclass(ts_select(ts_dts(x), vars = vars), x)
 }
 
 
 #' @export
 #' @rdname ts_select
 #' @method ts_select data.table
-ts_select.data.table <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
-
-  # not clear: x seem to b a data.frame here
-  z <- ts_data.table(x[x[[var.name]] %in% var, ])
-  if (length(var) ==  1) z[[var.name]] <- NULL
-  z
-  # q <- parse(text = paste("variable %in%", paste(deparse(var), collapse = "")))
-  # data.table:::`[.data.table`(x, eval(q))
+ts_select.data.table <- function(x, vars, ...){
+  ts_reclass(ts_select(ts_dts(x), vars = vars), x)
 }
 
 
 #' @export
 #' @rdname ts_select
 #' @method ts_select tbl
-ts_select.tbl <- function(x, var, var.name = getOption("tsbox.var.name", "var"), ...){
-  ts_tbl(ts_select(as.data.frame(x), var = var, var.name = var.name, ...))
+ts_select.tbl <- function(x, vars, ...){
+  ts_reclass(ts_select(ts_dts(x), vars = vars), x)
 }
 
 

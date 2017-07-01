@@ -22,7 +22,7 @@ ts_dts.dts  <- function(x, ...) {
 }
 
 #' @export
-ts_dts.numeric <- function(x, time, var){
+ts_dts.numeric <- function(x, time, var, ...){
   z <- data.table(time = time, value = x, var = var)
   add_dts_class(z)
 }
@@ -44,6 +44,7 @@ ts_dts.numeric <- function(x, time, var){
 # all.equal(x, gx)
 
 #' @export
+#' @name ts_ts
 ts_c.dts <- function(...){
   ll <- list(...)
   if (!inherits(ll[[1]], "dts")){
@@ -56,22 +57,5 @@ ts_c.dts <- function(...){
 }
 
 
-#' @export
-ts_select.dts <- function(x, vars){
-  stopifnot(inherits(x, "dts"))
-  z <- x[var %in% vars]
-  add_dts_class(z)
-}
 
-#' @export
-ts_window.dts <- function(x, start = NULL, end = NULL){
-  if (!is.null(start)) {
-    start <- as.Date(start)
-    x <- x[time >= start]
-  }
-  if (!is.null(end)) {
-    x <- x[time <= end]
-  }
-  add_dts_class(x)
-}
 

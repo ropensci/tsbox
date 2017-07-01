@@ -6,7 +6,7 @@ ts_xts <- function (x, ...) UseMethod("ts_xts")
 
 #' @export
 #' @method ts_xts dts
-ts_xts.dts <- function(x){
+ts_xts.dts <- function(x, ...){
   stopifnot(requireNamespace("xts"))
   z <- spread_core(x)
   xts::xts(x = as.matrix(z[, -1]), order.by = z[[1]])
@@ -20,7 +20,7 @@ ts_xts.dts <- function(x){
 
 #' @export 
 #' @method ts_dts xts
-ts_dts.xts <- function(x){
+ts_dts.xts <- function(x, ...){
   stopifnot(requireNamespace("xts"))
 
   idx <- attr(x, "index")

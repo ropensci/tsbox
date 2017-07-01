@@ -11,8 +11,8 @@
 #' @examples
 #'
 #' x.ts <- ts_c(mdeaths, fdeaths) 
-#' x.df <- ts_df(x.xts)
-#' x.dt <- ts_dt(x.xts)
+#' x.df <- ts_df(x.ts)
+#' x.dt <- ts_dt(x.df)
 #' \dontrun{
 #' library(xts)
 #' x.xts <- ts_xts(x.ts)
@@ -23,7 +23,7 @@
 #' @export
 #' @import data.table
 #' @importFrom anytime anydate anytime
-#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp
+#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var
 #' @importFrom utils browseURL
 #' @import data.table 
 ts_ts <- function (x, ...) UseMethod("ts_ts")
@@ -32,6 +32,7 @@ ts_ts <- function (x, ...) UseMethod("ts_ts")
 
 
 #' @export
+#' @name ts_ts
 #' @method ts_ts dts
 ts_ts.dts <- function(x, ...) {
   x <- ts_combine(x)

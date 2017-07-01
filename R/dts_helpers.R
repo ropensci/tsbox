@@ -1,6 +1,5 @@
 
 
-#' @export
 add_dts_class <- function(x){
 
   # do not copy!
@@ -9,7 +8,6 @@ add_dts_class <- function(x){
   x[]
 }
 
-#' @export
 rm_dts_class <- function(x){
   setattr(x, "class", setdiff(attr(x, "class"), "dts"))
   x[]
