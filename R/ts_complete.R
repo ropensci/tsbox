@@ -15,5 +15,5 @@ ts_complete <- function(x, fill = NA){
   if (!is.na(fill)){
     z[is.na(z)] <- fill
   }
-  reclass(z, x)
+  ts_reclass(z, x)
 }
