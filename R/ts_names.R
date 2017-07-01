@@ -1,4 +1,7 @@
 
+#' these are only used in `ts_`, which should be rewritten...
+
+
 #' Set and Extract Names of Time Series
 #' 
 #' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
