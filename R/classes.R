@@ -4,9 +4,9 @@
 #' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @return returns a function
 #' @export
-coerce_to_ <- function(x = "xts"){
+coerce_to_ <- function(x){
   # print(x)
-  stopifnot(x %in% c("xts", "ts", "data.frame", "data.table", "tbl"))
+  stopifnot(x %in% c("xts", "ts", "data.frame", "data.table", "tbl", "dts"))
   get(paste0("ts_", x))
 }
 
@@ -23,13 +23,14 @@ desired_class <- function(ll){
   }
 }
 
-
-
 #' Extract the Relavant Class
 #' 
 #' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @export
 relevant_class <- function(x){
+  if (inherits(x, "dts")){
+    return("dts")
+  }
   if (inherits(x, "ts")){
     return("ts")
   }
@@ -47,14 +48,6 @@ relevant_class <- function(x){
   }
 }
 
-
-# These should be substituted by generics
-var_n <- function(x){
-  stopifnot(inherits(x, "dts"))
-  length(unique(x[, var]))
-}
-
-var_names <- function(x){
-  stopifnot(inherits(x, "dts"))
-  unique(x[, var])
+ts_reclass <- function(z, x){
+  coerce_to_(relevant_class(x))(z)
 }

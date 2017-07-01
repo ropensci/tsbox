@@ -5,13 +5,11 @@
 \alias{ts_diff}
 \alias{ts_lag}
 \alias{ts_cycle}
-\alias{ts_forecast_mean}
-\alias{ts_forecast_auto.arima_mean}
 \alias{ts_seas_final}
 \alias{ts_prcomp}
 \title{universal constructor for ts functions}
 \usage{
-ts_(FUN, used.class = "ts", multi.series = TRUE,
+ts_(FUN, specific.class = "ts", multi.series = TRUE,
   suggested.packages = NULL, ensure.names = TRUE)
 
 ts_diff(x, ...)
@@ -19,10 +17,6 @@ ts_diff(x, ...)
 ts_lag(x, ...)
 
 ts_cycle(x, ...)
-
-ts_forecast_mean(x, ...)
-
-ts_forecast_auto.arima_mean(x, ...)
 
 ts_seas_final(x, ...)
 

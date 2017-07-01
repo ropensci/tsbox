@@ -1,4 +1,4 @@
-load_suggested_packages <- function(pkg){
+load_suggested <- function(pkg){
   rns <- vapply(pkg, requireNamespace, TRUE)
   if (any(!rns)){
     pkgv <- dput(pkg[!rns])
@@ -22,31 +22,31 @@ load_suggested_packages <- function(pkg){
 #' @examples
 #' ts_plot(
 #'     ts_c(AirPassengers, mdeaths),
-#'     ts_forecast(ts_c(AirPassengers, mdeaths))
+#'     ts_forecast_mean(ts_c(AirPassengers, mdeaths))
 #' )
 #' 
-ts_ <- function(FUN, used.class = "ts", multi.series = TRUE, suggested.packages = NULL, ensure.names = TRUE){
+ts_ <- function(FUN, specific.class = "ts", multi.series = TRUE, suggested.packages = NULL, ensure.names = TRUE){
 
   all.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", "dts")
-  stopifnot(used.class %in% all.classes)
+  stopifnot(specific.class %in% all.classes)
 
   # if the function can handle multiple time series
   if (ensure.names){
     if (multi.series){
       z <- substitute(function(x, ...){
-        load_suggested_packages(suggested.packages)
+        load_suggested(suggested.packages)
         stopifnot(class(x)[1] %in% all.classes)
-        z <- FUN(coerce_to_(used.class)(x), ...)
-        z <- coerce_to_(relevant_class(x))(z)
+        z <- FUN(coerce_to_(specific.class)(x), ...)
+        z <- ts_reclass(z, x)
         z <- ts_set_names(z, ts_names(x))
         z
       })
     } else {
       z <- substitute(function(x, ...){
-        load_suggested_packages(suggested.packages)
+        load_suggested(suggested.packages)
         stopifnot(class(x)[1] %in% all.classes)
-        z <- ts_apply(coerce_to_(used.class)(x), FUN, ...)
-        z <- coerce_to_(relevant_class(x))(z)
+        z <- ts_apply(coerce_to_(specific.class)(x), FUN, ...)
+        z <- ts_reclass(z, x)
         z <- ts_set_names(z, ts_names(x))
         z
       })
@@ -54,18 +54,18 @@ ts_ <- function(FUN, used.class = "ts", multi.series = TRUE, suggested.packages 
   } else{
     if (multi.series){
       z <- substitute(function(x, ...){
-        load_suggested_packages(suggested.packages)
+        load_suggested(suggested.packages)
         stopifnot(class(x)[1] %in% all.classes)
-        z <- FUN(coerce_to_(used.class)(x), ...)
-        z <- coerce_to_(relevant_class(x))(z)
+        z <- FUN(coerce_to_(specific.class)(x), ...)
+        z <- ts_reclass(z, x)
         z
       })
     } else {
        z <- substitute(function(x, ...){
-        load_suggested_packages(suggested.packages)
+        load_suggested(suggested.packages)
         stopifnot(class(x)[1] %in% all.classes)
-        z <- ts_apply(coerce_to_(used.class)(x), FUN, ...)
-        z <- coerce_to_(relevant_class(x))(z)
+        z <- ts_apply(coerce_to_(specific.class)(x), FUN, ...)
+        z <- ts_reclass(z, x)
         z
       })
     }  
@@ -89,17 +89,7 @@ ts_lag <- ts_(stats::lag)
 #' @rdname ts_
 ts_cycle <- ts_(stats::cycle, multi.series = FALSE)
 
-#' @export
-#' @rdname ts_
-ts_forecast_mean <- ts_(function(x, ...) forecast::forecast(x, ...)$mean, 
-                  multi = FALSE, suggested.packages = "forecast")
 
-#' @export
-#' @rdname ts_
-ts_forecast_auto.arima_mean  <- ts_(
-  function(x, confint = FALSE, ...) {
-    forecast::forecast(forecast::auto.arima(x), ...)$mean
-  }, multi.series = FALSE, suggested.packages = "forecast")
 
 #' @export
 #' @rdname ts_
@@ -120,14 +110,6 @@ ts_prcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
 # # TODO: rework
 
 
-#' @export
-#' @rdname ts_
-# ts_scale <- ts_(function(x, ...){
-#   z <- scale.default(unclass(x), ...)
-#   xts::reclass(z, x)
-# }, class = "xts")
-
-
 
 
 # #' @export
@@ -136,7 +118,7 @@ ts_prcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
 #   m <- lm(formula = formula, data = as.data.frame(na.omit(x)), ...)
 #   # message(paste(capture.output(summary(m)), collapse = "\n"))
 #   reclass(resid(m), na.omit(x))
-# }, used.class = "xts", ensure.names = FALSE, suggested.packages = "xts")
+# }, specific.class = "xts", ensure.names = FALSE, suggested.packages = "xts")
 
 
 # #' @export
@@ -145,7 +127,7 @@ ts_prcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
 #   m <- lm(formula = formula, data = as.data.frame(na.omit(x)), ...)
 #   # message(paste(capture.output(summary(m)), collapse = "\n"))
 #   reclass(predict(m), na.omit(x))
-# }, used.class = "xts", ensure.names = FALSE, suggested.packages = "xts")
+# }, specific.class = "xts", ensure.names = FALSE, suggested.packages = "xts")
 
 
 

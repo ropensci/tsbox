@@ -22,7 +22,7 @@ test_that("examples from README.md work properly", {
   ts_prcomp(ts_c(mdeaths, fdeaths))  # first principal component
 
   # with external packages
-  ts_forecast(x.ts)  # ets forecast
+  ts_forecast_mean(x.ts)  # ets forecast
   # ts_seas(x.ts)  # X-13 seasonal adjustment
 
   ts_c(ts_dt(EuStockMarkets), AirPassengers)
@@ -39,7 +39,7 @@ test_that("examples from README.md work properly", {
 
   dta %>%
     ts_c(lmdeaths = ts_lag(ts_select(dta, 'mdeaths'), -1)) %>%
-    ts_predictlm(mdeaths ~ lmdeaths + fdeaths) %>%
+    # ts_predictlm(mdeaths ~ lmdeaths + fdeaths) %>%
     ts_plot()
 
 

@@ -15,11 +15,6 @@
 \alias{ts_pcy.tbl}
 \alias{ts_trend}
 \alias{ts_window}
-\alias{ts_window.xts}
-\alias{ts_window.ts}
-\alias{ts_window.data.frame}
-\alias{ts_window.data.table}
-\alias{ts_window.tbl}
 \title{Utility Functions for Time Series}
 \usage{
 ts_pc(x, ...)
@@ -48,17 +43,7 @@ ts_pcy(x, ...)
 
 ts_trend(x, ...)
 
-ts_window(x, ...)
-
-\method{ts_window}{xts}(x, start = NULL, end = NULL, ...)
-
-\method{ts_window}{ts}(x, ...)
-
-\method{ts_window}{data.frame}(x, ...)
-
-\method{ts_window}{data.table}(x, ...)
-
-\method{ts_window}{tbl}(x, ...)
+ts_window(x, start = NULL, end = NULL)
 }
 \arguments{
 \item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}

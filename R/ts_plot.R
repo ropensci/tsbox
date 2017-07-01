@@ -74,7 +74,7 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
   col.lab <- axis.text.col
 
   # c(bottom, left, top, right)
-  if (var_n(x) > 1){
+  if (ts_nvar(x) > 1){
     has.legend <- TRUE
   } else{
     has.legend <- FALSE
@@ -111,8 +111,8 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
   xticks <- pretty(tind)
   xlabels <- format(xticks, "%Y")
 
-  col <- colors_tsbox()[1:var_n(x)]
-  cnames <- var_names(x)
+  col <- colors_tsbox()[1:ts_nvar(x)]
+  cnames <- ts_varnames(x)
 
   # Main Plot
   plot(x = tind, type = "n",lty=1, pch=19, col=1,
@@ -131,7 +131,7 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
   abline(h = axTicks(2), v = xticks, col = "grey80", lty = "dotted", lwd = 0.5)
 
   # Lines
-  all.vars <- var_names(x)
+  all.vars <- ts_varnames(x)
   for (i in seq(all.vars)){
     vari <- all.vars[i]
     cd <- x[var == vari]

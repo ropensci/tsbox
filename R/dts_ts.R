@@ -30,30 +30,11 @@ ts_ts <- function (x, ...) UseMethod("ts_ts")
 
 
 
-# general function to combine cols in data.tables
-combine_cols_dt <- function(dt, cols){
-  # probably not the best way to do it
-  qq.str <- paste0("var := paste(",  paste(cols, collapse = ", "), ", sep = '_')")
-  qq <- parse(text = qq.str)
-  z <- dt[, eval(qq)]
-  z[, (cols) := NULL]  # but this is the right way to do it
-
-  return(z)
-}
-
-
-combine_var_dts <- function(x){
-  stopifnot(inherits(x, "dts"))
-  if (NCOL(x) <= 3) return(x)
-  var.names <- colnames(x)[-c(1, 2)]
-  z <- combine_cols_dt(x, var.names)
-  z
-}
 
 #' @export
 #' @method ts_ts dts
 ts_ts.dts <- function(x, ...) {
-  x <- combine_var_dts(x)
+  x <- ts_combine(x)
   wx <- spread_core(x)
   tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
