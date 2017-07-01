@@ -1,5 +1,5 @@
 
-#' these are only used in `ts_`, which should be rewritten...
+# these are only used in `ts_`, which should be rewritten...
 
 
 #' Set and Extract Names of Time Series
