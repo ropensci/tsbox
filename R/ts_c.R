@@ -8,7 +8,7 @@ relevant_names <- function(call.names, list){
     if (length(call.names[[i]]) == 1){
       if (names(call.names)[i] == ""){  
         # 3. prio: use variable names if nothing else is given
-        if (ts_varnames(list[[i]]) == ".unnamed"){
+        if (ts_varnames(list[[i]]) %in% c("", ".unnamed")) {
           relevant.names[[i]] <- call.names[[i]]
         } else {
           # 2. prio: use colnames if given
@@ -45,6 +45,7 @@ relevant_names <- function(call.names, list){
 #' ts_rbind(ts_xts(AirPassengers), mdeaths)
 #' ts_c(ts_dt(EuStockMarkets), AirPassengers)
 #' ts_select(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX']), 'mdeaths')
+#' ts_c(dta, lmdeaths = ts_lag(ts_select(dta, 'mdeaths'), 1))
 #' 
 #' @export
 ts_c <- function(...){
@@ -67,23 +68,30 @@ ts_c <- function(...){
 
   if (any(is.nameable)){
     call.names <- lapply(substitute(placeholderFunction(...))[-1], deparse)
-    relevant.names <- relevant_names(call.names, list = ll.dts)
-    vnames[is.nameable] <- relevant.names[is.nameable]
+    relevant.names <- relevant_names(call.names[is.nameable], list = ll.dts[is.nameable])
+    vnames[is.nameable] <- relevant.names   #[is.nameable]
   }
+
+  # ensure names are unique
+  vnames.unique <- unname(vnames)
+  # this only works unnamed
+  vnames.unique[] <- make.unique(unlist(vnames.unique))
+  # so, we reneame
+  names(vnames.unique) <- names(vnames)
 
   # currently we treat ts-only bind separately, if of same freq
   if (desired.class == "ts"){
     z <- do.call("cbind", ll.dts)
-    colnames(z) <- unlist(vnames)
+    colnames(z) <- vnames.unique
   } else {
-    # rename var as in vnames
-    ll.dts[is.nameable] <- Map(function(dt, vname) dt[, var := vname], dt = ll.dts[is.nameable], vname = unlist(vnames[is.nameable]))
+    # rename var as in vnames.unique
+    ll.dts[is.nameable] <- Map(function(dt, vname) dt[, var := vname], dt = ll.dts[is.nameable], vname = unlist(vnames.unique[is.nameable]))
     z <- rbindlist_with_unified_class(ll.dts)
   }
 
-  # ensure names are unique
-  nz <- ts_names(z)
-  if (!identical(nz, unique(nz))) z <- ts_set_names(z, make.unique(ts_names(z)))
+  
+  # nz <- ts_names(z)
+  # if (!identical(nz, unique(nz))) z <- ts_set_names(z, make.unique(ts_names(z)))
 
   coerce_to_(desired.class)(z)
 

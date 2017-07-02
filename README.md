@@ -5,7 +5,6 @@ R Time Series Toolbox
 
 *This is an early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
-
 tsbox provides tools that are *agnostic* towards time series classes. 
 The R ecosystem knows a [vast number](https://cran.r-project.org/web/views/TimeSeries.html) 
 of time series standards. Rather than creating the ulitmate
@@ -20,6 +19,8 @@ stored as **ts**, **xts**, **data.frame**, **data.table** or  **tibble** to each
 other. Because this works smoothly, we can define a set of tools that work
 *identially* for each class. And, we can write a plot function that simply
 works!
+
+**Update Version 0.0.9 (July 2, 17):** Major update, now using [data.table](https://CRAN.R-project.org/package=data.table) as a backend, instead of [xts](https://CRAN.R-project.org/package=xts).
 
 To install:
 ```r
@@ -71,7 +72,7 @@ ts_rbind(ts_xts(AirPassengers), ts_tbl(mdeaths))
 ### And plot just about everything
 
 ```r
-ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
+ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = ts_select(EuStockMarkets ,'DAX'))))
 ```
 ![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
 
@@ -90,6 +91,8 @@ ts_ggplot(ts_scale(ts_c(discoveries, austres, AirPassengers)))
 The `ts_` function is a constructor function for tsbox time series functions.
 Use it to wrap any function that works with time series. The defaults are set to
 `ts`, so wrapping base functions for `ts` objects is as simple as:
+
+**(This is getting rewritten for the new backend and may look very different in the future).**
 
 ```r
 ts_diff <- ts_(diff)

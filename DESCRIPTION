@@ -1,15 +1,14 @@
 Package: tsbox
 Type: Package
 Title: Time Series Toolbox
-Version: 0.0.8
-Date: 2017-05-07
+Version: 0.0.9
+Date: 2017-07-02
 Author: Christoph Sax
 Maintainer: Christoph Sax <christoph.sax@gmail.com>
-Description: A toolbox to deal with time series. Built around a set of
-  converters, which reliably convert time series stored as "ts", "xts",
-  "data.frame" or "data.table" to each other. Because this works, we can define
-  a set of tools that work the same way for each class. And, we can write a plot
-  function that just works.
+Description: Provides tools that are *agnostic* towards time series classes. 
+  Built around a set of converters, which reliably convert time series stored as 
+  "ts", "xts", "data.frame" or "data.table" to each other. Because this works, 
+  we can define a set of tools that work the same way for each class. 
 Imports: 
     data.table,
     anytime
