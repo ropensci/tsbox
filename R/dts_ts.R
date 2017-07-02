@@ -7,6 +7,7 @@
 #' Convert everything to everything
 #' 
 #' @param x a time series object, either `ts`, `data.frame`, `data.table`, `tibble` or `xts`.
+#' @param cname variable name (only used if `ts_nvar(x) == 1`)
 #' @param ... additional arguments, passed to methods
 #' @examples
 #'
@@ -50,22 +51,23 @@ ts_ts.dts <- function(x, ...) {
 
 #' @export
 #' @method ts_dts ts
-ts_dts.ts <- function(x, name = NULL, ...){
+ts_dts.ts <- function(x, cname = NULL, ...){
+  if (is.null(cname)) cname <- deparse(substitute(x))
 
   stopifnot(inherits(x, "ts"))
 
   timec <- ts_to_date_time(x)
   m <- as.matrix(x)
+  # if (NCOL(m) == 1) {
+  #   colnames(m) <- cname
+  # }
   if (NCOL(m) == 1) {
-    if (is.null(name)){
-      colnames(m) <- deparse(substitute(x))
-    } else {
-      colnames(m) <- name
-    }
+    colnames(m) <- cname
   }
   dta <- data.table(m)
   dta[, time := timec]
-  gather_core(dta)
+  z <- gather_core(dta)
+  z
 }
 
 
@@ -76,28 +78,30 @@ ts_dts.ts <- function(x, name = NULL, ...){
 
 #' @export
 #' @method ts_ts ts
-ts_ts.ts <- function(x, ...){
+ts_ts.ts <- function(x, cname = NULL, ...){
   x
 }
 
 #' @export
 #' @method ts_xts ts
-ts_xts.ts <- function(x, ...){
-  ts_xts(ts_dts(x, name = deparse(substitute(x)), ...))
+ts_xts.ts <- function(x, cname = NULL, ...){
+  if (is.null(cname)) cname <- deparse(substitute(x))
+  ts_xts(ts_dts(x, cname = cname, ...))
 }
 
 #' @export
 #' @method ts_data.frame ts
-ts_data.frame.ts <- function(x, ...){
-  ts_data.frame(ts_dts(x, name = deparse(substitute(x)), ...))
+ts_data.frame.ts <- function(x, cname = NULL, ...){
+  if (is.null(cname)) cname <- deparse(substitute(x))
+  ts_data.frame(ts_dts(x, cname = cname, ...))
 }
 
 #' @export
 #' @method ts_data.table ts
-ts_data.table.ts <- function(x, ...){
-  ts_data.table(ts_dts(x, name = deparse(substitute(x)), ...))
+ts_data.table.ts <- function(x, cname = NULL, ...){
+  if (is.null(cname)) cname <- deparse(substitute(x))
+  ts_data.table(ts_dts(x, cname = cname, ...))
 }
-
 
 
 

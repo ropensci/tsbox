@@ -21,13 +21,14 @@ as_time_or_date <- function(x){
 
 #' @export
 #' @method ts_dts data.table
-ts_dts.data.table <- function(x, ...){
+ts_dts.data.table <- function(x, cname = NULL, ...){
+  if (is.null(cname)) cname <- deparse(substitute(x))
 
   tv <- guess_time_value(x)
 
   if (NCOL(x) == 2){
     z <- x[, tv, with = FALSE]
-    z$var <- deparse(substitute(x))
+    z$var <- cname
   } else {
     tvdiff <- setdiff(names(x), tv)
     z <- x[, c(tv, tvdiff), with = FALSE]
@@ -49,8 +50,9 @@ ts_data.table.dts <- function(x, ...){
 
 #' @export
 #' @name ts_ts
-ts_dt <- function (x, ...) {
-  ts_data.table(x, ...)
+ts_dt <- function (x, cname = NULL, ...) {
+  if (is.null(cname)) cname <- deparse(substitute(x))
+  ts_data.table(x, cname = cname, ...)
 }
 
 

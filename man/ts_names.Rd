@@ -54,15 +54,11 @@ Set and Extract Names of Time Series
 x.ts <- ts_c(mdeaths, fdeaths) 
 x.xts <- ts_xts(x.ts)
 x.df <- ts_df(x.xts)
+x.dt <- ts_dt(x.xts)
 
 ts_names(x.ts)
 ts_names(x.xts)
 ts_names(x.df)
-
-\dontrun{
-library(data.table)  # if you want to use the 'data.table' methods
-x.dt <- ts_dt(x.df)
 ts_names(x.dt)
-}
 
 }

@@ -33,7 +33,7 @@ ts_plot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
 ts_plot(EuStockMarkets)
 ts_plot(sunspot.month, sunspot.year, lynx)
 ts_plot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
-
+\dontrun{
 ts_ggplot(AirPassengers, title = "Airline passengers", 
        subtitle = "The classic Box & Jenkins airline data")
 ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
@@ -43,7 +43,7 @@ ts_ggplot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
 ts_ggplot(EuStockMarkets)
 ts_ggplot(sunspot.month, sunspot.year, lynx)
 ts_ggplot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
-\dontrun{
+
 library(Quandl)
 ts_ggplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
 

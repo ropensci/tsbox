@@ -16,7 +16,7 @@ ts_rbind <- function(...){
   # TODO: keep df only and ts/mts only as their classes
   ll.dts <- lapply(ll, ts_dts)
   llnames <- lapply(substitute(placeholderFunction(...))[-1], deparse)
-
+   
   nc <- vapply(ll.dts, NCOL, 1L)
 
   if (length(nc) == 1){

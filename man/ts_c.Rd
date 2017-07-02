@@ -24,7 +24,9 @@ ts_c(EuStockMarkets, mdeaths)
 ts_c(`International Airline Passengers` = ts_xts(AirPassengers), 
        `Deaths from Lung Diseases` = ldeaths)
 
-ts_c(ts_df(mdeaths), AirPassengers)
+ts_c(a = ts_df(mdeaths), AirPassengers)
 ts_rbind(ts_xts(AirPassengers), mdeaths)
+ts_c(ts_dt(EuStockMarkets), AirPassengers)
+ts_select(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX']), 'mdeaths')
 
 }

@@ -35,15 +35,15 @@ ts_c.dts(...)
 
 ts_data.frame(x, ...)
 
-\method{ts_data.frame}{dts}(x, ...)
+\method{ts_data.frame}{dts}(x, cname = NULL, ...)
 
-ts_tbl(x, ...)
+ts_tbl(x, cname = NULL, ...)
 
-ts_df(x, ...)
+ts_df(x, cname = NULL, ...)
 
 ts_data.table(x, ...)
 
-ts_dt(x, ...)
+ts_dt(x, cname = NULL, ...)
 
 ts_ts(x, ...)
 
@@ -59,6 +59,8 @@ ts_scale(x, ...)
 \item{x}{a time series object, either \code{ts}, \code{data.frame}, \code{data.table}, \code{tibble} or \code{xts}.}
 
 \item{...}{additional arguments, passed to methods}
+
+\item{cname}{variable name (only used if \code{ts_nvar(x) == 1})}
 
 \item{lag}{defined as in dplyr, opposite to R base}
 

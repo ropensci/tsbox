@@ -78,7 +78,7 @@ test_that("conversion between objects works as expected: discoveries", {
 
   x.ts <- discoveries
   x.xts <- ts_xts(discoveries)
-  x.df <- ts_df(discoveries)
+  x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
   x.tbl <- ts_tbl(x.dt)
 
@@ -87,17 +87,17 @@ test_that("conversion between objects works as expected: discoveries", {
   expect_equal(ts_ts(ts_dt(x.ts)), x.ts)
   expect_equal(ts_ts(ts_tbl(x.ts)), x.ts)
 
-  expect_equivalent(ts_xts(ts_ts(x.xts)), x.xts)  # rownames do not match
+  expect_equal(ts_xts(ts_ts(x.xts), cname = "discoveries"), x.xts)
   expect_equal(ts_xts(ts_df(x.xts)), x.xts)
   expect_equal(ts_xts(ts_dt(x.xts)), x.xts)
   expect_equal(ts_xts(ts_tbl(x.xts)), x.xts)
 
-  expect_equal(ts_df(ts_ts(x.df)), x.df)  
+  expect_equal(ts_df(ts_ts(x.df), cname = "discoveries"), x.df)  
   expect_equal(ts_df(ts_xts(x.df)), x.df)
   expect_equal(ts_df(ts_dt(x.df)), x.df)
   expect_equal(ts_dt(ts_tbl(x.dt)), x.dt)
 
-  expect_equal(ts_dt(ts_ts(x.dt)), x.dt)   
+  expect_equal(ts_dt(ts_ts(x.dt), cname = "discoveries"), x.dt)   
   expect_equal(ts_dt(ts_xts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_df(x.dt)), x.dt)
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)

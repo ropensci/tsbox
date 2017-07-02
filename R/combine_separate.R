@@ -18,7 +18,7 @@ ts_combine <- function(x){
 #' @name ts_combine
 ts_separate <- function(x, into){
   # ... do not allow for ts, xts
-  z <- ts_dt(x)
+  z <- ts_data.table(x)
   z[, (into) := tstrsplit(var, "_", fixed=TRUE)]
   z[, var := NULL]
   ts_reclass(z, x)

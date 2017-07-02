@@ -30,8 +30,10 @@ test_that("examples from README.md work properly", {
   ts_rbind(ts_dt(mdeaths), AirPassengers)
   ts_rbind(ts_xts(AirPassengers), mdeaths)
 
+
   # ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
   # ts_ggplot(ts_scale(ts_c(discoveries, austres, AirPassengers)))
+  # ts_plot(ts_scale(ts_c(discoveries, austres, AirPassengers)))
 
 
   dta <- ts_df(ts_c(mdeaths, fdeaths))

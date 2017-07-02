@@ -47,6 +47,16 @@ context("tricky stuff")
 
 
 
+test_that("Latest tricky stuff works.", {
+
+  expect_equal(mdeaths, ts_ts(ts_select(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX']), 'mdeaths')))
+
+  # names must be unique!!
+  a <- ts_dts(ts_c(AirPassengers, AirPassengers))
+  expect_true(length(unique(a[['var']])) == 2)
+
+
+})
 
 
 
