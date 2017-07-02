@@ -4,9 +4,9 @@
 #' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @return returns a function
 #' @export
-coerce_to_ <- function(x = "xts"){
+coerce_to_ <- function(x){
   # print(x)
-  stopifnot(x %in% c("xts", "ts", "data.frame", "data.table", "tbl"))
+  stopifnot(x %in% c("xts", "ts", "data.frame", "data.table", "tbl", "dts"))
   get(paste0("ts_", x))
 }
 
@@ -15,21 +15,22 @@ desired_class <- function(ll){
   if (length(z) == 1){
     if (z == "ts"){
       # no "ts" if mixed frequecies
-      if (length(unique(vapply(ll, frequency, 1))) > 1) return("xts")
+      if (length(unique(vapply(ll, frequency, 1))) > 1) return("data.frame")
     }
     return(z)
   } else {
-    return("xts")
+    return("data.frame")
   }
 }
-
-
 
 #' Extract the Relavant Class
 #' 
 #' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @export
 relevant_class <- function(x){
+  if (inherits(x, "dts")){
+    return("dts")
+  }
   if (inherits(x, "ts")){
     return("ts")
   }
@@ -47,5 +48,6 @@ relevant_class <- function(x){
   }
 }
 
-
-
+ts_reclass <- function(z, x){
+  coerce_to_(relevant_class(x))(z)
+}

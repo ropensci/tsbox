@@ -11,36 +11,46 @@
 # code inspiration from: https://gist.github.com/kylebgorman/6444612
 
 
+
+# ts_trend(ts_c(mdeaths, fdeaths))
+
+#' Loess smoothing
+#' @param x any time series object
+#' @param degree degree of Loess smoothing
+#' @param span smoothing parameter, if NULL, automated search
 #' @export
-#' @rdname ts_pc
-ts_trend <- ts_(function(x, degree = 2, span = NULL, ...){
-  if (NCOL(x) > 1){
-    return(ts_apply(x, ts_trend))
+ts_trend <- function(x, degree = 2, span = NULL){
+
+  z <- ts_dts(x)
+
+  if (ts_nvar(z) > 1){
+    stop("vectorization needs to redone. Run on single series only for the moment.")
+    # return(ts_reclass(ts_apply_dts_SD(z, ts_trend, degree = 2, span = span), x))
   }
 
   if (is.null(span)){
-    span <- loess_aic_span_optim(x = x, degree = degree)
-    if (!is.null(names(x))) {
-      message(names(x), ": 'span' automatically set to ", formatC(span, 3))
-    } else {
-      message("'span' automatically set to ", formatC(span, 3))
-    }
+    span <- loess_aic_span_optim(x = z[[2]], degree = degree)
+    message(ts_varnames(z), ": 'span' automatically set to ", formatC(span, 3))
   }
   
-  m <- loess(x ~ seq(x), span = span, degree = degree)
+  m <- loess(z[[2]] ~ seq(z[[2]]), span = span, degree = degree)
 
   # also compute standard errors
-  pp <- predict(m, se = TRUE)
+  pp <- predict(m)
 
-  z <- pp$fit
+
+  z[, value := pp]
 
   # z <- cbind(mean = pp$fit, 
   #           lowerCI = -1.96 * pp$se.fit + pp$fit, 
   #           upperCI = 1.96 * pp$se.fit + pp$fit
   #           )
 
-  xts::reclass(z, x)
-}, class = "xts") 
+  ts_reclass(z, x)
+}
+
+
+
 
 
 loess_aic_span_optim <- function(x, degree = 2){

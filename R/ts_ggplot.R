@@ -5,50 +5,49 @@
 #' @param ... aruments passed to subfunctions
 #' @examples
 #' library(tsbox)
-#' df <- ts_df(ts_bind(total = ldeaths, female = fdeaths, male = mdeaths))
+#' df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
 #'  \dontrun{
 #' ggplot(df, aes(x = Index, y = Value, color = Series)) + 
 #'   geom_line() +
 #'   ggtitle('Deaths by lung diseases', subtitle = 'United Kindom, per year') + 
 #'   theme_ts() + 
-#'   scale_color_ts() 
+#'   scale_color_tsbox() 
 #' 
 #' ggsave("myfig.pdf", width = 8, height = 5)
 #' browseURL("myfig.pdf")
 #' }
-#' @import ggplot2
 #' @export
 theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
   # 'Source Sans Pro'  # does not work on mac
   # 'Slabo 13px'
 
   half_line <- base_size/2
-  theme_minimal(base_family = base_family, base_size = base_size) +
-  theme(
+  ggplot2::theme_minimal(base_family = base_family, base_size = base_size) +
+  ggplot2::theme(
         
-        # line = element_line(color = "grey30", size = 0.4),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        plot.title = element_text(color = "grey10", face = "bold", margin = margin(t = half_line * 2, b = half_line * 0.7), hjust = 0, size = rel(1.2)),
-        plot.subtitle = element_text(color = "grey10", margin = margin(t = 0, b = half_line * 1.2), size = rel(0.9), hjust = 0),
-        plot.caption = element_text(color = "grey50", margin = margin(t = 0, b = half_line * 1.2), size = rel(0.8)),
+        # line = ggplot2::element_line(color = "grey30", size = 0.4),
+        axis.title.x = ggplot2::element_blank(),
+        axis.title.y = ggplot2::element_blank(),
+        plot.title = ggplot2::element_text(color = "grey10", face = "bold", margin = ggplot2::margin(t = half_line * 2, b = half_line * 0.7), hjust = 0, size = ggplot2::rel(1.2)),
+        plot.subtitle = ggplot2::element_text(color = "grey10", margin = ggplot2::margin(t = 0, b = half_line * 1.2), size = ggplot2::rel(0.9), hjust = 0),
+        plot.caption = ggplot2::element_text(color = "grey50", margin = ggplot2::margin(t = 0, b = half_line * 1.2), size = ggplot2::rel(0.8)),
 
-        # panel.grid = element_line(colour = NULL, linetype = 3), 
-        # panel.grid.major = element_line(colour = "grey10"), 
-        panel.grid = element_line(size = 0.2), 
-        # panel.grid.major.x = element_blank(), 
-        # panel.grid.minor = element_blank(),
+        # panel.grid = ggplot2::element_line(colour = NULL, linetype = 3), 
+        # panel.grid.major = ggplot2::element_line(colour = "grey10"), 
+        panel.grid = ggplot2::element_line(size = 0.2), 
+        # panel.grid.major.x = ggplot2::element_blank(), 
+        # panel.grid.minor = ggplot2::element_blank(),
 
-        axis.text = element_text(color = "grey10", size = rel(0.7)),
-        legend.title = element_blank(),
-        legend.text = element_text(color = "grey10", size = rel(0.9)),
+        axis.text = ggplot2::element_text(color = "grey10", size = ggplot2::rel(0.7)),
+        legend.title = ggplot2::element_blank(),
+        legend.text = ggplot2::element_text(color = "grey10", size = ggplot2::rel(0.9)),
         legend.position = "bottom",
         legend.direction = "horizontal"
 
-        # axis.ticks.x = element_line(color = "grey10"),
-        # axis.ticks.y = element_blank(),
-        # panel.border = element_blank(),
-        # axis.line.x =  element_line()
+        # axis.ticks.x = ggplot2::element_line(color = "grey10"),
+        # axis.ticks.y = ggplot2::element_blank(),
+        # panel.border = ggplot2::element_blank(),
+        # axis.line.x =  ggplot2::element_line()
     )
 }
 
@@ -67,7 +66,7 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
 
 #' @export
 #' @rdname theme_ts
-ts_colors <- function(){
+colors_tsbox <- function(){
       c(
   "#4D4D4D",
 "#5DA5DA",
@@ -86,16 +85,17 @@ ts_colors <- function(){
 }
 
 #' @export
-#' @import scales
 #' @rdname theme_ts
-scale_color_ts <- function(...) {
-    discrete_scale("colour", "ds", scales::manual_pal(ts_colors()), ...)
+scale_color_tsbox <- function(...) {
+    stopifnot(requireNamespace("ggplot2"))
+    ggplot2::discrete_scale("colour", "ds", scales::manual_pal(colors_tsbox()), ...)
 }
 
 #' @export
 #' @rdname theme_ts
-scale_fill_ts <- function (...) {
-    discrete_scale("fill", "ds", scales::manual_pal(ts_colors()), ...)
+scale_fill_tsbox <- function (...) {
+    stopifnot(requireNamespace("ggplot2"))
+    ggplot2::discrete_scale("fill", "ds", scales::manual_pal(colors_tsbox()), ...)
 }
 
 
@@ -103,7 +103,9 @@ scale_fill_ts <- function (...) {
 #' @rdname ts_plot
 #' @export
 ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
-  df <- ts_data.frame(ts_bind(...))
+
+  stopifnot(requireNamespace("ggplot2"))
+  df <- ts_data.frame(ts_c(...))
 
   time.name = getOption("tsbox.time.name", "time")
   var.name = getOption("tsbox.var.name", "var")
@@ -114,7 +116,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
   n <- NCOL(df)
   stopifnot(n > 1)
   if (n == 2){
-    p <- ggplot(df, aes_string(x = time.name, y = value.name)) 
+    p <- ggplot2::ggplot(df,  ggplot2::aes_string(x = time.name, y = value.name)) 
   } else if (n > 2){
 
     # numeric variable 'levels'
@@ -125,17 +127,17 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
     if (length(unique(df[[var.name]])) > 29) {
       stop(length(unique(df[[var.name]])), " time series supplied. Maximum is 29.",  call. = FALSE)
     }
-    p <- ggplot(df, aes_string(x = time.name, y = value.name, color = var.name))
+    p <-  ggplot2::ggplot(df,  ggplot2::aes_string(x = time.name, y = value.name, color = var.name))
   } 
   p <- p + 
-  geom_line() +
-  ylab("") + 
+  ggplot2::geom_line() +
+  ggplot2::ylab("") + 
   theme_ts() + 
-  scale_color_ts() 
+  scale_color_tsbox() 
 
   if (!is.null(title) | !is.null(subtitle)){
     if (is.null(title)) title <- ""  # subtitle only
-    p <- p + ggtitle(label = title, subtitle = subtitle)
+    p <- p + ggplot2::ggtitle(label = title, subtitle = subtitle)
   }
   p
 
@@ -147,7 +149,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # #' @rdname ts_plot
 # #' @method ts_ggplot numeric
 # ts_ggplot.numeric <- function(..., title = NULL, subtitle = NULL){
-#   x <- ts_bind(...)
+#   x <- ts_c(...)
 #   ts_ggplot(ts(x), title = title, subtitle = subtitle)
 # }
 
@@ -155,7 +157,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # #' @rdname ts_plot
 # #' @method ts_ggplot ts
 # ts_ggplot.ts <- function(..., title = NULL, subtitle = NULL){
-#   df <- ts_data.frame(ts_bind(...))
+#   df <- ts_data.frame(ts_c(...))
 #   ts_ggplot_core(df, title = title, subtitle = subtitle)
 # }
   
@@ -163,7 +165,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # #' @rdname ts_plot
 # #' @method ts_ggplot xts
 # ts_ggplot.xts <- function(..., title = NULL, subtitle = NULL){
-#   df <- ts_data.frame(ts_bind(...))
+#   df <- ts_data.frame(ts_c(...))
 #   ts_ggplot_core(df, title = title, subtitle = subtitle)
 # }
 
@@ -171,7 +173,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # #' @rdname ts_plot
 # #' @method ts_ggplot data.frame
 # ts_ggplot.data.frame <- function(..., title = NULL, subtitle = NULL){
-#   x <- ts_data.frame(ts_bind(...))
+#   x <- ts_data.frame(ts_c(...))
 #   ts_ggplot_core(x, title = title, subtitle = subtitle)
 # }
 
@@ -181,7 +183,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 # ts_ggplot.data.table <- function(..., title = NULL, subtitle = NULL){
 
 #   # a bit a mystery that ts_data.frame.data.table is not working...
-#   x <- ts_data.frame(ts_bind(...))  
+#   x <- ts_data.frame(ts_c(...))  
 
 #   ts_ggplot_core(x, title = title, subtitle = subtitle)
 # }
@@ -214,7 +216,7 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 #   geom_line() +
 #   ylab("") + 
 #   theme_ts() + 
-#   scale_color_ts() 
+#   scale_color_tsbox() 
 
 #   if (!is.null(title) | !is.null(subtitle)){
 #     if (is.null(title)) title <- ""  # subtitle only
@@ -237,11 +239,12 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
 #' ts_ggplot(AirPassengers)
 #' ts_save()
 #' }
-#' @import ggplot2
 #' @export
 ts_ggsave <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
   filename <- gsub(".pdf$", paste0(".", device), filename)
-  ggsave(filename = filename, width = width, height = height, device = device, ...)
+  stopifnot(requireNamespace("ggplot2"))
+
+  ggplot2::ggsave(filename = filename, width = width, height = height, device = device, ...)
 
   if (open) browseURL(filename)
 }

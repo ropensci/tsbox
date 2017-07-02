@@ -12,28 +12,28 @@
 #'        subtitle = "The classic Box & Jenkins airline data")
 #' ts_plot(total = ldeaths, female = fdeaths, male = mdeaths)
 #' 
-#' ts_plot(ts_bind(sunspot.month, sunspot.year, lynx))
-#' ts_plot(ts_scale(ts_bind(airmiles, co2, JohnsonJohnson, discoveries)))
+#' ts_plot(ts_c(sunspot.month, sunspot.year, lynx))
+#' ts_plot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
 #' ts_plot(EuStockMarkets)
 #' ts_plot(sunspot.month, sunspot.year, lynx)
-#' ts_plot(ts_scale(ts_bind(Nile, nottem, USAccDeaths)))
-#' 
+#' ts_plot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
+#' \dontrun{
 #' ts_ggplot(AirPassengers, title = "Airline passengers", 
 #'        subtitle = "The classic Box & Jenkins airline data")
 #' ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
 #' 
-#' ts_ggplot(ts_bind(sunspot.month, sunspot.year, lynx))
-#' ts_ggplot(ts_scale(ts_bind(airmiles, co2, JohnsonJohnson, discoveries)))
+#' ts_ggplot(ts_c(sunspot.month, sunspot.year, lynx))
+#' ts_ggplot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
 #' ts_ggplot(EuStockMarkets)
 #' ts_ggplot(sunspot.month, sunspot.year, lynx)
-#' ts_ggplot(ts_scale(ts_bind(Nile, nottem, USAccDeaths)))
-#' \dontrun{
+#' ts_ggplot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
+#' 
 #' library(Quandl)
 #' ts_ggplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
 #' 
 #' library(dataseries)
 #' dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
-#' ts_ggplot(ts_scale(ts_window(ts_bind(`GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']), 
+#' ts_ggplot(ts_scale(ts_window(ts_c(`GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']), 
 #'                             `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']), 
 #'                      start = "1995-01-01")),
 #'        title = "GDP and Consumer Sentiment",
@@ -45,7 +45,7 @@
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
 ts_plot <- function(..., title, subtitle, ylab = ""){
 
-  x <- ts_xts(ts_bind(...))
+  x <- ts_dts(ts_c(...))
 
   if (missing("title")){
     has.title <- FALSE
@@ -74,7 +74,7 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
   col.lab <- axis.text.col
 
   # c(bottom, left, top, right)
-  if (NCOL(x) > 1){
+  if (ts_nvar(x) > 1){
     has.legend <- TRUE
   } else{
     has.legend <- FALSE
@@ -102,17 +102,17 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
 
   par(mar =  c(mar.b, mar.l , mar.t, 1.4), col.lab = col.lab, cex.lab=0.8)
 
-  tind <- as.POSIXct(index(x))
+  tind <- as.POSIXct(x[[1]])
   tnum <- as.numeric(tind)
 
   xlim <- range(tnum)
-  ylim <- range(coredata(x), na.rm = TRUE)
+  ylim <- range(x[, value], na.rm = TRUE)
 
   xticks <- pretty(tind)
   xlabels <- format(xticks, "%Y")
 
-  col <- ts_colors()[1:NCOL(coredata(x))]
-  cnames <- colnames(coredata(x))
+  col <- colors_tsbox()[1:ts_nvar(x)]
+  cnames <- ts_varnames(x)
 
   # Main Plot
   plot(x = tind, type = "n",lty=1, pch=19, col=1,
@@ -131,11 +131,13 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
   abline(h = axTicks(2), v = xticks, col = "grey80", lty = "dotted", lwd = 0.5)
 
   # Lines
-  for (i in seq(NCOL(coredata(x)))){
-    cd <- x[,i]
-    cd <- cd[!is.na(cd)]
-    lines(y = coredata(cd), 
-        x = as.numeric(as.POSIXct(index(cd))), col = col[i], lwd = lwd)
+  all.vars <- ts_varnames(x)
+  for (i in seq(all.vars)){
+    vari <- all.vars[i]
+    cd <- x[var == vari]
+    cd <- cd[!is.na(value)]
+    lines(y = cd[, value], 
+        x = as.numeric(as.POSIXct(cd[[1]])), col = col[i], lwd = lwd)
   }
 
   # Second layer, with legend and title

@@ -1,3 +1,4 @@
+# seem to be ok and usable elsewhere
 
 #' Set and Extract Names of Time Series
 #' 
@@ -6,19 +7,15 @@
 #' @param ... additional arguments, passed to methods
 #' @examples
 #' 
-#' x.ts <- ts_bind(mdeaths, fdeaths) 
+#' x.ts <- ts_c(mdeaths, fdeaths) 
 #' x.xts <- ts_xts(x.ts)
 #' x.df <- ts_df(x.xts)
+#' x.dt <- ts_dt(x.xts)
 #'
 #' ts_names(x.ts)
 #' ts_names(x.xts)
 #' ts_names(x.df)
-#' 
-#' \dontrun{
-#' library(data.table)  # if you want to use the 'data.table' methods
-#' x.dt <- ts_dt(x.df)
 #' ts_names(x.dt)
-#' }
 #' 
 #' @export
 ts_names <- function (x, ...) UseMethod("ts_names")

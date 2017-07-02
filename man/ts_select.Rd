@@ -9,44 +9,39 @@
 \alias{ts_select.tbl}
 \title{Set and Variables from Multiple Time Series}
 \usage{
-ts_select(x, var, ...)
+ts_select(x, vars, ...)
 
-\method{ts_select}{ts}(x, var, ...)
+\method{ts_select}{ts}(x, vars, ...)
 
-\method{ts_select}{xts}(x, var, ...)
+\method{ts_select}{xts}(x, vars, ...)
 
-\method{ts_select}{data.frame}(x, var, var.name = getOption("tsbox.var.name",
-  "var"), ...)
+\method{ts_select}{data.frame}(x, vars, ...)
 
-\method{ts_select}{data.table}(x, var, var.name = getOption("tsbox.var.name",
-  "var"), ...)
+\method{ts_select}{data.table}(x, vars, ...)
 
-\method{ts_select}{tbl}(x, var, var.name = getOption("tsbox.var.name", "var"),
-  ...)
+\method{ts_select}{tbl}(x, vars, ...)
 }
 \arguments{
 \item{x}{a time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 
-\item{var}{character, time series to be selectd}
+\item{vars}{character, time series to be selectd}
 
 \item{...}{arguments passed to methods}
-
-\item{var.name}{name of the column that contains \code{var}}
 }
 \description{
 Set and Variables from Multiple Time Series
 }
 \examples{
 
-all.equal(ts_ts(mdeaths), ts_select(ts_ts(ts_bind(mdeaths, fdeaths)), 'mdeaths'))
+all.equal(ts_ts(mdeaths), ts_select(ts_ts(ts_c(mdeaths, fdeaths)), 'mdeaths'))
 all.equal(ts_xts(mdeaths), 
-          ts_select(ts_xts(ts_bind(mdeaths, fdeaths)), 'mdeaths'), 
+          ts_select(ts_xts(ts_c(mdeaths, fdeaths)), 'mdeaths'), 
           check.attributes = FALSE)
-all.equal(ts_df(mdeaths), ts_select(ts_df(ts_bind(mdeaths, fdeaths)), 'mdeaths'))
+all.equal(ts_df(mdeaths), ts_select(ts_df(ts_c(mdeaths, fdeaths)), 'mdeaths'))
 
 \dontrun{
 library(data.table)  # if you want to use the 'data.table' methods
-all.equal(ts_dt(mdeaths), ts_select(ts_dt(ts_bind(mdeaths, fdeaths)), 'mdeaths'))
+all.equal(ts_dt(mdeaths), ts_select(ts_dt(ts_c(mdeaths, fdeaths)), 'mdeaths'))
 }
 
 }

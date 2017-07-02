@@ -1,0 +1,27 @@
+# function for easier access to data.table
+
+filter_data.table <- function(DT, column.name, operator = "%in%", filter.value){
+  str <- paste0(column.name, " ", operator, " \"", filter.value, "\"")
+  q <- parse(text = str)
+  `[`(DT, eval(q))
+}
+
+
+combine_cols_data.table <- function(dt, cols){
+  # probably not the best way to do it
+  qq.str <- paste0("var := paste(",  paste(cols, collapse = ", "), ", sep = '_')")
+  qq <- parse(text = qq.str)
+  z <- dt[, eval(qq)]
+  z[, (cols) := NULL]  # but this is the right way to do it
+  return(z)
+}
+
+
+
+change_class.data.table <- function(dt, col, operator = "as.POSIXct"){
+  # probably not the best way to do it
+  qq.str <- paste0(col, " := ", operator, "(", col, ")")
+  qq <- parse(text = qq.str)
+  z <- dt[, eval(qq)]
+  return(z)
+}
