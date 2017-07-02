@@ -21,10 +21,11 @@ load_suggested <- function(pkg){
 #' @export
 #' @examples
 #' ts_plot(
-#'     ts_c(AirPassengers, mdeaths),
+#'     ts_c(
+#'     ts_c(ts_df(AirPassengers), mdeaths),
 #'     ts_forecast_mean(AirPassengers)
+#'     )
 #' )
-#' 
 ts_ <- function(FUN, specific.class = "ts", multi.series = TRUE, suggested.packages = NULL, ensure.names = TRUE){
 
   all.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", "dts")

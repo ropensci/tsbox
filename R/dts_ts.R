@@ -25,7 +25,7 @@
 #' @import data.table
 #' @importFrom anytime anydate anytime
 #' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var
-#' @importFrom utils browseURL
+#' @importFrom utils browseURL relist
 #' @import data.table 
 ts_ts <- function (x, ...) UseMethod("ts_ts")
 

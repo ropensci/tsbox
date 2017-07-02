@@ -28,6 +28,5 @@ ts_c(a = ts_df(mdeaths), AirPassengers)
 ts_rbind(ts_xts(AirPassengers), mdeaths)
 ts_c(ts_dt(EuStockMarkets), AirPassengers)
 ts_select(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX']), 'mdeaths')
-ts_c(dta, lmdeaths = ts_lag(ts_select(dta, 'mdeaths'), 1))
 
 }

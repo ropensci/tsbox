@@ -44,10 +44,17 @@ context("tricky stuff")
 
 # error w short series
 
-
+test_that("ts_rbind works as it should.", {
+  expect_equal(AirPassengers, ts_rbind(ts_window(AirPassengers, start = "1950-01-01"), ts_window(AirPassengers, end = "1949-12-01")))
+  expect_equal(ts_dt(AirPassengers), ts_rbind(AirPassengers = ts_window(ts_dt(AirPassengers), start = "1950-01-01"), ts_window(ts_dt(AirPassengers), end = "1949-12-01")))
+  expect_equal(ts_df(AirPassengers), ts_rbind(AirPassengers = ts_window(ts_df(AirPassengers), start = "1950-01-01"), ts_window(ts_df(AirPassengers), end = "1949-12-01")))
+  expect_equal(ts_tbl(AirPassengers), ts_rbind(AirPassengers = ts_window(ts_tbl(AirPassengers), start = "1950-01-01"), ts_window(ts_tbl(AirPassengers), end = "1949-12-01")))
+})
 
 
 test_that("Latest tricky stuff works.", {
+
+
 
   expect_equal(mdeaths, ts_ts(ts_select(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX']), 'mdeaths')))
 
@@ -112,8 +119,8 @@ test_that("No Invalid .internal.selfref detected.", {
 
 
 test_that("ts_gather and ts_spread work both ways.", {
-  a <- ts_df(ts_c(AirPassengers, mdeaths, fdeaths))
-  expect_equal(a, ts_gather(ts_spread(a)))
+  a <- ts_df(ts_c(ts_dt(AirPassengers), mdeaths, fdeaths))
+  expect_equal(a, ts_na_omit(ts_gather(ts_spread(a))))
 
   b <- ts_tbl(ts_dt(EuStockMarkets))
   expect_equal(b, ts_gather(ts_spread(b)))

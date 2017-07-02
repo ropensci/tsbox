@@ -31,8 +31,9 @@ universal constructor for ts functions
 }
 \examples{
 ts_plot(
-    ts_c(AirPassengers, mdeaths),
+    ts_c(
+    ts_c(ts_df(AirPassengers), mdeaths),
     ts_forecast_mean(AirPassengers)
+    )
 )
-
 }
