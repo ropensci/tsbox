@@ -128,6 +128,65 @@ dta %>%
 ```
 
 
+### List of Functions
+
+This is an overview of all the functions in tsbox. Planned functions are (in
+parentheses). If you would add something else, or suggest different naming or
+conceptualization, please let me know.
+
+
+#### Convert
+
+    ts_ts
+    ts_xts
+    ts_df       # or ts_data.frame
+    ts_dt       # or ts_data.table
+    ts_tbl
+
+#### Bind
+
+    ts_c        # vertically
+    ts_rbind    # horizontally
+
+#### Filter and Select
+
+    ts_window
+    ts_align
+    ts_select
+
+#### Transform
+
+    ts_scale    # normalization
+    ts_trend    # loess trend line
+    ts_pc
+    ts_pcy
+    ts_diff
+    ts_lag
+    (ts_seas)     # requires(seasonal)
+
+#### Signal Extraction
+
+    (ts_prcomp)   # principal component
+
+#### Frequency Conversion
+
+    (ts_to_frequency)               # requires(tempdisagg)
+
+#### Forecast
+
+    ts_forecast_mean              # requires(forecast)
+    ts_forecast_auto.arima_mean   # requires(forecast)
+    (ts_arima_predict)
+    (ts_lm_predict)
+
+#### Plot
+
+    ts_plot
+    ts_ggplot
+    (ts_dygraph)    # requires(dygraph)
+    (ts_iframe)     # requires(dygraph), returns iframe containing the data
+
+
 ### License
 
 *tsbox* is free and open source, licensed under GPL-3.
