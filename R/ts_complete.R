@@ -1,5 +1,25 @@
 
-# this is a shitty implemenation, should use data.table operations instead
+# # old version using ts conversion to get the effect
+# ts_complete_old <- function(x, fill = NA){
+#   # DONT go for a "ts" object here!!)
+
+#   # TODO, do this propperly
+
+#   z <- ts_ts(x)
+#   if (!is.na(fill)){
+#     z[is.na(z)] <- fill
+#   }
+#   ts_reclass(z, x)
+# }
+
+# > system.time(ts_complete_old(dt_rg_gmd_agg))
+#    user  system elapsed 
+#   0.655   0.013   0.670 
+# > 
+# > system.time(ts_complete(dt_rg_gmd_agg))
+#    user  system elapsed 
+#   0.311   0.013   0.213 
+
 
 
 #' Make all time series the same length
@@ -7,13 +27,27 @@
 #' @param fill missign value specifier
 #' @export
 ts_complete <- function(x, fill = NA){
-  # DONT go for a "ts" object here!!)
 
-  # TODO, do this propperly
+  x1 <- ts_dts(x)
 
-  z <- ts_ts(x)
+  full.time <- unique(x1[, 1])
+  var.names <- colnames(x1)[-c(1, 2)]
+
+  # all vars in the data
+  full.var <- unique(x1[, var.names, with = FALSE])
+  full.var[, k := 1]  # dummy merge variable
+  full.time[, k := 1]
+
+  full.frame <- merge(full.var, full.time, by = "k", allow.cartesian = TRUE)
+  full.frame[, k := NULL]
+
+  z <- merge(full.frame, x1, by = colnames(full.frame), all.x = TRUE)
+
+  # this also overwrites existing NAs
   if (!is.na(fill)){
-    z[is.na(z)] <- fill
+    z[is.na(value), value := fill]
   }
+
   ts_reclass(z, x)
+
 }
