@@ -1,8 +1,8 @@
 Package: tsbox
 Type: Package
 Title: Time Series Toolbox
-Version: 0.0.9
-Date: 2017-07-02
+Version: 0.0.9.1
+Date: 2017-07-07
 Author: Christoph Sax
 Maintainer: Christoph Sax <christoph.sax@gmail.com>
 Description: Provides tools that are *agnostic* towards time series classes. 

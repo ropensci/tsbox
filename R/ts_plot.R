@@ -43,7 +43,7 @@
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
-ts_plot <- function(..., title, subtitle, ylab = ""){
+ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
 
   x <- ts_dts(ts_c(...))
 
@@ -100,7 +100,8 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
     mar.l <- 4
   }
 
-  par(mar =  c(mar.b, mar.l , mar.t, 1.4), col.lab = col.lab, cex.lab=0.8)
+  par(mar =  c(mar.b, mar.l , mar.t, 1.4), col.lab = col.lab, cex.lab = 0.8,
+      family = family)
 
   tind <- as.POSIXct(x[[1]])
   tnum <- as.numeric(tind)
