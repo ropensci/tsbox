@@ -91,7 +91,13 @@ ts_c <- function(...){
     z <- rbindlist(ll.dts)
   # }
 
-  coerce_to_(desired.class)(z)
+  z <- try(coerce_to_(desired.class)(z))
+
+  if (inherits(z, "try-error")){
+    message("Cannot coerce output to class '", class, "', returning data.frame.")
+    z <- as.data.frame(.DT[id %in% x])
+  }
+  z
 
 }
 

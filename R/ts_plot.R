@@ -62,7 +62,7 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
 
 
   op <- par(no.readonly = TRUE) # restore par on exit
-  on.exit(par(op))
+  # on.exit(par(op))
 
   lwd <- 1.5
   cex <- 0.9
@@ -101,8 +101,23 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
     mar.l <- 4
   }
 
-  par(mar =  c(mar.b, mar.l , mar.t, 1.4), col.lab = col.lab, cex.lab = 0.8,
+
+  # First layer with legend and title
+  par(fig=c(0, 1, 0, 1), oma=c(0.5, 1, 2, 1), mar=c(0, 0, 0, 0), col.lab = col.lab, cex.lab = 0.8,
       family = family)
+
+  # empty plot
+  plot(0, 0, type="n", bty="n", xaxt="n", yaxt="n")
+
+  if (has.title) {
+    mtext(title, 
+          cex = title.cex, side = 3, line = 0, adj = 0, font = 2, col = text.col) 
+  }
+  if (has.subtitle) {
+    shift <- if (has.title) -1.2 else 0
+    mtext(subtitle, 
+          cex = cex, side = 3, line = shift, adj = 0, col = text.col) 
+  }
 
   tind <- as.POSIXct(x[[1]])
   tnum <- as.numeric(tind)
@@ -114,7 +129,19 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
   xlabels <- format(xticks, "%Y")
 
   col <- colors_tsbox()[1:ts_nvar(x)]
+
   cnames <- ts_varnames(x)
+  
+  if (has.legend){
+    legend("bottomleft", 
+        legend = cnames, horiz = TRUE, 
+        bty = "n", lty = 1, lwd = lwd, col = col, cex = cex, adj = 0, text.col = text.col)
+
+  }
+
+  # Second layer with graph
+  # (that way, we can further process the graph later on)
+  par(mar =  c(mar.b, mar.l , mar.t, 1.4), new = TRUE)
 
   # Main Plot
   plot(x = tind, type = "n",lty=1, pch=19, col=1,
@@ -142,28 +169,6 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
         x = as.numeric(as.POSIXct(cd[[1]])), col = col[i], lwd = lwd)
   }
 
-  # Second layer, with legend and title
-  par(fig=c(0, 1, 0, 1), oma=c(0.5, 1, 2, 1), mar=c(0, 0, 0, 0), new=TRUE)
-
-  # empty plot
-  plot(0, 0, type="n", bty="n", xaxt="n", yaxt="n")
-
-  if (has.title) {
-    mtext(title, 
-          cex = title.cex, side = 3, line = 0, adj = 0, font = 2, col = text.col) 
-  }
-  if (has.subtitle) {
-    shift <- if (has.title) -1.2 else 0
-    mtext(subtitle, 
-          cex = cex, side = 3, line = shift, adj = 0, col = text.col) 
-  }
-
-  if (has.legend){
-    legend("bottomleft", 
-        legend = cnames, horiz = TRUE, 
-        bty = "n", lty = 1, lwd = lwd, col = col, cex = cex, adj = 0, text.col = text.col)
-
-  }
   cl <- match.call()
   assign("lastplot_call", cl, envir = .tsbox)
 
