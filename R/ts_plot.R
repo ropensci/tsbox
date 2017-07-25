@@ -5,7 +5,7 @@
 #' @param title title (optional)
 #' @param subtitle subtitle (optional)
 #' @param ylab ylab (optional)
-#' @param familiy font familiy (optional)
+#' @param family font family (optional)
 #' @examples
 #' 
 #' library(tsbox)

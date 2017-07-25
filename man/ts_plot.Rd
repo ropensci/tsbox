@@ -18,7 +18,7 @@ ts_plot(..., title, subtitle, ylab = "", family = "sans")
 
 \item{ylab}{ylab (optional)}
 
-\item{familiy}{font familiy (optional)}
+\item{family}{font family (optional)}
 }
 \description{
 Plot Time Series
