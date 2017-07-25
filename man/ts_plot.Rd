@@ -7,7 +7,7 @@
 \usage{
 ts_ggplot(..., title = NULL, subtitle = NULL)
 
-ts_plot(..., title, subtitle, ylab = "")
+ts_plot(..., title, subtitle, ylab = "", family = "sans")
 }
 \arguments{
 \item{...}{time series objects, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
@@ -17,6 +17,8 @@ ts_plot(..., title, subtitle, ylab = "")
 \item{subtitle}{subtitle (optional)}
 
 \item{ylab}{ylab (optional)}
+
+\item{family}{font family (optional)}
 }
 \description{
 Plot Time Series

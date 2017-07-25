@@ -62,11 +62,11 @@ ts_c <- function(...){
   desired.class <- desired_class(ll)
 
   # currently we treat ts-only bind separately, if of same freq
-  # if (desired.class == "ts"){
-  #   ll.dts <- ll
-  # } else {
+  if (desired.class == "ts"){
+    ll.dts <- ll
+  } else {
     ll.dts <- lapply(ll, ts_dts, cname = ".unnamed")
-  # }
+  }
 
   vnames <- lapply(ll.dts, ts_varnames)
   is.nameable <- vapply(ll.dts, function(e) ts_nvar(e) == 1, FALSE)
@@ -79,19 +79,24 @@ ts_c <- function(...){
   vnames <- relist(make.unique(unlist(vnames)), skeleton = vnames)
 
   # currently we treat ts-only bind separately, if of same freq
-  # if (desired.class == "ts"){
-  #   z <- do.call("cbind", ll.dts)
-  #   colnames(z) <- vnames
-  # } else {
+  if (desired.class == "ts"){
+    z <- do.call("cbind", ll.dts)
+    colnames(z) <- vnames
+  } else {
     # rename var as in vnames
     ll.dts <- Map(function(dt, vname) ts_set_names(dt, vname),  dt = ll.dts, vname = vnames)
     ll.dts <- unify_class(ll.dts)
 
-    # browser()
     z <- rbindlist(ll.dts)
-  # }
+  }
 
-  coerce_to_(desired.class)(z)
+  z <- try(coerce_to_(desired.class)(z))
+
+  if (inherits(z, "try-error")){
+    message("Cannot coerce output to class '", class, "', returning data.frame.")
+    z <- as.data.frame(.DT[id %in% x])
+  }
+  z
 
 }
 

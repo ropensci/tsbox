@@ -66,6 +66,13 @@ http://stackoverflow.com/questions/35696119/coerce-xts-to-ts-in-r
 http://stackoverflow.com/questions/32455478/force-xts-object-to-ts
 
 
+
+### People struggling with data.frame to ts conversion
+
+https://stackoverflow.com/questions/34664669/how-to-add-time-series-objects-ts-in-a-data-table-by-row
+
+
+
 ### People struggling with plots
 
 

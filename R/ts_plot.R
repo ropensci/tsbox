@@ -1,10 +1,11 @@
-.tsbox <- new.env(parent = emptyenv())
+.ts_lastplot_env <- new.env(parent = emptyenv())
 
 #' Plot Time Series
 #' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @param title title (optional)
 #' @param subtitle subtitle (optional)
 #' @param ylab ylab (optional)
+#' @param family font family (optional)
 #' @examples
 #' 
 #' library(tsbox)
@@ -43,7 +44,7 @@
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
-ts_plot <- function(..., title, subtitle, ylab = ""){
+ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
 
   x <- ts_dts(ts_c(...))
 
@@ -61,7 +62,7 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
 
 
   op <- par(no.readonly = TRUE) # restore par on exit
-  on.exit(par(op))
+  # on.exit(par(op))
 
   lwd <- 1.5
   cex <- 0.9
@@ -100,7 +101,23 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
     mar.l <- 4
   }
 
-  par(mar =  c(mar.b, mar.l , mar.t, 1.4), col.lab = col.lab, cex.lab=0.8)
+
+  # First layer with legend and title
+  par(fig=c(0, 1, 0, 1), oma=c(0.5, 1, 2, 1), mar=c(0, 0, 0, 0), col.lab = col.lab, cex.lab = 0.8,
+      family = family)
+
+  # empty plot
+  plot(0, 0, type="n", bty="n", xaxt="n", yaxt="n")
+
+  if (has.title) {
+    mtext(title, 
+          cex = title.cex, side = 3, line = 0, adj = 0, font = 2, col = text.col) 
+  }
+  if (has.subtitle) {
+    shift <- if (has.title) -1.2 else 0
+    mtext(subtitle, 
+          cex = cex, side = 3, line = shift, adj = 0, col = text.col) 
+  }
 
   tind <- as.POSIXct(x[[1]])
   tnum <- as.numeric(tind)
@@ -112,7 +129,19 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
   xlabels <- format(xticks, "%Y")
 
   col <- colors_tsbox()[1:ts_nvar(x)]
+
   cnames <- ts_varnames(x)
+  
+  if (has.legend){
+    legend("bottomleft", 
+        legend = cnames, horiz = TRUE, 
+        bty = "n", lty = 1, lwd = lwd, col = col, cex = cex, adj = 0, text.col = text.col)
+
+  }
+
+  # Second layer with graph
+  # (that way, we can further process the graph later on)
+  par(mar =  c(mar.b, mar.l , mar.t, 1.4), new = TRUE)
 
   # Main Plot
   plot(x = tind, type = "n",lty=1, pch=19, col=1,
@@ -140,37 +169,15 @@ ts_plot <- function(..., title, subtitle, ylab = ""){
         x = as.numeric(as.POSIXct(cd[[1]])), col = col[i], lwd = lwd)
   }
 
-  # Second layer, with legend and title
-  par(fig=c(0, 1, 0, 1), oma=c(0.5, 1, 2, 1), mar=c(0, 0, 0, 0), new=TRUE)
-
-  # empty plot
-  plot(0, 0, type="n", bty="n", xaxt="n", yaxt="n")
-
-  if (has.title) {
-    mtext(title, 
-          cex = title.cex, side = 3, line = 0, adj = 0, font = 2, col = text.col) 
-  }
-  if (has.subtitle) {
-    shift <- if (has.title) -1.2 else 0
-    mtext(subtitle, 
-          cex = cex, side = 3, line = shift, adj = 0, col = text.col) 
-  }
-
-  if (has.legend){
-    legend("bottomleft", 
-        legend = cnames, horiz = TRUE, 
-        bty = "n", lty = 1, lwd = lwd, col = col, cex = cex, adj = 0, text.col = text.col)
-
-  }
   cl <- match.call()
-  assign("lastplot_call", cl, envir = .tsbox)
+  assign("ts_lastplot_call", cl, envir = .ts_lastplot_env)
 
 }
 
 
 
-lastplot_call <- function(){
-  get("lastplot_call", envir = .tsbox)
+ts_lastplot_call <- function(){
+  get("ts_lastplot_call", envir = .ts_lastplot_env)
 }
 
 
@@ -186,7 +193,7 @@ lastplot_call <- function(){
 ts_save <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
   filename <- gsub(".pdf$", paste0(".", device), filename)
 
-  cl <- lastplot_call()
+  cl <- ts_lastplot_call()
   if (is.null(cl) || !inherits(cl, "call")){
     stop("ts_plot must be called first.")
   }
