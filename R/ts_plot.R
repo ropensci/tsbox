@@ -1,4 +1,4 @@
-.tsbox <- new.env(parent = emptyenv())
+.ts_lastplot_env <- new.env(parent = emptyenv())
 
 #' Plot Time Series
 #' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
@@ -170,14 +170,14 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
   }
 
   cl <- match.call()
-  assign("lastplot_call", cl, envir = .tsbox)
+  assign("ts_lastplot_call", cl, envir = .ts_lastplot_env)
 
 }
 
 
 
-lastplot_call <- function(){
-  get("lastplot_call", envir = .tsbox)
+ts_lastplot_call <- function(){
+  get("ts_lastplot_call", envir = .ts_lastplot_env)
 }
 
 
@@ -193,7 +193,7 @@ lastplot_call <- function(){
 ts_save <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
   filename <- gsub(".pdf$", paste0(".", device), filename)
 
-  cl <- lastplot_call()
+  cl <- ts_lastplot_call()
   if (is.null(cl) || !inherits(cl, "call")){
     stop("ts_plot must be called first.")
   }
