@@ -3,37 +3,32 @@
 \name{ts_}
 \alias{ts_}
 \alias{ts_diff}
-\title{universal constructor for ts functions}
+\title{Universal Constructor for ts Functions}
 \usage{
-ts_(FUN, specific.class = "ts", multi.series = TRUE,
-  suggested.packages = NULL, ensure.names = TRUE)
+ts_(f, class = "ts", vectorize = FALSE, postproc = function(x) x, ...)
 
 ts_diff(x, ...)
 }
 \arguments{
-\item{FUN}{function, to be made available to all time series classes}
+\item{f}{function, to be made available to all time series classes}
 
-\item{specific.class}{class that the function uses as its first argument}
+\item{class}{class that the function uses as its first argument}
 
-\item{multi.series}{can the function handle multiple series. If set to false, the
-wrapper will loop through each series.}
+\item{vectorize}{should the function be vectorized? (not yet implemented)}
 
-\item{suggested.packages}{packages that are required for the functionality.}
-
-\item{ensure.names}{logical, whether the series in the output should have the same names as the input}
-
-\item{x}{s time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+\item{postproc}{a function applied to the return value of \code{f()}. E.g.
+\code{predict()}. (See examples)}
 
 \item{...}{arguments passed to underlying functions.}
+
+\item{x}{time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 }
 \description{
-universal constructor for ts functions
+Universal Constructor for ts Functions
 }
 \examples{
-ts_plot(
-    ts_c(
-    ts_c(ts_df(AirPassengers), mdeaths),
-    ts_forecast_mean(AirPassengers)
-    )
-)
+ts_(rowSums)(ts_c(mdeaths, fdeaths))
+ts_plot(mean = ts_(rowMeans)(ts_c(mdeaths, fdeaths)), mdeaths, fdeaths)
+ts_(prcomp, postproc = predict)(ts_c(mdeaths, fdeaths))
+ts_(prcomp, postproc = predict, scale = TRUE)(ts_c(mdeaths, fdeaths))
 }
