@@ -48,6 +48,22 @@ relevant_class <- function(x){
   }
 }
 
+#' Reclass an object to a ts-boxable series
+#'
+#' Inspired by the similarly named function from the xts package
+#' 
+#' @param z series to reclass
+#' @param x template series
+#' @export
 ts_reclass <- function(z, x){
+  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", "dts")
+  if (!class(z)[1] %in% supported.classes){
+    if (inherits(x, "ts")){
+      z <- ts(z)
+      tsp(z) <- tsp(x)
+    } else{
+      stop("No reclass for object of class: ", paste(class(z), collapse = ","))
+    }
+  }
   coerce_to_(relevant_class(x))(z)
 }
