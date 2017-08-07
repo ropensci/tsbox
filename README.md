@@ -92,21 +92,14 @@ The `ts_` function is a constructor function for tsbox time series functions.
 Use it to wrap any function that works with time series. The defaults are set to
 `ts`, so wrapping base functions for `ts` objects is as simple as:
 
-**(This is getting rewritten for the new backend and may look very different in the future).**
-
 ```r
 ts_diff <- ts_(diff)
 ```
 
-Or a more complex example, which uses an external package:
+Or a more complex example, which uses a post processing function:
 
 ```r
-ts_forecast <- ts_(
-  function(x, ...) {
-    forecast::forecast(x, ...)$mean
-  },
-  multiple = FALSE, suggested = forecast
-  )
+ts_(prcomp, postproc = predict, scale = TRUE)(ts_c(mdeaths, fdeaths))
 ```
 
 Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
