@@ -93,13 +93,15 @@ Use it to wrap any function that works with time series. The defaults are set to
 `ts`, so wrapping base functions for `ts` objects is as simple as:
 
 ```r
-ts_diff <- ts_(diff)
+ts_(diff)(AirPassengers)
+ts_(rowSums)(ts_c(mdeaths, fdeaths))
 ```
 
 Or a more complex example, which uses a post processing function:
 
 ```r
-ts_(prcomp, postproc = predict, scale = TRUE)(ts_c(mdeaths, fdeaths))
+ts_prcomp <- ts_(prcomp, predict, scale = TRUE)
+ts_prcomp(ts_c(mdeaths, fdeaths))
 ```
 
 Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the

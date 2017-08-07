@@ -28,9 +28,9 @@ ts_boxable <- function(x){
 #' @examples
 #' ts_(rowSums)(ts_c(mdeaths, fdeaths))
 #' ts_plot(mean = ts_(rowMeans)(ts_c(mdeaths, fdeaths)), mdeaths, fdeaths)
-#' ts_(prcomp, postproc = predict)(ts_c(mdeaths, fdeaths))
-#' ts_(prcomp, postproc = predict, scale = TRUE)(ts_c(mdeaths, fdeaths))
-ts_ <- function(f, class = "ts", vectorize = FALSE, postproc = function(x) x, ...) {
+#' ts_(prcomp, predict)(ts_c(mdeaths, fdeaths))
+#' ts_(prcomp, predict, scale = TRUE)(ts_c(mdeaths, fdeaths))
+ts_ <- function(f, postproc = function(x) x, class = "ts", vectorize = FALSE, ...) {
   supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", "dts")
   stopifnot(class %in% supported.classes)
   z <- substitute(function(x, ...){

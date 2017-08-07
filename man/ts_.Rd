@@ -5,19 +5,19 @@
 \alias{ts_diff}
 \title{Universal Constructor for ts Functions}
 \usage{
-ts_(f, class = "ts", vectorize = FALSE, postproc = function(x) x, ...)
+ts_(f, postproc = function(x) x, class = "ts", vectorize = FALSE, ...)
 
 ts_diff(x, ...)
 }
 \arguments{
 \item{f}{function, to be made available to all time series classes}
 
+\item{postproc}{a function applied to the return value of \code{f()}. E.g.
+\code{predict()}. (See examples)}
+
 \item{class}{class that the function uses as its first argument}
 
 \item{vectorize}{should the function be vectorized? (not yet implemented)}
-
-\item{postproc}{a function applied to the return value of \code{f()}. E.g.
-\code{predict()}. (See examples)}
 
 \item{...}{arguments passed to underlying functions.}
 
@@ -29,6 +29,6 @@ Universal Constructor for ts Functions
 \examples{
 ts_(rowSums)(ts_c(mdeaths, fdeaths))
 ts_plot(mean = ts_(rowMeans)(ts_c(mdeaths, fdeaths)), mdeaths, fdeaths)
-ts_(prcomp, postproc = predict)(ts_c(mdeaths, fdeaths))
-ts_(prcomp, postproc = predict, scale = TRUE)(ts_c(mdeaths, fdeaths))
+ts_(prcomp, predict)(ts_c(mdeaths, fdeaths))
+ts_(prcomp, predict, scale = TRUE)(ts_c(mdeaths, fdeaths))
 }
