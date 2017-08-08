@@ -107,8 +107,7 @@ ts_prcomp(ts_c(mdeaths, fdeaths))
 ```
 
 Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
-function so that it can be used with mulitple time series and also ask the user
-to install the required packages.
+function so that it can be used with mulitple time series.
 
 
 #### Using tsbox in a dplyr / pipe workflow
