@@ -16,8 +16,8 @@ series in a [dplyr](https://CRAN.R-project.org/package=dplyr) or
 
 tsbox is built around a set of converters, which reliably convert time series
 stored as **ts**, **xts**, **data.frame**, **data.table** or **tibble** to each
-other. Because this works reliably and without user input, we can easily wirte
-function that work for all classes. So whether we want to smooth, scale,
+other. Because this works reliably and without user input, we can easily write
+functions that work for all classes. So whether we want to smooth, scale,
 differentiate or bind time series, you can use the same commands to whatever
 time series class we have. And, most conveniently, we get a time series plot
 function that *just works*!
