@@ -3,11 +3,11 @@ R Time Series Toolbox
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
-*This is an early version, so expect major changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
+*This is an early version, so expect some changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
-tsbox provides tools that are *agnostic* towards time series classes. 
+tsbox provides functions that are *agnostic* towards time series classes. 
 The R ecosystem knows a [vast number](https://cran.r-project.org/web/views/TimeSeries.html) 
-of time series standards. Rather than creating the ulitmate
+of time series standards. Rather than creating the ultimate
 [15th](https://xkcd.com/927/) time series class, tsbox provides a set of tools
 that are agnostic towards the existing standards. The tools also allow you to
 handle time series as plain data frames, thus making it easy to deal with time
@@ -15,10 +15,12 @@ series in a [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
 tsbox is built around a set of converters, which reliably convert time series
-stored as **ts**, **xts**, **data.frame**, **data.table** or  **tibble** to each
-other. Because this works smoothly, we can define a set of tools that work
-*identially* for each class. And, we can write a plot function that simply
-works!
+stored as **ts**, **xts**, **data.frame**, **data.table** or **tibble** to each
+other. Because this works reliably and without user input, we can easily wirte
+function that work for all classes. So whether we want to smooth, scale,
+differentiate or bind time series, you can use the same commands to whatever
+time series class we have. And, most conveniently, we get a time series plot
+function that *just works*!
 
 **Update Version 0.0.9 (July 2, 17):** Major update, now using [data.table](https://CRAN.R-project.org/package=data.table) as a backend, instead of [xts](https://CRAN.R-project.org/package=xts).
 
