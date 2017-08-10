@@ -13,7 +13,7 @@ handle time series as plain data frames, thus making it easy to deal with time
 series in a [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
-tsbox is built around a set of converters, which reliably convert time series
+tsbox is built around a set of converters, which convert time series
 stored as **ts**, **xts**, **data.frame**, **data.table** or **tibble** to each
 other. Because this works reliably and without user input, we can easily write
 functions that work for all classes. So whether we want to smooth, scale,
