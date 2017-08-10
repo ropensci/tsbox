@@ -5,11 +5,10 @@ R Time Series Toolbox
 
 *This is an early version, so expect some changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
-tsbox provides functions that are *agnostic* towards time series classes. 
 The R ecosystem knows a [vast number](https://cran.r-project.org/web/views/TimeSeries.html) 
-of time series standards. Rather than creating the ultimate
+of time series standards. Instead of creating the ultimate
 [15th](https://xkcd.com/927/) time series class, tsbox provides a set of tools
-that are agnostic towards the existing standards. The tools also allow you to
+that are *agnostic* towards the existing standards. The tools also allow you to
 handle time series as plain data frames, thus making it easy to deal with time
 series in a [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
