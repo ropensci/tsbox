@@ -106,6 +106,14 @@ ts_prcomp <- ts_(prcomp, predict, scale = TRUE)
 ts_prcomp(ts_c(mdeaths, fdeaths))
 ```
 
+And some functions from external packages:
+
+```r
+ts_(dygraphs::dygraph, class = "xts")(ts_c(mdeaths, EuStockMarkets))
+ts_(forecast::forecast, function(x) forecast::forecast(x)$mean)(mdeaths)
+ts_(seasonal::seas, seasonal::final)(mdeaths)
+```
+
 <!-- Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
 function so that it can be used with mulitple time series. -->
 
@@ -126,8 +134,8 @@ dta %>%
 
 ### List of Functions
 
-This is an overview of all the functions in tsbox. Planned functions are (in
-parentheses). If you would add something else, or suggest different naming or
+This is an overview of all the functions in tsbox. Starred functions are easily generatable by the `ts_` function (see above). Planned functions are in
+parentheses. If you would add something else, or suggest different naming or
 conceptualization, please let me know.
 
 
@@ -158,15 +166,15 @@ conceptualization, please let me know.
     ts_pcy
     ts_diff
     ts_lag
-    (ts_seas)     # requires(seasonal)
+    ts_seas*    # requires(seasonal)
 
 #### Signal Extraction
 
-    (ts_prcomp)   # principal component
+    ts_prcomp*  # principal component
 
 #### Frequency Conversion
 
-    (ts_to_frequency)               # requires(tempdisagg)
+    (ts_to_frequency)             # requires(tempdisagg)
 
 #### Forecast
 

@@ -62,7 +62,8 @@ ts_reclass <- function(z, x){
       z <- ts(z)
       tsp(z) <- tsp(x)
     } else{
-      stop("No reclass for object of class: ", paste(class(z), collapse = ","))
+      return(z)
+      # stop("No reclass for object of class: ", paste(class(z), collapse = ","))
     }
   }
   coerce_to_(relevant_class(x))(z)
