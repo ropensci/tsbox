@@ -178,18 +178,24 @@ conceptualization, please let me know.
 
 #### Forecast
 
-    ts_forecast_mean              # requires(forecast)
-    ts_forecast_auto.arima_mean   # requires(forecast)
-    (ts_arima_predict)
-    (ts_lm_predict)
+    ts_forecast_mean*             # requires(forecast)
+    ts_forecast_auto.arima_mean*  # requires(forecast)
+    ts_arima_predict*
+    (ts_lm_predict) 
 
 #### Plot
 
     ts_plot
     ts_ggplot
-    (ts_dygraph)    # requires(dygraph)
+    ts_dygraph*     # requires(dygraph)
     (ts_iframe)     # requires(dygraph), returns iframe containing the data
 
+
+### Todos
+
+- [ ] Vectorization in `ts()` 
+- [ ] Use non-first argument as time series in `ts()`. E.g. `lm(..., data = .)`.
+- [ ] Frequency conversion
 
 ### License
 
