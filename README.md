@@ -21,8 +21,6 @@ differentiate or bind time series, you can use the same commands to whatever
 time series class we have. And, most conveniently, we get a time series plot
 function that *just works*!
 
-**Update Version 0.0.9 (July 2, 17):** Major update, now using [data.table](https://CRAN.R-project.org/package=data.table) as a backend, instead of [xts](https://CRAN.R-project.org/package=xts).
-
 To install:
 ```r
 devtools::install_github("christophsax/tsbox")
