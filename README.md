@@ -92,7 +92,7 @@ ts_ggplot(ts_scale(ts_c(discoveries, austres, AirPassengers)))
 
 The `ts_` function is a constructor function for tsbox time series functions.
 Use it to wrap any function that works with time series. The default is set to
-R base `"ts"` class, so wrapping base functions for `ts` time series is as simple as:
+R base `"ts"` class, so wrapping functions for `"ts"` time series (or vectors or matrices) is as simple as:
 
 ```r
 ts_(diff)(AirPassengers)
