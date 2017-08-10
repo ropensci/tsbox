@@ -106,8 +106,8 @@ ts_prcomp <- ts_(prcomp, predict, scale = TRUE)
 ts_prcomp(ts_c(mdeaths, fdeaths))
 ```
 
-Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
-function so that it can be used with mulitple time series.
+<!-- Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
+function so that it can be used with mulitple time series. ->
 
 
 #### Using tsbox in a dplyr / pipe workflow
