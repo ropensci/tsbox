@@ -193,7 +193,7 @@ conceptualization, please let me know.
 
 ### Todos
 
-- [ ] Vectorization in `ts()` 
+- [ ] Vectorization in `ts_()` 
 - [ ] Use non-first argument as time series in `ts()`. E.g. `lm(..., data = .)`.
 - [ ] Frequency conversion
 
