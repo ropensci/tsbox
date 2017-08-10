@@ -112,7 +112,7 @@ ts_(seasonal::seas, seasonal::final)(mdeaths)
 ```
 
 <!-- Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
-function so that it can be used with mulitple time series. -->
+function so that it can be used with mulitple time series.
 
 
 #### Using tsbox in a dplyr / pipe workflow
@@ -128,7 +128,8 @@ dta %>%
   ts_plot()
 ```
 
-
+ -->
+ 
 ### List of Functions
 
 This is an overview of all the functions in tsbox. Starred functions are easily generatable by the `ts_` function (see above). Planned functions are in
