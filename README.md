@@ -86,7 +86,7 @@ ts_ggplot(ts_scale(ts_c(discoveries, austres, AirPassengers)))
 ```
 
 
-### More expamples
+### More examples
 
 #### Writing ts functions
 
