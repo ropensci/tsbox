@@ -102,7 +102,7 @@ scale_fill_tsbox <- function (...) {
 
 #' @rdname ts_plot
 #' @export
-ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
+ts_ggplot <- function (...) {
 
   stopifnot(requireNamespace("ggplot2"))
   df <- ts_data.frame(ts_c(...))
@@ -129,16 +129,17 @@ ts_ggplot <- function (..., title = NULL, subtitle = NULL) {
     }
     p <-  ggplot2::ggplot(df,  ggplot2::aes_string(x = time.name, y = value.name, color = var.name))
   } 
-  p <- p + 
-  ggplot2::geom_line() +
-  ggplot2::ylab("") + 
-  theme_ts() + 
-  scale_color_tsbox() 
+  p <- p + ggplot2::geom_line() 
 
-  if (!is.null(title) | !is.null(subtitle)){
-    if (is.null(title)) title <- ""  # subtitle only
-    p <- p + ggplot2::ggtitle(label = title, subtitle = subtitle)
-  }
+  # +
+  # ggplot2::ylab("") + 
+  # theme_ts() + 
+  # scale_color_tsbox() 
+
+  # if (!is.null(title) | !is.null(subtitle)){
+  #   if (is.null(title)) title <- ""  # subtitle only
+  #   p <- p + ggplot2::ggtitle(label = title, subtitle = subtitle)
+  # }
   p
 
 }
