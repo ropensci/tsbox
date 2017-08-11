@@ -10,19 +10,19 @@
 #' ggplot(df, aes(x = Index, y = Value, color = Series)) + 
 #'   geom_line() +
 #'   ggtitle('Deaths by lung diseases', subtitle = 'United Kindom, per year') + 
-#'   theme_ts() + 
+#'   theme_tsbox() + 
 #'   scale_color_tsbox() 
 #'   
 #' ts_ggplot(AirPassengers, mdeaths) + 
-#'   theme_dpkj() + 
-#'   scale_color_dpkj()
+#'   theme_tsbox() + 
+#'   scale_color_ts()
 #' 
 #' # Save as pdf and show
 #' ggsave("myfig.pdf", width = 8, height = 5)
 #' browseURL("myfig.pdf")
 #' }
 #' @export
-theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
+theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12){
   # 'Source Sans Pro'  # does not work on mac
   # 'Slabo 13px'
 
@@ -57,9 +57,9 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
 }
 
 # #' @export
-# #' @rdname theme_ts
-# theme_ts_scatter <- function(){
-#   theme_ts() +
+# #' @rdname theme_tsbox
+# theme_tsbox_scatter <- function(){
+#   theme_tsbox() +
 #   theme(axis.title.x = element_text(margin = margin(8, 0, 0, 0), size = 10),
 #         axis.title.y = element_text(margin = margin(0, 8, 0, 0), angle = 90, size = 10),
 #         panel.grid.major.x = element_line(colour = "black"), 
@@ -70,7 +70,7 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
 
 
 #' @export
-#' @rdname theme_ts
+#' @rdname theme_tsbox
 colors_tsbox <- function(){
       c(
   "#4D4D4D",
@@ -90,14 +90,14 @@ colors_tsbox <- function(){
 }
 
 #' @export
-#' @rdname theme_ts
+#' @rdname theme_tsbox
 scale_color_tsbox <- function(...) {
     stopifnot(requireNamespace("ggplot2"))
     ggplot2::discrete_scale("colour", "ds", scales::manual_pal(colors_tsbox()), ...)
 }
 
 #' @export
-#' @rdname theme_ts
+#' @rdname theme_tsbox
 scale_fill_tsbox <- function (...) {
     stopifnot(requireNamespace("ggplot2"))
     ggplot2::discrete_scale("fill", "ds", scales::manual_pal(colors_tsbox()), ...)
@@ -138,7 +138,7 @@ ts_ggplot <- function (...) {
 
   # +
   # ggplot2::ylab("") + 
-  # theme_ts() + 
+  # theme_tsbox() + 
   # scale_color_tsbox() 
 
   # if (!is.null(title) | !is.null(subtitle)){
@@ -149,87 +149,6 @@ ts_ggplot <- function (...) {
 
 }
 
-# UseMethod("ts_ggplot")
-
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot numeric
-# ts_ggplot.numeric <- function(..., title = NULL, subtitle = NULL){
-#   x <- ts_c(...)
-#   ts_ggplot(ts(x), title = title, subtitle = subtitle)
-# }
-
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot ts
-# ts_ggplot.ts <- function(..., title = NULL, subtitle = NULL){
-#   df <- ts_data.frame(ts_c(...))
-#   ts_ggplot_core(df, title = title, subtitle = subtitle)
-# }
-  
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot xts
-# ts_ggplot.xts <- function(..., title = NULL, subtitle = NULL){
-#   df <- ts_data.frame(ts_c(...))
-#   ts_ggplot_core(df, title = title, subtitle = subtitle)
-# }
-
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot data.frame
-# ts_ggplot.data.frame <- function(..., title = NULL, subtitle = NULL){
-#   x <- ts_data.frame(ts_c(...))
-#   ts_ggplot_core(x, title = title, subtitle = subtitle)
-# }
-
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot data.table
-# ts_ggplot.data.table <- function(..., title = NULL, subtitle = NULL){
-
-#   # a bit a mystery that ts_data.frame.data.table is not working...
-#   x <- ts_data.frame(ts_c(...))  
-
-#   ts_ggplot_core(x, title = title, subtitle = subtitle)
-# }
-
-# ts_ggplot_core <- function(df, title = NULL, subtitle = NULL){
-
-#   time.name = getOption("tsbox.time.name", "time")
-#   var.name = getOption("tsbox.var.name", "var")
-#   value.name = getOption("tsbox.value.name", "value")
-
-#   df <- df[!is.na(df[, value.name]), ]
-
-#   n <- NCOL(df)
-#   stopifnot(n > 1)
-#   if (n == 2){
-#     p <- ggplot(df, aes_string(x = time.name, y = value.name)) 
-#   } else if (n > 2){
-
-#     # numeric variable 'levels'
-#     if (class(df[[var.name]]) %in% c("integer", "numeric")){
-#       df[[var.name]] <- as.character(df[[var.name]])
-#     }
-
-#     if (length(unique(df[[var.name]])) > 29) {
-#       stop(length(unique(df[[var.name]])), " time series supplied. Maximum is 29.",  call. = FALSE)
-#     }
-#     p <- ggplot(df, aes_string(x = time.name, y = value.name, color = var.name))
-#   } 
-#   p <- p + 
-#   geom_line() +
-#   ylab("") + 
-#   theme_ts() + 
-#   scale_color_tsbox() 
-
-#   if (!is.null(title) | !is.null(subtitle)){
-#     if (is.null(title)) title <- ""  # subtitle only
-#     p <- p + ggtitle(label = title, subtitle = subtitle)
-#   }
-#   p
-# }
 
 
 #' ggsave, optimized for time series
