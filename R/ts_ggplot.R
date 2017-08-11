@@ -6,13 +6,18 @@
 #' @examples
 #' library(tsbox)
 #' df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
-#'  \dontrun{
+#'   
 #' ggplot(df, aes(x = Index, y = Value, color = Series)) + 
 #'   geom_line() +
 #'   ggtitle('Deaths by lung diseases', subtitle = 'United Kindom, per year') + 
 #'   theme_ts() + 
 #'   scale_color_tsbox() 
+#'   
+#' ts_ggplot(AirPassengers, mdeaths) + 
+#'   theme_dpkj() + 
+#'   scale_color_dpkj()
 #' 
+#' # Save as pdf and show
 #' ggsave("myfig.pdf", width = 8, height = 5)
 #' browseURL("myfig.pdf")
 #' }

@@ -5,7 +5,7 @@
 \alias{ts_plot}
 \title{Plot Time Series}
 \usage{
-ts_ggplot(..., title = NULL, subtitle = NULL)
+ts_ggplot(...)
 
 ts_plot(..., title, subtitle, ylab = "", family = "sans")
 }
