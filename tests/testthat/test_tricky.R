@@ -62,9 +62,12 @@ test_that("Latest tricky stuff works.", {
   a <- ts_dts(ts_c(AirPassengers, AirPassengers))
   expect_true(length(unique(a[['var']])) == 2)
 
+  # ts_c for ts objects
+  expect_is(ts_c(ts_c(fdeaths, mdeaths), AirPassengers), "ts")
+
+
 
 })
-
 
 
 

@@ -1,28 +1,29 @@
 #' ggplot Theme for tsbox
 #' 
+#' Using same style as `ts_plot()`.
+#' 
 #' @param base_family base font family
 #' @param base_size base font size
 #' @param ... aruments passed to subfunctions
 #' @examples
-#' library(tsbox)
-#' df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
-#'   
-#' ggplot(df, aes(x = Index, y = Value, color = Series)) + 
-#'   geom_line() +
-#'   ggtitle('Deaths by lung diseases', subtitle = 'United Kindom, per year') + 
-#'   theme_ts() + 
-#'   scale_color_tsbox() 
-#'   
-#' ts_ggplot(AirPassengers, mdeaths) + 
-#'   theme_dpkj() + 
-#'   scale_color_dpkj()
 #' 
-#' # Save as pdf and show
-#' ggsave("myfig.pdf", width = 8, height = 5)
-#' browseURL("myfig.pdf")
-#' }
+#' df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
+#' 
+#' # standard ggplot
+#' library(ggplot2)
+#' ggplot(df, aes(x = time, y = value, color = var)) + 
+#'   geom_line()
+#' 
+#' # a quick plot for time series
+#' p <- ts_ggplot(AirPassengers, mdeaths)
+#' 
+#' # using same style as base graphic ts_plot()
+#' p +
+#'   theme_tsbox() + 
+#'   scale_color_tsbox()
+#' 
 #' @export
-theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
+theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12){
   # 'Source Sans Pro'  # does not work on mac
   # 'Slabo 13px'
 
@@ -57,9 +58,9 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
 }
 
 # #' @export
-# #' @rdname theme_ts
-# theme_ts_scatter <- function(){
-#   theme_ts() +
+# #' @rdname theme_tsbox
+# theme_tsbox_scatter <- function(){
+#   theme_tsbox() +
 #   theme(axis.title.x = element_text(margin = margin(8, 0, 0, 0), size = 10),
 #         axis.title.y = element_text(margin = margin(0, 8, 0, 0), angle = 90, size = 10),
 #         panel.grid.major.x = element_line(colour = "black"), 
@@ -70,7 +71,7 @@ theme_ts <- function(base_family = getOption("ts_font", ""), base_size = 12){
 
 
 #' @export
-#' @rdname theme_ts
+#' @rdname theme_tsbox
 colors_tsbox <- function(){
       c(
   "#4D4D4D",
@@ -90,14 +91,14 @@ colors_tsbox <- function(){
 }
 
 #' @export
-#' @rdname theme_ts
+#' @rdname theme_tsbox
 scale_color_tsbox <- function(...) {
     stopifnot(requireNamespace("ggplot2"))
     ggplot2::discrete_scale("colour", "ds", scales::manual_pal(colors_tsbox()), ...)
 }
 
 #' @export
-#' @rdname theme_ts
+#' @rdname theme_tsbox
 scale_fill_tsbox <- function (...) {
     stopifnot(requireNamespace("ggplot2"))
     ggplot2::discrete_scale("fill", "ds", scales::manual_pal(colors_tsbox()), ...)
@@ -136,123 +137,8 @@ ts_ggplot <- function (...) {
   } 
   p <- p + ggplot2::geom_line() 
 
-  # +
-  # ggplot2::ylab("") + 
-  # theme_ts() + 
-  # scale_color_tsbox() 
-
-  # if (!is.null(title) | !is.null(subtitle)){
-  #   if (is.null(title)) title <- ""  # subtitle only
-  #   p <- p + ggplot2::ggtitle(label = title, subtitle = subtitle)
-  # }
   p
 
-}
-
-# UseMethod("ts_ggplot")
-
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot numeric
-# ts_ggplot.numeric <- function(..., title = NULL, subtitle = NULL){
-#   x <- ts_c(...)
-#   ts_ggplot(ts(x), title = title, subtitle = subtitle)
-# }
-
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot ts
-# ts_ggplot.ts <- function(..., title = NULL, subtitle = NULL){
-#   df <- ts_data.frame(ts_c(...))
-#   ts_ggplot_core(df, title = title, subtitle = subtitle)
-# }
-  
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot xts
-# ts_ggplot.xts <- function(..., title = NULL, subtitle = NULL){
-#   df <- ts_data.frame(ts_c(...))
-#   ts_ggplot_core(df, title = title, subtitle = subtitle)
-# }
-
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot data.frame
-# ts_ggplot.data.frame <- function(..., title = NULL, subtitle = NULL){
-#   x <- ts_data.frame(ts_c(...))
-#   ts_ggplot_core(x, title = title, subtitle = subtitle)
-# }
-
-# #' @export
-# #' @rdname ts_plot
-# #' @method ts_ggplot data.table
-# ts_ggplot.data.table <- function(..., title = NULL, subtitle = NULL){
-
-#   # a bit a mystery that ts_data.frame.data.table is not working...
-#   x <- ts_data.frame(ts_c(...))  
-
-#   ts_ggplot_core(x, title = title, subtitle = subtitle)
-# }
-
-# ts_ggplot_core <- function(df, title = NULL, subtitle = NULL){
-
-#   time.name = getOption("tsbox.time.name", "time")
-#   var.name = getOption("tsbox.var.name", "var")
-#   value.name = getOption("tsbox.value.name", "value")
-
-#   df <- df[!is.na(df[, value.name]), ]
-
-#   n <- NCOL(df)
-#   stopifnot(n > 1)
-#   if (n == 2){
-#     p <- ggplot(df, aes_string(x = time.name, y = value.name)) 
-#   } else if (n > 2){
-
-#     # numeric variable 'levels'
-#     if (class(df[[var.name]]) %in% c("integer", "numeric")){
-#       df[[var.name]] <- as.character(df[[var.name]])
-#     }
-
-#     if (length(unique(df[[var.name]])) > 29) {
-#       stop(length(unique(df[[var.name]])), " time series supplied. Maximum is 29.",  call. = FALSE)
-#     }
-#     p <- ggplot(df, aes_string(x = time.name, y = value.name, color = var.name))
-#   } 
-#   p <- p + 
-#   geom_line() +
-#   ylab("") + 
-#   theme_ts() + 
-#   scale_color_tsbox() 
-
-#   if (!is.null(title) | !is.null(subtitle)){
-#     if (is.null(title)) title <- ""  # subtitle only
-#     p <- p + ggtitle(label = title, subtitle = subtitle)
-#   }
-#   p
-# }
-
-
-#' ggsave, optimized for time series
-#' 
-#' @param filename filename
-#' @param width width
-#' @param height height
-#' @param device device
-#' @param ... aruments passed to ggsave
-#' @param open should the graph be opened?
-#' @examples
-#' \dontrun{
-#' ts_ggplot(AirPassengers)
-#' ts_save()
-#' }
-#' @export
-ts_ggsave <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE){
-  filename <- gsub(".pdf$", paste0(".", device), filename)
-  stopifnot(requireNamespace("ggplot2"))
-
-  ggplot2::ggsave(filename = filename, width = width, height = height, device = device, ...)
-
-  if (open) browseURL(filename)
 }
 
 

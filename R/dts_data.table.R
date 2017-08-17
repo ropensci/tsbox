@@ -35,6 +35,8 @@ ts_dts.data.table <- function(x, cname = NULL, ...){
   }
 
   setnames(z, tv[1], "time")
+  # TODO ensure time is ordered, but var is not! The following does too much:
+  # setorder(z, var, time)  
   z[, time := as_time_or_date(time)]
   setnames(z, "time", tv[1])
 

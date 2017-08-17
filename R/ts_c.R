@@ -81,7 +81,7 @@ ts_c <- function(...){
   # currently we treat ts-only bind separately, if of same freq
   if (desired.class == "ts"){
     z <- do.call("cbind", ll.dts)
-    colnames(z) <- vnames
+    colnames(z) <- unlist(vnames)
   } else {
     # rename var as in vnames
     ll.dts <- Map(function(dt, vname) ts_set_names(dt, vname),  dt = ll.dts, vname = vnames)

@@ -1,3 +1,50 @@
+<!-- 
+library(tsbox)
+ts_plot(AirPassengers, title = "Airline passengers", 
+       subtitle = "The classic Box & Jenkins airline data")
+ts_plot(total = ldeaths, female = fdeaths, male = mdeaths)
+
+ts_plot(ts_c(sunspot.month, sunspot.year, lynx))
+ts_plot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
+ts_plot(EuStockMarkets)
+ts_plot(sunspot.month, sunspot.year, lynx)
+ts_plot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
+## Not run: 
+ts_ggplot(AirPassengers)
+ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
+
+ts_ggplot(ts_c(sunspot.month, sunspot.year, lynx))
+ts_ggplot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
+ts_ggplot(EuStockMarkets)
+ts_ggplot(sunspot.month, sunspot.year, lynx)
+ts_ggplot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
+
+library(Quandl)
+ts_ggplot(ts_df(Quandl::Quandl("FRED/GDPMC1")))
+
+library(dataseries)
+dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
+ts_ggplot(ts_scale(ts_window(ts_c(`GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']), 
+                            `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']), 
+                     start = "1995-01-01")))
+
+
+ts_df(Quandl("FRED/GDPMC1"))
+
+
+
+x <- Quandl("FRED/GDPMC1")
+
+ts_tbl(ts_c(sdfs = x, sdf = x)) %>% 
+  ts_plot()
+
+ts_tbl(Quandl::Quandl("FRED/GDPMC1"))
+
+ -->
+
+
+
+
 # Stuff
 
 - Ts Functions
