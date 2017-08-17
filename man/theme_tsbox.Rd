@@ -28,7 +28,6 @@ Using same style as \code{ts_plot()}.
 \examples{
 
 df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
-
 # standard ggplot
 library(ggplot2)
 ggplot(df, aes(x = time, y = value, color = var)) + 
