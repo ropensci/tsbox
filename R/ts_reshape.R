@@ -113,7 +113,7 @@ spread_core <- function(x) {
 
   z <- dcast(x, as.formula(paste(time.name, "~", var.name)), value.var = value.name)
   # keep order as in input
-  setcolorder(z, c(time.name, unique(x[[var.name]])))
+  setcolorder(z, c(time.name, unique(as.character(x[[var.name]]))))
   z
 }
 
