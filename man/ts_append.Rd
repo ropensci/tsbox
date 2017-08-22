@@ -14,7 +14,7 @@
 \alias{ts_append.data.table}
 \title{Append values to a time series}
 \usage{
-ts_append(x, ...)
+ts_append(series, v)
 
 \method{ts_append}{ts}(series, v)
 
@@ -25,6 +25,12 @@ ts_append(x, ...)
 \method{ts_append}{zoo}(series, v)
 
 \method{ts_append}{data.table}(series, v)
+}
+\arguments{
+\item{series}{object of class ts, xts, zoo, data.frame or data.table
+representing a time series.}
+
+\item{v}{vector to be appended at the end of the existing series.}
 }
 \description{
 Add a one or more elements of a vector to the end of a time series.

@@ -6,6 +6,9 @@
 #' 
 #' @export
 #' @author Matthias Bannert
+#' @param series object of class ts, xts, zoo, data.frame or data.table
+#' representing a time series. 
+#' @param v vector to be appended at the end of the existing series.
 #' @examples 
 #' ts1 <- ts(1:20,start = c(2000,2),frequency = 4)
 #' ts1_df <- ts_df(ts1)
@@ -14,7 +17,7 @@
 #' ts_append(ts1,30)
 #' ts_append(ts1_df,c(30,40))
 #' ts_append(ts1_dt,100)
-ts_append <- function (x, ...) UseMethod("ts_append")
+ts_append <- function (series,v) UseMethod("ts_append")
 
 #' @export
 #' @name ts_append
