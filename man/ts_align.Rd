@@ -7,10 +7,14 @@
 ts_align(x, with)
 }
 \arguments{
-\item{x}{any time series object}
+\item{x}{a ts boxable time series object}
 
-\item{with}{character string, the variable the remaining data is aligned with}
+\item{with}{a ts boxable time series object}
 }
 \description{
 Aligning Time Series
+}
+\examples{
+ts_align(mdeaths, fdeaths)
+#### does not work yet ts_align(AirPassengers, fdeaths), need to implement extend = TRUE in ts_window
 }

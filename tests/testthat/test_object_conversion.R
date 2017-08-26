@@ -183,7 +183,7 @@ test_that("colname guessing works as expected", {
 
   # 2 cols
   x.df <- ts_tbl(AirPassengers) %>% 
-    select(-var) %>% 
+    dplyr::select(-var) %>% 
     setNames(c("Haha", "Hoho"))
   
   x.dt <- as.data.table(x.df)

@@ -4,7 +4,7 @@
 \alias{ts_window}
 \title{Agnostic Time Windows}
 \usage{
-ts_window(x, start = NULL, end = NULL)
+ts_window(x, start = NULL, end = NULL, extend = FALSE)
 }
 \arguments{
 \item{x}{any time series object}
