@@ -42,6 +42,14 @@ ts_tbl(Quandl::Quandl("FRED/GDPMC1"))
 
  -->
 
+# Regularization
+
+- Test for regularity
+  - perhaps return reason for irregularity
+- ts_reg() to force regularity
+  - interpolation
+  - alignment
+  ...
 
 
 

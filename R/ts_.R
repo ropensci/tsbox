@@ -10,6 +10,9 @@ load_suggested <- function(pkg){
 #' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @export
 ts_boxable <- function(x){
+  # if (is.list(x)){
+  #   return(vapply(x, ts_boxable, TRUE))
+  # }
   supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", "dts")
   class(x)[1] %in% supported.classes
 }

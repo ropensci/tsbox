@@ -4,7 +4,7 @@
 \alias{ts_window}
 \title{Agnostic Time Windows}
 \usage{
-ts_window(x, start = NULL, end = NULL)
+ts_window(x, start = NULL, end = NULL, extend = FALSE)
 }
 \arguments{
 \item{x}{any time series object}
@@ -12,6 +12,8 @@ ts_window(x, start = NULL, end = NULL)
 \item{start}{start date, string, Date or POSIXct}
 
 \item{end}{end date, string, Date or POSIXct}
+
+\item{extend}{logical. If true, the start and end values are allowed to extend the series.}
 }
 \description{
 Agnostic Time Windows
