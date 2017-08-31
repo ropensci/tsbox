@@ -4,6 +4,7 @@
 #' @param x any time series object
 #' @param start start date, string, Date or POSIXct
 #' @param end end date, string, Date or POSIXct
+#' @param extend logical. If true, the start and end values are allowed to extend the series.
 #' @export
 ts_window <- function(x, start = NULL, end = NULL, extend = FALSE){
 

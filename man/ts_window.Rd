@@ -12,6 +12,8 @@ ts_window(x, start = NULL, end = NULL, extend = FALSE)
 \item{start}{start date, string, Date or POSIXct}
 
 \item{end}{end date, string, Date or POSIXct}
+
+\item{extend}{logical. If true, the start and end values are allowed to extend the series.}
 }
 \description{
 Agnostic Time Windows
