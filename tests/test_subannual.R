@@ -1,52 +1,45 @@
 library(testthat)
 library(tsbox)
 
-t3 <- ts_rbind(ts_dt(mdeaths), AirPassengers)   ##### this function contains error, should have both
-# AirPassengers and mdeaths in column "var"
-t4 <- ts_rbind(ts_xts(AirPassengers), ts_tbl(mdeaths)) ##### this function contains error, should have both
-# AirPassengers and mdeaths in column "var"
-
-
 context("irregular conversion handling")
 
-####### Monthly series: AirPassengers #####
-test_that("conversion produces right classes", {
-  expect_s3_class(ts_xts(window(AirPassengers, start = c(1949, 5))), "xts")
-  expect_s3_class(ts_ts(window(AirPassengers, start = c(1949, 5))), "ts")
-  expect_s3_class(ts_df(window(AirPassengers, start = c(1949, 5))), "data.frame")
-  expect_s3_class(ts_dt(window(AirPassengers, start = c(1949, 5))), "data.table")
-  expect_s3_class(ts_tbl(window(AirPassengers, start = c(1949, 5))), "tbl_df")
+test_that("conversion produces right classes for monthly series", {
+  monthly_series <- window(AirPassengers, start = c(1949, 5))
+  expect_s3_class(ts_xts(monthly_series), "xts")
+  expect_s3_class(ts_ts(monthly_series), "ts")
+  expect_s3_class(ts_df(monthly_series), "data.frame")
+  expect_s3_class(ts_dt(monthly_series), "data.table")
+  expect_s3_class(ts_tbl(monthly_series), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_xts(window(AirPassengers, start = c(1949, 5)))), "xts")
-  expect_s3_class(ts_ts(ts_xts(window(AirPassengers, start = c(1949, 5)))), "ts")
-  expect_s3_class(ts_df(ts_xts(window(AirPassengers, start = c(1949, 5)))), "data.frame")
-  expect_s3_class(ts_dt(ts_xts(window(AirPassengers, start = c(1949, 5)))), "data.table")
-  expect_s3_class(ts_tbl(ts_xts(window(AirPassengers, start = c(1949, 5)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_xts(monthly_series)), "xts")
+  expect_s3_class(ts_ts(ts_xts(monthly_series)), "ts")
+  expect_s3_class(ts_df(ts_xts(monthly_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_xts(monthly_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_xts(monthly_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_df(window(AirPassengers, start = c(1949, 5)))), "xts")
-  expect_s3_class(ts_ts(ts_df(window(AirPassengers, start = c(1949, 5)))), "ts")
-  expect_s3_class(ts_df(ts_df(window(AirPassengers, start = c(1949, 5)))), "data.frame")
-  expect_s3_class(ts_dt(ts_df(window(AirPassengers, start = c(1949, 5)))), "data.table")
-  expect_s3_class(ts_tbl(ts_df(window(AirPassengers, start = c(1949, 5)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_df(monthly_series)), "xts")
+  expect_s3_class(ts_ts(ts_df(monthly_series)), "ts")
+  expect_s3_class(ts_df(ts_df(monthly_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_df(monthly_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_df(monthly_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_dt(window(AirPassengers, start = c(1949, 5)))), "xts")
-  expect_s3_class(ts_ts(ts_dt(window(AirPassengers, start = c(1949, 5)))), "ts")
-  expect_s3_class(ts_df(ts_dt(window(AirPassengers, start = c(1949, 5)))), "data.frame")
-  expect_s3_class(ts_dt(ts_dt(window(AirPassengers, start = c(1949, 5)))), "data.table")
-  expect_s3_class(ts_tbl(ts_dt(window(AirPassengers, start = c(1949, 5)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_dt(monthly_series)), "xts")
+  expect_s3_class(ts_ts(ts_dt(monthly_series)), "ts")
+  expect_s3_class(ts_df(ts_dt(monthly_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_dt(monthly_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_dt(monthly_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_tbl(window(AirPassengers, start = c(1949, 5)))), "xts")
-  expect_s3_class(ts_ts(ts_tbl(window(AirPassengers, start = c(1949, 5)))), "ts")
-  expect_s3_class(ts_df(ts_tbl(window(AirPassengers, start = c(1949, 5)))), "data.frame")
-  expect_s3_class(ts_dt(ts_tbl(window(AirPassengers, start = c(1949, 5)))), "data.table")
-  expect_s3_class(ts_tbl(ts_tbl(window(AirPassengers, start = c(1949, 5)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_tbl(monthly_series)), "xts")
+  expect_s3_class(ts_ts(ts_tbl(monthly_series)), "ts")
+  expect_s3_class(ts_df(ts_tbl(monthly_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_tbl(monthly_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_tbl(monthly_series)), "tbl_df")
   
 })
 
-test_that("conversion between objects works as expected: AirPassengers", {
-  
+
+test_that("conversion between objects works as expected for monthly series", {
   x.ts <- window(AirPassengers, start = c(1949, 5))
-  
   x.xts <- ts_xts(x.ts, cname = 'AirPassengers')
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
@@ -78,44 +71,46 @@ test_that("conversion between objects works as expected: AirPassengers", {
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)
 })
 
-####### Regular series: EuStockMarkets #####
-test_that("conversion produces right classes", {
-  expect_s3_class(ts_xts(window(EuStockMarkets, start = c(1991, 200))), "xts")
-  expect_s3_class(ts_ts(window(EuStockMarkets, start = c(1991, 200))), "ts")
-  expect_s3_class(ts_df(window(EuStockMarkets, start = c(1991, 200))), "data.frame")
-  expect_s3_class(ts_dt(window(EuStockMarkets, start = c(1991, 200))), "data.table")
-  expect_s3_class(ts_tbl(window(EuStockMarkets, start = c(1991, 200))), "tbl_df")
+
+test_that("conversion produces right classes for regular series", {
   
-  expect_s3_class(ts_xts(ts_xts(window(EuStockMarkets, start = c(1991, 200)))), "xts")
-  expect_s3_class(ts_ts(ts_xts(window(EuStockMarkets, start = c(1991, 200)))), "ts")
-  expect_s3_class(ts_df(ts_xts(window(EuStockMarkets, start = c(1991, 200)))), "data.frame")
-  expect_s3_class(ts_dt(ts_xts(window(EuStockMarkets, start = c(1991, 200)))), "data.table")
-  expect_s3_class(ts_tbl(ts_xts(window(EuStockMarkets, start = c(1991, 200)))), "tbl_df")
+  regular_series <- window(EuStockMarkets, start = c(1991, 200))
+  expect_s3_class(ts_xts(regular_series), "xts")
+  expect_s3_class(ts_ts(regular_series), "ts")
+  expect_s3_class(ts_df(regular_series), "data.frame")
+  expect_s3_class(ts_dt(regular_series), "data.table")
+  expect_s3_class(ts_tbl(regular_series), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_df(window(EuStockMarkets, start = c(1991, 200)))), "xts")
-  expect_s3_class(ts_ts(ts_df(window(EuStockMarkets, start = c(1991, 200)))), "ts")
-  expect_s3_class(ts_df(ts_df(window(EuStockMarkets, start = c(1991, 200)))), "data.frame")
-  expect_s3_class(ts_dt(ts_df(window(EuStockMarkets, start = c(1991, 200)))), "data.table")
-  expect_s3_class(ts_tbl(ts_df(window(EuStockMarkets, start = c(1991, 200)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_xts(regular_series)), "xts")
+  expect_s3_class(ts_ts(ts_xts(regular_series)), "ts")
+  expect_s3_class(ts_df(ts_xts(regular_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_xts(regular_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_xts(regular_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_dt(window(EuStockMarkets, start = c(1991, 200)))), "xts")
-  expect_s3_class(ts_ts(ts_dt(window(EuStockMarkets, start = c(1991, 200)))), "ts")
-  expect_s3_class(ts_df(ts_dt(window(EuStockMarkets, start = c(1991, 200)))), "data.frame")
-  expect_s3_class(ts_dt(ts_dt(window(EuStockMarkets, start = c(1991, 200)))), "data.table")
-  expect_s3_class(ts_tbl(ts_dt(window(EuStockMarkets, start = c(1991, 200)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_df(regular_series)), "xts")
+  expect_s3_class(ts_ts(ts_df(regular_series)), "ts")
+  expect_s3_class(ts_df(ts_df(regular_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_df(regular_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_df(regular_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_tbl(window(EuStockMarkets, start = c(1991, 200)))), "xts")
-  expect_s3_class(ts_ts(ts_tbl(window(EuStockMarkets, start = c(1991, 200)))), "ts")
-  expect_s3_class(ts_df(ts_tbl(window(EuStockMarkets, start = c(1991, 200)))), "data.frame")
-  expect_s3_class(ts_dt(ts_tbl(window(EuStockMarkets, start = c(1991, 200)))), "data.table")
-  expect_s3_class(ts_tbl(ts_tbl(window(EuStockMarkets, start = c(1991, 200)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_dt(regular_series)), "xts")
+  expect_s3_class(ts_ts(ts_dt(regular_series)), "ts")
+  expect_s3_class(ts_df(ts_dt(regular_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_dt(regular_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_dt(regular_series)), "tbl_df")
+  
+  expect_s3_class(ts_xts(ts_tbl(regular_series)), "xts")
+  expect_s3_class(ts_ts(ts_tbl(regular_series)), "ts")
+  expect_s3_class(ts_df(ts_tbl(regular_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_tbl(regular_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_tbl(regular_series)), "tbl_df")
   
 })
 
-test_that("conversion between objects works as expected: EuStockMarkets ", {
+
+test_that("conversion between objects works as expected for regular series", {
   
   x.ts <- window(EuStockMarkets, start = c(1991, 200))
-  
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
@@ -147,44 +142,44 @@ test_that("conversion between objects works as expected: EuStockMarkets ", {
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)
 })
 
-####### Quarterly series: austres #####
-test_that("conversion produces right classes", {
-  expect_s3_class(ts_xts(window(austres, start = c(1975, 3))), "xts")
-  expect_s3_class(ts_ts(window(austres, start = c(1975, 3))), "ts")
-  expect_s3_class(ts_df(window(austres, start = c(1975, 3))), "data.frame")
-  expect_s3_class(ts_dt(window(austres, start = c(1975, 3))), "data.table")
-  expect_s3_class(ts_tbl(window(austres, start = c(1975, 3))), "tbl_df")
+
+test_that("conversion produces right classes for quarterly series", {
+  quarter_series <- window(austres, start = c(1975, 3))
+  expect_s3_class(ts_xts(quarter_series), "xts")
+  expect_s3_class(ts_ts(quarter_series), "ts")
+  expect_s3_class(ts_df(quarter_series), "data.frame")
+  expect_s3_class(ts_dt(quarter_series), "data.table")
+  expect_s3_class(ts_tbl(quarter_series), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_xts(window(austres, start = c(1975, 3)))), "xts")
-  expect_s3_class(ts_ts(ts_xts(window(austres, start = c(1975, 3)))), "ts")
-  expect_s3_class(ts_df(ts_xts(window(austres, start = c(1975, 3)))), "data.frame")
-  expect_s3_class(ts_dt(ts_xts(window(austres, start = c(1975, 3)))), "data.table")
-  expect_s3_class(ts_tbl(ts_xts(window(austres, start = c(1975, 3)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_xts(quarter_series)), "xts")
+  expect_s3_class(ts_ts(ts_xts(quarter_series)), "ts")
+  expect_s3_class(ts_df(ts_xts(quarter_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_xts(quarter_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_xts(quarter_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_df(window(austres, start = c(1975, 3)))), "xts")
-  expect_s3_class(ts_ts(ts_df(window(austres, start = c(1975, 3)))), "ts")
-  expect_s3_class(ts_df(ts_df(window(austres, start = c(1975, 3)))), "data.frame")
-  expect_s3_class(ts_dt(ts_df(window(austres, start = c(1975, 3)))), "data.table")
-  expect_s3_class(ts_tbl(ts_df(window(austres, start = c(1975, 3)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_df(quarter_series)), "xts")
+  expect_s3_class(ts_ts(ts_df(quarter_series)), "ts")
+  expect_s3_class(ts_df(ts_df(quarter_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_df(quarter_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_df(quarter_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_dt(window(austres, start = c(1975, 3)))), "xts")
-  expect_s3_class(ts_ts(ts_dt(window(austres, start = c(1975, 3)))), "ts")
-  expect_s3_class(ts_df(ts_dt(window(austres, start = c(1975, 3)))), "data.frame")
-  expect_s3_class(ts_dt(ts_dt(window(austres, start = c(1975, 3)))), "data.table")
-  expect_s3_class(ts_tbl(ts_dt(window(austres, start = c(1975, 3)))), "tbl_df")
+  expect_s3_class(ts_xts(ts_dt(quarter_series)), "xts")
+  expect_s3_class(ts_ts(ts_dt(quarter_series)), "ts")
+  expect_s3_class(ts_df(ts_dt(quarter_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_dt(quarter_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_dt(quarter_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_tbl(window(austres, start = c(1975, 3)))), "xts")
-  expect_s3_class(ts_ts(ts_tbl(window(austres, start = c(1975, 3)))), "ts")
-  expect_s3_class(ts_df(ts_tbl(window(austres, start = c(1975, 3)))), "data.frame")
-  expect_s3_class(ts_dt(ts_tbl(window(austres, start = c(1975, 3)))), "data.table")
-  expect_s3_class(ts_tbl(ts_tbl(window(austres, start = c(1975, 3)))), "tbl_df")
-  
+  expect_s3_class(ts_xts(ts_tbl(quarter_series)), "xts")
+  expect_s3_class(ts_ts(ts_tbl(quarter_series)), "ts")
+  expect_s3_class(ts_df(ts_tbl(quarter_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_tbl(quarter_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_tbl(quarter_series)), "tbl_df")
 })
+
 
 test_that("conversion between objects works as expected: austres", {
   
   x.ts <- window(austres, start = c(1975, 3))
-  
   x.xts <- ts_xts(x.ts, cname = 'austres')
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
@@ -216,45 +211,45 @@ test_that("conversion between objects works as expected: austres", {
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)
 })
 
-####### Irregular series: #####
-test_that("conversion produces right classes", {
+
+test_that("conversion produces right classes for series with NAs", {
   
-  t <- window(AirPassengers, start = c(1951,3) )
-  window(t, deltat = 1) <- NA
+  irregular_series <- window(AirPassengers, start = c(1951,3) )
+  window(irregular_series, deltat = 1) <- NA
   
-  expect_s3_class(ts_xts(t), "xts")
-  expect_s3_class(ts_ts(t), "ts")
-  expect_s3_class(ts_df(t), "data.frame")
-  expect_s3_class(ts_dt(t), "data.table")
-  expect_s3_class(ts_tbl(t), "tbl_df")
+  expect_s3_class(ts_xts(irregular_series), "xts")
+  expect_s3_class(ts_ts(irregular_series), "ts")
+  expect_s3_class(ts_df(irregular_series), "data.frame")
+  expect_s3_class(ts_dt(irregular_series), "data.table")
+  expect_s3_class(ts_tbl(irregular_series), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_xts(t)), "xts")
-  expect_s3_class(ts_ts(ts_xts(t)), "ts")
-  expect_s3_class(ts_df(ts_xts(t)), "data.frame")
-  expect_s3_class(ts_dt(ts_xts(t)), "data.table")
-  expect_s3_class(ts_tbl(ts_xts(t)), "tbl_df")
+  expect_s3_class(ts_xts(ts_xts(irregular_series)), "xts")
+  expect_s3_class(ts_ts(ts_xts(irregular_series)), "ts")
+  expect_s3_class(ts_df(ts_xts(irregular_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_xts(irregular_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_xts(irregular_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_df(t)), "xts")
-  expect_s3_class(ts_ts(ts_df(t)), "ts")
-  expect_s3_class(ts_df(ts_df(t)), "data.frame")
-  expect_s3_class(ts_dt(ts_df(t)), "data.table")
-  expect_s3_class(ts_tbl(ts_df(t)), "tbl_df")
+  expect_s3_class(ts_xts(ts_df(irregular_series)), "xts")
+  expect_s3_class(ts_ts(ts_df(irregular_series)), "ts")
+  expect_s3_class(ts_df(ts_df(irregular_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_df(irregular_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_df(irregular_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_dt(t)), "xts")
-  expect_s3_class(ts_ts(ts_dt(t)), "ts")
-  expect_s3_class(ts_df(ts_dt(t)), "data.frame")
-  expect_s3_class(ts_dt(ts_dt(t)), "data.table")
-  expect_s3_class(ts_tbl(ts_dt(t)), "tbl_df")
+  expect_s3_class(ts_xts(ts_dt(irregular_series)), "xts")
+  expect_s3_class(ts_ts(ts_dt(irregular_series)), "ts")
+  expect_s3_class(ts_df(ts_dt(irregular_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_dt(irregular_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_dt(irregular_series)), "tbl_df")
   
-  expect_s3_class(ts_xts(ts_tbl(t)), "xts")
-  expect_s3_class(ts_ts(ts_tbl(t)), "ts")
-  expect_s3_class(ts_df(ts_tbl(t)), "data.frame")
-  expect_s3_class(ts_dt(ts_tbl(t)), "data.table")
-  expect_s3_class(ts_tbl(ts_tbl(t)), "tbl_df")
+  expect_s3_class(ts_xts(ts_tbl(irregular_series)), "xts")
+  expect_s3_class(ts_ts(ts_tbl(irregular_series)), "ts")
+  expect_s3_class(ts_df(ts_tbl(irregular_series)), "data.frame")
+  expect_s3_class(ts_dt(ts_tbl(irregular_series)), "data.table")
+  expect_s3_class(ts_tbl(ts_tbl(irregular_series)), "tbl_df")
   
 })
 
-test_that("conversion between objects works as expected", {
+test_that("conversion between objects works as expected for series with NAs", {
   
   x.ts  <- window(AirPassengers, start = c(1951,3) )
   window(x.ts , deltat = 1) <- NA
