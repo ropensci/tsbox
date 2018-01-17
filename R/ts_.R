@@ -13,7 +13,7 @@ ts_boxable <- function(x){
   # if (is.list(x)){
   #   return(vapply(x, ts_boxable, TRUE))
   # }
-  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", "dts")
+  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tbl", "dts")
   class(x)[1] %in% supported.classes
 }
 
