@@ -107,7 +107,7 @@ And some functions from external packages:
 
 ```r
 ts_(dygraphs::dygraph, class = "xts")(ts_c(mdeaths, EuStockMarkets))
-ts_(forecast::forecast, function(x) forecast::forecast(x)$mean)(mdeaths)
+ts_(forecast::forecast, function(x) x$mean)(mdeaths)
 ts_(seasonal::seas, seasonal::final)(mdeaths)
 ```
 
