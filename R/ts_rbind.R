@@ -2,7 +2,7 @@
 # x <- x[-3]
 # ll <- ts_rbind(ts_window(AirPassengers, start = "1950-01-01"), ts_window(AirPassengers, end = "1949-12-01"))
 # ll <- ts_rbind(mdeaths, AirPassengers)
-
+# ll <- list(ts_window(AirPassengers, start = "1950-01-01"), 22, ts_window(AirPassengers, end = "1949-12-01"))
 
 #' @rdname ts_c
 #' @export
@@ -12,11 +12,12 @@ ts_rbind <- function(...){
 
   if (length(ll) == 1) return(ll[[1]])
 
-  desired.class <- desired_class(ll)
+  boxable <- ts_boxable(ll)
 
-  ll.dts <- lapply(ll, ts_dts)
+  desired.class <- desired_class(ll[boxable])
 
-  
+  ll.dts <- ll
+  ll.dts[boxable] <- lapply(ll[boxable], ts_dts)
 
   ll.varnames <- lapply(ll.dts, ts_varnames)
 
