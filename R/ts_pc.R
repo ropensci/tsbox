@@ -1,134 +1,65 @@
-
-# TODO rewrite, usign ts_ 
-
-
-# just an alias, but we could do more here
-# tsfill <- function(x){
-#   na.approx(x)
-# }
-
-
-#' Utility Functions for Time Series
+#' Lags, Differences, Percentage Change Rates
 #' 
-#' @param x a time series object, either `ts`, `xts`, `data.frame` or `data.table`.
-#' @param ... additional arguments, passed to methods
-#' @examples
-#' library(tsbox)
-#' 
-#' x.ts <- ts_c(mdeaths, fdeaths) 
-#' x.xts <- ts_xts(x.ts)
-#' x.df <- ts_df(x.xts)
-#'
-#' ts_scale(x.ts)
-#' ts_scale(x.xts)
-#' ts_scale(x.df)
-#' ts_trend(AirPassengers)
-#' 
-#' ts_pc(x.ts)
-#' # ts_pc(x.xts)
-#' # ts_pc(x.df)
-#' 
-#' ts_pcy(x.ts)
-#' ts_pcy(x.xts)
-#' ts_pcy(x.df)
-#' 
-#' \dontrun{
-#' library(data.table)  # if you want to use the 'data.table' methods
-#' x.dt <- ts_dt(x.df)
-#' ts_scale(x.dt)
-#' ts_trend(x.dt)
-#' ts_pc(x.dt)
-#' ts_pcy(x.dt)
-#' }
-#' 
+#' @param x a ts_boxable object
+#' @param lag defined as in dplyr, opposite to R base
+#' @param fill how to fill missing values
+#' @examples 
+#' ts_lag(ts_c(fdeaths, mdeaths))
+#' ts_diff(ts_c(fdeaths, mdeaths))
+#' ts_pc(ts_c(fdeaths, mdeaths))
 #' @export
-ts_pc <- function (x, ...) UseMethod("ts_pc")
 
-#' @export
-#' @rdname ts_pc
-#' @method ts_pc ts
-ts_pc.ts <- function(x, ...){
-  if (NCOL(x) > 1){
-    return(ts_apply(x, ts_pc))
+ts_lag <- function(x, lag = 1, fill = NA){
+  z <- ts_dts(x)
+
+  if (lag < 0){
+    type <- "lead"
+    lag <- -lag
+  } else {
+    type <- "lag"
   }
+
+  colname.id <- colname_id(z)
+  .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+
+  # do not use ts_apply here, to take advantage of data.table speed
+  z[, 
+    value := shift(value, n = lag, fill = fill, type = type, give.names = FALSE), 
+    by = eval(.by)
+  ]
+
+  ts_na_omit(ts_reclass(z, x))
+}
+
+
+
+
+# This probably could make use of data.table::shift
+
+pc_core <- function(x){
   100 * ((x / stats::lag(x, -1)) - 1)
 }
-
-#' @export
-#' @rdname ts_pc
-#' @method ts_pc xts
-ts_pc.xts <- function(x, ...){
-  ts_xts(ts_pc(ts_ts(x)))
-}
-
-
-#' @export
-#' @rdname ts_pc
-#' @method ts_pc data.frame
-ts_pc.data.frame <- function(x, ...){
-  ts_df(ts_pc(ts_ts(x)))
-}
-
-
-#' @export
-#' @rdname ts_pc
-#' @method ts_pc data.table
-ts_pc.data.table <- function(x, ...){
-  ts_dt(ts_pcy(ts_ts(x)))
-}
-
-#' @export
-#' @rdname ts_pc
-#' @method ts_pc tbl
-ts_pc.tbl <- function(x, ...){
-  ts_tbl(ts_pcy(ts_ts(x)))
-}
-
-
-
-
-
-#' @export
-#' @rdname ts_pc
-ts_pcy <- function (x, ...) UseMethod("ts_pcy")
-
-#' @export
-#' @rdname ts_pc
-#' @method ts_pcy ts
-ts_pcy.ts <- function(x, ...){
-  if (NCOL(x) > 1){
-    return(ts_apply(x, ts_pcy))
-  }
+pcy_core <- function(x){
   100 * ((x / stats::lag(x, -frequency(x))) - 1)
 }
 
-#' @export
-#' @rdname ts_pc
-#' @method ts_pcy xts
-ts_pcy.xts <- function(x, ...){
-  ts_xts(ts_pcy(ts_ts(x)))
-}
 
+#' @name ts_lag
+#' @export
+ts_pc <- ts_(pc_core, vectorize = TRUE)
 
 #' @export
-#' @rdname ts_pc
-#' @method ts_pcy data.frame
-ts_pcy.data.frame <- function(x, ...){
-  ts_df(ts_pcy(ts_ts(x)))
-}
+ts_pcy <- ts_(pcy_core, vectorize = TRUE)
 
 
 #' @export
-#' @rdname ts_pc
-#' @method ts_pcy data.table
-ts_pcy.data.table <- function(x, ...){
-  ts_dt(ts_pcy(ts_ts(x)))
-}
+ts_diff <- ts_(diff, vectorize = TRUE)
 
 #' @export
-#' @rdname ts_pc
-#' @method ts_pcy tbl
-ts_pcy.tbl <- function(x, ...){
-  ts_tbl(ts_pcy(ts_ts(x)))
-}
+ts_diffy <- ts_(function(x) diff(x, lag = frequency(x)), vectorize = TRUE)
+
+
+
+
+
 
