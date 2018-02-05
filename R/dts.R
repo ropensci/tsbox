@@ -59,3 +59,18 @@ ts_c.dts <- function(...){
 
 
 
+
+
+colname_value <- function(x){
+  stopifnot(inherits(x, "dts"))
+  names(x)[ncol(x)]
+}
+colname_time <- function(x){
+  stopifnot(inherits(x, "dts"))
+  names(x)[ncol(x) - 1]
+}
+colname_id <- function(x){
+  stopifnot(inherits(x, "dts"))
+  setdiff(names(x), c(colname_value(x), colname_time(x)))
+}
+

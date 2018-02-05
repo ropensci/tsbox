@@ -17,13 +17,16 @@ is_value <- function(x){
 
 
 
-guess_time <- function(x){
+guess_time <- function(x, value.name = "value"){
   stopifnot(inherits(x, "data.frame"))
   cnames <- colnames(x)
   if ("time" %in% cnames) return("time")
 
+  cnames <- setdiff(cnames, value.name)
+
   z <- NA
-  for (cname.i in cnames){
+  # start from the right column
+  for (cname.i in rev(cnames)){
     if (is_time(x[[cname.i]])) {
       z <- cname.i
       break
@@ -37,16 +40,13 @@ guess_time <- function(x){
 }
 
 
-guess_value <- function(x, time.name = "time"){
+guess_value <- function(x){
   stopifnot(inherits(x, "data.frame"))
   cnames <- colnames(x)
-  stopifnot(time.name %in% cnames)
   if ("value" %in% cnames) return("value")
 
-  cnames <- setdiff(cnames, time.name)
-
   z <- NA
-  for (cname.i in cnames){
+  for (cname.i in rev(cnames)){
     if (is_value(x[[cname.i]])) {
       z <- cname.i
       break
@@ -85,9 +85,8 @@ guess_value <- function(x, time.name = "time"){
 # }
 
 guess_time_value <- function(x){
-  time.name <- guess_time(x)
-  value.name <- guess_value(x, time.name = time.name)
-  # var.name <- guess_var(x, time.name = time.name, value.name = value.name)
+  value.name <- guess_value(x)
+  time.name <- guess_time(x, value.name = value.name)
 
   c(time.name = time.name,
     value.name = value.name)

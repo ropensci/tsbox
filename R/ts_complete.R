@@ -30,11 +30,16 @@ ts_complete <- function(x, fill = NA){
 
   x1 <- ts_dts(x)
 
-  full.time <- unique(x1[, 1])
-  var.names <- colnames(x1)[-c(1, 2)]
+  if (number_of_series(x1) == 1) return(x)
+
+  # colname.value <- colname_value(x1) 
+  colname.time <- colname_time(x1) 
+  colname.id <- colname_id(x1) 
+
+  full.time <- unique(x1[, colname.time, with = FALSE])
 
   # all vars in the data
-  full.var <- unique(x1[, var.names, with = FALSE])
+  full.var <- unique(x1[, colname.id, with = FALSE])
   full.var[, k := 1]  # dummy merge variable
   full.time[, k := 1]
 

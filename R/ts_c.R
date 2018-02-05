@@ -14,11 +14,11 @@ relevant_names <- function(call.names, list){
       if (is.null(names(call.names)) || names(call.names)[i] == ""){  
 
         # 3. prio: use variable names if nothing else is given
-        if (ts_varnames(list[[i]])[1] %in% c("", ".unnamed")) {
+        if (colnames(list[[i]])[1] %in% c("", ".unnamed")) {
           relevant.names[[i]] <- call.names[[i]]
         } else {
           # 2. prio: use colnames if given
-          cn <- ts_varnames(list[[i]])
+          cn <- colnames(list[[i]])
 
           # stopifnot(length(cn) == 1)
           relevant.names[[i]] <- cn
@@ -41,16 +41,16 @@ relevant_names <- function(call.names, list){
 #' @examples
 #'
 #' ts_c(ts_df(EuStockMarkets), AirPassengers)
-#' ts_c(EuStockMarkets, mdeaths)
+#' a <- ts_c(EuStockMarkets, mdeaths)
 #'
 #' # labelling:
 #' ts_c(`International Airline Passengers` = ts_xts(AirPassengers), 
 #'        `Deaths from Lung Diseases` = ldeaths)
 #' 
-#' ts_c(a = ts_df(mdeaths), AirPassengers)
-#' ts_rbind(ts_xts(AirPassengers), mdeaths)
+#' ts_c(a = mdeaths, AirPassengers)
+#' ts_bind(ts_xts(AirPassengers), mdeaths)
 #' ts_c(ts_dt(EuStockMarkets), AirPassengers)
-#' ts_select(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX']), 'mdeaths')
+#' ts_bind(ts_dt(mdeaths), AirPassengers)
 #' 
 #' @export
 ts_c <- function(...){
@@ -59,36 +59,56 @@ ts_c <- function(...){
 
   if (length(ll) == 1) return(ll[[1]])
 
+  call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse))
+  # use name if specified in call
+  call.names[names(call.names) != ""] <- names(call.names)[names(call.names) != ""]
+
   desired.class <- desired_class(ll)
 
-  # currently we treat ts-only bind separately, if of same freq
+  # special treatment for ts
+  # - speed gain
+  # - solves spacing issue for in series NAs
   if (desired.class == "ts"){
-    ll.dts <- ll
-  } else {
-    ll.dts <- lapply(ll, ts_dts, cname = ".unnamed")
+    no.cnames <- vapply(ll, function(e) length(colnames(e)) <= 1, TRUE)
+    if (is.null(names(ll))) names(ll) <- call.names
+    names(ll)[no.cnames] <- call.names[no.cnames]
+    z <- do.call(cbind, ll)
+    colnames(z) <- make.unique(colnames(z))
+    return(z)
   }
 
-  vnames <- lapply(ll.dts, ts_varnames)
-  is.nameable <- vapply(ll.dts, function(e) ts_nvar(e) == 1, FALSE)
+  ll.dts <- lapply(ll, ts_dts)
+  vnames <- lapply(ll.dts, colname_id)
 
-  call.names <- lapply(substitute(placeholderFunction(...))[-1], deparse)
-  relevant.names <- relevant_names(call.names, list = ll.dts)
-  vnames <- relevant.names   #[is.nameable]
+  colname.id <- colname_id(ll.dts[[1]])
 
-  # ensure names are unique
-  vnames <- relist(make.unique(unlist(vnames)), skeleton = vnames)
-
-  # currently we treat ts-only bind separately, if of same freq
-  if (desired.class == "ts"){
-    z <- do.call("cbind", ll.dts)
-    colnames(z) <- unlist(vnames)
-  } else {
-    # rename var as in vnames
-    ll.dts <- Map(function(dt, vname) ts_set_names(dt, vname),  dt = ll.dts, vname = vnames)
-    ll.dts <- unify_class(ll.dts)
-
-    z <- rbindlist(ll.dts)
+  # In case first element is unnamed series
+  if (length(colname.id) == 0){
+    colname.id <- "id"
   }
+
+  # add names from call for single series
+  is.unnamed <- vapply(ll.dts, function(e) ncol(e) == 2, FALSE)
+
+  ll.dts[is.unnamed] <- Map(
+    function(dt, id) {
+      dt$id <- id
+      setcolorder(dt, c(3, 1, 2))
+      dt
+    }, 
+    dt = ll.dts[is.unnamed], 
+    id = call.names[is.unnamed]
+  )
+
+  # TODO ensure uniqueness of ids!
+
+  if (length(unique(lapply(ll.dts, colname_id))) > 1) {
+    stop("id dimensions must be the same for all elements.")
+  }
+  
+  ll.dts <- unify_time_class(ll.dts)
+
+  z <- rbindlist(ll.dts)
 
   z <- try(coerce_to_(desired.class)(z))
 
@@ -102,10 +122,10 @@ ts_c <- function(...){
 
 
 # ll <- ll.dts
-unify_class <- function(ll){
-  cl <- vapply(ll, function(e) class(e[[1]])[1], "")
+unify_time_class <- function(ll){
+  cl <- vapply(ll, function(e) class(e[[2]])[1], "")
   if (length(unique(cl)) > 1) {
-    ll[cl == "Date"] <-  lapply(ll[cl == "Date"], function(e) change_class.data.table(e, colnames(e)[1], "as.POSIXct"))
+    ll[cl == "Date"] <-  lapply(ll[cl == "Date"], function(e) change_class.data.table(e, colnames(e)[2], "as.POSIXct"))
   }
   ll
 }

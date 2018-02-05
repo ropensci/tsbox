@@ -6,17 +6,14 @@ filter_data.table <- function(DT, column.name, operator = "%in%", filter.value){
   `[`(DT, eval(q))
 }
 
-
 combine_cols_data.table <- function(dt, cols){
   # probably not the best way to do it
-  qq.str <- paste0("var := paste(",  paste(cols, collapse = ", "), ", sep = '_')")
+  qq.str <- paste0("id := paste(",  paste(cols, collapse = ", "), ", sep = '_')")
   qq <- parse(text = qq.str)
   z <- dt[, eval(qq)]
-  z[, (cols) := NULL]  # but this is the right way to do it
-  return(z)
+  z[, (setdiff(cols, "id")) := NULL]  # but this is the right way to do it
+  z[]
 }
-
-
 
 change_class.data.table <- function(dt, col, operator = "as.POSIXct"){
   # probably not the best way to do it

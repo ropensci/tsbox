@@ -37,12 +37,13 @@ ts_dts.xts <- function(x, ...){
 
   z <- data.table(time = time, dta)
 
-  # if (NCOL(z) == 2){
-  #   setnames(z, c("time", "value"))
-  #   single.var.name <- "x"  # TODO
-  #   z[, var := single.var.name]
-  # }
-  gather_core(z)
+  if (NCOL(z) == 2){
+    setnames(z, c("time", "value"))
+    z <- ts_dts(z)
+  } else {
+    z <- gather_core(z)
+  }
+  z
 }
 
 

@@ -1,3 +1,8 @@
+
+# This does not work with arbitraty dims
+
+
+
 # seem to be ok and usable elsewhere
 
 #' Set and Extract Names of Time Series

@@ -1,4 +1,4 @@
-# Using Reduce(), this is how ts_rbind should work as well...
+# Using Reduce(), this is how ts_bind should work as well...
 
 #' @rdname ts_c
 #' @export
@@ -35,7 +35,7 @@ ts_chain_dts <- function(new, old){
   retro <- old[1:pos]
   retro[[2]] <- retro[[2]] / retro[[2]][pos] * anchor
 
-  ts_rbind(new[-1], retro)
+  ts_bind(new[-1], retro)
 }
 
 

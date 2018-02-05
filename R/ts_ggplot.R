@@ -10,7 +10,7 @@
 #' df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
 #' # standard ggplot
 #' library(ggplot2)
-#' ggplot(df, aes(x = time, y = value, color = var)) + 
+#' ggplot(df, aes(x = time, y = value, color = id)) + 
 #'   geom_line()
 #' 
 #' # a quick plot for time series
@@ -111,30 +111,34 @@ scale_fill_tsbox <- function (...) {
 #' @export
 ts_ggplot <- function (...) {
 
+  # TODO add some multi dim support
+
+  
   stopifnot(requireNamespace("ggplot2"))
-  df <- ts_data.frame(ts_c(...))
+  x <- ts_dts(ts_c(...))
 
-  time.name = getOption("tsbox.time.name", "time")
-  var.name = getOption("tsbox.var.name", "var")
-  value.name = getOption("tsbox.value.name", "value")
+  colname.time <- colname_time(x)
+  colname.value <- colname_value(x)
+  colname.id <- colname_id(x)
 
-  df <- df[!is.na(df[, value.name]), ]
+  df <- ts_df(x)
+  df <- df[!is.na(df[, colname.value]), ]
 
   n <- NCOL(df)
   stopifnot(n > 1)
   if (n == 2){
-    p <- ggplot2::ggplot(df,  ggplot2::aes_string(x = time.name, y = value.name)) 
+    p <- ggplot2::ggplot(df,  ggplot2::aes_string(x = colname.time, y = colname.value)) 
   } else if (n > 2){
 
     # numeric variable 'levels'
-    if (class(df[[var.name]]) %in% c("integer", "numeric")){
-      df[[var.name]] <- as.character(df[[var.name]])
+    if (class(df[[colname.id]]) %in% c("integer", "numeric")){
+      df[[colname.id]] <- as.character(df[[colname.id]])
     }
 
-    if (length(unique(df[[var.name]])) > 29) {
-      stop(length(unique(df[[var.name]])), " time series supplied. Maximum is 29.",  call. = FALSE)
+    if (length(unique(df[[colname.id]])) > 29) {
+      stop(length(unique(df[[colname.id]])), " time series supplied. Maximum is 29.",  call. = FALSE)
     }
-    p <-  ggplot2::ggplot(df,  ggplot2::aes_string(x = time.name, y = value.name, color = var.name))
+    p <-  ggplot2::ggplot(df,  ggplot2::aes_string(x = colname.time, y = colname.value, color = colname.id))
   } 
   p <- p + ggplot2::geom_line() 
 

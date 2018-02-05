@@ -15,6 +15,5 @@ ts_align(x, with)
 Aligning Time Series
 }
 \examples{
-ts_align(mdeaths, fdeaths)
-#### does not work yet ts_align(AirPassengers, fdeaths), need to implement extend = TRUE in ts_window
+ts_align(mdeaths, ts_window(fdeaths, end = "1977-01-01"))
 }

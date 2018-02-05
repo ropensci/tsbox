@@ -87,17 +87,17 @@ test_that("conversion between objects works as expected: discoveries", {
   expect_equal(ts_ts(ts_dt(x.ts)), x.ts)
   expect_equal(ts_ts(ts_tbl(x.ts)), x.ts)
 
-  expect_equal(ts_xts(ts_ts(x.xts), cname = "discoveries"), x.xts)
+  expect_equal(ts_xts(ts_ts(x.xts)), x.xts)
   expect_equal(ts_xts(ts_df(x.xts)), x.xts)
   expect_equal(ts_xts(ts_dt(x.xts)), x.xts)
   expect_equal(ts_xts(ts_tbl(x.xts)), x.xts)
 
-  expect_equal(ts_df(ts_ts(x.df), cname = "discoveries"), x.df)  
+  expect_equal(ts_df(ts_ts(x.df)), x.df)  
   expect_equal(ts_df(ts_xts(x.df)), x.df)
   expect_equal(ts_df(ts_dt(x.df)), x.df)
   expect_equal(ts_dt(ts_tbl(x.dt)), x.dt)
 
-  expect_equal(ts_dt(ts_ts(x.dt), cname = "discoveries"), x.dt)   
+  expect_equal(ts_dt(ts_ts(x.dt)), x.dt)   
   expect_equal(ts_dt(ts_xts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_df(x.dt)), x.dt)
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)
@@ -156,15 +156,14 @@ test_that("some trickier situations work properly", {
 
 test_that("2 colum data.frames work as expected", {
   x <- ts_dt(AirPassengers)
-  x[, var := NULL]
-  ts_dts(x)
+  expect_equal(ts_dt(ts_ts(x)), ts_dt(AirPassengers))
 })
 
 
 test_that("selecting and binding works as expected", {
 
   dta <- ts_df(ts_c(mdeaths, fdeaths))
-  expect_equal(mdeaths, ts_ts(ts_select(dta, 'mdeaths')))
+  expect_equal(mdeaths, ts_ts(subset(dta, id == 'mdeaths', select = -id)))
 
 })
 
@@ -178,17 +177,16 @@ test_that("colname guessing works as expected", {
     setNames(c("Haha", "Hoho", "Hihi"))
   
   x.dt <- as.data.table(x.df)
-  expect_equal(mdeaths, ts_select(ts_ts(ts_xts(ts_df(x.df))), 'mdeaths'))
-  expect_equal(mdeaths, ts_select(ts_ts(ts_df(ts_xts(ts_ts(x.dt)))), 'mdeaths'))
+  expect_equal(mdeaths, ts_ts(ts_xts(ts_df(x.df)))[, 'mdeaths'])
+  expect_equal(mdeaths, ts_ts(ts_df(ts_xts(ts_ts(x.dt))))[, 'mdeaths'])
 
   # 2 cols
   x.df <- ts_tbl(AirPassengers) %>% 
-    dplyr::select(-var) %>% 
     setNames(c("Haha", "Hoho"))
   
   x.dt <- as.data.table(x.df)
-  expect_equal(AirPassengers, ts_select(ts_ts(ts_xts(ts_df(x.df))), 'AirPassengers'))
-  expect_equal(AirPassengers, ts_select(ts_ts(ts_df(ts_xts(ts_ts(x.dt)))), 'AirPassengers'))
+  expect_equal(AirPassengers, ts_ts(ts_xts(ts_df(x.df))))
+  expect_equal(AirPassengers, ts_ts(ts_df(ts_xts(ts_ts(x.dt)))))
 
 })
 

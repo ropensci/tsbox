@@ -10,6 +10,8 @@ test_that("examples from README.md work properly", {
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
 
+  ts_df(ts_c(fdeaths, mdeaths))
+  
   ts_scale(x.ts)  # normalization
   ts_scale(x.xts)
   ts_scale(x.df)
@@ -27,8 +29,8 @@ test_that("examples from README.md work properly", {
   ts_c(ts_dt(EuStockMarkets), AirPassengers)
   ts_c(EuStockMarkets, mdeaths)
 
-  ts_rbind(ts_dt(mdeaths), AirPassengers)
-  ts_rbind(ts_xts(AirPassengers), mdeaths)
+  ts_bind(ts_dt(mdeaths), AirPassengers)
+  ts_bind(ts_xts(AirPassengers), mdeaths)
 
 
   # ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX'])))
