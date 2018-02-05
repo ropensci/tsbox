@@ -38,11 +38,8 @@ x.dt <- ts_dt(x.df)
 x.tbl <- ts_tbl(x.dt)
 ```
 
-Time series can be stored in `data.frame` like objects, by following the
-convention of column order: 1. *id* column(s), 2. time column, 3. value column.
-By explicit namin of the time colum as `time` and the value column as `value`,
-this can be overwritten. Here is how a `data.frame` with multiple time series
-looks like:
+Mulitple time series will be stored as a 'long' data frame (`data.frame`,
+`data.table` or `tibble`):
 
 ```r
 ts_df(ts_c(fdeaths, mdeaths))
@@ -61,6 +58,16 @@ ts_df(ts_c(fdeaths, mdeaths))
 # 144 mdeaths 1979-12-01  1341
 ```
 
+The time stamp, `time`, indicates the beginning of a period. tsbox requires the
+columns in a data frame to follow either the order:
+
+1. *id* column(s)
+2. time column
+3. value column
+
+*or* the time colum and the value column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
+
+Note that multiple id columns with arbitrary names are allowed.
 
 
 ### Use same functions for ts, xts, data.frame, data.table or tibble
