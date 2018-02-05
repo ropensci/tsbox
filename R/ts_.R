@@ -22,52 +22,32 @@ load_suggested <- function(pkg){
 #' ts_plot(mean = ts_(rowMeans)(ts_c(mdeaths, fdeaths)), mdeaths, fdeaths)
 #' ts_(prcomp, predict)(ts_c(mdeaths, fdeaths))
 #' ts_(prcomp, predict, scale = TRUE)(ts_c(mdeaths, fdeaths))
-ts_ <- function(f, postproc = function(x) x, class = "ts", vectorize = FALSE, ...) {
+ts_ <- function(f, class = "ts", vectorize = FALSE) {
   supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", "dts")
   stopifnot(class %in% supported.classes)
-  z <- substitute(function(x, ...){
-    stopifnot(ts_boxable(x))
-    z <- f(coerce_to_(class)(x), ...)
-    z <- postproc(z)
-    ts_reclass(z, x)
-  })
+
+  ts_to_class <- as.name(paste0("ts_", class))
+  if (vectorize){
+    z <- substitute(function(x, ...){
+      fun <- function(x, ...){
+        stopifnot(ts_boxable(x))
+        z <- f(ts_to_class(x), ...)
+        ts_reclass(z, x)
+      }
+      ts_apply(x, fun, ...)
+    })
+  } else {
+    z <- substitute(function(x, ...){
+      stopifnot(ts_boxable(x))
+      z <- f(ts_to_class(x), ...)
+      ts_reclass(z, x)
+    })
+  }
+
   f <- eval(z, parent.frame())
+  attr(f, "srcref") <- NULL   # fix so prints correctly (from dtplyr)
   f
 }
-
-#' @export
-#' @importFrom stats window lag cycle lm prcomp start window "tsp<-"
-#' @rdname ts_
-ts_diff <- ts_(diff)
-
-
-# #' @export
-# #' @rdname ts_
-# # ts_lag <- ts_(stats::lag)
-
-# #' @export
-# #' @rdname ts_
-# ts_cycle <- ts_(stats::cycle, multi.series = FALSE)
-
-
-
-# #' @export
-# #' @rdname ts_
-# ts_seas_final <- ts_(function(x, ...) {
-#     seasonal::final(seasonal::seas(x, ...))
-#   }, multi.series = FALSE, suggested.packages = "seasonal")
-
-# #' @export
-# #' @rdname ts_
-# # @param n how many princial components should be extracted
-# # @param scale should the data be scaled?
-# ts_prcomp <- ts_(function(x, n = 1, scale = TRUE, ...) {
-#   ts(predict(prcomp(x, scale = scale, ...))[,1:n], start = start(x), frequency = frequency(x))
-# }, ensure.names = FALSE)
-
-
-
-# # TODO: rework
 
 
 

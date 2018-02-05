@@ -2,30 +2,27 @@
 % Please edit documentation in R/ts_.R, R/ts_scale.R
 \name{ts_}
 \alias{ts_}
-\alias{ts_diff}
 \alias{ts_}
 \alias{ts_scale}
 \title{Universal Constructor for ts Functions}
 \usage{
-ts_(f, postproc = function(x) x, class = "ts", vectorize = FALSE, ...)
-
-ts_diff(x, ...)
+ts_(f, class = "ts", vectorize = FALSE)
 
 ts_scale(x, ...)
 }
 \arguments{
 \item{f}{function, to be made available to all time series classes}
 
-\item{postproc}{a function applied to the return value of \code{f()}. E.g.
-\code{predict()}. (See examples)}
-
 \item{class}{class that the function uses as its first argument}
 
 \item{vectorize}{should the function be vectorized? (not yet implemented)}
 
+\item{x}{time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+
 \item{...}{arguments passed to underlying functions.}
 
-\item{x}{time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+\item{postproc}{a function applied to the return value of \code{f()}. E.g.
+\code{predict()}. (See examples)}
 }
 \description{
 Universal Constructor for ts Functions
