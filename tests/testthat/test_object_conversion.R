@@ -35,6 +35,12 @@ test_that("conversion produces right classes", {
   expect_s3_class(ts_dt(ts_tbl(AirPassengers)), "data.table")
   expect_s3_class(ts_tbl(ts_tbl(AirPassengers)), "tbl_df")
 
+  expect_s3_class(ts_xts(ts_tslist(ts_c(mdeaths, AirPassengers))), "xts")
+  # expect_s3_class(ts_ts(ts_tslist(ts_c(mdeaths, AirPassengers))), "ts")
+  expect_s3_class(ts_df(ts_tslist(ts_c(mdeaths, AirPassengers))), "data.frame")
+  expect_s3_class(ts_dt(ts_tslist(ts_c(mdeaths, AirPassengers))), "data.table")
+  expect_s3_class(ts_tbl(ts_tslist(ts_c(mdeaths, AirPassengers))), "tbl_df")
+
 })
 
 

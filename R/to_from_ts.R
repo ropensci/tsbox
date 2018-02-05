@@ -31,6 +31,7 @@ ts_dts.ts <- function(x){
 
   } else {
     z <- gather_core(dta)
+    z <- ts_na_omit(z)
   }
   z
 }
