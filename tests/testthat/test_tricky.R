@@ -42,22 +42,6 @@ context("tricky stuff")
 
 
 
-# error w short series
-
-test_that("ts_bind works as it should.", {
-  expect_equal(AirPassengers, 
-               ts_bind(ts_window(AirPassengers, start = "1950-01-01"), 
-                        ts_window(AirPassengers, end = "1949-12-01"))
-               )
-  expect_equal(ts_dt(AirPassengers), 
-               ts_bind(ts_window(ts_dt(AirPassengers), start = "1950-01-01"), 
-                        ts_window(ts_dt(AirPassengers), end = "1949-12-01")))
-  expect_equal(ts_df(AirPassengers), ts_bind(AirPassengers = ts_window(ts_df(AirPassengers), start = "1950-01-01"), ts_window(ts_df(AirPassengers), end = "1949-12-01")))
-  expect_equal(ts_tbl(AirPassengers), ts_bind(AirPassengers = ts_window(ts_tbl(AirPassengers), start = "1950-01-01"), ts_window(ts_tbl(AirPassengers), end = "1949-12-01")))
-})
-
-
-
 test_that("Latest tricky stuff works.", {
 
 
@@ -78,33 +62,6 @@ test_that("Latest tricky stuff works.", {
 
 })
 
-
-
-
-# more careful is_time checking (and test)
-
-# Here, it sees arten as a year, but it shouldn't for at least 2 reasons:
-
-# - Year >= 3000 should not be supported
-# - Variable is not continous (but this is probably a bad reason)
-
-# -> Years should look like a year: 
-
-# > dta
-#         arten funk jahr       value
-#      1:  1000   -1 1990  17276468.3
-#      2:  1001   -1 1990 262836087.5
-#      3:  1002   -1 1990 352935857.3
-#      4:  1010   -1 1990 945041263.6
-#      5:  1011   -1 1990 676671322.9
-#     ---                            
-# 101851:  4892  990 2015   2558990.6
-# 101852:  4894  990 2015   3271095.1
-# 101853:  4895  990 2015  87363643.8
-# 101854:  4899  990 2015   2000000.0
-# 101855:  4390  995 2015    711948.7
-
-# ts_ts(ts_dts(dta[arten == "4489"]))
 
 
 
