@@ -134,4 +134,16 @@ unify_time_class <- function(ll){
 
 
 
+# #' @export
+# #' @name ts_ts
+# ts_c.dts <- function(...){
+#   ll <- list(...)
+#   if (!inherits(ll[[1]], "dts")){
+#     ll <- ll[[1]]
+#   }
+#   is.dts <- vapply(ll, function(e) inherits(e, "dts"), TRUE)
+#   stopifnot(all(is.dts))  # TODO better message
+#   z <- rbindlist(ll)
+#   add_dts_class(z)
+# }
 

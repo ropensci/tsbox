@@ -1,3 +1,4 @@
+# to determine id, time, value, when coverting from data frame likes
 
 is_time <- function(x){
   if (class(x)[1] %in% c("Date", "POSIXct")) return(TRUE)   # beyond doubt
@@ -14,8 +15,6 @@ is_time <- function(x){
 is_value <- function(x){
   class(x)[1] %in% c("numeric")
 }
-
-
 
 guess_time <- function(x, value.name = "value"){
   stopifnot(inherits(x, "data.frame"))
@@ -39,7 +38,6 @@ guess_time <- function(x, value.name = "value"){
   z
 }
 
-
 guess_value <- function(x){
   stopifnot(inherits(x, "data.frame"))
   cnames <- colnames(x)
@@ -57,32 +55,6 @@ guess_value <- function(x){
   }
   z
 }
-
-
-# is_var <- function(x){
-#   class(x)[1] %in% c("character", "factor")
-# }
-
-# guess_var <- function(x, time.name = "time", value.name = "value"){
-#   stopifnot(inherits(x, "data.frame"))
-#   cnames <- colnames(x)
-#   stopifnot(time.name %in% cnames)
-#   stopifnot(value.name %in% cnames)
-
-#   if ("var" %in% cnames) return("var")
-
-#   cnames <- setdiff(cnames, c(time.name, value.name))
-
-#   z <- NA
-#   for (cname.i in cnames){
-#     if (is_var(x[[cname.i]])) {
-#       z <- cname.i
-#       break
-#     }
-#   }
-  
-#   z
-# }
 
 guess_time_value <- function(x){
   value.name <- guess_value(x)

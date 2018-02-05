@@ -1,3 +1,16 @@
+# helper functions for converters
+# (need to be adjusted if new classes are added)
+
+.supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tbl", "dts", "tslist")
+
+
+#' Test if object is a valid time series
+#' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @export
+ts_boxable <- function(x){
+  class(x)[1] %in% .supported.classes
+}
+
 
 #' Universal Converter Function
 #' 
@@ -5,10 +18,11 @@
 #' @return returns a function
 #' @export
 coerce_to_ <- function(x){
-  # print(x)
-  stopifnot(x %in% c("xts", "ts", "data.frame", "data.table", "tbl", "dts"))
+  stopifnot(x %in% .supported.classes)
   get(paste0("ts_", x))
 }
+
+
 
 desired_class <- function(ll){
   z <- unique(vapply(ll, relevant_class, ""))
@@ -46,6 +60,10 @@ relevant_class <- function(x){
   if (inherits(x, "data.frame")){
     return("data.frame")
   }
+  if (inherits(x, "tslist")){
+    return("tslist")
+  }  
+  stop("not a ts_boxable object.")
 }
 
 #' Reclass an object to a ts-boxable series
@@ -57,9 +75,7 @@ relevant_class <- function(x){
 #' @export
 ts_reclass <- function(z, x){
 
-  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tbl", "dts")
-
-  if (!class(z)[1] %in% supported.classes){
+  if (!ts_boxable(z)){
     if (inherits(x, "ts")){
       z <- ts(z)
       tsp(z) <- tsp(x)
@@ -67,7 +83,8 @@ ts_reclass <- function(z, x){
       x.ts <- ts_ts(x)
       z <- ts(z)
       tsp(z) <- tsp(x.ts)
-      coerce_to_(relevant_class(x))(z)
+      z
+      # coerce_to_(relevant_class(x))(z)
       # stop("No reclass for object of class: ", paste(class(z), collapse = ","))
     }
   }

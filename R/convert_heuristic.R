@@ -1,5 +1,3 @@
-
-
 ts_to_date_time <- function(x){
   stopifnot(inherits(x, "ts"))
 

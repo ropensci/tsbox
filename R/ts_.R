@@ -6,17 +6,6 @@ load_suggested <- function(pkg){
   }
 }
 
-#' Test if object is a valid time series
-#' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
-#' @export
-ts_boxable <- function(x){
-  # if (is.list(x)){
-  #   return(vapply(x, ts_boxable, TRUE))
-  # }
-  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tbl", "dts")
-  class(x)[1] %in% supported.classes
-}
-
 
 #' Universal Constructor for ts Functions
 #' 
@@ -41,7 +30,6 @@ ts_ <- function(f, postproc = function(x) x, class = "ts", vectorize = FALSE, ..
     z <- f(coerce_to_(class)(x), ...)
     z <- postproc(z)
     ts_reclass(z, x)
-    # z <- ts_set_names(z, ts_names(x))
   })
   f <- eval(z, parent.frame())
   f

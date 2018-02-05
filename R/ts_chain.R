@@ -1,16 +1,14 @@
-# Using Reduce(), this is how ts_bind should work as well...
-
-#' @rdname ts_c
+#' Bind to or several tsboxable objects
+#' @name ts_bind
 #' @export
 ts_chain <- function(...){
   ll <- list(...)
   desired.class <- desired_class(ll)
-  stopifnot(ts_nvar(ll[[1]]) == 1)
 
   ll.dts <- lapply(ll, ts_dts)
-  z <- Reduce(ts_chain_dts, ll.dts)
-  setorder(z, time, var)
- 
+
+  stopifnot(ts_nvar(ll[[1]]) == 1)
+  z <- Reduce(chain_dts, ll.dts) 
   coerce_to_(desired.class)(z)
 }
 
@@ -19,7 +17,7 @@ first_true <- function(x){
   which(cumsum(as.integer(x)) == 1L)[1]
 }
 
-ts_chain_dts <- function(new, old){
+chain_dts <- function(new, old){
   stopifnot(inherits(old, "dts"), inherits(new, "dts"))
 
   old < ts_na_omit(old)
@@ -37,7 +35,6 @@ ts_chain_dts <- function(new, old){
 
   ts_bind(new[-1], retro)
 }
-
 
 
 

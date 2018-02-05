@@ -1,57 +1,23 @@
-# ts_chain and ts_bind should be described on the same page
-
-#' Bind to or several tsboxable objects, chaining them together where the first
-#' series ends.
+#' Combine to Single Time Series
 #' 
-#' @rdname ts_c
-#' @export
-ts_chain <- function(...){
-  ll <- list(...)
-  desired.class <- desired_class(ll)
-
-  ll.dts <- lapply(ll, ts_dts)
-
-  stopifnot(ts_nvar(ll[[1]]) == 1)
-  z <- Reduce(chain_dts, ll.dts) 
-  coerce_to_(desired.class)(z)
-}
-
-
-first_true <- function(x){
-  which(cumsum(as.integer(x)) == 1L)[1]
-}
-
-chain_dts <- function(new, old){
-  stopifnot(inherits(old, "dts"), inherits(new, "dts"))
-
-  old < ts_na_omit(old)
-  new < ts_na_omit(new)
-
-  # overlapping time span
-  dup <- old[[1]] %in% new[[1]] 
-
-  # first observation of overlapping span
-  pos <- first_true(dup)
-  anchor <- new[[2]][1]
-
-  retro <- old[1:pos]
-  retro[[2]] <- retro[[2]] / retro[[2]][pos] * anchor
-
-  ts_bind(new[-1], retro)
-}
-
-
-
-#' Bind to or several tsboxable objects
+#' Combine time series to a new, single time series. `ts_bind` combines time
+#' series as they are, `ts_chain` chaines them together, using percentage change
+#' rates.
 #' 
-#' @rdname ts_c
+#' @param ... one or several tsboxable time series
+#' @examples
+#' ts_bind(ts_window(mdeaths, end = "1975-12-01"), fdeaths)
+#' ts_bind(mdeaths, c(2, 2))
+#' ts_bind(mdeaths, 3, ts_bind(fdeaths, c(99, 2)))
 #' @export
 ts_bind <- function(...){
   ll <- list(...)
-  desired.class <- desired_class(ll)
 
-  ll.dts <- lapply(ll, ts_dts)
-  z <- Reduce(bind_dts, ll.dts)
+  tsboxable <- vapply(ll, ts_boxable, TRUE)
+  desired.class <- desired_class(ll[tsboxable])
+
+  # ll.dts <- lapply(ll, ts_dts)
+  z <- Reduce(bind_two, ll)
   # setorder(z, time, var)
  
   coerce_to_(desired.class)(z)
@@ -59,9 +25,18 @@ ts_bind <- function(...){
 
 
 # Bind two dts objects
-bind_dts <- function(a, b) {
-  a <- copy(a)
-  b <- copy(b)
+bind_two <- function(a, b) {
+  a <- ts_dts(copy(a))
+
+  if (!ts_boxable(b)){
+    # this can be done prettier once rdts are worked out. For now, using 
+    # ts obejcts for regularization
+    stopifnot(is.numeric(b))
+    a.ts <- ts_ts(a)
+    b <- ts(c(a.ts, b), start = start(a.ts), frequency = frequency(a.ts))
+  }
+
+  b <- ts_dts(copy(b))
 
   stopifnot(inherits(a, "dts"), inherits(b, "dts"))
   

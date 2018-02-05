@@ -180,7 +180,7 @@ test_that("conversion produces right classes for quarterly series", {
 test_that("conversion between objects works as expected: austres", {
   
   x.ts <- window(austres, start = c(1975, 3))
-  x.xts <- ts_xts(x.ts, cname = 'austres')
+  x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
   x.tbl <- ts_tbl(x.dt)
