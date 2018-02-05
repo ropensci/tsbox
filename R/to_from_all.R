@@ -33,7 +33,8 @@ desired_class <- function(ll){
     }
     return(z)
   } else {
-    return("data.frame")
+    # first non ts class
+    return(z[z != "ts"])
   }
 }
 

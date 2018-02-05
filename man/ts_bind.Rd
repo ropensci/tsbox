@@ -24,4 +24,5 @@ Bind to or several tsboxable objects
 ts_bind(ts_window(mdeaths, end = "1975-12-01"), fdeaths)
 ts_bind(mdeaths, c(2, 2))
 ts_bind(mdeaths, 3, ts_bind(fdeaths, c(99, 2)))
+ts_bind(ts_dt(mdeaths), AirPassengers)
 }

@@ -215,7 +215,7 @@ test_that("conversion between objects works as expected: austres", {
 test_that("conversion produces right classes for series with NAs", {
   
   irregular_series <- window(AirPassengers, start = c(1951,3) )
-  window(irregular_series, deltat = 1) <- NA
+  window(irregular_series, start = c(1951,4), end = c(1951,4)) <- NA
   
   expect_s3_class(ts_xts(irregular_series), "xts")
   expect_s3_class(ts_ts(irregular_series), "ts")
@@ -251,8 +251,9 @@ test_that("conversion produces right classes for series with NAs", {
 
 test_that("conversion between objects works as expected for series with NAs", {
   
-  x.ts  <- window(AirPassengers, start = c(1951,3) )
-  window(x.ts , deltat = 1) <- NA
+  x.ts <- window(AirPassengers, start = c(1951,3) )
+  window(x.ts, start = c(1951,4), end = c(1951,4)) <- NA
+  
 
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
