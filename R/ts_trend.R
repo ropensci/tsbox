@@ -30,7 +30,8 @@ ts_trend <- function(x, degree = 2, span = NULL){
 
   if (is.null(span)){
     span <- loess_aic_span_optim(x = z[[2]], degree = degree)
-    message(colnames(z), ": 'span' automatically set to ", formatC(span, 3))
+    message("'span' automatically set to ", formatC(span, 3), 
+            ". Set manually to change degree of smoothing")
   }
   
   m <- loess(z[[2]] ~ seq(z[[2]]), span = span, degree = degree)
@@ -51,8 +52,6 @@ ts_trend <- function(x, degree = 2, span = NULL){
 
 
 
-
-
 loess_aic_span_optim <- function(x, degree = 2){
   # aicc of loess obj
   aicc_loess <- function(loess.obj) {
@@ -66,33 +65,6 @@ loess_aic_span_optim <- function(x, degree = 2){
   objfun <- function(span) aicc_loess(loess(x ~ seq(x), span = span, degree = degree))
   span.optim <- optimize(objfun, c(0.05, 0.95))$minimum
 }
-
-
-
-# #' @export
-# #' @rdname ts_pc
-# #' @method ts_trend ts
-# ts_trend.ts <- function(x, ...){
-#   ts_ts(ts_trend(ts_xts(x), ...))
-# }
-
-
-
-# #' @export
-# #' @rdname ts_pc
-# #' @method ts_trend data.frame
-# ts_trend.data.frame <- function(x, ...){
-#   ts_df(ts_trend(ts_xts(x), ...))
-# }
-
-
-# #' @export
-# #' @rdname ts_pc
-# #' @method ts_trend data.table
-# ts_trend.data.table <- function(x, ...){
-#   ts_dt(ts_trend(ts_xts(x), ...))
-# }
-
 
 
 

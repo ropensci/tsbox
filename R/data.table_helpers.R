@@ -22,3 +22,4 @@ change_class.data.table <- function(dt, col, operator = "as.POSIXct"){
   z <- dt[, eval(qq)]
   return(z)
 }
+

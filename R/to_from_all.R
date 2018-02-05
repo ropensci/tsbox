@@ -1,3 +1,6 @@
+# helper functions for converters
+# (need to be adjusted if new classes are added)
+
 
 #' Universal Converter Function
 #' 
@@ -57,7 +60,8 @@ relevant_class <- function(x){
 #' @export
 ts_reclass <- function(z, x){
 
-  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tbl", "dts")
+  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", 
+                         "tbl_df", "tbl", "dts")
 
   if (!class(z)[1] %in% supported.classes){
     if (inherits(x, "ts")){
@@ -67,7 +71,8 @@ ts_reclass <- function(z, x){
       x.ts <- ts_ts(x)
       z <- ts(z)
       tsp(z) <- tsp(x.ts)
-      coerce_to_(relevant_class(x))(z)
+      z
+      # coerce_to_(relevant_class(x))(z)
       # stop("No reclass for object of class: ", paste(class(z), collapse = ","))
     }
   }

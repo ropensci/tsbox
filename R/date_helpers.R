@@ -1,11 +1,13 @@
-
-# x <- as.POSIXct(index(rbind(ts_xts(AirPassengers), ts_xts(mdeaths))))
-
-# stopifnot(inherits(x, "POSIXct"))
-# dd <- diff(as.integer(x))
-
-# 3 * median(dd)
-
+as_time_or_date <- function(x){
+  if (inherits(x, "Date")) {
+    return(x)
+  }
+  if (inherits(x, "POSIXct")) {
+    return(x)
+  }
+  # We want to return a date unless its really a time
+  anydate(as.character(x))
+}
 
 check_regularity <- function(x){
 
@@ -19,5 +21,3 @@ check_regularity <- function(x){
     message("series seem not to be completely equally spaced, but may be still ok for ts conversion.")
   }
 }
-
-

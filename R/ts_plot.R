@@ -49,7 +49,7 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
   x <- ts_dts(ts_c(...))
 
   # only a single id col
-  x <- combine_cols(x)
+  x <- combine_id_cols(x)
 
   if (missing("title")){
     has.title <- FALSE

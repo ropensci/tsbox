@@ -22,7 +22,6 @@ ts_window <- function(x, start = NULL, end = NULL, extend = FALSE){
     z <- filter_data.table(z, time.var, "<=", anytime(end))
   } 
 
-
   # 3. and reclass
   z <- ts_reclass(z, x)
 
