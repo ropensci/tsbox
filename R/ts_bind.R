@@ -5,13 +5,19 @@
 #' rates.
 #' 
 #' @param ... one or several tsboxable time series
+#' @examples
+#' ts_bind(ts_window(mdeaths, end = "1975-12-01"), fdeaths)
+#' ts_bind(mdeaths, c(2, 2))
+#' ts_bind(mdeaths, 3, ts_bind(fdeaths, c(99, 2)))
 #' @export
 ts_bind <- function(...){
   ll <- list(...)
-  desired.class <- desired_class(ll)
 
-  ll.dts <- lapply(ll, ts_dts)
-  z <- Reduce(bind_dts, ll.dts)
+  tsboxable <- vapply(ll, ts_boxable, TRUE)
+  desired.class <- desired_class(ll[tsboxable])
+
+  # ll.dts <- lapply(ll, ts_dts)
+  z <- Reduce(bind_two, ll)
   # setorder(z, time, var)
  
   coerce_to_(desired.class)(z)
@@ -19,9 +25,18 @@ ts_bind <- function(...){
 
 
 # Bind two dts objects
-bind_dts <- function(a, b) {
-  a <- copy(a)
-  b <- copy(b)
+bind_two <- function(a, b) {
+  a <- ts_dts(copy(a))
+
+  if (!ts_boxable(b)){
+    # this can be done prettier once rdts are worked out. For now, using 
+    # ts obejcts for regularization
+    stopifnot(is.numeric(b))
+    a.ts <- ts_ts(a)
+    b <- ts(c(a.ts, b), start = start(a.ts), frequency = frequency(a.ts))
+  }
+
+  b <- ts_dts(copy(b))
 
   stopifnot(inherits(a, "dts"), inherits(b, "dts"))
   

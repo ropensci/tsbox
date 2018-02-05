@@ -62,7 +62,8 @@ relevant_class <- function(x){
   }
   if (inherits(x, "tslist")){
     return("tslist")
-  }
+  }  
+  stop("not a ts_boxable object.")
 }
 
 #' Reclass an object to a ts-boxable series
