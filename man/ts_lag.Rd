@@ -4,11 +4,23 @@
 \alias{ts_lag}
 \alias{ts_lag}
 \alias{ts_pc}
+\alias{ts_lag}
+\alias{ts_pcy}
+\alias{ts_lag}
+\alias{ts_diff}
+\alias{ts_lag}
+\alias{ts_diffy}
 \title{Lags, Differences, Percentage Change Rates}
 \usage{
 ts_lag(x, lag = 1, fill = NA)
 
 ts_pc(x, ...)
+
+ts_pcy(x, ...)
+
+ts_diff(x, ...)
+
+ts_diffy(x, ...)
 }
 \arguments{
 \item{x}{a ts_boxable object}
@@ -16,6 +28,8 @@ ts_pc(x, ...)
 \item{lag}{defined as in dplyr, opposite to R base}
 
 \item{fill}{how to fill missing values}
+
+\item{...}{additional arguments, passed to subfunctions}
 }
 \description{
 Lags, Differences, Percentage Change Rates

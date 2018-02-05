@@ -12,18 +12,16 @@ load_suggested <- function(pkg){
 #' @param f function, to be made available to all time series classes
 #' @param class class that the function uses as its first argument
 #' @param vectorize should the function be vectorized? (not yet implemented)
-#' @param postproc a function applied to the return value of `f()`. E.g. 
 #'    `predict()`. (See examples)
-#' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
-#' @param ... arguments passed to underlying functions.
 #' @export
 #' @examples
 #' ts_(rowSums)(ts_c(mdeaths, fdeaths))
 #' ts_plot(mean = ts_(rowMeans)(ts_c(mdeaths, fdeaths)), mdeaths, fdeaths)
-#' ts_(prcomp, predict)(ts_c(mdeaths, fdeaths))
-#' ts_(prcomp, predict, scale = TRUE)(ts_c(mdeaths, fdeaths))
+#' ts_(function(x) predict(prcomp(x)))(ts_c(mdeaths, fdeaths))
+#' ts_(function(x) predict(prcomp(x, scale = TRUE)))(ts_c(mdeaths, fdeaths))
 ts_ <- function(f, class = "ts", vectorize = FALSE) {
-  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", "dts")
+  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", 
+                         "dts")
   stopifnot(class %in% supported.classes)
 
   ts_to_class <- as.name(paste0("ts_", class))
