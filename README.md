@@ -38,6 +38,31 @@ x.dt <- ts_dt(x.df)
 x.tbl <- ts_tbl(x.dt)
 ```
 
+Time series can be stored in `data.frame` like objects, by following the
+convention of column order: 1. *id* column(s), 2. time column, 3. value column.
+By explicit namin of the time colum as `time` and the value column as `value`,
+this can be overwritten. Here is how a `data.frame` with multiple time series
+looks like:
+
+```r
+ts_df(ts_c(fdeaths, mdeaths))
+
+#          id       time value
+# 1   fdeaths 1974-01-01   901
+# 2   fdeaths 1974-02-01   689
+# 3   fdeaths 1974-03-01   827
+# 4   fdeaths 1974-04-01   677
+# 5   fdeaths 1974-05-01   522
+# ...
+# 140 mdeaths 1979-08-01   975
+# 141 mdeaths 1979-09-01   940
+# 142 mdeaths 1979-10-01  1081
+# 143 mdeaths 1979-11-01  1294
+# 144 mdeaths 1979-12-01  1341
+```
+
+
+
 ### Use same functions for ts, xts, data.frame, data.table or tibble
 
 All functions start with `ts`, so you use them with auto complete (press Tab).
@@ -64,8 +89,8 @@ ts_forecast_mean(mdeaths)  # ets forecast
 ts_c(ts_dt(EuStockMarkets), AirPassengers)
 ts_c(EuStockMarkets, mdeaths)
 
-ts_rbind(ts_dt(mdeaths), AirPassengers)
-ts_rbind(ts_xts(AirPassengers), ts_tbl(mdeaths))
+ts_bind(ts_dt(mdeaths), AirPassengers)
+ts_bind(ts_xts(AirPassengers), ts_tbl(mdeaths))
 ```
 
 ### And plot just about everything
@@ -147,14 +172,13 @@ conceptualization, please let me know.
 
 #### Bind
 
-    ts_c        # vertically
-    ts_rbind    # horizontally
+    ts_c        # collect time series as multiple time series
+    ts_bind     # combine time series to a new, single time series
 
-#### Filter and Select
+#### Filter and Align
 
     ts_window
     ts_align
-    ts_select
 
 #### Transform
 

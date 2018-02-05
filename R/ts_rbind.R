@@ -1,75 +1,103 @@
-# x <- ts_xts(AirPassengers)
-# x <- x[-3]
-# ll <- ts_rbind(ts_window(AirPassengers, start = "1950-01-01"), ts_window(AirPassengers, end = "1949-12-01"))
-# ll <- ts_rbind(mdeaths, AirPassengers)
-# ll <- list(ts_window(AirPassengers, start = "1950-01-01"), 22, ts_window(AirPassengers, end = "1949-12-01"))
+# ts_chain and ts_bind should be described on the same page
 
+#' Bind to or several tsboxable objects, chaining them together where the first
+#' series ends.
+#' 
 #' @rdname ts_c
 #' @export
-ts_rbind <- function(...){
-
+ts_chain <- function(...){
   ll <- list(...)
+  desired.class <- desired_class(ll)
 
-  if (length(ll) == 1) return(ll[[1]])
+  ll.dts <- lapply(ll, ts_dts)
 
-  boxable <- ts_boxable(ll)
-
-  desired.class <- desired_class(ll[boxable])
-
-  ll.dts <- ll
-  ll.dts[boxable] <- lapply(ll[boxable], ts_dts)
-
-  ll.varnames <- lapply(ll.dts, ts_varnames)
-
-  vname <- ll.varnames[[1]]
-
-  nc <- vapply(ll.dts, ts_nvar, 1L)
-  if (length(unique(nc)) != 1){
-    stop("Number of variables must be unique but is instead: ", paste(nc, collapse = ", "), call. = FALSE)
-  }
-
-  if ((length(vname) > 1) && !all(vapply(ll.varnames, function(e) identical(e, ll.varnames[[1]]), FALSE))){
-    stop("Variable names in objects differ. Use ts_set_names() to rename.")
-  }
-
-  call.names <- lapply(substitute(placeholderFunction(...))[-1], deparse)
-  vname <- unlist(relevant_names(call.names[1], list = ll.dts[1]))
-  # vname <- vnames[[1]]
+  stopifnot(ts_nvar(ll[[1]]) == 1)
+  z <- Reduce(chain_dts, ll.dts) 
+  coerce_to_(desired.class)(z)
+}
 
 
-  z <- ll.dts[[1]]
+first_true <- function(x){
+  which(cumsum(as.integer(x)) == 1L)[1]
+}
 
-  time.name <- colnames(z)[1]
-  time.class <- class(z[[1]])[1]
-  ind0 <- ll.dts[[1]][[1]]
+chain_dts <- function(new, old){
+  stopifnot(inherits(old, "dts"), inherits(new, "dts"))
 
-  for (i in 2:length(ll.dts)){
-    indi <- ll.dts[[i]][[1]]
-    dup <- indi %in% ind0
-    if (any(dup)) {
-      message("duplicate timestamps removed in: ", call.names[[i]])
-    }
+  old < ts_na_omit(old)
+  new < ts_na_omit(new)
 
-    z1 <- ll.dts[[i]][!dup]
+  # overlapping time span
+  dup <- old[[1]] %in% new[[1]] 
 
-    if (class(z1[[1]])[1] != time.class){
-      if (time.class == "Date") as_fun <- as.Date
-      if (time.class == "POSIXct") as_fun <- as.POSIXct
-      z1[[1]] <- as_fun(z1[[1]])
-    }
+  # first observation of overlapping span
+  pos <- first_true(dup)
+  anchor <- new[[2]][1]
 
-    z1 <- ts_set_names(z1, vname)
+  retro <- old[1:pos]
+  retro[[2]] <- retro[[2]] / retro[[2]][pos] * anchor
 
-    z <- rbind(z,  rm_dts_class(z1))
-    ind0 <- z[[1]]
-  }
+  ts_bind(new[-1], retro)
+}
 
-  setorder(z, time, var)
+
+
+#' Bind to or several tsboxable objects
+#' 
+#' @rdname ts_c
+#' @export
+ts_bind <- function(...){
+  ll <- list(...)
+  desired.class <- desired_class(ll)
+
+  ll.dts <- lapply(ll, ts_dts)
+  z <- Reduce(bind_dts, ll.dts)
+  # setorder(z, time, var)
  
   coerce_to_(desired.class)(z)
+}
 
 
+# Bind two dts objects
+bind_dts <- function(a, b) {
+  a <- copy(a)
+  b <- copy(b)
 
+  stopifnot(inherits(a, "dts"), inherits(b, "dts"))
+  
+  colname.value <- colname_value(a) 
+  colname.time <- colname_time(a) 
+  colname.id <- colname_id(a) 
+
+  # temporary, rename back at the end
+  setnames(a, colname.time, "time")
+  setnames(b, colname_time(b), "time")
+
+  setnames(a, colname.value, "value")
+  setnames(b, colname.value, "value_b")
+
+  if (!identical(colname.id, colname_id(b))) {
+    stop(
+      "Series do not have the same ids: ", 
+      paste(colname.id, collapse = ", "), 
+      "and", 
+      paste(colname_id(b), collapse = ", ")
+    )
+  }
+
+  z <- merge(a, b, by = c(colname.id, colname.time), all = TRUE)
+  # remove key added by merge
+  setkey(z, NULL)
+  z <- z[is.na(value), value := value_b]
+  z[, value_b := NULL]
+
+  # canonical col order
+  setcolorder(z, c(setdiff(names(z), c("time", "value")), c("time", "value")))
+  
+  setnames(z, "time", colname.time)
+  setnames(z, "value", colname.value)
+  z[]
+ 
 }
 
 

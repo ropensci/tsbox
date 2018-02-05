@@ -2,7 +2,9 @@
 # not sure if we need this as S3
 
 ts_apply_dts <- function(x, FUN, ...){
-  x[, value := FUN(value, ...) ,by = var]
+  colname.id <- colname_id(x)
+  .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+  x[, value := FUN(value, ...) , by = eval(.by)]
   x
 }
 

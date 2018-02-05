@@ -12,7 +12,15 @@ ts_lag <- function(x, lag = 1, fill = NA){
     type <- "lag"
   }
 
-  z[, value := shift(value, n = lag, fill = fill, type = type, give.names = FALSE), by = var]
+  colname.id <- colname_id(z)
+  .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+
+  # do not use ts_apply here, to take advantage of data.table speed
+  z[, 
+    value := shift(value, n = lag, fill = fill, type = type, give.names = FALSE), 
+    by = eval(.by)
+  ]
+
   ts_reclass(z, x)
 }
 

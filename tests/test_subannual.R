@@ -40,7 +40,7 @@ test_that("conversion produces right classes for monthly series", {
 
 test_that("conversion between objects works as expected for monthly series", {
   x.ts <- window(AirPassengers, start = c(1949, 5))
-  x.xts <- ts_xts(x.ts, cname = 'AirPassengers')
+  x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
   x.tbl <- ts_tbl(x.dt)
@@ -50,22 +50,22 @@ test_that("conversion between objects works as expected for monthly series", {
   expect_equal(ts_ts(ts_dt(x.ts)), x.ts)
   expect_equal(ts_ts(ts_tbl(x.ts)), x.ts)
   
-  expect_equal(ts_xts(ts_ts(x.xts), cname = "AirPassengers"), x.xts)
+  expect_equal(ts_xts(ts_ts(x.xts)), x.xts)
   expect_equal(ts_xts(ts_df(x.xts)), x.xts)
   expect_equal(ts_xts(ts_dt(x.xts)), x.xts)
   expect_equal(ts_xts(ts_tbl(x.xts)), x.xts)
   
-  expect_equal(ts_df(ts_ts(x.df), cname = "AirPassengers"), x.df)
+  expect_equal(ts_df(ts_ts(x.df)), x.df)
   expect_equal(ts_df(ts_xts(x.df)), x.df)
   expect_equal(ts_df(ts_dt(x.df)), x.df)
   expect_equal(ts_df(ts_tbl(x.df)), x.df)
   
-  expect_equal(ts_dt(ts_ts(x.dt), cname = "AirPassengers"), x.dt)
+  expect_equal(ts_dt(ts_ts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_xts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_df(x.dt)), x.dt)
   expect_equal(ts_dt(ts_tbl(x.dt)), x.dt)
   
-  expect_equal(ts_tbl(ts_ts(x.tbl), cname = "AirPassengers"), x.tbl)
+  expect_equal(ts_tbl(ts_ts(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_xts(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_df(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)
@@ -190,22 +190,22 @@ test_that("conversion between objects works as expected: austres", {
   expect_equal(ts_ts(ts_dt(x.ts)), x.ts)
   expect_equal(ts_ts(ts_tbl(x.ts)), x.ts)
   
-  expect_equal(ts_xts(ts_ts(x.xts), cname = "austres"), x.xts)
+  expect_equal(ts_xts(ts_ts(x.xts)), x.xts)
   expect_equal(ts_xts(ts_df(x.xts)), x.xts)
   expect_equal(ts_xts(ts_dt(x.xts)), x.xts)
   expect_equal(ts_xts(ts_tbl(x.xts)), x.xts)
   
-  expect_equal(ts_df(ts_ts(x.df), cname = "austres"), x.df)
+  expect_equal(ts_df(ts_ts(x.df)), x.df)
   expect_equal(ts_df(ts_xts(x.df)), x.df)
   expect_equal(ts_df(ts_dt(x.df)), x.df)
   expect_equal(ts_df(ts_tbl(x.df)), x.df)
   
-  expect_equal(ts_dt(ts_ts(x.dt), cname = "austres"), x.dt)
+  expect_equal(ts_dt(ts_ts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_xts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_df(x.dt)), x.dt)
   expect_equal(ts_dt(ts_tbl(x.dt)), x.dt)
   
-  expect_equal(ts_tbl(ts_ts(x.tbl), cname = "austres"), x.tbl)
+  expect_equal(ts_tbl(ts_ts(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_xts(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_df(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)
@@ -254,7 +254,7 @@ test_that("conversion between objects works as expected for series with NAs", {
   x.ts  <- window(AirPassengers, start = c(1951,3) )
   window(x.ts , deltat = 1) <- NA
 
-  x.xts <- ts_xts(x.ts, cname = 'AirPassengers')
+  x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
   x.tbl <- ts_tbl(x.dt)
@@ -264,22 +264,22 @@ test_that("conversion between objects works as expected for series with NAs", {
   expect_equal(ts_ts(ts_dt(x.ts)), x.ts)
   expect_equal(ts_ts(ts_tbl(x.ts)), x.ts)
   
-  expect_equal(ts_xts(ts_ts(x.xts), cname = "AirPassengers"), x.xts)
+  expect_equal(ts_xts(ts_ts(x.xts)), x.xts)
   expect_equal(ts_xts(ts_df(x.xts)), x.xts)
   expect_equal(ts_xts(ts_dt(x.xts)), x.xts)
   expect_equal(ts_xts(ts_tbl(x.xts)), x.xts)
   
-  expect_equal(ts_df(ts_ts(x.df), cname = "AirPassengers"), x.df)
+  expect_equal(ts_df(ts_ts(x.df)), x.df)
   expect_equal(ts_df(ts_xts(x.df)), x.df)
   expect_equal(ts_df(ts_dt(x.df)), x.df)
   expect_equal(ts_df(ts_tbl(x.df)), x.df)
   
-  expect_equal(ts_dt(ts_ts(x.dt), cname = "AirPassengers"), x.dt)
+  expect_equal(ts_dt(ts_ts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_xts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_df(x.dt)), x.dt)
   expect_equal(ts_dt(ts_tbl(x.dt)), x.dt)
   
-  expect_equal(ts_tbl(ts_ts(x.tbl), cname = "AirPassengers"), x.tbl)
+  expect_equal(ts_tbl(ts_ts(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_xts(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_df(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)

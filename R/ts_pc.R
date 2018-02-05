@@ -1,4 +1,7 @@
 
+# TODO rewrite, usign ts_ 
+
+
 # just an alias, but we could do more here
 # tsfill <- function(x){
 #   na.approx(x)

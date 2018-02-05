@@ -3,33 +3,41 @@
 \name{ts_c}
 \alias{ts_c}
 \alias{ts_chain}
-\alias{ts_rbind}
+\alias{ts_chain}
+\alias{ts_bind}
 \title{Bind any time series vertically or horizontally}
 \usage{
 ts_c(...)
 
 ts_chain(...)
 
-ts_rbind(...)
+ts_chain(...)
+
+ts_bind(...)
 }
 \arguments{
 \item{...}{time series objects, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 }
 \description{
 Bind any time series vertically or horizontally
+
+Bind to or several tsboxable objects, chaining them together where the first
+series ends.
+
+Bind to or several tsboxable objects
 }
 \examples{
 
 ts_c(ts_df(EuStockMarkets), AirPassengers)
-ts_c(EuStockMarkets, mdeaths)
+a <- ts_c(EuStockMarkets, mdeaths)
 
 # labelling:
 ts_c(`International Airline Passengers` = ts_xts(AirPassengers), 
        `Deaths from Lung Diseases` = ldeaths)
 
-ts_c(a = ts_df(mdeaths), AirPassengers)
-ts_rbind(ts_xts(AirPassengers), mdeaths)
+ts_c(a = mdeaths, AirPassengers)
+ts_bind(ts_xts(AirPassengers), mdeaths)
 ts_c(ts_dt(EuStockMarkets), AirPassengers)
-ts_select(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX']), 'mdeaths')
+ts_bind(ts_dt(mdeaths), AirPassengers)
 
 }

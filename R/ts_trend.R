@@ -23,14 +23,14 @@ ts_trend <- function(x, degree = 2, span = NULL){
 
   z <- ts_dts(x)
 
-  if (ts_nvar(z) > 1){
+  if (number_of_series(z) > 1){
     stop("vectorization needs to redone. Run on single series only for the moment.")
     # return(ts_reclass(ts_apply_dts_SD(z, ts_trend, degree = 2, span = span), x))
   }
 
   if (is.null(span)){
     span <- loess_aic_span_optim(x = z[[2]], degree = degree)
-    message(ts_varnames(z), ": 'span' automatically set to ", formatC(span, 3))
+    message(colnames(z), ": 'span' automatically set to ", formatC(span, 3))
   }
   
   m <- loess(z[[2]] ~ seq(z[[2]]), span = span, degree = degree)

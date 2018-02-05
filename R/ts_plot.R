@@ -48,6 +48,9 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
 
   x <- ts_dts(ts_c(...))
 
+  # only a single id col
+  x <- combine_cols(x)
+
   if (missing("title")){
     has.title <- FALSE
   } else {
@@ -75,7 +78,7 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
   col.lab <- axis.text.col
 
   # c(bottom, left, top, right)
-  if (ts_nvar(x) > 1){
+  if (number_of_series(x) > 1){
     has.legend <- TRUE
   } else{
     has.legend <- FALSE
@@ -119,7 +122,7 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
           cex = cex, side = 3, line = shift, adj = 0, col = text.col) 
   }
 
-  tind <- as.POSIXct(x[[1]])
+  tind <- as.POSIXct(x[[ncol(x) -1]])
   tnum <- as.numeric(tind)
 
   xlim <- range(tnum)
@@ -128,13 +131,23 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
   xticks <- pretty(tind)
   xlabels <- format(xticks, "%Y")
 
-  col <- colors_tsbox()[1:ts_nvar(x)]
+  col <- colors_tsbox()[1:number_of_series(x)]
 
-  cnames <- ts_varnames(x)
-  
+  colname.id <- colname_id(x)
+  colname.time <- colname_time(x)
+  colname.value <- colname_value(x)
+
+  # Lines
+  if (length(colname.id) == 0){
+    x$id <- "dummy"
+    colname.id <- "id"
+    setcolorder(x, c("id", colname.time, colname.value))
+  }
+  ids <- unique(x[[colname.id]])
+
   if (has.legend){
     legend("bottomleft", 
-        legend = cnames, horiz = TRUE, 
+        legend = ids, horiz = TRUE, 
         bty = "n", lty = 1, lwd = lwd, col = col, cex = cex, adj = 0, text.col = text.col)
 
   }
@@ -159,14 +172,12 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
   # Gridlines
   abline(h = axTicks(2), v = xticks, col = "grey80", lty = "dotted", lwd = 0.5)
 
-  # Lines
-  all.vars <- ts_varnames(x)
-  for (i in seq(all.vars)){
-    vari <- all.vars[i]
-    cd <- x[var == vari]
+  for (i in seq(ids)){
+    idi <- ids[i]
+    cd <- x[id == idi]
     cd <- cd[!is.na(value)]
     lines(y = cd[, value], 
-        x = as.numeric(as.POSIXct(cd[[1]])), col = col[i], lwd = lwd)
+        x = as.numeric(as.POSIXct(cd[[2]])), col = col[i], lwd = lwd)
   }
 
   cl <- match.call()
