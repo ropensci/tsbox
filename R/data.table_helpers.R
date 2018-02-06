@@ -11,7 +11,8 @@ combine_cols_data.table <- function(dt, cols){
   qq.str <- paste0("id := paste(",  paste(cols, collapse = ", "), ", sep = '_')")
   qq <- parse(text = qq.str)
   z <- dt[, eval(qq)]
-  z[, (setdiff(cols, "id")) := NULL]  # but this is the right way to do it
+  z[, (setdiff(cols, "id")) := NULL]  # but this is the right way to do it  
+  setcolorder(z, c("id", setdiff(names(z), "id")))
   z[]
 }
 

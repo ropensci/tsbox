@@ -35,6 +35,8 @@ guess_time <- function(x, value.name = "value"){
   if (is.na(z)){
     stop("No time column detected. To be explict, name time column as 'time'.")
   }
+
+  if (z != "time") message("time column: ", z)
   z
 }
 
@@ -53,6 +55,8 @@ guess_value <- function(x){
   if (is.na(z)){
     stop("No value column detected. To be explict, name value column as 'value'.")
   }
+  if (z != "value") message("value column: ", z)
+
   z
 }
 

@@ -43,9 +43,9 @@ wide_core <- function(x) {
   # no multi id 
   stopifnot(ncol(x) == 3)
 
-  value.name <- colnames(x)[3]
-  time.name <- colnames(x)[2]
-  id.name <- colnames(x)[1]
+  value.name <- colname_value(x)
+  time.name <- colname_time(x)
+  id.name <- colname_id(x)
 
   z <- dcast(x, as.formula(paste(time.name, "~", id.name)), 
              value.var = value.name)
