@@ -13,12 +13,12 @@
 # }
 
 # > system.time(ts_union_old(dt_rg_gmd_agg))
-#    user  system elapsed 
-#   0.655   0.013   0.670 
-# > 
+#    user  system elapsed
+#   0.655   0.013   0.670
+# >
 # > system.time(ts_union(dt_rg_gmd_agg))
-#    user  system elapsed 
-#   0.311   0.013   0.213 
+#    user  system elapsed
+#   0.311   0.013   0.213
 
 
 
@@ -26,8 +26,7 @@
 #' @param x any time series object
 #' @param fill missign value specifier
 #' @export
-ts_union <- function(x, fill = NA){
-
+ts_union <- function(x, fill = NA) {
   k <- NULL
   value <- NULL
 
@@ -35,15 +34,15 @@ ts_union <- function(x, fill = NA){
 
   if (number_of_series(x1) == 1) return(x)
 
-  # colname.value <- colname_value(x1) 
-  colname.time <- colname_time(x1) 
-  colname.id <- colname_id(x1) 
+  # colname.value <- colname_value(x1)
+  colname.time <- colname_time(x1)
+  colname.id <- colname_id(x1)
 
   full.time <- unique(x1[, colname.time, with = FALSE])
 
   # all vars in the data
   full.var <- unique(x1[, colname.id, with = FALSE])
-  full.var[, k := 1]  # dummy merge variable
+  full.var[, k := 1] # dummy merge variable
   full.time[, k := 1]
 
   full.frame <- merge(full.var, full.time, by = "k", allow.cartesian = TRUE)
@@ -52,10 +51,9 @@ ts_union <- function(x, fill = NA){
   z <- merge(full.frame, x1, by = colnames(full.frame), all.x = TRUE)
 
   # this also overwrites existing NAs
-  if (!is.na(fill)){
+  if (!is.na(fill)) {
     z[is.na(value), value := fill]
   }
 
   ts_reclass(z, x)
-
 }

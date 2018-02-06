@@ -1,6 +1,6 @@
 # to ---------------------------------------------------------------------------
 
-ts_tslist_dts <- function(x){
+ts_tslist_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
   if (number_of_series(x) == 1) {
     z <- ts_ts(x)
@@ -18,7 +18,7 @@ ts_tslist_dts <- function(x){
 
 #' @export
 #' @method ts_dts xts
-ts_dts.tslist <- function(x){
+ts_dts.tslist <- function(x) {
   ts_dts(rbindlist(lapply(x, ts_dts), idcol = "id"))
 }
 
@@ -27,7 +27,7 @@ ts_dts.tslist <- function(x){
 
 #' @name ts_ts
 #' @export
-ts_tslist <- function(x){
+ts_tslist <- function(x) {
   stopifnot(ts_boxable(x))
   if (relevant_class(x) == "tslist") return(x)
   ts_tslist_dts(ts_dts(x))

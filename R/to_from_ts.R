@@ -19,18 +19,17 @@ ts_ts_dts <- function(x) {
 
 #' @export
 #' @method ts_dts ts
-ts_dts.ts <- function(x){
+ts_dts.ts <- function(x) {
   value <- NULL
   stopifnot(inherits(x, "ts"))
   timec <- ts_to_date_time(x)
   m <- as.matrix(x)
   dta <- data.table(m)
   dta[, time := timec]
-  if (ncol(m) == 1){
+  if (ncol(m) == 1) {
     names(dta)[1] <- "value"
     # needs the ts_dts.data.table
     z <- ts_dts(dta[, list(time, value)])
-
   } else {
     z <- long_core(dta)
     z <- ts_na_omit(z)
@@ -42,11 +41,11 @@ ts_dts.ts <- function(x){
 # main converter ---------------------------------------------------------------
 
 #' Convert everything to everything
-#' 
+#'
 #' @param x a time series object, either `ts`, `data.frame`, `data.table`, `tibble` or `xts`.
 #' @examples
 #'
-#' x.ts <- ts_c(mdeaths, fdeaths) 
+#' x.ts <- ts_c(mdeaths, fdeaths)
 #' x.df <- ts_df(x.ts)
 #' x.dt <- ts_dt(x.df)
 #' \dontrun{
@@ -55,16 +54,15 @@ ts_dts.ts <- function(x){
 #' library(dplyr)
 #' x.tbl <- ts_tbl(x.ts)
 #' }
-#' 
+#'
 #' @export
 #' @import data.table
 #' @importFrom anytime anydate anytime
 #' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var prcomp start tsp<-
 #' @importFrom utils browseURL relist
-#' @import data.table 
-ts_ts <- function(x){
+#' @import data.table
+ts_ts <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "ts")  return(x)
+  if (relevant_class(x) == "ts") return(x)
   ts_ts_dts(ts_dts(x))
 }
-

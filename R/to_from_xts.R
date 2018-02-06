@@ -1,7 +1,7 @@
 
 # to ---------------------------------------------------------------------------
 
-ts_xts_dts <- function(x){
+ts_xts_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
   stopifnot(requireNamespace("xts"))
   z <- wide_core(combine_id_cols(x))
@@ -13,7 +13,7 @@ ts_xts_dts <- function(x){
 
 #' @export
 #' @method ts_dts xts
-ts_dts.xts <- function(x){
+ts_dts.xts <- function(x) {
   stopifnot(requireNamespace("xts"))
 
   idx <- attr(x, "index")
@@ -22,15 +22,15 @@ ts_dts.xts <- function(x){
 
   dta <- as.data.frame(x, row.names = FALSE)
 
-  if (tclass[1] == "Date"){
+  if (tclass[1] == "Date") {
     time <- as.Date(as.POSIXct(idx, origin = "1970-01-01"))
-  } else if (tclass[1] == "POSIXct"){
+  } else if (tclass[1] == "POSIXct") {
     time <- as.POSIXct(idx, origin = "1970-01-01")
   }
 
   z <- data.table(time = time, dta)
 
-  if (NCOL(z) == 2){
+  if (NCOL(z) == 2) {
     setnames(z, c("time", "value"))
     z <- ts_dts(z)
   } else {
@@ -44,7 +44,7 @@ ts_dts.xts <- function(x){
 
 #' @name ts_ts
 #' @export
-ts_xts <- function(x){
+ts_xts <- function(x) {
   stopifnot(ts_boxable(x))
   if (relevant_class(x) == "xts") return(x)
   ts_xts_dts(ts_dts(x))

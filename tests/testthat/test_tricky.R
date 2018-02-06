@@ -6,7 +6,7 @@ library(tsbox)
 
 # Major Things
 
-# - [ ] ts_bind, ts_c, binding POSIXct and Data should result in POSIXct, 
+# - [ ] ts_bind, ts_c, binding POSIXct and Data should result in POSIXct,
 #       also should have the same var naming behavior)
 # perhaps this can be done by letting ts_bind calling ts_c
 
@@ -19,12 +19,12 @@ library(tsbox)
 
 # - [ ] reclassing of numeric, matrix output, similar to xts::reclass
 
-    #' @export
-    #' @rdname ts_
-    # ts_scale <- ts_(function(x, ...){
-    #   z <- scale.default(unclass(x), ...)
-    #   xts::reclass(z, x)
-    # }, class = "xts")
+#' @export
+#' @rdname ts_
+# ts_scale <- ts_(function(x, ...){
+#   z <- scale.default(unclass(x), ...)
+#   xts::reclass(z, x)
+# }, class = "xts")
 
 # - [ ] a cleaner ts_ function
 
@@ -43,23 +43,20 @@ context("tricky stuff")
 
 
 test_that("Latest tricky stuff works.", {
-
-
-
-  expect_equal(mdeaths, 
-               ts_ts(subset(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[,'DAX']),
-                            id == "mdeaths"))
-               )
+  expect_equal(
+    mdeaths,
+    ts_ts(subset(
+      ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, "DAX"]),
+      id == "mdeaths"
+    ))
+  )
 
   # names must be unique!!
   a <- ts_dts(ts_c(AirPassengers, AirPassengers))
-  expect_true(length(unique(a[['id']])) == 2)
+  expect_true(length(unique(a[["id"]])) == 2)
 
   # ts_c for ts objects
   expect_is(ts_c(ts_c(fdeaths, mdeaths), AirPassengers), "ts")
-
-
-
 })
 
 
@@ -68,7 +65,6 @@ test_that("Latest tricky stuff works.", {
 
 
 test_that("Some trickier stuff works.", {
-
   expect_s3_class(ts_c(EuStockMarkets, mdeaths, fdeaths), "data.frame")
 
   x <- ts_c(ts_df(ts_c(mdeaths, fdeaths)), AirPassengers)
@@ -85,8 +81,3 @@ test_that("No Invalid .internal.selfref detected.", {
   x <- ts_dts(AirPassengers)
   expect_silent(x[, s := "sdfsd"])
 })
-
-
-
-
-

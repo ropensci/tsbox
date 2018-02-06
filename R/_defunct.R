@@ -1,9 +1,9 @@
 #' @export
-ts_rbind <- function(...){
+ts_rbind <- function(...) {
   .Defunct("ts_bind")
 }
 
 #' @export
-ts_select <- function(...){
+ts_select <- function(...) {
   .Defunct()
 }

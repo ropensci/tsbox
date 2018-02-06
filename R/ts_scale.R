@@ -1,6 +1,6 @@
 
 # since this works on multiple time series, no need to verctorize
-scale_no_attr <- function(x, center = TRUE, scale = TRUE){
+scale_no_attr <- function(x, center = TRUE, scale = TRUE) {
   z <- scale(x = x, center = center, scale = scale)
   attr(z, "scaled:center") <- NULL
   attr(z, "scaled:scale") <- NULL
@@ -8,7 +8,7 @@ scale_no_attr <- function(x, center = TRUE, scale = TRUE){
 }
 
 #' Normalized Time Series
-#' 
+#'
 #' @param x ts_boxable time series
 #' @param ... further arguments
 #' @export

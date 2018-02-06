@@ -1,4 +1,4 @@
-relevant_names <- function(call.names, list){
+relevant_names <- function(call.names, list) {
   stopifnot(inherits(call.names, "list"))
 
 
@@ -6,12 +6,12 @@ relevant_names <- function(call.names, list){
   #   return(NULL)
   # }
 
-  relevant.names <- call.names 
+  relevant.names <- call.names
 
-  for (i in 1:length(call.names)){
+  for (i in 1:length(call.names)) {
     # only do this for single series
-    if (length(call.names[[i]]) == 1){
-      if (is.null(names(call.names)) || names(call.names)[i] == ""){  
+    if (length(call.names[[i]]) == 1) {
+      if (is.null(names(call.names)) || names(call.names)[i] == "") {
 
         # 3. prio: use variable names if nothing else is given
         if (colnames(list[[i]])[1] %in% c("", ".unnamed")) {
@@ -23,7 +23,7 @@ relevant_names <- function(call.names, list){
           # stopifnot(length(cn) == 1)
           relevant.names[[i]] <- cn
         }
-      } else {       
+      } else {
         # 1. prio: always use name for single series if given
         relevant.names[[i]] <- names(call.names)[i]
       }
@@ -36,7 +36,7 @@ relevant_names <- function(call.names, list){
 
 
 #' Bind any time series vertically or horizontally
-#' 
+#'
 #' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @examples
 #'
@@ -44,17 +44,16 @@ relevant_names <- function(call.names, list){
 #' a <- ts_c(EuStockMarkets, mdeaths)
 #'
 #' # labelling:
-#' ts_c(`International Airline Passengers` = ts_xts(AirPassengers), 
+#' ts_c(`International Airline Passengers` = ts_xts(AirPassengers),
 #'        `Deaths from Lung Diseases` = ldeaths)
-#' 
+#'
 #' ts_c(a = mdeaths, AirPassengers)
 #' ts_bind(ts_xts(AirPassengers), mdeaths)
 #' ts_c(ts_dt(EuStockMarkets), AirPassengers)
 #' ts_bind(ts_dt(mdeaths), AirPassengers)
-#' 
+#'
 #' @export
-ts_c <- function(...){
-
+ts_c <- function(...) {
   ll <- list(...)
 
   if (length(ll) == 1) return(ll[[1]])
@@ -68,7 +67,7 @@ ts_c <- function(...){
   # special treatment for ts
   # - speed gain
   # - solves spacing issue for in series NAs
-  if (desired.class == "ts"){
+  if (desired.class == "ts") {
     no.cnames <- vapply(ll, function(e) length(colnames(e)) <= 1, TRUE)
     if (is.null(names(ll))) names(ll) <- call.names
     names(ll)[no.cnames] <- call.names[no.cnames]
@@ -83,7 +82,7 @@ ts_c <- function(...){
   colname.id <- colname_id(ll.dts[[1]])
 
   # In case first element is unnamed series
-  if (length(colname.id) == 0){
+  if (length(colname.id) == 0) {
     colname.id <- "id"
   }
 
@@ -95,8 +94,8 @@ ts_c <- function(...){
       dt$id <- id
       setcolorder(dt, c(3, 1, 2))
       dt
-    }, 
-    dt = ll.dts[is.unnamed], 
+    },
+    dt = ll.dts[is.unnamed],
     id = call.names[is.unnamed]
   )
 
@@ -105,27 +104,26 @@ ts_c <- function(...){
   if (length(unique(lapply(ll.dts, colname_id))) > 1) {
     stop("id dimensions must be the same for all elements.")
   }
-  
+
   ll.dts <- unify_time_class(ll.dts)
 
   z <- rbindlist(ll.dts)
 
   z <- try(coerce_to_(desired.class)(z))
 
-  if (inherits(z, "try-error")){
+  if (inherits(z, "try-error")) {
     message("Cannot coerce output to class '", class, "', returning data.frame.")
     z <- ts_df(z)
   }
   z
-
 }
 
 
 # ll <- ll.dts
-unify_time_class <- function(ll){
+unify_time_class <- function(ll) {
   cl <- vapply(ll, function(e) class(e[[2]])[1], "")
   if (length(unique(cl)) > 1) {
-    ll[cl == "Date"] <-  lapply(ll[cl == "Date"], function(e) change_class.data.table(e, colnames(e)[2], "as.POSIXct"))
+    ll[cl == "Date"] <- lapply(ll[cl == "Date"], function(e) change_class.data.table(e, colnames(e)[2], "as.POSIXct"))
   }
   ll
 }
@@ -146,4 +144,3 @@ unify_time_class <- function(ll){
 #   z <- rbindlist(ll)
 #   add_dts_class(z)
 # }
-

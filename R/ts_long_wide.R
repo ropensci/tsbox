@@ -1,14 +1,14 @@
 #' Reshaping Multiple Time Series
-#' 
+#'
 #' Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
 #' Note that long format data frames are ts-boxable objects, where wide format data
 #' frames are not.
-#' 
-#' @param x a ts-boxable time series object, or a wide `data.frame`, 
+#'
+#' @param x a ts-boxable time series object, or a wide `data.frame`,
 #' `data.table`, or `tibble`.
-#' 
+#'
 #' @return object with the same class as input
-#' 
+#'
 #' df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
 #' ts_ts(ts_long(df.wide))
 #' @export
@@ -20,7 +20,7 @@ ts_long <- function(x) {
 }
 
 # core function is also used by ts_dts.ts and ts_dts.xts
-long_core <- function(x){
+long_core <- function(x) {
   stopifnot(inherits(x, "data.table"))
   time.name <- guess_time(x)
   z <- melt(x, id.vars = time.name, variable.name = "id", variable.factor = FALSE)
@@ -29,7 +29,7 @@ long_core <- function(x){
 
 #' @export
 #' @name ts_long
-ts_wide <- function(x){
+ts_wide <- function(x) {
   x.dts <- combine_id_cols(ts_dts(x))
   z <- wide_core(x.dts)
   # reclass
@@ -39,19 +39,19 @@ ts_wide <- function(x){
 
 wide_core <- function(x) {
   stopifnot(inherits(x, "dts"))
-  if (ncol(x) == 2) return(x)  # nothing to do
-  # no multi id 
+  if (ncol(x) == 2) return(x) # nothing to do
+  # no multi id
   stopifnot(ncol(x) == 3)
 
   value.name <- colname_value(x)
   time.name <- colname_time(x)
   id.name <- colname_id(x)
 
-  z <- dcast(x, as.formula(paste(time.name, "~", id.name)), 
-             value.var = value.name)
+  z <- dcast(
+    x, as.formula(paste(time.name, "~", id.name)),
+    value.var = value.name
+  )
   # keep order as in input
   setcolorder(z, c(time.name, unique(as.character(x[[id.name]]))))
   z
 }
-
-

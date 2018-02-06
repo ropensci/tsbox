@@ -6,7 +6,7 @@
 #' @param end end date, string, Date or POSIXct
 #' @param extend logical. If true, the start and end values are allowed to extend the series.
 #' @export
-ts_window <- function(x, start = NULL, end = NULL, extend = FALSE){
+ts_window <- function(x, start = NULL, end = NULL, extend = FALSE) {
 
   # TODO fast track for ts objects, if start and end are numeric
 
@@ -15,12 +15,12 @@ ts_window <- function(x, start = NULL, end = NULL, extend = FALSE){
 
   # 2. Call specific function
   time.var <- colnames(z)[1]
-  if (!is.null(start)){
+  if (!is.null(start)) {
     z <- filter_data.table(z, time.var, ">=", anytime(start))
   }
-  if (!is.null(end)){
+  if (!is.null(end)) {
     z <- filter_data.table(z, time.var, "<=", anytime(end))
-  } 
+  }
 
   # 3. and reclass
   z <- ts_reclass(z, x)
@@ -28,12 +28,12 @@ ts_window <- function(x, start = NULL, end = NULL, extend = FALSE){
   # if (extend){
   #   z <- ts_union(z)
   # }
- 
+
   z
 }
 
 
-ts_range <- function(x){
+ts_range <- function(x) {
   range(ts_dts(x)[[1]])
 }
 
@@ -44,12 +44,9 @@ ts_range <- function(x){
 #' @export
 #' @examples
 #' ts_align(mdeaths, ts_window(fdeaths, end = "1977-01-01"))
-ts_align <- function(x, with){
+ts_align <- function(x, with) {
   stopifnot(ts_boxable(x), ts_boxable(with))
   rng <- ts_range(with)
   z <- ts_window(x, start = rng[1], end = rng[2])
   ts_union(z)
 }
-
-
-

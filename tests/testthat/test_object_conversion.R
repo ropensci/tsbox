@@ -40,12 +40,10 @@ test_that("conversion produces right classes", {
   expect_s3_class(ts_df(ts_tslist(ts_c(mdeaths, AirPassengers))), "data.frame")
   expect_s3_class(ts_dt(ts_tslist(ts_c(mdeaths, AirPassengers))), "data.table")
   expect_s3_class(ts_tbl(ts_tslist(ts_c(mdeaths, AirPassengers))), "tbl_df")
-
 })
 
 
 test_that("conversion between objects works as expected: ldeaths", {
-
   x.ts <- ts_c(mdeaths, fdeaths)
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
@@ -76,12 +74,10 @@ test_that("conversion between objects works as expected: ldeaths", {
   expect_equal(ts_tbl(ts_xts(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_df(x.tbl)), x.tbl)
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)
-
 })
 
 
 test_that("conversion between objects works as expected: discoveries", {
-
   x.ts <- discoveries
   x.xts <- ts_xts(discoveries)
   x.df <- ts_df(x.xts)
@@ -98,21 +94,19 @@ test_that("conversion between objects works as expected: discoveries", {
   expect_equal(ts_xts(ts_dt(x.xts)), x.xts)
   expect_equal(ts_xts(ts_tbl(x.xts)), x.xts)
 
-  expect_equal(ts_df(ts_ts(x.df)), x.df)  
+  expect_equal(ts_df(ts_ts(x.df)), x.df)
   expect_equal(ts_df(ts_xts(x.df)), x.df)
   expect_equal(ts_df(ts_dt(x.df)), x.df)
   expect_equal(ts_dt(ts_tbl(x.dt)), x.dt)
 
-  expect_equal(ts_dt(ts_ts(x.dt)), x.dt)   
+  expect_equal(ts_dt(ts_ts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_xts(x.dt)), x.dt)
   expect_equal(ts_dt(ts_df(x.dt)), x.dt)
   expect_equal(ts_tbl(ts_dt(x.tbl)), x.tbl)
-
 })
 
 
 test_that("conversion between objects works as expected: EuStockMarkets", {
-
   x.ts <- EuStockMarkets
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
@@ -156,7 +150,6 @@ test_that("some trickier situations work properly", {
 
   # this is a tricky one: a function to detect NAs?
   # ts_rbind(AirPassengers, mdeaths)
-
 })
 
 
@@ -167,10 +160,8 @@ test_that("2 colum data.frames work as expected", {
 
 
 test_that("selecting and binding works as expected", {
-
   dta <- ts_df(ts_c(mdeaths, fdeaths))
-  expect_equal(mdeaths, ts_ts(subset(dta, id == 'mdeaths', select = -id)))
-
+  expect_equal(mdeaths, ts_ts(subset(dta, id == "mdeaths", select = -id)))
 })
 
 
@@ -179,20 +170,18 @@ test_that("colname guessing works as expected", {
 
   # 3 cols
   library(dplyr)
-  x.df <- ts_tbl(ts_c(mdeaths, fdeaths)) %>% 
+  x.df <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
     setNames(c("Haha", "Hoho", "Hihi"))
-  
+
   x.dt <- as.data.table(x.df)
-  expect_equal(mdeaths, ts_ts(ts_xts(ts_df(x.df)))[, 'mdeaths'])
-  expect_equal(mdeaths, ts_ts(ts_df(ts_xts(ts_ts(x.dt))))[, 'mdeaths'])
+  expect_equal(mdeaths, ts_ts(ts_xts(ts_df(x.df)))[, "mdeaths"])
+  expect_equal(mdeaths, ts_ts(ts_df(ts_xts(ts_ts(x.dt))))[, "mdeaths"])
 
   # 2 cols
-  x.df <- ts_tbl(AirPassengers) %>% 
+  x.df <- ts_tbl(AirPassengers) %>%
     setNames(c("Haha", "Hoho"))
-  
+
   x.dt <- as.data.table(x.df)
   expect_equal(AirPassengers, ts_ts(ts_xts(ts_df(x.df))))
   expect_equal(AirPassengers, ts_ts(ts_df(ts_xts(ts_ts(x.dt)))))
-
 })
-

@@ -7,7 +7,7 @@
 # - no masking of R base
 
 #' Internal Time Series Class
-#' 
+#'
 #' @param x a tsboxable object
 #' @export
 ts_dts <- function(x) {
@@ -16,7 +16,7 @@ ts_dts <- function(x) {
 
 #' @export
 #' @method ts_dts dts
-ts_dts.dts  <- function(x) {
+ts_dts.dts <- function(x) {
   x
 }
 
@@ -24,5 +24,3 @@ ts_dts.dts  <- function(x) {
 #   z <- data.table(time = time, value = x, var = var)
 #   add_dts_class(z)
 # }
-
-

@@ -1,5 +1,5 @@
 library(testthat)
-library(data.table) 
+library(data.table)
 library(tsbox)
 library(dplyr)
 library(tsbox)
@@ -23,4 +23,3 @@ test_that("two way date time conversion (heuristic)", {
   expect_equal(tsbox:::date_time_to_tsp(tsbox:::ts_to_date_time(uspop)), tsp(uspop))
   expect_equal(tsbox:::date_time_to_tsp(tsbox:::ts_to_date_time(austres)), tsp(austres))
 })
-

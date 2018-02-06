@@ -1,6 +1,6 @@
 # to ---------------------------------------------------------------------------
 
-ts_data.table_dts <- function(x){
+ts_data.table_dts <- function(x) {
   rm_dts_class(x)
 }
 
@@ -9,11 +9,10 @@ ts_data.table_dts <- function(x){
 
 #' @export
 #' @method ts_dts data.table
-ts_dts.data.table <- function(x){
-  
+ts_dts.data.table <- function(x) {
   tv <- guess_time_value(x)
 
-  if (NCOL(x) == 2){
+  if (NCOL(x) == 2) {
     z <- copy(x)
   } else {
     tvdiff <- setdiff(names(x), tv)
@@ -22,7 +21,7 @@ ts_dts.data.table <- function(x){
 
   setnames(z, tv[1], "time")
   # TODO ensure time is ordered, but var is not! The following does too much:
-  # setorder(z, var, time)  
+  # setorder(z, var, time)
   z[, time := as_time_or_date(time)]
   setnames(z, "time", tv[1])
 
@@ -34,7 +33,7 @@ ts_dts.data.table <- function(x){
 
 #' @name ts_ts
 #' @export
-ts_data.table <- function(x){
+ts_data.table <- function(x) {
   stopifnot(ts_boxable(x))
   if (relevant_class(x) == "data.table") return(x)
   ts_data.table_dts(ts_dts(x))
@@ -42,8 +41,6 @@ ts_data.table <- function(x){
 
 #' @name ts_ts
 #' @export
-ts_dt <- function(x){
+ts_dt <- function(x) {
   ts_data.table(x)
 }
-
-

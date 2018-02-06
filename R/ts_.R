@@ -1,15 +1,15 @@
 #' @export
 #' @name ts_
-load_suggested <- function(pkg){
+load_suggested <- function(pkg) {
   rns <- vapply(pkg, requireNamespace, TRUE)
-  if (any(!rns)){
+  if (any(!rns)) {
     pkgv <- dput(pkg[!rns])
     stop("Additional packages needed. To install, use:\n\n  install.packages(\"", pkgv, "\")", call. = FALSE)
   }
 }
 
 #' Universal Constructor for ts Functions
-#' 
+#'
 #' @param FUN function, to be made available to all time series classes
 #' @param class class that the function uses as its first argument
 #' @param vectorize should the function be vectorized? (not yet implemented)
@@ -23,18 +23,20 @@ load_suggested <- function(pkg){
 #' ts_(function(x) predict(prcomp(x, scale = TRUE)))(ts_c(mdeaths, fdeaths))
 #' ts_(dygraphs::dygraph, class = "xts")
 ts_ <- function(FUN, class = "ts", vectorize = FALSE) {
-  supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", 
-                         "dts")
+  supported.classes <- c(
+    "ts", "mts", "xts", "data.frame", "data.table", "tbl",
+    "dts"
+  )
   stopifnot(class %in% supported.classes)
 
   fstr <- as.character(substitute(FUN))
   if (fstr[1] == "::") pkg <- fstr[2] else pkg <- NULL
 
   ts_to_class <- as.name(paste0("ts_", class))
-  if (vectorize){
-    z <- substitute(function(x, ...){
+  if (vectorize) {
+    z <- substitute(function(x, ...) {
       load_suggested(pkg)
-      fun <- function(x, ...){
+      fun <- function(x, ...) {
         stopifnot(ts_boxable(x))
         z <- FUN(ts_to_class(x), ...)
         ts_reclass(z, x)
@@ -42,7 +44,7 @@ ts_ <- function(FUN, class = "ts", vectorize = FALSE) {
       ts_apply(x, fun, ...)
     })
   } else {
-    z <- substitute(function(x, ...){
+    z <- substitute(function(x, ...) {
       load_suggested(pkg)
       stopifnot(ts_boxable(x))
       z <- FUN(ts_to_class(x), ...)
@@ -51,7 +53,7 @@ ts_ <- function(FUN, class = "ts", vectorize = FALSE) {
   }
 
   f <- eval(z, parent.frame())
-  attr(f, "srcref") <- NULL   # fix so prints correctly (from dtplyr)
+  attr(f, "srcref") <- NULL # fix so prints correctly (from dtplyr)
   f
 }
 
@@ -86,6 +88,3 @@ ts_ <- function(FUN, class = "ts", vectorize = FALSE) {
 # })
 
 # ts_diff(ts_xts(AirPassengers))
-
-
-
