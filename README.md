@@ -165,7 +165,7 @@ ts_tbl(ts_c(mdeaths, fdeaths)) %>%
  
 ### List of Functions
 
-This is an overview of all the functions in tsbox. Starred functions are easily generatable by the `ts_` function (see above). Planned functions are in
+This is an overview of all the functions in tsbox. Planned functions are in
 parentheses. If you would add something else, or suggest different naming or
 conceptualization, please let me know.
 
