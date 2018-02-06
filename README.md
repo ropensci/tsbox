@@ -187,6 +187,7 @@ conceptualization, please let me know.
 
     ts_window
     ts_align
+    ts_union
 
 #### Transform
 
@@ -195,36 +196,29 @@ conceptualization, please let me know.
     ts_pc
     ts_pcy
     ts_diff
+    ts_diffy
     ts_lag
-    ts_seas*    # requires(seasonal)
 
 #### Reshape
 
     ts_wide
     ts_long
 
-#### Signal Extraction
-
-    ts_prcomp*  # principal component
-
 #### Frequency Conversion
 
-    (ts_to_frequency)             # requires(tempdisagg)
-
-#### Forecast
-
-    ts_forecast_mean*             # requires(forecast)
-    ts_forecast_auto.arima_mean*  # requires(forecast)
-    ts_arima_predict*
-    (ts_lm_predict) 
+    (ts_frequency)             # requires(tempdisagg)
 
 #### Plot
 
     ts_plot
     ts_ggplot
-    ts_dygraph*     # requires(dygraph)
-    (ts_iframe)     # requires(dygraph), returns iframe containing the data
 
+#### Included examples of user defined ts_ functions
+
+    ts_prcomp
+    ts_forcast      # requires(forecast)
+    ts_dygraph      # requires(dygraph)
+    ts_seas         # requires(seasonal)
 
 ### Todos
 
