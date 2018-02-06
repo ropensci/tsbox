@@ -75,11 +75,13 @@ relevant_class <- function(x){
 #' @param x template series
 #' @export
 ts_reclass <- function(z, x){
+
   if (!ts_boxable(z)){
     if (inherits(x, "ts")){
       z <- ts(z)
       tsp(z) <- tsp(x)
-    } else if (inherits(x, "numeric")) {
+    } else if (mode(z) == "numeric") {
+
       x.ts <- ts_ts(x)
       z <- ts(z)
       tsp(z) <- tsp(x.ts)

@@ -14,3 +14,6 @@ ts_scale(x, ...)
 \description{
 Normalized Time Series
 }
+\examples{
+ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
+}

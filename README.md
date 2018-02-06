@@ -131,7 +131,7 @@ ts_(rowSums)(ts_c(mdeaths, fdeaths))
 Or a more complex example, which uses a post processing function:
 
 ```r
-ts_prcomp <- function(x) predict(prcomp(x, scale = TRUE))
+ts_prcomp <- ts_(function(x) predict(prcomp(x, scale = TRUE)))
 ts_prcomp(ts_c(mdeaths, fdeaths))
 ```
 
