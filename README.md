@@ -102,8 +102,8 @@ ts_bind(ts_xts(AirPassengers), ts_tbl(mdeaths))
 
 ### And plot just about everything
 
-```r
-ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = ts_select(EuStockMarkets ,'DAX'))))
+```
+ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 ```
 ![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
 
@@ -111,7 +111,7 @@ ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = ts_select(EuStockMa
 There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
 
 ```r
-ts_ggplot(ts_scale(ts_c(discoveries, austres, AirPassengers)))
+ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 ```
 
 

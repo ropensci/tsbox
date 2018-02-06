@@ -16,4 +16,5 @@ Normalized Time Series
 }
 \examples{
 ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
+ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, 'DAX']))
 }
