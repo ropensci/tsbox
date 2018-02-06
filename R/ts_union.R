@@ -28,6 +28,9 @@
 #' @export
 ts_union <- function(x, fill = NA){
 
+  k <- NULL
+  value <- NULL
+
   x1 <- ts_dts(x)
 
   if (number_of_series(x1) == 1) return(x)

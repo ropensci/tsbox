@@ -18,6 +18,7 @@ Suggests:
     tibble,
     forecast,
     seasonal,
+    dygraphs,
     xts,
     ggplot2,
     scales

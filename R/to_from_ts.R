@@ -14,11 +14,13 @@ ts_ts_dts <- function(x) {
   z
 }
 
+
 # from -------------------------------------------------------------------------
 
 #' @export
 #' @method ts_dts ts
 ts_dts.ts <- function(x){
+  value <- NULL
   stopifnot(inherits(x, "ts"))
   timec <- ts_to_date_time(x)
   m <- as.matrix(x)
@@ -27,7 +29,7 @@ ts_dts.ts <- function(x){
   if (ncol(m) == 1){
     names(dta)[1] <- "value"
     # needs the ts_dts.data.table
-    z <- ts_dts(dta[, .(time, value)])
+    z <- ts_dts(dta[, list(time, value)])
 
   } else {
     z <- long_core(dta)
@@ -38,8 +40,6 @@ ts_dts.ts <- function(x){
 
 
 # main converter ---------------------------------------------------------------
-
-# could be probably automated
 
 #' Convert everything to everything
 #' 
@@ -59,7 +59,7 @@ ts_dts.ts <- function(x){
 #' @export
 #' @import data.table
 #' @importFrom anytime anydate anytime
-#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var
+#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var prcomp start tsp<-
 #' @importFrom utils browseURL relist
 #' @import data.table 
 ts_ts <- function(x){

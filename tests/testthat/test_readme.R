@@ -23,8 +23,8 @@ test_that("examples from README.md work properly", {
   ts_lag(x.ts)
 
   # with external packages
-  ts_forecast_mean(mdeaths)  # ets forecast
-  # ts_seas(x.ts)  # X-13 seasonal adjustment
+  ts_forecast(mdeaths)     # ets forecast
+  # ts_seas(mdeaths)  # X-13 seasonal adjustment
 
   ts_c(ts_dt(EuStockMarkets), AirPassengers)
   ts_c(EuStockMarkets, mdeaths)

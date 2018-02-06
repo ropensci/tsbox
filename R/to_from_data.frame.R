@@ -1,4 +1,3 @@
-
 # to ---------------------------------------------------------------------------
 
 ts_data.frame_dts <- function(x){
@@ -16,8 +15,6 @@ ts_dts.data.frame <- function(x){
 
 
 # main converter ---------------------------------------------------------------
-
-# could be probably automated
 
 #' @name ts_ts
 #' @export

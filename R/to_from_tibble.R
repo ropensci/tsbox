@@ -1,4 +1,3 @@
-
 # to ---------------------------------------------------------------------------
 
 ts_tbl_dts <- function(x){
@@ -13,8 +12,6 @@ ts_tbl_dts <- function(x){
 
 
 # main converter ---------------------------------------------------------------
-
-# could be probably automated
 
 #' @name ts_ts
 #' @export

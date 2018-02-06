@@ -26,6 +26,8 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12){
   # 'Source Sans Pro'  # does not work on mac
   # 'Slabo 13px'
 
+  margin <- NULL 
+
   half_line <- base_size/2
   ggplot2::theme_minimal(base_family = base_family, base_size = base_size) +
   ggplot2::theme(

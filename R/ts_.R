@@ -1,3 +1,5 @@
+#' @export
+#' @name ts_
 load_suggested <- function(pkg){
   rns <- vapply(pkg, requireNamespace, TRUE)
   if (any(!rns)){
@@ -6,12 +8,12 @@ load_suggested <- function(pkg){
   }
 }
 
-
 #' Universal Constructor for ts Functions
 #' 
-#' @param f function, to be made available to all time series classes
+#' @param FUN function, to be made available to all time series classes
 #' @param class class that the function uses as its first argument
 #' @param vectorize should the function be vectorized? (not yet implemented)
+#' @param pkg external package, to be suggested (automatically added by `ts_`)
 #'    `predict()`. (See examples)
 #' @export
 #' @examples
@@ -19,25 +21,31 @@ load_suggested <- function(pkg){
 #' ts_plot(mean = ts_(rowMeans)(ts_c(mdeaths, fdeaths)), mdeaths, fdeaths)
 #' ts_(function(x) predict(prcomp(x)))(ts_c(mdeaths, fdeaths))
 #' ts_(function(x) predict(prcomp(x, scale = TRUE)))(ts_c(mdeaths, fdeaths))
-ts_ <- function(f, class = "ts", vectorize = FALSE) {
+#' ts_(dygraphs::dygraph, class = "xts")
+ts_ <- function(FUN, class = "ts", vectorize = FALSE) {
   supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl", 
                          "dts")
   stopifnot(class %in% supported.classes)
 
+  fstr <- as.character(substitute(FUN))
+  if (fstr[1] == "::") pkg <- fstr[2] else pkg <- NULL
+
   ts_to_class <- as.name(paste0("ts_", class))
   if (vectorize){
     z <- substitute(function(x, ...){
+      load_suggested(pkg)
       fun <- function(x, ...){
         stopifnot(ts_boxable(x))
-        z <- f(ts_to_class(x), ...)
+        z <- FUN(ts_to_class(x), ...)
         ts_reclass(z, x)
       }
       ts_apply(x, fun, ...)
     })
   } else {
     z <- substitute(function(x, ...){
+      load_suggested(pkg)
       stopifnot(ts_boxable(x))
-      z <- f(ts_to_class(x), ...)
+      z <- FUN(ts_to_class(x), ...)
       ts_reclass(z, x)
     })
   }

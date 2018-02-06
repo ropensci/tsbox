@@ -46,6 +46,9 @@
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
 ts_plot <- function(..., title, subtitle, ylab = "", family = "sans"){
 
+  value <- NULL
+  id <- NULL
+  
   x <- ts_dts(ts_c(...))
 
   # only a single id col

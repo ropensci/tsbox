@@ -27,6 +27,10 @@ ts_bind <- function(...){
 
 # Bind two dts objects
 bind_two <- function(a, b) {
+
+  value <- NULL
+  value_b <- NULL
+
   a <- ts_dts(copy(a))
 
   if (!ts_boxable(b)){

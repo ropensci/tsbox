@@ -1,7 +1,4 @@
-
 # to ---------------------------------------------------------------------------
-
-
 
 ts_data.table_dts <- function(x){
   rm_dts_class(x)
@@ -34,8 +31,6 @@ ts_dts.data.table <- function(x){
 
 
 # main converter ---------------------------------------------------------------
-
-# could be probably automated
 
 #' @name ts_ts
 #' @export

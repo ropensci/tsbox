@@ -10,6 +10,8 @@
 #' ts_pc(ts_c(fdeaths, mdeaths))
 #' @export
 ts_lag <- function(x, lag = 1, fill = NA){
+  value <- NULL
+  
   z <- ts_dts(x)
 
   if (lag < 0){

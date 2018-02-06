@@ -114,7 +114,7 @@ ts_c <- function(...){
 
   if (inherits(z, "try-error")){
     message("Cannot coerce output to class '", class, "', returning data.frame.")
-    z <- as.data.frame(.DT[id %in% x])
+    z <- ts_df(z)
   }
   z
 

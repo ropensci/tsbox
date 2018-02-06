@@ -20,6 +20,8 @@
 
 trend_core <- function(x, degree = 2, span = NULL){
 
+  value <- NULL
+
   z <- ts_dts(x)
 
   stopifnot(number_of_series(z) == 1)

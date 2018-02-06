@@ -87,7 +87,7 @@ ts_pcy(x.ts)
 ts_lag(x.ts)
 
 # with external packages
-ts_forecast_mean(mdeaths)  # ets forecast
+ts_forecast(mdeaths)     # ets forecast
 ```
 
 ### Bind any time series vertically or horizontally

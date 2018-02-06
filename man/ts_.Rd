@@ -2,17 +2,23 @@
 % Please edit documentation in R/ts_.R
 \name{ts_}
 \alias{ts_}
+\alias{load_suggested}
+\alias{ts_}
 \title{Universal Constructor for ts Functions}
 \usage{
-ts_(f, class = "ts", vectorize = FALSE)
+load_suggested(pkg)
+
+ts_(FUN, class = "ts", vectorize = FALSE)
 }
 \arguments{
-\item{f}{function, to be made available to all time series classes}
+\item{pkg}{external package, to be suggested (automatically added by \code{ts_})
+\code{predict()}. (See examples)}
+
+\item{FUN}{function, to be made available to all time series classes}
 
 \item{class}{class that the function uses as its first argument}
 
-\item{vectorize}{should the function be vectorized? (not yet implemented)
-\code{predict()}. (See examples)}
+\item{vectorize}{should the function be vectorized? (not yet implemented)}
 }
 \description{
 Universal Constructor for ts Functions
@@ -22,4 +28,5 @@ ts_(rowSums)(ts_c(mdeaths, fdeaths))
 ts_plot(mean = ts_(rowMeans)(ts_c(mdeaths, fdeaths)), mdeaths, fdeaths)
 ts_(function(x) predict(prcomp(x)))(ts_c(mdeaths, fdeaths))
 ts_(function(x) predict(prcomp(x, scale = TRUE)))(ts_c(mdeaths, fdeaths))
+ts_(dygraphs::dygraph, class = "xts")
 }
