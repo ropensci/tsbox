@@ -17,12 +17,15 @@ ts_chain(...)
 Combine time series to a new, single time series. \code{ts_bind} combines time
 series as they are, \code{ts_chain} chaines them together, using percentage change
 rates.
-
-Bind to or several tsboxable objects
 }
 \examples{
 ts_bind(ts_window(mdeaths, end = "1975-12-01"), fdeaths)
 ts_bind(mdeaths, c(2, 2))
 ts_bind(mdeaths, 3, ts_bind(fdeaths, c(99, 2)))
 ts_bind(ts_dt(mdeaths), AirPassengers)
+ts_chain(ts_window(mdeaths, end = "1975-12-01"), fdeaths)
+ts_plot(ts_pc(ts_c(
+  comb = ts_chain(ts_window(mdeaths, end = "1975-12-01"), fdeaths), 
+  fdeaths
+)))
 }

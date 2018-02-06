@@ -24,3 +24,35 @@ test_that("ts_bind works as it should.", {
 })
 
 
+test_that("ts_chain gives correct results", {
+
+  x <- ts_chain(
+    ts_window(mdeaths, start = "1975-01-01", end = "1975-12-01"), 
+    fdeaths
+  )
+
+  expect_equal(sum(ts_window((ts_pc(x) - ts_pc(fdeaths)), start = "1976-01-01")), 0)
+  expect_equal(sum(ts_window((ts_pc(x) - ts_pc(fdeaths)), end = "1974-12-01")), 0)
+  
+  x.df <- ts_chain(
+    ts_window(ts_df(mdeaths), start = "1975-01-01", end = "1975-12-01"), 
+    ts_df(fdeaths)
+  )
+  x.xts <- ts_chain(
+    ts_window(ts_xts(mdeaths), start = "1975-01-01", end = "1975-12-01"), 
+    ts_xts(fdeaths)
+  )
+  x.tbl <- ts_chain(
+    ts_window(ts_tbl(mdeaths), start = "1975-01-01", end = "1975-12-01"), 
+    ts_tbl(fdeaths)
+  )
+
+  expect_equal(x.df, ts_df(x))
+  expect_equal(x.xts, ts_xts(x))
+  expect_equal(x.tbl, ts_tbl(x))
+})
+
+
+
+#' ts_chain(ts_window(mdeaths, end = "1975-12-01"), fdeaths)
+#' 
