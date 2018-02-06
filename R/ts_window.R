@@ -26,7 +26,7 @@ ts_window <- function(x, start = NULL, end = NULL, extend = FALSE){
   z <- ts_reclass(z, x)
 
   # if (extend){
-  #   z <- ts_complete(z)
+  #   z <- ts_union(z)
   # }
  
   z
@@ -48,7 +48,7 @@ ts_align <- function(x, with){
   stopifnot(ts_boxable(x), ts_boxable(with))
   rng <- ts_range(with)
   z <- ts_window(x, start = rng[1], end = rng[2])
-  ts_complete(z)
+  ts_union(z)
 }
 
 

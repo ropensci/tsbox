@@ -10,7 +10,6 @@ rm_dts_class <- function(x){
   x[]
 }
 
-
 number_of_series <- function (x) {
   stopifnot(inherits(x, "dts"))
   colname.id <- colname_id(x)
