@@ -1,6 +1,6 @@
 
 # # old version using ts conversion to get the effect
-# ts_complete_old <- function(x, fill = NA){
+# ts_union_old <- function(x, fill = NA){
 #   # DONT go for a "ts" object here!!)
 
 #   # TODO, do this propperly
@@ -12,11 +12,11 @@
 #   ts_reclass(z, x)
 # }
 
-# > system.time(ts_complete_old(dt_rg_gmd_agg))
+# > system.time(ts_union_old(dt_rg_gmd_agg))
 #    user  system elapsed 
 #   0.655   0.013   0.670 
 # > 
-# > system.time(ts_complete(dt_rg_gmd_agg))
+# > system.time(ts_union(dt_rg_gmd_agg))
 #    user  system elapsed 
 #   0.311   0.013   0.213 
 
@@ -26,7 +26,7 @@
 #' @param x any time series object
 #' @param fill missign value specifier
 #' @export
-ts_complete <- function(x, fill = NA){
+ts_union <- function(x, fill = NA){
 
   x1 <- ts_dts(x)
 
