@@ -2,7 +2,7 @@
 
 ts_ts_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
-  wx <- spread_core(combine_id_cols(x))
+  wx <- wide_core(combine_id_cols(x))
   tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
   if (NCOL(cdta) == 1) {
@@ -30,7 +30,7 @@ ts_dts.ts <- function(x){
     z <- ts_dts(dta[, .(time, value)])
 
   } else {
-    z <- gather_core(dta)
+    z <- long_core(dta)
     z <- ts_na_omit(z)
   }
   z

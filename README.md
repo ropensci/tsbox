@@ -198,6 +198,11 @@ conceptualization, please let me know.
     ts_lag
     ts_seas*    # requires(seasonal)
 
+#### Reshape
+
+    ts_wide
+    ts_long
+
 #### Signal Extraction
 
     ts_prcomp*  # principal component
@@ -224,8 +229,8 @@ conceptualization, please let me know.
 ### Todos
 
 - [X] Vectorization in `ts_()` 
-- [ ] Use non-first argument as time series in `ts()`. E.g. `lm(..., data = .)`.
-- [ ] Frequency conversion
+- [ ] Regularization of irregular time series
+- [ ] Basic frequency conversion
 
 ### License
 

@@ -4,7 +4,7 @@
 ts_xts_dts <- function(x){
   stopifnot(inherits(x, "dts"))
   stopifnot(requireNamespace("xts"))
-  z <- spread_core(combine_id_cols(x))
+  z <- wide_core(combine_id_cols(x))
   xts::xts(x = as.matrix(z[, -1]), order.by = z[[1]])
 }
 
@@ -34,7 +34,7 @@ ts_dts.xts <- function(x){
     setnames(z, c("time", "value"))
     z <- ts_dts(z)
   } else {
-    z <- gather_core(z)
+    z <- long_core(z)
   }
   z
 }
