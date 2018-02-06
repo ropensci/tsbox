@@ -12,21 +12,17 @@
 
 
 
-# ts_trend(ts_c(mdeaths, fdeaths))
 
-#' Loess smoothing
-#' @param x any time series object
-#' @param degree degree of Loess smoothing
-#' @param span smoothing parameter, if NULL, automated search
-#' @export
-ts_trend <- function(x, degree = 2, span = NULL){
+
+
+
+
+
+trend_core <- function(x, degree = 2, span = NULL){
 
   z <- ts_dts(x)
 
-  if (number_of_series(z) > 1){
-    stop("vectorization needs to redone. Run on single series only for the moment.")
-    # return(ts_reclass(ts_apply_dts_SD(z, ts_trend, degree = 2, span = span), x))
-  }
+  stopifnot(number_of_series(z) == 1)
 
   if (is.null(span)){
     span <- loess_aic_span_optim(x = z[[2]], degree = degree)
@@ -38,8 +34,6 @@ ts_trend <- function(x, degree = 2, span = NULL){
 
   # also compute standard errors
   pp <- predict(m)
-
-
   z[, value := pp]
 
   # z <- cbind(mean = pp$fit, 
@@ -67,5 +61,18 @@ loess_aic_span_optim <- function(x, degree = 2){
 }
 
 
+
+# ts_trend(ts_c(mdeaths, fdeaths))
+
+
+
+
+#' Loess smoothing
+#' @param x any time series object
+#' @param ... arguments, passed to subfunction:
+#' - `degree` degree of Loess smoothing
+#' - `span` smoothing parameter, if NULL, automated search
+#' @export
+ts_trend <- ts_(trend_core, vectorize = TRUE)
 
 

@@ -4,14 +4,16 @@
 \alias{ts_trend}
 \title{Loess smoothing}
 \usage{
-ts_trend(x, degree = 2, span = NULL)
+ts_trend(x, ...)
 }
 \arguments{
 \item{x}{any time series object}
 
-\item{degree}{degree of Loess smoothing}
-
-\item{span}{smoothing parameter, if NULL, automated search}
+\item{...}{arguments, passed to subfunction:
+\itemize{
+\item \code{degree} degree of Loess smoothing
+\item \code{span} smoothing parameter, if NULL, automated search
+}}
 }
 \description{
 Loess smoothing
