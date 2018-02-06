@@ -36,10 +36,10 @@
 #' dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
 #' ts_ggplot(ts_scale(ts_window(ts_c(`GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']), 
 #'                             `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']), 
-#'                      start = "1995-01-01")),
-#'        title = "GDP and Consumer Sentiment",
-#'        subtitle = "normalized values")
-#' 
+#'                      start = "1995-01-01"))) +
+#'   ggtitle("GDP and Consumer Sentiment", subtitle = "normalized values") +
+#'   tsbox::theme_tsbox() +
+#'   tsbox::scale_color_tsbox()
 #' }
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot

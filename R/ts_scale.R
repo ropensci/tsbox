@@ -1,4 +1,5 @@
 
+# since this works on multiple time series, no need to verctorize
 scale_no_attr <- function(x, center = TRUE, scale = TRUE){
   z <- scale(x = x, center = center, scale = scale)
   attr(z, "scaled:center") <- NULL
@@ -6,10 +7,12 @@ scale_no_attr <- function(x, center = TRUE, scale = TRUE){
   z
 }
 
+#' Normalized Time Series
+#' 
+#' @param x ts_boxable time series
+#' @param ... further arguments
 #' @export
-#' @name ts_
-ts_scale <- function(x, ...){
-  z <- ts_apply_dts(ts_dts(x), scale_no_attr)
-  ts_reclass(z, x)
-}
+#' @examples
+#' ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
+ts_scale <- ts_(scale_no_attr, vectorize = TRUE)
 

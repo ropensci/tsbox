@@ -3,12 +3,12 @@
 #' @param x a ts_boxable object
 #' @param lag defined as in dplyr, opposite to R base
 #' @param fill how to fill missing values
+#' @param ... additional arguments, passed to subfunctions
 #' @examples 
 #' ts_lag(ts_c(fdeaths, mdeaths))
 #' ts_diff(ts_c(fdeaths, mdeaths))
 #' ts_pc(ts_c(fdeaths, mdeaths))
 #' @export
-
 ts_lag <- function(x, lag = 1, fill = NA){
   z <- ts_dts(x)
 
@@ -48,15 +48,19 @@ pcy_core <- function(x){
 #' @export
 ts_pc <- ts_(pc_core, vectorize = TRUE)
 
+#' @name ts_lag
 #' @export
 ts_pcy <- ts_(pcy_core, vectorize = TRUE)
 
-
+#' @name ts_lag
 #' @export
 ts_diff <- ts_(diff, vectorize = TRUE)
 
+#' @name ts_lag
 #' @export
 ts_diffy <- ts_(function(x) diff(x, lag = frequency(x)), vectorize = TRUE)
+
+
 
 
 

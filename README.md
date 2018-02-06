@@ -61,16 +61,16 @@ ts_df(ts_c(fdeaths, mdeaths))
 The time stamp, `time`, indicates the beginning of a period. tsbox requires the
 columns in a data frame to follow either the order:
 
-1. *id* column(s)
-2. time column
-3. value column
+1. **id** column(s)
+2. **time** column
+3. **value** column
 
 *or* the time colum and the value column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
 
 Note that multiple id columns with arbitrary names are allowed.
 
 
-### Use same functions for ts, xts, data.frame, data.table or tibble
+### Use same functions for `ts`, `xts`, `data.frame`, `data.table` or `tibble`
 
 All functions start with `ts`, so you use them with auto complete (press Tab).
 
@@ -131,19 +131,23 @@ ts_(rowSums)(ts_c(mdeaths, fdeaths))
 Or a more complex example, which uses a post processing function:
 
 ```r
-ts_prcomp <- ts_(prcomp, predict, scale = TRUE)
+ts_prcomp <- ts_(function(x) predict(prcomp(x, scale = TRUE)))
 ts_prcomp(ts_c(mdeaths, fdeaths))
 ```
 
 And some functions from external packages:
 
 ```r
-ts_(dygraphs::dygraph, class = "xts")(ts_c(mdeaths, EuStockMarkets))
-ts_(forecast::forecast, function(x) x$mean)(mdeaths)
-ts_(seasonal::seas, seasonal::final)(mdeaths)
+ts_dygraphs <- ts_(dygraphs::dygraph, class = "xts")
+ts_forecast <- ts_(function(x) forecast::forecast(x)$mean, vectorize = TRUE)
+ts_seas <- ts_(function(x) seasonal::final(seasonal::seas(x)), vectorize = TRUE)
+
+ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
+ts_forecast(ts_c(mdeaths, fdeaths))
+ts_seas(ts_c(mdeaths, fdeaths))
 ```
 
-<!-- Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
+Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
 function so that it can be used with mulitple time series.
 
 
@@ -153,14 +157,11 @@ function so that it can be used with mulitple time series.
 library(dplyr)
 library(tsbox)
 
-dta <- ts_tbl(ts_c(mdeaths, fdeaths))
-
-dta %>%
-  ts_c(lmdeaths = ts_lag(ts_select(dta, 'mdeaths'), -1)) %>%
+ts_tbl(ts_c(mdeaths, fdeaths)) %>% 
+  ts_seas() %>% 
   ts_plot()
 ```
 
- -->
  
 ### List of Functions
 

@@ -80,13 +80,15 @@ ts_reclass <- function(z, x){
     if (inherits(x, "ts")){
       z <- ts(z)
       tsp(z) <- tsp(x)
-    } else{
+    } else if (mode(z) == "numeric") {
+
       x.ts <- ts_ts(x)
       z <- ts(z)
       tsp(z) <- tsp(x.ts)
       z
-      # coerce_to_(relevant_class(x))(z)
-      # stop("No reclass for object of class: ", paste(class(z), collapse = ","))
+    } else {
+      # do not reclass non numeric, unknown objects
+      return(z)
     }
   }
   coerce_to_(relevant_class(x))(z)
