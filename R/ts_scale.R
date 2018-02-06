@@ -14,5 +14,5 @@ scale_no_attr <- function(x, center = TRUE, scale = TRUE){
 #' @export
 #' @examples
 #' ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
+#' ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, 'DAX']))
 ts_scale <- ts_(scale_no_attr, vectorize = TRUE)
-

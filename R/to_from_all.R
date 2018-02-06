@@ -91,5 +91,16 @@ ts_reclass <- function(z, x){
       return(z)
     }
   }
-  coerce_to_(relevant_class(x))(z)
+  ans <- coerce_to_(relevant_class(x))(z)
+  
+  # data frames should keep mode of time col.
+  # TODO: do this better
+  if (inherits(ans, "data.frame")){
+    tn <- guess_time(ans)
+    if ((class(ans[[tn]])[1] == "Date") && (class(x[[tn]])[1] == "POSIXct")){
+      ans[[tn]] <- as.POSIXct(ans[[tn]])
+    }
+  }
+
+  ans
 }

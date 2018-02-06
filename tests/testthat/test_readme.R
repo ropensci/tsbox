@@ -40,11 +40,6 @@ test_that("examples from README.md work properly", {
 
   dta <- ts_df(ts_c(mdeaths, fdeaths))
 
-  # dta %>%
-  #   ts_c(lmdeaths = ts_lag(ts_select(dta, 'mdeaths'), -1)) %>%
-  #   # ts_predictlm(mdeaths ~ lmdeaths + fdeaths) %>%
-  #   ts_plot()
-
 
 })
 
