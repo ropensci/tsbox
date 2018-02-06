@@ -65,12 +65,12 @@ columns in a data frame to follow either the order:
 2. **time** column
 3. **value** column
 
-*or* the time colum and the value column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
+**or** the **time** colum and the **value** column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
 
 Note that multiple id columns with arbitrary names are allowed.
 
 
-### Use same functions for `ts`, `xts`, `data.frame`, `data.table` or `tibble`
+### Use same functions for ts, xts, data.frame, data.table or tibble
 
 All functions start with `ts`, so you use them with auto complete (press Tab).
 
