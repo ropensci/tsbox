@@ -69,12 +69,15 @@ relevant_class <- function(x) {
 
 #' Reclass an object to a ts-boxable series
 #'
-#' Inspired by the similarly named function from the xts package
+#' Copies class attributes from an existing ts-boxable series. Mainly used
+#' internally.
+#' 
+#' Inspired by `xts::reclass`, which does something similar.
 #'
 #' @param z series to reclass
 #' @param x template series
 #' @export
-ts_reclass <- function(z, x) {
+copy_ts_class <- function(z, x) {
   if (!ts_boxable(z)) {
     if (inherits(x, "ts")) {
       z <- ts(z)

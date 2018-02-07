@@ -59,18 +59,6 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12) 
     )
 }
 
-# #' @export
-# #' @rdname theme_tsbox
-# theme_tsbox_scatter <- function(){
-#   theme_tsbox() +
-#   theme(axis.title.x = element_text(margin = margin(8, 0, 0, 0), size = 10),
-#         axis.title.y = element_text(margin = margin(0, 8, 0, 0), angle = 90, size = 10),
-#         panel.grid.major.x = element_line(colour = "black"),
-#         axis.line.x =  element_blank(),
-#         axis.ticks.x = element_blank()
-#     )
-# }
-
 
 #' @export
 #' @rdname theme_tsbox
@@ -112,11 +100,11 @@ scale_fill_tsbox <- function(...) {
 #' @export
 ts_ggplot <- function(...) {
 
-  # TODO add some multi dim support
-
-
   stopifnot(requireNamespace("ggplot2"))
   x <- ts_dts(ts_c(...))
+
+  # only a single id col
+  x <- combine_id_cols(x)
 
   colname.time <- colname_time(x)
   colname.value <- colname_value(x)

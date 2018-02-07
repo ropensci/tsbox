@@ -22,11 +22,16 @@ ts_plot(..., title, subtitle, ylab = "", family = "sans")
 }
 \description{
 \code{ts_plot} is a simple and fast plotting function for ts-boxable time series.
-It's meant to be used interactively, with limited customizability.
+It is meant to be used interactively, with limited customizability.
 \code{ts_ggplot} prduces a similar plot, but uses the
 \href{http://ggplot2.org/}{ggplot2} graphic system, and can be customized. With
 \code{theme_tsbox()} and \code{scale_color_tsbox()}, the output of \code{ts_ggplot} is very
 similar to \code{ts_plot}.
+}
+\details{
+Both \code{ts_plot} and \code{ts_ggplot} combine multiple ID dimensions into a single
+dimension. To plot mulitple dimensions in different shapes, facets, etc., use
+standard ggplot.
 }
 \examples{
 ts_plot(AirPassengers, title = "Airline passengers",
@@ -66,4 +71,5 @@ ts_ggplot(ts_scale(ts_window(
   theme_tsbox() +
   scale_color_tsbox()
 }
+
 }

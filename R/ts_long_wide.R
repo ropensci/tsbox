@@ -16,7 +16,7 @@ ts_long <- function(x) {
   rc <- relevant_class(x)
   if (rc %in% c("xts", "ts")) return(x)
   z <- long_core(as.data.table(x))
-  ts_reclass(z, x)
+  copy_ts_class(z, x)
 }
 
 # core function is also used by ts_dts.ts and ts_dts.xts

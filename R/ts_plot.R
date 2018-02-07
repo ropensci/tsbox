@@ -8,6 +8,10 @@
 #' `theme_tsbox()` and `scale_color_tsbox()`, the output of `ts_ggplot` is very
 #' similar to `ts_plot`.
 #' 
+#' Both `ts_plot` and `ts_ggplot` combine multiple ID dimensions into a single 
+#' dimension. To plot mulitple dimensions in different shapes, facets, etc., use
+#' standard ggplot.
+#' 
 #' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @param title title (optional)
 #' @param subtitle subtitle (optional)
@@ -51,6 +55,7 @@
 #'   theme_tsbox() +
 #'   scale_color_tsbox()
 #' }
+#' 
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff

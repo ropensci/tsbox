@@ -21,7 +21,7 @@
 ts_regular <- function(x){
   stopifnot(ts_boxable(x))
   z <- regular_core(ts_dts(x))
-  ts_reclass(z, x)
+  copy_ts_class(z, x)
 }
 
 regular_core <- function(x){

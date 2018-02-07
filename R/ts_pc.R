@@ -31,7 +31,7 @@ ts_lag <- function(x, lag = 1, fill = NA) {
     by = eval(.by)
   ]
 
-  ts_na_omit(ts_reclass(z, x))
+  ts_na_omit(copy_ts_class(z, x))
 }
 
 
