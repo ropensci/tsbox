@@ -206,7 +206,7 @@ conceptualization, please let me know.
 
 #### Frequency Conversion
 
-    (ts_frequency)             # requires(tempdisagg)
+    (ts_frequency)  
 
 #### Plot
 

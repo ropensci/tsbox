@@ -8,7 +8,7 @@
 #' `data.table`, or `tibble`.
 #'
 #' @return object with the same class as input
-#'
+#' @examples
 #' df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
 #' ts_ts(ts_long(df.wide))
 #' @export
