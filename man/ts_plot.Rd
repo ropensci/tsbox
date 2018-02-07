@@ -21,11 +21,14 @@ ts_plot(..., title, subtitle, ylab = "", family = "sans")
 \item{family}{font family (optional)}
 }
 \description{
-Plot Time Series
+\code{ts_plot} is a simple and fast plotting function for ts-boxable time series.
+It's meant to be used interactively, with limited customizability.
+\code{ts_ggplot} prduces a similar plot, but uses the
+\href{http://ggplot2.org/}{ggplot2} graphic system, and can be customized. With
+\code{theme_tsbox()} and \code{scale_color_tsbox()}, the output of \code{ts_ggplot} is very
+similar to \code{ts_plot}.
 }
 \examples{
-
-library(tsbox)
 ts_plot(AirPassengers, title = "Airline passengers",
        subtitle = "The classic Box & Jenkins airline data")
 ts_plot(total = ldeaths, female = fdeaths, male = mdeaths)
@@ -35,6 +38,7 @@ ts_plot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
 ts_plot(EuStockMarkets)
 ts_plot(sunspot.month, sunspot.year, lynx)
 ts_plot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
+
 \dontrun{
 ts_ggplot(AirPassengers, title = "Airline passengers",
        subtitle = "The classic Box & Jenkins airline data")
@@ -51,11 +55,15 @@ ts_ggplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
 
 library(dataseries)
 dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
-ts_ggplot(ts_scale(ts_window(ts_c(`GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
-                            `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']),
-                     start = "1995-01-01"))) +
-  ggtitle("GDP and Consumer Sentiment", subtitle = "normalized values") +
-  tsbox::theme_tsbox() +
-  tsbox::scale_color_tsbox()
+
+ts_ggplot(ts_scale(ts_window(
+  ts_c(
+    `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
+    `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']
+  ),
+  start = "1995-01-01"))) +
+  ggplot2::ggtitle("GDP and Consumer Sentiment", subtitle = "normalized values") +
+  theme_tsbox() +
+  scale_color_tsbox()
 }
 }

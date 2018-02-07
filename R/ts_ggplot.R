@@ -26,8 +26,6 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12) 
   # 'Source Sans Pro'  # does not work on mac
   # 'Slabo 13px'
 
-  margin <- NULL
-
   half_line <- base_size / 2
   ggplot2::theme_minimal(base_family = base_family, base_size = base_size) +
     ggplot2::theme(
@@ -36,7 +34,7 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12) 
       axis.title.x = ggplot2::element_blank(),
       axis.title.y = ggplot2::element_text(
         size = ggplot2::rel(0.9), color = "grey10",
-        margin = margin(t = 0, r = 7, b = 0, l = 0)
+        margin = ggplot2::margin(t = 0, r = 7, b = 0, l = 0)
       ),
       plot.title = ggplot2::element_text(color = "grey10", face = "bold", margin = ggplot2::margin(t = half_line * 2, b = half_line * 0.7), hjust = 0, size = ggplot2::rel(1.2)),
       plot.subtitle = ggplot2::element_text(color = "grey10", margin = ggplot2::margin(t = 0, b = half_line * 1.2), size = ggplot2::rel(0.9), hjust = 0),

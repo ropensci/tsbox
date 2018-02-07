@@ -1,14 +1,19 @@
 .ts_lastplot_env <- new.env(parent = emptyenv())
-
 #' Plot Time Series
+#' 
+#' `ts_plot` is a simple and fast plotting function for ts-boxable time series.
+#' It is meant to be used interactively, with limited customizability.
+#' `ts_ggplot` prduces a similar plot, but uses the
+#' [ggplot2](http://ggplot2.org/) graphic system, and can be customized. With
+#' `theme_tsbox()` and `scale_color_tsbox()`, the output of `ts_ggplot` is very
+#' similar to `ts_plot`.
+#' 
 #' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @param title title (optional)
 #' @param subtitle subtitle (optional)
 #' @param ylab ylab (optional)
 #' @param family font family (optional)
 #' @examples
-#'
-#' library(tsbox)
 #' ts_plot(AirPassengers, title = "Airline passengers",
 #'        subtitle = "The classic Box & Jenkins airline data")
 #' ts_plot(total = ldeaths, female = fdeaths, male = mdeaths)
@@ -18,6 +23,7 @@
 #' ts_plot(EuStockMarkets)
 #' ts_plot(sunspot.month, sunspot.year, lynx)
 #' ts_plot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
+#' 
 #' \dontrun{
 #' ts_ggplot(AirPassengers, title = "Airline passengers",
 #'        subtitle = "The classic Box & Jenkins airline data")
@@ -34,12 +40,16 @@
 #'
 #' library(dataseries)
 #' dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
-#' ts_ggplot(ts_scale(ts_window(ts_c(`GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
-#'                             `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']),
-#'                      start = "1995-01-01"))) +
-#'   ggtitle("GDP and Consumer Sentiment", subtitle = "normalized values") +
-#'   tsbox::theme_tsbox() +
-#'   tsbox::scale_color_tsbox()
+#' 
+#' ts_ggplot(ts_scale(ts_window(
+#'   ts_c(
+#'     `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
+#'     `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']
+#'   ),
+#'   start = "1995-01-01"))) +
+#'   ggplot2::ggtitle("GDP and Consumer Sentiment", subtitle = "normalized values") +
+#'   theme_tsbox() +
+#'   scale_color_tsbox()
 #' }
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
@@ -109,8 +119,8 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans") {
 
   # First layer with legend and title
   par(
-    fig = c(0, 1, 0, 1), oma = c(0.5, 1, 2, 1), mar = c(0, 0, 0, 0), col.lab = col.lab, cex.lab = 0.8,
-    family = family
+    fig = c(0, 1, 0, 1), oma = c(0.5, 1, 2, 1), mar = c(0, 0, 0, 0), 
+    col.lab = col.lab, cex.lab = 0.8, family = family
   )
 
   # empty plot
@@ -157,7 +167,8 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans") {
     legend(
       "bottomleft",
       legend = ids, horiz = TRUE,
-      bty = "n", lty = 1, lwd = lwd, col = col, cex = cex, adj = 0, text.col = text.col
+      bty = "n", lty = 1, lwd = lwd, col = col, cex = 0.9 * cex, adj = 0, 
+      text.col = text.col
     )
   }
 
@@ -181,7 +192,8 @@ ts_plot <- function(..., title, subtitle, ylab = "", family = "sans") {
   axis(
     side = 1, at = (xticks),
     labels = xlabels,
-    las = 1, cex.axis = 0.8, col = NA, line = 0.5, tick = TRUE, padj = -2, col.axis = axis.text.col
+    las = 1, cex.axis = 0.8, col = NA, line = 0.5, tick = TRUE, padj = -2, 
+    col.axis = axis.text.col
   )
 
   # Gridlines
@@ -217,7 +229,8 @@ ts_lastplot_call <- function() {
 #' @param width width
 #' @param filename filename
 #' @export
-ts_save <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pdf", ..., open = TRUE) {
+ts_save <- function(filename = "myfig.pdf", width = 10, height = 5, 
+                    device = "pdf", ..., open = TRUE) {
   filename <- gsub(".pdf$", paste0(".", device), filename)
 
   cl <- ts_lastplot_call()
@@ -228,17 +241,20 @@ ts_save <- function(filename = "myfig.pdf", width = 10, height = 5, device = "pd
   if (device == "pdf") {
     pdf(file = filename, width = width, height = height)
   } else if (device == "png") {
-    png(filename = filename, width = width, height = height, units = "in", res = 150)
+    png(filename = filename, width = width, height = height, units = "in", 
+        res = 150)
   } else if (device == "bmp") {
-    bmp(filename = filename, width = width, height = height, units = "in", res = 150)
+    bmp(filename = filename, width = width, height = height, units = "in", 
+        res = 150)
   } else if (device == "jpeg") {
-    jpeg(filename = filename, width = width, height = height, units = "in", res = 150)
+    jpeg(filename = filename, width = width, height = height, units = "in", 
+         res = 150)
   } else if (device == "tiff") {
-    tiff(filename = filename, width = width, height = height, units = "in", res = 150)
+    tiff(filename = filename, width = width, height = height, units = "in", 
+         res = 150)
   } else {
     stop("device not supported.")
   }
-
 
   eval(cl, envir = parent.frame())
   dev.off()
