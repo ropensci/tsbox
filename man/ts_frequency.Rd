@@ -2,17 +2,9 @@
 % Please edit documentation in R/ts_frequency.R
 \name{ts_frequency}
 \alias{ts_frequency}
-\alias{ts_frequency}
-\alias{last}
-\alias{ts_frequency}
-\alias{first}
 \title{Change Frequency}
 \usage{
 ts_frequency(x, to = "year", fun = mean)
-
-last(x)
-
-first(x)
 }
 \arguments{
 \item{x}{a ts-boxable time series}
@@ -20,7 +12,7 @@ first(x)
 \item{to}{desired frequency, either a character string (\code{"year"},
 \code{"quarter"}, \code{"month"}) or an integer (\code{1}, \code{4}, \code{12}).}
 
-\item{fun}{aggregation function (\code{mean}, \code{sum}, \code{first}, \code{last})}
+\item{fun}{aggregation function (\code{mean}, \code{sum}, \code{data.table::first}, \code{data.table::last})}
 }
 \description{
 Changes the frequency of a ts boxable time series. Currently, incomplete

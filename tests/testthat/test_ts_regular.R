@@ -1,0 +1,29 @@
+library(testthat)
+library(tsbox)
+
+
+context("ts_regular")
+
+test_that("conversion produces right classes", {
+  x0 <- AirPassengers
+  x0[c(10, 15)] <- NA
+  x <- ts_na_omit(ts_dts(x0))
+  expect_equal(ts_ts(ts_regular(x)), x0)
+
+  m <- mdeaths
+  m[c(10, 69)] <- NA
+  f <- fdeaths
+  f[c(1, 3, 15)] <- NA
+
+  comb <- ts_ts(ts_regular(ts_na_omit(ts_dts(ts_c(f, m)))))
+  expect_equal(comb, cbind(f, m))
+})
+
+
+
+test_that("handles, regular, non standard series correctly", {
+
+  expect_equal(EuStockMarkets, ts_regular(EuStockMarkets))
+
+})
+

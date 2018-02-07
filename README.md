@@ -204,9 +204,10 @@ conceptualization, please let me know.
     ts_wide
     ts_long
 
-#### Frequency Conversion
+#### Frequency Handling
 
-    (ts_frequency)  
+    ts_frequency
+    ts_regular
 
 #### Plot
 
@@ -220,11 +221,6 @@ conceptualization, please let me know.
     ts_dygraph      # requires(dygraph)
     ts_seas         # requires(seasonal)
 
-### Todos
-
-- [X] Vectorization in `ts_()` 
-- [ ] Regularization of irregular time series
-- [ ] Basic frequency conversion
 
 ### License
 

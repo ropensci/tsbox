@@ -6,7 +6,7 @@
 #' @param x a ts-boxable time series
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
-#' @param fun aggregation function (`mean`, `sum`, `first`, `last`)
+#' @param fun aggregation function (`mean`, `sum`, `data.table::first`, `data.table::last`)
 #' @examples
 #' ts_frequency(cbind(mdeaths, fdeaths), "year", sum)
 #' ts_frequency(cbind(mdeaths, fdeaths), "quarter", sum)
@@ -48,13 +48,15 @@ period.date <- list(
 numeric.period <- c(month = 12, quarter = 4, year = 1)
 
 
-#' @export
-#' @name ts_frequency
-last <- function(x) x[length(x)]
+# do not export, as they conflict w data.table
 
-#' @export
-#' @name ts_frequency
-first <- function(x) x[1]
+# #' @export
+# #' @name ts_frequency
+# last <- function(x) x[length(x)]
+
+# #' @export
+# #' @name ts_frequency
+# first <- function(x) x[1]
 
 
 frequency_core <- function(x, to, fun = mean){

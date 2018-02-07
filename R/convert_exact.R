@@ -7,7 +7,9 @@ seconds_since_70 <- function(year) {
     to = as.POSIXct("2010-01-01", tz = ""),
     by = "1 year"
   )
-  as.numeric(seq(as.POSIXct(paste0(year, "-01-01")), length.out = 2, by = "1 year"))
+  as.numeric(
+    seq(as.POSIXct(paste0(year, "-01-01")), length.out = 2, by = "1 year")
+  )
 }
 
 dectime_to_POSIXct <- function(x) {

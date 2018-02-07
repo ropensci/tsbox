@@ -85,12 +85,12 @@ ts_tbl(Quandl::Quandl("FRED/GDPMC1"))
 - Type Conversion
   
   - [ ] rewrite ts_xts.ts, to include f = 2, f = 6, f = 0.1, f = 0.5, f = 0.05, f = 0.01
-  - [ ] Ensure a Date to be regular, by filling NAs 
+  - [X] Ensure a Date to be regular, by filling NAs 
 
 - Frequency Conversion
 
-  - [ ] regularity check for xts
-  - [ ] forcing xts into regularity
+  - [X] regularity check for xts
+  - [X] forcing xts into regularity
   - [X] tools for frequency conversion
 
 - Package
