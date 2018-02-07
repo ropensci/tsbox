@@ -10,7 +10,11 @@ ts_to_date_time <- function(x) {
 
   division <- first.subperiod / (1 / fr)
   if (abs(division - round(division)) > 1e-8) {
-    stop("Suberiod is not dividable by fr. Could be also a rounding problem.")
+    stop("subperiod is not dividable by frequency\n\n",
+         "If you encounter this rare rounding issue, many thanks for ",
+         "reporting a reproducible example on:",
+         "\n\n    https://github.com/christophsax/tsbox\n", 
+         call. = FALSE)
   }
 
   # make more general?
@@ -47,7 +51,6 @@ ts_to_date_time <- function(x) {
 # ts_to_date_time(EuStockMarkets)
 
 
-
 # utility function to find POSIXct range (for coding only)
 find_range <- function(x) {
   ser <- ts(rep(1, 1000), frequency = x, start = 1800)
@@ -65,7 +68,7 @@ in_range <- function(x, min, max, tol = 1000) {
 
 date_time_to_tsp <- function(x) {
   if (length(x) <= 1) {
-    stop("Time series too short for frequency detection.", call. = FALSE)
+    stop("time series too short for frequency detection", call. = FALSE)
   }
 
   st <- as.POSIXlt(x[1])
@@ -87,7 +90,8 @@ date_time_to_tsp <- function(x) {
   } else if (in_range(ds, 7776000, 7948800)) {
     f <- 4
     if (!(m %in% (c(1, 4, 7, 10)))) {
-      stop("Quarterly data needs to specified as start of period (currently)")
+      stop("quarterly data needs to specified as start of period", 
+           call. = FALSE)
     }
     # 3*((1:4)-1)+1   ## oposite
     start <- c(y, ((m - 1) / 3) + 1)
@@ -100,7 +104,7 @@ date_time_to_tsp <- function(x) {
 
   if (!is.null(f)) {
     if (d != 1) {
-      stop("Data needs to specified as start of period (currently)")
+      stop("data needs to specified as start of period", call. = FALSE)
     }
     z <- tsp(ts(x, frequency = f, start = start)) # a bit inefficient
   } else {

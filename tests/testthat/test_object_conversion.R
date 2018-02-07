@@ -36,7 +36,7 @@ test_that("conversion produces right classes", {
   expect_s3_class(ts_tbl(ts_tbl(AirPassengers)), "tbl_df")
 
   expect_s3_class(ts_xts(ts_tslist(ts_c(mdeaths, AirPassengers))), "xts")
-  # expect_s3_class(ts_ts(ts_tslist(ts_c(mdeaths, AirPassengers))), "ts")
+  expect_s3_class(ts_ts(ts_tslist(ts_c(mdeaths, AirPassengers))), "ts")
   expect_s3_class(ts_df(ts_tslist(ts_c(mdeaths, AirPassengers))), "data.frame")
   expect_s3_class(ts_dt(ts_tslist(ts_c(mdeaths, AirPassengers))), "data.table")
   expect_s3_class(ts_tbl(ts_tslist(ts_c(mdeaths, AirPassengers))), "tbl_df")
@@ -143,13 +143,12 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
 
 test_that("some trickier situations work properly", {
 
-  # ts_c(
-  #     ts_c(AirPassengers, mdeaths),
-  #     ts_forecast_mean(ts_c(AirPassengers, mdeaths))
-  # )
+  ts_bind(
+      ts_c(AirPassengers, mdeaths),
+      ts_forecast(ts_c(AirPassengers, mdeaths))
+  )
 
-  # this is a tricky one: a function to detect NAs?
-  # ts_rbind(AirPassengers, mdeaths)
+  ts_bind(AirPassengers, mdeaths)
 })
 
 

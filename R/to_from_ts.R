@@ -2,7 +2,17 @@
 
 ts_ts_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
+  x <- ts_regular(x)
   wx <- wide_core(combine_id_cols(x))
+
+  # try to regularize common time axis
+  reg.time <- regularize_date(wx[[1]])
+  if (!is.null(reg.time)){
+    setnames(wx, 1, "time") # time col may have a different name
+    if (inherits(wx[[1]], "POSIXct")) wx[[1]] <- as.Date(wx[[1]])
+    wx <- wx[data.table(time = reg.time), on = "time"]
+  }
+
   tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
   if (NCOL(cdta) == 1) {
