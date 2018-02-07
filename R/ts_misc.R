@@ -16,7 +16,7 @@ ts_prcomp <- ts_(function(x) predict(prcomp(x, scale = TRUE)))
 
 #' @export
 #' @name ts_misc
-ts_dygraphs <- ts_(dygraphs::dygraph, class = "xts")
+ts_dygraphs <- ts_(dygraphs::dygraph, class = "xts", reclass = FALSE)
 
 #' @export
 #' @name ts_misc

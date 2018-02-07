@@ -43,7 +43,7 @@ Convert everything to everything
 }
 \examples{
 
-x.ts <- ts_c(mdeaths, fdeaths) 
+x.ts <- ts_c(mdeaths, fdeaths)
 x.df <- ts_df(x.ts)
 x.dt <- ts_dt(x.df)
 \dontrun{

@@ -8,17 +8,20 @@
 \usage{
 load_suggested(pkg)
 
-ts_(FUN, class = "ts", vectorize = FALSE)
+ts_(fun, class = "ts", vectorize = FALSE, reclass = TRUE)
 }
 \arguments{
 \item{pkg}{external package, to be suggested (automatically added by \code{ts_})
 \code{predict()}. (See examples)}
 
-\item{FUN}{function, to be made available to all time series classes}
+\item{fun}{function, to be made available to all time series classes}
 
 \item{class}{class that the function uses as its first argument}
 
 \item{vectorize}{should the function be vectorized? (not yet implemented)}
+
+\item{reclass}{logical, should the new function return the same same
+ts-boxable output as imputed?}
 }
 \description{
 Universal Constructor for ts Functions

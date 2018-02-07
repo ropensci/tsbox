@@ -1,46 +1,27 @@
 library(testthat)
 library(tsbox)
 
-
-
-
 # Major Things
 
 # - [ ] ts_bind, ts_c, binding POSIXct and Data should result in POSIXct,
 #       also should have the same var naming behavior)
 # perhaps this can be done by letting ts_bind calling ts_c
 
-# - [ ] unified handling of deparse(substitute(x))
-
-# - heuristic = TURE to all conversion functions?
-# - var.names = NULL
-# var.names <- detect_var_names(var.names, deparse(substitute(x)))
-
-
 # - [ ] reclassing of numeric, matrix output, similar to xts::reclass
 
-#' @export
-#' @rdname ts_
 # ts_scale <- ts_(function(x, ...){
 #   z <- scale.default(unclass(x), ...)
 #   xts::reclass(z, x)
 # }, class = "xts")
 
 # - [ ] a cleaner ts_ function
-
-
 # - [ ] Lookup table for heuristic frequency conversion
-
-
 # - [ ] numeric vectors in ts_window()
-
-
 # - [ ] Tools to enforce regularity (major and quite separate task)
-
 
 context("tricky stuff")
 
-
+ts_dygraphs(AirPassengers)
 
 test_that("Latest tricky stuff works.", {
   expect_equal(

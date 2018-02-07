@@ -16,12 +16,13 @@ ts_wide(x)
 }
 \value{
 object with the same class as input
-
-df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
-ts_ts(ts_long(df.wide))
 }
 \description{
 Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
 Note that long format data frames are ts-boxable objects, where wide format data
 frames are not.
+}
+\examples{
+df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
+ts_ts(ts_long(df.wide))
 }

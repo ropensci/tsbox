@@ -10,9 +10,11 @@ load_suggested <- function(pkg) {
 
 #' Universal Constructor for ts Functions
 #'
-#' @param FUN function, to be made available to all time series classes
+#' @param fun function, to be made available to all time series classes
 #' @param class class that the function uses as its first argument
 #' @param vectorize should the function be vectorized? (not yet implemented)
+#' @param reclass logical, should the new function return the same same 
+#'   ts-boxable output as imputed?
 #' @param pkg external package, to be suggested (automatically added by `ts_`)
 #'    `predict()`. (See examples)
 #' @export
@@ -22,35 +24,111 @@ load_suggested <- function(pkg) {
 #' ts_(function(x) predict(prcomp(x)))(ts_c(mdeaths, fdeaths))
 #' ts_(function(x) predict(prcomp(x, scale = TRUE)))(ts_c(mdeaths, fdeaths))
 #' ts_(dygraphs::dygraph, class = "xts")
-ts_ <- function(FUN, class = "ts", vectorize = FALSE) {
+ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
   supported.classes <- c(
     "ts", "mts", "xts", "data.frame", "data.table", "tbl",
     "dts"
   )
   stopifnot(class %in% supported.classes)
 
-  fstr <- as.character(substitute(FUN))
-  if (fstr[1] == "::") pkg <- fstr[2] else pkg <- NULL
+  fstr <- as.character(substitute(fun))
+  if (any(grepl("::", fstr))){
+    # try to get pkg from sting
+    pkg <- unique(vapply(strsplit(grep("::", fstr, value = TRUE), split = "::"), 
+                         function(e) e[1], "")
+    )
+    pkg <- setdiff(pkg, "")
+    # try to get pkg from 2nd element of call
+    if (grep("::", fstr, value = TRUE) == "::") pkg <- unique(c(pkg, fstr[2]))
+  } else {
+    pkg <- NULL
+  }
 
   ts_to_class <- as.name(paste0("ts_", class))
-  if (vectorize) {
-    z <- substitute(function(x, ...) {
-      load_suggested(pkg)
-      fun <- function(x, ...) {
-        stopifnot(ts_boxable(x))
-        z <- FUN(ts_to_class(x), ...)
-        ts_reclass(z, x)
+  if (length(pkg) > 0){
+    if (reclass) {
+      if (vectorize) {
+        z <- substitute(function(x, ...) {
+          load_suggested(pkg)
+          ff <- function(x, ...) {
+            stopifnot(ts_boxable(x))
+            z <- fun(ts_to_class(x), ...)
+            ts_reclass(z, x)
+          }
+          ts_apply(x, ff, ...)
+        })
+      } else {
+        z <- substitute(function(x, ...) {
+          load_suggested(pkg)
+          stopifnot(ts_boxable(x))
+          z <- fun(ts_to_class(x), ...)
+          ts_reclass(z, x)
+        })
       }
-      ts_apply(x, fun, ...)
-    })
-  } else {
-    z <- substitute(function(x, ...) {
-      load_suggested(pkg)
-      stopifnot(ts_boxable(x))
-      z <- FUN(ts_to_class(x), ...)
-      ts_reclass(z, x)
-    })
+    }
+
+    # this mainly repeats the stuff from above
+    if (!reclass) {
+      if (vectorize) {
+        z <- substitute(function(x, ...) {
+          load_suggested(pkg)
+          ff <- function(x, ...) {
+            stopifnot(ts_boxable(x))
+            fun(ts_to_class(x), ...)
+          }
+          ts_apply(x, ff, ...)
+        })
+      } else {
+        z <- substitute(function(x, ...) {
+          load_suggested(pkg)
+          stopifnot(ts_boxable(x))
+          fun(ts_to_class(x), ...)
+        })
+      }
+    }
   }
+
+
+  # another repetition if no packages are needed
+  if (length(pkg) == 0){
+    if (reclass) {
+      if (vectorize) {
+        z <- substitute(function(x, ...) {
+          ff <- function(x, ...) {
+            stopifnot(ts_boxable(x))
+            z <- fun(ts_to_class(x), ...)
+            ts_reclass(z, x)
+          }
+          ts_apply(x, ff, ...)
+        })
+      } else {
+        z <- substitute(function(x, ...) {
+          stopifnot(ts_boxable(x))
+          z <- fun(ts_to_class(x), ...)
+          ts_reclass(z, x)
+        })
+      }
+    }
+
+    # this mainly repeats the stuff from above
+    if (!reclass) {
+      if (vectorize) {
+        z <- substitute(function(x, ...) {
+          ff <- function(x, ...) {
+            stopifnot(ts_boxable(x))
+            fun(ts_to_class(x), ...)
+          }
+          ts_apply(x, ff, ...)
+        })
+      } else {
+        z <- substitute(function(x, ...) {
+          stopifnot(ts_boxable(x))
+          fun(ts_to_class(x), ...)
+        })
+      }
+    }
+  }
+  
 
   f <- eval(z, parent.frame())
   attr(f, "srcref") <- NULL # fix so prints correctly (from dtplyr)

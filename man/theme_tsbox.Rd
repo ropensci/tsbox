@@ -30,7 +30,7 @@ Using same style as \code{ts_plot()}.
 df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
 # standard ggplot
 library(ggplot2)
-ggplot(df, aes(x = time, y = value, color = id)) + 
+ggplot(df, aes(x = time, y = value, color = id)) +
   geom_line()
 
 # a quick plot for time series
@@ -38,7 +38,7 @@ p <- ts_ggplot(AirPassengers, mdeaths)
 
 # using same style as base graphic ts_plot()
 p +
-  theme_tsbox() + 
+  theme_tsbox() +
   scale_color_tsbox()
 
 }

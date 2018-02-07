@@ -66,14 +66,13 @@ ts_tbl(Quandl::Quandl("FRED/GDPMC1"))
   - [X] ts_forecast()
   - [X] ts_c()
   - [X] ts_rbind()
-
-  - [ ] Rewrite existing generics / methods, using ts
+  - [X] Rewrite existing generics / methods, using ts
   
-    - [ ] ts_pcy()
-    - [ ] ts_pc()
-    - [ ] ts_diffy()
-    - [ ] ts_trend() -> tsloess
-    - [ ] ts_scale()
+    - [X] ts_pcy()
+    - [X] ts_pc()
+    - [X] ts_diffy()
+    - [X] ts_trend() -> tsloess
+    - [X] ts_scale()
 
 - Documentation
 
@@ -92,12 +91,12 @@ ts_tbl(Quandl::Quandl("FRED/GDPMC1"))
 
   - [ ] regularity check for xts
   - [ ] forcing xts into regularity
-  - [ ] tools for frequency conversion
+  - [X] tools for frequency conversion
 
 - Package
 
-  - [ ] remove zoo import, import xts
-  - [ ] suggest ggplot
+  - [X] remove zoo import, import xts
+  - [X] suggest ggplot
 
 - Graph etc
 
@@ -105,7 +104,7 @@ ts_tbl(Quandl::Quandl("FRED/GDPMC1"))
 
 - Beyond release
 
-  - [ ] tsdygraphs
+  - [X] tsdygraphs
   - [ ] iframe option
   - [ ] 'theme' for base plot
 
