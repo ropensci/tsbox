@@ -21,7 +21,7 @@ ts_bind <- function(...) {
   z <- Reduce(bind_two, ll)
   # setorder(z, time, var)
 
-  coerce_to_(desired.class)(z)
+  as_class(desired.class)(z)
 }
 
 

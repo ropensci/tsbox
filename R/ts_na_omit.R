@@ -4,5 +4,5 @@
 ts_na_omit <- function(x) {
   value <- NULL
   z <- ts_dts(x)
-  coerce_to_(relevant_class(x))(z[!is.na(value)])
+  as_class(relevant_class(x))(z[!is.na(value)])
 }
