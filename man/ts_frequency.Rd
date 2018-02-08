@@ -7,15 +7,18 @@
 ts_frequency(x, to = "year", fun = mean)
 }
 \arguments{
-\item{x}{a ts-boxable time series}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 
 \item{to}{desired frequency, either a character string (\code{"year"},
 \code{"quarter"}, \code{"month"}) or an integer (\code{1}, \code{4}, \code{12}).}
 
 \item{fun}{aggregation function (\code{mean}, \code{sum}, \code{data.table::first}, \code{data.table::last})}
 }
+\value{
+a ts-boxable time series, with the same class as the input.
+}
 \description{
-Changes the frequency of a ts boxable time series. Currently, incomplete
+Changes the frequency of a time series. Currently, incomplete
 periods are aggregated as well, but this is likely to change.
 }
 \examples{

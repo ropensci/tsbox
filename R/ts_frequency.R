@@ -1,12 +1,13 @@
 #' Change Frequency
 #' 
-#' Changes the frequency of a ts boxable time series. Currently, incomplete
+#' Changes the frequency of a time series. Currently, incomplete
 #' periods are aggregated as well, but this is likely to change.
 #' 
-#' @param x a ts-boxable time series
+#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
 #' @param fun aggregation function (`mean`, `sum`, `data.table::first`, `data.table::last`)
+#' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' ts_frequency(cbind(mdeaths, fdeaths), "year", sum)
 #' ts_frequency(cbind(mdeaths, fdeaths), "quarter", sum)
@@ -46,17 +47,6 @@ period.date <- list(
 )
 
 numeric.period <- c(month = 12, quarter = 4, year = 1)
-
-
-# do not export, as they conflict w data.table
-
-# #' @export
-# #' @name ts_frequency
-# last <- function(x) x[length(x)]
-
-# #' @export
-# #' @name ts_frequency
-# first <- function(x) x[1]
 
 
 frequency_core <- function(x, to, fun = mean){

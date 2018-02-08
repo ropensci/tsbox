@@ -90,7 +90,7 @@ ts_lag(x.ts)
 ts_forecast(mdeaths)     # ets forecast
 ```
 
-### Bind any time series vertically or horizontally
+### Combine multiple time series
 
 ```r
 ts_c(ts_dt(EuStockMarkets), AirPassengers)

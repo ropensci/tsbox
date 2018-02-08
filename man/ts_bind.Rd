@@ -4,14 +4,19 @@
 \alias{ts_bind}
 \alias{ts_bind}
 \alias{ts_chain}
-\title{Combine to Single Time Series}
+\title{Bind Time Series}
 \usage{
 ts_bind(...)
 
 ts_chain(...)
 }
 \arguments{
-\item{...}{one or several tsboxable time series}
+\item{...}{ts-boxable time series, objects of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
+}
+\value{
+A ts-boxable object of the same class as the input.
+If series of different classes are combined, the class of the first series is
+used (if possible).
 }
 \description{
 Combine time series to a new, single time series. \code{ts_bind} combines time
@@ -28,4 +33,7 @@ ts_plot(ts_pc(ts_c(
   comb = ts_chain(ts_window(mdeaths, end = "1975-12-01"), fdeaths),
   fdeaths
 )))
+}
+\seealso{
+\link{ts_c} to collect multiple time series
 }

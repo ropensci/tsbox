@@ -2,18 +2,26 @@
 % Please edit documentation in R/ts_c.R
 \name{ts_c}
 \alias{ts_c}
-\title{Bind any time series vertically or horizontally}
+\title{Collect Time Series}
 \usage{
 ts_c(...)
 }
 \arguments{
-\item{...}{time series objects, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+\item{...}{ts-boxable time series, objects of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
+}
+\value{
+A ts-boxable object of the same class as the input.
+If series of different classes are combined, the class of the first series is
+used (if possible).
 }
 \description{
-Bind any time series vertically or horizontally
+Collect time series as multiple time series.
+}
+\details{
+In data frame objects, multiple time series are stored in a long data frame.
+In \code{ts} and \code{xts} objects, time series are combined horizontally.
 }
 \examples{
-
 ts_c(ts_df(EuStockMarkets), AirPassengers)
 a <- ts_c(EuStockMarkets, mdeaths)
 
@@ -26,4 +34,7 @@ ts_bind(ts_xts(AirPassengers), mdeaths)
 ts_c(ts_dt(EuStockMarkets), AirPassengers)
 ts_bind(ts_dt(mdeaths), AirPassengers)
 
+}
+\seealso{
+\link{ts_bind}, to bind multiple time series to a single series.
 }

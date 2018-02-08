@@ -11,7 +11,7 @@ ts_long(x)
 ts_wide(x)
 }
 \arguments{
-\item{x}{a ts-boxable time series object, or a wide \code{data.frame},
+\item{x}{a ts-boxable time series, or a wide \code{data.frame},
 \code{data.table}, or \code{tibble}.}
 }
 \value{
