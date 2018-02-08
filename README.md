@@ -3,8 +3,6 @@ tsbox: Class-Agnostic Time Series in R
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
-*This is an early version, so expect some changes. Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
-
 The R ecosystem knows a [vast number](https://cran.r-project.org/web/views/TimeSeries.html) 
 of time series standards. Instead of creating the ultimate
 [15th](https://xkcd.com/927/) time series class, tsbox provides a set of tools
@@ -96,7 +94,7 @@ ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,
 ```
 
 
-### More examples
+## More examples
 
 
 #### Time Series in Data Frames
@@ -267,4 +265,6 @@ This is an overview of the functions available in tsbox. If you would add someth
 ### License
 
 *tsbox* is free and open source, licensed under GPL-3.
+
+*Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 
