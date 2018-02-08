@@ -25,7 +25,7 @@ ts_end(x)
 a ts-boxable time series, with the same class as the input.
 }
 \description{
-Filters time series to include time stamps within a given range.
+Filter time series for a time range.
 }
 \examples{
 # It's fine to use an end date outside of series span

@@ -1,5 +1,5 @@
-R Time Series Toolbox
-=====================
+tsbox: Class-Agnostic Time Series in R
+======================================
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
@@ -8,7 +8,7 @@ R Time Series Toolbox
 The R ecosystem knows a [vast number](https://cran.r-project.org/web/views/TimeSeries.html) 
 of time series standards. Instead of creating the ultimate
 [15th](https://xkcd.com/927/) time series class, tsbox provides a set of tools
-that are *agnostic* towards the existing standards. The tools also allow you to
+that are **agnostic** towards the existing standards. The tools also allow you to
 handle time series as plain data frames, thus making it easy to deal with time
 series in a [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
@@ -17,9 +17,9 @@ tsbox is built around a set of converters, which convert time series
 stored as **ts**, **xts**, **data.frame**, **data.table** or **tibble** to each
 other. Because this works reliably and without user input, we can easily write
 functions that work for all classes. So whether we want to smooth, scale,
-differentiate or bind time series, you can use the same commands to whatever
+forecast, regularize or chain time series, you can use the same commands to whatever
 time series class at hand. And, most conveniently, we get a time series plot
-function that *just works*!
+function that works for all classes and frequencies.
 
 To install:
 ```r
@@ -27,6 +27,8 @@ devtools::install_github("christophsax/tsbox")
 ```
 
 ### Convert everything to everything
+
+tsbox can convert time series stored as **ts**, **xts**, **data.frame**, **data.table** or **tibble** to each other. 
 
 ```r
 library(tsbox)
@@ -38,7 +40,68 @@ x.dt <- ts_dt(x.df)
 x.tbl <- ts_tbl(x.dt)
 ```
 
-Mulitple time series will be stored as a 'long' data frame (`data.frame`,
+### Use same functions for ts, xts, data.frame, data.table or tibble
+
+All functions start with `ts`, so you use them with auto complete (press Tab). These function work with any *ts-boxable* time series, **ts**, **xts**, **data.frame**, **data.table** or **tibble**, and *return the class of its input*.
+
+```r
+ts_scale(x.ts)           # normalization
+ts_scale(x.xts)
+ts_scale(x.df)
+ts_scale(x.dt)
+ts_scale(x.tbl)
+
+ts_trend(AirPassengers)  # loess trend line
+ts_pc(x.ts)
+ts_pcy(x.ts)
+ts_lag(x.ts)
+
+# with external packages
+ts_forecast(mdeaths)     # ets forecast
+```
+
+For a list of available functions, see below.
+
+
+### Combine multiple time series
+
+A set of helper functions makes it easy to combine or align multiple time
+series, even if their classes are different:
+
+```r
+# collect time series as multiple time series
+ts_c(ts_dt(EuStockMarkets), AirPassengers)
+ts_c(EuStockMarkets, mdeaths)
+
+# combine time series to a new, single time series
+ts_bind(ts_dt(mdeaths), AirPassengers)
+ts_bind(ts_xts(AirPassengers), ts_tbl(mdeaths))
+```
+
+### And plot just about everything
+
+Because all of this works smoothly, plotting all kinds of classes and
+frequencies is as simple as it should be. And it even has a legend!
+
+```
+ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
+```
+![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
+
+
+There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
+
+```r
+ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
+```
+
+
+### More examples
+
+
+#### Time Series in Data Frames
+
+Multiple time series will be stored as a 'long' data frame (`data.frame`,
 `data.table` or `tibble`):
 
 ```r
@@ -65,57 +128,11 @@ columns in a data frame to follow either the order:
 2. **time** column
 3. **value** column
 
-**or** the **time** colum and the **value** column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
+**or** the time and the value column to be explicitly named as `time` and `value`.
+If explicit names are used, the column order will be ignored.
 
-Note that multiple id columns with arbitrary names are allowed.
+Note that **multiple id columns** with arbitrary names are allowed.
 
-
-### Use same functions for ts, xts, data.frame, data.table or tibble
-
-All functions start with `ts`, so you use them with auto complete (press Tab).
-
-```r
-ts_scale(x.ts)  # normalization
-ts_scale(x.xts)
-ts_scale(x.df)
-ts_scale(x.dt)
-ts_scale(x.tbl)
-
-ts_trend(AirPassengers)  # loess trend line
-ts_pc(x.ts)
-ts_pcy(x.ts)
-ts_lag(x.ts)
-
-# with external packages
-ts_forecast(mdeaths)     # ets forecast
-```
-
-### Combine multiple time series
-
-```r
-ts_c(ts_dt(EuStockMarkets), AirPassengers)
-ts_c(EuStockMarkets, mdeaths)
-
-ts_bind(ts_dt(mdeaths), AirPassengers)
-ts_bind(ts_xts(AirPassengers), ts_tbl(mdeaths))
-```
-
-### And plot just about everything
-
-```
-ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
-```
-![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
-
-
-There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
-
-```r
-ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
-```
-
-
-### More examples
 
 #### Writing ts functions
 
@@ -147,11 +164,13 @@ ts_forecast(ts_c(mdeaths, fdeaths))
 ts_seas(ts_c(mdeaths, fdeaths))
 ```
 
-Note that the `ts_` function deals with the conversion stuff, 'verctorizes' the
-function so that it can be used with mulitple time series.
+Note that the `ts_` function deals with the conversion stuff, 'vectorizes' the
+function so that it can be used with multiple time series.
 
 
 #### Using tsbox in a dplyr / pipe workflow
+
+tsbox works well with tibbles and with the pipe, so it can be nicely integrated into a dplyr workflow:
 
 ```r
 library(dplyr)
@@ -163,63 +182,86 @@ ts_tbl(ts_c(mdeaths, fdeaths)) %>%
 ```
 
  
-### List of Functions
+### Available Functions
 
-This is an overview of all the functions in tsbox. Planned functions are in
-parentheses. If you would add something else, or suggest different naming or
-conceptualization, please let me know.
+This is an overview of the functions available in tsbox. If you would add something else, please let me [know](mailto:christoph.sax@gmail.com).
 
 
 #### Convert
 
-    ts_ts
-    ts_xts
-    ts_df       # or ts_data.frame
-    ts_dt       # or ts_data.table
-    ts_tbl
+|   Name   |               What it does              |
+|----------|-----------------------------------------|
+| `ts_ts`  | convert any time series to `ts`         |
+| `ts_xts` | convert any time series to `xts`        |
+| `ts_df`  | convert any time series to `data.frame` |
+| `ts_dt`  | convert any time series to `data.table` |
+| `ts_tbl` | convert any time series to `tibble`     |
 
-#### Bind
 
-    ts_c        # collect time series as multiple time series
-    ts_bind     # combine time series to a new, single time series
+#### Combine
 
-#### Filter and Align
+|    Name    |                   What it does                   |
+|------------|--------------------------------------------------|
+| `ts_c`     | collect time series as multiple time series      |
+| `ts_bind`  | bin time series to a new, single time series     |
+| `ts_chain` | chain time series, using percentage change rates |
 
-    ts_window
-    ts_align
-    ts_union
+
+#### Align
+
+|     Name    |                     What it does                    |
+|-------------|-----------------------------------------------------|
+| `ts_window` | Filter time series for a time range.                |
+| `ts_align`  | aligning span and frequencies (regular series only) |
+| `ts_union`  | aligning time stamps (regular and irregular)        |
+
 
 #### Transform
 
-    ts_scale    # normalization
-    ts_trend    # loess trend line
-    ts_pc
-    ts_pcy
-    ts_diff
-    ts_diffy
-    ts_lag
+|    Name    |                What it does               |
+|------------|-------------------------------------------|
+| `ts_scale` | normalization (center and scale)          |
+| `ts_trend` | loess trend line                          |
+| `ts_pc`    | Percentage change rate                    |
+| `ts_pcy`   | Percentage change rate (to previous year) |
+| `ts_diff`  | First difference                          |
+| `ts_diffy` | First difference (to previous year)       |
+| `ts_lag`   | Lag operator                              |
+
 
 #### Reshape
 
-    ts_wide
-    ts_long
+|    Name   |                       What it does                       |
+|-----------|----------------------------------------------------------|
+| `ts_wide` | convert multiple time series to a wide data frame        |
+| `ts_long` | convert wide data frame to a long, ts-boxable data frame |
+
 
 #### Frequency Handling
 
-    ts_frequency
-    ts_regular
+|      Name      |                  What it does                  |
+|----------------|------------------------------------------------|
+| `ts_frequency` | convert to lower frequency                     |
+| `ts_regular`   | regularize: make implicit `NA` values explicit |
+    
 
 #### Plot
 
-    ts_plot
-    ts_ggplot
+|     Name    |                  What it does                  |
+|-------------|------------------------------------------------|
+| `ts_plot`   | a fast plotting function, with no dependencies |
+| `ts_ggplot` | same syntax as `ts_plot`, returning a `ggplot` |
+    
 
 #### Included examples of user defined ts_ functions
 
-    ts_prcomp
-    ts_forcast      # requires(forecast)
-    ts_dygraph      # requires(dygraph)
-    ts_seas         # requires(seasonal)
+|     Name     |                    What it does                   |
+|--------------|---------------------------------------------------|
+| `ts_`        | Universal constructor function for tsbox function |
+| `ts_prcomp`  | Principal components of multiple time series      |
+| `ts_forcast` | Automated forecasts (requires forecast)           |
+| `ts_dygraph` | Interactive graphs (requires dygraphs)            |
+| `ts_seas`    | X-13 seasonal adjustment (requires seasonal)      |
 
 
 ### License
