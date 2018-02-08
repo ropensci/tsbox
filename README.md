@@ -97,7 +97,7 @@ ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,
 ## More examples
 
 
-#### Time Series in Data Frames
+### Time Series in Data Frames
 
 Multiple time series will be stored as a 'long' data frame (`data.frame`,
 `data.table` or `tibble`):
@@ -132,7 +132,7 @@ If explicit names are used, the column order will be ignored.
 Note that **multiple id columns** with arbitrary names are allowed.
 
 
-#### Writing ts functions
+### Writing ts functions
 
 The `ts_` function is a constructor function for tsbox time series functions.
 Use it to wrap any function that works with time series. The default is set to
@@ -166,7 +166,7 @@ Note that the `ts_` function deals with the conversion stuff, 'vectorizes' the
 function so that it can be used with multiple time series.
 
 
-#### Using tsbox in a dplyr / pipe workflow
+### Using tsbox in a dplyr / pipe workflow
 
 tsbox works well with tibbles and with the pipe, so it can be nicely integrated into a dplyr workflow:
 
@@ -185,7 +185,7 @@ ts_tbl(ts_c(mdeaths, fdeaths)) %>%
 This is an overview of the functions available in tsbox. If you would add something else, please let me [know](mailto:christoph.sax@gmail.com).
 
 
-#### Convert
+### Convert
 
 |   Name   |               What it does              |
 |----------|-----------------------------------------|
@@ -196,7 +196,7 @@ This is an overview of the functions available in tsbox. If you would add someth
 | `ts_tbl` | convert any time series to `tibble`     |
 
 
-#### Combine
+### Combine
 
 |    Name    |                   What it does                   |
 |------------|--------------------------------------------------|
@@ -205,7 +205,7 @@ This is an overview of the functions available in tsbox. If you would add someth
 | `ts_chain` | chain time series, using percentage change rates |
 
 
-#### Align
+### Align
 
 |     Name    |                     What it does                    |
 |-------------|-----------------------------------------------------|
@@ -214,7 +214,7 @@ This is an overview of the functions available in tsbox. If you would add someth
 | `ts_union`  | aligning time stamps (regular and irregular)        |
 
 
-#### Transform
+### Transform
 
 |    Name    |                What it does               |
 |------------|-------------------------------------------|
@@ -227,7 +227,7 @@ This is an overview of the functions available in tsbox. If you would add someth
 | `ts_lag`   | Lag operator                              |
 
 
-#### Reshape
+### Reshape
 
 |    Name   |                       What it does                       |
 |-----------|----------------------------------------------------------|
@@ -235,7 +235,7 @@ This is an overview of the functions available in tsbox. If you would add someth
 | `ts_long` | convert wide data frame to a long, ts-boxable data frame |
 
 
-#### Frequency Handling
+### Frequency Handling
 
 |      Name      |                  What it does                  |
 |----------------|------------------------------------------------|
@@ -243,7 +243,7 @@ This is an overview of the functions available in tsbox. If you would add someth
 | `ts_regular`   | regularize: make implicit `NA` values explicit |
     
 
-#### Plot
+### Plot
 
 |     Name    |                  What it does                  |
 |-------------|------------------------------------------------|
@@ -251,7 +251,7 @@ This is an overview of the functions available in tsbox. If you would add someth
 | `ts_ggplot` | same syntax as `ts_plot`, returning a `ggplot` |
     
 
-#### Included examples of user defined ts_ functions
+### Included examples of user defined ts_ functions
 
 |     Name     |                    What it does                   |
 |--------------|---------------------------------------------------|
@@ -262,7 +262,7 @@ This is an overview of the functions available in tsbox. If you would add someth
 | `ts_seas`    | X-13 seasonal adjustment (requires seasonal)      |
 
 
-### License
+## License
 
 *tsbox* is free and open source, licensed under GPL-3.
 
