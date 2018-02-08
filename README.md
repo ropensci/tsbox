@@ -208,7 +208,7 @@ This is an overview of the functions available in tsbox. If you would add someth
 
 |     Name    |                     What it does                    |
 |-------------|-----------------------------------------------------|
-| `ts_window` | Filter time series for a time range.                |
+| `ts_window` | filter time series for a time range.                |
 | `ts_align`  | aligning span and frequencies (regular series only) |
 | `ts_union`  | aligning time stamps (regular and irregular)        |
 
@@ -219,11 +219,11 @@ This is an overview of the functions available in tsbox. If you would add someth
 |------------|-------------------------------------------|
 | `ts_scale` | normalization (center and scale)          |
 | `ts_trend` | loess trend line                          |
-| `ts_pc`    | Percentage change rate                    |
-| `ts_pcy`   | Percentage change rate (to previous year) |
-| `ts_diff`  | First difference                          |
-| `ts_diffy` | First difference (to previous year)       |
-| `ts_lag`   | Lag operator                              |
+| `ts_pc`    | percentage change rate                    |
+| `ts_pcy`   | percentage change rate (to previous year) |
+| `ts_diff`  | first difference                          |
+| `ts_diffy` | first difference (to previous year)       |
+| `ts_lag`   | lag operator                              |
 
 
 ### Reshape
@@ -254,10 +254,10 @@ This is an overview of the functions available in tsbox. If you would add someth
 
 |     Name     |                    What it does                   |
 |--------------|---------------------------------------------------|
-| `ts_`        | Universal constructor function for tsbox function |
-| `ts_prcomp`  | Principal components of multiple time series      |
-| `ts_forcast` | Automated forecasts (requires forecast)           |
-| `ts_dygraph` | Interactive graphs (requires dygraphs)            |
+| `ts_`        | universal constructor function for tsbox function |
+| `ts_prcomp`  | principal components of multiple time series      |
+| `ts_forcast` | automated forecasts (requires forecast)           |
+| `ts_dygraph` | interactive graphs (requires dygraphs)            |
 | `ts_seas`    | X-13 seasonal adjustment (requires seasonal)      |
 
 
