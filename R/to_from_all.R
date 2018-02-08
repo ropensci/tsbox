@@ -12,12 +12,11 @@ ts_boxable <- function(x) {
 }
 
 
-#' Universal Converter Function
-#'
-#' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
-#' @return returns a function
-#' @export
-coerce_to_ <- function(x) {
+# Universal Converter Function
+#
+# @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+# @return returns a function
+as_class <- function(x) {
   stopifnot(x %in% .supported.classes)
   get(paste0("ts_", x))
 }
@@ -69,12 +68,15 @@ relevant_class <- function(x) {
 
 #' Reclass an object to a ts-boxable series
 #'
-#' Inspired by the similarly named function from the xts package
+#' Copies class attributes from an existing ts-boxable series. Mainly used
+#' internally.
+#' 
+#' Inspired by `xts::reclass`, which does something similar.
 #'
 #' @param z series to reclass
 #' @param x template series
 #' @export
-ts_reclass <- function(z, x) {
+copy_ts_class <- function(z, x) {
   if (!ts_boxable(z)) {
     if (inherits(x, "ts")) {
       z <- ts(z)
@@ -89,7 +91,7 @@ ts_reclass <- function(z, x) {
       return(z)
     }
   }
-  ans <- coerce_to_(relevant_class(x))(z)
+  ans <- as_class(relevant_class(x))(z)
 
   # data frames should keep mode of time col.
   # TODO: do this better

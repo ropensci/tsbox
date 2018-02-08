@@ -26,8 +26,6 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12) 
   # 'Source Sans Pro'  # does not work on mac
   # 'Slabo 13px'
 
-  margin <- NULL
-
   half_line <- base_size / 2
   ggplot2::theme_minimal(base_family = base_family, base_size = base_size) +
     ggplot2::theme(
@@ -36,7 +34,7 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12) 
       axis.title.x = ggplot2::element_blank(),
       axis.title.y = ggplot2::element_text(
         size = ggplot2::rel(0.9), color = "grey10",
-        margin = margin(t = 0, r = 7, b = 0, l = 0)
+        margin = ggplot2::margin(t = 0, r = 7, b = 0, l = 0)
       ),
       plot.title = ggplot2::element_text(color = "grey10", face = "bold", margin = ggplot2::margin(t = half_line * 2, b = half_line * 0.7), hjust = 0, size = ggplot2::rel(1.2)),
       plot.subtitle = ggplot2::element_text(color = "grey10", margin = ggplot2::margin(t = 0, b = half_line * 1.2), size = ggplot2::rel(0.9), hjust = 0),
@@ -60,18 +58,6 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12) 
       # axis.line.x =  ggplot2::element_line()
     )
 }
-
-# #' @export
-# #' @rdname theme_tsbox
-# theme_tsbox_scatter <- function(){
-#   theme_tsbox() +
-#   theme(axis.title.x = element_text(margin = margin(8, 0, 0, 0), size = 10),
-#         axis.title.y = element_text(margin = margin(0, 8, 0, 0), angle = 90, size = 10),
-#         panel.grid.major.x = element_line(colour = "black"),
-#         axis.line.x =  element_blank(),
-#         axis.ticks.x = element_blank()
-#     )
-# }
 
 
 #' @export
@@ -114,11 +100,11 @@ scale_fill_tsbox <- function(...) {
 #' @export
 ts_ggplot <- function(...) {
 
-  # TODO add some multi dim support
-
-
   stopifnot(requireNamespace("ggplot2"))
   x <- ts_dts(ts_c(...))
+
+  # only a single id col
+  x <- combine_id_cols(x)
 
   colname.time <- colname_time(x)
   colname.value <- colname_value(x)

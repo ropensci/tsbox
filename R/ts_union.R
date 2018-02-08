@@ -9,7 +9,7 @@
 #   if (!is.na(fill)){
 #     z[is.na(z)] <- fill
 #   }
-#   ts_reclass(z, x)
+#   copy_ts_class(z, x)
 # }
 
 # > system.time(ts_union_old(dt_rg_gmd_agg))
@@ -55,5 +55,5 @@ ts_union <- function(x, fill = NA) {
     z[is.na(value), value := fill]
   }
 
-  ts_reclass(z, x)
+  copy_ts_class(z, x)
 }

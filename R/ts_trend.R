@@ -44,7 +44,7 @@ trend_core <- function(x, degree = 2, span = NULL) {
   #           upperCI = 1.96 * pp$se.fit + pp$fit
   #           )
 
-  ts_reclass(z, x)
+  copy_ts_class(z, x)
 }
 
 

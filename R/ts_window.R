@@ -23,7 +23,7 @@ ts_window <- function(x, start = NULL, end = NULL, extend = FALSE) {
   }
 
   # 3. and reclass
-  z <- ts_reclass(z, x)
+  z <- copy_ts_class(z, x)
 
   # if (extend){
   #   z <- ts_union(z)

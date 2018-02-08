@@ -4,7 +4,7 @@
 #' Note that long format data frames are ts-boxable objects, where wide format data
 #' frames are not.
 #'
-#' @param x a ts-boxable time series object, or a wide `data.frame`,
+#' @param x a ts-boxable time series, or a wide `data.frame`, 
 #' `data.table`, or `tibble`.
 #'
 #' @return object with the same class as input
@@ -16,7 +16,7 @@ ts_long <- function(x) {
   rc <- relevant_class(x)
   if (rc %in% c("xts", "ts")) return(x)
   z <- long_core(as.data.table(x))
-  ts_reclass(z, x)
+  copy_ts_class(z, x)
 }
 
 # core function is also used by ts_dts.ts and ts_dts.xts

@@ -15,7 +15,7 @@ ts_chain <- function(...) {
   desired.class <- desired_class(ll)
 
   z <- Reduce(chain_two, ll)
-  coerce_to_(desired.class)(z)
+  as_class(desired.class)(z)
 }
 
 

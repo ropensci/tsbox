@@ -7,8 +7,29 @@
 ts_na_omit(x)
 }
 \arguments{
-\item{x}{any time series object}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
+}
+\value{
+a ts-boxable time series, with the same class as the input.
 }
 \description{
-Omit NA values
+Remove NA values in ts-boxable objects, turning explicit into implicit
+missing values.
+}
+\details{
+Note that internal NAs in \code{ts} time series will not be removed, as this
+conflicts with the regular structure.
+}
+\examples{
+x <- AirPassengers
+x[c(10, 15)] <- NA
+
+# does not change anything for ts objects
+ts_na_omit(x)  
+
+# but turns an explicit NA into an implicit for data.frames
+ts_na_omit(ts_dts(x))
+}
+\seealso{
+\link{ts_regular}, for the opposite, turning implicit into explicit missing values.
 }

@@ -14,5 +14,5 @@ ts_apply_dts <- function(x, fun, ...) {
 ts_apply <- function(x, fun, ...) {
   stopifnot(ts_boxable(x))
   z <- ts_apply_dts(ts_dts(x), fun, ...)
-  ts_reclass(z, x)
+  copy_ts_class(z, x)
 }
