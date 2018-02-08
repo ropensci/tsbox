@@ -25,7 +25,7 @@ devtools::install_github("christophsax/tsbox")
 
 ### Convert everything to everything
 
-tsbox can convert time series stored as **ts**, **xts**, **data.frame**, **data.table** or **tibble** to each other. 
+tsbox can convert time series stored as **ts**, **xts**, **data.frame**, **data.table** or **tibble** to each other:
 
 ```r
 library(tsbox)
@@ -39,7 +39,7 @@ x.tbl <- ts_tbl(x.dt)
 
 ### Use same functions for ts, xts, data.frame, data.table or tibble
 
-All functions start with `ts`, so you use them with auto complete (press Tab). These function work with any *ts-boxable* time series, **ts**, **xts**, **data.frame**, **data.table** or **tibble**, and *return the class of its input*.
+All functions start with `ts`, so you use them with auto complete (press Tab). These function work with any *ts-boxable* time series, ts, xts, data.frame, data.table or tibble, and **return the class of its input**.
 
 ```r
 ts_scale(x.ts)           # normalization
