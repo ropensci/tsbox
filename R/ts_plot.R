@@ -5,18 +5,18 @@
 #' It is meant to be used interactively, with limited customizability.
 #' `ts_ggplot` prduces a similar plot, but uses the
 #' [ggplot2](http://ggplot2.org/) graphic system, and can be customized. With
-#' `theme_tsbox()` and `scale_color_tsbox()`, the output of `ts_ggplot` is very
+#' [theme_tsbox()] and [scale_color_tsbox()], the output of `ts_ggplot` is very
 #' similar to `ts_plot`.
 #' 
 #' Both `ts_plot` and `ts_ggplot` combine multiple ID dimensions into a single 
 #' dimension. To plot mulitple dimensions in different shapes, facets, etc., use
 #' standard ggplot.
 #' 
-#' @param ... time series objects, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param title title (optional)
 #' @param subtitle subtitle (optional)
 #' @param ylab ylab (optional)
-#' @param family font family (optional)
+#' @param family font family (optional, can also be set via `options`)
 #' @examples
 #' ts_plot(AirPassengers, title = "Airline passengers",
 #'        subtitle = "The classic Box & Jenkins airline data")
@@ -59,7 +59,8 @@
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
-ts_plot <- function(..., title, subtitle, ylab = "", family = "sans") {
+ts_plot <- function(..., title, subtitle, ylab = "", 
+                    family = getOption("ts_font", "sans")) {
   value <- NULL
   id <- NULL
 

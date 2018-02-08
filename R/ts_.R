@@ -10,8 +10,8 @@ load_suggested <- function(pkg) {
 
 #' Constructing `ts_...` Functions
 #' 
-#' The `ts_` function turns an exting function into a `ts_` function, allowing
-#' the function to deal with any ts-boxable time series. 
+#' `ts_` turns an existing function into a function that can deal with 
+#'  ts-boxable time series objects.
 #'
 #' The `ts_` function is a constructor function for tsbox time series functions. It
 #' can be used to wrap any function that works with time series. The default is set

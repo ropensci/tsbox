@@ -2,13 +2,20 @@
 % Please edit documentation in R/to_from_all.R
 \name{ts_boxable}
 \alias{ts_boxable}
-\title{Test if object is a valid time series}
+\title{Test if an Object is ts-Boxable}
 \usage{
 ts_boxable(x)
 }
 \arguments{
 \item{x}{time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
 }
+\value{
+logical, either \code{TRUE} or \code{FALSE}
+}
 \description{
-Test if object is a valid time series
+Mainly used internally.
+}
+\examples{
+ts_boxable(AirPassengers)
+ts_boxable(lm)
 }

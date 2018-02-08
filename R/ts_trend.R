@@ -11,13 +11,6 @@
 # code inspiration from: https://gist.github.com/kylebgorman/6444612
 
 
-
-
-
-
-
-
-
 trend_core <- function(x, degree = 2, span = NULL) {
   value <- NULL
 
@@ -70,10 +63,20 @@ loess_aic_span_optim <- function(x, degree = 2) {
 
 
 
-#' Loess smoothing
+#' Loess Trend Estimation
+#' 
+#' Trend estimation that uses [stats::loess].
+#' 
+#' The Loess degree is chosen to minimize AIC, as described in:
+#' 
+#' Hurvich, C.M., Simonoff, J.S., and Tsai, C. L. 1998. Smoothing
+#' parameter selection in nonparametric regression using an improved
+#' Akaike Information Criterion. Journal of the Royal Statistical
+#' Society B 60: 271-293.
+#'
 #' @param x any time series object
 #' @param ... arguments, passed to subfunction:
 #' - `degree` degree of Loess smoothing
-#' - `span` smoothing parameter, if NULL, automated search
+#' - `span` smoothing parameter, if `NULL`, an automated search performed (see Details)
 #' @export
 ts_trend <- ts_(trend_core, vectorize = TRUE)

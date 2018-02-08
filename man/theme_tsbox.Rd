@@ -16,7 +16,7 @@ scale_color_tsbox(...)
 scale_fill_tsbox(...)
 }
 \arguments{
-\item{base_family}{base font family}
+\item{base_family}{base font family (can also be set via \code{options})}
 
 \item{base_size}{base font size}
 

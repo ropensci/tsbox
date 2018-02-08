@@ -1,32 +1,45 @@
-
-# # old version using ts conversion to get the effect
-# ts_union_old <- function(x, fill = NA){
-#   # DONT go for a "ts" object here!!)
-
-#   # TODO, do this propperly
-
-#   z <- ts_ts(x)
-#   if (!is.na(fill)){
-#     z[is.na(z)] <- fill
-#   }
-#   copy_ts_class(z, x)
-# }
-
-# > system.time(ts_union_old(dt_rg_gmd_agg))
-#    user  system elapsed
-#   0.655   0.013   0.670
-# >
-# > system.time(ts_union(dt_rg_gmd_agg))
-#    user  system elapsed
-#   0.311   0.013   0.213
-
-
-
-#' Make all time series the same length
-#' @param x any time series object
+#' Align Time Series
+#' 
+#' `ts_align` makes sure all time series cover the same time span and have the
+#' same regular frequency. `ts_union` only ensures that series have the same
+#' time stamps and also works with irregular series. For `ts` objects, the two 
+#' functions have the same effect.
+#' 
+#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param fill missign value specifier
+#' @return a ts-boxable time series, with the same class as the input.
+#' 
+#' @export
+#' @examples
+#' ts_align(ts_df(ts_c(mdeaths, fdeaths = ts_window(fdeaths, end = "1977-01-01"))))
+ts_align <- function(x, fill = NA){
+  stopifnot(length(fill) == 1)
+  x0 <- ts_ts(x)
+  # copy pasted from ts_dts.ts
+  value <- NULL
+  timec <- ts_to_date_time(x0)
+  m <- as.matrix(x0)
+  dta <- data.table(m)
+  dta[, time := timec]
+  if (ncol(m) == 1) {
+    names(dta)[1] <- "value"
+    # needs the ts_dts.data.table
+    z <- ts_dts(dta[, list(time, value)])
+  } else {
+    z <- long_core(dta)
+    if (!is.na(fill)){
+      z[is.na(value), value := fill]
+    }
+  }
+  copy_ts_class(z, x)
+}
+
+
+#' @name ts_align
 #' @export
 ts_union <- function(x, fill = NA) {
+  stopifnot(length(fill) == 1)
+
   k <- NULL
   value <- NULL
 

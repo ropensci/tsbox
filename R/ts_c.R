@@ -39,7 +39,7 @@
 #' 
 #' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' 
-#' @return A ts-boxable object of the same class as the input. 
+#' @return a ts-boxable object of the same class as the input. 
 #' If series of different classes are combined, the class of the first series is
 #' used (if possible).
 #' 

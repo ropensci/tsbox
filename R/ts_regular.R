@@ -42,8 +42,8 @@ regular_core <- function(x){
     if (is_regular(x$time)) return(x)
     reg.date <- regularize_date(x$time)
     if (is.null(reg.date)) {
-      message("some series cannot be regularized.")
-      return(x)
+      stop("series does no show regular pattern and cannot be regularized", 
+           call. = FALSE)
     }
     # if POSIXct and successful regularization, change to date, to join
     if (inherits(x$time, "POSIXct")){

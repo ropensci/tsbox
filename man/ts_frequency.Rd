@@ -12,7 +12,7 @@ ts_frequency(x, to = "year", fun = mean)
 \item{to}{desired frequency, either a character string (\code{"year"},
 \code{"quarter"}, \code{"month"}) or an integer (\code{1}, \code{4}, \code{12}).}
 
-\item{fun}{aggregation function (\code{mean}, \code{sum}, \code{data.table::first}, \code{data.table::last})}
+\item{fun}{aggregation function. Eg., \code{\link[base:mean]{base::mean()}}, \code{\link[base:sum]{base::sum()}}, \code{\link[data.table:first]{data.table::first()}}, \code{\link[data.table:last]{data.table::last()}}}
 }
 \value{
 a ts-boxable time series, with the same class as the input.

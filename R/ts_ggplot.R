@@ -2,7 +2,7 @@
 #'
 #' Using same style as `ts_plot()`.
 #'
-#' @param base_family base font family
+#' @param base_family base font family (can also be set via `options`)
 #' @param base_size base font size
 #' @param ... aruments passed to subfunctions
 #' @examples

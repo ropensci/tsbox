@@ -1,52 +1,50 @@
-
-
-#' Agnostic Time Windows
-#' @param x any time series object
-#' @param start start date, string, Date or POSIXct
-#' @param end end date, string, Date or POSIXct
-#' @param extend logical. If true, the start and end values are allowed to extend the series.
+#' Time Windows
+#' 
+#' Filters time series to include time stamps within a given range.
+#' 
+#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @param start start date, character string, `Date` or `POSIXct`
+#' @param end end date, character string, `Date` or `POSIXct`.
+#' @return a ts-boxable time series, with the same class as the input.
 #' @export
-ts_window <- function(x, start = NULL, end = NULL, extend = FALSE) {
+#' @examples
+#' # It's fine to use an end date outside of series span
+#' ts_window(mdeaths, end = "2001-01-01")
+#' 
+#' ms <- ts_window(mdeaths, end = "1976-12-01")
+#' ts_window(ts_c(fdeaths, ms), start = ts_start(ms), end = ts_end(ms))
+ts_window <- function(x, start = NULL, end = NULL) {
 
-  # TODO fast track for ts objects, if start and end are numeric
-
-  # 1. Coerce to specific class
   z <- ts_dts(x)
+  ctime <- colname_time(z)
 
-  # 2. Call specific function
-  time.var <- colnames(z)[1]
   if (!is.null(start)) {
-    z <- filter_data.table(z, time.var, ">=", anytime(start))
+    z <- filter_data.table(z, ctime, ">=", anytime(start))
   }
   if (!is.null(end)) {
-    z <- filter_data.table(z, time.var, "<=", anytime(end))
+    if (!is.null(start) && start >= end) {
+      stop("'start' cannot be at or after 'end'", call. = FALSE)
+    }
+    z <- filter_data.table(z, ctime, "<=", anytime(end))
   }
-
-  # 3. and reclass
   z <- copy_ts_class(z, x)
-
-  # if (extend){
-  #   z <- ts_union(z)
-  # }
 
   z
 }
 
-
-ts_range <- function(x) {
-  range(ts_dts(x)[[1]])
-}
-
-
-#' Aligning Time Series
-#' @param x a ts boxable time series object
-#' @param with a ts boxable time series object
 #' @export
-#' @examples
-#' ts_align(mdeaths, ts_window(fdeaths, end = "1977-01-01"))
-ts_align <- function(x, with) {
-  stopifnot(ts_boxable(x), ts_boxable(with))
-  rng <- ts_range(with)
-  z <- ts_window(x, start = rng[1], end = rng[2])
-  ts_union(z)
+#' @name ts_window
+ts_start <- function(x) {
+  xdts <- ts_dts(x)
+  range(xdts[[colname_time(xdts)]])[1]
 }
+#' @export
+#' @name ts_window
+ts_end <- function(x) {
+  xdts <- ts_dts(x)
+  range(xdts[[colname_time(xdts)]])[2]
+}
+
+
+
+

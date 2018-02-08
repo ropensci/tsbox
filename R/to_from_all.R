@@ -4,8 +4,15 @@
 .supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tbl", "dts", "tslist")
 
 
-#' Test if object is a valid time series
+#' Test if an Object is ts-Boxable
+#' 
+#' Mainly used internally.
+#' 
 #' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @return logical, either `TRUE` or `FALSE`
+#' @examples
+#' ts_boxable(AirPassengers)
+#' ts_boxable(lm)
 #' @export
 ts_boxable <- function(x) {
   class(x)[1] %in% .supported.classes
@@ -38,8 +45,13 @@ desired_class <- function(ll) {
 }
 
 #' Extract the Relavant Class
+#' 
+#' Mainly used internally.
 #'
-#' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @examples
+#' relevant_class(AirPassengers)
+#' relevant_class(ts_df(AirPassengers))
 #' @export
 relevant_class <- function(x) {
   if (inherits(x, "dts")) {
@@ -66,7 +78,7 @@ relevant_class <- function(x) {
   stop("not a ts_boxable object.")
 }
 
-#' Reclass an object to a ts-boxable series
+#' Reclass Time Series
 #'
 #' Copies class attributes from an existing ts-boxable series. Mainly used
 #' internally.

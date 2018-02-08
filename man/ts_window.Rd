@@ -2,19 +2,35 @@
 % Please edit documentation in R/ts_window.R
 \name{ts_window}
 \alias{ts_window}
-\title{Agnostic Time Windows}
+\alias{ts_window}
+\alias{ts_start}
+\alias{ts_window}
+\alias{ts_end}
+\title{Time Windows}
 \usage{
-ts_window(x, start = NULL, end = NULL, extend = FALSE)
+ts_window(x, start = NULL, end = NULL)
+
+ts_start(x)
+
+ts_end(x)
 }
 \arguments{
-\item{x}{any time series object}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 
-\item{start}{start date, string, Date or POSIXct}
+\item{start}{start date, character string, \code{Date} or \code{POSIXct}}
 
-\item{end}{end date, string, Date or POSIXct}
-
-\item{extend}{logical. If true, the start and end values are allowed to extend the series.}
+\item{end}{end date, character string, \code{Date} or \code{POSIXct}.}
+}
+\value{
+a ts-boxable time series, with the same class as the input.
 }
 \description{
-Agnostic Time Windows
+Filters time series to include time stamps within a given range.
+}
+\examples{
+# It's fine to use an end date outside of series span
+ts_window(mdeaths, end = "2001-01-01")
+
+ms <- ts_window(mdeaths, end = "1976-12-01")
+ts_window(ts_c(fdeaths, ms), start = ts_start(ms), end = ts_end(ms))
 }

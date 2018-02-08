@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_from_all.R
 \name{copy_ts_class}
 \alias{copy_ts_class}
-\title{Reclass an object to a ts-boxable series}
+\title{Reclass Time Series}
 \usage{
 copy_ts_class(z, x)
 }

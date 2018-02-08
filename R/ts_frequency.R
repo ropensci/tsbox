@@ -6,7 +6,8 @@
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
-#' @param fun aggregation function (`mean`, `sum`, `data.table::first`, `data.table::last`)
+#' @param fun aggregation function. Eg., [base::mean()], [base::sum()], [data.table::first()], [data.table::last()]
+#' 
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' ts_frequency(cbind(mdeaths, fdeaths), "year", sum)
@@ -17,7 +18,7 @@
 #' 
 #' # Note that incomplete years are (currently) aggregated as well
 #' ts_frequency(EuStockMarkets, "year")
-#' 
+#'
 #' @export
 ts_frequency <- function(x, to = "year", fun = mean){
   stopifnot(ts_boxable(x))

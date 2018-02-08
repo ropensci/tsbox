@@ -7,10 +7,11 @@
 \usage{
 ts_ggplot(...)
 
-ts_plot(..., title, subtitle, ylab = "", family = "sans")
+ts_plot(..., title, subtitle, ylab = "", family = getOption("ts_font",
+  "sans"))
 }
 \arguments{
-\item{...}{time series objects, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+\item{...}{ts-boxable time series, objects of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 
 \item{title}{title (optional)}
 
@@ -18,14 +19,14 @@ ts_plot(..., title, subtitle, ylab = "", family = "sans")
 
 \item{ylab}{ylab (optional)}
 
-\item{family}{font family (optional)}
+\item{family}{font family (optional, can also be set via \code{options})}
 }
 \description{
 \code{ts_plot} is a simple and fast plotting function for ts-boxable time series.
 It is meant to be used interactively, with limited customizability.
 \code{ts_ggplot} prduces a similar plot, but uses the
 \href{http://ggplot2.org/}{ggplot2} graphic system, and can be customized. With
-\code{theme_tsbox()} and \code{scale_color_tsbox()}, the output of \code{ts_ggplot} is very
+\code{\link[=theme_tsbox]{theme_tsbox()}} and \code{\link[=scale_color_tsbox]{scale_color_tsbox()}}, the output of \code{ts_ggplot} is very
 similar to \code{ts_plot}.
 }
 \details{

@@ -7,8 +7,12 @@
 relevant_class(x)
 }
 \arguments{
-\item{x}{time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 }
 \description{
-Extract the Relavant Class
+Mainly used internally.
+}
+\examples{
+relevant_class(AirPassengers)
+relevant_class(ts_df(AirPassengers))
 }

@@ -27,8 +27,8 @@ ts-boxable output as imputed?}
 A function that accepts ts-boxable time series as an input.
 }
 \description{
-The \code{ts_} function turns an exting function into a \code{ts_} function, allowing
-the function to deal with any ts-boxable time series.
+\code{ts_} turns an existing function into a function that can deal with
+ts-boxable time series objects.
 }
 \details{
 The \code{ts_} function is a constructor function for tsbox time series functions. It

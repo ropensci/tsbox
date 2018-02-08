@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_trend.R
 \name{ts_trend}
 \alias{ts_trend}
-\title{Loess smoothing}
+\title{Loess Trend Estimation}
 \usage{
 ts_trend(x, ...)
 }
@@ -12,9 +12,17 @@ ts_trend(x, ...)
 \item{...}{arguments, passed to subfunction:
 \itemize{
 \item \code{degree} degree of Loess smoothing
-\item \code{span} smoothing parameter, if NULL, automated search
+\item \code{span} smoothing parameter, if \code{NULL}, an automated search performed (see Details)
 }}
 }
 \description{
-Loess smoothing
+Trend estimation that uses \link[stats:loess]{stats::loess}.
+}
+\details{
+The Loess degree is chosen to minimize AIC, as described in:
+
+Hurvich, C.M., Simonoff, J.S., and Tsai, C. L. 1998. Smoothing
+parameter selection in nonparametric regression using an improved
+Akaike Information Criterion. Journal of the Royal Statistical
+Society B 60: 271-293.
 }

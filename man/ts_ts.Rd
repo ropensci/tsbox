@@ -17,7 +17,7 @@
 \alias{ts_tslist}
 \alias{ts_ts}
 \alias{ts_xts}
-\title{Convert everything to everything}
+\title{Convert Everything to Everything}
 \usage{
 ts_data.frame(x)
 
@@ -36,10 +36,47 @@ ts_tslist(x)
 ts_xts(x)
 }
 \arguments{
-\item{x}{a time series object, either \code{ts}, \code{data.frame}, \code{data.table}, \code{tibble} or \code{xts}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
+}
+\value{
+ts-boxable time series of the desired class, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.
 }
 \description{
-Convert everything to everything
+tsbox is built around a set of converters, which convert time series
+stored as \code{ts}, \code{xts}, \code{data.frame}, \code{data.table} or \code{tibble} to each
+other.
+
+Mulitple time series will be stored as a 'long' data frame (\code{data.frame},
+\code{data.table} or \code{tibble}):
+}
+\details{
+\preformatted{ts_df(ts_c(fdeaths, mdeaths))
+
+#          id       time value
+# 1   fdeaths 1974-01-01   901
+# 2   fdeaths 1974-02-01   689
+# 3   fdeaths 1974-03-01   827
+# 4   fdeaths 1974-04-01   677
+# 5   fdeaths 1974-05-01   522
+# ...
+# 140 mdeaths 1979-08-01   975
+# 141 mdeaths 1979-09-01   940
+# 142 mdeaths 1979-10-01  1081
+# 143 mdeaths 1979-11-01  1294
+# 144 mdeaths 1979-12-01  1341
+}
+
+The time stamp, \code{time}, indicates the beginning of a period. tsbox requires the
+columns in a data frame to follow either the order:
+\enumerate{
+\item \strong{id} column(s)
+\item \strong{time} column
+\item \strong{value} column
+}
+
+\strong{or} the \strong{time} colum and the \strong{value} column to be explicitly named as \code{time} and \code{value}. If explicit names are used, the column order will be ignored.
+
+Note that multiple id columns with arbitrary names are allowed.
 }
 \examples{
 
