@@ -1,14 +1,15 @@
 Package: tsbox
 Type: Package
 Title: Time Series Toolbox
-Version: 0.0.11.0
-Date: 2018-02-08
+Version: 0.0.11.1
+Date: 2018-02-09
 Author: Christoph Sax
 Maintainer: Christoph Sax <christoph.sax@gmail.com>
-Description: Provides tools that are *agnostic* towards time series classes. 
-  Built around a set of converters, which reliably convert time series stored as 
-  "ts", "xts", "data.frame" or "data.table" to each other. Because this works, 
-  we can define a set of tools that work the same way for each class. 
+Description: Tools that are agnostic towards existing time series classes. 
+  Converts time series from different classes and time series stored in data
+  frames to each other. Functions for time series handling that work for all
+  classes, and preserve the class. Tools to make existing time series functions
+  class-agnostic.
 Imports: 
     data.table,
     anytime
