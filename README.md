@@ -3,20 +3,23 @@ tsbox: Class-Agnostic Time Series in R
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
 
-The R ecosystem knows a [vast number](https://cran.r-project.org/web/views/TimeSeries.html) 
-of time series standards. Instead of creating the ultimate
-[15th](https://xkcd.com/927/) time series class, tsbox provides a set of tools
-that are **agnostic towards the existing standards**. The tools also allow you to
-handle time series as plain data frames, thus making it easy to deal with time
-series in a [dplyr](https://CRAN.R-project.org/package=dplyr) or
+The R ecosystem knows a [vast
+number](https://cran.r-project.org/web/views/TimeSeries.html)  of time series
+standards. Instead of creating the ultimate [15th](https://xkcd.com/927/) time
+series class, tsbox provides a set of tools that are **agnostic towards the
+existing standards**. The tools also allow you to handle time series as plain
+data frames, thus making it easy to deal with time series in a
+[dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
-tsbox is built around a set of converters, which convert time series
-stored as **ts**, **xts**, **data.frame**, **data.table** or **tibble** to each
-other. Because this works reliably and without user input, we can easily write
-functions that work for all classes. So whether we want to smooth, scale, differentiate, chain, forecast, regularize or seasonally adjust a time series, we can use the same commands to whatever
-time series class at hand. And, most conveniently, we get a time series plot
-function that works for all classes and frequencies.
+tsbox is built around a set of converters, which convert time series stored as
+**ts**, **xts**, **data.frame**, **data.table** or **tibble** to each other.
+Because this works reliably and without user input, we can easily write
+functions that work for all classes. So whether we want to smooth, scale,
+differentiate, chain, forecast, regularize or seasonally adjust a time series,
+we can use the same commands to whatever time series class at hand. And, most
+conveniently, we get a time series plot function that works for all classes and
+frequencies.
 
 To install:
 ```r
@@ -25,7 +28,8 @@ devtools::install_github("christophsax/tsbox")
 
 ### Convert everything to everything
 
-tsbox can convert time series stored as **ts**, **xts**, **data.frame**, **data.table** or **tibble** to each other:
+tsbox can convert time series stored as **ts**, **xts**, **data.frame**,
+**data.table** or **tibble** to each other:
 
 ```r
 library(tsbox)
@@ -39,7 +43,9 @@ x.tbl <- ts_tbl(x.dt)
 
 ### Use same functions for ts, xts, data.frame, data.table or tibble
 
-All functions start with `ts`, so you use them with auto complete (press Tab). These function work with any *ts-boxable* time series, ts, xts, data.frame, data.table or tibble, and **return the class of its input**.
+All functions start with `ts`, so you use them with auto complete (press Tab).
+These function work with any *ts-boxable* time series, ts, xts, data.frame,
+data.table or tibble, and **return the class of its input**.
 
 ```r
 ts_scale(x.ts)           # normalization
@@ -134,8 +140,9 @@ Note that **multiple id columns** with arbitrary names are allowed.
 ### Writing ts functions
 
 The `ts_` function is a constructor function for tsbox time series functions.
-Use it to wrap any function that works with time series. The default is set to
-R base `"ts"` class, so wrapping functions for `"ts"` time series (or vectors or matrices) is as simple as:
+Use it to wrap any function that works with time series. The default is set to R
+base `"ts"` class, so wrapping functions for `"ts"` time series (or vectors or
+matrices) is as simple as:
 
 ```r
 ts_(diff)(AirPassengers)
@@ -167,7 +174,8 @@ function so that it can be used with multiple time series.
 
 ### Using tsbox in a dplyr / pipe workflow
 
-tsbox works well with tibbles and with the pipe, so it can be nicely integrated into a dplyr workflow:
+tsbox works well with tibbles and with `%>%`, so it can be nicely integrated
+into a dplyr workflow:
 
 ```r
 library(dplyr)
@@ -181,7 +189,8 @@ ts_tbl(ts_c(mdeaths, fdeaths)) %>%
 
 ## Available Functions
 
-This is an overview of the functions available in tsbox. If you would add something else, please let me [know](mailto:christoph.sax@gmail.com).
+This is an overview of the functions available in tsbox. If you would add
+something else, please let me [know](mailto:christoph.sax@gmail.com).
 
 
 ### Convert
