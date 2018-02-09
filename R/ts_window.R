@@ -1,6 +1,6 @@
 #' Time Windows
 #' 
-#' Filter time series for a time range.
+#' Filter series for a time range.
 #' 
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param start start date, character string, `Date` or `POSIXct`
