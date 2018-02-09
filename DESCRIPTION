@@ -1,6 +1,6 @@
 Package: tsbox
 Type: Package
-Title: Time Series Toolbox
+Title: Class-Agnostic Time Series
 Version: 0.0.11.1
 Date: 2018-02-09
 Author: Christoph Sax
@@ -8,8 +8,7 @@ Maintainer: Christoph Sax <christoph.sax@gmail.com>
 Description: Tools that are agnostic towards existing time series classes. 
   Converts time series from different classes and time series stored in data
   frames to each other. Functions for time series handling that work for all
-  classes, and preserve the class. Tools to make existing time series functions
-  class-agnostic.
+  classes, or data frames, and preserve the class. Tools to make existing time series functions class-agnostic.
 Imports: 
     data.table,
     anytime
