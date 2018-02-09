@@ -74,15 +74,43 @@ columns in a data frame to follow either the order:
 \item \strong{value} column
 }
 
-\strong{or} the \strong{time} colum and the \strong{value} column to be explicitly named as \code{time} and \code{value}. If explicit names are used, the column order will be ignored.
+\strong{or} the \strong{time} column and the \strong{value} column to be explicitly named as \code{time} and \code{value}. If explicit names are used, the column order will be ignored.
 
 Note that multiple id columns with arbitrary names are allowed.
+
+Whenever possible, tsbox relies on \strong{heuristic time conversion}. When a
+monthly \code{"ts"} time series, e.g., \code{AirPassengers}, is converted to a data
+frame, each time stamp (of class \code{"Date"}) is the first day of the month. In
+most circumstances, this reflects the actual meaning of the data stored in a
+\code{"ts"} object. Technically, of course, this is not correct: \code{"ts"} objects
+divide time in period of equal length, while in reality, February is shorter
+than January. Heuristic conversion is done for frequencies of 0.1 (decades),
+1 (years), 4 (quarters) and 12 (month).
+
+For other frequencies, e.g. 260, of \code{EuStockMarkets}, tsbox uses  \strong{exact
+time conversion}. The year is divided into 260 equally long units, and time
+stamp of a period will be a point in time (of class \code{"POSIXct"}).
 }
 \examples{
 
 x.ts <- ts_c(mdeaths, fdeaths)
 x.df <- ts_df(x.ts)
 x.dt <- ts_dt(x.df)
+
+# heuristic time conversion
+ts_df(AirPassengers)
+
+# exact time conversion
+ts_df(EuStockMarkets)
+
+# Multiple IDs
+multi.id.df <- rbind(
+  within(ts_df(ts_c(fdeaths, mdeaths)), type <- "level"),
+  within(ts_pc(ts_df(ts_c(fdeaths, mdeaths))), type <- "pc")
+)
+ts_plot(multi.id.df)
+ts_ts(multi.id.df)
+
 \dontrun{
 library(xts)
 x.xts <- ts_xts(x.ts)

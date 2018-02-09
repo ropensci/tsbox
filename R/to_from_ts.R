@@ -83,10 +83,23 @@ ts_dts.ts <- function(x) {
 #' 2. **time** column
 #' 3. **value** column
 #' 
-#' **or** the **time** colum and the **value** column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
+#' **or** the **time** column and the **value** column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
 #' 
 #' Note that multiple id columns with arbitrary names are allowed.
 #' 
+#' Whenever possible, tsbox relies on **heuristic time conversion**. When a
+#' monthly `"ts"` time series, e.g., `AirPassengers`, is converted to a data
+#' frame, each time stamp (of class `"Date"`) is the first day of the month. In
+#' most circumstances, this reflects the actual meaning of the data stored in a
+#' `"ts"` object. Technically, of course, this is not correct: `"ts"` objects
+#' divide time in period of equal length, while in reality, February is shorter
+#' than January. Heuristic conversion is done for frequencies of 0.1 (decades),
+#' 1 (years), 4 (quarters) and 12 (month).
+#' 
+#' For other frequencies, e.g. 260, of `EuStockMarkets`, tsbox uses  **exact
+#' time conversion**. The year is divided into 260 equally long units, and time
+#' stamp of a period will be a point in time (of class `"POSIXct"`).
+#'  
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' 
 #' @return ts-boxable time series of the desired class, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
@@ -96,6 +109,21 @@ ts_dts.ts <- function(x) {
 #' x.ts <- ts_c(mdeaths, fdeaths)
 #' x.df <- ts_df(x.ts)
 #' x.dt <- ts_dt(x.df)
+#' 
+#' # heuristic time conversion
+#' ts_df(AirPassengers)
+#' 
+#' # exact time conversion
+#' ts_df(EuStockMarkets)
+#' 
+#' # Multiple IDs
+#' multi.id.df <- rbind(
+#'   within(ts_df(ts_c(fdeaths, mdeaths)), type <- "level"),
+#'   within(ts_pc(ts_df(ts_c(fdeaths, mdeaths))), type <- "pc")
+#' )
+#' ts_plot(multi.id.df)
+#' ts_ts(multi.id.df)
+#' 
 #' \dontrun{
 #' library(xts)
 #' x.xts <- ts_xts(x.ts)

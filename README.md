@@ -178,7 +178,7 @@ ts_tbl(ts_c(mdeaths, fdeaths)) %>%
   ts_plot()
 ```
 
- 
+
 ## Available Functions
 
 This is an overview of the functions available in tsbox. If you would add something else, please let me [know](mailto:christoph.sax@gmail.com).
