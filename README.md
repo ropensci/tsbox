@@ -43,9 +43,9 @@ x.tbl <- ts_tbl(x.dt)
 
 ### Use same functions for ts, xts, data.frame, data.table or tibble
 
-All functions start with `ts`, so you use them with auto complete (press Tab).
-These function work with any *ts-boxable* time series, ts, xts, data.frame,
-data.table or tibble, and **return the class of its input**.
+All functions start with `ts_`, so you use them with auto complete (press Tab).
+These functions work with any *ts-boxable* time series, ts, xts, data.frame,
+data.table or tibble, and **return the class of their inputs**.
 
 ```r
 ts_scale(x.ts)           # normalization
@@ -54,13 +54,13 @@ ts_scale(x.df)
 ts_scale(x.dt)
 ts_scale(x.tbl)
 
-ts_trend(AirPassengers)  # loess trend line
-ts_pc(x.ts)
-ts_pcy(x.ts)
-ts_lag(x.ts)
+ts_trend(x.ts)           # loess trend line
+ts_pc(x.xts)
+ts_pcy(x.df)
+ts_lag(x.dt)
 
 # with external packages
-ts_forecast(mdeaths)     # ets forecast
+ts_forecast(x.tbl)       # ets forecast
 ```
 
 For a list of available functions, see below.
@@ -104,7 +104,7 @@ ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,
 
 ### Time Series in Data Frames
 
-Multiple time series will be stored as a 'long' data frame (`data.frame`,
+Multiple time series can be stored as a 'long' data frame (`data.frame`,
 `data.table` or `tibble`):
 
 ```r
