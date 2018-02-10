@@ -20,10 +20,10 @@ ts_lag <- function(x, lag = 1, fill = NA) {
   z <- ts_dts(x)
 
   if (lag < 0) {
-    type <- "lead"
+    .type <- "lead"
     lag <- -lag
   } else {
-    type <- "lag"
+    .type <- "lag"
   }
 
   colname.id <- colname_id(z)
@@ -32,7 +32,7 @@ ts_lag <- function(x, lag = 1, fill = NA) {
   # do not use ts_apply here, to take advantage of data.table speed
   z[
     ,
-    value := shift(value, n = lag, fill = fill, type = type, give.names = FALSE),
+    value := shift(value, n = lag, fill = fill, type = .type, give.names = FALSE),
     by = eval(.by)
   ]
 
@@ -40,7 +40,7 @@ ts_lag <- function(x, lag = 1, fill = NA) {
 }
 
 
-# This probably could make use of data.table::shift
+# This should make use of data.table::shift, also don't do series by series
 
 pc_core <- function(x) {
   100 * ((x / stats::lag(x, -1)) - 1)
