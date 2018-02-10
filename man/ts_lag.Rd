@@ -5,20 +5,20 @@
 \alias{ts_lag}
 \alias{ts_pc}
 \alias{ts_lag}
-\alias{ts_pcy}
-\alias{ts_lag}
 \alias{ts_diff}
+\alias{ts_lag}
+\alias{ts_pcy}
 \alias{ts_lag}
 \alias{ts_diffy}
 \title{Lags, Differences, Percentage Change Rates}
 \usage{
 ts_lag(x, lag = 1, fill = NA)
 
-ts_pc(x, ...)
+ts_pc(x)
+
+ts_diff(x)
 
 ts_pcy(x, ...)
-
-ts_diff(x, ...)
 
 ts_diffy(x, ...)
 }
