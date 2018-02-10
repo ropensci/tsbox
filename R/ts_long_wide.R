@@ -47,6 +47,10 @@ wide_core <- function(x) {
   time.name <- colname_time(x)
   id.name <- colname_id(x)
 
+  n.non.unique <- nrow(x) - nrow(unique(x, by = c(id.name, time.name)))
+  if (n.non.unique > 0) {
+    stop("contains ", n.non.unique, " duplicate entries", call. = FALSE)
+  }
   z <- dcast(
     x, as.formula(paste(time.name, "~", id.name)),
     value.var = value.name

@@ -16,14 +16,14 @@
 #' @export
 ts_lag <- function(x, lag = 1, fill = NA) {
   value <- NULL
-
   z <- ts_dts(x)
+  z <- ts_regular(z)
 
   if (lag < 0) {
-    type <- "lead"
+    .type <- "lead"
     lag <- -lag
   } else {
-    type <- "lag"
+    .type <- "lag"
   }
 
   colname.id <- colname_id(z)
@@ -32,7 +32,7 @@ ts_lag <- function(x, lag = 1, fill = NA) {
   # do not use ts_apply here, to take advantage of data.table speed
   z[
     ,
-    value := shift(value, n = lag, fill = fill, type = type, give.names = FALSE),
+    value := shift(value, n = lag, fill = fill, type = .type, give.names = FALSE),
     by = eval(.by)
   ]
 
@@ -40,19 +40,46 @@ ts_lag <- function(x, lag = 1, fill = NA) {
 }
 
 
-# This probably could make use of data.table::shift
+#' @name ts_lag
+#' @export
+ts_pc <- function(x) {
+  value <- NULL
+  z <- ts_dts(x)
+  z <- ts_regular(z)
 
-pc_core <- function(x) {
-  100 * ((x / stats::lag(x, -1)) - 1)
+  colname.id <- colname_id(z)
+  .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+  z[
+    ,
+    value := 100 * (value / shift(value) - 1),
+    by = eval(.by)
+  ]
+  ts_na_omit(copy_ts_class(z, x))
 }
-pcy_core <- function(x) {
-  100 * ((x / stats::lag(x, -frequency(x))) - 1)
-}
-
 
 #' @name ts_lag
 #' @export
-ts_pc <- ts_(pc_core, vectorize = TRUE)
+ts_diff <- function(x) {
+  value <- NULL
+  z <- ts_dts(x)
+  z <- ts_regular(z)
+
+  colname.id <- colname_id(z)
+  .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+  z[
+    ,
+    value := value / shift(value) - 1,
+    by = eval(.by)
+  ]
+  ts_na_omit(copy_ts_class(z, x))
+}
+
+# This should also make use of data.table::shift, also don't do series by series
+# need function for frequency detection fo regular dts
+
+pcy_core <- function(x) {
+  100 * ((x / stats::lag(x, -frequency(x))) - 1)
+}
 
 #' @name ts_lag
 #' @export
@@ -60,8 +87,6 @@ ts_pcy <- ts_(pcy_core, vectorize = TRUE)
 
 #' @name ts_lag
 #' @export
-ts_diff <- ts_(diff, vectorize = TRUE)
-
-#' @name ts_lag
-#' @export
 ts_diffy <- ts_(function(x) diff(x, lag = frequency(x)), vectorize = TRUE)
+
+
