@@ -16,8 +16,8 @@
 #' @export
 ts_lag <- function(x, lag = 1, fill = NA) {
   value <- NULL
-
   z <- ts_dts(x)
+  z <- ts_regular(z)
 
   if (lag < 0) {
     .type <- "lead"
@@ -45,11 +45,13 @@ ts_lag <- function(x, lag = 1, fill = NA) {
 ts_pc <- function(x) {
   value <- NULL
   z <- ts_dts(x)
+  z <- ts_regular(z)
+
   colname.id <- colname_id(z)
   .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
   z[
     ,
-    value := value / shift(value) - 1,
+    value := 100 * (value / shift(value) - 1),
     by = eval(.by)
   ]
   ts_na_omit(copy_ts_class(z, x))
@@ -60,6 +62,8 @@ ts_pc <- function(x) {
 ts_diff <- function(x) {
   value <- NULL
   z <- ts_dts(x)
+  z <- ts_regular(z)
+
   colname.id <- colname_id(z)
   .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
   z[
@@ -70,9 +74,12 @@ ts_diff <- function(x) {
   ts_na_omit(copy_ts_class(z, x))
 }
 
-
-
 # This should also make use of data.table::shift, also don't do series by series
+# need function for frequency detection fo regular dts
+
+pcy_core <- function(x) {
+  100 * ((x / stats::lag(x, -frequency(x))) - 1)
+}
 
 #' @name ts_lag
 #' @export
@@ -81,3 +88,5 @@ ts_pcy <- ts_(pcy_core, vectorize = TRUE)
 #' @name ts_lag
 #' @export
 ts_diffy <- ts_(function(x) diff(x, lag = frequency(x)), vectorize = TRUE)
+
+
