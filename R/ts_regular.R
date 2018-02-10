@@ -33,6 +33,7 @@ regular_core <- function(x){
   setnames(x, ctime, "time")
 
   is_regular <- function(x) {
+    if (any(is.na(x))) stop("time column cannot contain NAs", call. = FALSE)
     dd <- diff(as.numeric(x))
     max(dd) - min(dd) < 100
   }
