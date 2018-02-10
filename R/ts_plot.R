@@ -146,11 +146,14 @@ ts_plot <- function(..., title, subtitle, ylab = "",
     )
   }
 
-  tind <- as.POSIXct(x[[ncol(x) - 1]])
+  # time vector
+  tind <- as.POSIXct(x[[colname_time(x)]])
   tnum <- as.numeric(tind)
-
   xlim <- range(tnum)
-  ylim <- range(x[, value], na.rm = TRUE)
+  # value vector
+  values <- x[[colname_value(x)]]
+  values[!is.finite(values)] <- NA  # Inf is not accepted for ylim
+  ylim <- range(values, na.rm = TRUE)
 
   xticks <- pretty(tind)
   xlabels <- format(xticks, "%Y")
