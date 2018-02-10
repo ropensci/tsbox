@@ -146,12 +146,26 @@ ts_plot <- function(..., title, subtitle, ylab = "",
     )
   }
 
+
+  # bring into canonical form
+  colname.id <- colname_id(x)
+  colname.time <- colname_time(x)
+  colname.value <- colname_value(x)
+
+  if (length(colname.id) == 0) {
+    x$id <- "dummy"
+    colname.id <- "id"
+    setcolorder(x, c("id", colname.time, colname.value))
+  }
+  setnames(x, c(colname.id, colname.time, colname.value), 
+           c("id", "time", "value"))
+
   # time vector
-  tind <- as.POSIXct(x[[colname_time(x)]])
+  tind <- as.POSIXct(x[, time])
   tnum <- as.numeric(tind)
   xlim <- range(tnum)
   # value vector
-  values <- x[[colname_value(x)]]
+  values <- x[, value]
   values[!is.finite(values)] <- NA  # Inf is not accepted for ylim
   ylim <- range(values, na.rm = TRUE)
 
@@ -160,17 +174,8 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   col <- colors_tsbox()[1:number_of_series(x)]
 
-  colname.id <- colname_id(x)
-  colname.time <- colname_time(x)
-  colname.value <- colname_value(x)
-
   # Lines
-  if (length(colname.id) == 0) {
-    x$id <- "dummy"
-    colname.id <- "id"
-    setcolorder(x, c("id", colname.time, colname.value))
-  }
-  ids <- unique(x[[colname.id]])
+  ids <- unique(x[, id])
 
   if (has.legend) {
     legend(
@@ -209,12 +214,12 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   abline(h = axTicks(2), v = xticks, col = "grey80", lty = "dotted", lwd = 0.5)
 
   for (i in seq(ids)) {
-    idi <- ids[i]
-    cd <- x[id == idi]
+    .idi <- ids[i]
+    cd <- x[id == .idi]  # this will be named id
     cd <- cd[!is.na(value)]
     lines(
       y = cd[, value],
-      x = as.numeric(as.POSIXct(cd[[2]])), col = col[i], lwd = lwd
+      x = as.numeric(as.POSIXct(cd[, time])), col = col[i], lwd = lwd
     )
   }
 

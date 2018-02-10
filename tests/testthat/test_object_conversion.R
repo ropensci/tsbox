@@ -183,4 +183,7 @@ test_that("colname guessing works as expected", {
   x.dt <- as.data.table(x.df)
   expect_equal(AirPassengers, ts_ts(ts_xts(ts_df(x.df))))
   expect_equal(AirPassengers, ts_ts(ts_df(ts_xts(ts_ts(x.dt)))))
+
+  expect_success(ts_plot(x.df))
+  
 })
