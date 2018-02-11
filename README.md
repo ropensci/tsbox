@@ -209,7 +209,7 @@ something else, please let me [know](mailto:christoph.sax@gmail.com).
 |    Name    |                   What it does                   |
 |------------|--------------------------------------------------|
 | `ts_c`     | collect time series as multiple time series      |
-| `ts_bind`  | bin time series to a new, single time series     |
+| `ts_bind`  | bind time series to a new, single time series    |
 | `ts_chain` | chain time series, using percentage change rates |
 
 
