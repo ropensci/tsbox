@@ -62,3 +62,13 @@ test_that("No Invalid .internal.selfref detected.", {
   x <- ts_dts(AirPassengers)
   expect_silent(x[, s := "sdfsd"])
 })
+
+
+test_that("Unordered time works", {
+  suppressMessages(library(dplyr))
+  ap.rev <- arrange(ap, desc(time)) 
+
+  expect_equal(ts_ts(ap.rev), AirPassengers)
+  expect_equal(ts_ts(ts_diff(ap.rev)), ts_diff(AirPassengers))
+})
+

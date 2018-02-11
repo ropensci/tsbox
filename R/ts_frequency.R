@@ -23,7 +23,7 @@
 ts_frequency <- function(x, to = "year", fun = mean){
   stopifnot(ts_boxable(x))
   z <- frequency_core(ts_dts(x), to = to, fun = fun)
-  copy_ts_class(z, x)
+  copy_class(z, x)
 }
 
 

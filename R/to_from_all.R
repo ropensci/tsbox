@@ -88,7 +88,7 @@ relevant_class <- function(x) {
 #' @param z series to reclass
 #' @param x template series
 #' @export
-copy_ts_class <- function(z, x) {
+copy_class <- function(z, x) {
   if (!ts_boxable(z)) {
     if (inherits(x, "ts")) {
       z <- ts(z)

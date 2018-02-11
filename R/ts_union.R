@@ -31,7 +31,7 @@ ts_align <- function(x, fill = NA){
       z[is.na(value), value := fill]
     }
   }
-  copy_ts_class(z, x)
+  copy_class(z, x)
 }
 
 
@@ -68,5 +68,5 @@ ts_union <- function(x, fill = NA) {
     z[is.na(value), value := fill]
   }
 
-  copy_ts_class(z, x)
+  copy_class(z, x)
 }

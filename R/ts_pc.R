@@ -36,7 +36,7 @@ ts_lag <- function(x, lag = 1, fill = NA) {
     by = eval(.by)
   ]
 
-  ts_na_omit(copy_ts_class(z, x))
+  ts_na_omit(copy_class(z, x))
 }
 
 
@@ -54,7 +54,7 @@ ts_pc <- function(x) {
     value := 100 * (value / shift(value) - 1),
     by = eval(.by)
   ]
-  ts_na_omit(copy_ts_class(z, x))
+  ts_na_omit(copy_class(z, x))
 }
 
 #' @name ts_lag
@@ -71,7 +71,7 @@ ts_diff <- function(x) {
     value := value / shift(value) - 1,
     by = eval(.by)
   ]
-  ts_na_omit(copy_ts_class(z, x))
+  ts_na_omit(copy_class(z, x))
 }
 
 # This should also make use of data.table::shift, also don't do series by series

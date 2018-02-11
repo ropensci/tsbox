@@ -42,8 +42,9 @@ ts_dts.ts <- function(x) {
     z <- ts_dts(dta[, list(time, value)])
   } else {
     z <- long_core(dta)
-    z <- ts_na_omit(z)
   }
+  # implicit NAs by default, use ts_regular to get explict NAs
+  z <- ts_na_omit(z)
   z
 }
 
