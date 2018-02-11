@@ -14,15 +14,23 @@ ts_dts.data.table <- function(x) {
 
   if (NCOL(x) == 2) {
     z <- copy(x)
+    tvdiff <- character(0)
   } else {
     tvdiff <- setdiff(names(x), tv)
     z <- x[, c(tvdiff, tv), with = FALSE]
   }
 
   setnames(z, tv[1], "time")
-  # TODO ensure time is ordered, but var is not! The following does too much:
-  # setorder(z, var, time)
+
+  # setorder(z, time)
   z[, time := as_time_or_date(time)]
+
+  # Ensure time is ordered, but var is not
+  # setorder(z, ids, time) does too much
+  # this also works if tvdiff is character(0)
+  .by <- parse(text = paste0("list(", paste(tvdiff, collapse = ", "), ")"))
+  z <- z[, .SD[order(time)], by = eval(.by)]
+
   setnames(z, "time", tv[1])
 
   add_dts_class(z)

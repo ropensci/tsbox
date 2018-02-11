@@ -27,7 +27,7 @@ ts_window <- function(x, start = NULL, end = NULL) {
     }
     z <- filter_data.table(z, ctime, "<=", anytime(end))
   }
-  z <- copy_ts_class(z, x)
+  z <- copy_class(z, x)
 
   z
 }
