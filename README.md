@@ -233,6 +233,7 @@ something else, please let me [know](mailto:christoph.sax@gmail.com).
 | `ts_diff`  | first difference                          |
 | `ts_diffy` | first difference (to previous year)       |
 | `ts_lag`   | lag operator                              |
+| `ts_shift` | shift time stamp                          |
 
 
 ### Reshape
