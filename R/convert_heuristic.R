@@ -104,7 +104,7 @@ date_time_to_tsp <- function(x) {
 
   if (!is.null(f)) {
     if (d != 1) {
-      stop("data needs to specified as start of period", call. = FALSE)
+      stop("time column needs to specified as the first date of the period", call. = FALSE)
     }
     z <- tsp(ts(x, frequency = f, start = start)) # a bit inefficient
   } else {

@@ -6,12 +6,16 @@
 #' aggregation, use [ts_frequency()].
 #' 
 #' @param x `Date` or `POSIXct`. If `POSIXct`, it is converted into `Date`.
-#' @param by passed on to [base:seq.Date()]. Argument can be specified in several ways:
+#' @param by passed on to [base::seq.Date()]. 
+#'    Argument can be specified in several ways:
 #'     - A number, taken to be in days.
 #'     - A object of class difftime
-#'     - A character string, containing one of "day", "week", "month", "quarter" or "year". This can optionally be preceded by a (positive or negative) integer and a space, or followed by "s".
+#'     - A character string, containing one of "day", "week", "month", "quarter" 
+#'       or "year". This can optionally be preceded by a (positive or negative) 
+#'       integer and a space, or followed by "s".
 #' @return an object of class `Date`
-#' @seealso [ts_frequency()] for standard aggregation
+#' @seealso [ts_frequency()] for standard aggregation. [date_shift()], for
+#'   shifting time stamps of a ts-boxable object.
 #' 
 #' @examples
 #' date_month(ts_df(AirPassengers)$time)

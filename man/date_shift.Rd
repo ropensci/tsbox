@@ -21,10 +21,13 @@ date_year(x)
 \arguments{
 \item{x}{\code{Date} or \code{POSIXct}. If \code{POSIXct}, it is converted into \code{Date}.}
 
-\item{by}{passed on to \code{\link[=base:seq.Date]{base:seq.Date()}}. Argument can be specified in several ways:
+\item{by}{passed on to \code{\link[base:seq.Date]{base::seq.Date()}}.
+Argument can be specified in several ways:
 - A number, taken to be in days.
 - A object of class difftime
-- A character string, containing one of "day", "week", "month", "quarter" or "year". This can optionally be preceded by a (positive or negative) integer and a space, or followed by "s".}
+- A character string, containing one of "day", "week", "month", "quarter"
+or "year". This can optionally be preceded by a (positive or negative)
+integer and a space, or followed by "s".}
 }
 \value{
 an object of class \code{Date}
@@ -37,7 +40,7 @@ aggregation, use \code{\link[=ts_frequency]{ts_frequency()}}.
 }
 \examples{
 date_month(ts_df(AirPassengers)$time)
-date_quarter(ts_df(AirPassengers)$time)
+date_year(ts_df(AirPassengers)$time)
 
 date_shift(ts_df(AirPassengers)$time, 14)
 date_shift(ts_df(AirPassengers)$time, "7 week")
@@ -45,5 +48,6 @@ date_shift(ts_df(AirPassengers)$time, "-1 month")
 
 }
 \seealso{
-\code{\link[=ts_frequency]{ts_frequency()}} for standard aggregation
+\code{\link[=ts_frequency]{ts_frequency()}} for standard aggregation. \code{\link[=date_shift]{date_shift()}}, for
+shifting time stamps of a ts-boxable object.
 }
