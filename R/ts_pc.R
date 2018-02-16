@@ -2,7 +2,7 @@
 #'
 #' Utlility functions to work with time series. `ts_pcy` and `ts_diffy` calulate
 #' the percentage change and the difference compared to the same period of the
-#' previous year, rather thatn the previous period. `ts_index` returns an index 
+#' previous year, rather than the previous period. `ts_index` returns an index 
 #' series, with value of 1 at `base` date.
 #' 
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.

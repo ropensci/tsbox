@@ -44,7 +44,7 @@ a ts-boxable time series, with the same class as the input.
 \description{
 Utlility functions to work with time series. \code{ts_pcy} and \code{ts_diffy} calulate
 the percentage change and the difference compared to the same period of the
-previous year, rather thatn the previous period. \code{ts_index} returns an index
+previous year, rather than the previous period. \code{ts_index} returns an index
 series, with value of 1 at \code{base} date.
 }
 \examples{
