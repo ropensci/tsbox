@@ -15,7 +15,8 @@ is_time <- function(x) {
 }
 
 is_value <- function(x) {
-  class(x)[1] %in% c("numeric")
+  is.numeric(x) # also works for integer
+  # class(x)[1] %in% c("numeric")
 }
 
 guess_time <- function(x, value.name = "value") {
