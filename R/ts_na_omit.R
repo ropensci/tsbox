@@ -24,5 +24,9 @@
 ts_na_omit <- function(x) {
   value <- NULL
   z <- ts_dts(x)
-  as_class(relevant_class(x))(z[!is.na(value)])
+  colname.value <- colname_value(z)
+  setnames(z, colname.value, "value")
+  z <- z[!is.na(value)]
+  setnames(z, "value", colname.value)
+  as_class(relevant_class(x))(z)
 }

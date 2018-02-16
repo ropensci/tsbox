@@ -232,6 +232,7 @@ something else, please let me [know](mailto:christoph.sax@gmail.com).
 | `ts_pcy`   | percentage change rate (to previous year) |
 | `ts_diff`  | first difference                          |
 | `ts_diffy` | first difference (to previous year)       |
+| `ts_index` | index series                              |
 | `ts_lag`   | lag operator                              |
 | `ts_shift` | shift time stamp                          |
 
