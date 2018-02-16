@@ -2,8 +2,7 @@
 
 ts_ts_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
-  x <- ts_regular(x)
-  wx <- wide_core(combine_id_cols(x))
+  wx <- wide_core(combine_id_cols(ts_regular(x)))
 
   # try to regularize common time axis
   reg.time <- regularize_date(wx[[1]])
@@ -13,6 +12,12 @@ ts_ts_dts <- function(x) {
     wx <- wx[data.table(time = reg.time), on = "time"]
   }
 
+  tsp <- try(date_time_to_tsp(wx[[1]]), silent = TRUE)
+  if (inherits(tsp, "try-error")){
+    message(paste0(gsub("Error : |\\n", "", tsp), ", returning data.frame"))
+    # browser()
+    return(ts_df(x))
+  }
   tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
   if (NCOL(cdta) == 1) {

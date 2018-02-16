@@ -4,7 +4,7 @@
 \alias{ts_frequency}
 \title{Change Frequency}
 \usage{
-ts_frequency(x, to = "year", fun = mean)
+ts_frequency(x, to = "year", aggregate = "mean")
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
@@ -12,7 +12,8 @@ ts_frequency(x, to = "year", fun = mean)
 \item{to}{desired frequency, either a character string (\code{"year"},
 \code{"quarter"}, \code{"month"}) or an integer (\code{1}, \code{4}, \code{12}).}
 
-\item{fun}{aggregation function. Eg., \code{\link[base:mean]{base::mean()}}, \code{\link[base:sum]{base::sum()}}, \code{\link[data.table:first]{data.table::first()}}, \code{\link[data.table:last]{data.table::last()}}}
+\item{aggregate}{character string, or function. Either \code{"mean"}, \code{"sum"},
+\code{"first"}, or \code{"last"}, or any aggregate function, such as \code{\link[base:mean]{base::mean()}}.}
 }
 \value{
 a ts-boxable time series, with the same class as the input.
@@ -22,11 +23,12 @@ Changes the frequency of a time series. Currently, incomplete
 periods are aggregated as well, but this is likely to change.
 }
 \examples{
-ts_frequency(cbind(mdeaths, fdeaths), "year", sum)
-ts_frequency(cbind(mdeaths, fdeaths), "quarter", sum)
+ts_frequency(cbind(mdeaths, fdeaths), "year", "sum")
+ts_frequency(cbind(mdeaths, fdeaths), "year", "sum")
+ts_frequency(cbind(mdeaths, fdeaths), "quarter", "last")
 
-ts_frequency(AirPassengers, 4, sum)
-ts_frequency(AirPassengers, 1, sum)
+ts_frequency(AirPassengers, 4, "sum")
+ts_frequency(AirPassengers, 1, "sum")
 
 # Note that incomplete years are (currently) aggregated as well
 ts_frequency(EuStockMarkets, "year")
