@@ -6,4 +6,7 @@ notifications:
   email:
     recipients:
       - christoph.sax@gmail.com
-      
+r_packages:
+  - covr
+after_success:
+  - Rscript -e 'library(covr); codecov()'
