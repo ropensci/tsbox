@@ -1,7 +1,7 @@
 tsbox: Class-Agnostic Time Series in R
 ======================================
 
-[![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
+[![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)[![codecov](https://codecov.io/github/christophsax/tsbox/branch/master/graphs/badge.svg)](https://codecov.io/github/christophsax/tsbox) 
 
 The R ecosystem knows a [vast
 number](https://cran.r-project.org/web/views/TimeSeries.html)  of time series
