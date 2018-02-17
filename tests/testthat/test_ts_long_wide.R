@@ -16,3 +16,10 @@ test_that("ts_long and ts_wide work both ways.", {
   b <- ts_tbl(ts_dt(EuStockMarkets))
   expect_equal(b, ts_long(ts_wide(b)))
 })
+
+
+test_that("ts_wide works has correct time stamps.", {
+  a <- ts_df(ts_c(ts_dt(AirPassengers), mdeaths, fdeaths))
+  expect_equal(ts_wide(ts_xts(a)), ts_xts(a))
+  expect_equal(ts_wide(ts_ts(a)), ts_ts(a))
+})

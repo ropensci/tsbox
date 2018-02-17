@@ -30,6 +30,8 @@ long_core <- function(x) {
 #' @export
 #' @name ts_long
 ts_wide <- function(x) {
+  stopifnot(ts_boxable(x))
+  if (relevant_class(x) %in% c("ts", "xts")) return(x)
   x.dts <- combine_id_cols(ts_dts(x))
   z <- wide_core(x.dts)
   # reclass
