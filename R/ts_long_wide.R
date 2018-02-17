@@ -35,7 +35,9 @@ ts_wide <- function(x) {
   x.dts <- combine_id_cols(ts_dts(x))
   z <- wide_core(x.dts)
   # reclass
-  as_class <- get(paste0("as.", relevant_class(x)))
+  rc <- relevant_class(x)
+  as.tbl <- function(x) as_data_frame(x)
+  as_class <- get(paste0("as.", rc))
   as_class(z)
 }
 
