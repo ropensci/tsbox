@@ -124,10 +124,10 @@ ts_index <- function(x, base) {
     } 
 
     if (length(cname.id) == 0) {
-      stop("'base' not series", call. = FALSE)
+      stop(base, " not in series", call. = FALSE)
     } else {
       stop(
-        "'base' not series: ", 
+        base, " not in series: ",
         paste(id.missing, collapse = ", "), 
         call. = FALSE
       )

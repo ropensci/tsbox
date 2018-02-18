@@ -22,9 +22,7 @@ ts_align <- function(x, fill = NA){
   dta <- data.table(m)
   dta[, time := timec]
   if (ncol(m) == 1) {
-    names(dta)[1] <- "value"
-    # needs the ts_dts.data.table
-    z <- ts_dts(dta[, list(time, value)])
+    return(x)
   } else {
     z <- long_core(dta)
     if (!is.na(fill)){
