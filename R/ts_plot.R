@@ -243,7 +243,7 @@ ts_lastplot_call <- function() {
 #' @param width width
 #' @param filename filename
 #' @export
-ts_save <- function(filename = "myfig.pdf", width = 10, height = 5, 
+ts_save <- function(filename = tempfile(), width = 10, height = 5, 
                     device = "pdf", ..., open = TRUE) {
   filename <- gsub(".pdf$", paste0(".", device), filename)
 

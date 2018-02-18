@@ -26,3 +26,18 @@ test_that("colname guessing works as expected", {
   expect_equal(ts_diffy(AirPassengers), ts_ts(ts_xts(ts_df(ts_diffy(x.df)))))
   
 })
+
+
+test_that("ts_index series have same pc rates", {
+
+  expect_equal(
+    ts_pc(mdeaths),
+    ts_pc(ts_index(mdeaths, "1977-01-01"))
+  )
+
+  expect_equal(
+    ts_pc(austres),
+    ts_pc(ts_index(austres, "1977-01-01"))
+  )
+
+})
