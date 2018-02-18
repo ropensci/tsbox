@@ -1,13 +1,15 @@
 ---
 title: "tsbox"
-subtitle: "Class-Agnostic Time Series in R"
+subtitle: "Class-Agnostic Time Series"
 author: "Christoph Sax"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{dplyr compatibility}
+  %\VignetteIndexEntry{introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+## tsbox: Class-Agnostic Time Series
 
 The R ecosystem knows a [vast
 number](https://cran.r-project.org/web/views/TimeSeries.html)  of time series

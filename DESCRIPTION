@@ -10,10 +10,10 @@ Description: Tools that are agnostic towards existing time series classes.
   frames to each other. Functions for time series handling that work for all
   classes, or data frames, and preserve the class. Tools to make existing time
   series functions class-agnostic.
-Imports: 
+Imports:
     data.table,
     anytime
-Suggests: 
+Suggests:
     testthat,
     dplyr,
     tibble,
@@ -22,7 +22,10 @@ Suggests:
     dygraphs,
     xts,
     ggplot2,
-    scales
+    scales,
+    knitr,
+    rmarkdown
 License: GPL-3
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
