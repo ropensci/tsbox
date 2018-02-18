@@ -4,7 +4,7 @@
 \alias{ts_save}
 \title{Save Previous Plot}
 \usage{
-ts_save(filename = "myfig.pdf", width = 10, height = 5, device = "pdf",
+ts_save(filename = tempfile(), width = 10, height = 5, device = "pdf",
   ..., open = TRUE)
 }
 \arguments{
