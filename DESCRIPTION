@@ -1,8 +1,8 @@
 Package: tsbox
 Type: Package
 Title: Class-Agnostic Time Series
-Version: 0.0.11.5
-Date: 2018-02-16
+Version: 0.0.12.0
+Date: 2018-02-18
 Author: Christoph Sax
 Maintainer: Christoph Sax <christoph.sax@gmail.com>
 Description: Tools that are agnostic towards existing time series classes. 
