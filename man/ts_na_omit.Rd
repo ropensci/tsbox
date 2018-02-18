@@ -25,7 +25,7 @@ x <- AirPassengers
 x[c(10, 15)] <- NA
 
 # does not change anything for ts objects
-ts_na_omit(x)  
+ts_na_omit(x)
 
 # but turns an explicit NA into an implicit for data.frames
 ts_na_omit(ts_dts(x))

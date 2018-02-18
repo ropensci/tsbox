@@ -45,12 +45,10 @@ ts-boxable time series of the desired class, an object of class \code{ts}, \code
 tsbox is built around a set of converters, which convert time series
 stored as \code{ts}, \code{xts}, \code{data.frame}, \code{data.table} or \code{tibble} to each
 other.
-
-Mulitple time series will be stored as a 'long' data frame (\code{data.frame},
-\code{data.table} or \code{tibble}):
 }
 \details{
-\preformatted{ts_df(ts_c(fdeaths, mdeaths))
+Mulitple time series will be stored as a 'long' data frame (\code{data.frame},
+\code{data.table} or \code{tibble}):\preformatted{ts_df(ts_c(fdeaths, mdeaths))
 
 #          id       time value
 # 1   fdeaths 1974-01-01   901

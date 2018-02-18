@@ -27,7 +27,7 @@ Shift time stamps in ts-boxable time series. Unlike
 series.
 }
 \examples{
-ts_shift(AirPassengers, "1 month")#' 
+ts_shift(AirPassengers, "1 month")
 ts_shift(AirPassengers, 3)
 
 }
