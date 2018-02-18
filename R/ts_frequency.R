@@ -1,30 +1,30 @@
 #' Change Frequency
-#' 
+#'
 #' Changes the frequency of a time series. Currently, incomplete
 #' periods are aggregated as well, but this is likely to change.
-#' 
+#'
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
 #' @param aggregate character string, or function. Either `"mean"`, `"sum"`,
 #'  `"first"`, or `"last"`, or any aggregate function, such as [base::mean()].
-#' 
+#'
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' ts_frequency(cbind(mdeaths, fdeaths), "year", "sum")
 #' ts_frequency(cbind(mdeaths, fdeaths), "year", "sum")
 #' ts_frequency(cbind(mdeaths, fdeaths), "quarter", "last")
-#' 
+#'
 #' ts_frequency(AirPassengers, 4, "sum")
 #' ts_frequency(AirPassengers, 1, "sum")
-#' 
+#'
 #' # Note that incomplete years are (currently) aggregated as well
 #' ts_frequency(EuStockMarkets, "year")
 #'
 #' @export
-ts_frequency <- function(x, to = "year", aggregate = "mean"){
+ts_frequency <- function(x, to = "year", aggregate = "mean") {
   stopifnot(ts_boxable(x))
-  z <- frequency_core(ts_dts(x), to = to,  aggregate = aggregate)
+  z <- frequency_core(ts_dts(x), to = to, aggregate = aggregate)
   copy_class(z, x)
 }
 
@@ -37,16 +37,18 @@ period.date <- list(
 numeric.period <- c(month = 12, quarter = 4, year = 1)
 
 
-frequency_core <- function(x, to,  aggregate){
+frequency_core <- function(x, to, aggregate) {
   stopifnot(inherits(x, "dts"))
 
-  if (is.character(aggregate)){
-    if (!aggregate %in% c("mean", "sum", "first", "last")){
-      stop("'aggregate' must be one of: 'mean', 'sum', 'first', 'last'", 
-           call. = FALSE)
+  if (is.character(aggregate)) {
+    if (!aggregate %in% c("mean", "sum", "first", "last")) {
+      stop(
+        "'aggregate' must be one of: 'mean', 'sum', 'first', 'last'",
+        call. = FALSE
+      )
     }
-     aggregate <- switch(
-       aggregate,
+    aggregate <- switch(
+      aggregate,
       mean = mean,
       sum = sum,
       first = data.table::first,
@@ -54,26 +56,28 @@ frequency_core <- function(x, to,  aggregate){
     )
   }
 
-  if (!is.function(aggregate)){
-    stop("'aggregate' must be of 'character' or 'function'", 
-           call. = FALSE)
+  if (!is.function(aggregate)) {
+    stop(
+      "'aggregate' must be of 'character' or 'function'",
+      call. = FALSE
+    )
   }
 
   value <- NULL
 
-  if (is.numeric(to)){
+  if (is.numeric(to)) {
     stopifnot(to %in% numeric.period)
     to <- names(numeric.period)[numeric.period == to]
   }
 
-  if (!(to %in% names(period.date))){
+  if (!(to %in% names(period.date))) {
     stop(
-      "period", to, "not supported. Try one of: ", 
+      "period", to, "not supported. Try one of: ",
       paste(names(period.date), collapse = ", ")
     )
   }
 
-  if (length(colname_id(x)) > 0){
+  if (length(colname_id(x)) > 0) {
     byexpr <- parse(text = paste0(
       "list(",
       paste(colname_id(x), collapse = ", "), ", ",
@@ -95,11 +99,9 @@ frequency_core <- function(x, to,  aggregate){
   pdfun <- period.date[[to]]
   x0[, time := pdfun(time)]
 
-  z <- x0[ , list(value =  aggregate(value)) , by = eval(byexpr)]
+  z <- x0[, list(value = aggregate(value)), by = eval(byexpr)]
   data.table::setnames(z, cvalue, "value")
   data.table::setnames(z, ctime, "time")
 
   z[]
 }
-
-

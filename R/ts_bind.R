@@ -3,14 +3,14 @@
 #' Combine time series to a new, single time series. `ts_bind` combines time
 #' series as they are, `ts_chain` chaines them together, using percentage change
 #' rates.
-#' 
+#'
 #' @seealso [ts_c] to collect multiple time series
 #' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
-#' 
-#' @return A ts-boxable object of the same class as the input. 
+#'
+#' @return A ts-boxable object of the same class as the input.
 #' If series of different classes are combined, the class of the first series is
 #' used (if possible).
-#' 
+#'
 #' @examples
 #' ts_bind(ts_window(mdeaths, end = "1975-12-01"), fdeaths)
 #' ts_bind(mdeaths, c(2, 2))

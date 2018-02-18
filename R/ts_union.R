@@ -1,18 +1,18 @@
 #' Align Time Series
-#' 
+#'
 #' `ts_align` makes sure all time series cover the same time span and have the
 #' same regular frequency. `ts_union` only ensures that series have the same
-#' time stamps and also works with irregular series. For `ts` objects, the two 
+#' time stamps and also works with irregular series. For `ts` objects, the two
 #' functions have the same effect.
-#' 
+#'
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param fill missign value specifier
 #' @return a ts-boxable time series, with the same class as the input.
-#' 
+#'
 #' @export
 #' @examples
 #' ts_align(ts_df(ts_c(mdeaths, fdeaths = ts_window(fdeaths, end = "1977-01-01"))))
-ts_align <- function(x, fill = NA){
+ts_align <- function(x, fill = NA) {
   stopifnot(length(fill) == 1)
   x0 <- ts_ts(x)
   # copy pasted from ts_dts.ts
@@ -25,7 +25,7 @@ ts_align <- function(x, fill = NA){
     return(x)
   } else {
     z <- long_core(dta)
-    if (!is.na(fill)){
+    if (!is.na(fill)) {
       z[is.na(value), value := fill]
     }
   }

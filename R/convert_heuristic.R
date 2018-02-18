@@ -10,11 +10,13 @@ ts_to_date_time <- function(x) {
 
   division <- first.subperiod / (1 / fr)
   if (abs(division - round(division)) > 1e-8) {
-    stop("subperiod is not dividable by frequency\n\n",
-         "If you encounter this rare rounding issue, many thanks for ",
-         "reporting a reproducible example on:",
-         "\n\n    https://github.com/christophsax/tsbox\n", 
-         call. = FALSE)
+    stop(
+      "subperiod is not dividable by frequency\n\n",
+      "If you encounter this rare rounding issue, many thanks for ",
+      "reporting a reproducible example on:",
+      "\n\n    https://github.com/christophsax/tsbox\n",
+      call. = FALSE
+    )
   }
 
   # make more general?
@@ -90,8 +92,10 @@ date_time_to_tsp <- function(x) {
   } else if (in_range(ds, 7776000, 7948800)) {
     f <- 4
     if (!(m %in% (c(1, 4, 7, 10)))) {
-      stop("quarterly data needs to specified as start of period", 
-           call. = FALSE)
+      stop(
+        "quarterly data needs to specified as start of period",
+        call. = FALSE
+      )
     }
     # 3*((1:4)-1)+1   ## oposite
     start <- c(y, ((m - 1) / 3) + 1)

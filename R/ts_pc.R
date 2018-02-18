@@ -2,9 +2,9 @@
 #'
 #' Utlility functions to work with time series. `ts_pcy` and `ts_diffy` calulate
 #' the percentage change and the difference compared to the same period of the
-#' previous year, rather than the previous period. `ts_index` returns an index 
+#' previous year, rather than the previous period. `ts_index` returns an index
 #' series, with value of 1 at `base` date.
-#' 
+#'
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param lag integer, the number of lags. This is defined as in dplyr, opposite to R base.
 #' @param fill how to fill missing values
@@ -85,7 +85,7 @@ ts_diff <- function(x) {
 
 
 #' @name ts_lag
-#' @param base base date, character string, `Date` or `POSIXct`, at which the 
+#' @param base base date, character string, `Date` or `POSIXct`, at which the
 #'   value will be set to 1.
 #' @export
 ts_index <- function(x, base) {
@@ -101,19 +101,19 @@ ts_index <- function(x, base) {
   setnames(z, colname.time, "time")
   setnames(z, colname.value, "value")
 
-  if (inherits(z$time, "POSIXct")){
+  if (inherits(z$time, "POSIXct")) {
     stop("indexing only works on 'Date', not 'POSIXct'")
   }
 
   .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
-  
+
   # check if base date in data (rewrite)
   dt_in_data <- z[
     ,
     list(not_in_data = !(base %in% time)),
     by = eval(.by)
   ]
-  if (any(dt_in_data$not_in_data)){
+  if (any(dt_in_data$not_in_data)) {
     cname.id <- colname_id(z)
     if (NCOL(z) > 3) {
       id.missing <- combine_cols_data.table(
@@ -121,14 +121,14 @@ ts_index <- function(x, base) {
       )$id
     } else if (NCOL(z) == 3) {
       id.missing <- dt_in_data[not_in_data == TRUE][[cname.id]]
-    } 
+    }
 
     if (length(cname.id) == 0) {
       stop(base, " not in series", call. = FALSE)
     } else {
       stop(
         base, " not in series: ",
-        paste(id.missing, collapse = ", "), 
+        paste(id.missing, collapse = ", "),
         call. = FALSE
       )
     }
@@ -141,7 +141,6 @@ ts_index <- function(x, base) {
   setnames(z, "value", colname.value)
   setnames(z, "time", colname.time)
   ts_na_omit(copy_class(z, x))
-
 }
 
 
@@ -159,5 +158,3 @@ ts_pcy <- ts_(pcy_core, vectorize = TRUE)
 #' @name ts_lag
 #' @export
 ts_diffy <- ts_(function(x) diff(x, lag = frequency(x)), vectorize = TRUE)
-
-

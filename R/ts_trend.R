@@ -64,11 +64,11 @@ loess_aic_span_optim <- function(x, degree = 2) {
 
 
 #' Loess Trend Estimation
-#' 
+#'
 #' Trend estimation that uses [stats::loess].
-#' 
+#'
 #' The Loess degree is chosen to minimize AIC, as described in:
-#' 
+#'
 #' Hurvich, C.M., Simonoff, J.S., and Tsai, C. L. 1998. Smoothing
 #' parameter selection in nonparametric regression using an improved
 #' Akaike Information Criterion. Journal of the Royal Statistical

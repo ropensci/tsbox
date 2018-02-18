@@ -1,24 +1,6 @@
 library(testthat)
 library(tsbox)
 
-# Major Things
-
-# - [ ] ts_bind, ts_c, binding POSIXct and Data should result in POSIXct,
-#       also should have the same var naming behavior)
-# perhaps this can be done by letting ts_bind calling ts_c
-
-# - [ ] reclassing of numeric, matrix output, similar to xts::reclass
-
-# ts_scale <- ts_(function(x, ...){
-#   z <- scale.default(unclass(x), ...)
-#   xts::reclass(z, x)
-# }, class = "xts")
-
-# - [ ] a cleaner ts_ function
-# - [ ] Lookup table for heuristic frequency conversion
-# - [ ] numeric vectors in ts_window()
-# - [ ] Tools to enforce regularity (major and quite separate task)
-
 context("tricky stuff")
 
 ts_dygraphs(AirPassengers)
@@ -66,9 +48,8 @@ test_that("No Invalid .internal.selfref detected.", {
 
 test_that("Unordered time works", {
   suppressMessages(library(dplyr))
-  ap.rev <- arrange(ts_df(AirPassengers), desc(time)) 
+  ap.rev <- arrange(ts_df(AirPassengers), desc(time))
 
   expect_equal(ts_ts(ap.rev), AirPassengers)
   expect_equal(ts_ts(ts_diff(ap.rev)), ts_diff(AirPassengers))
 })
-

@@ -6,14 +6,14 @@ ts_ts_dts <- function(x) {
 
   # try to regularize common time axis
   reg.time <- regularize_date(wx[[1]])
-  if (!is.null(reg.time)){
+  if (!is.null(reg.time)) {
     setnames(wx, 1, "time") # time col may have a different name
     if (inherits(wx[[1]], "POSIXct")) wx[[1]] <- as.Date(wx[[1]])
     wx <- wx[data.table(time = reg.time), on = "time"]
   }
 
   tsp <- try(date_time_to_tsp(wx[[1]]), silent = TRUE)
-  if (inherits(tsp, "try-error")){
+  if (inherits(tsp, "try-error")) {
     message(paste0(gsub("Error : |\\n", "", tsp), ", returning data.frame"))
     # browser()
     return(ts_df(x))
@@ -57,17 +57,17 @@ ts_dts.ts <- function(x) {
 # main converter ---------------------------------------------------------------
 
 #' Convert Everything to Everything
-#' 
+#'
 #' tsbox is built around a set of converters, which convert time series
 #' stored as `ts`, `xts`, `data.frame`, `data.table` or `tibble` to each
-#' other. 
-#'  
+#' other.
+#'
 #' Mulitple time series will be stored as a 'long' data frame (`data.frame`,
 #' `data.table` or `tibble`):
-#' 
+#'
 #' ```
 #' ts_df(ts_c(fdeaths, mdeaths))
-#' 
+#'
 #' #          id       time value
 #' # 1   fdeaths 1974-01-01   901
 #' # 2   fdeaths 1974-02-01   689
@@ -81,18 +81,18 @@ ts_dts.ts <- function(x) {
 #' # 143 mdeaths 1979-11-01  1294
 #' # 144 mdeaths 1979-12-01  1341
 #' ```
-#' 
+#'
 #' The time stamp, `time`, indicates the beginning of a period. tsbox requires the
 #' columns in a data frame to follow either the order:
-#' 
+#'
 #' 1. **id** column(s)
 #' 2. **time** column
 #' 3. **value** column
-#' 
+#'
 #' **or** the **time** column and the **value** column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
-#' 
+#'
 #' Note that multiple id columns with arbitrary names are allowed.
-#' 
+#'
 #' Whenever possible, tsbox relies on **heuristic time conversion**. When a
 #' monthly `"ts"` time series, e.g., `AirPassengers`, is converted to a data
 #' frame, each time stamp (of class `"Date"`) is the first day of the month. In
@@ -101,27 +101,27 @@ ts_dts.ts <- function(x) {
 #' divide time in period of equal length, while in reality, February is shorter
 #' than January. Heuristic conversion is done for frequencies of 0.1 (decades),
 #' 1 (years), 4 (quarters) and 12 (month).
-#' 
+#'
 #' For other frequencies, e.g. 260, of `EuStockMarkets`, tsbox uses  **exact
 #' time conversion**. The year is divided into 260 equally long units, and time
 #' stamp of a period will be a point in time (of class `"POSIXct"`).
-#'  
+#'
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
-#' 
+#'
 #' @return ts-boxable time series of the desired class, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
-#' 
+#'
 #' @examples
 #'
 #' x.ts <- ts_c(mdeaths, fdeaths)
 #' x.df <- ts_df(x.ts)
 #' x.dt <- ts_dt(x.df)
-#' 
+#'
 #' # heuristic time conversion
 #' ts_df(AirPassengers)
-#' 
+#'
 #' # exact time conversion
 #' ts_df(EuStockMarkets)
-#' 
+#'
 #' # Multiple IDs
 #' multi.id.df <- rbind(
 #'   within(ts_df(ts_c(fdeaths, mdeaths)), type <- "level"),
@@ -129,7 +129,7 @@ ts_dts.ts <- function(x) {
 #' )
 #' ts_plot(multi.id.df)
 #' ts_ts(multi.id.df)
-#' 
+#'
 #' \dontrun{
 #' library(xts)
 #' x.xts <- ts_xts(x.ts)

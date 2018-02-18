@@ -142,7 +142,6 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
 
 
 test_that("some trickier situations work properly", {
-
   expect_is(
     ts_bind(
       ts_c(AirPassengers, mdeaths),
@@ -186,7 +185,6 @@ test_that("colname guessing works as expected", {
   x.dt <- as.data.table(x.df)
   expect_equal(AirPassengers, ts_ts(ts_xts(ts_df(x.df))))
   expect_equal(AirPassengers, ts_ts(ts_df(ts_xts(ts_ts(x.dt)))))
-  
 })
 
 
@@ -195,11 +193,8 @@ test_that("conversions work with multiple ids", {
   x <- bind_rows(
     mutate(ts_tbl(ts_c(fdeaths, mdeaths)), id2 = "one"),
     mutate(ts_tbl(ts_c(fdeaths, mdeaths)), id2 = "two")
-  ) %>% 
-  ts_df()
+  ) %>%
+    ts_df()
 
-  expect_equal(ts_ts(x)[, 'fdeaths_two'], fdeaths)
-  
+  expect_equal(ts_ts(x)[, "fdeaths_two"], fdeaths)
 })
-
-

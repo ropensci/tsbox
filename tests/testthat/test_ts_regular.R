@@ -22,14 +22,12 @@ test_that("conversion produces right classes", {
 
 
 test_that("handles, regular, non standard series correctly", {
-
   expect_equal(EuStockMarkets, ts_regular(EuStockMarkets))
-  
+
   expect_error(
-    ts_regular(data.frame(time = as.Date(c("2001-01-01", "2002-01-01", "2010-06-01")),
-                        value = 1))
-               )
-
-
+    ts_regular(data.frame(
+      time = as.Date(c("2001-01-01", "2002-01-01", "2010-06-01")),
+      value = 1
+    ))
+  )
 })
-

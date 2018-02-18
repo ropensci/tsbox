@@ -1,17 +1,17 @@
 .ts_lastplot_env <- new.env(parent = emptyenv())
 #' Plot Time Series
-#' 
+#'
 #' `ts_plot` is a simple and fast plotting function for ts-boxable time series.
 #' It is meant to be used interactively, with limited customizability.
 #' `ts_ggplot` prduces a similar plot, but uses the
 #' [ggplot2](http://ggplot2.org/) graphic system, and can be customized. With
 #' [theme_tsbox()] and [scale_color_tsbox()], the output of `ts_ggplot` is very
 #' similar to `ts_plot`.
-#' 
-#' Both `ts_plot` and `ts_ggplot` combine multiple ID dimensions into a single 
+#'
+#' Both `ts_plot` and `ts_ggplot` combine multiple ID dimensions into a single
 #' dimension. To plot mulitple dimensions in different shapes, facets, etc., use
 #' standard ggplot.
-#' 
+#'
 #' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param title title (optional)
 #' @param subtitle subtitle (optional)
@@ -27,7 +27,7 @@
 #' ts_plot(EuStockMarkets)
 #' ts_plot(sunspot.month, sunspot.year, lynx)
 #' ts_plot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
-#' 
+#'
 #' \dontrun{
 #' ts_ggplot(AirPassengers, title = "Airline passengers",
 #'        subtitle = "The classic Box & Jenkins airline data")
@@ -44,7 +44,7 @@
 #'
 #' library(dataseries)
 #' dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
-#' 
+#'
 #' ts_ggplot(ts_scale(ts_window(
 #'   ts_c(
 #'     `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
@@ -55,11 +55,11 @@
 #'   theme_tsbox() +
 #'   scale_color_tsbox()
 #' }
-#' 
+#'
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
-ts_plot <- function(..., title, subtitle, ylab = "", 
+ts_plot <- function(..., title, subtitle, ylab = "",
                     family = getOption("ts_font", "sans")) {
   value <- NULL
   id <- NULL
@@ -125,7 +125,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   # First layer with legend and title
   par(
-    fig = c(0, 1, 0, 1), oma = c(0.5, 1, 2, 1), mar = c(0, 0, 0, 0), 
+    fig = c(0, 1, 0, 1), oma = c(0.5, 1, 2, 1), mar = c(0, 0, 0, 0),
     col.lab = col.lab, cex.lab = 0.8, family = family
   )
 
@@ -157,8 +157,10 @@ ts_plot <- function(..., title, subtitle, ylab = "",
     colname.id <- "id"
     setcolorder(x, c("id", colname.time, colname.value))
   }
-  setnames(x, c(colname.id, colname.time, colname.value), 
-           c("id", "time", "value"))
+  setnames(
+    x, c(colname.id, colname.time, colname.value),
+    c("id", "time", "value")
+  )
 
   # time vector
   tind <- as.POSIXct(x[, time])
@@ -166,7 +168,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   xlim <- range(tnum)
   # value vector
   values <- x[, value]
-  values[!is.finite(values)] <- NA  # Inf is not accepted for ylim
+  values[!is.finite(values)] <- NA # Inf is not accepted for ylim
   ylim <- range(values, na.rm = TRUE)
 
   xticks <- pretty(tind)
@@ -181,7 +183,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
     legend(
       "bottomleft",
       legend = ids, horiz = TRUE,
-      bty = "n", lty = 1, lwd = lwd, col = col, cex = 0.9 * cex, adj = 0, 
+      bty = "n", lty = 1, lwd = lwd, col = col, cex = 0.9 * cex, adj = 0,
       text.col = text.col
     )
   }
@@ -206,7 +208,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   axis(
     side = 1, at = (xticks),
     labels = xlabels,
-    las = 1, cex.axis = 0.8, col = NA, line = 0.5, tick = TRUE, padj = -2, 
+    las = 1, cex.axis = 0.8, col = NA, line = 0.5, tick = TRUE, padj = -2,
     col.axis = axis.text.col
   )
 
@@ -215,7 +217,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   for (i in seq(ids)) {
     .idi <- ids[i]
-    cd <- x[id == .idi]  # this will be named id
+    cd <- x[id == .idi] # this will be named id
     cd <- cd[!is.na(value)]
     lines(
       y = cd[, value],
@@ -243,7 +245,7 @@ ts_lastplot_call <- function() {
 #' @param width width
 #' @param filename filename
 #' @export
-ts_save <- function(filename = tempfile(), width = 10, height = 5, 
+ts_save <- function(filename = tempfile(), width = 10, height = 5,
                     device = "pdf", ..., open = TRUE) {
   filename <- gsub(".pdf$", paste0(".", device), filename)
 
@@ -255,17 +257,25 @@ ts_save <- function(filename = tempfile(), width = 10, height = 5,
   if (device == "pdf") {
     pdf(file = filename, width = width, height = height)
   } else if (device == "png") {
-    png(filename = filename, width = width, height = height, units = "in", 
-        res = 150)
+    png(
+      filename = filename, width = width, height = height, units = "in",
+      res = 150
+    )
   } else if (device == "bmp") {
-    bmp(filename = filename, width = width, height = height, units = "in", 
-        res = 150)
+    bmp(
+      filename = filename, width = width, height = height, units = "in",
+      res = 150
+    )
   } else if (device == "jpeg") {
-    jpeg(filename = filename, width = width, height = height, units = "in", 
-         res = 150)
+    jpeg(
+      filename = filename, width = width, height = height, units = "in",
+      res = 150
+    )
   } else if (device == "tiff") {
-    tiff(filename = filename, width = width, height = height, units = "in", 
-         res = 150)
+    tiff(
+      filename = filename, width = width, height = height, units = "in",
+      res = 150
+    )
   } else {
     stop("device not supported.")
   }

@@ -99,7 +99,6 @@ scale_fill_tsbox <- function(...) {
 #' @rdname ts_plot
 #' @export
 ts_ggplot <- function(...) {
-
   stopifnot(requireNamespace("ggplot2"))
   x <- ts_dts(ts_c(...))
 

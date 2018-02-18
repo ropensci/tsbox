@@ -37,11 +37,11 @@ freq        diff
  -1    315619200
 ")
 # add tolerance
-tol = 1000L
+tol <- 1000L
 .mapdiff[freq == -1, diff := diff + tol]
 .mapdiff[freq != -1, diff := diff - tol]
 
-regularize_date <- function(x){
+regularize_date <- function(x) {
   stopifnot(class(x)[1] %in% c("POSIXct", "Date"))
 
   N <- NULL
@@ -63,7 +63,7 @@ regularize_date <- function(x){
 
   diffdt[is.na(freq), freq := -1L]
 
-  if (nrow(diffdt[freq == -1]) > 0 && diffdt[freq == -1, share] > 0.5){
+  if (nrow(diffdt[freq == -1]) > 0 && diffdt[freq == -1, share] > 0.5) {
     # return NULL if regularization failed
     return(NULL)
   }
@@ -82,4 +82,3 @@ regularize_date <- function(x){
   if (!all(x %in% z)) return(NULL)
   z
 }
-

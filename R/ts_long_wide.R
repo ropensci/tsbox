@@ -4,7 +4,7 @@
 #' Note that long format data frames are ts-boxable objects, where wide format data
 #' frames are not.
 #'
-#' @param x a ts-boxable time series, or a wide `data.frame`, 
+#' @param x a ts-boxable time series, or a wide `data.frame`,
 #' `data.table`, or `tibble`.
 #'
 #' @return object with the same class as input
@@ -36,9 +36,9 @@ ts_wide <- function(x) {
   z <- wide_core(x.dts)
   # reclass
   rc <- relevant_class(x)
-  if (rc == "tbl"){
+  if (rc == "tbl") {
     stopifnot(requireNamespace("tibble"))
-    as.tbl <- function(x) tibble::as_data_frame(x) 
+    as.tbl <- function(x) tibble::as_data_frame(x)
   }
   as_class <- get(paste0("as.", rc))
   as_class(z)

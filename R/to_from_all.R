@@ -5,9 +5,9 @@
 
 
 #' Test if an Object is ts-Boxable
-#' 
+#'
 #' Mainly used internally.
-#' 
+#'
 #' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 #' @return logical, either `TRUE` or `FALSE`
 #' @examples
@@ -45,7 +45,7 @@ desired_class <- function(ll) {
 }
 
 #' Extract the Relavant Class
-#' 
+#'
 #' Mainly used internally.
 #'
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
@@ -82,7 +82,7 @@ relevant_class <- function(x) {
 #'
 #' Copies class attributes from an existing ts-boxable series. Mainly used
 #' internally.
-#' 
+#'
 #' Inspired by `xts::reclass`, which does something similar.
 #'
 #' @param z series to reclass

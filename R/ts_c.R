@@ -32,19 +32,19 @@
 
 #' Collect Time Series
 #'
-#' Collect time series as multiple time series. 
-#' 
+#' Collect time series as multiple time series.
+#'
 #' In data frame objects, multiple time series are stored in a long data frame.
-#' In `ts` and `xts` objects, time series are combined horizontally. 
-#' 
+#' In `ts` and `xts` objects, time series are combined horizontally.
+#'
 #' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
-#' 
-#' @return a ts-boxable object of the same class as the input. 
+#'
+#' @return a ts-boxable object of the same class as the input.
 #' If series of different classes are combined, the class of the first series is
 #' used (if possible).
-#' 
+#'
 #' @seealso [ts_bind], to bind multiple time series to a single series.
-#' 
+#'
 #' @examples
 #' ts_c(ts_df(EuStockMarkets), AirPassengers)
 #' a <- ts_c(EuStockMarkets, mdeaths)
@@ -132,4 +132,3 @@ unify_time_class <- function(ll) {
   }
   ll
 }
-

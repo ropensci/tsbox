@@ -4,26 +4,25 @@ context("README.md")
 
 
 test_that("examples from README.md work properly", {
-
   x.ts <- ts_c(mdeaths, fdeaths)
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
   x.dt <- ts_dt(x.df)
   x.tbl <- ts_tbl(x.dt)
 
-  ts_scale(x.ts)           # normalization
+  ts_scale(x.ts) # normalization
   ts_scale(x.xts)
   ts_scale(x.df)
   ts_scale(x.dt)
   ts_scale(x.tbl)
 
-  ts_trend(x.ts)           # loess trend line
+  ts_trend(x.ts) # loess trend line
   ts_pc(x.xts)
   ts_pcy(x.df)
   ts_lag(x.dt)
 
   # with external packages
-  ts_forecast(x.tbl)       # ets forecast
+  ts_forecast(x.tbl) # ets forecast
 
   # collect time series as multiple time series
   ts_c(ts_dt(EuStockMarkets), AirPassengers)
@@ -36,8 +35,8 @@ test_that("examples from README.md work properly", {
 
   ts_df(ts_c(fdeaths, mdeaths))
 
-  ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
-  ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
+  ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, "DAX"])))
+  ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, "DAX"])))
 
 
   ts_(diff)(AirPassengers)
@@ -57,8 +56,8 @@ test_that("examples from README.md work properly", {
   library(dplyr)
   library(tsbox)
 
-  ts_tbl(ts_c(mdeaths, fdeaths)) %>% 
-    ts_seas() %>% 
+  ts_tbl(ts_c(mdeaths, fdeaths)) %>%
+    ts_seas() %>%
     ts_plot()
 
 

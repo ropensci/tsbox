@@ -5,8 +5,7 @@ context("ts_plot")
 
 
 test_that("ts_plot works", {
-
-  ts_plot(AirPassengers, title = "AirPassengers", subtitle = "Heyhey") 
+  ts_plot(AirPassengers, title = "AirPassengers", subtitle = "Heyhey")
   tf <- tempfile()
   ts_save(tf, device = "pdf", open = FALSE)
   expect_true(file.size(tf) > 3000)
@@ -21,5 +20,4 @@ test_that("ts_plot works", {
 
   p <- ts_ggplot(AirPassengers, mdeaths) + theme_tsbox() + scale_color_tsbox()
   expect_is(p, "ggplot")
-
 })
