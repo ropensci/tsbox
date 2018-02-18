@@ -97,7 +97,7 @@ frequencies is as simple as it should be. And it even has a legend!
 ```
 ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 ```
-<img src = "https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png" width="680px" )>
+<img src = "fig/myfig.png" )>
 
 
 There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):

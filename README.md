@@ -90,7 +90,7 @@ frequencies is as simple as it should be. And it even has a legend!
 ```
 ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 ```
-![](https://github.com/christophsax/tsbox/raw/master/inst/docs/myfig.png)
+![](https://github.com/christophsax/tsbox/raw/master/vingettes/fig/myfig.png)
 
 
 There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
