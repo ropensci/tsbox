@@ -28,25 +28,10 @@ ts_frequency <- function(x, to = "year", aggregate = "mean"){
   copy_class(z, x)
 }
 
-
-month_date <- function (x) {
-  xp <- as.POSIXlt(x)
-  as.Date(paste0(xp$year + 1900L, "-", xp$mon + 1L, "-01"))
-}
-quarter_date <- function (x) {
-  xp <- as.POSIXlt(x)
-  m <- floor(xp$mon / 3) * 3 + 1 # first month of quarter
-  as.Date(paste0(xp$year + 1900L, "-", m, "-01"))
-}
-year_date <- function (x) {
-  xp <- as.POSIXlt(x)
-  as.Date(paste0(xp$year + 1900L, "-01-01"))
-}
-
 period.date <- list(
-  month = month_date,
-  quarter = quarter_date,
-  year = year_date
+  month = date_month,
+  quarter = date_quarter,
+  year = date_year
 )
 
 numeric.period <- c(month = 12, quarter = 4, year = 1)
