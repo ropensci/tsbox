@@ -143,12 +143,15 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
 
 test_that("some trickier situations work properly", {
 
-  ts_bind(
+  expect_is(
+    ts_bind(
       ts_c(AirPassengers, mdeaths),
       ts_forecast(ts_c(AirPassengers, mdeaths))
+    ),
+    "ts"
   )
 
-  ts_bind(AirPassengers, mdeaths)
+  expect_is(ts_bind(AirPassengers, mdeaths), "ts")
 })
 
 
