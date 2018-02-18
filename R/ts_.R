@@ -81,14 +81,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
     # this mainly repeats the stuff from above
     if (!reclass) {
       if (vectorize) {
-        z <- substitute(function(x, ...) {
-          load_suggested(pkg)
-          ff <- function(x, ...) {
-            stopifnot(ts_boxable(x))
-            fun(ts_to_class(x), ...)
-          }
-          ts_apply(x, ff, ...)
-        })
+        stop("cannot vectorize if 'reclass = FALSE'", call. = FALSE)
       } else {
         z <- substitute(function(x, ...) {
           load_suggested(pkg)
@@ -124,13 +117,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
     # this mainly repeats the stuff from above
     if (!reclass) {
       if (vectorize) {
-        z <- substitute(function(x, ...) {
-          ff <- function(x, ...) {
-            stopifnot(ts_boxable(x))
-            fun(ts_to_class(x), ...)
-          }
-          ts_apply(x, ff, ...)
-        })
+        stop("cannot vectorize if 'reclass = FALSE'", call. = FALSE)
       } else {
         z <- substitute(function(x, ...) {
           stopifnot(ts_boxable(x))

@@ -13,4 +13,13 @@ test_that("ts_ works with more exotic options", {
     ts_(function(x) x, class = "ts", vectorize = TRUE)(ts_c(mdeaths, fdeaths)),
     ts_c(mdeaths, fdeaths)
   )
+
+  expect_equal(
+    ts_(function(x) x, class = "ts", vectorize = TRUE, reclass = FALSE)(ts_c(mdeaths, fdeaths)),
+    ts_c(mdeaths, fdeaths)
+  )
+
+  expect_error(load_suggested("blabla"))
+  expect_error(ts_(function(x) x, reclass = FALSE, vectorize = TRUE))
+
 })
