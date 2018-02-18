@@ -185,3 +185,18 @@ test_that("colname guessing works as expected", {
   expect_equal(AirPassengers, ts_ts(ts_df(ts_xts(ts_ts(x.dt)))))
   
 })
+
+
+
+test_that("conversions work with multiple ids", {
+  x <- bind_rows(
+    mutate(ts_tbl(ts_c(fdeaths, mdeaths)), id2 = "one"),
+    mutate(ts_tbl(ts_c(fdeaths, mdeaths)), id2 = "two")
+  ) %>% 
+  ts_df()
+
+  expect_equal(ts_ts(x)[, 'fdeaths_two'], fdeaths)
+  
+})
+
+
