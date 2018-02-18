@@ -26,4 +26,13 @@ test_that("ts_window does the same as base window", {
     ts_window(ts_c(austres), end = "1978-04-01")
   )
 
+  expect_error(
+    ts_window(ts_c(austres), start = "1978-06-01", end = "1978-04-01")
+  )
+
+  x <- ts_df(austres)
+  
+  expect_equal(x[1,1], ts_start(austres))
+  expect_equal(x[nrow(x),1], ts_end(austres))
+
 })
