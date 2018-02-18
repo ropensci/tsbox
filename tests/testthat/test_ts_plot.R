@@ -16,8 +16,8 @@ test_that("ts_plot works", {
 
 
 
-p <- ts_ggplot(AirPassengers, mdeaths)
-p + theme_tsbox() + scale_color_tsbox()
+  p <- ts_ggplot(AirPassengers, mdeaths)
+  p + theme_tsbox() + scale_color_tsbox()
 
   
 })
