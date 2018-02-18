@@ -32,7 +32,7 @@ date_shift <- function(x, by = NULL) {
   add_to_one_date <- function(x) seq(x, length.out = 2, by = by)[2]
   xu <- unique(x)
   zu <- do.call(c, lapply(xu, add_to_one_date))
-  data.table(x = xu, z = zu)[data.table(x = x), on = "x"]$z
+  merge(data.table(x = x), data.table(x = xu, z = zu), all.x = TRUE, sort = FALSE)$z
 }
 
 
