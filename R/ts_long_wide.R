@@ -15,8 +15,25 @@
 ts_long <- function(x) {
   rc <- relevant_class(x)
   if (rc %in% c("xts", "ts")) return(x)
-  z <- long_core(as.data.table(x))
+  z <- long_core_multi_id(as.data.table(x))
   copy_class(z, x)
+}
+
+# a version of long_core that deals with mulit id. less robust and not used
+# by ts_dts.ts and ts_dts.xts
+long_core_multi_id <- function(x) {
+  stopifnot(inherits(x, "data.table"))
+  time.name <- suppressMessages(guess_time(x))
+  # guess id: ids on the left of time colum
+  id.names <- setdiff(names(x)[seq(which(names(x) == time.name))], time.name)
+  if (length(id.names) > 0){
+    message("id column: ",  paste(id.names, collapse = ", "))
+    id.vars <- c(id.names, time.name)
+  } else {
+    id.vars <- time.name
+  }
+  z <- melt(x, id.vars = id.vars, variable.name = "id", variable.factor = FALSE)
+  suppressMessages(ts_dts(z))
 }
 
 # core function is also used by ts_dts.ts and ts_dts.xts
