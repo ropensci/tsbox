@@ -264,13 +264,13 @@ something else, please let me [know](mailto:christoph.sax@gmail.com).
 
 ### Included examples of user defined ts_ functions
 
-|     Name     |                    What it does                    |
-|--------------|----------------------------------------------------|
-| `ts_`        | universal constructor function for tsbox functions |
-| `ts_prcomp`  | principal components of multiple time series       |
-| `ts_forcast` | automated forecasts (requires forecast)            |
-| `ts_dygraph` | interactive graphs (requires dygraphs)             |
-| `ts_seas`    | X-13 seasonal adjustment (requires seasonal)       |
+|     Name      |                    What it does                    |
+|---------------|----------------------------------------------------|
+| `ts_`         | universal constructor function for tsbox functions |
+| `ts_prcomp`   | principal components of multiple time series       |
+| `ts_forecast` | automated forecasts (requires forecast)            |
+| `ts_dygraph`  | interactive graphs (requires dygraphs)             |
+| `ts_seas`     | X-13 seasonal adjustment (requires seasonal)       |
 
 
 ## License

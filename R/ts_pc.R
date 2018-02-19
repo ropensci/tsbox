@@ -29,6 +29,9 @@ ts_lag <- function(x, lag = 1, fill = NA) {
   }
 
   colname.id <- colname_id(z)
+  colname.value <- colname_value(z)
+  setnames(z, colname.value, "value")
+
   .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
 
   # do not use ts_apply here, to take advantage of data.table speed
@@ -37,6 +40,7 @@ ts_lag <- function(x, lag = 1, fill = NA) {
     value := shift(value, n = lag, fill = fill, type = .type, give.names = FALSE),
     by = eval(.by)
   ]
+  setnames(z, "value", colname.value)
 
   ts_na_omit(copy_class(z, x))
 }

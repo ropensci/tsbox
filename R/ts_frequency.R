@@ -49,8 +49,8 @@ frequency_core <- function(x, to, aggregate) {
     }
     aggregate <- switch(
       aggregate,
-      mean = mean,
-      sum = sum,
+      mean = function(x) mean(x, na.rm = TRUE),
+      sum = function(x) sum(x, na.rm = TRUE),
       first = data.table::first,
       last = data.table::last
     )
@@ -93,15 +93,15 @@ frequency_core <- function(x, to, aggregate) {
   ctime <- colname_time(x)
 
   x0 <- copy(x)
-  data.table::setnames(x0, "value", cvalue)
-  data.table::setnames(x0, "time", ctime)
+  data.table::setnames(x0, cvalue,  "value")
+  data.table::setnames(x0, ctime, "time")
 
   pdfun <- period.date[[to]]
   x0[, time := pdfun(time)]
 
   z <- x0[, list(value = aggregate(value)), by = eval(byexpr)]
-  data.table::setnames(z, cvalue, "value")
-  data.table::setnames(z, ctime, "time")
+  data.table::setnames(z, "value", cvalue)
+  data.table::setnames(z, "time", ctime)
 
   z[]
 }

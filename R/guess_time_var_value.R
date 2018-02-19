@@ -1,5 +1,11 @@
 # to determine id, time, value, when coverting from data frame likes
 
+# only print guessing messages once
+msg_optional <- function(..., name){
+  x <- paste0(...)
+  message(x)
+}
+
 is_time <- function(x) {
   if (class(x)[1] %in% c("Date", "POSIXct")) return(TRUE) # beyond doubt
   # use a short vector for time detection
@@ -39,7 +45,7 @@ guess_time <- function(x, value.name = "value") {
     stop("No time column detected. To be explict, name time column as 'time'.")
   }
 
-  if (z != "time") message("time column: ", z)
+  if (z != "time") msg_optional("time column: ", z, name = "time")
   z
 }
 
@@ -58,8 +64,7 @@ guess_value <- function(x) {
   if (is.na(z)) {
     stop("No value column detected. To be explict, name value column as 'value'.")
   }
-  if (z != "value") message("value column: ", z)
-
+  if (z != "value") msg_optional("value column: ", z, name = "value")
   z
 }
 
