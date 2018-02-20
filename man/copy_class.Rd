@@ -4,7 +4,8 @@
 \alias{copy_class}
 \title{Reclass Time Series}
 \usage{
-copy_class(z, x, preserve.mode = TRUE, preserve.names = TRUE)
+copy_class(z, x, preserve.mode = TRUE, preserve.names = TRUE,
+  preserve.time = FALSE)
 }
 \arguments{
 \item{z}{series to reclass}
@@ -14,6 +15,8 @@ copy_class(z, x, preserve.mode = TRUE, preserve.names = TRUE)
 \item{preserve.mode}{should the mode the time column be preserved (data frame only)}
 
 \item{preserve.names}{should the name of the time column be preserved (data frame only)}
+
+\item{preserve.time}{should the values time column be preserved (data frame only)}
 }
 \description{
 Copies class attributes from an existing ts-boxable series. Mainly used

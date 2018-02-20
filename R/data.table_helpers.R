@@ -16,9 +16,15 @@ combine_cols_data.table <- function(dt, cols) {
   z[]
 }
 
-change_class.data.table <- function(dt, col, operator = "as.POSIXct") {
+change_class.data.table <- function(dt, col, operator = "as.POSIXct", tz = NULL) {
   # probably not the best way to do it
-  qq.str <- paste0(col, " := ", operator, "(", col, ")")
+
+  if (is.null(tz)){
+    qq.str <- paste0(col, " := ", operator, "(", col, ")")
+  } else {
+    qq.str <- paste0(col, " := ", operator, "(", col, ", tz = ", tz, ")")
+  }
+
   qq <- parse(text = qq.str)
   z <- dt[, eval(qq)]
   return(z)

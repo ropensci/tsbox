@@ -1,36 +1,43 @@
 
-# lower bound for frequency detection
-# -1: no regular freq
+# utility function to find POSIXct range (for coding only)
+# find_range <- function(x) {
+#   ser <- ts(rep(1, 1000), frequency = x, start = 1800)
+#   range(diff(as.numeric(as.POSIXct(ts_to_date_time(ser)))))
+# }
+# find_range(0.1)
+
+# 365.2425  # Gregorian Year
+
 .mapdiff <- data.table::fread("
 freq     , diff      , string  , tol
 -1       , 0         , NA      , 0
-31540000 , 1         , 1 sec   , 0.1
+31556952 , 1         , 1 sec   , 0.1
 -1       , 1         , NA      , 0.1
-6308000  , 5         , 5 sec   , 0.1
+6311390  , 5         , 5 sec   , 0.1
 -1       , 5         , NA      , 0.1
-3154000  , 10        , 10 sec  , 0.1
+3155695  , 10        , 10 sec  , 0.1
 -1       , 10        , NA      , 0.1
-2102667  , 15        , 15 sec  , 0.1
+2103797  , 15        , 15 sec  , 0.1
 -1       , 15        , NA      , 0.1
-1577000  , 20        , 20 sec  , 0.1
+1577848  , 20        , 20 sec  , 0.1
 -1       , 20        , NA      , 0.1
-1051333  , 30        , 30 sec  , 0.1
+1051898  , 30        , 30 sec  , 0.1
 -1       , 30        , NA      , 0.1
-525600   , 60        , 1 min   , 1
+525949.2 , 60        , 1 min   , 1
 -1       , 60        , NA      , 1
-105120   , 300       , 5 min   , 1
+105189.8 , 300       , 5 min   , 1
 -1       , 300       , NA      , 1
-52560    , 600       , 10 min  , 1
+52594.92 , 600       , 10 min  , 1
 -1       , 600       , NA      , 1
-35040    , 900       , 15 min  , 1
+35063.28 , 900       , 15 min  , 1
 -1       , 900       , NA      , 1
-26280    , 1200      , 20 min  , 5
+26297.46 , 1200      , 20 min  , 5
 -1       , 1200      , NA      , 5
-17520    , 1800      , 30 min  , 5
+17531.64 , 1800      , 30 min  , 5
 -1       , 1800      , NA      , 5
-8760     , 3600      , 60 min  , 5
+8765.82  , 3600      , 60 min  , 5
 -1       , 3600      , NA      , 5
-365.25   , 86400     , 1 day   , 60
+365.2425 , 86400     , 1 day   , 60
 -1       , 86400     , NA      , 60
 12       , 2419200   , 1 month , 200
 -1       , 2678400   , NA      , 200
@@ -41,11 +48,53 @@ freq     , diff      , string  , tol
 0.1      , 315532800 , 10 year , 10000
 -1       , 315619200 , NA      , 10000
 ")
+
+# # lower bound for frequency detection
+# # -1: no regular freq
+# .mapdiff <- data.table::fread("
+# freq     , diff      , string  , tol
+# -1       , 0         , NA      , 0
+# 31540000 , 1         , 1 sec   , 0.1
+# -1       , 1         , NA      , 0.1
+# 6308000  , 5         , 5 sec   , 0.1
+# -1       , 5         , NA      , 0.1
+# 3154000  , 10        , 10 sec  , 0.1
+# -1       , 10        , NA      , 0.1
+# 2102667  , 15        , 15 sec  , 0.1
+# -1       , 15        , NA      , 0.1
+# 1577000  , 20        , 20 sec  , 0.1
+# -1       , 20        , NA      , 0.1
+# 1051333  , 30        , 30 sec  , 0.1
+# -1       , 30        , NA      , 0.1
+# 525600   , 60        , 1 min   , 1
+# -1       , 60        , NA      , 1
+# 105120   , 300       , 5 min   , 1
+# -1       , 300       , NA      , 1
+# 52560    , 600       , 10 min  , 1
+# -1       , 600       , NA      , 1
+# 35040    , 900       , 15 min  , 1
+# -1       , 900       , NA      , 1
+# 26280    , 1200      , 20 min  , 5
+# -1       , 1200      , NA      , 5
+# 17520    , 1800      , 30 min  , 5
+# -1       , 1800      , NA      , 5
+# 8766     , 3600      , 60 min  , 5
+# -1       , 3600      , NA      , 5
+# 365.25   , 86400     , 1 day   , 60
+# -1       , 86400     , NA      , 60
+# 12       , 2419200   , 1 month , 200
+# -1       , 2678400   , NA      , 200
+# 4        , 7776000   , 3 month , 200
+# -1       , 7948800   , NA      , 200
+# 1        , 31536000  , 1 year  , 1000
+# -1       , 31622400  , NA      , 1000
+# 0.1      , 315532800 , 10 year , 10000
+# -1       , 315619200 , NA      , 10000
+# ")
 # add tolerance
 .mapdiff[, diff := as.numeric(diff)]
 .mapdiff[freq == -1, diff := diff + tol]
 .mapdiff[freq != -1, diff := diff - tol]
-
 
 # utility to detect regular frequencies
 frequency_table <- function(x) {

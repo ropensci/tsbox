@@ -38,27 +38,38 @@ regularize_date <- function(x, full.year = FALSE) {
 # browser()
   if (is.na(fm$string) && fm$share == 1) fm$string <- unique(diff(as.numeric(x)))[1]
 
-  # No POSIXct time stamps for low freq series
-  if (fm$freq <= 12 && inherits(x, "POSIXct")){
-    x <- as.Date(x)
-  }
-
+  # # No POSIXct time stamps for low freq series
+  # if (fm$freq <= 12 && inherits(x, "POSIXct")){
+  #   x <- as.Date(x)
+  # }
+# browser()
   from <- x[1]
   to <- x[length(x)]
-
   if (full.year){
-    from <- date_year(from)
     if (inherits(x, "POSIXct")){
-      from <- as.POSIXct(from)
+      from <- ISOdate(data.table::year(round(from, "mins")), 1, 1, hour = 0, tz = attr(x, "tzone"))
+    } else {
+      from <- date_year(from)
     }
     # to <- as.POSIXct(date_shift(date_year(from), "1 year"))-1
   }
   if (inherits(x, "POSIXct")){
-    z <- seq(from = from, to = to + 1, by = fm$string)
+
+    # for some reason, POSIXct are not precice for quartals
+    if (fm$freq <= 12){
+      z <- as.POSIXct(seq(from = as.Date(from), to = as.Date(to), by = fm$string), tz = attr(x, "tzone"))
+      if (!all(as.integer(x) %in% as.integer(z))){
+        # but sometimes it does, second try
+        z <- seq(from = from, to = to + 0.1, by = fm$string)
+      }
+    } else {
+      z <- seq(from = from, to = to + 0.1, by = fm$string)
+    }
   } else {
     z <- seq(from = from, to = to, by = fm$string)
   }
   
+  # browser()
   # return NULL if regularization failed
   if (!all(as.integer(x) %in% as.integer(z))) return(NULL)
   z

@@ -6,7 +6,7 @@ context("ts_scale")
 test_that("ts_scale does not modify time column", {
   expect_equal(
     ts_c(AirPassengers, EuStockMarkets[, "DAX"])$time,
-    ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, "DAX"]))$time
+    ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, "DAX"]))$time 
   )
 })
 

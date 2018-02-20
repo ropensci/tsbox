@@ -4,12 +4,14 @@
 \alias{ts_scale}
 \title{Normalized Time Series}
 \usage{
-ts_scale(x, ...)
+ts_scale(x, center = TRUE, scale = TRUE)
 }
 \arguments{
 \item{x}{ts_boxable time series}
 
-\item{...}{further arguments}
+\item{center}{logical}
+
+\item{scale}{logical}
 }
 \description{
 Normalized Time Series
