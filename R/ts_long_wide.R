@@ -16,7 +16,7 @@ ts_long <- function(x) {
   rc <- relevant_class(x)
   if (rc %in% c("xts", "ts")) return(x)
   z <- long_core_multi_id(as.data.table(x))
-  copy_class(z, x)
+  copy_class(z, x, preserve.names = FALSE)
 }
 
 # a version of long_core that deals with mulit id. less robust and not used
@@ -75,10 +75,21 @@ wide_core <- function(x) {
   if (n.non.unique > 0) {
     stop("contains ", n.non.unique, " duplicate entries", call. = FALSE)
   }
+
+  # POSIXct merges only work well when converted to integer. Don't do this 
+  # for Date
+  is.posixct <- inherits(x, "POSIXct")
+
+  setnames(x, time.name, "time")
+  if (is.posixct) x[, time := as.integer(time)]
   z <- dcast(
-    x, as.formula(paste(time.name, "~", id.name)),
-    value.var = value.name
+    x, as.formula(paste("time", "~", id.name)),
+    value.var = value.name, drop = FALSE
   )
+  if (is.posixct) z[, time := as.POSIXct(time, origin = '1970-01-01 00:00:00')]
+  
+  setnames(z, "time", time.name)
+
   # keep order as in input
   setcolorder(z, c(time.name, unique(as.character(x[[id.name]]))))
   z

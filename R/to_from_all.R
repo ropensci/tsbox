@@ -87,8 +87,10 @@ relevant_class <- function(x) {
 #'
 #' @param z series to reclass
 #' @param x template series
+#' @param preserve.mode should the mode the time column be preserved (data frame only)
+#' @param preserve.names should the name of the time column be preserved (data frame only)
 #' @export
-copy_class <- function(z, x) {
+copy_class <- function(z, x, preserve.mode = TRUE, preserve.names = TRUE) {
   if (!ts_boxable(z)) {
     if (inherits(x, "ts")) {
       z <- ts(z)
@@ -105,12 +107,23 @@ copy_class <- function(z, x) {
   }
   ans <- as_class(relevant_class(x))(z)
 
+
+
   # data frames should keep mode of time col.
-  # TODO: do this better
-  if (inherits(ans, "data.frame") && inherits(x, "data.frame")) {
+  if (preserve.mode && 
+      inherits(ans, "data.frame") && 
+      inherits(x, "data.frame")) {
     tn <- guess_time(ans)
     if ((class(ans[[tn]])[1] == "Date") && (class(x[[tn]])[1] == "POSIXct")) {
       ans[[tn]] <- as.POSIXct(ans[[tn]])
+    }
+  }
+
+  if (preserve.names && 
+      inherits(ans, "data.frame") && 
+      inherits(x, "data.frame")) {
+    if (!identical(names(ans), names(x))){
+      names(ans) <- names(x)
     }
   }
 

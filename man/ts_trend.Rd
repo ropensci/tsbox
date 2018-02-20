@@ -7,22 +7,14 @@
 ts_trend(x, ...)
 }
 \arguments{
-\item{x}{any time series object}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 
-\item{...}{arguments, passed to subfunction:
+\item{...}{arguments, passed to \code{\link[stats:loess]{stats::loess()}}:
 \itemize{
 \item \code{degree} degree of Loess smoothing
 \item \code{span} smoothing parameter, if \code{NULL}, an automated search performed (see Details)
 }}
 }
 \description{
-Trend estimation that uses \link[stats:loess]{stats::loess}.
-}
-\details{
-The Loess degree is chosen to minimize AIC, as described in:
-
-Hurvich, C.M., Simonoff, J.S., and Tsai, C. L. 1998. Smoothing
-parameter selection in nonparametric regression using an improved
-Akaike Information Criterion. Journal of the Royal Statistical
-Society B 60: 271-293.
+Trend estimation that uses \code{\link[stats:loess]{stats::loess()}}.
 }

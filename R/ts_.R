@@ -1,7 +1,7 @@
 #' @export
 #' @name ts_
 load_suggested <- function(pkg) {
-  rns <- vapply(pkg, requireNamespace, TRUE)
+  rns <- vapply(pkg, function(x) requireNamespace(x, quietly = TRUE), TRUE)
   if (any(!rns)) {
     pkgv <- dput(pkg[!rns])
     stop("Additional packages needed. To install, use:\n\n  install.packages(\"", pkgv, "\")", call. = FALSE)

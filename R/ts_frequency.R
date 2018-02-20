@@ -25,7 +25,7 @@
 ts_frequency <- function(x, to = "year", aggregate = "mean") {
   stopifnot(ts_boxable(x))
   z <- frequency_core(ts_dts(x), to = to, aggregate = aggregate)
-  copy_class(z, x)
+  copy_class(z, x, preserve.mode = FALSE)
 }
 
 period.date <- list(
@@ -102,6 +102,7 @@ frequency_core <- function(x, to, aggregate) {
   z <- x0[, list(value = aggregate(value)), by = eval(byexpr)]
   data.table::setnames(z, "value", cvalue)
   data.table::setnames(z, "time", ctime)
+
 
   z[]
 }

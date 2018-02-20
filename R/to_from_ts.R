@@ -2,23 +2,33 @@
 
 ts_ts_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
+
   wx <- wide_core(combine_id_cols(ts_regular(x)))
 
   # try to regularize common time axis
+  # this is needed if there are uncovered parts among several series
   reg.time <- regularize_date(wx[[1]])
-  if (!is.null(reg.time)) {
-    setnames(wx, 1, "time") # time col may have a different name
-    if (inherits(wx[[1]], "POSIXct")) wx[[1]] <- as.Date(wx[[1]])
-    wx <- wx[data.table(time = reg.time), on = "time"]
-  }
 
+  if (!is.null(reg.time)) {
+
+    setnames(wx, 1, "time") # time col may have a different name
+
+    is.posixct <- inherits(wx[, time], "POSIXct")
+    if (is.posixct) {
+      wx[, time := as.integer(time)]
+      reg.time <- as.integer(as.POSIXct(reg.time))
+    }
+
+    wx <- merge(data.table(time = reg.time), wx, by = "time", all.x = TRUE)
+    if (is.posixct) wx[, time := as.POSIXct(time, origin = '1970-01-01 00:00:00')]
+  }
   tsp <- try(date_time_to_tsp(wx[[1]]), silent = TRUE)
   if (inherits(tsp, "try-error")) {
     message(paste0(gsub("Error : |\\n", "", tsp), ", returning data.frame"))
     # browser()
     return(ts_df(x))
   }
-  tsp <- date_time_to_tsp(wx[[1]])
+  # tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
   if (NCOL(cdta) == 1) {
     cdta <- as.numeric(cdta[[1]])
@@ -140,7 +150,7 @@ ts_dts.ts <- function(x) {
 #' @export
 #' @import data.table
 #' @importFrom anytime anydate anytime
-#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var prcomp start tsp<-
+#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var prcomp start tsp<- window
 #' @importFrom utils browseURL relist
 #' @import data.table
 ts_ts <- function(x) {
