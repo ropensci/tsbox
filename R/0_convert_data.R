@@ -1,4 +1,13 @@
 
+# utility function to find POSIXct range (for coding only)
+# find_range <- function(x) {
+#   ser <- ts(rep(1, 1000), frequency = x, start = 1800)
+#   range(diff(as.numeric(as.POSIXct(ts_to_date_time(ser)))))
+# }
+# find_range(0.1)
+
+
+
 # lower bound for frequency detection
 # -1: no regular freq
 .mapdiff <- data.table::fread("
@@ -45,7 +54,6 @@ freq     , diff      , string  , tol
 .mapdiff[, diff := as.numeric(diff)]
 .mapdiff[freq == -1, diff := diff + tol]
 .mapdiff[freq != -1, diff := diff - tol]
-
 
 # utility to detect regular frequencies
 frequency_table <- function(x) {
