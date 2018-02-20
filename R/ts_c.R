@@ -64,7 +64,8 @@ ts_c <- function(...) {
 
   if (length(ll) == 1) return(ll[[1]])
 
-  call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse))
+  call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse, 
+                              width.cutoff = 500L))
   # use name if specified in call
   call.names[names(call.names) != ""] <- names(call.names)[names(call.names) != ""]
 
