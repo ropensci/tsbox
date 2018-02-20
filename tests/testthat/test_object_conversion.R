@@ -84,7 +84,7 @@ test_that("conversion between objects works as expected: discoveries", {
   x.dt <- ts_dt(x.df)
   x.tbl <- ts_tbl(x.dt)
 
-  expect_equal(ts_ts(ts_xts(x.ts)), x.ts)
+  expect_equal(ts_ts(x.xts), x.ts)
   expect_equal(ts_ts(ts_df(x.ts)), x.ts)
   expect_equal(ts_ts(ts_dt(x.ts)), x.ts)
   expect_equal(ts_ts(ts_tbl(x.ts)), x.ts)

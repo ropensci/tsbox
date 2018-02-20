@@ -70,7 +70,7 @@ bind_two <- function(a, b) {
     )
   }
 
-  z <- merge(a, b, by = c(colname.id, colname.time), all = TRUE)
+  z <- merge(a, b, by = c(colname.id, "time"), all = TRUE)
   # remove key added by merge
   setkey(z, NULL)
   z <- z[is.na(value), value := value_b]

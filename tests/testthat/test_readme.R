@@ -63,4 +63,5 @@ test_that("examples from README.md work properly", {
 
 
   dta <- ts_df(ts_c(mdeaths, fdeaths))
+  expect_is(dta, "data.frame")
 })

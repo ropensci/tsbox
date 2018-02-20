@@ -32,27 +32,32 @@ regular_core <- function(x) {
   x <- copy(x)
   setnames(x, ctime, "time")
 
+  # not sure if we need this
   is_regular <- function(x) {
     if (any(is.na(x))) stop("time column cannot contain NAs", call. = FALSE)
     dd <- diff(as.numeric(x))
     max(dd) - min(dd) < 100
   }
 
+
   regular_core_one_series <- function(x) {
     # to speed it up
     if (is_regular(x$time)) return(x)
-    reg.date <- regularize_date(x$time)
-    if (is.null(reg.date)) {
+        # browser()
+
+    reg.time <- regularize_date(x$time)
+
+    if (is.null(reg.time)) {
       stop(
         "series does no show regular pattern and cannot be regularized",
         call. = FALSE
       )
     }
     # if POSIXct and successful regularization, change to date, to join
-    if (inherits(x$time, "POSIXct")) {
+    if (inherits(reg.time, "Date") && inherits(x$time, "POSIXct")) {
       x$time <- as.Date(x$time)
     }
-    x[data.table(time = as.Date(reg.date)), on = "time"]
+    merge(data.table(time = reg.time), x, by = "time", all.x = TRUE)
   }
 
   if (length(cid) == 0) {
