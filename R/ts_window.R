@@ -29,7 +29,6 @@ ts_window <- function(x, start = NULL, end = NULL) {
   if (inherits(z[[ctime]], "POSIXct")) {
     anyfun <- function(x) anytime(if_num_char(x))
   } else {
-    x <- if_num_char(x)
     anyfun <- function(x) anydate(if_num_char(x))
   }
 
