@@ -32,18 +32,25 @@ regular_core <- function(x) {
   x <- copy(x)
   setnames(x, ctime, "time")
 
-  # not sure if we need this
+  # This is too strict for high freq.
   is_regular <- function(x) {
     if (any(is.na(x))) stop("time column cannot contain NAs", call. = FALSE)
     dd <- diff(as.numeric(x))
-    max(dd) - min(dd) < 100
+    rng <- max(dd) - min(dd)
+
+    z <- (max(dd) - min(dd) < 1) || (rng < 5 && rng / mean(dd) < 0.01)
+
+
+
+    if (!z && (max(dd) - min(dd) < 100)) message("missing speedup? at diff: ", max(dd) - min(dd))
+
+    z
   }
 
 
   regular_core_one_series <- function(x) {
     # to speed it up
     if (is_regular(x$time)) return(x)
-        # browser()
 
     reg.time <- regularize_date(x$time)
 

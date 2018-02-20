@@ -128,7 +128,9 @@ ts_c <- function(...) {
 unify_time_class <- function(ll) {
   cl <- vapply(ll, function(e) class(e[[2]])[1], "")
   if (length(unique(cl)) > 1) {
-    ll[cl == "Date"] <- lapply(ll[cl == "Date"], function(e) change_class.data.table(e, colnames(e)[2], "as.POSIXct"))
+
+    tz <- attr(ll[cl == "POSIXct"][[1]], "tzone")
+    ll[cl == "Date"] <- lapply(ll[cl == "Date"], function(e) change_class.data.table(e, colnames(e)[2], "as.POSIXct", tz = tz))
   }
   ll
 }

@@ -89,8 +89,10 @@ relevant_class <- function(x) {
 #' @param x template series
 #' @param preserve.mode should the mode the time column be preserved (data frame only)
 #' @param preserve.names should the name of the time column be preserved (data frame only)
+#' @param preserve.time should the values time column be preserved (data frame only)
 #' @export
-copy_class <- function(z, x, preserve.mode = TRUE, preserve.names = TRUE) {
+copy_class <- function(z, x, preserve.mode = TRUE, preserve.names = TRUE, 
+                       preserve.time = FALSE) {
   if (!ts_boxable(z)) {
     if (inherits(x, "ts")) {
       z <- ts(z)
@@ -99,7 +101,6 @@ copy_class <- function(z, x, preserve.mode = TRUE, preserve.names = TRUE) {
       x.ts <- ts_ts(x)
       z <- ts(z)
       tsp(z) <- tsp(x.ts)
-      z
     } else {
       # do not reclass non numeric, unknown objects
       return(z)
@@ -117,6 +118,13 @@ copy_class <- function(z, x, preserve.mode = TRUE, preserve.names = TRUE) {
     if ((class(ans[[tn]])[1] == "Date") && (class(x[[tn]])[1] == "POSIXct")) {
       ans[[tn]] <- as.POSIXct(ans[[tn]])
     }
+  }
+
+  if (preserve.time && 
+    inherits(ans, "data.frame") && 
+    inherits(x, "data.frame")) {
+    tn <- guess_time(ans)
+    ans[[tn]] <- x[[tn]]
   }
 
   if (preserve.names && 
