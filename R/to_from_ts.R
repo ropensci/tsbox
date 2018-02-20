@@ -23,7 +23,7 @@ ts_ts_dts <- function(x) {
     wx <- merge(data.table(time = reg.time), wx, by = "time", all.x = TRUE)
     if (is.posixct) wx[, time := as.POSIXct(time, origin = '1970-01-01', tz = tz)]
   }
-# browser()
+
   tsp <- try(date_time_to_tsp(wx[[1]]), silent = TRUE)
   if (inherits(tsp, "try-error")) {
     message(paste0(gsub("Error : |\\n", "", tsp), ", returning data.frame"))
