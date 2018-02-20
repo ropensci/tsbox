@@ -17,10 +17,20 @@ ts_window <- function(x, start = NULL, end = NULL) {
   z <- ts_dts(x)
   ctime <- colname_time(z)
 
-  anyfun = if (class(z[[ctime]]) == "Date") {
-    function(x) anydate(x)
+  # Outfactor in universal anytime wrapper?
+  if_num_char <- function(x){
+    if (inherits(x, "numeric")) {
+      if (length(x) > 1) stop("numeric date input must be of length 1", call. = FALSE)
+      return(as.character(x))
+    }
+    x
+  }
+
+  if (inherits(z[[ctime]], "POSIXct")) {
+    anyfun <- function(x) anytime(if_num_char(x))
   } else {
-    function(x) anytime(x)
+    x <- if_num_char(x)
+    anyfun <- function(x) anydate(if_num_char(x))
   }
 
   if (!is.null(start)) {
@@ -31,6 +41,9 @@ ts_window <- function(x, start = NULL, end = NULL) {
       stop("'start' cannot be at or after 'end'", call. = FALSE)
     }
     z <- filter_data.table(z, ctime, "<=", anyfun(end))
+  }
+  if (nrow(z) == 0){
+    stop("window contains no data, select different 'start' or 'end'", call. = FALSE)
   }
   z <- copy_class(z, x)
 
