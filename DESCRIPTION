@@ -3,8 +3,7 @@ Type: Package
 Title: Class-Agnostic Time Series
 Version: 0.0.12.1
 Date: 2018-02-20
-Author: Christoph Sax
-Maintainer: Christoph Sax <christoph.sax@gmail.com>
+Authors@R: person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"))
 Description: Tools that are agnostic towards existing time series classes. 
   Converts time series from different classes and time series stored in data
   frames to each other. Functions for time series handling that work for all

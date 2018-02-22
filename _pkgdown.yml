@@ -1,0 +1,37 @@
+template:
+  params:
+    bootswatch: cosmo
+
+# home:
+  # strip_header: true
+  # links:
+  # - text: Learn more
+  #   href: https://github.com/christophsax/tsbox
+
+reference:
+- title: Ts Functions
+  contents:
+  - starts_with("ts_")
+
+- title: Extractors
+  contents:
+  - starts_with("date")
+
+
+navbar:
+  title: ~
+  type: default
+  left:
+  - text: Intro
+    href: articles/tsbox.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Extending tsbox
+      href: articles/tsbox.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/christophsax/tsbox
