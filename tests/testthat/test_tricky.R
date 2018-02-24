@@ -53,3 +53,25 @@ test_that("Unordered time works", {
   expect_equal(ts_ts(ap.rev), AirPassengers)
   expect_equal(ts_ts(ts_diff(ap.rev)), ts_diff(AirPassengers))
 })
+
+
+test_that("Non unique colnames work fine", {
+
+  expect_equal(
+    ts_ts(ts_c(mdeaths, fdeaths, ts_df(ts_c(mdeaths, fdeaths)))),
+    ts_c(mdeaths, fdeaths, ts_c(mdeaths, fdeaths))
+  )
+
+  expect_equal(
+    ts_ts(ts_c(mdeaths, EuStockMarkets, ts_df(ts_c(mdeaths, EuStockMarkets)))),
+    ts_c(mdeaths, EuStockMarkets, ts_c(mdeaths, EuStockMarkets))
+  )
+
+  expect_equal(
+    ts_ts(ts_c(mdeaths, mdeaths = ts_df(ts_c(mdeaths)))),
+    ts_c(mdeaths, mdeaths = ts_c(mdeaths))
+  )
+
+})
+
+

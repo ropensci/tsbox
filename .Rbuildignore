@@ -5,3 +5,5 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 travis
+^_pkgdown\.yml$
+^docs$

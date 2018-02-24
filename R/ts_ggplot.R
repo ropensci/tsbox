@@ -98,7 +98,7 @@ scale_fill_tsbox <- function(...) {
 
 #' @rdname ts_plot
 #' @export
-ts_ggplot <- function(...) {
+ts_ggplot <- function(..., title, subtitle, ylab = "") {
   stopifnot(requireNamespace("ggplot2"))
   x <- ts_dts(ts_c(...))
 
@@ -129,6 +129,13 @@ ts_ggplot <- function(...) {
     p <- ggplot2::ggplot(df, ggplot2::aes_string(x = colname.time, y = colname.value, color = colname.id))
   }
   p <- p + ggplot2::geom_line()
+
+  # labels and title
+  p <- p + ggplot2::ylab(ylab)
+  if (!missing("title")) {
+    if (missing("subtitle")) subtitle <- NULL
+    p <- p +  ggplot2::ggtitle(title = title, subtitle = subtitle)
+  }
 
   p
 }

@@ -5,7 +5,7 @@
 \alias{ts_plot}
 \title{Plot Time Series}
 \usage{
-ts_ggplot(...)
+ts_ggplot(..., title, subtitle, ylab = "")
 
 ts_plot(..., title, subtitle, ylab = "", family = getOption("ts_font",
   "sans"))
@@ -22,55 +22,60 @@ ts_plot(..., title, subtitle, ylab = "", family = getOption("ts_font",
 \item{family}{font family (optional, can also be set via \code{options})}
 }
 \description{
-\code{ts_plot} is a simple and fast plotting function for ts-boxable time series.
-It is meant to be used interactively, with limited customizability.
-\code{ts_ggplot} prduces a similar plot, but uses the
-\href{http://ggplot2.org/}{ggplot2} graphic system, and can be customized. With
-\code{\link[=theme_tsbox]{theme_tsbox()}} and \code{\link[=scale_color_tsbox]{scale_color_tsbox()}}, the output of \code{ts_ggplot} is very
-similar to \code{ts_plot}.
+\code{ts_plot} is a fast and simple plotting function for ts-boxable time series,
+with limited customizeability. \code{ts_ggplot} produces a similar plot, but uses
+the \href{http://ggplot2.org/}{ggplot2} graphic system, and can be customized.
 }
 \details{
+With \code{\link[=theme_tsbox]{theme_tsbox()}} and \code{\link[=scale_color_tsbox]{scale_color_tsbox()}}, the output of \code{ts_ggplot} is
+very similar to \code{ts_plot}.
+
 Both \code{ts_plot} and \code{ts_ggplot} combine multiple ID dimensions into a single
 dimension. To plot mulitple dimensions in different shapes, facets, etc., use
 standard ggplot.
 }
 \examples{
-ts_plot(AirPassengers, title = "Airline passengers",
-       subtitle = "The classic Box & Jenkins airline data")
+ts_plot(
+  AirPassengers, 
+  title = "Airline passengers",
+  subtitle = "The classic Box & Jenkins airline data"
+)
+ 
+# naming arguments
 ts_plot(total = ldeaths, female = fdeaths, male = mdeaths)
 
-ts_plot(ts_c(sunspot.month, sunspot.year, lynx))
-ts_plot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
-ts_plot(EuStockMarkets)
-ts_plot(sunspot.month, sunspot.year, lynx)
-ts_plot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
+# using different ts-boxable objects
+ts_plot(ts_scale(ts_c(
+  airmiles, 
+  ts_tbl(co2), 
+  ts_xts(JohnsonJohnson), 
+  ts_df(discoveries)
+)))
+
+# using the ggplot2 graphic system
+p <- ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
+p
+
+# with themes for the look and feel of ts_plot()
+p + theme_tsbox() + scale_color_tsbox()
 
 \dontrun{
-ts_ggplot(AirPassengers, title = "Airline passengers",
-       subtitle = "The classic Box & Jenkins airline data")
-ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
-
-ts_ggplot(ts_c(sunspot.month, sunspot.year, lynx))
-ts_ggplot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
-ts_ggplot(EuStockMarkets)
-ts_ggplot(sunspot.month, sunspot.year, lynx)
-ts_ggplot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
-
-library(Quandl)
-ts_ggplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
-
 library(dataseries)
 dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
-
 ts_ggplot(ts_scale(ts_window(
-  ts_c(
-    `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
-    `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']
-  ),
-  start = "1995-01-01"))) +
+    ts_c(
+      `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
+      `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']
+    ),
+    start = "1995-01-01"
+  ))) +
   ggplot2::ggtitle("GDP and Consumer Sentiment", subtitle = "normalized values") +
   theme_tsbox() +
   scale_color_tsbox()
 }
 
+}
+\seealso{
+\code{\link[=ts_dygraphs]{ts_dygraphs()}}, for interactive time series plots. \code{\link[=ts_save]{ts_save()}} to
+save a plot to the file system.
 }

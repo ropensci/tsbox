@@ -74,12 +74,15 @@ ts_c <- function(...) {
   # special treatment for ts
   # - speed gain
   # - solves spacing issue for in series NAs
-  if (desired.class == "ts") {
-    no.cnames <- vapply(ll, function(e) length(colnames(e)) <= 1, TRUE)
-    if (is.null(names(ll))) names(ll) <- call.names
-    names(ll)[no.cnames] <- call.names[no.cnames]
+  # - but its still terrible code
+  if (identical(unique(desired.class), "ts")){
+    is.unnamed <- vapply(ll, function(e) length(colnames(e)) <= 1, TRUE)
+    names.for.unnamed <- call.names[is.unnamed]
+    ll.names <- ll
+    ll.names[is.unnamed] <- names.for.unnamed
+    ll.names[!is.unnamed] <- lapply(ll[!is.unnamed], colnames)
     z <- do.call(cbind, ll)
-    colnames(z) <- make.unique(colnames(z))
+    colnames(z) <- make.unique(unlist(ll.names))
     return(z)
   }
 
@@ -87,7 +90,6 @@ ts_c <- function(...) {
   vnames <- lapply(ll.dts, colname_id)
 
   colname.id <- colname_id(ll.dts[[1]])
-
   # In case first element is unnamed series
   if (length(colname.id) == 0) {
     colname.id <- "id"
@@ -95,24 +97,47 @@ ts_c <- function(...) {
 
   # add names from call for single series
   is.unnamed <- vapply(ll.dts, function(e) ncol(e) == 2, FALSE)
-
+  names.for.unnamed <- call.names[is.unnamed]
+  # name unnamed
   ll.dts[is.unnamed] <- Map(
     function(dt, id) {
       dt$id <- id
+      # this will have exactly 3 cols
       setcolorder(dt, c(3, 1, 2))
       dt
     },
     dt = ll.dts[is.unnamed],
-    id = call.names[is.unnamed]
+    id = names.for.unnamed
   )
 
-  # TODO ensure uniqueness of ids!
-
   if (length(unique(lapply(ll.dts, colname_id))) > 1) {
-    stop("id dimensions must be the same for all elements.")
+    stop("if present, id columns must be the same for all objects")
   }
 
   ll.dts <- unify_time_class(ll.dts)
+
+  # ensure id uniqueness (not happy)
+  for (id.i in colname.id){
+    all.levels <- lapply(ll.dts, function(e) unique(e[[id.i]]))
+    # only do if needed
+    if (length(unique(unlist(all.levels))) == length(unlist(all.levels))) break
+    unique.levels <- character(0)
+    for (i in seq_along(all.levels)){
+      st <- length(unique.levels) + 1
+      en <- length(unique.levels) + length(all.levels[[i]])
+      unique.levels <- make.unique(c(unique.levels, all.levels[[i]]))
+      all.levels[[i]] <- unique.levels[st:en]
+    }
+    # set_levels(rep(c("c", "a", "b"), each = 5), c("Chr", "Al", "Be"))
+    set_levels <- function(x, names){
+      as.character(`levels<-`(as.factor(x), sort(names)))
+    }
+    set_levels_dt <- function(dt, names){
+      dt[[id.i]] <- set_levels(dt[[id.i]], names)
+      dt
+    }
+    ll.dts <- Map(set_levels_dt, ll.dts, all.levels)
+  }
 
   z <- rbindlist(ll.dts)
 
