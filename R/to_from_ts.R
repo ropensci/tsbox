@@ -74,32 +74,20 @@ ts_dts.ts <- function(x) {
 #' stored as `ts`, `xts`, `data.frame`, `data.table` or `tibble` to each
 #' other.
 #'
-#' Mulitple time series will be stored as a 'long' data frame (`data.frame`,
-#' `data.table` or `tibble`):
-#'
-#' ```
-#' ts_df(ts_c(fdeaths, mdeaths))
-#'
-#' #          id       time value
-#' # 1   fdeaths 1974-01-01   901
-#' # 2   fdeaths 1974-02-01   689
-#' # 3   fdeaths 1974-03-01   827
-#' # 4   fdeaths 1974-04-01   677
-#' # 5   fdeaths 1974-05-01   522
-#' # ...
-#' # 140 mdeaths 1979-08-01   975
-#' # 141 mdeaths 1979-09-01   940
-#' # 142 mdeaths 1979-10-01  1081
-#' # 143 mdeaths 1979-11-01  1294
-#' # 144 mdeaths 1979-12-01  1341
-#' ```
-#'
-#' The time stamp, `time`, indicates the beginning of a period. tsbox requires the
-#' columns in a data frame to follow either the order:
-#'
-#' 1. **id** column(s)
-#' 2. **time** column
-#' 3. **value** column
+#' In data frames, mulitple time series will be stored in a 'long' format. tsbox
+#' detects a *value*, a *time* and zero to serveral *id* columns. Column detection
+#' is done in the following order:
+#' 
+#' 1. Starting **on the right**, the first first `numeric` or `integer` column is
+#' used as **value column**.
+#' 
+#' 1. Using the remaining columns, and starting on the right again, the first
+#' `Date`, `POSIXct`, `numeric` or `character` column is used as **time column**.
+#' `character` strings are parsed by [anytime::anytime()] or [anytime::anydate()]. 
+#' The time stamp, `time`, indicates the beginning of a period. 
+#' 
+#' 1. **All remaing** columns are **id columns**. Each unique combination of id
+#' columns points to a time series.
 #'
 #' **or** the **time** column and the **value** column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
 #'
@@ -125,29 +113,33 @@ ts_dts.ts <- function(x) {
 #' @examples
 #'
 #' x.ts <- ts_c(mdeaths, fdeaths)
-#' x.df <- ts_df(x.ts)
-#' x.dt <- ts_dt(x.df)
+#' head(x.ts)
+#' head(ts_df(x.ts))
+#' 
+#' library(dplyr)
+#' head(ts_tbl(x.ts))
+#' 
+#' library(data.table)
+#' head(ts_dt(x.ts))
+#' 
+#' library(xts)
+#' head(ts_xts(x.ts))
 #'
 #' # heuristic time conversion
-#' ts_df(AirPassengers)
+#' # 1 momth: approx. 1/12 year
+#' head(ts_df(AirPassengers))
 #'
 #' # exact time conversion
-#' ts_df(EuStockMarkets)
+#' # 1 trading day: exactly 1/260 year
+#' head(ts_df(EuStockMarkets))
 #'
-#' # Multiple IDs
+#' # multiple id
 #' multi.id.df <- rbind(
 #'   within(ts_df(ts_c(fdeaths, mdeaths)), type <- "level"),
 #'   within(ts_pc(ts_df(ts_c(fdeaths, mdeaths))), type <- "pc")
 #' )
+#' head(ts_ts(multi.id.df))
 #' ts_plot(multi.id.df)
-#' ts_ts(multi.id.df)
-#'
-#' \dontrun{
-#' library(xts)
-#' x.xts <- ts_xts(x.ts)
-#' library(dplyr)
-#' x.tbl <- ts_tbl(x.ts)
-#' }
 #'
 #' @export
 #' @import data.table

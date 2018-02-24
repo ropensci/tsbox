@@ -1,5 +1,5 @@
 ---
-title: "tsbox"
+title: "Introduction to tsbox"
 subtitle: "Class-Agnostic Time Series"
 author: "Christoph Sax"
 output: rmarkdown::html_vignette
@@ -8,8 +8,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-## tsbox: Class-Agnostic Time Series
 
 The R ecosystem knows a [vast
 number](https://cran.r-project.org/web/views/TimeSeries.html)  of time series
@@ -70,9 +68,6 @@ ts_lag(x.dt)
 # with external packages
 ts_forecast(x.tbl)       # ets forecast
 ```
-
-For a list of available functions, see below.
-
 
 ### Combine multiple time series
 
@@ -144,40 +139,6 @@ If explicit names are used, the column order will be ignored.
 
 Note that **multiple id columns** with arbitrary names are allowed.
 
-
-### Writing ts functions
-
-The `ts_` function is a constructor function for tsbox time series functions.
-Use it to wrap any function that works with time series. The default is set to R
-base `"ts"` class, so wrapping functions for `"ts"` time series (or vectors or
-matrices) is as simple as:
-
-```r
-ts_(diff)(AirPassengers)
-ts_(rowSums)(ts_c(mdeaths, fdeaths))
-```
-
-Or a more complex example, which uses a post processing function:
-
-```r
-ts_prcomp <- ts_(function(x) predict(prcomp(x, scale = TRUE)))
-ts_prcomp(ts_c(mdeaths, fdeaths))
-```
-
-And some functions from external packages:
-
-```r
-ts_dygraphs <- ts_(dygraphs::dygraph, class = "xts")
-ts_forecast <- ts_(function(x) forecast::forecast(x)$mean, vectorize = TRUE)
-ts_seas <- ts_(function(x) seasonal::final(seasonal::seas(x)), vectorize = TRUE)
-
-ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
-ts_forecast(ts_c(mdeaths, fdeaths))
-ts_seas(ts_c(mdeaths, fdeaths))
-```
-
-Note that the `ts_` function deals with the conversion stuff, 'vectorizes' the
-function so that it can be used with multiple time series.
 
 
 ### Using tsbox in a dplyr / pipe workflow
