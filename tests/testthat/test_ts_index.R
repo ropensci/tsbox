@@ -38,5 +38,5 @@ test_that("ts_index works with multi ids", {
 
 
 test_that("ts_compound works", {
-  expect_equal(ts_compound(ts_pc(mdeaths)), ts_window(ts_index(mdeaths, "1974"), "1974-02-01"))
+  expect_equal(ts_compound(ts_pc(mdeaths)), ts_index(mdeaths, "1974"))
 })

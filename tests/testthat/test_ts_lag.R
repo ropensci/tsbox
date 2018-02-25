@@ -1,40 +1,35 @@
 library(testthat)
 library(tsbox)
 
-context("ts_shift")
+context("ts_lag")
 
 
-test_that("ts_shift works", {
-  expect_equal(
-    ts_lag(mdeaths),
-    ts_window(ts_shift(mdeaths, "month"), end = ts_end(mdeaths))
-  )
+test_that("integer and character shifting works the same", {
+  expect_equal(ts_lag(mdeaths), ts_lag(mdeaths, "month"))
+  expect_equal(ts_lag(austres), ts_lag(austres, "quarter"))
 
-  expect_equal(
-    ts_lag(austres),
-    ts_window(ts_shift(austres, "quarter"), end = ts_end(austres))
-  )
+  expect_equal(ts_lag(mdeaths, 5), ts_lag(mdeaths, "5 month"))
+  expect_equal(ts_lag(austres, -3), ts_lag(austres, "-3 quarter"))
+  
+  expect_equal(ts_lag(discoveries, -300), ts_lag(discoveries, "-300 years"))
+  expect_equal(ts_lag(fdeaths, 11), ts_lag(fdeaths, "11 month"))
+
 })
 
 
-context("ts_lag")
 
 test_that("ts_lag works as stats::lag", {
-  expect_equal(
-    ts_lag(mdeaths),
-    ts_window(stats::lag(mdeaths, -1), end = "1979-12-01")
-  )
+  expect_equal(ts_lag(mdeaths), stats::lag(mdeaths, -1))
+  expect_equal(ts_lag(mdeaths, -1), stats::lag(mdeaths, 1))
 
-  expect_equal(
-    ts_lag(mdeaths, -1),
-    ts_window(stats::lag(mdeaths, 1), start = "1974-01-01")
-  )
+  expect_equal(ts_lag(mdeaths, 12), stats::lag(mdeaths, -12))
+  expect_equal(ts_lag(mdeaths, -12), stats::lag(mdeaths, 12))
+
 })
 
 test_that("ts_lag works both ways", {
-  expect_equal(
-    ts_lag(ts_lag(mdeaths, -1)),
-    ts_lag(ts_lag(mdeaths), -1)
-  )
+  expect_equal(ts_lag(ts_lag(mdeaths, -1)), ts_lag(ts_lag(mdeaths), -1))
+  expect_equal(ts_lag(ts_lag(mdeaths, -12)), ts_lag(ts_lag(mdeaths), -12))
+
 })
 
