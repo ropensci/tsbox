@@ -92,12 +92,12 @@
     
 <div class="contents">
 <p>tsbox relies on a set of converters to convert time series stored as <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code> or <code>tibble</code> to each other. This vignette describes some background on two particular challenges, the conversion of <em>equispaced points in time</em> to <em>actual dates or times</em>, and the <em>regularization of irregular time sequences</em>.</p>
-<p>The classic way of storing time series in R are <code>"ts"</code> objects. These are simple vectors with an attribute that describes the beginning of the series, the (redundant) end, and the frequency. Thus, a monthly series, e.g., <code>AirPassengers</code> is defined as a numeric vector that starts at 1949, with frequency 1. Thus, months are thought of as equispaced periods of exactly 1/12.</p>
-<p>For most time series, this is not what is meant. The second period of <code>AirPassengers</code>, February 1949, is of course shorter than the first one. tsbox tries to acknowledge the fact by using <strong>heuristic</strong>, rather than <strong>exact</strong> time conversion if possible.</p>
+<p>The classic way of storing time series in R in <code>"ts"</code> objects. These are simple vectors with an attribute that describes the beginning of the series, the (redundant) end, and the frequency. Thus, a monthly series, e.g., <code>AirPassengers</code>, is defined as a numeric vector that starts in 1949, with frequency 1. Thus, months are thought of as equispaced periods with a length of exactly 1/12 of a year.</p>
+<p>For most time series, this is not what is meant. The second period of <code>AirPassengers</code>, February 1949, is actually shorter than the first one, but this is not reflected in the <code>"ts"</code> object. When converting to classes with actual time stamps, tsbox tries to correct it by using <strong>heuristic</strong>, rather than <strong>exact</strong> time conversion if possible.</p>
 <div id="heuristic-time-conversion" class="section level2">
 <h2 class="hasAnchor">
 <a href="#heuristic-time-conversion" class="anchor"></a>Heuristic time conversion</h2>
-<p>Whenever possible, tsbox relies on <strong>heuristic time conversion</strong>. When a monthly <code>"ts"</code> time series, e.g., <code>AirPassengers</code>, is converted to a data frame, each time stamp (of class <code>"Date"</code>) is the first day of the month. In most circumstances, this reflects the actual meaning of the data stored in a <code>"ts"</code> object. Technically, of course, this is not correct: <code>"ts"</code> objects divide time in period of equal length, while in reality, February is shorter than January. Heuristic conversion is done for the following frequencies:</p>
+<p>Whenever possible, tsbox relies on <strong>heuristic time conversion</strong>. When a monthly <code>"ts"</code> time series, e.g., <code>AirPassengers</code>, is converted to a data frame, each time stamp (of class <code>"Date"</code>) indicates the first day of the month. Heuristic conversion is done for the following frequencies:</p>
 <table class="table">
 <thead><tr class="header">
 <th>
@@ -155,7 +155,7 @@
 </tr>
 </tbody>
 </table>
-<p>For example, converting <code>AirPassengers</code> to a data frame gives:</p>
+<p>For example, converting <code>AirPassengers</code> to a data frame returns:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw"><a href="../reference/ts_ts.html">ts_df</a></span>(AirPassengers))
 <span class="co">#&gt;         time value</span>
 <span class="co">#&gt; 1 1949-01-01   112</span>
@@ -164,14 +164,14 @@
 <span class="co">#&gt; 4 1949-04-01   129</span>
 <span class="co">#&gt; 5 1949-05-01   121</span>
 <span class="co">#&gt; 6 1949-06-01   135</span></code></pre></div>
-<p>Heuristic conversion is reversible, so we can get back to the original object:</p>
+<p>Heuristic conversion works both ways, so we can get back to the original <code>"ts"</code> object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(<span class="kw">ts_ts</span>(<span class="kw"><a href="../reference/ts_ts.html">ts_df</a></span>(AirPassengers)), AirPassengers)
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
 <div id="exact-time-conversion" class="section level2">
 <h2 class="hasAnchor">
 <a href="#exact-time-conversion" class="anchor"></a>Exact time conversion</h2>
-<p>For all other frequencies, e.g. 260, of <code>EuStockMarkets</code>, tsbox uses <strong>exact time conversion</strong>. The year is divided into 260 equispaced units, and time stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
+<p>For non standard frequencies, e.g. 260, of <code>EuStockMarkets</code>, tsbox uses <strong>exact time conversion</strong>. The year is divided into 260 equispaced units, each somewhat longer than a day. The time stamp of a period will be an exact point in time (of class <code>"POSIXct"</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw"><a href="../reference/ts_ts.html">ts_df</a></span>(EuStockMarkets))
 <span class="co">#&gt;    id                time   value</span>
 <span class="co">#&gt; 1 DAX 1991-07-01 03:18:27 1628.75</span>
@@ -180,17 +180,18 @@
 <span class="co">#&gt; 4 DAX 1991-07-05 08:27:43 1621.04</span>
 <span class="co">#&gt; 5 DAX 1991-07-06 18:10:48 1618.16</span>
 <span class="co">#&gt; 6 DAX 1991-07-08 03:53:53 1610.61</span></code></pre></div>
-<p>Higher frequencies, like days, hours, minutes or seconds are generally equispaced, and exact time conversion is used.</p>
-<p>Exact time conversion is generally reversible as well:</p>
+<p>Higher frequencies, such as days, hours, minutes or seconds, are naturally equispaced, and exact time conversion is used as well.</p>
+<p>Exact time conversion is generally reversible:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(<span class="kw">ts_ts</span>(<span class="kw"><a href="../reference/ts_ts.html">ts_df</a></span>(EuStockMarkets)), EuStockMarkets)
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>However, for very high frequencies, rounding errors may lead to small differences when going from data frame to <code>"ts"</code> and back. Conversion does not work reliably if the frequency is above one second. For these ultra high frequencies, tsbox is not tested and may not work as expected.</p>
+<p>However, for high frequencies, rounding errors can lead to unavoidable small differences when going from data frame to <code>"ts"</code> and back.</p>
+<p>Conversion does not work reliably if the frequency higher than one second. For these ultra high frequencies, tsbox is not tested and may not work as expected.</p>
 </div>
 <div id="regularization-of-predefined-frequencies" class="section level2">
 <h2 class="hasAnchor">
 <a href="#regularization-of-predefined-frequencies" class="anchor"></a>Regularization of predefined frequencies</h2>
-<p>In data frames or <code>"xts"</code> objects, missing values are generally omitted. These omitted <code>NA</code> values are called implicit missing values, as opposite to explicit values. The function <code>ts_regular</code> allows us to <em>regularize</em> a series, by making implicit <code>NA</code> values explicit.</p>
-<p>When regularizing, <code>ts_regular</code> analyzes the differences in the time stamp for known frequencies. If it detects any, it builds a regular sequence based on the highest detected frequency, and tries to match the time stamps to the regular series. The result is a data frame or <code>"xts"</code> object with explicit <code>NA</code> values. Regularization is automatically done when an object is converted to a <code>"ts"</code> object.</p>
+<p>In data frames or <code>"xts"</code> objects, missing values are generally omitted. These omitted missing values are called implicit, as opposite to explicit <code>NA</code> values. The function <code>ts_regular</code> allows the user to <em>regularize</em> a series, by making implicit missing values explicit.</p>
+<p>When regularizing, <code>ts_regular</code> analyzes the differences in the time stamp for known frequencies. If it detects any, it builds a regular sequence based on the highest known frequency, and tries to match the time stamps to the regular series. The result is a data frame or <code>"xts"</code> object with explicit missing values. Regularization is automatically done when an object is converted to a <code>"ts"</code> object.</p>
 <p>For example, the following time series contains an implicit <code>NA</code> value in February 1974:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_df</a></span>(fdeaths)[<span class="op">-</span><span class="dv">2</span>,]
 <span class="kw">head</span>(df)
@@ -201,7 +202,7 @@
 <span class="co">#&gt; 5 1974-05-01   522</span>
 <span class="co">#&gt; 6 1974-06-01   406</span>
 <span class="co">#&gt; 7 1974-07-01   441</span></code></pre></div>
-<p><code>ts_regular</code> can be used to make the value implicit:</p>
+<p><code>ts_regular</code> can be used to turn it into a explicit <code>NA</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw"><a href="../reference/ts_regular.html">ts_regular</a></span>(df))
 <span class="co">#&gt;         time value</span>
 <span class="co">#&gt; 1 1974-01-01   901</span>
@@ -210,7 +211,7 @@
 <span class="co">#&gt; 4 1974-04-01   677</span>
 <span class="co">#&gt; 5 1974-05-01   522</span>
 <span class="co">#&gt; 6 1974-06-01   406</span></code></pre></div>
-<p>Regularization can be done for all frequencies that are suited for heuristic conversion. In addition to these frequencies, the following higher frequencies are detected and regularized as well:</p>
+<p>Regularization can be done for all frequencies that are suited for heuristic conversion, as listed above. In addition to these frequencies, the following higher frequencies are detected and regularized as well:</p>
 <table class="table">
 <thead><tr class="header">
 <th>

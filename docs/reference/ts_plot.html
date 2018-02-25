@@ -193,7 +193,7 @@ save a plot to the file system.</p>
 <span class='no'>dta</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/dataseries/topics/ds'>ds</a></span>(<span class='fu'>c</span>(<span class='st'>"GDP.PBRTT.A.R"</span>, <span class='st'>"CCI.CCIIR"</span>), <span class='st'>"xts"</span>)
 <span class='fu'>ts_ggplot</span>(<span class='fu'><a href='ts_scale.html'>ts_scale</a></span>(<span class='fu'>ts_window</span>(
     <span class='fu'><a href='ts_c.html'>ts_c</a></span>(
-      <span class='kw'>`GDP Growth`</span> <span class='kw'>=</span> <span class='fu'><a href='ts_lag.html'>ts_pc</a></span>(<span class='no'>dta</span>[, <span class='st'>'GDP.PBRTT.A.R'</span>]),
+      <span class='kw'>`GDP Growth`</span> <span class='kw'>=</span> <span class='fu'>ts_pc</span>(<span class='no'>dta</span>[, <span class='st'>'GDP.PBRTT.A.R'</span>]),
       <span class='kw'>`Consumer Sentiment Index`</span> <span class='kw'>=</span> <span class='no'>dta</span>[, <span class='st'>'CCI.CCIIR'</span>]
     ),
     <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1995-01-01"</span>
