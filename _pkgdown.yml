@@ -43,7 +43,6 @@ reference:
   - ts_diffy 
   - ts_index 
   - ts_lag   
-  - ts_shift 
 
 - title: Plot
   desc: >
@@ -81,10 +80,7 @@ reference:
 - title: User defined ts-functions
   desc: >
     `ts_` turns existing functions into functions that can deal with any ts-
-    boxable time series object. Included are a set of example functions (some of
-    which are using external packages), that perform useful operations themself:
-    calculating principal components of multiple ime series, interactive
-    graphical visualizations,  univariate forecast, and seasonal adjustment.
+    boxable time series object. The example functions are useful themself.
   contents:
   - ts_prcomp
   - ts_forecast
@@ -102,6 +98,11 @@ reference:
   contents:
   - starts_with("date")
 
+- title: Arithmetic operators
+  desc: >
+    Arithmetic operators can be applied on ts-boxable objects
+  contents:
+  - ts_arithmetic
 
 navbar:
   title: ~

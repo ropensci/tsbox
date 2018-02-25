@@ -112,7 +112,7 @@
     <div class="page-header">
       <h1>
         Reference
-        <small>version&nbsp;0.0.13.0</small>
+        <small>version&nbsp;0.0.13.1</small>
       </h1>
     </div>
 
@@ -180,9 +180,9 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="ts_lag.html">ts_lag</a></code> <code><a href="ts_lag.html">ts_pc</a></code> <code><a href="ts_lag.html">ts_diff</a></code> <code><a href="ts_lag.html">ts_pcy</a></code> <code><a href="ts_lag.html">ts_diffy</a></code> </p>
+            <p><code><a href="ts_pc.html">ts_pc</a></code> <code><a href="ts_pc.html">ts_diff</a></code> <code><a href="ts_pc.html">ts_pcy</a></code> <code><a href="ts_pc.html">ts_diffy</a></code> </p>
           </td>
-          <td><p>Lags, Differences, Percentage Change Rates</p></td>
+          <td><p>First Differences and Percentage Change Rates</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -192,9 +192,9 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="ts_shift.html">ts_shift</a></code> </p>
+            <p><code><a href="ts_lag.html">ts_lag</a></code> </p>
           </td>
-          <td><p>Shift Time Stamp</p></td>
+          <td><p>Lag or Lead of Time Series</p></td>
         </tr>
       </tbody><tbody>
         <tr>
@@ -286,7 +286,7 @@
         <tr>
           <th colspan="2">
             <h2 id="section-user-defined-ts-functions" class="hasAnchor"><a href="#section-user-defined-ts-functions" class="anchor"></a>User defined ts-functions</h2>
-            <p class="section-desc"><p><code>ts_</code> turns existing functions into functions that can deal with any ts- boxable time series object. Included are a set of example functions (some of which are using external packages), that perform useful operations themself: calculating principal components of multiple ime series, interactive graphical visualizations, univariate forecast, and seasonal adjustment.</p></p>
+            <p class="section-desc"><p><code>ts_</code> turns existing functions into functions that can deal with any ts- boxable time series object. The example functions are useful themself.</p></p>
           </th>
         </tr>
         <tr>
@@ -340,6 +340,20 @@
           </td>
           <td><p>Manipulating Dates</p></td>
         </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-arithmetic-operators" class="hasAnchor"><a href="#section-arithmetic-operators" class="anchor"></a>Arithmetic operators</h2>
+            <p class="section-desc"><p>Arithmetic operators can be applied on ts-boxable objects</p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="ts_arithmetic.html">%ts+%</a></code> <code><a href="ts_arithmetic.html">%ts-%</a></code> <code><a href="ts_arithmetic.html">%ts*%</a></code> <code><a href="ts_arithmetic.html">%ts/%</a></code> </p>
+          </td>
+          <td><p>Arithmetic Operators for ts-boxable objects</p></td>
+        </tr>
       </tbody>
       </table>
     </div>
@@ -357,6 +371,7 @@
       <li><a href="#section-align">Align</a></li>
       <li><a href="#section-user-defined-ts-functions">User defined ts-functions</a></li>
       <li><a href="#section-working-with-dates">Working with dates</a></li>
+      <li><a href="#section-arithmetic-operators">Arithmetic operators</a></li>
     </ul>
   </div>
 </div>

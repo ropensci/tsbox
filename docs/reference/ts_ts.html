@@ -216,8 +216,17 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 4: mdeaths 1974-04-01  1877
 #&gt; 5: mdeaths 1974-05-01  1492
 #&gt; 6: mdeaths 1974-06-01  1249</div><div class='input'>
-<span class='fu'>library</span>(<span class='no'>xts</span>)
-<span class='fu'>head</span>(<span class='fu'>ts_xts</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;            mdeaths fdeaths
+<span class='fu'>library</span>(<span class='no'>xts</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: zoo</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘zoo’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    as.Date, as.Date.numeric</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘xts’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:tsbox’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    first, last</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:data.table’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    first, last</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:dplyr’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    first, last</span></div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_xts</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;            mdeaths fdeaths
 #&gt; 1974-01-01    2134     901
 #&gt; 1974-02-01    1863     689
 #&gt; 1974-03-01    1877     827
@@ -245,7 +254,7 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 <span class='co'># multiple id</span>
 <span class='no'>multi.id.df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/data.table/topics/rbindlist'>rbind</a></span>(
   <span class='fu'><a href='http://www.rdocumentation.org/packages/data.table/topics/transform.data.table'>within</a></span>(<span class='fu'>ts_df</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>)), <span class='no'>type</span> <span class='kw'>&lt;-</span> <span class='st'>"level"</span>),
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/data.table/topics/transform.data.table'>within</a></span>(<span class='fu'><a href='ts_lag.html'>ts_pc</a></span>(<span class='fu'>ts_df</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>))), <span class='no'>type</span> <span class='kw'>&lt;-</span> <span class='st'>"pc"</span>)
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/data.table/topics/transform.data.table'>within</a></span>(<span class='fu'>ts_pc</span>(<span class='fu'>ts_df</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>))), <span class='no'>type</span> <span class='kw'>&lt;-</span> <span class='st'>"pc"</span>)
 )
 <span class='fu'>head</span>(<span class='fu'>ts_ts</span>(<span class='no'>multi.id.df</span>))</div><div class='output co'>#&gt;          fdeaths_level mdeaths_level fdeaths_pc  mdeaths_pc
 #&gt; Jan 1974           901          2134         NA          NA
