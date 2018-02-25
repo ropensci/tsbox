@@ -69,8 +69,11 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   x <- ts_dts(ts_c(...))
 
+  if (nrow(x) == 0) stop("data is empty")
+
   # only a single id col
   x <- combine_id_cols(x)
+
 
   if (missing("title")) {
     has.title <- FALSE
