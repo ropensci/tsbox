@@ -146,7 +146,7 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
   <span class="dt">subtitle =</span> <span class="st">"Monthly passengers, annual trappings, monthly deaths"</span>
 )</code></pre></div>
 <div class="figure">
-<img src="https://raw.githubusercontent.com/christophsax/tsbox/master/vignettes/fig/plot1.png">
+<img src="fig/plot1.png">
 </div>
 <p>There is also a version that uses <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> that uses the same syntax. With <code><a href="../reference/theme_tsbox.html">theme_tsbox()</a></code> and s<code>cale_color_tsbox()</code>, the output of <code>ts_ggplot</code> is very similar to <code>ts_plot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_plot.html">ts_ggplot</a></span>(<span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, austres, AirPassengers, <span class="dt">DAX =</span> EuStockMarkets[ ,<span class="st">'DAX'</span>])))</code></pre></div>
