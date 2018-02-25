@@ -1,35 +1,3 @@
-# relevant_names <- function(call.names, list) {
-#   stopifnot(inherits(call.names, "list"))
-
-#   relevant.names <- call.names
-
-#   for (i in 1:length(call.names)) {
-#     # only do this for single series
-#     if (length(call.names[[i]]) == 1) {
-#       if (is.null(names(call.names)) || names(call.names)[i] == "") {
-
-#         # 3. prio: use variable names if nothing else is given
-#         if (colnames(list[[i]])[1] %in% c("", ".unnamed")) {
-#           relevant.names[[i]] <- call.names[[i]]
-#         } else {
-#           # 2. prio: use colnames if given
-#           cn <- colnames(list[[i]])
-
-#           # stopifnot(length(cn) == 1)
-#           relevant.names[[i]] <- cn
-#         }
-#       } else {
-#         # 1. prio: always use name for single series if given
-#         relevant.names[[i]] <- names(call.names)[i]
-#       }
-#     }
-#   }
-#   relevant.names
-# }
-
-
-
-
 #' Collect Time Series
 #'
 #' Collect time series as multiple time series.
@@ -46,17 +14,14 @@
 #' @seealso [ts_bind], to bind multiple time series to a single series.
 #'
 #' @examples
-#' ts_c(ts_df(EuStockMarkets), AirPassengers)
-#' a <- ts_c(EuStockMarkets, mdeaths)
+#' head(ts_c(ts_df(EuStockMarkets), AirPassengers))
 #'
-#' # labelling:
-#' ts_c(`International Airline Passengers` = ts_xts(AirPassengers),
-#'        `Deaths from Lung Diseases` = ldeaths)
-#'
-#' ts_c(a = mdeaths, AirPassengers)
-#' ts_bind(ts_xts(AirPassengers), mdeaths)
-#' ts_c(ts_dt(EuStockMarkets), AirPassengers)
-#' ts_bind(ts_dt(mdeaths), AirPassengers)
+#' # labeling
+#' x <- ts_c(
+#'   `International Airline Passengers` = ts_xts(AirPassengers),
+#'   `Deaths from Lung Diseases` = ldeaths
+#' )
+#' head(x)
 #'
 #' @export
 ts_c <- function(...) {

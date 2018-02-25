@@ -18,12 +18,14 @@
 #'   shifting time stamps of a ts-boxable object.
 #'
 #' @examples
-#' date_month(ts_df(AirPassengers)$time)
-#' date_year(ts_df(AirPassengers)$time)
+#' ap.time <- ts_df(AirPassengers)$time
+#' head(date_month(ap.time))
+#' head(date_month(ap.time))
+#' head(date_year(ap.time))
 #'
-#' date_shift(ts_df(AirPassengers)$time, 14)
-#' date_shift(ts_df(AirPassengers)$time, "7 week")
-#' date_shift(ts_df(AirPassengers)$time, "-1 month")
+#' head(date_shift(ap.time, 14))
+#' head(date_shift(ap.time, "7 week"))
+#' head(date_shift(ap.time, "-1 month"))
 #'
 #' @export
 date_shift <- function(x, by = NULL) {

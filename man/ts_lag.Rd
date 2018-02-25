@@ -37,11 +37,10 @@ a ts-boxable time series, with the same class as the input.
 \description{
 Utlility functions to work with time series. \code{ts_pcy} and \code{ts_diffy} calulate
 the percentage change and the difference compared to the same period of the
-previous year, rather than the previous period. \code{ts_index} returns an index
-series, with value of 1 at \code{base} date.
+previous year, rather than the previous period.
 }
 \examples{
-ts_lag(ts_c(fdeaths, mdeaths))
-ts_diff(ts_c(fdeaths, mdeaths))
-ts_pc(ts_c(fdeaths, mdeaths))
+head(ts_diff(ts_c(fdeaths, mdeaths)))
+head(ts_pc(ts_c(fdeaths, mdeaths)))
+ts_plot(ts_c(fdeaths, mdeaths), ts_lag(ts_c(fdeaths, mdeaths)))
 }

@@ -7,19 +7,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-tsbox is built around a set of converters, which convert time series stored as
-**ts**, **xts**, **data.frame**, **data.table** or **tibble** to each other.
-Because this works reliably and without user input, we can easily write
-functions that work for all classes. So whether we want to smooth, scale,
-differentiate, chain, forecast, regularize or seasonally adjust a time series,
-we can use the same commands to whatever time series class at hand. And, most
-conveniently, we get a time series plot function that works for all classes and
-frequencies.
+It is staightforward to turn existing functions into functions that can deal
+with any ts-boxable object.
 
-The `ts_` function is a constructor function for tsbox time series functions.
-Use it to wrap any function that works with time series. The default is set to R
-base `"ts"` class, so wrapping functions for `"ts"` time series (or vectors or
-matrices) is as simple as:
+The `ts_` function is a constructor function for tsbox time series functions. It
+can be used to wrap any function that works with time series. The default is set
+to R base `"ts"` class, so wrapping functions for `"ts"` time series (or vectors
+or matrices) is as simple as:
 
 ```r
 ts_(diff)(AirPassengers)
@@ -47,6 +41,7 @@ ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
 ts_forecast(ts_c(mdeaths, fdeaths))
 ts_seas(ts_c(mdeaths, fdeaths))
 ```
+
 If you are explicit about the namespace (e.g., `dygraphs::dygraph`), 
 `ts_` recognized the package in use and delives a meaningful message if the 
 package is not installed.

@@ -74,8 +74,8 @@ ts_dts.ts <- function(x) {
 #' stored as `ts`, `xts`, `data.frame`, `data.table` or `tibble` to each
 #' other.
 #'
-#' In data frames, mulitple time series will be stored in a 'long' format. tsbox
-#' detects a *value*, a *time* and zero to serveral *id* columns. Column detection
+#' In data frames, multiple time series will be stored in a 'long' format. tsbox
+#' detects a *value*, a *time* and zero to several *id* columns. Column detection
 #' is done in the following order:
 #' 
 #' 1. Starting **on the right**, the first first `numeric` or `integer` column is
@@ -86,12 +86,12 @@ ts_dts.ts <- function(x) {
 #' `character` strings are parsed by [anytime::anytime()] or [anytime::anydate()]. 
 #' The time stamp, `time`, indicates the beginning of a period. 
 #' 
-#' 1. **All remaing** columns are **id columns**. Each unique combination of id
+#' 1. **All remaining** columns are **id columns**. Each unique combination of id
 #' columns points to a time series.
 #'
-#' **or** the **time** column and the **value** column to be explicitly named as `time` and `value`. If explicit names are used, the column order will be ignored.
-#'
-#' Note that multiple id columns with arbitrary names are allowed.
+#' **Alternatively**, the **time** column and the **value** column to be explicitly named as
+#' `time` and `value`. If explicit names are used, the column order will be
+#' ignored.
 #'
 #' Whenever possible, tsbox relies on **heuristic time conversion**. When a
 #' monthly `"ts"` time series, e.g., `AirPassengers`, is converted to a data

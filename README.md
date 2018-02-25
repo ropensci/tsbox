@@ -23,12 +23,11 @@ devtools::install_github("christophsax/tsbox")
 
 ### Convert everything to everything
 
-tsbox can convert time series stored as **ts**, **xts**, **data.frame**,
-**data.table** or **tibble** to each other:
+tsbox can convert time series stored as `ts`, `xts`, `data.frame`,
+`data.table` or `tibble` to each other:
 
 ```r
 library(tsbox)
-
 x.ts <- ts_c(mdeaths, fdeaths)
 x.xts <- ts_xts(x.ts)
 x.df <- ts_df(x.xts)
@@ -38,12 +37,11 @@ x.tbl <- ts_tbl(x.dt)
 
 ### Use same functions for ts, xts, data.frame, data.table or tibble
 
-Because this works reliably and without user input, we can easily write
-functions that work for all classes. So whether we want to smooth, scale,
-differentiate, chain, forecast, regularize or seasonally adjust a time series,
-we can use the same commands to whatever time series class at hand. And, most
-conveniently, we get a time series plot function that works for all classes and
-frequencies.
+Because this works reliably and without user input, it is easy to write
+functions that work for all classes. So whether we want to **smooth**,
+**scale**, **differentiate**, **chain**, **forecast**, **regularize** or
+**seasonally adjust** a time series, we can use the same commands to whatever
+time series class at hand:
 
 ```r
 ts_trend(x.ts) 
@@ -52,11 +50,10 @@ ts_pcy(x.df)
 ts_lag(x.dt)
 ```
 
-
-### Combine multiple time series
+### Time series of the world, unite!
 
 A set of helper functions makes it easy to combine or align multiple time
-series, even if their classes are different:
+series of all classes:
 
 ```r
 # collect time series as multiple time series
@@ -70,20 +67,15 @@ ts_bind(ts_xts(AirPassengers), ts_tbl(mdeaths))
 
 ### And plot just about everything
 
-Because all of this works smoothly, plotting all kinds of classes and
-frequencies is as simple as it should be. And it even has a legend!
+Plotting all kinds of classes and frequencies is as simple as it should be. And
+we finally get a legend!
 
 ```
 ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 ```
+
 ![](https://raw.githubusercontent.com/christophsax/tsbox/master/vignettes/fig/myfig.png)
 
-
-There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
-
-```r
-ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
-```
 
 
 ## License

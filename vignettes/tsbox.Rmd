@@ -28,8 +28,9 @@ conveniently, we get a time series plot function that works for all classes and
 frequencies.
 
 To install:
+
 ```r
-install.packages("tsbox")
+remotes::install_github("christophsax/tsbox")
 ```
 
 ### Convert everything to everything
@@ -39,106 +40,151 @@ tsbox can convert time series stored as **ts**, **xts**, **data.frame**,
 
 ```r
 library(tsbox)
-
 x.ts <- ts_c(mdeaths, fdeaths)
 x.xts <- ts_xts(x.ts)
 x.df <- ts_df(x.xts)
-x.dt <- ts_dt(x.df)
-x.tbl <- ts_tbl(x.dt)
+x.tbl <- ts_tbl(x.df)
+x.dt <- ts_dt(x.tbl)
+
 ```
 
 ### Use same functions for ts, xts, data.frame, data.table or tibble
 
-All functions start with `ts_`, so you use them with auto complete (press Tab).
-These functions work with any *ts-boxable* time series, ts, xts, data.frame,
-data.table or tibble, and **return the class of their inputs**.
+tsbox provides a basic toolkit for handling time series. These functions start
+with `ts_`, so you use them with auto complete (press Tab). These functions work
+with any *ts-boxable* time series, ts, xts, data.frame, data.table or tibble,
+and **return the class of their inputs**.
+
+For example, the `ts_scale` function performs *normalization* - it subtracts the
+mean and divides by the standard deviation of series. Like almost all ts-
+functions, it can be used with on any ts-boxable object, with single or multiple
+time series. Because `ts_scale` normalizes time series, it is useful to make
+different time series comparable. All of the following operations perform the
+same task, but return the same object class as the input:
 
 ```r
-ts_scale(x.ts)           # normalization
+ts_scale(x.ts)           
 ts_scale(x.xts)
 ts_scale(x.df)
 ts_scale(x.dt)
 ts_scale(x.tbl)
-
-ts_trend(x.ts)           # loess trend line
-ts_pc(x.xts)
-ts_pcy(x.df)
-ts_lag(x.dt)
-
-# with external packages
-ts_forecast(x.tbl)       # ets forecast
 ```
+
+There is a bunch of other transformation functions: `ts_trend`, which estimates
+a trend, functions to calculate differences, `ts_pc`, `ts_pcy`, `ts_diff`,
+`ts_diffy`; functions to shift regular or irregular time seeries, `ts_lag` and
+`ts_shift` and functions to construct indices, both from levels and percentage
+change rates: `ts_index` and `ts_compound`. For a full list of functions, check
+out the reference.
+
 
 ### Combine multiple time series
 
 A set of helper functions makes it easy to combine or align multiple time
-series, even if their classes are different:
+series, even if their classes are different. The basic workhorse is `ts_c`,
+which simply collect time series. Again, these series single or multiple series
+of any ts-boxable class:
 
 ```r
-# collect time series as multiple time series
 ts_c(ts_dt(EuStockMarkets), AirPassengers)
-ts_c(EuStockMarkets, mdeaths)
-
-# combine time series to a new, single time series
-ts_bind(ts_dt(mdeaths), AirPassengers)
-ts_bind(ts_xts(AirPassengers), ts_tbl(mdeaths))
+ts_c(ts_tbl(mdeaths), EuStockMarkets, ts_xts(lynx))
 ```
+
+If you want to choose a different name for single series, name the arguments:
+
+```r
+ts_c(ts_dt(EuStockMarkets), `Airline Passengers` = AirPassengers)
+```
+
+Multiple series can be also combined to a single series:
+
+```r
+ts_bind(ts_xts(mdeaths), AirPassengers)
+```
+
+`ts_chain` offers an alternative way to combine time series, by *chain-linking*
+them. The following prolongs a short time series with percentage change rates of
+a longer one:
+
+```r
+md.short <- ts_window(mdeaths, end = "1976-12-01")
+ts_chain(md.short, fdeaths)
+```
+
+### Frequency conversion and alignement
+
+There are functions to convert the frequency of time series and to regularize
+irregular time series. The following changes the frequency of two series to
+annual:
+
+```r
+ts_frequency(ts_c(AirPassengers, austres), "year", sum)
+```
+
+We already met `ts_window`, which can be used to shorten time series.
+`ts_regular` makes irregular time series regular, and `ts_align` and `ts_union`
+can be used to align the length and frequency of time series.
 
 ### And plot just about everything
 
-Because all of this works smoothly, plotting all kinds of classes and
-frequencies is as simple as it should be. And it even has a legend!
+Of course this also works for plotting. The basic function is `ts_plot`, a 
+fast and simple plotting function without dependencies. It can be used with any
+ts-boxable time series, single or multiple, of any frequency.
 
+```r
+ts_plot(AirPassengers, ts_df(lynx), ts_xts(fdeaths))
 ```
-ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
+
+If you want to use different names than the object names, just name the arguments (and optionally set a title):
+
+```r
+ts_plot(
+  `Airline Passengers` = AirPassengers, 
+  `Lynx trappings` = ts_df(lynx), 
+  `Deaths from Lung Diseases` = ts_xts(fdeaths),
+  title = "Airlines, trappings, and deaths",
+  subtitle = "Monthly passengers, annual trappings, monthly deaths"
+)
 ```
-<img src = "fig/myfig.png" )>
 
+![](https://raw.githubusercontent.com/christophsax/tsbox/master/vignettes/fig/plot1.png)
 
-There is also a version that uses [ggplot2](https://CRAN.R-project.org/package=ggplot2):
+There is also a version that uses
+[ggplot2](https://CRAN.R-project.org/package=ggplot2) that uses the same syntax.
+With `theme_tsbox()` and s`cale_color_tsbox()`, the output of `ts_ggplot` is
+very similar to `ts_plot`.
 
 ```r
 ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 ```
 
+### Time series in data frames
 
-## More examples
+Thanks to packages such as `data.table` and `dplyr`, data frames have become the
+dominant data structure in R, and storing time series in a data frame is a
+natural consequence from this. And even if you don't intend to keep your time
+series in data frames, this is the format in which you import and export the
+data.
 
+In data frames, i.e., in a `data.frame`, a `data.table`, or a `tibble`, tsbox
+stores one or multiple time series in the 'long' format. tsbox detects a
+*value*, a *time* and zero, one or several *id* columns. Column detection is
+done in the following order:
 
-### Time Series in Data Frames
+1. Starting **on the right**, the first first `numeric` or `integer` column is
+used as **value column**.
 
-Multiple time series can be stored as a 'long' data frame (`data.frame`,
-`data.table` or `tibble`):
+1. Using the remaining columns, and starting on the right again, the first
+`Date`, `POSIXct`, `numeric` or `character` column is used as **time column**.
+`character` strings are parsed by [anytime::anytime()] or [anytime::anydate()].
+The time stamp, `time`, indicates the beginning of a period. 
 
-```r
-ts_df(ts_c(fdeaths, mdeaths))
+1. **All remaining** columns are **id columns**. Each unique combination of id
+columns points to a time series.
 
-#          id       time value
-# 1   fdeaths 1974-01-01   901
-# 2   fdeaths 1974-02-01   689
-# 3   fdeaths 1974-03-01   827
-# 4   fdeaths 1974-04-01   677
-# 5   fdeaths 1974-05-01   522
-# ...
-# 140 mdeaths 1979-08-01   975
-# 141 mdeaths 1979-09-01   940
-# 142 mdeaths 1979-10-01  1081
-# 143 mdeaths 1979-11-01  1294
-# 144 mdeaths 1979-12-01  1341
-```
-
-The time stamp, `time`, indicates the beginning of a period. tsbox requires the
-columns in a data frame to follow either the order:
-
-1. **id** column(s)
-2. **time** column
-3. **value** column
-
-**or** the time and the value column to be explicitly named as `time` and `value`.
-If explicit names are used, the column order will be ignored.
-
-Note that **multiple id columns** with arbitrary names are allowed.
-
+**Alternatively**, the time column and the value column to be **explicitly named** as
+`time` and `value`. If explicit names are used, the column order will be
+ignored. If column are detected automatically, a message is returned.
 
 
 ### Using tsbox in a dplyr / pipe workflow
@@ -155,95 +201,4 @@ ts_tbl(ts_c(mdeaths, fdeaths)) %>%
   ts_plot()
 ```
 
-
-## Available Functions
-
-This is an overview of the functions available in tsbox. If you would add
-something else, please let me [know](mailto:christoph.sax@gmail.com).
-
-
-### Convert
-
-|   Name   |               What it does              |
-|----------|-----------------------------------------|
-| `ts_ts`  | convert any time series to `ts`         |
-| `ts_xts` | convert any time series to `xts`        |
-| `ts_df`  | convert any time series to `data.frame` |
-| `ts_dt`  | convert any time series to `data.table` |
-| `ts_tbl` | convert any time series to `tibble`     |
-
-
-### Combine
-
-|    Name    |                   What it does                   |
-|------------|--------------------------------------------------|
-| `ts_c`     | collect time series as multiple time series      |
-| `ts_bind`  | bind time series to a new, single time series    |
-| `ts_chain` | chain time series, using percentage change rates |
-
-
-### Align
-
-|     Name    |                     What it does                    |
-|-------------|-----------------------------------------------------|
-| `ts_window` | filter time series for a time range.                |
-| `ts_align`  | aligning span and frequencies (regular series only) |
-| `ts_union`  | aligning time stamps (regular and irregular)        |
-
-
-### Transform
-
-|    Name    |                What it does               |
-|------------|-------------------------------------------|
-| `ts_scale` | normalization (center and scale)          |
-| `ts_trend` | loess trend line                          |
-| `ts_pc`    | percentage change rate                    |
-| `ts_pcy`   | percentage change rate (to previous year) |
-| `ts_diff`  | first difference                          |
-| `ts_diffy` | first difference (to previous year)       |
-| `ts_index` | index series                              |
-| `ts_lag`   | lag operator                              |
-| `ts_shift` | shift time stamp                          |
-
-
-### Reshape
-
-|    Name   |                       What it does                       |
-|-----------|----------------------------------------------------------|
-| `ts_wide` | convert multiple time series to a wide data frame        |
-| `ts_long` | convert wide data frame to a long, ts-boxable data frame |
-
-
-### Frequency Handling
-
-|      Name      |                  What it does                  |
-|----------------|------------------------------------------------|
-| `ts_frequency` | convert to lower frequency                     |
-| `ts_regular`   | regularize: make implicit `NA` values explicit |
-    
-
-### Plot
-
-|     Name    |                  What it does                  |
-|-------------|------------------------------------------------|
-| `ts_plot`   | a fast plotting function, with no dependencies |
-| `ts_ggplot` | same syntax as `ts_plot`, returning a `ggplot` |
-    
-
-### Included examples of user defined ts_ functions
-
-|     Name      |                    What it does                    |
-|---------------|----------------------------------------------------|
-| `ts_`         | universal constructor function for tsbox functions |
-| `ts_prcomp`   | principal components of multiple time series       |
-| `ts_forecast` | automated forecasts (requires forecast)            |
-| `ts_dygraph`  | interactive graphs (requires dygraphs)             |
-| `ts_seas`     | X-13 seasonal adjustment (requires seasonal)       |
-
-
-## License
-
-*tsbox* is free and open source, licensed under GPL-3.
-
-*Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
 

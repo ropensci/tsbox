@@ -73,7 +73,7 @@ all.equal(ts_ts(ts_df(AirPassengers)), AirPassengers)
 ## Exact time conversion
 
 For all other frequencies, e.g. 260, of `EuStockMarkets`, tsbox uses  **exact
-time conversion**. The year is divided into 260 equally long units, and time
+time conversion**. The year is divided into 260 equispaced units, and time
 stamp of a period will be a point in time (of class `"POSIXct"`).
 
 ```r
@@ -97,8 +97,7 @@ all.equal(ts_ts(ts_df(EuStockMarkets)), EuStockMarkets)
 ```
 
 However, for very high frequencies, rounding errors may lead to small
-differences when going from data frame to `"ts"` and back.
-
+differences when going from data frame to `"ts"` and back. Conversion does not work reliably if the frequency is above one second. For these ultra high frequencies, tsbox is not tested and may not work as expected.
 
 ## Regularization of predefined frequencies
 

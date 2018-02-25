@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Class-Agnostic Time Series • tsbox</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Class-Agnostic Time Series">
@@ -43,13 +43,16 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Advanced
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/tsbox.html">Extending tsbox</a>
+      <a href="articles/ts-functions.html">User Defined ts-Functions</a>
+    </li>
+    <li>
+      <a href="articles/convert.html">Time Conversion and Reguarization</a>
     </li>
   </ul>
 </li>
@@ -80,15 +83,14 @@
 <a href="#tsbox-class-agnostic-time-series-in-r" class="anchor"></a>tsbox: Class-Agnostic Time Series in R</h1></div>
 
 <p>The R ecosystem knows a <a href="https://cran.r-project.org/web/views/TimeSeries.html">vast number</a> of time series standards. Instead of creating the ultimate <a href="https://xkcd.com/927/">15th</a> time series class, tsbox provides a set of tools that are <strong>agnostic towards the existing standards</strong>. The tools also allow you to handle time series as plain data frames, thus making it easy to deal with time series in a <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> or <a href="https://CRAN.R-project.org/package=data.table">data.table</a> workflow.</p>
-<p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong> or <strong>tibble</strong> to each other. Because this works reliably and without user input, we can easily write functions that work for all classes. So whether we want to smooth, scale, differentiate, chain, forecast, regularize or seasonally adjust a time series, we can use the same commands to whatever time series class at hand. And, most conveniently, we get a time series plot function that works for all classes and frequencies.</p>
+<p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong> or <strong>tibble</strong> to each other.</p>
 <p>To install:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"christophsax/tsbox"</span>)</code></pre></div>
 <div id="convert-everything-to-everything" class="section level3">
 <h3 class="hasAnchor">
 <a href="#convert-everything-to-everything" class="anchor"></a>Convert everything to everything</h3>
-<p>tsbox can convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong> or <strong>tibble</strong> to each other:</p>
+<p>tsbox can convert time series stored as <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code> or <code>tibble</code> to each other:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tsbox)
-
 x.ts &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths)
 x.xts &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_xts</a></span>(x.ts)
 x.df &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_df</a></span>(x.xts)
@@ -98,342 +100,35 @@ x.tbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.ht
 <div id="use-same-functions-for-ts-xts-data-frame-data-table-or-tibble" class="section level3">
 <h3 class="hasAnchor">
 <a href="#use-same-functions-for-ts-xts-data-frame-data-table-or-tibble" class="anchor"></a>Use same functions for ts, xts, data.frame, data.table or tibble</h3>
-<p>All functions start with <code>ts_</code>, so you use them with auto complete (press Tab). These functions work with any <em>ts-boxable</em> time series, ts, xts, data.frame, data.table or tibble, and <strong>return the class of their inputs</strong>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/ts_scale.html">ts_scale</a></span>(x.ts)           <span class="co"># normalization</span>
-<span class="kw"><a href="reference/ts_scale.html">ts_scale</a></span>(x.xts)
-<span class="kw"><a href="reference/ts_scale.html">ts_scale</a></span>(x.df)
-<span class="kw"><a href="reference/ts_scale.html">ts_scale</a></span>(x.dt)
-<span class="kw"><a href="reference/ts_scale.html">ts_scale</a></span>(x.tbl)
-
-<span class="kw"><a href="reference/ts_trend.html">ts_trend</a></span>(x.ts)           <span class="co"># loess trend line</span>
+<p>Because this works reliably and without user input, it is easy to write functions that work for all classes. So whether we want to <strong>smooth</strong>, <strong>scale</strong>, <strong>differentiate</strong>, <strong>chain</strong>, <strong>forecast</strong>, <strong>regularize</strong> or <strong>seasonally adjust</strong> a time series, we can use the same commands to whatever time series class at hand:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/ts_trend.html">ts_trend</a></span>(x.ts) 
 <span class="kw"><a href="reference/ts_lag.html">ts_pc</a></span>(x.xts)
 <span class="kw"><a href="reference/ts_lag.html">ts_pcy</a></span>(x.df)
-<span class="kw">ts_lag</span>(x.dt)
-
-<span class="co"># with external packages</span>
-<span class="kw"><a href="reference/ts_examples.html">ts_forecast</a></span>(x.tbl)       <span class="co"># ets forecast</span></code></pre></div>
-<p>For a list of available functions, see below.</p>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/tsbox/topics/ts_lag">ts_lag</a></span>(x.dt)</code></pre></div>
 </div>
-<div id="combine-multiple-time-series" class="section level3">
+<div id="time-series-of-the-world-unite" class="section level3">
 <h3 class="hasAnchor">
-<a href="#combine-multiple-time-series" class="anchor"></a>Combine multiple time series</h3>
-<p>A set of helper functions makes it easy to combine or align multiple time series, even if their classes are different:</p>
+<a href="#time-series-of-the-world-unite" class="anchor"></a>Time series of the world, unite!</h3>
+<p>A set of helper functions makes it easy to combine or align multiple time series of all classes:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># collect time series as multiple time series</span>
 <span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(<span class="kw"><a href="reference/ts_ts.html">ts_dt</a></span>(EuStockMarkets), AirPassengers)
 <span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(EuStockMarkets, mdeaths)
 
 <span class="co"># combine time series to a new, single time series</span>
-<span class="kw">ts_bind</span>(<span class="kw"><a href="reference/ts_ts.html">ts_dt</a></span>(mdeaths), AirPassengers)
-<span class="kw">ts_bind</span>(<span class="kw"><a href="reference/ts_ts.html">ts_xts</a></span>(AirPassengers), <span class="kw"><a href="reference/ts_ts.html">ts_tbl</a></span>(mdeaths))</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/tsbox/topics/ts_bind">ts_bind</a></span>(<span class="kw"><a href="reference/ts_ts.html">ts_dt</a></span>(mdeaths), AirPassengers)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/tsbox/topics/ts_bind">ts_bind</a></span>(<span class="kw"><a href="reference/ts_ts.html">ts_xts</a></span>(AirPassengers), <span class="kw"><a href="reference/ts_ts.html">ts_tbl</a></span>(mdeaths))</code></pre></div>
 </div>
 <div id="and-plot-just-about-everything" class="section level3">
 <h3 class="hasAnchor">
 <a href="#and-plot-just-about-everything" class="anchor"></a>And plot just about everything</h3>
-<p>Because all of this works smoothly, plotting all kinds of classes and frequencies is as simple as it should be. And it even has a legend!</p>
+<p>Plotting all kinds of classes and frequencies is as simple as it should be. And we finally get a legend!</p>
 <pre><code><a href="reference/ts_plot.html">ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))</a></code></pre>
 <p><img src="https://raw.githubusercontent.com/christophsax/tsbox/master/vignettes/fig/myfig.png"></p>
-<p>There is also a version that uses <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/ts_plot.html">ts_ggplot</a></span>(<span class="kw"><a href="reference/ts_scale.html">ts_scale</a></span>(<span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(mdeaths, austres, AirPassengers, <span class="dt">DAX =</span> EuStockMarkets[ ,<span class="st">'DAX'</span>])))</code></pre></div>
-</div>
-<div id="more-examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#more-examples" class="anchor"></a>More examples</h2>
-<div id="time-series-in-data-frames" class="section level3">
-<h3 class="hasAnchor">
-<a href="#time-series-in-data-frames" class="anchor"></a>Time Series in Data Frames</h3>
-<p>Multiple time series can be stored as a ‘long’ data frame (<code>data.frame</code>, <code>data.table</code> or <code>tibble</code>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/ts_ts.html">ts_df</a></span>(<span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(fdeaths, mdeaths))
-
-<span class="co">#          id       time value</span>
-<span class="co"># 1   fdeaths 1974-01-01   901</span>
-<span class="co"># 2   fdeaths 1974-02-01   689</span>
-<span class="co"># 3   fdeaths 1974-03-01   827</span>
-<span class="co"># 4   fdeaths 1974-04-01   677</span>
-<span class="co"># 5   fdeaths 1974-05-01   522</span>
-<span class="co"># ...</span>
-<span class="co"># 140 mdeaths 1979-08-01   975</span>
-<span class="co"># 141 mdeaths 1979-09-01   940</span>
-<span class="co"># 142 mdeaths 1979-10-01  1081</span>
-<span class="co"># 143 mdeaths 1979-11-01  1294</span>
-<span class="co"># 144 mdeaths 1979-12-01  1341</span></code></pre></div>
-<p>The time stamp, <code>time</code>, indicates the beginning of a period. tsbox requires the columns in a data frame to follow either the order:</p>
-<ol>
-<li>
-<strong>id</strong> column(s)</li>
-<li>
-<strong>time</strong> column</li>
-<li>
-<strong>value</strong> column</li>
-</ol>
-<p><strong>or</strong> the time and the value column to be explicitly named as <code>time</code> and <code>value</code>. If explicit names are used, the column order will be ignored.</p>
-<p>Note that <strong>multiple id columns</strong> with arbitrary names are allowed.</p>
-</div>
-<div id="writing-ts-functions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#writing-ts-functions" class="anchor"></a>Writing ts functions</h3>
-<p>The <code>ts_</code> function is a constructor function for tsbox time series functions. Use it to wrap any function that works with time series. The default is set to R base <code>"ts"</code> class, so wrapping functions for <code>"ts"</code> time series (or vectors or matrices) is as simple as:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ts_</span>(diff)(AirPassengers)
-<span class="kw">ts_</span>(rowSums)(<span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</code></pre></div>
-<p>Or a more complex example, which uses a post processing function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ts_prcomp &lt;-<span class="st"> </span><span class="kw">ts_</span>(<span class="cf">function</span>(x) <span class="kw">predict</span>(<span class="kw">prcomp</span>(x, <span class="dt">scale =</span> <span class="ot">TRUE</span>)))
-<span class="kw"><a href="reference/ts_examples.html">ts_prcomp</a></span>(<span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</code></pre></div>
-<p>And some functions from external packages:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ts_dygraphs &lt;-<span class="st"> </span><span class="kw">ts_</span>(dygraphs<span class="op">::</span>dygraph, <span class="dt">class =</span> <span class="st">"xts"</span>)
-ts_forecast &lt;-<span class="st"> </span><span class="kw">ts_</span>(<span class="cf">function</span>(x) forecast<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/forecast/topics/forecast">forecast</a></span>(x)<span class="op">$</span>mean, <span class="dt">vectorize =</span> <span class="ot">TRUE</span>)
-ts_seas &lt;-<span class="st"> </span><span class="kw">ts_</span>(<span class="cf">function</span>(x) seasonal<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/seasonal/topics/final">final</a></span>(seasonal<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/seasonal/topics/seas">seas</a></span>(x)), <span class="dt">vectorize =</span> <span class="ot">TRUE</span>)
-
-<span class="kw"><a href="reference/ts_examples.html">ts_dygraphs</a></span>(<span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(mdeaths, EuStockMarkets))
-<span class="kw"><a href="reference/ts_examples.html">ts_forecast</a></span>(<span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))
-<span class="kw"><a href="reference/ts_examples.html">ts_seas</a></span>(<span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</code></pre></div>
-<p>Note that the <code>ts_</code> function deals with the conversion stuff, ‘vectorizes’ the function so that it can be used with multiple time series.</p>
-</div>
-<div id="using-tsbox-in-a-dplyr-pipe-workflow" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-tsbox-in-a-dplyr-pipe-workflow" class="anchor"></a>Using tsbox in a dplyr / pipe workflow</h3>
-<p>tsbox works well with tibbles and with <code>%&gt;%</code>, so it can be nicely integrated into a dplyr workflow:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(tsbox)
-
-<span class="kw"><a href="reference/ts_ts.html">ts_tbl</a></span>(<span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="reference/ts_examples.html">ts_seas</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="reference/ts_plot.html">ts_plot</a></span>()</code></pre></div>
-</div>
-</div>
-<div id="available-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#available-functions" class="anchor"></a>Available Functions</h2>
-<p>This is an overview of the functions available in tsbox. If you would add something else, please let me <a href="mailto:christoph.sax@gmail.com">know</a>.</p>
-<div id="convert" class="section level3">
-<h3 class="hasAnchor">
-<a href="#convert" class="anchor"></a>Convert</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Name</th>
-<th>What it does</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>ts_ts</code></td>
-<td>convert any time series to <code>ts</code>
-</td>
-</tr>
-<tr class="even">
-<td><code>ts_xts</code></td>
-<td>convert any time series to <code>xts</code>
-</td>
-</tr>
-<tr class="odd">
-<td><code>ts_df</code></td>
-<td>convert any time series to <code>data.frame</code>
-</td>
-</tr>
-<tr class="even">
-<td><code>ts_dt</code></td>
-<td>convert any time series to <code>data.table</code>
-</td>
-</tr>
-<tr class="odd">
-<td><code>ts_tbl</code></td>
-<td>convert any time series to <code>tibble</code>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="combine" class="section level3">
-<h3 class="hasAnchor">
-<a href="#combine" class="anchor"></a>Combine</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Name</th>
-<th>What it does</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>ts_c</code></td>
-<td>collect time series as multiple time series</td>
-</tr>
-<tr class="even">
-<td><code>ts_bind</code></td>
-<td>bind time series to a new, single time series</td>
-</tr>
-<tr class="odd">
-<td><code>ts_chain</code></td>
-<td>chain time series, using percentage change rates</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="align" class="section level3">
-<h3 class="hasAnchor">
-<a href="#align" class="anchor"></a>Align</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Name</th>
-<th>What it does</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>ts_window</code></td>
-<td>filter time series for a time range.</td>
-</tr>
-<tr class="even">
-<td><code>ts_align</code></td>
-<td>aligning span and frequencies (regular series only)</td>
-</tr>
-<tr class="odd">
-<td><code>ts_union</code></td>
-<td>aligning time stamps (regular and irregular)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="transform" class="section level3">
-<h3 class="hasAnchor">
-<a href="#transform" class="anchor"></a>Transform</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Name</th>
-<th>What it does</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>ts_scale</code></td>
-<td>normalization (center and scale)</td>
-</tr>
-<tr class="even">
-<td><code>ts_trend</code></td>
-<td>loess trend line</td>
-</tr>
-<tr class="odd">
-<td><code>ts_pc</code></td>
-<td>percentage change rate</td>
-</tr>
-<tr class="even">
-<td><code>ts_pcy</code></td>
-<td>percentage change rate (to previous year)</td>
-</tr>
-<tr class="odd">
-<td><code>ts_diff</code></td>
-<td>first difference</td>
-</tr>
-<tr class="even">
-<td><code>ts_diffy</code></td>
-<td>first difference (to previous year)</td>
-</tr>
-<tr class="odd">
-<td><code>ts_index</code></td>
-<td>index series</td>
-</tr>
-<tr class="even">
-<td><code>ts_lag</code></td>
-<td>lag operator</td>
-</tr>
-<tr class="odd">
-<td><code>ts_shift</code></td>
-<td>shift time stamp</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="reshape" class="section level3">
-<h3 class="hasAnchor">
-<a href="#reshape" class="anchor"></a>Reshape</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Name</th>
-<th>What it does</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>ts_wide</code></td>
-<td>convert multiple time series to a wide data frame</td>
-</tr>
-<tr class="even">
-<td><code>ts_long</code></td>
-<td>convert wide data frame to a long, ts-boxable data frame</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="frequency-handling" class="section level3">
-<h3 class="hasAnchor">
-<a href="#frequency-handling" class="anchor"></a>Frequency Handling</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Name</th>
-<th>What it does</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>ts_frequency</code></td>
-<td>convert to lower frequency</td>
-</tr>
-<tr class="even">
-<td><code>ts_regular</code></td>
-<td>regularize: make implicit <code>NA</code> values explicit</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="plot" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plot" class="anchor"></a>Plot</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Name</th>
-<th>What it does</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>ts_plot</code></td>
-<td>a fast plotting function, with no dependencies</td>
-</tr>
-<tr class="even">
-<td><code>ts_ggplot</code></td>
-<td>same syntax as <code>ts_plot</code>, returning a <code>ggplot</code>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="included-examples-of-user-defined-ts_-functions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#included-examples-of-user-defined-ts_-functions" class="anchor"></a>Included examples of user defined ts_ functions</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Name</th>
-<th>What it does</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>ts_</code></td>
-<td>universal constructor function for tsbox functions</td>
-</tr>
-<tr class="even">
-<td><code>ts_prcomp</code></td>
-<td>principal components of multiple time series</td>
-</tr>
-<tr class="odd">
-<td><code>ts_forecast</code></td>
-<td>automated forecasts (requires forecast)</td>
-</tr>
-<tr class="even">
-<td><code>ts_dygraph</code></td>
-<td>interactive graphs (requires dygraphs)</td>
-</tr>
-<tr class="odd">
-<td><code>ts_seas</code></td>
-<td>X-13 seasonal adjustment (requires seasonal)</td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
 <a href="#license" class="anchor"></a>License</h2>
-<p><em>tsbox</em> is free and open source, licensed under GPL-3.</p>
+<p>tsbox is free and open source, licensed under GPL-3.</p>
 <p><em>Thanks for <a href="mailto:christoph.sax@gmail.com">feedback</a>!</em></p>
 </div>
 </div>

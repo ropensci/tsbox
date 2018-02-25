@@ -4,8 +4,8 @@
 \alias{ts_save}
 \title{Save Previous Plot}
 \usage{
-ts_save(filename = tempfile(), width = 10, height = 5, device = "pdf",
-  ..., open = TRUE)
+ts_save(filename = tempfile(fileext = ".pdf"), width = 10, height = 5,
+  device = NULL, open = TRUE)
 }
 \arguments{
 \item{filename}{filename}
@@ -16,9 +16,7 @@ ts_save(filename = tempfile(), width = 10, height = 5, device = "pdf",
 
 \item{device}{device}
 
-\item{...}{additional arguments}
-
-\item{open}{open}
+\item{open}{logical, should the saved plot be opened?}
 }
 \description{
 Save Previous Plot

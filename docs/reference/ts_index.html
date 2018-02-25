@@ -11,7 +11,7 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -67,13 +67,16 @@ and compounding the rates." />
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Advanced
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tsbox.html">Extending tsbox</a>
+      <a href="../articles/ts-functions.html">User Defined ts-Functions</a>
+    </li>
+    <li>
+      <a href="../articles/convert.html">Time Conversion and Reguarization</a>
     </li>
   </ul>
 </li>
@@ -137,228 +140,25 @@ decimal fraction</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ts_compound</span>(<span class='fu'><a href='ts_lag.html'>ts_pc</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>)))</div><div class='output co'>#&gt;            fdeaths   mdeaths
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_compound</span>(<span class='fu'><a href='ts_lag.html'>ts_pc</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>))))</div><div class='output co'>#&gt;            fdeaths   mdeaths
 #&gt; Feb 1974 0.7647059 0.8730084
 #&gt; Mar 1974 0.9178690 0.8795689
 #&gt; Apr 1974 0.7513873 0.8795689
 #&gt; May 1974 0.5793563 0.6991565
 #&gt; Jun 1974 0.4506104 0.5852858
-#&gt; Jul 1974 0.4894562 0.5998126
-#&gt; Aug 1974 0.4361820 0.5299906
-#&gt; Sep 1974 0.4295228 0.5665417
-#&gt; Oct 1974 0.6459489 0.6991565
-#&gt; Nov 1974 0.6415094 0.7596064
-#&gt; Dec 1974 0.7391787 0.8650422
-#&gt; Jan 1975 0.9211987 0.9854733
-#&gt; Feb 1975 0.8346282 1.0014058
-#&gt; Mar 1975 0.8712542 1.0089035
-#&gt; Apr 1975 0.7369589 0.8589503
-#&gt; May 1975 0.5183130 0.6574508
-#&gt; Jun 1975 0.4861265 0.6035614
-#&gt; Jul 1975 0.4672586 0.5557638
-#&gt; Aug 1975 0.4572697 0.5309278
-#&gt; Sep 1975 0.3806881 0.4934396
-#&gt; Oct 1975 0.4883463 0.6312090
-#&gt; Nov 1975 0.5893452 0.7239925
-#&gt; Dec 1975 0.8557159 0.9681350
-#&gt; Jan 1976 0.8512764 0.9465792
-#&gt; Feb 1976 1.2663707 1.2886598
-#&gt; Mar 1976 0.9944506 1.0698219
-#&gt; Apr 1976 0.5904550 0.6930647
-#&gt; May 1976 0.4961154 0.5571696
-#&gt; Jun 1976 0.4661487 0.5435801
-#&gt; Jul 1976 0.4173141 0.5215558
-#&gt; Aug 1976 0.3662597 0.4545455
-#&gt; Sep 1976 0.3962264 0.4681350
-#&gt; Oct 1976 0.4938957 0.5660731
-#&gt; Nov 1976 0.6059933 0.6874414
-#&gt; Dec 1976 0.8479467 0.9648547
-#&gt; Jan 1977 0.9567148 1.0496720
-#&gt; Feb 1977 0.7325194 0.7656982
-#&gt; Mar 1977 0.7358491 0.8069353
-#&gt; Apr 1977 0.7136515 0.8439550
-#&gt; May 1977 0.5571587 0.5838800
-#&gt; Jun 1977 0.4350721 0.5445173
-#&gt; Jul 1977 0.4561598 0.5093721
-#&gt; Aug 1977 0.3862375 0.4746954
-#&gt; Sep 1977 0.4295228 0.4493908
-#&gt; Oct 1977 0.4273030 0.5524836
-#&gt; Nov 1977 0.4561598 0.5759138
-#&gt; Dec 1977 0.7081021 0.7755389
-#&gt; Jan 1978 0.8834628 0.9461106
-#&gt; Feb 1978 0.9467259 1.0702905
-#&gt; Mar 1978 0.8179800 0.9100281
-#&gt; Apr 1978 0.6059933 0.6668229
-#&gt; May 1978 0.5882353 0.6279288
-#&gt; Jun 1978 0.4950055 0.5562324
-#&gt; Jul 1978 0.4783574 0.5145267
-#&gt; Aug 1978 0.4017758 0.4704780
-#&gt; Sep 1978 0.4295228 0.4545455
-#&gt; Oct 1978 0.4772475 0.5342081
-#&gt; Nov 1978 0.4716981 0.5201500
-#&gt; Dec 1978 0.7536071 0.8491097
-#&gt; Jan 1979 0.9112098 1.0604499
-#&gt; Feb 1979 0.8712542 0.8528585
-#&gt; Mar 1979 0.8068812 0.8650422
-#&gt; Apr 1979 0.6792453 0.7174321
-#&gt; May 1979 0.5305216 0.5693533
-#&gt; Jun 1979 0.4761376 0.5037488
-#&gt; Jul 1979 0.4495006 0.4948454
-#&gt; Aug 1979 0.4206437 0.4568885
-#&gt; Sep 1979 0.4361820 0.4404873
-#&gt; Oct 1979 0.4561598 0.5065604
-#&gt; Nov 1979 0.5405105 0.6063730
-#&gt; Dec 1979 0.6370699 0.6283974</div><div class='input'><span class='fu'>ts_index</span>(<span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>)), <span class='st'>"1977-01-01"</span>)</div><div class='output co'>#&gt;          id       time     value
-#&gt; 1   fdeaths 1974-01-01 1.0452436
-#&gt; 2   fdeaths 1974-02-01 0.7993039
-#&gt; 3   fdeaths 1974-03-01 0.9593968
-#&gt; 4   fdeaths 1974-04-01 0.7853828
-#&gt; 5   fdeaths 1974-05-01 0.6055684
-#&gt; 6   fdeaths 1974-06-01 0.4709977
-#&gt; 7   fdeaths 1974-07-01 0.5116009
-#&gt; 8   fdeaths 1974-08-01 0.4559165
-#&gt; 9   fdeaths 1974-09-01 0.4489559
-#&gt; 10  fdeaths 1974-10-01 0.6751740
-#&gt; 11  fdeaths 1974-11-01 0.6705336
-#&gt; 12  fdeaths 1974-12-01 0.7726218
-#&gt; 13  fdeaths 1975-01-01 0.9628770
-#&gt; 14  fdeaths 1975-02-01 0.8723898
-#&gt; 15  fdeaths 1975-03-01 0.9106729
-#&gt; 16  fdeaths 1975-04-01 0.7703016
-#&gt; 17  fdeaths 1975-05-01 0.5417633
-#&gt; 18  fdeaths 1975-06-01 0.5081206
-#&gt; 19  fdeaths 1975-07-01 0.4883991
-#&gt; 20  fdeaths 1975-08-01 0.4779582
-#&gt; 21  fdeaths 1975-09-01 0.3979118
-#&gt; 22  fdeaths 1975-10-01 0.5104408
-#&gt; 23  fdeaths 1975-11-01 0.6160093
-#&gt; 24  fdeaths 1975-12-01 0.8944316
-#&gt; 25  fdeaths 1976-01-01 0.8897912
-#&gt; 26  fdeaths 1976-02-01 1.3236659
-#&gt; 27  fdeaths 1976-03-01 1.0394432
-#&gt; 28  fdeaths 1976-04-01 0.6171694
-#&gt; 29  fdeaths 1976-05-01 0.5185615
-#&gt; 30  fdeaths 1976-06-01 0.4872390
-#&gt; 31  fdeaths 1976-07-01 0.4361949
-#&gt; 32  fdeaths 1976-08-01 0.3828306
-#&gt; 33  fdeaths 1976-09-01 0.4141531
-#&gt; 34  fdeaths 1976-10-01 0.5162413
-#&gt; 35  fdeaths 1976-11-01 0.6334107
-#&gt; 36  fdeaths 1976-12-01 0.8863109
-#&gt; 37  fdeaths 1977-01-01 1.0000000
-#&gt; 38  fdeaths 1977-02-01 0.7656613
-#&gt; 39  fdeaths 1977-03-01 0.7691415
-#&gt; 40  fdeaths 1977-04-01 0.7459397
-#&gt; 41  fdeaths 1977-05-01 0.5823666
-#&gt; 42  fdeaths 1977-06-01 0.4547564
-#&gt; 43  fdeaths 1977-07-01 0.4767981
-#&gt; 44  fdeaths 1977-08-01 0.4037123
-#&gt; 45  fdeaths 1977-09-01 0.4489559
-#&gt; 46  fdeaths 1977-10-01 0.4466357
-#&gt; 47  fdeaths 1977-11-01 0.4767981
-#&gt; 48  fdeaths 1977-12-01 0.7401392
-#&gt; 49  fdeaths 1978-01-01 0.9234339
-#&gt; 50  fdeaths 1978-02-01 0.9895592
-#&gt; 51  fdeaths 1978-03-01 0.8549884
-#&gt; 52  fdeaths 1978-04-01 0.6334107
-#&gt; 53  fdeaths 1978-05-01 0.6148492
-#&gt; 54  fdeaths 1978-06-01 0.5174014
-#&gt; 55  fdeaths 1978-07-01 0.5000000
-#&gt; 56  fdeaths 1978-08-01 0.4199536
-#&gt; 57  fdeaths 1978-09-01 0.4489559
-#&gt; 58  fdeaths 1978-10-01 0.4988399
-#&gt; 59  fdeaths 1978-11-01 0.4930394
-#&gt; 60  fdeaths 1978-12-01 0.7877030
-#&gt; 61  fdeaths 1979-01-01 0.9524362
-#&gt; 62  fdeaths 1979-02-01 0.9106729
-#&gt; 63  fdeaths 1979-03-01 0.8433875
-#&gt; 64  fdeaths 1979-04-01 0.7099768
-#&gt; 65  fdeaths 1979-05-01 0.5545244
-#&gt; 66  fdeaths 1979-06-01 0.4976798
-#&gt; 67  fdeaths 1979-07-01 0.4698376
-#&gt; 68  fdeaths 1979-08-01 0.4396752
-#&gt; 69  fdeaths 1979-09-01 0.4559165
-#&gt; 70  fdeaths 1979-10-01 0.4767981
-#&gt; 71  fdeaths 1979-11-01 0.5649652
-#&gt; 72  fdeaths 1979-12-01 0.6658933
-#&gt; 73  mdeaths 1974-01-01 0.9526786
-#&gt; 74  mdeaths 1974-02-01 0.8316964
-#&gt; 75  mdeaths 1974-03-01 0.8379464
-#&gt; 76  mdeaths 1974-04-01 0.8379464
-#&gt; 77  mdeaths 1974-05-01 0.6660714
-#&gt; 78  mdeaths 1974-06-01 0.5575893
-#&gt; 79  mdeaths 1974-07-01 0.5714286
-#&gt; 80  mdeaths 1974-08-01 0.5049107
-#&gt; 81  mdeaths 1974-09-01 0.5397321
-#&gt; 82  mdeaths 1974-10-01 0.6660714
-#&gt; 83  mdeaths 1974-11-01 0.7236607
-#&gt; 84  mdeaths 1974-12-01 0.8241071
-#&gt; 85  mdeaths 1975-01-01 0.9388393
-#&gt; 86  mdeaths 1975-02-01 0.9540179
-#&gt; 87  mdeaths 1975-03-01 0.9611607
-#&gt; 88  mdeaths 1975-04-01 0.8183036
-#&gt; 89  mdeaths 1975-05-01 0.6263393
-#&gt; 90  mdeaths 1975-06-01 0.5750000
-#&gt; 91  mdeaths 1975-07-01 0.5294643
-#&gt; 92  mdeaths 1975-08-01 0.5058036
-#&gt; 93  mdeaths 1975-09-01 0.4700893
-#&gt; 94  mdeaths 1975-10-01 0.6013393
-#&gt; 95  mdeaths 1975-11-01 0.6897321
-#&gt; 96  mdeaths 1975-12-01 0.9223214
-#&gt; 97  mdeaths 1976-01-01 0.9017857
-#&gt; 98  mdeaths 1976-02-01 1.2276786
-#&gt; 99  mdeaths 1976-03-01 1.0191964
-#&gt; 100 mdeaths 1976-04-01 0.6602679
-#&gt; 101 mdeaths 1976-05-01 0.5308036
-#&gt; 102 mdeaths 1976-06-01 0.5178571
-#&gt; 103 mdeaths 1976-07-01 0.4968750
-#&gt; 104 mdeaths 1976-08-01 0.4330357
-#&gt; 105 mdeaths 1976-09-01 0.4459821
-#&gt; 106 mdeaths 1976-10-01 0.5392857
-#&gt; 107 mdeaths 1976-11-01 0.6549107
-#&gt; 108 mdeaths 1976-12-01 0.9191964
-#&gt; 109 mdeaths 1977-01-01 1.0000000
-#&gt; 110 mdeaths 1977-02-01 0.7294643
-#&gt; 111 mdeaths 1977-03-01 0.7687500
-#&gt; 112 mdeaths 1977-04-01 0.8040179
-#&gt; 113 mdeaths 1977-05-01 0.5562500
-#&gt; 114 mdeaths 1977-06-01 0.5187500
-#&gt; 115 mdeaths 1977-07-01 0.4852679
-#&gt; 116 mdeaths 1977-08-01 0.4522321
-#&gt; 117 mdeaths 1977-09-01 0.4281250
-#&gt; 118 mdeaths 1977-10-01 0.5263393
-#&gt; 119 mdeaths 1977-11-01 0.5486607
-#&gt; 120 mdeaths 1977-12-01 0.7388393
-#&gt; 121 mdeaths 1978-01-01 0.9013393
-#&gt; 122 mdeaths 1978-02-01 1.0196429
-#&gt; 123 mdeaths 1978-03-01 0.8669643
-#&gt; 124 mdeaths 1978-04-01 0.6352679
-#&gt; 125 mdeaths 1978-05-01 0.5982143
-#&gt; 126 mdeaths 1978-06-01 0.5299107
-#&gt; 127 mdeaths 1978-07-01 0.4901786
-#&gt; 128 mdeaths 1978-08-01 0.4482143
-#&gt; 129 mdeaths 1978-09-01 0.4330357
-#&gt; 130 mdeaths 1978-10-01 0.5089286
-#&gt; 131 mdeaths 1978-11-01 0.4955357
-#&gt; 132 mdeaths 1978-12-01 0.8089286
-#&gt; 133 mdeaths 1979-01-01 1.0102679
-#&gt; 134 mdeaths 1979-02-01 0.8125000
-#&gt; 135 mdeaths 1979-03-01 0.8241071
-#&gt; 136 mdeaths 1979-04-01 0.6834821
-#&gt; 137 mdeaths 1979-05-01 0.5424107
-#&gt; 138 mdeaths 1979-06-01 0.4799107
-#&gt; 139 mdeaths 1979-07-01 0.4714286
-#&gt; 140 mdeaths 1979-08-01 0.4352679
-#&gt; 141 mdeaths 1979-09-01 0.4196429
-#&gt; 142 mdeaths 1979-10-01 0.4825893
-#&gt; 143 mdeaths 1979-11-01 0.5776786
-#&gt; 144 mdeaths 1979-12-01 0.5986607</div><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
-  <span class='kw'>`My Expert Knowledge`</span> <span class='kw'>=</span> <span class='fu'><a href='ts_bind.html'>ts_chain</a></span>(<span class='no'>mdeaths</span>, <span class='fu'>ts_compound</span>(<span class='fu'>ts_bind</span>(<span class='fu'><a href='ts_lag.html'>ts_pc</a></span>(<span class='no'>mdeaths</span>), <span class='fl'>15</span>, <span class='fl'>23</span>, <span class='fl'>33</span>))),
+#&gt; Jul 1974 0.4894562 0.5998126</div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_index</span>(<span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>)), <span class='st'>"1974-02-01"</span>))</div><div class='output co'>#&gt;        id       time     value
+#&gt; 1 fdeaths 1974-01-01 1.3076923
+#&gt; 2 fdeaths 1974-02-01 1.0000000
+#&gt; 3 fdeaths 1974-03-01 1.2002903
+#&gt; 4 fdeaths 1974-04-01 0.9825835
+#&gt; 5 fdeaths 1974-05-01 0.7576197
+#&gt; 6 fdeaths 1974-06-01 0.5892598</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
+  <span class='kw'>`My Expert Knowledge`</span> <span class='kw'>=</span> <span class='fu'><a href='ts_bind.html'>ts_chain</a></span>(
+    <span class='no'>mdeaths</span>,
+    <span class='fu'>ts_compound</span>(<span class='fu'>ts_bind</span>(<span class='fu'><a href='ts_lag.html'>ts_pc</a></span>(<span class='no'>mdeaths</span>), <span class='fl'>15</span>, <span class='fl'>23</span>, <span class='fl'>33</span>))),
   <span class='kw'>`So Far`</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"A Very Manual Forecast"</span>
-)
-<span class='co'># }</span></pre>
+)</div><div class='img'><img src='ts_index-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

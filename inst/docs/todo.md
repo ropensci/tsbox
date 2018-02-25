@@ -1,8 +1,7 @@
-- Type Conversion
-  
-  - [ ] A single and unified conversion table, that contains info for all  
-        heuristic frequencies: 
-        f = 2, f = 6, f = 0.1, f = 0.5, f = 0.05, f = 0.01
+- [ ] ts_compound() should start at 1
+- [ ] ts_window(), extend regular series, fill w NA?
+- [ ] ts_align vs ts_union, bad naming
+- [ ] unify ts_lag and ts_shift?
 
 - Documentation
 

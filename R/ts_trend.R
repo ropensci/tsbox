@@ -6,6 +6,13 @@
 #' @param ... arguments, passed to [stats::loess()]:
 #' - `degree` degree of Loess smoothing
 #' - `span` smoothing parameter, if `NULL`, an automated search performed (see Details)
+#' @examples
+#' ts_plot(
+#'    `Raw series` = fdeaths, 
+#'    `Loess trend` = ts_trend(fdeaths),
+#'    title = "Deaths from Lung Diseases",
+#'    subtitle = "per month"
+#' )
 #' @export
 ts_trend <- function(x, ...) {
   value <- NULL

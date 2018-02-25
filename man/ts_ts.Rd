@@ -47,8 +47,8 @@ stored as \code{ts}, \code{xts}, \code{data.frame}, \code{data.table} or \code{t
 other.
 }
 \details{
-In data frames, mulitple time series will be stored in a 'long' format. tsbox
-detects a \emph{value}, a \emph{time} and zero to serveral \emph{id} columns. Column detection
+In data frames, multiple time series will be stored in a 'long' format. tsbox
+detects a \emph{value}, a \emph{time} and zero to several \emph{id} columns. Column detection
 is done in the following order:
 \enumerate{
 \item Starting \strong{on the right}, the first first \code{numeric} or \code{integer} column is
@@ -57,13 +57,13 @@ used as \strong{value column}.
 \code{Date}, \code{POSIXct}, \code{numeric} or \code{character} column is used as \strong{time column}.
 \code{character} strings are parsed by \code{\link[anytime:anytime]{anytime::anytime()}} or \code{\link[anytime:anydate]{anytime::anydate()}}.
 The time stamp, \code{time}, indicates the beginning of a period.
-\item \strong{All remaing} columns are \strong{id columns}. Each unique combination of id
+\item \strong{All remaining} columns are \strong{id columns}. Each unique combination of id
 columns points to a time series.
 }
 
-\strong{or} the \strong{time} column and the \strong{value} column to be explicitly named as \code{time} and \code{value}. If explicit names are used, the column order will be ignored.
-
-Note that multiple id columns with arbitrary names are allowed.
+\strong{Alternatively}, the \strong{time} column and the \strong{value} column to be explicitly named as
+\code{time} and \code{value}. If explicit names are used, the column order will be
+ignored.
 
 Whenever possible, tsbox relies on \strong{heuristic time conversion}. When a
 monthly \code{"ts"} time series, e.g., \code{AirPassengers}, is converted to a data

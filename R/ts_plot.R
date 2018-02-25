@@ -241,17 +241,23 @@ ts_lastplot_call <- function() {
 
 #' Save Previous Plot
 #'
-#' @param ... additional arguments
-#' @param open open
-#' @param device device
-#' @param height height
-#' @param width width
 #' @param filename filename
+#' @param width width
+#' @param height height
+#' @param device device
+#' @param open logical, should the saved plot be opened?
 #' @export
-ts_save <- function(filename = tempfile(), width = 10, height = 5,
-                    device = "pdf", ..., open = TRUE) {
-  filename <- gsub(".pdf$", paste0(".", device), filename)
+ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10, height = 5,
+                    device = NULL, open = TRUE) {
 
+  if (is.null(device)){
+    device <- gsub(".*\\.([a-z]+)$", "\\1", tolower(filename))
+  } else {
+    filename <- gsub("\\.[a-z]+$", paste0(".", device), tolower(filename))
+  }
+
+  filename <- normalizePath(filename, mustWork = FALSE)
+  
   cl <- ts_lastplot_call()
   if (is.null(cl) || !inherits(cl, "call")) {
     stop("ts_plot must be called first.")
@@ -280,7 +286,7 @@ ts_save <- function(filename = tempfile(), width = 10, height = 5,
       res = 150
     )
   } else {
-    stop("device not supported.")
+    stop("device not supported: ", device, call. = FALSE)
   }
 
   eval(cl, envir = parent.frame())

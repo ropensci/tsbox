@@ -1,6 +1,6 @@
 template:
   params:
-    bootswatch: cosmo
+    bootswatch: cerulean
 
 # home:
   # strip_header: true
@@ -9,11 +9,95 @@ template:
   #   href: https://github.com/christophsax/tsbox
 
 reference:
-- title: Ts Functions
+- title: Convert
+  desc: >
+    tsbox is built around a set of converters, which convert time series stored 
+    as `ts`, `xts`, `data.frame`, `data.table` or `tibble` to each 
+    other.
   contents:
-  - starts_with("ts_")
+  - ts_ts 
+  - ts_xts
+  - ts_df 
+  - ts_dt 
+  - ts_tbl
 
-- title: Extractors
+- title: Combine
+  desc: >
+    A set of helper functions to combine multiple time series
+  contents:
+  - ts_c
+  - ts_bind 
+  - ts_chain 
+
+- title: Transform
+  desc: >
+    Transformation functions with a unified interface for common time series 
+    opperations
+  contents:
+  - ts_scale 
+  - ts_trend 
+  - ts_pc    
+  - ts_pcy   
+  - ts_diff  
+  - ts_diffy 
+  - ts_index 
+  - ts_lag   
+  - ts_shift 
+
+- title: Plot
+  desc: >
+    Simple and fast plotting functions for any time series
+  contents:
+  - ts_plot
+  - ts_ggplot
+  - theme_tsbox
+  - ts_save
+
+- title: Reshape
+  desc: >
+    Reshaping wide data frames into long long data frames and back
+  contents:
+  - ts_wide
+  - ts_long 
+
+- title: Frequency
+  desc: >
+    Functions to convert the frequency of time series and to regularize
+    irregular time series
+  contents:
+  - ts_frequency
+  - ts_regular 
+  - ts_na_omit
+
+- title: Align
+  desc: >
+    Functions to align the length or the frequency of time series
+  contents:
+  - ts_window
+  - ts_align 
+  - ts_union 
+
+- title: User defined ts-functions
+  desc: >
+    `ts_` turns existing functions into functions that can deal with any ts-
+    boxable time series object. Included are a set of example functions (some of
+    which are using external packages), that perform useful operations themself:
+    calculating principal components of multiple ime series, interactive
+    graphical visualizations,  univariate forecast, and seasonal adjustment.
+  contents:
+  - ts_prcomp
+  - ts_forecast
+  - ts_seas
+  - ts_dygraphs
+  - ts_
+  - copy_class
+  - relevant_class
+  - ts_boxable
+  - ts_dts
+
+- title: Working with dates
+  desc: >
+    Inclued is a set of functions that makes it easier to work with dates
   contents:
   - starts_with("date")
 
@@ -26,10 +110,12 @@ navbar:
     href: articles/tsbox.html
   - text: Reference
     href: reference/index.html
-  - text: Articles
+  - text: Advanced
     menu:
-    - text: Extending tsbox
-      href: articles/tsbox.html
+    - text: User Defined ts-Functions
+      href: articles/ts-functions.html
+    - text: Time Conversion and Reguarization
+      href: articles/convert.html
   - text: News
     href: news/index.html
   right:
