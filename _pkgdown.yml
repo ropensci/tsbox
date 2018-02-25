@@ -1,7 +1,8 @@
 template:
   params:
     bootswatch: cerulean
-
+    ganalytics: UA-46240882-5
+    
 # home:
   # strip_header: true
   # links:

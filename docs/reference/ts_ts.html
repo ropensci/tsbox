@@ -42,6 +42,18 @@ other." />
 <![endif]-->
 
 
+<!-- Google analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46240882-5', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
   </head>
 
   <body>
@@ -186,16 +198,8 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 4 mdeaths 1974-04-01  1877
 #&gt; 5 mdeaths 1974-05-01  1492
 #&gt; 6 mdeaths 1974-06-01  1249</div><div class='input'>
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:tsbox’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    between, first, last</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_tbl</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 3
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)
+<span class='fu'>head</span>(<span class='fu'>ts_tbl</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 3
 #&gt;   id      time       value
 #&gt;   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt;
 #&gt; 1 mdeaths 1974-01-01 2134.
@@ -204,27 +208,16 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 4 mdeaths 1974-04-01 1877.
 #&gt; 5 mdeaths 1974-05-01 1492.
 #&gt; 6 mdeaths 1974-06-01 1249.</div><div class='input'>
-<span class='fu'>library</span>(<span class='no'>data.table</span>)</div><div class='output co'>#&gt; <span class='message'>data.table 1.10.4.3</span></div><div class='output co'>#&gt; <span class='message'>  The fastest way to learn (by data.table authors): https://www.datacamp.com/courses/data-analysis-the-data-table-way</span></div><div class='output co'>#&gt; <span class='message'>  Documentation: ?data.table, example(data.table) and browseVignettes("data.table")</span></div><div class='output co'>#&gt; <span class='message'>  Release notes, videos and slides: http://r-datatable.com</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘data.table’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:dplyr’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    between, first, last</span></div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_dt</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;         id       time value
+<span class='fu'>library</span>(<span class='no'>data.table</span>)
+<span class='fu'>head</span>(<span class='fu'>ts_dt</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;         id       time value
 #&gt; 1: mdeaths 1974-01-01  2134
 #&gt; 2: mdeaths 1974-02-01  1863
 #&gt; 3: mdeaths 1974-03-01  1877
 #&gt; 4: mdeaths 1974-04-01  1877
 #&gt; 5: mdeaths 1974-05-01  1492
 #&gt; 6: mdeaths 1974-06-01  1249</div><div class='input'>
-<span class='fu'>library</span>(<span class='no'>xts</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: zoo</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘zoo’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    as.Date, as.Date.numeric</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘xts’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:data.table’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    first, last</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:dplyr’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    first, last</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:tsbox’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    first, last</span></div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_xts</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;            mdeaths fdeaths
+<span class='fu'>library</span>(<span class='no'>xts</span>)
+<span class='fu'>head</span>(<span class='fu'>ts_xts</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;            mdeaths fdeaths
 #&gt; 1974-01-01    2134     901
 #&gt; 1974-02-01    1863     689
 #&gt; 1974-03-01    1877     827
