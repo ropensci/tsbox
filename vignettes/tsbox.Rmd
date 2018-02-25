@@ -194,11 +194,16 @@ into a dplyr workflow:
 
 ```r
 library(dplyr)
-library(tsbox)
+library(nycflights13)
+dta <- weather %>% 
+  select(origin, time = time_hour, temp, humid, precip) %>% 
+  ts_long() 
 
-ts_tbl(ts_c(mdeaths, fdeaths)) %>% 
-  ts_seas() %>% 
+dta %>% 
+  filter(id == "temp") %>% 
+  ts_trend() %>% 
   ts_plot()
+
 ```
 
-
+And it also can be used in together with [tibbletime](https://cran.r-project.org/web/packages/tibbletime/index.html) and [tsibble](https://cran.r-project.org/web/packages/tsibble/index.html).

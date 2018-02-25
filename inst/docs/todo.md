@@ -2,6 +2,8 @@
 - [ ] ts_window(), extend regular series, fill w NA?
 - [ ] ts_align vs ts_union, bad naming
 - [ ] unify ts_lag and ts_shift?
+- [ ] Avoid error when col order is wrong
+
 
 - Documentation
 
