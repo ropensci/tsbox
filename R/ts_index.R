@@ -17,10 +17,6 @@ ts_compound <- function(x, denominator = 100) {
 
   z[, value := value / denominator + 1]
 
-  if (inherits(z$time, "POSIXct")) {
-    stop("indexing only works on 'Date', not 'POSIXct'")
-  }
-
   .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
 
   z[
@@ -45,15 +41,15 @@ ts_compound <- function(x, denominator = 100) {
 #' @param base base date, character string, `Date` or `POSIXct`, at which the
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
-#' ts_compound(ts_pc(ts_c(fdeaths, mdeaths)))
-#' ts_index(ts_df(ts_c(fdeaths, mdeaths)), "1977-01-01")
-#' \dontrun{
+#' head(ts_compound(ts_pc(ts_c(fdeaths, mdeaths))))
+#' head(ts_index(ts_df(ts_c(fdeaths, mdeaths)), "1974-02-01"))
 #' ts_plot(
-#'   `My Expert Knowledge` = ts_chain(mdeaths, ts_compound(ts_bind(ts_pc(mdeaths), 15, 23, 33))),
+#'   `My Expert Knowledge` = ts_chain(
+#'     mdeaths, 
+#'     ts_compound(ts_bind(ts_pc(mdeaths), 15, 23, 33))),
 #'   `So Far` = mdeaths,
 #'   title = "A Very Manual Forecast"
 #' )
-#' }
 #' @export
 ts_index <- function(x, base) {
   base <- anydate(as.character(base))

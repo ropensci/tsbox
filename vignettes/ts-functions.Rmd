@@ -1,0 +1,51 @@
+---
+title: "User Defined ts-Functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+It is staightforward to turn existing functions into functions that can deal
+with any ts-boxable object.
+
+The `ts_` function is a constructor function for tsbox time series functions. It
+can be used to wrap any function that works with time series. The default is set
+to R base `"ts"` class, so wrapping functions for `"ts"` time series (or vectors
+or matrices) is as simple as:
+
+```r
+ts_(diff)(AirPassengers)
+ts_(rowSums)(ts_c(mdeaths, fdeaths))
+```
+
+Note that `ts_` returns a function, which can be used without a name, as in the
+examples above, or with a name, as in the following, sligthly more complex
+example, which uses a post processing function:
+
+```r
+ts_prcomp <- ts_(function(x) predict(prcomp(x, scale = TRUE)))
+ts_prcomp(ts_c(mdeaths, fdeaths))
+```
+
+It is easy to make functions from external packages ts-boxable, by wrapping them
+into `ts_`.
+
+```r
+ts_dygraphs <- ts_(dygraphs::dygraph, class = "xts")
+ts_forecast <- ts_(function(x) forecast::forecast(x)$mean, vectorize = TRUE)
+ts_seas <- ts_(function(x) seasonal::final(seasonal::seas(x)), vectorize = TRUE)
+
+ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
+ts_forecast(ts_c(mdeaths, fdeaths))
+ts_seas(ts_c(mdeaths, fdeaths))
+```
+
+If you are explicit about the namespace (e.g., `dygraphs::dygraph`), 
+`ts_` recognized the package in use and delives a meaningful message if the 
+package is not installed.
+
+Note that the `ts_` function deals with the conversion stuff, 'vectorizes' the
+function so that it can be used with multiple time series.
+

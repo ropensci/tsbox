@@ -1,13 +1,13 @@
 .ts_lastplot_env <- new.env(parent = emptyenv())
 #' Plot Time Series
 #'
-#' `ts_plot` is a simple and fast plotting function for ts-boxable time series.
-#' It is meant to be used interactively, with limited customizability.
-#' `ts_ggplot` prduces a similar plot, but uses the
-#' [ggplot2](http://ggplot2.org/) graphic system, and can be customized. With
-#' [theme_tsbox()] and [scale_color_tsbox()], the output of `ts_ggplot` is very
-#' similar to `ts_plot`.
-#'
+#' `ts_plot` is a fast and simple plotting function for ts-boxable time series,
+#' with limited customizeability. `ts_ggplot` produces a similar plot, but uses
+#' the [ggplot2](http://ggplot2.org/) graphic system, and can be customized.
+#' 
+#' With [theme_tsbox()] and [scale_color_tsbox()], the output of `ts_ggplot` is
+#' very similar to `ts_plot`.
+#' 
 #' Both `ts_plot` and `ts_ggplot` combine multiple ID dimensions into a single
 #' dimension. To plot mulitple dimensions in different shapes, facets, etc., use
 #' standard ggplot.
@@ -17,40 +17,43 @@
 #' @param subtitle subtitle (optional)
 #' @param ylab ylab (optional)
 #' @param family font family (optional, can also be set via `options`)
+#' @seealso [ts_dygraphs()], for interactive time series plots. [ts_save()] to
+#'   save a plot to the file system.
 #' @examples
-#' ts_plot(AirPassengers, title = "Airline passengers",
-#'        subtitle = "The classic Box & Jenkins airline data")
+#' ts_plot(
+#'   AirPassengers, 
+#'   title = "Airline passengers",
+#'   subtitle = "The classic Box & Jenkins airline data"
+#' )
+#'  
+#' # naming arguments
 #' ts_plot(total = ldeaths, female = fdeaths, male = mdeaths)
 #'
-#' ts_plot(ts_c(sunspot.month, sunspot.year, lynx))
-#' ts_plot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
-#' ts_plot(EuStockMarkets)
-#' ts_plot(sunspot.month, sunspot.year, lynx)
-#' ts_plot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
+#' # using different ts-boxable objects
+#' ts_plot(ts_scale(ts_c(
+#'   airmiles, 
+#'   ts_tbl(co2), 
+#'   ts_xts(JohnsonJohnson), 
+#'   ts_df(discoveries)
+#' )))
+#'
+#' # using the ggplot2 graphic system
+#' p <- ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
+#' p
+#' 
+#' # with themes for the look and feel of ts_plot()
+#' p + theme_tsbox() + scale_color_tsbox()
 #'
 #' \dontrun{
-#' ts_ggplot(AirPassengers, title = "Airline passengers",
-#'        subtitle = "The classic Box & Jenkins airline data")
-#' ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
-#'
-#' ts_ggplot(ts_c(sunspot.month, sunspot.year, lynx))
-#' ts_ggplot(ts_scale(ts_c(airmiles, co2, JohnsonJohnson, discoveries)))
-#' ts_ggplot(EuStockMarkets)
-#' ts_ggplot(sunspot.month, sunspot.year, lynx)
-#' ts_ggplot(ts_scale(ts_c(Nile, nottem, USAccDeaths)))
-#'
-#' library(Quandl)
-#' ts_ggplot(Quandl("FRED/GDPMC1", "xts"), title = "US GDP")
-#'
 #' library(dataseries)
 #' dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
-#'
 #' ts_ggplot(ts_scale(ts_window(
-#'   ts_c(
-#'     `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
-#'     `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']
-#'   ),
-#'   start = "1995-01-01"))) +
+#'     ts_c(
+#'       `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
+#'       `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']
+#'     ),
+#'     start = "1995-01-01"
+#'   ))) +
 #'   ggplot2::ggtitle("GDP and Consumer Sentiment", subtitle = "normalized values") +
 #'   theme_tsbox() +
 #'   scale_color_tsbox()
@@ -238,17 +241,23 @@ ts_lastplot_call <- function() {
 
 #' Save Previous Plot
 #'
-#' @param ... additional arguments
-#' @param open open
-#' @param device device
-#' @param height height
-#' @param width width
 #' @param filename filename
+#' @param width width
+#' @param height height
+#' @param device device
+#' @param open logical, should the saved plot be opened?
 #' @export
-ts_save <- function(filename = tempfile(), width = 10, height = 5,
-                    device = "pdf", ..., open = TRUE) {
-  filename <- gsub(".pdf$", paste0(".", device), filename)
+ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10, height = 5,
+                    device = NULL, open = TRUE) {
 
+  if (is.null(device)){
+    device <- gsub(".*\\.([a-z]+)$", "\\1", tolower(filename))
+  } else {
+    filename <- gsub("\\.[a-z]+$", paste0(".", device), tolower(filename))
+  }
+
+  filename <- normalizePath(filename, mustWork = FALSE)
+  
   cl <- ts_lastplot_call()
   if (is.null(cl) || !inherits(cl, "call")) {
     stop("ts_plot must be called first.")
@@ -277,7 +286,7 @@ ts_save <- function(filename = tempfile(), width = 10, height = 5,
       res = 150
     )
   } else {
-    stop("device not supported.")
+    stop("device not supported: ", device, call. = FALSE)
   }
 
   eval(cl, envir = parent.frame())

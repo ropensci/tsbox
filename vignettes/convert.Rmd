@@ -1,0 +1,171 @@
+---
+title: "Time Conversion and Regularization"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+tsbox relies on a set of converters to convert time series stored as `ts`,
+`xts`, `data.frame`, `data.table` or `tibble` to each other. This vignette
+describes some background on two particular challenges, the conversion of
+*equispaced points in time* to *actual dates or times*, and the *regularization 
+of irregular time sequences*.
+
+The classic way of storing time series in R are `"ts"` objects. These are simple
+vectors with an attribute that describes the beginning of the series, the
+(redundant) end, and the frequency. Thus, a monthly series, e.g.,
+`AirPassengers` is defined as a numeric vector that starts at 1949, with
+frequency 1. Thus, months are thought of as equispaced periods of exactly 1/12.
+
+For most time series, this is not what is meant. The second period of
+`AirPassengers`, February 1949, is of course shorter than the first one. tsbox
+tries to acknowledge the fact by using **heuristic**, rather than **exact** time
+conversion if possible.
+
+
+## Heuristic time conversion
+
+Whenever possible, tsbox relies on **heuristic time conversion**. When a
+monthly `"ts"` time series, e.g., `AirPassengers`, is converted to a data
+frame, each time stamp (of class `"Date"`) is the first day of the month. In
+most circumstances, this reflects the actual meaning of the data stored in a
+`"ts"` object. Technically, of course, this is not correct: `"ts"` objects
+divide time in period of equal length, while in reality, February is shorter
+than January. Heuristic conversion is done for the following frequencies:
+
+
+| `ts`-frequency | time difference |
+|----------------|-----------------|
+|       365.2425 | 1 day           |
+|             12 | 1 month         |
+|              6 | 2 month         |
+|              4 | 3 month         |
+|              3 | 4 month         |
+|              2 | 6 month         |
+|              1 | 1 year          |
+|            0.5 | 2 year          |
+|          0.333 | 3 year          |
+|           0.25 | 4 year          |
+|            0.2 | 5 year          |
+|            0.1 | 10 year         |
+
+For example, converting `AirPassengers` to a data frame gives:
+
+```r
+head(ts_df(AirPassengers))
+#>         time value
+#> 1 1949-01-01   112
+#> 2 1949-02-01   118
+#> 3 1949-03-01   132
+#> 4 1949-04-01   129
+#> 5 1949-05-01   121
+#> 6 1949-06-01   135
+```
+Heuristic conversion is reversible, so we can get back to the original object:
+
+```r
+all.equal(ts_ts(ts_df(AirPassengers)), AirPassengers)
+#> [1] TRUE
+```
+
+## Exact time conversion
+
+For all other frequencies, e.g. 260, of `EuStockMarkets`, tsbox uses  **exact
+time conversion**. The year is divided into 260 equispaced units, and time
+stamp of a period will be a point in time (of class `"POSIXct"`).
+
+```r
+head(ts_df(EuStockMarkets))
+#>    id                time   value
+#> 1 DAX 1991-07-01 03:18:27 1628.75
+#> 2 DAX 1991-07-02 13:01:32 1613.63
+#> 3 DAX 1991-07-03 22:44:38 1606.51
+#> 4 DAX 1991-07-05 08:27:43 1621.04
+#> 5 DAX 1991-07-06 18:10:48 1618.16
+#> 6 DAX 1991-07-08 03:53:53 1610.61
+```
+
+Higher frequencies, like days, hours, minutes or seconds are generally equispaced, and exact time conversion is used.
+
+Exact time conversion is generally reversible as well:
+
+```r
+all.equal(ts_ts(ts_df(EuStockMarkets)), EuStockMarkets)
+#> [1] TRUE
+```
+
+However, for very high frequencies, rounding errors may lead to small
+differences when going from data frame to `"ts"` and back. Conversion does not work reliably if the frequency is above one second. For these ultra high frequencies, tsbox is not tested and may not work as expected.
+
+## Regularization of predefined frequencies
+
+In data frames or `"xts"` objects, missing values are generally omitted. These
+omitted `NA` values are called implicit missing values, as opposite to explicit
+values. The function `ts_regular` allows us to *regularize* a series, by making
+implicit `NA` values explicit. 
+
+When regularizing, `ts_regular` analyzes the differences in the time stamp for
+known frequencies. If it detects any, it builds a regular sequence based on the
+highest detected frequency, and tries to match the time stamps to the regular
+series. The result is a data frame or `"xts"` object with explicit `NA` values.
+Regularization is automatically done when an object is converted to a `"ts"`
+object.
+
+For example, the following time series contains an implicit `NA` value in February 1974:
+
+```r
+df <- ts_df(fdeaths)[-2,]
+head(df)
+#>         time value
+#> 1 1974-01-01   901
+#> 3 1974-03-01   827
+#> 4 1974-04-01   677
+#> 5 1974-05-01   522
+#> 6 1974-06-01   406
+#> 7 1974-07-01   441
+```
+
+`ts_regular` can be used to make the value implicit:
+
+```r
+head(ts_regular(df))
+#>         time value
+#> 1 1974-01-01   901
+#> 3 1974-03-01   827
+#> 4 1974-04-01   677
+#> 5 1974-05-01   522
+#> 6 1974-06-01   406
+#> 7 1974-07-01   441
+```
+
+Regularization can be done for all frequencies that are suited for heuristic
+conversion. In addition to these frequencies, the following higher frequencies
+are detected and regularized as well:
+
+
+| `ts`-frequency | time difference |
+|----------------|-----------------|
+|              1 | 1 sec           |
+|              2 | 2 sec           |
+|              5 | 5 sec           |
+|             10 | 10 sec          |
+|             15 | 15 sec          |
+|             20 | 20 sec          |
+|             30 | 30 sec          |
+|             60 | 1 min           |
+|            120 | 2 min           |
+|            300 | 5 min           |
+|            600 | 10 min          |
+|            900 | 15 min          |
+|           1200 | 20 min          |
+|           1800 | 30 min          |
+|           3600 | 1 hour          |
+|           7200 | 2 hour          |
+|          10800 | 3 hour          |
+|          14400 | 4 hour          |
+|          21600 | 6 hour          |
+|          43200 | 12 hour         |
+|          86400 | 1 day           |
+

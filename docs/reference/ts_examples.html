@@ -11,7 +11,7 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -68,13 +68,16 @@ ts_seas the seasonally adjusted series." />
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Advanced
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tsbox.html">Extending tsbox</a>
+      <a href="../articles/ts-functions.html">User Defined ts-Functions</a>
+    </li>
+    <li>
+      <a href="../articles/convert.html">Time Conversion and Reguarization</a>
     </li>
   </ul>
 </li>
@@ -143,177 +146,29 @@ packages.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ts_prcomp</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>))</div><div class='output co'>#&gt;                  PC1          PC2
-#&gt; Jan 1974 -2.38059153  0.297375755
-#&gt; Feb 1974 -1.10407959 -0.094336308
-#&gt; Mar 1974 -1.66989390  0.425768781
-#&gt; Apr 1974 -1.07972032 -0.164404804
-#&gt; May 1974  0.15862748 -0.145749085
-#&gt; Jun 1974  1.01171910 -0.205459272
-#&gt; Jul 1974  0.82340530 -0.118358737
-#&gt; Aug 1974  1.25549919 -0.063975943
-#&gt; Sep 1974  1.15177331 -0.214915709
-#&gt; Oct 1974 -0.07744196  0.090320349
-#&gt; Nov 1974 -0.27229290 -0.136006514
-#&gt; Dec 1974 -0.98583429 -0.157077565
-#&gt; Jan 1975 -2.05063607  0.068633560
-#&gt; Feb 1975 -1.79924985 -0.293760756
-#&gt; Mar 1975 -1.95520760 -0.190042121
-#&gt; Apr 1975 -0.95674317 -0.143724409
-#&gt; May 1975  0.52031447 -0.216856050
-#&gt; Jun 1975  0.82214899 -0.143221986
-#&gt; Jul 1975  1.05554748 -0.043596172
-#&gt; Aug 1975  1.17747892  0.007514434
-#&gt; Sep 1975  1.57955654 -0.133367648
-#&gt; Oct 1975  0.71796416 -0.231668858
-#&gt; Nov 1975  0.03669604 -0.196859691
-#&gt; Dec 1975 -1.75809966 -0.103099916
-#&gt; Jan 1976 -1.66726798 -0.043744162
-#&gt; Feb 1976 -4.33047208  0.236050681
-#&gt; Mar 1976 -2.60415742  0.034464960
-#&gt; Apr 1976  0.14050471 -0.085182043
-#&gt; May 1976  0.94835331  0.053803167
-#&gt; Jun 1976  1.10192625 -0.005086388
-#&gt; Jul 1976  1.35177002 -0.101477785
-#&gt; Aug 1976  1.76620010 -0.049020841
-#&gt; Sep 1976  1.61262716  0.009868713
-#&gt; Oct 1976  0.92520532  0.014917216
-#&gt; Nov 1976  0.10501151 -0.010509510
-#&gt; Dec 1976 -1.71913092 -0.119214046
-#&gt; Jan 1977 -2.40018844 -0.029111419
-#&gt; Feb 1977 -0.61614326  0.165399575
-#&gt; Mar 1977 -0.77160427  0.033545503
-#&gt; Apr 1977 -0.82187976 -0.174109604
-#&gt; May 1977  0.63890542  0.177149238
-#&gt; Jun 1977  1.20882704 -0.118517068
-#&gt; Jul 1977  1.25650713  0.078673660
-#&gt; Aug 1977  1.62518297 -0.048396311
-#&gt; Sep 1977  1.55989133  0.193202314
-#&gt; Oct 1977  1.20861645 -0.173810528
-#&gt; Nov 1977  1.02469609 -0.153137378
-#&gt; Dec 1977 -0.56386638  0.044558869
-#&gt; Jan 1978 -1.77973573  0.071988536
-#&gt; Feb 1978 -2.43660680 -0.136350606
-#&gt; Mar 1978 -1.42190044 -0.034446056
-#&gt; Apr 1978  0.17684028  0.061319263
-#&gt; May 1978  0.37528731  0.133862597
-#&gt; Jun 1978  0.95555275  0.053133620
-#&gt; Jul 1978  1.15986012  0.139406278
-#&gt; Aug 1978  1.58479235  0.021378806
-#&gt; Sep 1978  1.54193414  0.175245121
-#&gt; Oct 1978  1.09523079  0.066907960
-#&gt; Nov 1978  1.16387740  0.096209669
-#&gt; Dec 1978 -0.98147861 -0.050425137
-#&gt; Jan 1979 -2.27642119 -0.227972391
-#&gt; Feb 1979 -1.41159439  0.353571087
-#&gt; Mar 1979 -1.22583821  0.082926359
-#&gt; Apr 1979 -0.25914309  0.144688654
-#&gt; May 1979  0.78393983  0.133328100
-#&gt; Jun 1979  1.20527596  0.169084155
-#&gt; Jul 1979  1.33072071  0.105673351
-#&gt; Aug 1979  1.56524770  0.135606836
-#&gt; Sep 1979  1.56730136  0.247826227
-#&gt; Oct 1979  1.26630196  0.088468492
-#&gt; Nov 1979  0.61956412  0.039773219
-#&gt; Dec 1979  0.20053725  0.305347710</div><div class='input'><span class='fu'>ts_dygraphs</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>EuStockMarkets</span>))
-<span class='fu'>ts_forecast</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>))</div><div class='output co'>#&gt;            mdeaths  fdeaths
-#&gt; Jan 1980 1893.1855 798.7897
-#&gt; Feb 1980 1886.6774 818.3414
-#&gt; Mar 1980 1750.3776 748.4718
-#&gt; Apr 1980 1494.0642 593.0345
-#&gt; May 1980 1171.2965 478.9029
-#&gt; Jun 1980 1068.0515 406.1266
-#&gt; Jul 1980 1008.9518 401.9049
-#&gt; Aug 1980  924.6615 359.6939
-#&gt; Sep 1980  914.5511 366.6550
-#&gt; Oct 1980 1098.6821 439.1029
-#&gt; Nov 1980 1235.0739 487.9075
-#&gt; Dec 1980 1636.0542 673.0117
-#&gt; Jan 1981 1893.1857 798.7897
-#&gt; Feb 1981 1886.6777 818.3414
-#&gt; Mar 1981 1750.3779 748.4718
-#&gt; Apr 1981 1494.0644 593.0345
-#&gt; May 1981 1171.2967 478.9029
-#&gt; Jun 1981 1068.0517 406.1266
-#&gt; Jul 1981 1008.9519 401.9049
-#&gt; Aug 1981  924.6616 359.6939
-#&gt; Sep 1981  914.5513 366.6550
-#&gt; Oct 1981 1098.6823 439.1030
-#&gt; Nov 1981 1235.0741 487.9076
-#&gt; Dec 1981 1636.0544 673.0117</div><div class='input'><span class='fu'>ts_seas</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>))</div><div class='output co'>#&gt;           mdeaths  fdeaths
-#&gt; Jan 1974 1520.435 605.9811
-#&gt; Feb 1974 1344.908 538.6371
-#&gt; Mar 1974 1423.483 589.4354
-#&gt; Apr 1974 1722.832 606.7556
-#&gt; May 1974 1715.809 599.5486
-#&gt; Jun 1974 1575.049 547.2017
-#&gt; Jul 1974 1682.336 592.4375
-#&gt; Aug 1974 1627.528 583.6646
-#&gt; Sep 1974 1761.674 585.0864
-#&gt; Oct 1974 1781.126 682.7610
-#&gt; Nov 1974 1752.479 617.8549
-#&gt; Dec 1974 1493.939 534.4683
-#&gt; Jan 1975 1498.332 561.6058
-#&gt; Feb 1975 1542.352 578.3942
-#&gt; Mar 1975 1632.551 559.8050
-#&gt; Apr 1975 1682.542 599.4746
-#&gt; May 1975 1613.539 538.0181
-#&gt; Jun 1975 1624.220 582.5884
-#&gt; Jul 1975 1558.779 566.5253
-#&gt; Aug 1975 1630.400 611.9697
-#&gt; Sep 1975 1534.395 517.3097
-#&gt; Oct 1975 1608.123 530.8710
-#&gt; Nov 1975 1670.322 573.5895
-#&gt; Dec 1975 1672.360 608.8541
-#&gt; Jan 1976 1439.167 518.7201
-#&gt; Feb 1976 1984.310 862.1765
-#&gt; Mar 1976 1730.865 637.6972
-#&gt; Apr 1976 1357.680 486.6755
-#&gt; May 1976 1367.494 510.4945
-#&gt; Jun 1976 1462.797 552.8565
-#&gt; Jul 1976 1462.821 506.1075
-#&gt; Aug 1976 1395.835 496.4607
-#&gt; Sep 1976 1455.737 529.3762
-#&gt; Oct 1976 1442.263 549.1862
-#&gt; Nov 1976 1586.013 601.2601
-#&gt; Dec 1976 1667.073 604.1325
-#&gt; Jan 1977 1595.867 576.8622
-#&gt; Feb 1977 1178.784 490.6124
-#&gt; Mar 1977 1305.357 482.5705
-#&gt; Apr 1977 1653.348 585.7041
-#&gt; May 1977 1433.106 562.1201
-#&gt; Jun 1977 1465.307 512.3556
-#&gt; Jul 1977 1428.632 547.2420
-#&gt; Aug 1977 1457.699 522.9962
-#&gt; Sep 1977 1397.472 561.7619
-#&gt; Oct 1977 1407.721 485.8909
-#&gt; Nov 1977 1328.726 469.0500
-#&gt; Dec 1977 1340.299 515.5852
-#&gt; Jan 1978 1438.388 532.7679
-#&gt; Feb 1978 1647.319 615.6214
-#&gt; Mar 1978 1471.908 540.0766
-#&gt; Apr 1978 1306.416 501.3649
-#&gt; May 1978 1541.284 587.1514
-#&gt; Jun 1978 1496.820 575.3995
-#&gt; Jul 1978 1443.073 570.0180
-#&gt; Aug 1978 1444.736 540.7830
-#&gt; Sep 1978 1413.522 555.1463
-#&gt; Oct 1978 1361.232 546.4384
-#&gt; Nov 1978 1200.082 491.7076
-#&gt; Dec 1978 1467.791 558.8122
-#&gt; Jan 1979 1612.192 549.7471
-#&gt; Feb 1979 1312.370 562.4985
-#&gt; Mar 1979 1398.941 535.0491
-#&gt; Apr 1979 1405.642 559.8752
-#&gt; May 1979 1397.571 531.1366
-#&gt; Jun 1979 1355.583 551.0426
-#&gt; Jul 1979 1387.858 535.9516
-#&gt; Aug 1979 1402.995 561.6277
-#&gt; Sep 1979 1369.826 559.1184
-#&gt; Oct 1979 1290.848 524.3141
-#&gt; Nov 1979 1399.010 559.2716
-#&gt; Dec 1979 1086.521 481.2997</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
+  <span class='fu'><a href='ts_scale.html'>ts_scale</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(
+    <span class='kw'>Male</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>,
+    <span class='kw'>Female</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>,
+    <span class='kw'>`First principal compenent`</span> <span class='kw'>=</span> -<span class='fu'>ts_prcomp</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>))[, <span class='fl'>1</span>]
+  )),
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Deaths from lung diseases"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"Normalized values"</span>
+)</div><div class='img'><img src='ts_examples-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(
+  <span class='kw'>male</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>, <span class='kw'>female</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>,
+  <span class='fu'>ts_forecast</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='kw'>`male (fct)`</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>,  <span class='kw'>`female (fct)`</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>))),
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Deaths from lung diseases"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"Exponential smoothing forecast"</span>
+)</div><div class='img'><img src='ts_examples-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
+  <span class='kw'>`Raw series`</span> <span class='kw'>=</span> <span class='no'>AirPassengers</span>,
+  <span class='kw'>`Adjusted series`</span> <span class='kw'>=</span> <span class='fu'>ts_seas</span>(<span class='no'>AirPassengers</span>),
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Airline passengers"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"X-13 seasonal adjustment"</span>
+)</div><div class='img'><img src='ts_examples-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+
+<span class='fu'>ts_dygraphs</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>EuStockMarkets</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

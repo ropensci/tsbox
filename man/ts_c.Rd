@@ -22,17 +22,14 @@ In data frame objects, multiple time series are stored in a long data frame.
 In \code{ts} and \code{xts} objects, time series are combined horizontally.
 }
 \examples{
-ts_c(ts_df(EuStockMarkets), AirPassengers)
-a <- ts_c(EuStockMarkets, mdeaths)
+head(ts_c(ts_df(EuStockMarkets), AirPassengers))
 
-# labelling:
-ts_c(`International Airline Passengers` = ts_xts(AirPassengers),
-       `Deaths from Lung Diseases` = ldeaths)
-
-ts_c(a = mdeaths, AirPassengers)
-ts_bind(ts_xts(AirPassengers), mdeaths)
-ts_c(ts_dt(EuStockMarkets), AirPassengers)
-ts_bind(ts_dt(mdeaths), AirPassengers)
+# labeling
+x <- ts_c(
+  `International Airline Passengers` = ts_xts(AirPassengers),
+  `Deaths from Lung Diseases` = ldeaths
+)
+head(x)
 
 }
 \seealso{

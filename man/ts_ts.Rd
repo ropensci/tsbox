@@ -47,34 +47,23 @@ stored as \code{ts}, \code{xts}, \code{data.frame}, \code{data.table} or \code{t
 other.
 }
 \details{
-Mulitple time series will be stored as a 'long' data frame (\code{data.frame},
-\code{data.table} or \code{tibble}):\preformatted{ts_df(ts_c(fdeaths, mdeaths))
-
-#          id       time value
-# 1   fdeaths 1974-01-01   901
-# 2   fdeaths 1974-02-01   689
-# 3   fdeaths 1974-03-01   827
-# 4   fdeaths 1974-04-01   677
-# 5   fdeaths 1974-05-01   522
-# ...
-# 140 mdeaths 1979-08-01   975
-# 141 mdeaths 1979-09-01   940
-# 142 mdeaths 1979-10-01  1081
-# 143 mdeaths 1979-11-01  1294
-# 144 mdeaths 1979-12-01  1341
-}
-
-The time stamp, \code{time}, indicates the beginning of a period. tsbox requires the
-columns in a data frame to follow either the order:
+In data frames, multiple time series will be stored in a 'long' format. tsbox
+detects a \emph{value}, a \emph{time} and zero to several \emph{id} columns. Column detection
+is done in the following order:
 \enumerate{
-\item \strong{id} column(s)
-\item \strong{time} column
-\item \strong{value} column
+\item Starting \strong{on the right}, the first first \code{numeric} or \code{integer} column is
+used as \strong{value column}.
+\item Using the remaining columns, and starting on the right again, the first
+\code{Date}, \code{POSIXct}, \code{numeric} or \code{character} column is used as \strong{time column}.
+\code{character} strings are parsed by \code{\link[anytime:anytime]{anytime::anytime()}} or \code{\link[anytime:anydate]{anytime::anydate()}}.
+The time stamp, \code{time}, indicates the beginning of a period.
+\item \strong{All remaining} columns are \strong{id columns}. Each unique combination of id
+columns points to a time series.
 }
 
-\strong{or} the \strong{time} column and the \strong{value} column to be explicitly named as \code{time} and \code{value}. If explicit names are used, the column order will be ignored.
-
-Note that multiple id columns with arbitrary names are allowed.
+\strong{Alternatively}, the \strong{time} column and the \strong{value} column to be explicitly named as
+\code{time} and \code{value}. If explicit names are used, the column order will be
+ignored.
 
 Whenever possible, tsbox relies on \strong{heuristic time conversion}. When a
 monthly \code{"ts"} time series, e.g., \code{AirPassengers}, is converted to a data
@@ -92,28 +81,32 @@ stamp of a period will be a point in time (of class \code{"POSIXct"}).
 \examples{
 
 x.ts <- ts_c(mdeaths, fdeaths)
-x.df <- ts_df(x.ts)
-x.dt <- ts_dt(x.df)
+head(x.ts)
+head(ts_df(x.ts))
+
+library(dplyr)
+head(ts_tbl(x.ts))
+
+library(data.table)
+head(ts_dt(x.ts))
+
+library(xts)
+head(ts_xts(x.ts))
 
 # heuristic time conversion
-ts_df(AirPassengers)
+# 1 momth: approx. 1/12 year
+head(ts_df(AirPassengers))
 
 # exact time conversion
-ts_df(EuStockMarkets)
+# 1 trading day: exactly 1/260 year
+head(ts_df(EuStockMarkets))
 
-# Multiple IDs
+# multiple id
 multi.id.df <- rbind(
   within(ts_df(ts_c(fdeaths, mdeaths)), type <- "level"),
   within(ts_pc(ts_df(ts_c(fdeaths, mdeaths))), type <- "pc")
 )
+head(ts_ts(multi.id.df))
 ts_plot(multi.id.df)
-ts_ts(multi.id.df)
-
-\dontrun{
-library(xts)
-x.xts <- ts_xts(x.ts)
-library(dplyr)
-x.tbl <- ts_tbl(x.ts)
-}
 
 }

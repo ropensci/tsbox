@@ -6,16 +6,24 @@ context("ts_plot")
 
 test_that("ts_plot works", {
   ts_plot(AirPassengers, title = "AirPassengers", subtitle = "Heyhey")
-  tf <- tempfile()
-  ts_save(tf, device = "pdf", open = FALSE)
+  tf <- tempfile(fileext = ".pdf")
+  ts_save(tf, open = FALSE)
   expect_true(file.size(tf) > 3000)
-  ts_save(tf, device = "png", open = FALSE)
+
+  tf <- tempfile(fileext = ".png")
+  ts_save(tf, open = FALSE)
   expect_true(file.size(tf) > 3000)
-  ts_save(tf, device = "bmp", open = FALSE)
+
+  tf <- tempfile(fileext = ".bmp")
+  ts_save(tf, open = FALSE)
   expect_true(file.size(tf) > 3000)
-  ts_save(tf, device = "jpeg", open = FALSE)
+
+  tf <- tempfile(fileext = ".jpeg")
+  ts_save(tf, open = FALSE)
   expect_true(file.size(tf) > 3000)
-  ts_save(tf, device = "tiff", open = TRUE)
+
+  tf <- tempfile(fileext = ".tiff")
+  ts_save(tf, open = TRUE)
   expect_true(file.size(tf) > 3000)
 
   p <- ts_ggplot(AirPassengers, mdeaths) + theme_tsbox() + scale_color_tsbox()

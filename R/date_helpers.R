@@ -30,36 +30,44 @@ regularize_date <- function(x, full.year = FALSE) {
 
   diffdt <- frequency_table(x)
 
-  if (nrow(diffdt[string == ""]) > 0 && diffdt[string == "", share] > 0.5) {
-    # return NULL if regularization failed
-    return(NULL)
-  }
-  fm <- diffdt[which.max(freq)]
-# browser()
-  if (is.na(fm$string) && fm$share == 1) fm$string <- unique(diff(as.numeric(x)))[1]
+  # doesen't this mean it would fail in the end anyway? It's allways worth 
+  # trying.
+    # # A high share of unidentied differences
+    # if (nrow(diffdt[string == ""]) > 0 && diffdt[string == "", share] > 0.5) {
+    #   # return NULL if regularization failed
+    #   return(NULL)
+    # }
 
-  # # No POSIXct time stamps for low freq series
-  # if (fm$freq <= 12 && inherits(x, "POSIXct")){
-  #   x <- as.Date(x)
-  # }
-# browser()
+  fm <- diffdt[which.max(freq)]
+  
+  # regularize if there is a single difference
+  # (not sure if we can have this unless the series is equispaced anyway?)
+  if (is.na(fm$string) && fm$share == 1) {
+    fm$string <- unique(diff(as.numeric(x)))[1]
+  }
+
   from <- x[1]
   to <- x[length(x)]
   if (full.year){
     if (inherits(x, "POSIXct")){
-      from <- ISOdate(data.table::year(round(from, "mins")), 1, 1, hour = 0, tz = attr(x, "tzone"))
+      from <- ISOdate(
+        year = data.table::year(round(from, "mins")), 
+        month = 1, 
+        day = 1, 
+        hour = 0, 
+        tz = attr(x, "tzone")
+      )
     } else {
       from <- date_year(from)
     }
-    # to <- as.POSIXct(date_shift(date_year(from), "1 year"))-1
   }
   if (inherits(x, "POSIXct")){
 
-    # for some reason, POSIXct are not precice for quartals
+    # for some reason, POSIXct is not precise for quartals
     if (fm$freq <= 12){
       z <- as.POSIXct(seq(from = as.Date(from), to = as.Date(to), by = fm$string), tz = attr(x, "tzone"))
       if (!all(as.integer(x) %in% as.integer(z))){
-        # but sometimes it does, second try
+        # but sometimes it is, so give it a second try
         z <- seq(from = from, to = to + 0.1, by = fm$string)
       }
     } else {
@@ -68,8 +76,7 @@ regularize_date <- function(x, full.year = FALSE) {
   } else {
     z <- seq(from = from, to = to, by = fm$string)
   }
-  
-  # browser()
+
   # return NULL if regularization failed
   if (!all(as.integer(x) %in% as.integer(z))) return(NULL)
   z

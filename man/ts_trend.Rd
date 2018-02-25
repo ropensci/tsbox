@@ -18,3 +18,11 @@ ts_trend(x, ...)
 \description{
 Trend estimation that uses \code{\link[stats:loess]{stats::loess()}}.
 }
+\examples{
+ts_plot(
+   `Raw series` = fdeaths, 
+   `Loess trend` = ts_trend(fdeaths),
+   title = "Deaths from Lung Diseases",
+   subtitle = "per month"
+)
+}
