@@ -133,11 +133,11 @@ head(df)
 head(ts_regular(df))
 #>         time value
 #> 1 1974-01-01   901
+#> 2 1974-02-01    NA
 #> 3 1974-03-01   827
 #> 4 1974-04-01   677
 #> 5 1974-05-01   522
 #> 6 1974-06-01   406
-#> 7 1974-07-01   441
 ```
 
 Regularization can be done for all frequencies that are suited for heuristic
