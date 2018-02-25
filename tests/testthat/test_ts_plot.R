@@ -6,23 +6,23 @@ context("ts_plot")
 
 test_that("ts_plot works", {
   ts_plot(AirPassengers, title = "AirPassengers", subtitle = "Heyhey")
-  tf <- tempfile(".pdf")
+  tf <- tempfile(fileext = ".pdf")
   ts_save(tf, device = "pdf", open = FALSE)
   expect_true(file.size(tf) > 3000)
 
-  tf <- tempfile(".png")
+  tf <- tempfile(fileext = ".png")
   ts_save(tf, device = "png", open = FALSE)
   expect_true(file.size(tf) > 3000)
 
-  tf <- tempfile(".bmp")
+  tf <- tempfile(fileext = ".bmp")
   ts_save(tf, device = "bmp", open = FALSE)
   expect_true(file.size(tf) > 3000)
 
-  tf <- tempfile(".jpeg")
+  tf <- tempfile(fileext = ".jpeg")
   ts_save(tf, device = "jpeg", open = FALSE)
   expect_true(file.size(tf) > 3000)
 
-  tf <- tempfile(".tiff")
+  tf <- tempfile(fileext = ".tiff")
   ts_save(tf, device = "tiff", open = TRUE)
   expect_true(file.size(tf) > 3000)
 
