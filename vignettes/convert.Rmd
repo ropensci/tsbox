@@ -13,27 +13,26 @@ describes some background on two particular challenges, the conversion of
 *equispaced points in time* to *actual dates or times*, and the *regularization 
 of irregular time sequences*.
 
-The classic way of storing time series in R are `"ts"` objects. These are simple
+The classic way of storing time series in R in `"ts"` objects. These are simple
 vectors with an attribute that describes the beginning of the series, the
 (redundant) end, and the frequency. Thus, a monthly series, e.g.,
-`AirPassengers` is defined as a numeric vector that starts at 1949, with
-frequency 1. Thus, months are thought of as equispaced periods of exactly 1/12.
+`AirPassengers`, is defined as a numeric vector that starts in 1949, with
+frequency 1. Thus, months are thought of as equispaced periods with a length of 
+exactly 1/12 of a year.
 
 For most time series, this is not what is meant. The second period of
-`AirPassengers`, February 1949, is of course shorter than the first one. tsbox
-tries to acknowledge the fact by using **heuristic**, rather than **exact** time
-conversion if possible.
+`AirPassengers`, February 1949, is actually shorter than the first one, but this
+is not reflected in the `"ts"` object. When converting to classes with actual
+time stamps, tsbox tries to correct it by using **heuristic**, rather than
+**exact** time conversion if possible.
 
 
 ## Heuristic time conversion
 
-Whenever possible, tsbox relies on **heuristic time conversion**. When a
-monthly `"ts"` time series, e.g., `AirPassengers`, is converted to a data
-frame, each time stamp (of class `"Date"`) is the first day of the month. In
-most circumstances, this reflects the actual meaning of the data stored in a
-`"ts"` object. Technically, of course, this is not correct: `"ts"` objects
-divide time in period of equal length, while in reality, February is shorter
-than January. Heuristic conversion is done for the following frequencies:
+Whenever possible, tsbox relies on **heuristic time conversion**. When a monthly
+`"ts"` time series, e.g., `AirPassengers`, is converted to a data frame, each
+time stamp (of class `"Date"`) indicates the first day of the month.
+Heuristic conversion is done for the following frequencies:
 
 
 | `ts`-frequency | time difference |
@@ -51,7 +50,7 @@ than January. Heuristic conversion is done for the following frequencies:
 |            0.2 | 5 year          |
 |            0.1 | 10 year         |
 
-For example, converting `AirPassengers` to a data frame gives:
+For example, converting `AirPassengers` to a data frame returns:
 
 ```r
 head(ts_df(AirPassengers))
@@ -63,7 +62,9 @@ head(ts_df(AirPassengers))
 #> 5 1949-05-01   121
 #> 6 1949-06-01   135
 ```
-Heuristic conversion is reversible, so we can get back to the original object:
+
+Heuristic conversion works both ways, so we can get back to the original `"ts"`
+object:
 
 ```r
 all.equal(ts_ts(ts_df(AirPassengers)), AirPassengers)
@@ -72,9 +73,10 @@ all.equal(ts_ts(ts_df(AirPassengers)), AirPassengers)
 
 ## Exact time conversion
 
-For all other frequencies, e.g. 260, of `EuStockMarkets`, tsbox uses  **exact
-time conversion**. The year is divided into 260 equispaced units, and time
-stamp of a period will be a point in time (of class `"POSIXct"`).
+For non standard frequencies, e.g. 260, of `EuStockMarkets`, tsbox uses  **exact
+time conversion**. The year is divided into 260 equispaced units, each somewhat
+longer than a day. The time stamp of a period will be an exact point in time (of
+class `"POSIXct"`).
 
 ```r
 head(ts_df(EuStockMarkets))
@@ -87,33 +89,39 @@ head(ts_df(EuStockMarkets))
 #> 6 DAX 1991-07-08 03:53:53 1610.61
 ```
 
-Higher frequencies, like days, hours, minutes or seconds are generally equispaced, and exact time conversion is used.
+Higher frequencies, such as days, hours, minutes or seconds, are naturally
+equispaced, and exact time conversion is used as well.
 
-Exact time conversion is generally reversible as well:
+Exact time conversion is generally reversible:
 
 ```r
 all.equal(ts_ts(ts_df(EuStockMarkets)), EuStockMarkets)
 #> [1] TRUE
 ```
 
-However, for very high frequencies, rounding errors may lead to small
-differences when going from data frame to `"ts"` and back. Conversion does not work reliably if the frequency is above one second. For these ultra high frequencies, tsbox is not tested and may not work as expected.
+However, for high frequencies, rounding errors can lead to unavoidable small
+differences when going from data frame to `"ts"` and back.
+
+Conversion does not work reliably if the frequency higher than one second. For
+these ultra high frequencies, tsbox is not tested and may not work as expected.
+
 
 ## Regularization of predefined frequencies
 
 In data frames or `"xts"` objects, missing values are generally omitted. These
-omitted `NA` values are called implicit missing values, as opposite to explicit
-values. The function `ts_regular` allows us to *regularize* a series, by making
-implicit `NA` values explicit. 
+omitted missing values are called implicit, as opposite to explicit `NA` values.
+The function `ts_regular` allows the user to *regularize* a series, by making
+implicit missing values explicit.
 
 When regularizing, `ts_regular` analyzes the differences in the time stamp for
 known frequencies. If it detects any, it builds a regular sequence based on the
-highest detected frequency, and tries to match the time stamps to the regular
-series. The result is a data frame or `"xts"` object with explicit `NA` values.
-Regularization is automatically done when an object is converted to a `"ts"`
-object.
+highest known frequency, and tries to match the time stamps to the regular
+series. The result is a data frame or `"xts"` object with explicit missing
+values. Regularization is automatically done when an object is converted to a
+`"ts"` object.
 
-For example, the following time series contains an implicit `NA` value in February 1974:
+For example, the following time series contains an implicit `NA` value in
+February 1974:
 
 ```r
 df <- ts_df(fdeaths)[-2,]
@@ -127,7 +135,7 @@ head(df)
 #> 7 1974-07-01   441
 ```
 
-`ts_regular` can be used to make the value implicit:
+`ts_regular` can be used to turn it into a explicit `NA`:
 
 ```r
 head(ts_regular(df))
@@ -141,8 +149,8 @@ head(ts_regular(df))
 ```
 
 Regularization can be done for all frequencies that are suited for heuristic
-conversion. In addition to these frequencies, the following higher frequencies
-are detected and regularized as well:
+conversion, as listed above. In addition to these frequencies, the following
+higher frequencies are detected and regularized as well:
 
 
 | `ts`-frequency | time difference |

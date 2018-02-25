@@ -41,8 +41,7 @@ test_that("date_shift is working", {
   expect_equal(x$time, date_shift(x$time))
 
   x1 <- ts_df(ts_c(mdeaths, fdeaths)) %>%
-    mutate(time = date_shift(time, by = "month")) %>%
-    ts_window(end = "1979-12-01")
+    mutate(time = date_shift(time, by = "month")) 
   xlag <- ts_lag(x)
 
   expect_equal(xlag, x1)

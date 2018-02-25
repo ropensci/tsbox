@@ -37,24 +37,43 @@ bind_two <- function(a, b) {
   value_b <- NULL
 
   a <- ts_dts(copy(a))
-
-  if (!ts_boxable(b)) {
-    # this can be done prettier once rdts are worked out. For now, using
-    # ts obejcts for regularization
-    stopifnot(is.numeric(b))
-    a.ts <- ts_ts(a)
-    b <- ts(c(a.ts, b), start = start(a.ts), frequency = frequency(a.ts))
-  }
-
-  b <- ts_dts(copy(b))
-
-  stopifnot(inherits(a, "dts"), inherits(b, "dts"))
-
   colname.value <- colname_value(a)
   colname.time <- colname_time(a)
   colname.id <- colname_id(a)
 
-  # temporary, rename back at the end
+  # append scalars to dts object
+  if (!ts_boxable(b)) {
+    stopifnot(is.numeric(b))
+    a <- ts_regular(a)
+
+    add_scalar_one <- function(x) {
+      diffdt <- frequency_table(x$time)
+      # this is what we expect from a dts that went through ts_regular
+      stopifnot(nrow(diffdt) == 1)
+      stopifnot(diffdt$share == 1)
+
+      new.x <- data.table(
+        time = seq(from = max(x$time), length.out = length(b) + 1, by = diffdt$string)[-1],
+        value = b
+      )
+      rbind(x, new.x)
+    }
+
+    setnames(a, colname.time, "time")
+    setnames(a, colname.value, "value")
+    .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+    z <- a[
+      ,
+      add_scalar_one(.SD),
+      by = eval(.by)
+    ]
+    setnames(z, "value", colname.value)
+    setnames(z, "time", colname.time)
+    return(z)
+  }
+
+  b <- ts_dts(copy(b))
+
   setnames(a, colname.time, "time")
   setnames(b, colname_time(b), "time")
 

@@ -8,7 +8,7 @@ ts_compound <- function(x, denominator = 100) {
   value <- NULL
   z <- ts_dts(x)
   z <- ts_regular(z)
-
+  
   colname.id <- colname_id(z)
   colname.value <- colname_value(z)
   colname.time <- colname_time(z)
@@ -17,11 +17,14 @@ ts_compound <- function(x, denominator = 100) {
 
   z[, value := value / denominator + 1]
 
+  # Adding a future value to get the right length of time series
+  z <- ts_bind(ts_lag(z, -1), -99999)  
+
   .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
 
   z[
     ,
-    value := cumprod(value),
+    value := c(1, cumprod(value[-length(value)])),
     by = eval(.by)
   ]
   setnames(z, "value", colname.value)
