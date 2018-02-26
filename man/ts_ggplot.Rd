@@ -57,7 +57,7 @@ p
 p + theme_tsbox() + scale_color_tsbox()
 
 # also use themes with standard ggplot
-library(ggplot2)
+suppressMessages(library(ggplot2))
 df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
 ggplot(df, aes(x = time, y = value)) +
   facet_wrap("id") + 

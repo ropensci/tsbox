@@ -84,13 +84,13 @@ x.ts <- ts_c(mdeaths, fdeaths)
 head(x.ts)
 head(ts_df(x.ts))
 
-library(dplyr)
+suppressMessages(library(dplyr))
 head(ts_tbl(x.ts))
 
-library(data.table)
+suppressMessages(library(data.table))
 head(ts_dt(x.ts))
 
-library(xts)
+suppressMessages(library(xts))
 head(ts_xts(x.ts))
 
 # heuristic time conversion
