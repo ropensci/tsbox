@@ -120,7 +120,7 @@
     <p>Filter series for a time range.</p>
     
 
-    <pre class="usage"><span class='fu'>ts_window</span>(<span class='no'>x</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>ts_window</span>(<span class='no'>x</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>ts_start</span>(<span class='no'>x</span>)
 
@@ -140,6 +140,12 @@
     <tr>
       <th>end</th>
       <td><p>end date, character string, <code>Date</code> or <code>POSIXct</code>.</p></td>
+    </tr>
+    <tr>
+      <th>template</th>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>,
+<code>data.frame</code>, <code>data.table</code>, or <code>tibble</code>. If provided, <code>start</code> and <code>end</code>
+will be extracted from this object.</p></td>
     </tr>
     </table>
     

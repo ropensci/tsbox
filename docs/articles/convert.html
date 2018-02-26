@@ -187,9 +187,9 @@
 <p>However, for high frequencies, rounding errors can lead to unavoidable small differences when going from data frame to <code>"ts"</code> and back.</p>
 <p>Conversion does not work reliably if the frequency higher than one second. For these ultra high frequencies, tsbox is not tested and may not work as expected.</p>
 </div>
-<div id="regularization-of-predefined-frequencies" class="section level2">
+<div id="regularization" class="section level2">
 <h2 class="hasAnchor">
-<a href="#regularization-of-predefined-frequencies" class="anchor"></a>Regularization of predefined frequencies</h2>
+<a href="#regularization" class="anchor"></a>Regularization</h2>
 <p>In data frames or <code>"xts"</code> objects, missing values are generally omitted. These omitted missing values are called implicit, as opposite to explicit <code>NA</code> values. The function <code>ts_regular</code> allows the user to <em>regularize</em> a series, by making implicit missing values explicit.</p>
 <p>When regularizing, <code>ts_regular</code> analyzes the differences in the time stamp for known frequencies. If it detects any, it builds a regular sequence based on the highest known frequency, and tries to match the time stamps to the regular series. The result is a data frame or <code>"xts"</code> object with explicit missing values. Regularization is automatically done when an object is converted to a <code>"ts"</code> object.</p>
 <p>For example, the following time series contains an implicit <code>NA</code> value in February 1974:</p>
@@ -220,87 +220,87 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
+<td>31556952</td>
 <td>1 sec</td>
 </tr>
 <tr class="even">
-<td>2</td>
+<td>15778476</td>
 <td>2 sec</td>
 </tr>
 <tr class="odd">
-<td>5</td>
+<td>6311390</td>
 <td>5 sec</td>
 </tr>
 <tr class="even">
-<td>10</td>
+<td>3155695</td>
 <td>10 sec</td>
 </tr>
 <tr class="odd">
-<td>15</td>
+<td>2103797</td>
 <td>15 sec</td>
 </tr>
 <tr class="even">
-<td>20</td>
+<td>1577848</td>
 <td>20 sec</td>
 </tr>
 <tr class="odd">
-<td>30</td>
+<td>1051898</td>
 <td>30 sec</td>
 </tr>
 <tr class="even">
-<td>60</td>
+<td>525949.2</td>
 <td>1 min</td>
 </tr>
 <tr class="odd">
-<td>120</td>
+<td>262974.6</td>
 <td>2 min</td>
 </tr>
 <tr class="even">
-<td>300</td>
+<td>105189.8</td>
 <td>5 min</td>
 </tr>
 <tr class="odd">
-<td>600</td>
+<td>52594.92</td>
 <td>10 min</td>
 </tr>
 <tr class="even">
-<td>900</td>
+<td>35063.28</td>
 <td>15 min</td>
 </tr>
 <tr class="odd">
-<td>1200</td>
+<td>26297.46</td>
 <td>20 min</td>
 </tr>
 <tr class="even">
-<td>1800</td>
+<td>17531.64</td>
 <td>30 min</td>
 </tr>
 <tr class="odd">
-<td>3600</td>
+<td>8765.82</td>
 <td>1 hour</td>
 </tr>
 <tr class="even">
-<td>7200</td>
+<td>4382.91</td>
 <td>2 hour</td>
 </tr>
 <tr class="odd">
-<td>10800</td>
+<td>2921.94</td>
 <td>3 hour</td>
 </tr>
 <tr class="even">
-<td>14400</td>
+<td>2191.455</td>
 <td>4 hour</td>
 </tr>
 <tr class="odd">
-<td>21600</td>
+<td>1460.97</td>
 <td>6 hour</td>
 </tr>
 <tr class="even">
-<td>43200</td>
+<td>730.485</td>
 <td>12 hour</td>
 </tr>
 <tr class="odd">
-<td>86400</td>
+<td>365.2425</td>
 <td>1 day</td>
 </tr>
 </tbody>
@@ -316,7 +316,7 @@
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#heuristic-time-conversion">Heuristic time conversion</a></li>
       <li><a href="#exact-time-conversion">Exact time conversion</a></li>
-      <li><a href="#regularization-of-predefined-frequencies">Regularization of predefined frequencies</a></li>
+      <li><a href="#regularization">Regularization</a></li>
       </ul>
 </div>
       </div>

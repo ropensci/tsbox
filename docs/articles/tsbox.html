@@ -118,7 +118,7 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(x.df)
 <span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(x.dt)
 <span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(x.tbl)</code></pre></div>
-<p>There is a bunch of other transformation functions: <code>ts_trend</code>, which estimates a trend, functions to calculate differences, <code>ts_pc</code>, <code>ts_pcy</code>, <code>ts_diff</code>, <code>ts_diffy</code>; functions to shift regular or irregular time seeries, <code>ts_lag</code> and <code>ts_shift</code> and functions to construct indices, both from levels and percentage change rates: <code>ts_index</code> and <code>ts_compound</code>. For a full list of functions, check out the reference.</p>
+<p>There is a bunch of other transformation functions: <code>ts_trend</code>, which estimates a trend; functions to calculate differences, <code>ts_pc</code>, <code>ts_pcy</code>, <code>ts_diff</code>, <code>ts_diffy</code>; a function to shift series, <code>ts_lag</code>; functions to construct indices, both from levels and percentage change rates: <code>ts_index</code> and <code>ts_compound</code>. For a full list of functions, check out the reference.</p>
 </div>
 <div id="combine-multiple-time-series" class="section level3">
 <h3 class="hasAnchor">
@@ -139,12 +139,12 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <a href="#frequency-conversion-and-alignement" class="anchor"></a>Frequency conversion and alignement</h3>
 <p>There are functions to convert the frequency of time series and to regularize irregular time series. The following changes the frequency of two series to annual:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_frequency.html">ts_frequency</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(AirPassengers, austres), <span class="st">"year"</span>, sum)</code></pre></div>
-<p>We already met <code>ts_window</code>, which can be used to shorten time series. <code>ts_regular</code> makes irregular time series regular, and <code>ts_align</code> and <code>ts_union</code> can be used to align the length and frequency of time series.</p>
+<p>We already met <code>ts_window</code>, which can be used to limit the time span of a series. <code>ts_regular</code> makes irregular time series regular, by turning implicit missing values into explicit <code>NA</code>s.</p>
 </div>
 <div id="and-plot-just-about-everything" class="section level3">
 <h3 class="hasAnchor">
 <a href="#and-plot-just-about-everything" class="anchor"></a>And plot just about everything</h3>
-<p>Of course this also works for plotting. The basic function is <code>ts_plot</code>, a fast and simple plotting function without dependencies. It can be used with any ts-boxable time series, single or multiple, of any frequency.</p>
+<p>Of course, this works for plotting, too. The basic function is <code>ts_plot</code>, which can be used with any ts-boxable time series, single or multiple, of any frequency:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_plot.html">ts_plot</a></span>(AirPassengers, <span class="kw"><a href="../reference/ts_ts.html">ts_df</a></span>(lynx), <span class="kw"><a href="../reference/ts_ts.html">ts_xts</a></span>(fdeaths))</code></pre></div>
 <p>If you want to use different names than the object names, just name the arguments (and optionally set a title):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_plot.html">ts_plot</a></span>(
@@ -157,8 +157,8 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <div class="figure">
 <img src="fig/plot1.png">
 </div>
-<p>There is also a version that uses <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> that uses the same syntax. With <code><a href="../reference/theme_tsbox.html">theme_tsbox()</a></code> and s<code>cale_color_tsbox()</code>, the output of <code>ts_ggplot</code> is very similar to <code>ts_plot</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_plot.html">ts_ggplot</a></span>(<span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, austres, AirPassengers, <span class="dt">DAX =</span> EuStockMarkets[ ,<span class="st">'DAX'</span>])))</code></pre></div>
+<p>There is also a version that uses <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> that uses the same syntax. With <code><a href="../reference/ts_ggplot.html">theme_tsbox()</a></code> and s<code>cale_color_tsbox()</code>, the output of <code>ts_ggplot</code> is very similar to <code>ts_plot</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ts_ggplot</span>(<span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, austres, AirPassengers, <span class="dt">DAX =</span> EuStockMarkets[ ,<span class="st">'DAX'</span>])))</code></pre></div>
 </div>
 <div id="time-series-in-data-frames" class="section level3">
 <h3 class="hasAnchor">
@@ -186,7 +186,7 @@ dta <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(id <span class="op">==</span><span class="st"> "temp"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_trend.html">ts_trend</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_plot.html">ts_plot</a></span>()</code></pre></div>
-<p>And it also can be used in together with <a href="https://cran.r-project.org/web/packages/tibbletime/index.html">tibbletime</a> and <a href="https://cran.r-project.org/web/packages/tsibble/index.html">tsibble</a>.</p>
+<p>And it also can be used with <a href="https://cran.r-project.org/web/packages/tibbletime/index.html">tibbletime</a> and <a href="https://cran.r-project.org/web/packages/tsibble/index.html">tsibble</a>.</p>
 </div>
 </div>
   </div>

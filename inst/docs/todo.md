@@ -1,9 +1,20 @@
 - [X] ts_compound() should start at 1
 - [X] unify ts_lag and ts_shift?
 
-- [ ] ts_window(), extend regular series, fill w NA?
-- [ ] ts_align vs ts_union, bad naming
+- [C] ts_window(), extend regular series, fill w NA?
+- [X] ts_align vs ts_union, bad naming, one should be enough, -> ts_intersect, 
+      only keep common time stamps, no need to regularize, unless its ts
+      - removed altogther, they are confusing and unneeded. 
+      ts_window(template = ) is probably more useful.
+      
 - [ ] Avoid error when col order is wrong
+- [ ] How useful are the date_ functions?
+      for standard aggregation, we have now ts_frequency, 
+      for nonstandard aggregation, e.g. hours to weeks, we need something like 
+      lubridate anyway. Is there any usecase?
+
+      date_shift should prob become time_shift, mostly used internally 
+- [ ] ts_frequency with incomplete periods?
 
 
 - Documentation

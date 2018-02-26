@@ -1,70 +1,41 @@
-#' Align Time Series
-#'
-#' `ts_align` makes sure all time series cover the same time span and have the
-#' same regular frequency. `ts_union` only ensures that series have the same
-#' time stamps and also works with irregular series. For `ts` objects, the two
-#' functions have the same effect.
-#'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
-#' @param fill missign value specifier
-#' @return a ts-boxable time series, with the same class as the input.
-#'
-#' @export
-#' @examples
-#' ts_align(ts_df(ts_c(mdeaths, fdeaths = ts_window(fdeaths, end = "1977-01-01"))))
-ts_align <- function(x, fill = NA) {
-  stopifnot(length(fill) == 1)
-  x0 <- ts_ts(x)
-  # copy pasted from ts_dts.ts
-  value <- NULL
-  timec <- ts_to_date_time(x0)
-  m <- as.matrix(x0)
-  dta <- data.table(m)
-  dta[, time := timec]
-  if (ncol(m) == 1) {
-    return(x)
-  } else {
-    z <- long_core(dta)
-    if (!is.na(fill)) {
-      z[is.na(value), value := fill]
-    }
-  }
-  copy_class(z, x)
-}
+# #' Intersection or Union of Time Series (deprecated)
+# #'
+# #' `ts_intersect` reduces a multiple time series to the intersecting time
+# #' stamps. `ts_union` add `NA` to make them the same length.
+# #' 
+# #' This will be probably removed, as the usefulness in doubtful. For modelling,
+# #' `ts_wide` gives you what `ts_union` does, but in a more useful way. On
+# #' these wide data frames, we methods to remove NAs, e.g, 
+# #' [stats::complete.cases()], [stats::ts.intersect()]
+# #' 
+# #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+# #' @return a ts-boxable time series, with the same class as the input.
+# #'
+# #' @export
+# #' @examples
+# #' x <- ts_c(mdeaths, fdeaths = ts_window(fdeaths, end = "1977-01-01"))
+# #' ts_plot(x, ts_intersect(x) + 50)
+# ts_intersect <- function(x) {
 
+#   x1 <- combine_id_cols(ts_dts(x))
 
-#' @name ts_align
-#' @export
-ts_union <- function(x, fill = NA) {
-  stopifnot(length(fill) == 1)
+#   if (number_of_series(x1) == 1) return(x)
 
-  k <- NULL
-  value <- NULL
+#   ctime <- colname_time(x1)
+#   cid <- colname_id(x1)
 
-  x1 <- ts_dts(x)
+#   intersect_that_keeps_time_classes <- function (x, y) {
+#       unique(y[match(as.vector(x), y, 0L)])
+#   }
 
-  if (number_of_series(x1) == 1) return(x)
+#   l.time <- split(x1[[ctime]], x1[[cid]])
+#   intersect.time <- Reduce(intersect_that_keeps_time_classes, l.time)
 
-  # colname.value <- colname_value(x1)
-  colname.time <- colname_time(x1)
-  colname.id <- colname_id(x1)
+#   # # probably no point of having:
+#   # union.time <- sort(unique(do.call(c, split(x1[[ctime]], x1[[cid]]))))
 
-  full.time <- unique(x1[, colname.time, with = FALSE])
+#   z <- x1[x1[[ctime]] %in% intersect.time]
 
-  # all vars in the data
-  full.var <- unique(x1[, colname.id, with = FALSE])
-  full.var[, k := 1] # dummy merge variable
-  full.time[, k := 1]
+#   copy_class(z, x)
+# }
 
-  full.frame <- merge(full.var, full.time, by = "k", allow.cartesian = TRUE)
-  full.frame[, k := NULL]
-
-  z <- merge(full.frame, x1, by = colnames(full.frame), all.x = TRUE)
-
-  # this also overwrites existing NAs
-  if (!is.na(fill)) {
-    z[is.na(value), value := fill]
-  }
-
-  copy_class(z, x)
-}

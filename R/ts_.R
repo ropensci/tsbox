@@ -8,7 +8,7 @@ load_suggested <- function(pkg) {
   }
 }
 
-#' Constructing `ts_...` Functions
+#' Constructing ts-Functions
 #'
 #' `ts_` turns an existing function into a function that can deal with
 #'  ts-boxable time series objects.

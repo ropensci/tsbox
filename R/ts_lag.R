@@ -11,7 +11,7 @@
 #'
 #' If `by` is character, the time stamp is shifted by a specific amount of time.
 #' This can be one of one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
-#' `"month"`, `"quarter" or `"year"`, optionally preceded by a (positive or
+#' `"month"`, `"quarter" or `"year", optionally preceded by a (positive or
 #' negative) integer and a space, or followed by plural "s". This is passed to
 #' [base::seq.Date()]. This does not require the series to be regular.
 #' 
@@ -29,9 +29,12 @@
 #' ts_plot(AirPassengers, ts_lag(AirPassengers))
 #' head(ts_lag(AirPassengers, "1 month"))
 #' head(ts_lag(AirPassengers, "1 year"))
-#' ts_lag(AirPassengers, "14 day")
+#' head(ts_lag(ts_df(AirPassengers), "2 day"))
+#' # head(ts_lag(ts_df(AirPassengers), "2 min")) not yet working
 #' @export
-ts_lag <- function(x, by = 1L) {
+ts_lag <- function(x, by = 1) {
+
+  stopifnot(length(by) == 1)
 
   value <- NULL
 
@@ -61,6 +64,7 @@ ts_lag <- function(x, by = 1L) {
     
     spl <- strsplit(diffdt$string, split = " ")[[1]]
     str <- paste(by * as.numeric(spl[1]), spl[2])
+
     ts_lag(x, by = str)
   }
 

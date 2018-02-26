@@ -4,7 +4,7 @@
 \alias{ts_}
 \alias{load_suggested}
 \alias{ts_}
-\title{Constructing \code{ts_...} Functions}
+\title{Constructing ts-Functions}
 \usage{
 load_suggested(pkg)
 

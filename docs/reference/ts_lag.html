@@ -122,7 +122,7 @@ by a fixed amount of time." />
 by a fixed amount of time.</p>
     
 
-    <pre class="usage"><span class='fu'>ts_lag</span>(<span class='no'>x</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
+    <pre class="usage"><span class='fu'>ts_lag</span>(<span class='no'>x</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -151,7 +151,7 @@ stamp shifting causes the object to be irregular, a data frame is returned.</p>
 requires the series to be regular.</p>
 <p>If <code>by</code> is character, the time stamp is shifted by a specific amount of time.
 This can be one of one of <code>"sec"</code>, <code>"min"</code>, <code>"hour"</code>, <code>"day"</code>, <code>"week"</code>,
-<code>"month"</code>, <code>"quarter" or</code>"year"`, optionally preceded by a (positive or
+<code>"month"</code>, <code>"quarter" or</code>"year", optionally preceded by a (positive or
 negative) integer and a space, or followed by plural "s". This is passed to
 <code><a href='http://www.rdocumentation.org/packages/base/topics/seq.Date'>base::seq.Date()</a></code>. This does not require the series to be regular.</p>
     
@@ -164,151 +164,14 @@ shifting <code>Date</code> vectors.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='no'>AirPassengers</span>, <span class='fu'>ts_lag</span>(<span class='no'>AirPassengers</span>))</div><div class='img'><img src='ts_lag-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_lag</span>(<span class='no'>AirPassengers</span>, <span class='st'>"1 month"</span>))</div><div class='output co'>#&gt;      Feb Mar Apr May Jun Jul
 #&gt; 1949 112 118 132 129 121 135</div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_lag</span>(<span class='no'>AirPassengers</span>, <span class='st'>"1 year"</span>))</div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun
-#&gt; 1950 112 118 132 129 121 135</div><div class='input'><span class='fu'>ts_lag</span>(<span class='no'>AirPassengers</span>, <span class='st'>"14 day"</span>)</div><div class='output co'>#&gt; <span class='message'>time column needs to specified as the first date of the period, returning data.frame</span></div><div class='output co'>#&gt;           time value
-#&gt; 1   1949-01-15   112
-#&gt; 2   1949-02-15   118
-#&gt; 3   1949-03-15   132
-#&gt; 4   1949-04-15   129
-#&gt; 5   1949-05-15   121
-#&gt; 6   1949-06-15   135
-#&gt; 7   1949-07-15   148
-#&gt; 8   1949-08-15   148
-#&gt; 9   1949-09-15   136
-#&gt; 10  1949-10-15   119
-#&gt; 11  1949-11-15   104
-#&gt; 12  1949-12-15   118
-#&gt; 13  1950-01-15   115
-#&gt; 14  1950-02-15   126
-#&gt; 15  1950-03-15   141
-#&gt; 16  1950-04-15   135
-#&gt; 17  1950-05-15   125
-#&gt; 18  1950-06-15   149
-#&gt; 19  1950-07-15   170
-#&gt; 20  1950-08-15   170
-#&gt; 21  1950-09-15   158
-#&gt; 22  1950-10-15   133
-#&gt; 23  1950-11-15   114
-#&gt; 24  1950-12-15   140
-#&gt; 25  1951-01-15   145
-#&gt; 26  1951-02-15   150
-#&gt; 27  1951-03-15   178
-#&gt; 28  1951-04-15   163
-#&gt; 29  1951-05-15   172
-#&gt; 30  1951-06-15   178
-#&gt; 31  1951-07-15   199
-#&gt; 32  1951-08-15   199
-#&gt; 33  1951-09-15   184
-#&gt; 34  1951-10-15   162
-#&gt; 35  1951-11-15   146
-#&gt; 36  1951-12-15   166
-#&gt; 37  1952-01-15   171
-#&gt; 38  1952-02-15   180
-#&gt; 39  1952-03-15   193
-#&gt; 40  1952-04-15   181
-#&gt; 41  1952-05-15   183
-#&gt; 42  1952-06-15   218
-#&gt; 43  1952-07-15   230
-#&gt; 44  1952-08-15   242
-#&gt; 45  1952-09-15   209
-#&gt; 46  1952-10-15   191
-#&gt; 47  1952-11-15   172
-#&gt; 48  1952-12-15   194
-#&gt; 49  1953-01-15   196
-#&gt; 50  1953-02-15   196
-#&gt; 51  1953-03-15   236
-#&gt; 52  1953-04-15   235
-#&gt; 53  1953-05-15   229
-#&gt; 54  1953-06-15   243
-#&gt; 55  1953-07-15   264
-#&gt; 56  1953-08-15   272
-#&gt; 57  1953-09-15   237
-#&gt; 58  1953-10-15   211
-#&gt; 59  1953-11-15   180
-#&gt; 60  1953-12-15   201
-#&gt; 61  1954-01-15   204
-#&gt; 62  1954-02-15   188
-#&gt; 63  1954-03-15   235
-#&gt; 64  1954-04-15   227
-#&gt; 65  1954-05-15   234
-#&gt; 66  1954-06-15   264
-#&gt; 67  1954-07-15   302
-#&gt; 68  1954-08-15   293
-#&gt; 69  1954-09-15   259
-#&gt; 70  1954-10-15   229
-#&gt; 71  1954-11-15   203
-#&gt; 72  1954-12-15   229
-#&gt; 73  1955-01-15   242
-#&gt; 74  1955-02-15   233
-#&gt; 75  1955-03-15   267
-#&gt; 76  1955-04-15   269
-#&gt; 77  1955-05-15   270
-#&gt; 78  1955-06-15   315
-#&gt; 79  1955-07-15   364
-#&gt; 80  1955-08-15   347
-#&gt; 81  1955-09-15   312
-#&gt; 82  1955-10-15   274
-#&gt; 83  1955-11-15   237
-#&gt; 84  1955-12-15   278
-#&gt; 85  1956-01-15   284
-#&gt; 86  1956-02-15   277
-#&gt; 87  1956-03-15   317
-#&gt; 88  1956-04-15   313
-#&gt; 89  1956-05-15   318
-#&gt; 90  1956-06-15   374
-#&gt; 91  1956-07-15   413
-#&gt; 92  1956-08-15   405
-#&gt; 93  1956-09-15   355
-#&gt; 94  1956-10-15   306
-#&gt; 95  1956-11-15   271
-#&gt; 96  1956-12-15   306
-#&gt; 97  1957-01-15   315
-#&gt; 98  1957-02-15   301
-#&gt; 99  1957-03-15   356
-#&gt; 100 1957-04-15   348
-#&gt; 101 1957-05-15   355
-#&gt; 102 1957-06-15   422
-#&gt; 103 1957-07-15   465
-#&gt; 104 1957-08-15   467
-#&gt; 105 1957-09-15   404
-#&gt; 106 1957-10-15   347
-#&gt; 107 1957-11-15   305
-#&gt; 108 1957-12-15   336
-#&gt; 109 1958-01-15   340
-#&gt; 110 1958-02-15   318
-#&gt; 111 1958-03-15   362
-#&gt; 112 1958-04-15   348
-#&gt; 113 1958-05-15   363
-#&gt; 114 1958-06-15   435
-#&gt; 115 1958-07-15   491
-#&gt; 116 1958-08-15   505
-#&gt; 117 1958-09-15   404
-#&gt; 118 1958-10-15   359
-#&gt; 119 1958-11-15   310
-#&gt; 120 1958-12-15   337
-#&gt; 121 1959-01-15   360
-#&gt; 122 1959-02-15   342
-#&gt; 123 1959-03-15   406
-#&gt; 124 1959-04-15   396
-#&gt; 125 1959-05-15   420
-#&gt; 126 1959-06-15   472
-#&gt; 127 1959-07-15   548
-#&gt; 128 1959-08-15   559
-#&gt; 129 1959-09-15   463
-#&gt; 130 1959-10-15   407
-#&gt; 131 1959-11-15   362
-#&gt; 132 1959-12-15   405
-#&gt; 133 1960-01-15   417
-#&gt; 134 1960-02-15   391
-#&gt; 135 1960-03-15   419
-#&gt; 136 1960-04-15   461
-#&gt; 137 1960-05-15   472
-#&gt; 138 1960-06-15   535
-#&gt; 139 1960-07-15   622
-#&gt; 140 1960-08-15   606
-#&gt; 141 1960-09-15   508
-#&gt; 142 1960-10-15   461
-#&gt; 143 1960-11-15   390
-#&gt; 144 1960-12-15   432</div></pre>
+#&gt; 1950 112 118 132 129 121 135</div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_lag</span>(<span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>AirPassengers</span>), <span class='st'>"2 day"</span>))</div><div class='output co'>#&gt;         time value
+#&gt; 1 1949-01-03   112
+#&gt; 2 1949-02-03   118
+#&gt; 3 1949-03-03   132
+#&gt; 4 1949-04-03   129
+#&gt; 5 1949-05-03   121
+#&gt; 6 1949-06-03   135</div><div class='input'># head(ts_lag(ts_df(AirPassengers), "2 min")) not yet working
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

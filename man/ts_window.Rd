@@ -8,7 +8,7 @@
 \alias{ts_end}
 \title{Time Windows}
 \usage{
-ts_window(x, start = NULL, end = NULL)
+ts_window(x, start = NULL, end = NULL, template = NULL)
 
 ts_start(x)
 
@@ -20,6 +20,10 @@ ts_end(x)
 \item{start}{start date, character string, \code{Date} or \code{POSIXct}}
 
 \item{end}{end date, character string, \code{Date} or \code{POSIXct}.}
+
+\item{template}{ts-boxable time series, an object of class \code{ts}, \code{xts},
+\code{data.frame}, \code{data.table}, or \code{tibble}. If provided, \code{start} and \code{end}
+will be extracted from this object.}
 }
 \value{
 a ts-boxable time series, with the same class as the input.

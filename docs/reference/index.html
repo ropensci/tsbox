@@ -112,7 +112,7 @@
     <div class="page-header">
       <h1>
         Reference
-        <small>version&nbsp;0.0.13.1</small>
+        <small>version&nbsp;0.0.13.2</small>
       </h1>
     </div>
 
@@ -206,15 +206,15 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="ts_plot.html">ts_ggplot</a></code> <code><a href="ts_plot.html">ts_plot</a></code> </p>
+            <p><code><a href="ts_plot.html">ts_plot</a></code> </p>
           </td>
           <td><p>Plot Time Series</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="theme_tsbox.html">theme_tsbox</a></code> <code><a href="theme_tsbox.html">colors_tsbox</a></code> <code><a href="theme_tsbox.html">scale_color_tsbox</a></code> <code><a href="theme_tsbox.html">scale_fill_tsbox</a></code> </p>
+            <p><code><a href="ts_ggplot.html">ts_ggplot</a></code> <code><a href="ts_ggplot.html">theme_tsbox</a></code> <code><a href="ts_ggplot.html">colors_tsbox</a></code> <code><a href="ts_ggplot.html">scale_color_tsbox</a></code> <code><a href="ts_ggplot.html">scale_fill_tsbox</a></code> </p>
           </td>
-          <td><p>ggplot Theme for tsbox</p></td>
+          <td><p>Plot Time Series, Using ggplot2</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -239,8 +239,8 @@
       </tbody><tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-frequency" class="hasAnchor"><a href="#section-frequency" class="anchor"></a>Frequency</h2>
-            <p class="section-desc"><p>Functions to convert the frequency of time series and to regularize irregular time series</p></p>
+            <h2 id="section-frequency-and-time-span" class="hasAnchor"><a href="#section-frequency-and-time-span" class="anchor"></a>Frequency and time span</h2>
+            <p class="section-desc"><p>Functions to manipulate the frequency and time span</p></p>
           </th>
         </tr>
         <tr>
@@ -249,6 +249,12 @@
             <p><code><a href="ts_frequency.html">ts_frequency</a></code> </p>
           </td>
           <td><p>Change Frequency</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="ts_window.html">ts_window</a></code> <code><a href="ts_window.html">ts_start</a></code> <code><a href="ts_window.html">ts_end</a></code> </p>
+          </td>
+          <td><p>Time Windows</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -261,26 +267,6 @@
             <p><code><a href="ts_na_omit.html">ts_na_omit</a></code> </p>
           </td>
           <td><p>Omit NA values</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-align" class="hasAnchor"><a href="#section-align" class="anchor"></a>Align</h2>
-            <p class="section-desc"><p>Functions to align the length or the frequency of time series</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_window.html">ts_window</a></code> <code><a href="ts_window.html">ts_start</a></code> <code><a href="ts_window.html">ts_end</a></code> </p>
-          </td>
-          <td><p>Time Windows</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_align.html">ts_align</a></code> <code><a href="ts_align.html">ts_union</a></code> </p>
-          </td>
-          <td><p>Align Time Series</p></td>
         </tr>
       </tbody><tbody>
         <tr>
@@ -300,7 +286,7 @@
           <td>
             <p><code><a href="ts_.html">load_suggested</a></code> <code><a href="ts_.html">ts_</a></code> </p>
           </td>
-          <td><p>Constructing <code>ts_...</code> Functions</p></td>
+          <td><p>Constructing ts-Functions</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -367,8 +353,7 @@
       <li><a href="#section-transform">Transform</a></li>
       <li><a href="#section-plot">Plot</a></li>
       <li><a href="#section-reshape">Reshape</a></li>
-      <li><a href="#section-frequency">Frequency</a></li>
-      <li><a href="#section-align">Align</a></li>
+      <li><a href="#section-frequency-and-time-span">Frequency and time span</a></li>
       <li><a href="#section-user-defined-ts-functions">User defined ts-functions</a></li>
       <li><a href="#section-working-with-dates">Working with dates</a></li>
       <li><a href="#section-arithmetic-operators">Arithmetic operators</a></li>

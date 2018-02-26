@@ -60,22 +60,14 @@ reference:
   - ts_wide
   - ts_long 
 
-- title: Frequency
-  desc: >
-    Functions to convert the frequency of time series and to regularize
-    irregular time series
-  contents:
-  - ts_frequency
-  - ts_regular 
-  - ts_na_omit
-
 - title: Align
   desc: >
-    Functions to align the length or the frequency of time series
+    Functions to manipulate the frequency and time span
   contents:
+  - ts_frequency
   - ts_window
-  - ts_align 
-  - ts_union 
+  - ts_regular 
+  - ts_na_omit
 
 - title: User defined ts-functions
   desc: >

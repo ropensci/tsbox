@@ -7,7 +7,7 @@
 ts_dts(x)
 }
 \arguments{
-\item{x}{a tsboxable object}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 }
 \description{
 Internal Time Series Class

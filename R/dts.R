@@ -8,7 +8,7 @@
 
 #' Internal Time Series Class
 #'
-#' @param x a tsboxable object
+#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @export
 ts_dts <- function(x) {
   UseMethod("ts_dts")

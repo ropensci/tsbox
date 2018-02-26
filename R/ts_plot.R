@@ -1,14 +1,10 @@
 .ts_lastplot_env <- new.env(parent = emptyenv())
 #' Plot Time Series
 #'
-#' `ts_plot` is a fast and simple plotting function for ts-boxable time series,
-#' with limited customizeability. `ts_ggplot` produces a similar plot, but uses
-#' the [ggplot2](http://ggplot2.org/) graphic system, and can be customized.
+#' `ts_plot()` is a fast and simple plotting function for ts-boxable time series,
+#' with limited customizeability. For more theming options, use [ts_ggplot()].
 #' 
-#' With [theme_tsbox()] and [scale_color_tsbox()], the output of `ts_ggplot` is
-#' very similar to `ts_plot`.
-#' 
-#' Both `ts_plot` and `ts_ggplot` combine multiple ID dimensions into a single
+#' Both `ts_plot()` and [ts_ggplot()] combine multiple ID dimensions into a single
 #' dimension. To plot mulitple dimensions in different shapes, facets, etc., use
 #' standard ggplot.
 #'
@@ -17,7 +13,8 @@
 #' @param subtitle subtitle (optional)
 #' @param ylab ylab (optional)
 #' @param family font family (optional, can also be set via `options`)
-#' @seealso [ts_dygraphs()], for interactive time series plots. [ts_save()] to
+#' @seealso [ts_ggplot()], for a plotting function based on ggplot2. 
+#'   [ts_dygraphs()], for interactive time series plots. [ts_save()] to
 #'   save a plot to the file system.
 #' @examples
 #' ts_plot(
@@ -36,29 +33,6 @@
 #'   ts_xts(JohnsonJohnson), 
 #'   ts_df(discoveries)
 #' )))
-#'
-#' # using the ggplot2 graphic system
-#' p <- ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
-#' p
-#' 
-#' # with themes for the look and feel of ts_plot()
-#' p + theme_tsbox() + scale_color_tsbox()
-#'
-#' \dontrun{
-#' library(dataseries)
-#' dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
-#' ts_ggplot(ts_scale(ts_window(
-#'     ts_c(
-#'       `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
-#'       `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']
-#'     ),
-#'     start = "1995-01-01"
-#'   ))) +
-#'   ggplot2::ggtitle("GDP and Consumer Sentiment", subtitle = "normalized values") +
-#'   theme_tsbox() +
-#'   scale_color_tsbox()
-#' }
-#'
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff

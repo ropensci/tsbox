@@ -5,6 +5,9 @@
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param start start date, character string, `Date` or `POSIXct`
 #' @param end end date, character string, `Date` or `POSIXct`.
+#' @param template ts-boxable time series, an object of class `ts`, `xts`, 
+#'   `data.frame`, `data.table`, or `tibble`. If provided, `start` and `end` 
+#'   will be extracted from this object.
 #' @return a ts-boxable time series, with the same class as the input.
 #' @export
 #' @examples
@@ -13,9 +16,16 @@
 #'
 #' ms <- ts_window(mdeaths, end = "1976-12-01")
 #' ts_window(ts_c(fdeaths, ms), start = ts_start(ms), end = ts_end(ms))
-ts_window <- function(x, start = NULL, end = NULL) {
+ts_window <- function(x, start = NULL, end = NULL, template = NULL) {
   z <- ts_dts(x)
   ctime <- colname_time(z)
+
+  if (!is.null(template)){
+    xdts <- ts_dts(template)
+    rr <- range(xdts[[colname_time(xdts)]])
+    start <- rr[1]
+    end <- rr[2]
+  }
 
   # Outfactor in universal anytime wrapper?
   if_num_char <- function(x){

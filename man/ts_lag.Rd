@@ -4,7 +4,7 @@
 \alias{ts_lag}
 \title{Lag or Lead of Time Series}
 \usage{
-ts_lag(x, by = 1L)
+ts_lag(x, by = 1)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
@@ -29,7 +29,7 @@ requires the series to be regular.
 
 If \code{by} is character, the time stamp is shifted by a specific amount of time.
 This can be one of one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
-\code{"month"}, \code{"quarter" or}"year"`, optionally preceded by a (positive or
+\code{"month"}, \code{"quarter" or}"year", optionally preceded by a (positive or
 negative) integer and a space, or followed by plural "s". This is passed to
 \code{\link[base:seq.Date]{base::seq.Date()}}. This does not require the series to be regular.
 }
@@ -37,7 +37,8 @@ negative) integer and a space, or followed by plural "s". This is passed to
 ts_plot(AirPassengers, ts_lag(AirPassengers))
 head(ts_lag(AirPassengers, "1 month"))
 head(ts_lag(AirPassengers, "1 year"))
-ts_lag(AirPassengers, "14 day")
+head(ts_lag(ts_df(AirPassengers), "2 day"))
+# head(ts_lag(ts_df(AirPassengers), "2 min")) not yet working
 }
 \seealso{
 \code{\link[=ts_lag]{ts_lag()}}, for shifting regular series. \code{\link[=date_shift]{date_shift()}}, for

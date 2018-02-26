@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Time Series — ts_ggplot • tsbox</title>
+<title>Plot Time Series — ts_plot • tsbox</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,11 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Plot Time Series — ts_ggplot" />
+<meta property="og:title" content="Plot Time Series — ts_plot" />
 
-<meta property="og:description" content="ts_plot is a fast and simple plotting function for ts-boxable time series,
-with limited customizeability. ts_ggplot produces a similar plot, but uses
-the ggplot2 graphic system, and can be customized." />
+<meta property="og:description" content="ts_plot() is a fast and simple plotting function for ts-boxable time series,
+with limited customizeability. For more theming options, use ts_ggplot()." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -119,14 +118,11 @@ the ggplot2 graphic system, and can be customized." />
     </div>
 
     
-    <p><code>ts_plot</code> is a fast and simple plotting function for ts-boxable time series,
-with limited customizeability. <code>ts_ggplot</code> produces a similar plot, but uses
-the <a href='http://ggplot2.org/'>ggplot2</a> graphic system, and can be customized.</p>
+    <p><code>ts_plot()</code> is a fast and simple plotting function for ts-boxable time series,
+with limited customizeability. For more theming options, use <code>ts_ggplot()</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>ts_ggplot</span>(<span class='no'>...</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>""</span>)
-
-<span class='fu'>ts_plot</span>(<span class='no'>...</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"ts_font"</span>,
+    <pre class="usage"><span class='fu'>ts_plot</span>(<span class='no'>...</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"ts_font"</span>,
   <span class='st'>"sans"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -156,15 +152,14 @@ the <a href='http://ggplot2.org/'>ggplot2</a> graphic system, and can be customi
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>With <code><a href='theme_tsbox.html'>theme_tsbox()</a></code> and <code><a href='theme_tsbox.html'>scale_color_tsbox()</a></code>, the output of <code>ts_ggplot</code> is
-very similar to <code>ts_plot</code>.</p>
-<p>Both <code>ts_plot</code> and <code>ts_ggplot</code> combine multiple ID dimensions into a single
+    <p>Both <code>ts_plot()</code> and <code>ts_ggplot()</code> combine multiple ID dimensions into a single
 dimension. To plot mulitple dimensions in different shapes, facets, etc., use
 standard ggplot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='ts_examples.html'>ts_dygraphs()</a></code>, for interactive time series plots. <code><a href='ts_save.html'>ts_save()</a></code> to
+    <p><code>ts_ggplot()</code>, for a plotting function based on ggplot2.
+<code><a href='ts_examples.html'>ts_dygraphs()</a></code>, for interactive time series plots. <code><a href='ts_save.html'>ts_save()</a></code> to
 save a plot to the file system.</p>
     
 
@@ -182,27 +177,7 @@ save a plot to the file system.</p>
   <span class='fu'><a href='ts_ts.html'>ts_tbl</a></span>(<span class='no'>co2</span>),
   <span class='fu'><a href='ts_ts.html'>ts_xts</a></span>(<span class='no'>JohnsonJohnson</span>),
   <span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>discoveries</span>)
-)))</div><div class='img'><img src='ts_plot-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># using the ggplot2 graphic system</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_ggplot</span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='no'>ldeaths</span>, <span class='kw'>female</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>, <span class='kw'>male</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>)
-<span class='no'>p</span></div><div class='img'><img src='ts_plot-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># with themes for the look and feel of ts_plot()</span>
-<span class='no'>p</span> + <span class='fu'><a href='theme_tsbox.html'>theme_tsbox</a></span>() + <span class='fu'><a href='theme_tsbox.html'>scale_color_tsbox</a></span>()</div><div class='img'><img src='ts_plot-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>library</span>(<span class='no'>dataseries</span>)
-<span class='no'>dta</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/dataseries/topics/ds'>ds</a></span>(<span class='fu'>c</span>(<span class='st'>"GDP.PBRTT.A.R"</span>, <span class='st'>"CCI.CCIIR"</span>), <span class='st'>"xts"</span>)
-<span class='fu'>ts_ggplot</span>(<span class='fu'><a href='ts_scale.html'>ts_scale</a></span>(<span class='fu'>ts_window</span>(
-    <span class='fu'><a href='ts_c.html'>ts_c</a></span>(
-      <span class='kw'>`GDP Growth`</span> <span class='kw'>=</span> <span class='fu'>ts_pc</span>(<span class='no'>dta</span>[, <span class='st'>'GDP.PBRTT.A.R'</span>]),
-      <span class='kw'>`Consumer Sentiment Index`</span> <span class='kw'>=</span> <span class='no'>dta</span>[, <span class='st'>'CCI.CCIIR'</span>]
-    ),
-    <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1995-01-01"</span>
-  ))) +
-  <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/labs'>ggtitle</a></span>(<span class='st'>"GDP and Consumer Sentiment"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"normalized values"</span>) +
-  <span class='fu'><a href='theme_tsbox.html'>theme_tsbox</a></span>() +
-  <span class='fu'><a href='theme_tsbox.html'>scale_color_tsbox</a></span>()
-<span class='co'># }</span><div class='input'>
-</div></pre>
+)))</div><div class='img'><img src='ts_plot-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -71,11 +71,10 @@ ts_scale(x.tbl)
 ```
 
 There is a bunch of other transformation functions: `ts_trend`, which estimates
-a trend, functions to calculate differences, `ts_pc`, `ts_pcy`, `ts_diff`,
-`ts_diffy`; functions to shift regular or irregular time seeries, `ts_lag` and
-`ts_shift` and functions to construct indices, both from levels and percentage
-change rates: `ts_index` and `ts_compound`. For a full list of functions, check
-out the reference.
+a trend; functions to calculate differences, `ts_pc`, `ts_pcy`, `ts_diff`,
+`ts_diffy`; a function to shift series, `ts_lag`; functions to construct
+indices, both from levels and percentage change rates: `ts_index` and
+`ts_compound`. For a full list of functions, check out the reference.
 
 
 ### Combine multiple time series
@@ -121,15 +120,15 @@ annual:
 ts_frequency(ts_c(AirPassengers, austres), "year", sum)
 ```
 
-We already met `ts_window`, which can be used to shorten time series.
-`ts_regular` makes irregular time series regular, and `ts_align` and `ts_union`
-can be used to align the length and frequency of time series.
+We already met `ts_window`, which can be used to limit the time span of a
+series. `ts_regular` makes irregular time series regular, by turning implicit
+missing values into explicit `NA`s.
 
 ### And plot just about everything
 
-Of course this also works for plotting. The basic function is `ts_plot`, a 
-fast and simple plotting function without dependencies. It can be used with any
-ts-boxable time series, single or multiple, of any frequency.
+Of course, this works for plotting, too. The basic function is `ts_plot`, which
+can be used with any ts-boxable time series, single or multiple, of any
+frequency:
 
 ```r
 ts_plot(AirPassengers, ts_df(lynx), ts_xts(fdeaths))
@@ -206,4 +205,4 @@ dta %>%
 
 ```
 
-And it also can be used in together with [tibbletime](https://cran.r-project.org/web/packages/tibbletime/index.html) and [tsibble](https://cran.r-project.org/web/packages/tsibble/index.html).
+And it also can be used with [tibbletime](https://cran.r-project.org/web/packages/tibbletime/index.html) and [tsibble](https://cran.r-project.org/web/packages/tsibble/index.html).
