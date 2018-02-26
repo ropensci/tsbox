@@ -97,9 +97,9 @@
 <p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong> or <strong>tibble</strong> to each other. Because this works reliably and without user input, we can easily write functions that work for all classes. So whether we want to smooth, scale, differentiate, chain, forecast, regularize or seasonally adjust a time series, we can use the same commands to whatever time series class at hand. And, most conveniently, we get a time series plot function that works for all classes and frequencies.</p>
 <p>To install:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"christophsax/tsbox"</span>)</code></pre></div>
-<div id="convert-everything-to-everything" class="section level3">
-<h3 class="hasAnchor">
-<a href="#convert-everything-to-everything" class="anchor"></a>Convert everything to everything</h3>
+<div id="convert-everything-to-everything" class="section level2">
+<h2 class="hasAnchor">
+<a href="#convert-everything-to-everything" class="anchor"></a>Convert everything to everything</h2>
 <p>tsbox can convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong> or <strong>tibble</strong> to each other:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tsbox)
 x.ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths)
@@ -108,9 +108,9 @@ x.df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 x.tbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_tbl</a></span>(x.df)
 x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_dt</a></span>(x.tbl)</code></pre></div>
 </div>
-<div id="use-same-functions-for-ts-xts-data-frame-data-table-or-tibble" class="section level3">
-<h3 class="hasAnchor">
-<a href="#use-same-functions-for-ts-xts-data-frame-data-table-or-tibble" class="anchor"></a>Use same functions for ts, xts, data.frame, data.table or tibble</h3>
+<div id="use-same-functions-for-ts-xts-data-frame-data-table-or-tibble" class="section level2">
+<h2 class="hasAnchor">
+<a href="#use-same-functions-for-ts-xts-data-frame-data-table-or-tibble" class="anchor"></a>Use same functions for ts, xts, data.frame, data.table or tibble</h2>
 <p>tsbox provides a basic toolkit for handling time series. These functions start with <code>ts_</code>, so you use them with auto complete (press Tab). These functions work with any <em>ts-boxable</em> time series, ts, xts, data.frame, data.table or tibble, and <strong>return the class of their inputs</strong>.</p>
 <p>For example, the <code>ts_scale</code> function performs <em>normalization</em> - it subtracts the mean and divides by the standard deviation of series. Like almost all ts- functions, it can be used with on any ts-boxable object, with single or multiple time series. Because <code>ts_scale</code> normalizes time series, it is useful to make different time series comparable. All of the following operations perform the same task, but return the same object class as the input:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(x.ts)           
@@ -120,10 +120,10 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(x.tbl)</code></pre></div>
 <p>There is a bunch of other transformation functions: <code>ts_trend</code>, which estimates a trend; functions to calculate differences, <code>ts_pc</code>, <code>ts_pcy</code>, <code>ts_diff</code>, <code>ts_diffy</code>; a function to shift series, <code>ts_lag</code>; functions to construct indices, both from levels and percentage change rates: <code>ts_index</code> and <code>ts_compound</code>. For a full list of functions, check out the reference.</p>
 </div>
-<div id="combine-multiple-time-series" class="section level3">
-<h3 class="hasAnchor">
-<a href="#combine-multiple-time-series" class="anchor"></a>Combine multiple time series</h3>
-<p>A set of helper functions makes it easy to combine or align multiple time series, even if their classes are different. The basic workhorse is <code>ts_c</code>, which simply collect time series. Again, these series single or multiple series of any ts-boxable class:</p>
+<div id="combine-multiple-time-series" class="section level2">
+<h2 class="hasAnchor">
+<a href="#combine-multiple-time-series" class="anchor"></a>Combine multiple time series</h2>
+<p>A set of helper functions makes it easy to combine multiple time series, even if their classes are different. The basic workhorse is <code>ts_c</code>, which simply collect time series. Again, this works with single or multiple series of any ts-boxable class:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(<span class="kw"><a href="../reference/ts_ts.html">ts_dt</a></span>(EuStockMarkets), AirPassengers)
 <span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(<span class="kw"><a href="../reference/ts_ts.html">ts_tbl</a></span>(mdeaths), EuStockMarkets, <span class="kw"><a href="../reference/ts_ts.html">ts_xts</a></span>(lynx))</code></pre></div>
 <p>If you want to choose a different name for single series, name the arguments:</p>
@@ -134,16 +134,16 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">md.short &lt;-<span class="st"> </span><span class="kw">ts_window</span>(mdeaths, <span class="dt">end =</span> <span class="st">"1976-12-01"</span>)
 <span class="kw"><a href="../reference/ts_bind.html">ts_chain</a></span>(md.short, fdeaths)</code></pre></div>
 </div>
-<div id="frequency-conversion-and-alignement" class="section level3">
-<h3 class="hasAnchor">
-<a href="#frequency-conversion-and-alignement" class="anchor"></a>Frequency conversion and alignement</h3>
+<div id="frequency-conversion-and-alignement" class="section level2">
+<h2 class="hasAnchor">
+<a href="#frequency-conversion-and-alignement" class="anchor"></a>Frequency conversion and alignement</h2>
 <p>There are functions to convert the frequency of time series and to regularize irregular time series. The following changes the frequency of two series to annual:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_frequency.html">ts_frequency</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(AirPassengers, austres), <span class="st">"year"</span>, sum)</code></pre></div>
 <p>We already met <code>ts_window</code>, which can be used to limit the time span of a series. <code>ts_regular</code> makes irregular time series regular, by turning implicit missing values into explicit <code>NA</code>s.</p>
 </div>
-<div id="and-plot-just-about-everything" class="section level3">
-<h3 class="hasAnchor">
-<a href="#and-plot-just-about-everything" class="anchor"></a>And plot just about everything</h3>
+<div id="and-plot-just-about-everything" class="section level2">
+<h2 class="hasAnchor">
+<a href="#and-plot-just-about-everything" class="anchor"></a>And plot just about everything</h2>
 <p>Of course, this works for plotting, too. The basic function is <code>ts_plot</code>, which can be used with any ts-boxable time series, single or multiple, of any frequency:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_plot.html">ts_plot</a></span>(AirPassengers, <span class="kw"><a href="../reference/ts_ts.html">ts_df</a></span>(lynx), <span class="kw"><a href="../reference/ts_ts.html">ts_xts</a></span>(fdeaths))</code></pre></div>
 <p>If you want to use different names than the object names, just name the arguments (and optionally set a title):</p>
@@ -160,9 +160,9 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <p>There is also a version that uses <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> that uses the same syntax. With <code><a href="../reference/ts_ggplot.html">theme_tsbox()</a></code> and s<code>cale_color_tsbox()</code>, the output of <code>ts_ggplot</code> is very similar to <code>ts_plot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ts_ggplot</span>(<span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, austres, AirPassengers, <span class="dt">DAX =</span> EuStockMarkets[ ,<span class="st">'DAX'</span>])))</code></pre></div>
 </div>
-<div id="time-series-in-data-frames" class="section level3">
-<h3 class="hasAnchor">
-<a href="#time-series-in-data-frames" class="anchor"></a>Time series in data frames</h3>
+<div id="time-series-in-data-frames" class="section level2">
+<h2 class="hasAnchor">
+<a href="#time-series-in-data-frames" class="anchor"></a>Time series in data frames</h2>
 <p>Thanks to packages such as <code>data.table</code> and <code>dplyr</code>, data frames have become the dominant data structure in R, and storing time series in a data frame is a natural consequence from this. And even if you don’t intend to keep your time series in data frames, this is the format in which you import and export the data.</p>
 <p>In data frames, i.e., in a <code>data.frame</code>, a <code>data.table</code>, or a <code>tibble</code>, tsbox stores one or multiple time series in the ‘long’ format. tsbox detects a <em>value</em>, a <em>time</em> and zero, one or several <em>id</em> columns. Column detection is done in the following order:</p>
 <ol style="list-style-type: decimal">
@@ -172,9 +172,9 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 </ol>
 <p><strong>Alternatively</strong>, the time column and the value column to be <strong>explicitly named</strong> as <code>time</code> and <code>value</code>. If explicit names are used, the column order will be ignored. If column are detected automatically, a message is returned.</p>
 </div>
-<div id="using-tsbox-in-a-dplyr-pipe-workflow" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-tsbox-in-a-dplyr-pipe-workflow" class="anchor"></a>Using tsbox in a dplyr / pipe workflow</h3>
+<div id="using-tsbox-in-a-dplyr-pipe-workflow" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-tsbox-in-a-dplyr-pipe-workflow" class="anchor"></a>Using tsbox in a dplyr / pipe workflow</h2>
 <p>tsbox works well with tibbles and with <code>%&gt;%</code>, so it can be nicely integrated into a dplyr workflow:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(nycflights13)
@@ -192,6 +192,19 @@ dta <span class="op">%&gt;%</span><span class="st"> </span>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#convert-everything-to-everything">Convert everything to everything</a></li>
+      <li><a href="#use-same-functions-for-ts-xts-data-frame-data-table-or-tibble">Use same functions for ts, xts, data.frame, data.table or tibble</a></li>
+      <li><a href="#combine-multiple-time-series">Combine multiple time series</a></li>
+      <li><a href="#frequency-conversion-and-alignement">Frequency conversion and alignement</a></li>
+      <li><a href="#and-plot-just-about-everything">And plot just about everything</a></li>
+      <li><a href="#time-series-in-data-frames">Time series in data frames</a></li>
+      <li><a href="#using-tsbox-in-a-dplyr-pipe-workflow">Using tsbox in a dplyr / pipe workflow</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

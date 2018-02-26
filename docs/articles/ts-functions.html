@@ -91,11 +91,27 @@
     
     
 <div class="contents">
+<div id="writing-ts-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#writing-ts-functions" class="anchor"></a>Writing ts-functions</h2>
 <p>It is staightforward to turn existing functions into functions that can deal with any ts-boxable object.</p>
 <p>The <code>ts_</code> function is a constructor function for tsbox time series functions. It can be used to wrap any function that works with time series. The default is set to R base <code>"ts"</code> class, so wrapping functions for <code>"ts"</code> time series (or vectors or matrices) is as simple as:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ts_</span>(diff)(AirPassengers)
-<span class="kw">ts_</span>(rowSums)(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</code></pre></div>
-<p>Note that <code>ts_</code> returns a function, which can be used without a name, as in the examples above, or with a name, as in the following, sligthly more complex example, which uses a post processing function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ts_rowsums &lt;-<span class="st"> </span><span class="kw">ts_</span>(rowSums)
+<span class="kw">ts_rowsums</span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</code></pre></div>
+<p>Note that <code>ts_</code> returns a function, which can be with or without a name. Let’ have a closer look at how <code>ts_rowsums</code> looks like:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ts_rowsums
+<span class="co">#&gt; function (x, ...) </span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     stopifnot(ts_boxable(x))</span>
+<span class="co">#&gt;     z &lt;- rowSums(ts_ts(x), ...)</span>
+<span class="co">#&gt;     copy_class(z, x)</span>
+<span class="co">#&gt; }</span></code></pre></div>
+<p>This is how most ts-functions work. They use a specific converter function (here: <code>ts_ts</code>) to convert a ts boxable object to the desired class. They then perform the main operation on the object (here: <code>rowSums</code>). Finally they convert the result back to the original class, using <code>copy_class</code>.</p>
+</div>
+<div id="functions-from-external-packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#functions-from-external-packages" class="anchor"></a>Functions from external Packages</h2>
+<p>Here is a sligthly more complex example, which uses a post processing function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ts_prcomp &lt;-<span class="st"> </span><span class="kw">ts_</span>(<span class="cf">function</span>(x) <span class="kw">predict</span>(<span class="kw">prcomp</span>(x, <span class="dt">scale =</span> <span class="ot">TRUE</span>)))
 <span class="kw"><a href="../reference/ts_examples.html">ts_prcomp</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</code></pre></div>
 <p>It is easy to make functions from external packages ts-boxable, by wrapping them into <code>ts_</code>.</p>
@@ -108,10 +124,33 @@ ts_seas &lt;-<span class="st"> </span><span class="kw">ts_</span>(<span class="c
 <span class="kw"><a href="../reference/ts_examples.html">ts_seas</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</code></pre></div>
 <p>If you are explicit about the namespace (e.g., <code><a href="http://www.rdocumentation.org/packages/dygraphs/topics/dygraph">dygraphs::dygraph</a></code>), <code>ts_</code> recognized the package in use and delives a meaningful message if the package is not installed.</p>
 <p>Note that the <code>ts_</code> function deals with the conversion stuff, ‘vectorizes’ the function so that it can be used with multiple time series.</p>
+<p>Let’ have another look at <code>ts_forecast</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ts_forecast
+<span class="co">#&gt; function (x, ...) </span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     load_suggested("forecast")</span>
+<span class="co">#&gt;     ff &lt;- function(x, ...) {</span>
+<span class="co">#&gt;         stopifnot(ts_boxable(x))</span>
+<span class="co">#&gt;         z &lt;- (function(x) forecast::forecast(x)$mean)(ts_ts(x), </span>
+<span class="co">#&gt;             ...)</span>
+<span class="co">#&gt;         copy_class(z, x)</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     ts_apply(x, ff, ...)</span>
+<span class="co">#&gt; }</span></code></pre></div>
+<p>There three main differences here: First, the function requires the forecast package. If it is not installed, <code>load_suggested</code> will ask the user to do so. Second, the function in use is an anonymous function, <code>function(x) forecast::forecast(x)$mean</code>, that also extracts the <code>mean</code> from the result. Third, the function is ‘verctorized’, using <code>ts_apply</code>. This causes the process to be repeated for each time series in the object.</p>
+</div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#writing-ts-functions">Writing ts-functions</a></li>
+      <li><a href="#functions-from-external-packages">Functions from external Packages</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
