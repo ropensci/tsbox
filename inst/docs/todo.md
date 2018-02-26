@@ -8,12 +8,16 @@
       ts_window(template = ) is probably more useful.
       
 - [ ] Avoid error when col order is wrong
+
 - [ ] How useful are the date_ functions?
       for standard aggregation, we have now ts_frequency, 
       for nonstandard aggregation, e.g. hours to weeks, we need something like 
       lubridate anyway. Is there any usecase?
 
       date_shift should prob become time_shift, mostly used internally 
+
+      if time_shift works ts_lag will work with high freq as well
+
 - [ ] ts_frequency with incomplete periods?
 
 

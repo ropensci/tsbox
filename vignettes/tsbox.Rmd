@@ -33,7 +33,7 @@ To install:
 remotes::install_github("christophsax/tsbox")
 ```
 
-### Convert everything to everything
+## Convert everything to everything
 
 tsbox can convert time series stored as **ts**, **xts**, **data.frame**,
 **data.table** or **tibble** to each other:
@@ -48,7 +48,7 @@ x.dt <- ts_dt(x.tbl)
 
 ```
 
-### Use same functions for ts, xts, data.frame, data.table or tibble
+## Use same functions for ts, xts, data.frame, data.table or tibble
 
 tsbox provides a basic toolkit for handling time series. These functions start
 with `ts_`, so you use them with auto complete (press Tab). These functions work
@@ -77,12 +77,12 @@ indices, both from levels and percentage change rates: `ts_index` and
 `ts_compound`. For a full list of functions, check out the reference.
 
 
-### Combine multiple time series
+## Combine multiple time series
 
-A set of helper functions makes it easy to combine or align multiple time
-series, even if their classes are different. The basic workhorse is `ts_c`,
-which simply collect time series. Again, these series single or multiple series
-of any ts-boxable class:
+A set of helper functions makes it easy to combine multiple time series, even if
+their classes are different. The basic workhorse is `ts_c`, which simply collect
+time series. Again, this works with single or multiple series of any ts-boxable
+class:
 
 ```r
 ts_c(ts_dt(EuStockMarkets), AirPassengers)
@@ -110,7 +110,7 @@ md.short <- ts_window(mdeaths, end = "1976-12-01")
 ts_chain(md.short, fdeaths)
 ```
 
-### Frequency conversion and alignement
+## Frequency conversion and alignement
 
 There are functions to convert the frequency of time series and to regularize
 irregular time series. The following changes the frequency of two series to
@@ -124,7 +124,7 @@ We already met `ts_window`, which can be used to limit the time span of a
 series. `ts_regular` makes irregular time series regular, by turning implicit
 missing values into explicit `NA`s.
 
-### And plot just about everything
+## And plot just about everything
 
 Of course, this works for plotting, too. The basic function is `ts_plot`, which
 can be used with any ts-boxable time series, single or multiple, of any
@@ -157,7 +157,7 @@ very similar to `ts_plot`.
 ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 ```
 
-### Time series in data frames
+## Time series in data frames
 
 Thanks to packages such as `data.table` and `dplyr`, data frames have become the
 dominant data structure in R, and storing time series in a data frame is a
@@ -186,7 +186,7 @@ columns points to a time series.
 ignored. If column are detected automatically, a message is returned.
 
 
-### Using tsbox in a dplyr / pipe workflow
+## Using tsbox in a dplyr / pipe workflow
 
 tsbox works well with tibbles and with `%>%`, so it can be nicely integrated
 into a dplyr workflow:

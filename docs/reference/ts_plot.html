@@ -173,9 +173,9 @@ save a plot to the file system.</p>
 <span class='fu'>ts_plot</span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='no'>ldeaths</span>, <span class='kw'>female</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>, <span class='kw'>male</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>)</div><div class='img'><img src='ts_plot-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># using different ts-boxable objects</span>
 <span class='fu'>ts_plot</span>(<span class='fu'><a href='ts_scale.html'>ts_scale</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(
-  <span class='no'>airmiles</span>,
+  <span class='fu'><a href='ts_ts.html'>ts_xts</a></span>(<span class='no'>airmiles</span>),
   <span class='fu'><a href='ts_ts.html'>ts_tbl</a></span>(<span class='no'>co2</span>),
-  <span class='fu'><a href='ts_ts.html'>ts_xts</a></span>(<span class='no'>JohnsonJohnson</span>),
+  <span class='no'>JohnsonJohnson</span>,
   <span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>discoveries</span>)
 )))</div><div class='img'><img src='ts_plot-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>

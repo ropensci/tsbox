@@ -55,7 +55,7 @@ reference:
 
 - title: Reshape
   desc: >
-    Reshaping wide data frames into long long data frames and back
+    Reshaping wide data frames into long data frames and back
   contents:
   - ts_wide
   - ts_long 

@@ -7,6 +7,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+## Writing ts-functions
+
 It is staightforward to turn existing functions into functions that can deal
 with any ts-boxable object.
 
@@ -16,13 +19,32 @@ to R base `"ts"` class, so wrapping functions for `"ts"` time series (or vectors
 or matrices) is as simple as:
 
 ```r
-ts_(diff)(AirPassengers)
-ts_(rowSums)(ts_c(mdeaths, fdeaths))
+ts_rowsums <- ts_(rowSums)
+ts_rowsums(ts_c(mdeaths, fdeaths))
+
+```
+Note that `ts_` returns a function, which can be with or without a name. Let' have a closer look at how `ts_rowsums` looks like:
+
+```r
+ts_rowsums
+#> function (x, ...) 
+#> {
+#>     stopifnot(ts_boxable(x))
+#>     z <- rowSums(ts_ts(x), ...)
+#>     copy_class(z, x)
+#> }
+
 ```
 
-Note that `ts_` returns a function, which can be used without a name, as in the
-examples above, or with a name, as in the following, sligthly more complex
-example, which uses a post processing function:
+This is how most ts-functions work. They use a specific converter function
+(here: `ts_ts`) to convert a ts boxable object to the desired class. They then
+perform the main operation on the object (here: `rowSums`). Finally they convert
+the result back to the original class, using `copy_class`.
+
+
+## Functions from external Packages
+
+Here is a sligthly more complex example, which uses a post processing function:
 
 ```r
 ts_prcomp <- ts_(function(x) predict(prcomp(x, scale = TRUE)))
@@ -48,4 +70,30 @@ package is not installed.
 
 Note that the `ts_` function deals with the conversion stuff, 'vectorizes' the
 function so that it can be used with multiple time series.
+
+Let' have another look at `ts_forecast`:
+
+```r
+ts_forecast
+#> function (x, ...) 
+#> {
+#>     load_suggested("forecast")
+#>     ff <- function(x, ...) {
+#>         stopifnot(ts_boxable(x))
+#>         z <- (function(x) forecast::forecast(x)$mean)(ts_ts(x), 
+#>             ...)
+#>         copy_class(z, x)
+#>     }
+#>     ts_apply(x, ff, ...)
+#> }
+```
+
+There three main differences here: First, the function requires the forecast
+package. If it is not installed, `load_suggested` will ask the user to do so.
+Second, the function in use is an anonymous function, `function(x)
+forecast::forecast(x)$mean`, that also extracts the `mean` from the result.
+Third, the function is 'verctorized', using `ts_apply`. This causes the process
+to be repeated for each time series in the object.
+
+
 

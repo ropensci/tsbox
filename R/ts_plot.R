@@ -28,9 +28,9 @@
 #'
 #' # using different ts-boxable objects
 #' ts_plot(ts_scale(ts_c(
-#'   airmiles, 
+#'   ts_xts(airmiles), 
 #'   ts_tbl(co2), 
-#'   ts_xts(JohnsonJohnson), 
+#'   JohnsonJohnson, 
 #'   ts_df(discoveries)
 #' )))
 #' @export
