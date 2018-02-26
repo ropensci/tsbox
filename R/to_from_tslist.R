@@ -4,7 +4,6 @@ ts_tslist_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
   if (number_of_series(x) == 1) {
     z <- ts_ts(x)
-    # z <- list(x = ts_ts(x))
   } else {
     x <- combine_id_cols(x)
     z <- lapply(split(x, x$id), ts_ts)

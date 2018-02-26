@@ -22,12 +22,11 @@ ts_dts.data.table <- function(x) {
 
   setnames(z, tv[1], "time")
 
-  # setorder(z, time)
   z[, time := as_time_or_date(time)]
 
   # Ensure time is ordered, but var is not
-  # setorder(z, ids, time) does too much
-  # this also works if tvdiff is character(0)
+  # - setorder(z, ids, time) does too much
+  # - this also works if tvdiff is character(0)
   .by <- parse(text = paste0("list(", paste(tvdiff, collapse = ", "), ")"))
   z <- z[, .SD[order(time)], by = eval(.by)]
 

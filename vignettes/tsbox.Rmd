@@ -110,7 +110,7 @@ md.short <- ts_window(mdeaths, end = "1976-12-01")
 ts_chain(md.short, fdeaths)
 ```
 
-## Frequency conversion and alignement
+## Frequency conversion and alignment
 
 There are functions to convert the frequency of time series and to regularize
 irregular time series. The following changes the frequency of two series to
@@ -150,7 +150,7 @@ ts_plot(
 
 There is also a version that uses
 [ggplot2](https://CRAN.R-project.org/package=ggplot2) that uses the same syntax.
-With `theme_tsbox()` and s`cale_color_tsbox()`, the output of `ts_ggplot` is
+With `theme_tsbox()` and `scale_color_tsbox()`, the output of `ts_ggplot` is
 very similar to `ts_plot`.
 
 ```r
@@ -175,7 +175,7 @@ used as **value column**.
 
 1. Using the remaining columns, and starting on the right again, the first
 `Date`, `POSIXct`, `numeric` or `character` column is used as **time column**.
-`character` strings are parsed by [anytime::anytime()] or [anytime::anydate()].
+`character` strings are parsed by `anytime::anytime()`.
 The time stamp, `time`, indicates the beginning of a period. 
 
 1. **All remaining** columns are **id columns**. Each unique combination of id

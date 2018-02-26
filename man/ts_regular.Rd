@@ -12,7 +12,7 @@ ts_regular(x)
 \description{
 Enforces regularity in data frame and \code{xts} objects, by turning implicit
 \code{NA}s into explicit \code{NA}s. In \code{ts} objects, regularity is automatically
-enfored.
+enforced.
 }
 \examples{
 x0 <- AirPassengers

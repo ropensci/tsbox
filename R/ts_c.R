@@ -105,7 +105,6 @@ ts_c <- function(...) {
   }
 
   z <- rbindlist(ll.dts)
-
   z <- try(as_class(desired.class)(z))
 
   if (inherits(z, "try-error")) {

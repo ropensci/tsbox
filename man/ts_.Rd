@@ -33,8 +33,8 @@ ts-boxable time series objects.
 \details{
 The \code{ts_} function is a constructor function for tsbox time series functions. It
 can be used to wrap any function that works with time series. The default is set
-to R base \code{"ts"} class. \code{ts_} deals with the conversion stuff, 'verctorizes' the
-function so that it can be used with mulitple time series.
+to R base \code{"ts"} class. \code{ts_} deals with the conversion stuff, 'vectorizes' the
+function so that it can be used with multiple time series.
 }
 \examples{
 ts_(rowSums)(ts_c(mdeaths, fdeaths))

@@ -10,7 +10,7 @@ ts_lag(x, by = 1)
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 
 \item{by}{integer or character, either the number of shifting periods
-(integer), or an absolute amout of time (character). See details.}
+(integer), or an absolute amount of time (character). See details.}
 }
 \value{
 a ts-boxable time series, with the same class as the input. If time

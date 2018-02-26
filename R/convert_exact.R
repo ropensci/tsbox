@@ -43,9 +43,13 @@ ts_to_POSIXct <- function(x) {
   )
 }
 
+
 POSIXct_to_tsp <- function(x) {
-  check_regularity(x)
   stopifnot(inherits(x, "POSIXct"))
+  dd <- diff(as.numeric(x))
+  if ((max(dd) - min(dd)) > 1) {
+    stop("some dates are not equally spaced.", call. = FALSE)
+  }
   start <- POSIXct_to_dectime(x[1])
   end <- POSIXct_to_dectime(x[length(x)])
   f <- (length(x) - 1) / (end - start)

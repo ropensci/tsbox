@@ -6,7 +6,7 @@
 #' `ts_ggplot` has a similar look and feel.
 #' 
 #' Both [ts_plot()] and `ts_ggplot()` combine multiple ID dimensions into a single
-#' dimension. To plot mulitple dimensions in different shapes, facets, etc., use
+#' dimension. To plot multiple dimensions in different shapes, facets, etc., use
 #' standard ggplot (see examples).
 #'
 #' @param ... ts-boxable time series, objects of class `ts`, `xts`,

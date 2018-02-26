@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reclass Time Series — copy_class • tsbox</title>
+<title>Re-Class ts-Boxable Object — copy_class • tsbox</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Reclass Time Series — copy_class" />
+<meta property="og:title" content="Re-Class ts-Boxable Object — copy_class" />
 
 <meta property="og:description" content="Copies class attributes from an existing ts-boxable series. Mainly used
 internally." />
@@ -114,7 +114,7 @@ internally." />
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reclass Time Series</h1>
+    <h1>Re-Class ts-Boxable Object</h1>
     </div>
 
     
@@ -122,19 +122,19 @@ internally." />
 internally.</p>
     
 
-    <pre class="usage"><span class='fu'>copy_class</span>(<span class='no'>z</span>, <span class='no'>x</span>, <span class='kw'>preserve.mode</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preserve.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>copy_class</span>(<span class='no'>x</span>, <span class='no'>template</span>, <span class='kw'>preserve.mode</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preserve.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>preserve.time</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>z</th>
-      <td><p>series to reclass</p></td>
+      <th>x</th>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code>, or <code>tibble</code>. Object to re-class.</p></td>
     </tr>
     <tr>
-      <th>x</th>
-      <td><p>template series</p></td>
+      <th>template</th>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code>, or <code>tibble</code>. Template.</p></td>
     </tr>
     <tr>
       <th>preserve.mode</th>

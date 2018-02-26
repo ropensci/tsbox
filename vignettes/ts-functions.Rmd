@@ -10,7 +10,7 @@ vignette: >
 
 ## Writing ts-functions
 
-It is staightforward to turn existing functions into functions that can deal
+It is straightforward to turn existing functions into functions that can deal
 with any ts-boxable object.
 
 The `ts_` function is a constructor function for tsbox time series functions. It
@@ -37,14 +37,14 @@ ts_rowsums
 ```
 
 This is how most ts-functions work. They use a specific converter function
-(here: `ts_ts`) to convert a ts boxable object to the desired class. They then
+(here: `ts_ts`) to convert a ts-boxable object to the desired class. They then
 perform the main operation on the object (here: `rowSums`). Finally they convert
 the result back to the original class, using `copy_class`.
 
 
 ## Functions from external Packages
 
-Here is a sligthly more complex example, which uses a post processing function:
+Here is a slightly more complex example, which uses a post processing function:
 
 ```r
 ts_prcomp <- ts_(function(x) predict(prcomp(x, scale = TRUE)))
@@ -65,7 +65,7 @@ ts_seas(ts_c(mdeaths, fdeaths))
 ```
 
 If you are explicit about the namespace (e.g., `dygraphs::dygraph`), 
-`ts_` recognized the package in use and delives a meaningful message if the 
+`ts_` recognized the package in use and delivers a meaningful message if the 
 package is not installed.
 
 Note that the `ts_` function deals with the conversion stuff, 'vectorizes' the
@@ -92,7 +92,7 @@ There three main differences here: First, the function requires the forecast
 package. If it is not installed, `load_suggested` will ask the user to do so.
 Second, the function in use is an anonymous function, `function(x)
 forecast::forecast(x)$mean`, that also extracts the `mean` from the result.
-Third, the function is 'verctorized', using `ts_apply`. This causes the process
+Third, the function is 'vectorized', using `ts_apply`. This causes the process
 to be repeated for each time series in the object.
 
 
