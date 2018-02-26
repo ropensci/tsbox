@@ -1,7 +1,7 @@
 #' Bind Time Series
 #'
 #' Combine time series to a new, single time series. `ts_bind` combines time
-#' series as they are, `ts_chain` chaines them together, using percentage change
+#' series as they are, `ts_chain` chains them together, using percentage change
 #' rates.
 #'
 #' @seealso [ts_c] to collect multiple time series

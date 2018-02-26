@@ -19,8 +19,3 @@ ts_dts <- function(x) {
 ts_dts.dts <- function(x) {
   x
 }
-
-# ts_dts.numeric <- function(x, time, var, ...){
-#   z <- data.table(time = time, value = x, var = var)
-#   add_dts_class(z)
-# }

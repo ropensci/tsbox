@@ -9,14 +9,6 @@ as_time_or_date <- function(x) {
   anydate(as.character(x))
 }
 
-check_regularity <- function(x) {
-  stopifnot(inherits(x, "POSIXct"))
-  dd <- diff(as.numeric(x))
-  if ((max(dd) - min(dd)) > 1000) {
-    stop("some dates are not equally spaced.", call. = FALSE)
-  }
-}
-
 
 regularize_date <- function(x, full.year = FALSE) {
   stopifnot(class(x)[1] %in% c("POSIXct", "Date"))
@@ -29,22 +21,11 @@ regularize_date <- function(x, full.year = FALSE) {
   x <- sort(x)
 
   diffdt <- frequency_table(x)
-
-  # doesen't this mean it would fail in the end anyway? It's allways worth 
-  # trying.
-    # # A high share of unidentied differences
-    # if (nrow(diffdt[string == ""]) > 0 && diffdt[string == "", share] > 0.5) {
-    #   # return NULL if regularization failed
-    #   return(NULL)
-    # }
-
   fm <- diffdt[which.max(freq)]
   
-  # regularize if there is a single difference
-  # (not sure if we can have this unless the series is equispaced anyway?)
-  if (is.na(fm$string) && fm$share == 1) {
-    fm$string <- unique(diff(as.numeric(x)))[1]
-  }
+  # standard freq or not, if there is a single difference, it is already
+  # regular, exit
+  if (fm$share == 1) return(x)
 
   from <- x[1]
   to <- x[length(x)]

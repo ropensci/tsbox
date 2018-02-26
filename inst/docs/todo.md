@@ -6,7 +6,19 @@
       only keep common time stamps, no need to regularize, unless its ts
       - removed altogther, they are confusing and unneeded. 
       ts_window(template = ) is probably more useful.
+
+- [ ] Spell checking individual docs
+
+- [ ] as.POSIXct(idx, origin = "1970-01-01"), whats the correct origin? This 
+      almost surely isnt. Perhaps use ISODate?
+- [ ]   # POSIXct merges only work well when converted to integer. Don't do this 
+        # for Date
+      Yes, but this is a rounding issue. Round everything to seconds for:
+
+      mergers, widening etc? try to make this consistent
+
       
+
 - [ ] Avoid error when col order is wrong
 
 - [ ] How useful are the date_ functions?

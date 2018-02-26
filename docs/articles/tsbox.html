@@ -134,9 +134,9 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">md.short &lt;-<span class="st"> </span><span class="kw">ts_window</span>(mdeaths, <span class="dt">end =</span> <span class="st">"1976-12-01"</span>)
 <span class="kw"><a href="../reference/ts_bind.html">ts_chain</a></span>(md.short, fdeaths)</code></pre></div>
 </div>
-<div id="frequency-conversion-and-alignement" class="section level2">
+<div id="frequency-conversion-and-alignment" class="section level2">
 <h2 class="hasAnchor">
-<a href="#frequency-conversion-and-alignement" class="anchor"></a>Frequency conversion and alignement</h2>
+<a href="#frequency-conversion-and-alignment" class="anchor"></a>Frequency conversion and alignment</h2>
 <p>There are functions to convert the frequency of time series and to regularize irregular time series. The following changes the frequency of two series to annual:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_frequency.html">ts_frequency</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(AirPassengers, austres), <span class="st">"year"</span>, sum)</code></pre></div>
 <p>We already met <code>ts_window</code>, which can be used to limit the time span of a series. <code>ts_regular</code> makes irregular time series regular, by turning implicit missing values into explicit <code>NA</code>s.</p>
@@ -157,7 +157,7 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <div class="figure">
 <img src="fig/plot1.png">
 </div>
-<p>There is also a version that uses <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> that uses the same syntax. With <code><a href="../reference/ts_ggplot.html">theme_tsbox()</a></code> and s<code>cale_color_tsbox()</code>, the output of <code>ts_ggplot</code> is very similar to <code>ts_plot</code>.</p>
+<p>There is also a version that uses <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> that uses the same syntax. With <code><a href="../reference/ts_ggplot.html">theme_tsbox()</a></code> and <code><a href="../reference/ts_ggplot.html">scale_color_tsbox()</a></code>, the output of <code>ts_ggplot</code> is very similar to <code>ts_plot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ts_ggplot</span>(<span class="kw"><a href="../reference/ts_scale.html">ts_scale</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, austres, AirPassengers, <span class="dt">DAX =</span> EuStockMarkets[ ,<span class="st">'DAX'</span>])))</code></pre></div>
 </div>
 <div id="time-series-in-data-frames" class="section level2">
@@ -167,7 +167,7 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <p>In data frames, i.e., in a <code>data.frame</code>, a <code>data.table</code>, or a <code>tibble</code>, tsbox stores one or multiple time series in the ‘long’ format. tsbox detects a <em>value</em>, a <em>time</em> and zero, one or several <em>id</em> columns. Column detection is done in the following order:</p>
 <ol style="list-style-type: decimal">
 <li><p>Starting <strong>on the right</strong>, the first first <code>numeric</code> or <code>integer</code> column is used as <strong>value column</strong>.</p></li>
-<li><p>Using the remaining columns, and starting on the right again, the first <code>Date</code>, <code>POSIXct</code>, <code>numeric</code> or <code>character</code> column is used as <strong>time column</strong>. <code>character</code> strings are parsed by [anytime::anytime()] or [anytime::anydate()]. The time stamp, <code>time</code>, indicates the beginning of a period.</p></li>
+<li><p>Using the remaining columns, and starting on the right again, the first <code>Date</code>, <code>POSIXct</code>, <code>numeric</code> or <code>character</code> column is used as <strong>time column</strong>. <code>character</code> strings are parsed by <code><a href="http://www.rdocumentation.org/packages/anytime/topics/anytime">anytime::anytime()</a></code>. The time stamp, <code>time</code>, indicates the beginning of a period.</p></li>
 <li><p><strong>All remaining</strong> columns are <strong>id columns</strong>. Each unique combination of id columns points to a time series.</p></li>
 </ol>
 <p><strong>Alternatively</strong>, the time column and the value column to be <strong>explicitly named</strong> as <code>time</code> and <code>value</code>. If explicit names are used, the column order will be ignored. If column are detected automatically, a message is returned.</p>
@@ -199,7 +199,7 @@ dta <span class="op">%&gt;%</span><span class="st"> </span>
 <li><a href="#convert-everything-to-everything">Convert everything to everything</a></li>
       <li><a href="#use-same-functions-for-ts-xts-data-frame-data-table-or-tibble">Use same functions for ts, xts, data.frame, data.table or tibble</a></li>
       <li><a href="#combine-multiple-time-series">Combine multiple time series</a></li>
-      <li><a href="#frequency-conversion-and-alignement">Frequency conversion and alignement</a></li>
+      <li><a href="#frequency-conversion-and-alignment">Frequency conversion and alignment</a></li>
       <li><a href="#and-plot-just-about-everything">And plot just about everything</a></li>
       <li><a href="#time-series-in-data-frames">Time series in data frames</a></li>
       <li><a href="#using-tsbox-in-a-dplyr-pipe-workflow">Using tsbox in a dplyr / pipe workflow</a></li>

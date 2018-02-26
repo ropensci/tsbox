@@ -17,7 +17,7 @@
 #' 
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param by integer or character, either the number of shifting periods
-#'   (integer), or an absolute amout of time (character). See details.
+#'   (integer), or an absolute amount of time (character). See details.
 #'
 #' @seealso [ts_lag()], for shifting regular series. [date_shift()], for
 #'   shifting `Date` vectors.

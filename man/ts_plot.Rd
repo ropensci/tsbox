@@ -20,11 +20,11 @@ ts_plot(..., title, subtitle, ylab = "", family = getOption("ts_font",
 }
 \description{
 \code{ts_plot()} is a fast and simple plotting function for ts-boxable time series,
-with limited customizeability. For more theming options, use \code{\link[=ts_ggplot]{ts_ggplot()}}.
+with limited customizability. For more theme options, use \code{\link[=ts_ggplot]{ts_ggplot()}}.
 }
 \details{
 Both \code{ts_plot()} and \code{\link[=ts_ggplot]{ts_ggplot()}} combine multiple ID dimensions into a single
-dimension. To plot mulitple dimensions in different shapes, facets, etc., use
+dimension. To plot multiple dimensions in different shapes, facets, etc., use
 standard ggplot.
 }
 \examples{

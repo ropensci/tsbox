@@ -1,7 +1,7 @@
 #' First Differences and Percentage Change Rates
 #'
-#' `ts_pcy` and `ts_diffy` calulate the percentage change rate and the difference
-#' compared to the previous period, `ts_pcy` and `ts_diffy` calulate compared to
+#' `ts_pcy` and `ts_diffy` calculate the percentage change rate and the difference
+#' compared to the previous period, `ts_pcy` and `ts_diffy` calculate compared to
 #' the same period of the previous year.
 #'  
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.

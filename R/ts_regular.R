@@ -2,7 +2,7 @@
 #'
 #' Enforces regularity in data frame and `xts` objects, by turning implicit
 #' `NA`s into explicit `NA`s. In `ts` objects, regularity is automatically
-#' enfored.
+#' enforced.
 #'
 #' @param x a ts-boxable time series
 #' @examples

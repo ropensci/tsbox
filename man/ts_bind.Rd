@@ -20,7 +20,7 @@ used (if possible).
 }
 \description{
 Combine time series to a new, single time series. \code{ts_bind} combines time
-series as they are, \code{ts_chain} chaines them together, using percentage change
+series as they are, \code{ts_chain} chains them together, using percentage change
 rates.
 }
 \examples{

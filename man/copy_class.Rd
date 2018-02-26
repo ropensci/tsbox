@@ -2,15 +2,15 @@
 % Please edit documentation in R/to_from_all.R
 \name{copy_class}
 \alias{copy_class}
-\title{Reclass Time Series}
+\title{Re-Class ts-Boxable Object}
 \usage{
-copy_class(z, x, preserve.mode = TRUE, preserve.names = TRUE,
+copy_class(x, template, preserve.mode = TRUE, preserve.names = TRUE,
   preserve.time = FALSE)
 }
 \arguments{
-\item{z}{series to reclass}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}. Object to re-class.}
 
-\item{x}{template series}
+\item{template}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}. Template.}
 
 \item{preserve.mode}{should the mode the time column be preserved (data frame only)}
 

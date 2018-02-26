@@ -15,8 +15,8 @@ load_suggested <- function(pkg) {
 #'
 #' The `ts_` function is a constructor function for tsbox time series functions. It
 #' can be used to wrap any function that works with time series. The default is set
-#' to R base `"ts"` class. `ts_` deals with the conversion stuff, 'verctorizes' the
-#' function so that it can be used with mulitple time series.
+#' to R base `"ts"` class. `ts_` deals with the conversion stuff, 'vectorizes' the
+#' function so that it can be used with multiple time series.
 #'
 #' @param fun function, to be made available to all time series classes
 #' @param class class that the function uses as its first argument
@@ -135,33 +135,3 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
 }
 
 
-
-
-# #' @export
-# #' @rdname ts_
-# ts_lm_resid <- ts_(function(x, formula, ...) {
-#   m <- lm(formula = formula, data = as.data.frame(na.omit(x)), ...)
-#   # message(paste(capture.output(summary(m)), collapse = "\n"))
-#   reclass(resid(m), na.omit(x))
-# }, specific.class = "xts", ensure.names = FALSE, suggested.packages = "xts")
-
-
-# #' @export
-# #' @rdname ts_
-# ts_lm_predict <- ts_(function(x, formula, ...) {
-#   m <- lm(formula = formula, data = as.data.frame(na.omit(x)), ...)
-#   # message(paste(capture.output(summary(m)), collapse = "\n"))
-#   reclass(predict(m), na.omit(x))
-# }, specific.class = "xts", ensure.names = FALSE, suggested.packages = "xts")
-
-
-
-# This is how ts_pc could be written mauch simpler
-# ts_pc <- ts_(function(x, ...){
-#   if (NCOL(x) > 1){
-#     return(ts_apply(x, ts_pc))
-#   }
-#   100 * ((x / stats::lag(x, -1)) - 1)
-# })
-
-# ts_diff(ts_xts(AirPassengers))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_from_all.R
 \name{relevant_class}
 \alias{relevant_class}
-\title{Extract the Relavant Class}
+\title{Extract the Relevant Class}
 \usage{
 relevant_class(x)
 }

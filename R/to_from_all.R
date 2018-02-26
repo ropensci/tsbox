@@ -44,7 +44,7 @@ desired_class <- function(ll) {
   }
 }
 
-#' Extract the Relavant Class
+#' Extract the Relevant Class
 #'
 #' Mainly used internally.
 #'
@@ -78,60 +78,60 @@ relevant_class <- function(x) {
   stop("not a ts_boxable object.")
 }
 
-#' Reclass Time Series
+#' Re-Class ts-Boxable Object
 #'
 #' Copies class attributes from an existing ts-boxable series. Mainly used
 #' internally.
 #'
 #' Inspired by `xts::reclass`, which does something similar.
 #'
-#' @param z series to reclass
-#' @param x template series
+#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`. Object to re-class.
+#' @param template ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`. Template.
 #' @param preserve.mode should the mode the time column be preserved (data frame only)
 #' @param preserve.names should the name of the time column be preserved (data frame only)
 #' @param preserve.time should the values time column be preserved (data frame only)
 #' @export
-copy_class <- function(z, x, preserve.mode = TRUE, preserve.names = TRUE, 
+copy_class <- function(x, template, preserve.mode = TRUE, preserve.names = TRUE, 
                        preserve.time = FALSE) {
-  if (!ts_boxable(z)) {
-    if (inherits(x, "ts")) {
-      z <- ts(z)
-      tsp(z) <- tsp(x)
-    } else if (mode(z) == "numeric") {
-      x.ts <- ts_ts(x)
-      z <- ts(z)
-      tsp(z) <- tsp(x.ts)
+  if (!ts_boxable(x)) {
+    if (inherits(template, "ts")) {
+      x <- ts(x)
+      tsp(x) <- tsp(template)
+    } else if (mode(x) == "numeric") {
+      x.ts <- ts_ts(template)
+      x <- ts(x)
+      tsp(x) <- tsp(x.ts)
     } else {
       # do not reclass non numeric, unknown objects
-      return(z)
+      return(x)
     }
   }
-  ans <- as_class(relevant_class(x))(z)
+  ans <- as_class(relevant_class(template))(x)
 
 
 
   # data frames should keep mode of time col.
   if (preserve.mode && 
       inherits(ans, "data.frame") && 
-      inherits(x, "data.frame")) {
+      inherits(template, "data.frame")) {
     tn <- guess_time(ans)
-    if ((class(ans[[tn]])[1] == "Date") && (class(x[[tn]])[1] == "POSIXct")) {
+    if ((class(ans[[tn]])[1] == "Date") && (class(template[[tn]])[1] == "POSIXct")) {
       ans[[tn]] <- as.POSIXct(ans[[tn]])
     }
   }
 
   if (preserve.time && 
     inherits(ans, "data.frame") && 
-    inherits(x, "data.frame")) {
+    inherits(template, "data.frame")) {
     tn <- guess_time(ans)
-    ans[[tn]] <- x[[tn]]
+    ans[[tn]] <- template[[tn]]
   }
 
   if (preserve.names && 
       inherits(ans, "data.frame") && 
-      inherits(x, "data.frame")) {
-    if (!identical(names(ans), names(x))){
-      names(ans) <- names(x)
+      inherits(template, "data.frame")) {
+    if (!identical(names(ans), names(template))){
+      names(ans) <- names(template)
     }
   }
 

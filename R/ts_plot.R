@@ -2,10 +2,10 @@
 #' Plot Time Series
 #'
 #' `ts_plot()` is a fast and simple plotting function for ts-boxable time series,
-#' with limited customizeability. For more theming options, use [ts_ggplot()].
+#' with limited customizability. For more theme options, use [ts_ggplot()].
 #' 
 #' Both `ts_plot()` and [ts_ggplot()] combine multiple ID dimensions into a single
-#' dimension. To plot mulitple dimensions in different shapes, facets, etc., use
+#' dimension. To plot multiple dimensions in different shapes, facets, etc., use
 #' standard ggplot.
 #'
 #' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.

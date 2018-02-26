@@ -25,8 +25,8 @@ ts_diffy(x)
 a ts-boxable time series, with the same class as the input.
 }
 \description{
-\code{ts_pcy} and \code{ts_diffy} calulate the percentage change rate and the difference
-compared to the previous period, \code{ts_pcy} and \code{ts_diffy} calulate compared to
+\code{ts_pcy} and \code{ts_diffy} calculate the percentage change rate and the difference
+compared to the previous period, \code{ts_pcy} and \code{ts_diffy} calculate compared to
 the same period of the previous year.
 }
 \examples{
