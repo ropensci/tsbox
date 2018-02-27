@@ -87,7 +87,7 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
   p <- p + ggplot2::ylab(ylab)
   if (!missing("title")) {
     if (missing("subtitle")) subtitle <- NULL
-    p <- p +  ggplot2::ggtitle(title = title, subtitle = subtitle)
+    p <- p +  ggplot2::ggtitle(label = title, subtitle = subtitle)
   }
 
   p

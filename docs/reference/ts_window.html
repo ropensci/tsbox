@@ -29,7 +29,7 @@
   
 <meta property="og:title" content="Time Windows — ts_window" />
 
-<meta property="og:description" content="Filter series for a time range." />
+<meta property="og:description" content="Filter series for time range." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -117,7 +117,7 @@
     </div>
 
     
-    <p>Filter series for a time range.</p>
+    <p>Filter series for time range.</p>
     
 
     <pre class="usage"><span class='fu'>ts_window</span>(<span class='no'>x</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
@@ -145,7 +145,7 @@
       <th>template</th>
       <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>,
 <code>data.frame</code>, <code>data.table</code>, or <code>tibble</code>. If provided, <code>start</code> and <code>end</code>
-will be extracted from this object.</p></td>
+will be extracted from the object.</p></td>
     </tr>
     </table>
     
@@ -153,9 +153,23 @@ will be extracted from this object.</p></td>
 
     <p>a ts-boxable time series, with the same class as the input.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>All date and times, when entered as charachter strings, are processed by
+<code><a href='http://www.rdocumentation.org/packages/anytime/topics/anytime'>anytime::anydate()</a></code> or <code><a href='http://www.rdocumentation.org/packages/anytime/topics/anytime'>anytime::anytime()</a></code>. Thus a wide range of inputs are
+possible. See examples.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># It's fine to use an end date outside of series span</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># use 'anytime' shortcuts</span>
+<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1979"</span>)       <span class='co'># shortcut for 1979-01-01</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
+<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1979-4"</span>)     <span class='co'># shortcut for 1979-04-01</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
+<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"197904"</span>)     <span class='co'># shortcut for 1979-04-01</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
+<span class='co'># it's fine to use an end date outside of series span</span>
 <span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"2001-01-01"</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
 #&gt; 1975 2103 2137 2153 1833 1403 1288 1186 1133 1053 1347 1545 2066
@@ -163,43 +177,28 @@ will be extracted from this object.</p></td>
 #&gt; 1977 2240 1634 1722 1801 1246 1162 1087 1013  959 1179 1229 1655
 #&gt; 1978 2019 2284 1942 1423 1340 1187 1098 1004  970 1140 1110 1812
 #&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
-<span class='no'>ms</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1976-12-01"</span>)</div><div class='output co'>#&gt; </div><div class='input'><span class='fu'>ts_window</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>ms</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>ts_start</span>(<span class='no'>ms</span>), <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>ts_end</span>(<span class='no'>ms</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;          fdeaths   ms
-#&gt; Jan 1974     901 2134
-#&gt; Feb 1974     689 1863
-#&gt; Mar 1974     827 1877
-#&gt; Apr 1974     677 1877
-#&gt; May 1974     522 1492
-#&gt; Jun 1974     406 1249
-#&gt; Jul 1974     441 1280
-#&gt; Aug 1974     393 1131
-#&gt; Sep 1974     387 1209
-#&gt; Oct 1974     582 1492
-#&gt; Nov 1974     578 1621
-#&gt; Dec 1974     666 1846
-#&gt; Jan 1975     830 2103
-#&gt; Feb 1975     752 2137
-#&gt; Mar 1975     785 2153
-#&gt; Apr 1975     664 1833
-#&gt; May 1975     467 1403
-#&gt; Jun 1975     438 1288
-#&gt; Jul 1975     421 1186
-#&gt; Aug 1975     412 1133
-#&gt; Sep 1975     343 1053
-#&gt; Oct 1975     440 1347
-#&gt; Nov 1975     531 1545
-#&gt; Dec 1975     771 2066
-#&gt; Jan 1976     767 2020
-#&gt; Feb 1976    1141 2750
-#&gt; Mar 1976     896 2283
-#&gt; Apr 1976     532 1479
-#&gt; May 1976     447 1189
-#&gt; Jun 1976     420 1160
-#&gt; Jul 1976     376 1113
-#&gt; Aug 1976     330  970
-#&gt; Sep 1976     357  999
-#&gt; Oct 1976     445 1208
-#&gt; Nov 1976     546 1467
-#&gt; Dec 1976     764 2059</div></pre>
+<span class='co'># ts_end and ts_start, together with time_shift allow flexible specification</span>
+<span class='co'># of relative ranges:</span>
+
+<span class='co'># latest value</span>
+<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>time_shift</span>(<span class='fu'>ts_end</span>(<span class='no'>mdeaths</span>), -<span class='fl'>1</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;       Dec
+#&gt; 1979 1341</div><div class='input'>
+<span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
+  <span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>time_shift</span>(<span class='fu'>ts_end</span>(<span class='no'>mdeaths</span>), <span class='st'>"-3 years"</span>)),
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Three years"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The last three years of data"</span>
+)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='img'><img src='ts_window-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>ts_ggplot</span>(
+  <span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>time_shift</span>(<span class='fu'>ts_start</span>(<span class='no'>mdeaths</span>), <span class='st'>"28 weeks"</span>)),
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"28 weeks later"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The first 28 weeks of data"</span>
+) + <span class='fu'><a href='ts_ggplot.html'>theme_tsbox</a></span>() + <span class='fu'><a href='ts_ggplot.html'>scale_color_tsbox</a></span>()</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='img'><img src='ts_window-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Limit span of 'discoveries' to the same span as 'AirPassengers'</span>
+<span class='fu'>ts_window</span>(<span class='no'>discoveries</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; Time Series:
+#&gt; Start = 1949 
+#&gt; End = 1959 
+#&gt; Frequency = 1 
+#&gt;  [1] 3 2 1 4 1 1 1 0 0 2 0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -207,6 +206,8 @@ will be extracted from this object.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
