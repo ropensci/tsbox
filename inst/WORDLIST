@@ -1,8 +1,8 @@
 boxable
 Boxable
+centric
 Christoph
 customizability
-difftime
 dplyr
 Dygraphs
 ggplot
@@ -16,6 +16,7 @@ tibble
 tibbles
 tibbletime
 tsibble
+tsibbles
 vectorized
 vectorizes
 VignetteEncoding

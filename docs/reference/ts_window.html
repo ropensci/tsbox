@@ -88,6 +88,9 @@
     <li>
       <a href="../articles/convert.html">Time Conversion and Reguarization</a>
     </li>
+    <li>
+      <a href="../articles/class-struggle.html">Extending tsbox</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -156,15 +159,14 @@ will be extracted from this object.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># It's fine to use an end date outside of series span</span>
-<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"2001-01-01"</span>)</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"2001-01-01"</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
 #&gt; 1975 2103 2137 2153 1833 1403 1288 1186 1133 1053 1347 1545 2066
 #&gt; 1976 2020 2750 2283 1479 1189 1160 1113  970  999 1208 1467 2059
 #&gt; 1977 2240 1634 1722 1801 1246 1162 1087 1013  959 1179 1229 1655
 #&gt; 1978 2019 2284 1942 1423 1340 1187 1098 1004  970 1140 1110 1812
 #&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
-<span class='no'>ms</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1976-12-01"</span>)
-<span class='fu'>ts_window</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>ms</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>ts_start</span>(<span class='no'>ms</span>), <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>ts_end</span>(<span class='no'>ms</span>))</div><div class='output co'>#&gt;          fdeaths   ms
+<span class='no'>ms</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1976-12-01"</span>)</div><div class='output co'>#&gt; </div><div class='input'><span class='fu'>ts_window</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>ms</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>ts_start</span>(<span class='no'>ms</span>), <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>ts_end</span>(<span class='no'>ms</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;          fdeaths   ms
 #&gt; Jan 1974     901 2134
 #&gt; Feb 1974     689 1863
 #&gt; Mar 1974     827 1877

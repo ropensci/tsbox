@@ -27,7 +27,7 @@ long_core_multi_id <- function(x) {
   # guess id: ids on the left of time colum
   id.names <- setdiff(names(x)[seq(which(names(x) == time.name))], time.name)
   if (length(id.names) > 0){
-    message("id column: ",  paste(id.names, collapse = ", "))
+    message("[id]: ",  paste(paste0("'", id.names, "'"), collapse = ", "))
     id.vars <- c(id.names, time.name)
   } else {
     id.vars <- time.name

@@ -10,6 +10,8 @@ ts_data.table_dts <- function(x) {
 #' @export
 #' @method ts_dts data.table
 ts_dts.data.table <- function(x) {
+  if (nrow(x) == 0) return( add_dts_class(x))
+
   tv <- guess_time_value(x)
 
   if (NCOL(x) == 2) {
@@ -24,7 +26,7 @@ ts_dts.data.table <- function(x) {
 
   z[, time := as_time_or_date(time)]
 
-  # Ensure time is ordered, but var is not
+  # Ensure time is ordered, but ids are not
   # - setorder(z, ids, time) does too much
   # - this also works if tvdiff is character(0)
   .by <- parse(text = paste0("list(", paste(tvdiff, collapse = ", "), ")"))

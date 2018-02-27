@@ -19,8 +19,8 @@
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
 #'
-#' @seealso [ts_lag()], for shifting regular series. [date_shift()], for
-#'   shifting `Date` vectors.
+#' @seealso [ts_lag()], for shifting regular series. [time_shift()], for
+#'   shifting `Date` or `POSIXct` vectors.
 #'
 #' @return a ts-boxable time series, with the same class as the input. If time
 #'  stamp shifting causes the object to be irregular, a data frame is returned.
@@ -39,15 +39,12 @@ ts_lag <- function(x, by = 1) {
   value <- NULL
 
   stopifnot(ts_boxable(x))
-  z <- ts_dts(x)
-  
-  if (is.character(by)){
-    ctime <- colname_time(z)
-    z[[ctime]] <- date_shift(z[[ctime]], by = by)
-    return(copy_class(z, x))
-  }
+  z <- copy(ts_dts(x))
 
-  z <- ts_regular(z)
+  # numeric by only with regular series
+  if (is.numeric(by)){
+    z <- ts_regular(z)
+  }
 
   colname.id <- colname_id(z)
   colname.value <- colname_value(z)
@@ -56,22 +53,14 @@ ts_lag <- function(x, by = 1) {
   setnames(z, colname.time, "time")
   setnames(z, colname.value, "value")
 
-  lag_one_by_period <- function(x){
-    diffdt <- frequency_table(x$time)
-    # this is what we expect from a dts that went through ts_regular
-    stopifnot(nrow(diffdt) == 1)
-    stopifnot(diffdt$share == 1)
-    
-    spl <- strsplit(diffdt$string, split = " ")[[1]]
-    str <- paste(by * as.numeric(spl[1]), spl[2])
-
-    ts_lag(x, by = str)
+  lag_one <- function(x){
+    x[, list(time = time_shift(time, by = by), value)]
   }
 
   .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
   z <- z[
     ,
-    lag_one_by_period(.SD),
+    lag_one(.SD),
     by = eval(.by)
   ]
   setnames(z, "value", colname.value)

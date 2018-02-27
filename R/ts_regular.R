@@ -34,6 +34,7 @@ regular_core <- function(x) {
 
   # A quick regularity check to avoid full regualrization for most serise
   is_regular <- function(x) {
+
     if (any(is.na(x))) stop("time column cannot contain NAs", call. = FALSE)
     dd <- diff(as.numeric(x))
     rng <- max(dd) - min(dd)

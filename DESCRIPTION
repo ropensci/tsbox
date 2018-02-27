@@ -23,7 +23,8 @@ Suggests:
     ggplot2,
     scales,
     knitr,
-    rmarkdown
+    rmarkdown,
+    tsibble
 License: GPL-3
 URL: https://www.tsbox.help
 BugReports: https://github.com/christophsax/tsbox/issues

@@ -90,6 +90,9 @@ rates." />
     <li>
       <a href="../articles/convert.html">Time Conversion and Reguarization</a>
     </li>
+    <li>
+      <a href="../articles/class-struggle.html">Extending tsbox</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -149,27 +152,27 @@ used (if possible).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ts_bind</span>(<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1975-12-01"</span>), <span class='no'>fdeaths</span>)</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+    <pre class="examples"><div class='input'><span class='fu'>ts_bind</span>(<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1975-12-01"</span>), <span class='no'>fdeaths</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
 #&gt; 1975 2103 2137 2153 1833 1403 1288 1186 1133 1053 1347 1545 2066
 #&gt; 1976  767 1141  896  532  447  420  376  330  357  445  546  764
 #&gt; 1977  862  660  663  643  502  392  411  348  387  385  411  638
 #&gt; 1978  796  853  737  546  530  446  431  362  387  430  425  679
-#&gt; 1979  821  785  727  612  478  429  405  379  393  411  487  574</div><div class='input'><span class='fu'>ts_bind</span>(<span class='no'>mdeaths</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>2</span>))</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979  821  785  727  612  478  429  405  379  393  411  487  574</div><div class='input'><span class='fu'>ts_bind</span>(<span class='no'>mdeaths</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>2</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
 #&gt; 1975 2103 2137 2153 1833 1403 1288 1186 1133 1053 1347 1545 2066
 #&gt; 1976 2020 2750 2283 1479 1189 1160 1113  970  999 1208 1467 2059
 #&gt; 1977 2240 1634 1722 1801 1246 1162 1087 1013  959 1179 1229 1655
 #&gt; 1978 2019 2284 1942 1423 1340 1187 1098 1004  970 1140 1110 1812
 #&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341
-#&gt; 1980    2    2                                                  </div><div class='input'><span class='fu'>ts_bind</span>(<span class='no'>mdeaths</span>, <span class='fl'>3</span>, <span class='fu'>ts_bind</span>(<span class='no'>fdeaths</span>, <span class='fu'>c</span>(<span class='fl'>99</span>, <span class='fl'>2</span>)))</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1980    2    2                                                  </div><div class='input'><span class='fu'>ts_bind</span>(<span class='no'>mdeaths</span>, <span class='fl'>3</span>, <span class='fu'>ts_bind</span>(<span class='no'>fdeaths</span>, <span class='fu'>c</span>(<span class='fl'>99</span>, <span class='fl'>2</span>)))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
 #&gt; 1975 2103 2137 2153 1833 1403 1288 1186 1133 1053 1347 1545 2066
 #&gt; 1976 2020 2750 2283 1479 1189 1160 1113  970  999 1208 1467 2059
 #&gt; 1977 2240 1634 1722 1801 1246 1162 1087 1013  959 1179 1229 1655
 #&gt; 1978 2019 2284 1942 1423 1340 1187 1098 1004  970 1140 1110 1812
 #&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341
-#&gt; 1980    3    2                                                  </div><div class='input'><span class='fu'>ts_bind</span>(<span class='fu'><a href='ts_ts.html'>ts_dt</a></span>(<span class='no'>mdeaths</span>), <span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt;            time value
+#&gt; 1980    3    2                                                  </div><div class='input'><span class='fu'>ts_bind</span>(<span class='fu'><a href='ts_ts.html'>ts_dt</a></span>(<span class='no'>mdeaths</span>), <span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;            time value
 #&gt;   1: 1949-01-01   112
 #&gt;   2: 1949-02-01   118
 #&gt;   3: 1949-03-01   132
@@ -180,7 +183,7 @@ used (if possible).</p>
 #&gt; 213: 1979-09-01   940
 #&gt; 214: 1979-10-01  1081
 #&gt; 215: 1979-11-01  1294
-#&gt; 216: 1979-12-01  1341</div><div class='input'><span class='fu'>ts_chain</span>(<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1975-12-01"</span>), <span class='no'>fdeaths</span>)</div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
+#&gt; 216: 1979-12-01  1341</div><div class='input'><span class='fu'>ts_chain</span>(<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1975-12-01"</span>), <span class='no'>fdeaths</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
 #&gt; 1974 2134.0000 1863.0000 1877.0000 1877.0000 1492.0000 1249.0000 1280.0000
 #&gt; 1975 2103.0000 2137.0000 2153.0000 1833.0000 1403.0000 1288.0000 1186.0000
 #&gt; 1976 2055.2815 3057.4656 2400.9546 1425.5668 1197.7977 1125.4475 1007.5435
@@ -196,7 +199,7 @@ used (if possible).</p>
 #&gt; 1979 1015.5824 1053.0973 1101.3307 1304.9831 1538.1115</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='fu'>ts_pc</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(
   <span class='kw'>comb</span> <span class='kw'>=</span> <span class='fu'>ts_chain</span>(<span class='fu'>ts_window</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1975-12-01"</span>), <span class='no'>fdeaths</span>),
   <span class='no'>fdeaths</span>
-)))</div><div class='img'><img src='ts_bind-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
+)))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='img'><img src='ts_bind-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

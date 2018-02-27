@@ -205,4 +205,8 @@ dta %>%
 
 ```
 
+## Using tsbox with zoo, tibbletime or tsibble
+
+A few other packages are dealing with time series
+
 And it also can be used with [tibbletime](https://cran.r-project.org/web/packages/tibbletime/index.html) and [tsibble](https://cran.r-project.org/web/packages/tsibble/index.html).
