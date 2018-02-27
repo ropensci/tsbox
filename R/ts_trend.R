@@ -43,6 +43,6 @@ ts_trend <- function(x, ...) {
   setnames(z, "value", colname.value)
   setnames(z, "time", colname.time)
 
-  ts_na_omit(copy_class(z, x))
+  copy_class(z, x)
 }
 

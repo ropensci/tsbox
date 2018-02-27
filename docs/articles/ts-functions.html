@@ -59,6 +59,9 @@
     <li>
       <a href="../articles/convert.html">Time Conversion and Reguarization</a>
     </li>
+    <li>
+      <a href="../articles/class-struggle.html">Extending tsbox</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -110,7 +113,7 @@
 </div>
 <div id="functions-from-external-packages" class="section level2">
 <h2 class="hasAnchor">
-<a href="#functions-from-external-packages" class="anchor"></a>Functions from external Packages</h2>
+<a href="#functions-from-external-packages" class="anchor"></a>Functions from external packages</h2>
 <p>Here is a slightly more complex example, which uses a post processing function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ts_prcomp &lt;-<span class="st"> </span><span class="kw">ts_</span>(<span class="cf">function</span>(x) <span class="kw">predict</span>(<span class="kw">prcomp</span>(x, <span class="dt">scale =</span> <span class="ot">TRUE</span>)))
 <span class="kw"><a href="../reference/ts_examples.html">ts_prcomp</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</code></pre></div>
@@ -148,7 +151,7 @@ ts_seas &lt;-<span class="st"> </span><span class="kw">ts_</span>(<span class="c
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#writing-ts-functions">Writing ts-functions</a></li>
-      <li><a href="#functions-from-external-packages">Functions from external Packages</a></li>
+      <li><a href="#functions-from-external-packages">Functions from external packages</a></li>
       </ul>
 </div>
       </div>
