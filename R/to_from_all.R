@@ -110,7 +110,22 @@ copy_class <- function(x, template, preserve.mode = TRUE, preserve.names = TRUE,
     }
   }
 
-  ans <- as_class(relevant_class(template))(x)
+  # treating ts separate, so we can return length 1 time series
+  if (inherits(template, "ts")){
+    if (inherits(x, "ts")){
+      ans <- x
+    } else {
+      x.dts <- ts_dts(x)
+      # is there only one observation?
+      if (number_of_series(x.dts) == nrow(ts_dts(x.dts))){
+        ans <- ts_ts_dts(ts_dts(x), frequency = frequency(template))
+      } else {
+        ans <- as_class(relevant_class(template))(x)
+      }
+    }
+  } else {
+    ans <- as_class(relevant_class(template))(x)
+  }
 
   # data frames should keep mode of time col.
   if (preserve.mode && 

@@ -1,35 +1,40 @@
 # to ---------------------------------------------------------------------------
 
-ts_ts_dts <- function(x) {
+ts_ts_dts <- function(x, frequency = NULL) {
   stopifnot(inherits(x, "dts"))
 
   wx <- wide_core(combine_id_cols(ts_regular(x)))
 
-  # try to regularize common time axis
-  # this is needed if there are uncovered parts among several series
-  reg.time <- regularize_date(wx[[1]])
+  if (is.null(frequency)){
+    # try to regularize common time axis
+    # this is needed if there are uncovered parts among several series
+    reg.time <- regularize_date(wx[[1]])
 
-  if (!is.null(reg.time)) {
+    if (!is.null(reg.time)) {
 
-    setnames(wx, 1, "time") # time col may have a different name
+      setnames(wx, 1, "time") # time col may have a different name
 
-    is.posixct <- inherits(wx[, time], "POSIXct")
-    if (is.posixct) {
-      tz <- attr(wx[, time], "tzone")
-      wx[, time := as.integer(time)]
-      reg.time <- as.integer(as.POSIXct(reg.time, tz = tz))
+      is.posixct <- inherits(wx[, time], "POSIXct")
+      if (is.posixct) {
+        tz <- attr(wx[, time], "tzone")
+        wx[, time := as.integer(time)]
+        reg.time <- as.integer(as.POSIXct(reg.time, tz = tz))
+      }
+
+      wx <- merge(data.table(time = reg.time), wx, by = "time", all.x = TRUE)
+      if (is.posixct) wx[, time := as.POSIXct(time, origin = '1970-01-01', tz = tz)]
     }
 
-    wx <- merge(data.table(time = reg.time), wx, by = "time", all.x = TRUE)
-    if (is.posixct) wx[, time := as.POSIXct(time, origin = '1970-01-01', tz = tz)]
+    tsp <- try(date_time_to_tsp(wx[[1]]), silent = TRUE)
+    if (inherits(tsp, "try-error")) {
+      message(paste0(gsub("Error : |\\n", "", tsp), ", returning data.frame"))
+      # browser()
+      return(ts_df(x))
+    }
+  } else {
+    tsp <- date_time_to_tsp(wx[[1]], freq = frequency)
   }
 
-  tsp <- try(date_time_to_tsp(wx[[1]]), silent = TRUE)
-  if (inherits(tsp, "try-error")) {
-    message(paste0(gsub("Error : |\\n", "", tsp), ", returning data.frame"))
-    # browser()
-    return(ts_df(x))
-  }
   # tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
   if (NCOL(cdta) == 1) {

@@ -17,8 +17,8 @@
 #' ms <- ts_window(mdeaths, end = "1976-12-01")
 #' ts_window(ts_c(fdeaths, ms), start = ts_start(ms), end = ts_end(ms))
 ts_window <- function(x, start = NULL, end = NULL, template = NULL) {
-  z <- ts_dts(x)
-  ctime <- colname_time(z)
+  x.dts <- ts_dts(x)
+  ctime <- colname_time(x.dts)
 
   if (!is.null(template)){
     xdts <- ts_dts(template)
@@ -36,25 +36,26 @@ ts_window <- function(x, start = NULL, end = NULL, template = NULL) {
     x
   }
 
-  if (inherits(z[[ctime]], "POSIXct")) {
+  if (inherits(x.dts[[ctime]], "POSIXct")) {
     anyfun <- function(x) anytime(if_num_char(x))
   } else {
     anyfun <- function(x) anydate(if_num_char(x))
   }
 
   if (!is.null(start)) {
-    z <- filter_data.table(z, ctime, ">=", anyfun(start))
+    x.dts <- filter_data.table(x.dts, ctime, ">=", anyfun(start))
   }
   if (!is.null(end)) {
     if (!is.null(start) && start >= end) {
       stop("'start' cannot be at or after 'end'", call. = FALSE)
     }
-    z <- filter_data.table(z, ctime, "<=", anyfun(end))
+    x.dts <- filter_data.table(x.dts, ctime, "<=", anyfun(end))
   }
-  if (nrow(z) == 0){
+
+  if (nrow(x.dts) == 0){
     stop("window contains no data, select different 'start' or 'end'", call. = FALSE)
   }
-  z <- copy_class(z, x)
+  z <- copy_class(x.dts, x)
 
   z
 }

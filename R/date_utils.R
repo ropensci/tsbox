@@ -1,7 +1,7 @@
 #' Manipulating Dates
 #'
 #' `time_shift` adds seconds, minutes, hours, days, weeks, months, quarters or years to dates.
-#' `first_day_of_month`, `first_day_of_quarter` and `first_day_of_yeae` return the first day of the
+#' `first_time_of_month`, `first_time_of_quarter` and `first_time_of_yeae` return the first day of the
 #' period and are useful for customized aggregation of data frames. For standard
 #' aggregation, use [ts_frequency()].
 #'
@@ -21,14 +21,19 @@
 #'
 #' @examples
 #' ap.time <- ts_df(AirPassengers)$time
-#' head(first_day_of_month(ap.time))
-#' head(first_day_of_quarter(ap.time))
-#' head(first_day_of_year(ap.time))
+#' head(first_time_of_month(ap.time))
+#' head(first_time_of_quarter(ap.time))
+#' head(first_time_of_year(ap.time))
 #'
 #' head(time_shift(ap.time, 14))
 #' head(time_shift(ap.time, "7 week"))
 #' head(time_shift(ap.time, "-1 month"))
 #'
+#' time_shift(ts_end(mdeaths), 1)
+#' time_shift(ts_end(mdeaths), "-14 sec")
+#' time_shift(ts_end(mdeaths), "-1 year")
+#' ts_window(ts_c(mdeaths, fdeaths), start = time_shift(ts_end(mdeaths), -1))
+#' 
 #' @export
 time_shift <- function(x, by = NULL) {
 
@@ -102,30 +107,42 @@ time_shift <- function(x, by = NULL) {
 
 #' @name time_shift
 #' @export
-first_day_of_month <- function(x) {
-  x <- as.Date(x)
+first_time_of_month <- function(x) {
+  x0 <- as.Date(x)
   d <- "1"
-  m <- data.table::month(x)
-  y <- data.table::year(x)
-  as.Date(paste(y, m, d, sep = "-"))
+  m <- data.table::month(x0)
+  y <- data.table::year(x0)
+  z <- as.Date(paste(y, m, d, sep = "-"))
+  if (inherits(x, "POSIXct")){
+    z <- as.POSIXct(z, origin = "1970-01-01", tz = attr(x, "tzone"))
+  }
+  z
 }
 
 #' @name time_shift
 #' @export
-first_day_of_quarter <- function(x) {
-  x <- as.Date(x)
+first_time_of_quarter <- function(x) {
+  x0 <- as.Date(x)
   d <- "1"
   m <- (data.table::quarter(x) - 1) * 3 + 1
-  y <- data.table::year(x)
-  as.Date(paste(y, m, d, sep = "-"))
+  y <- data.table::year(x0)
+  z <- as.Date(paste(y, m, d, sep = "-"))
+  if (inherits(x, "POSIXct")){
+    z <- as.POSIXct(z, origin = "1970-01-01", tz = attr(x, "tzone"))
+  }
+  z
 }
 
 #' @name time_shift
 #' @export
-first_day_of_year <- function(x) {
-  x <- as.Date(x)
+first_time_of_year <- function(x) {
+  x0 <- as.Date(x)
   d <- "1"
   m <- "1"
-  y <- data.table::year(x)
-  as.Date(paste(y, m, d, sep = "-"))
+  y <- data.table::year(x0)
+  z <- as.Date(paste(y, m, d, sep = "-"))
+  if (inherits(x, "POSIXct")){
+    z <- as.POSIXct(z, origin = "1970-01-01", tz = attr(x, "tzone"))
+  }
+  z
 }

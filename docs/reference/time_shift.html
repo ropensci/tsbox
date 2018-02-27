@@ -30,7 +30,7 @@
 <meta property="og:title" content="Manipulating Dates — time_shift" />
 
 <meta property="og:description" content="time_shift adds seconds, minutes, hours, days, weeks, months, quarters or years to dates.
-first_day_of_month, first_day_of_quarter and first_day_of_yeae return the first day of the
+first_time_of_month, first_time_of_quarter and first_time_of_yeae return the first day of the
 period and are useful for customized aggregation of data frames. For standard
 aggregation, use ts_frequency()." />
 <meta name="twitter:card" content="summary" />
@@ -91,9 +91,6 @@ aggregation, use ts_frequency()." />
     <li>
       <a href="../articles/convert.html">Time Conversion and Reguarization</a>
     </li>
-    <li>
-      <a href="../articles/class-struggle.html">Extending tsbox</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -124,18 +121,18 @@ aggregation, use ts_frequency()." />
 
     
     <p><code>time_shift</code> adds seconds, minutes, hours, days, weeks, months, quarters or years to dates.
-<code>first_day_of_month</code>, <code>first_day_of_quarter</code> and <code>first_day_of_yeae</code> return the first day of the
+<code>first_time_of_month</code>, <code>first_time_of_quarter</code> and <code>first_time_of_yeae</code> return the first day of the
 period and are useful for customized aggregation of data frames. For standard
 aggregation, use <code><a href='ts_frequency.html'>ts_frequency()</a></code>.</p>
     
 
     <pre class="usage"><span class='fu'>time_shift</span>(<span class='no'>x</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>first_day_of_month</span>(<span class='no'>x</span>)
+<span class='fu'>first_time_of_month</span>(<span class='no'>x</span>)
 
-<span class='fu'>first_day_of_quarter</span>(<span class='no'>x</span>)
+<span class='fu'>first_time_of_quarter</span>(<span class='no'>x</span>)
 
-<span class='fu'>first_day_of_year</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>first_time_of_year</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -170,14 +167,16 @@ shifting time stamps of a ts-boxable object.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ap.time</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>AirPassengers</span>)$<span class='no'>time</span></div><div class='output co'>#&gt; </div><div class='input'><span class='fu'>head</span>(<span class='fu'>first_day_of_month</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-02-01" "1949-03-01" "1949-04-01" "1949-05-01"
-#&gt; [6] "1949-06-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>first_day_of_quarter</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-01-01" "1949-01-01" "1949-04-01" "1949-04-01"
-#&gt; [6] "1949-04-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>first_day_of_year</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-01-01" "1949-01-01" "1949-01-01" "1949-01-01"
+    <pre class="examples"><div class='input'><span class='no'>ap.time</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>AirPassengers</span>)$<span class='no'>time</span></div><div class='output co'>#&gt; </div><div class='input'><span class='fu'>head</span>(<span class='fu'>first_time_of_month</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-02-01" "1949-03-01" "1949-04-01" "1949-05-01"
+#&gt; [6] "1949-06-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>first_time_of_quarter</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-01-01" "1949-01-01" "1949-04-01" "1949-04-01"
+#&gt; [6] "1949-04-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>first_time_of_year</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-01-01" "1949-01-01" "1949-01-01" "1949-01-01"
 #&gt; [6] "1949-01-01"</div><div class='input'>
 <span class='fu'>head</span>(<span class='fu'>time_shift</span>(<span class='no'>ap.time</span>, <span class='fl'>14</span>))</div><div class='output co'>#&gt; [1] "1950-03-01" "1950-04-01" "1950-05-01" "1950-06-01" "1950-07-01"
 #&gt; [6] "1950-08-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>time_shift</span>(<span class='no'>ap.time</span>, <span class='st'>"7 week"</span>))</div><div class='output co'>#&gt; [1] "1949-02-19" "1949-03-19" "1949-04-19" "1949-05-19" "1949-06-19"
 #&gt; [6] "1949-07-19"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>time_shift</span>(<span class='no'>ap.time</span>, <span class='st'>"-1 month"</span>))</div><div class='output co'>#&gt; [1] "1948-12-01" "1949-01-01" "1949-02-01" "1949-03-01" "1949-04-01"
 #&gt; [6] "1949-05-01"</div><div class='input'>
+<span class='fu'>time_shift</span>(<span class='fu'><a href='ts_window.html'>ts_end</a></span>(<span class='no'>mdeaths</span>), <span class='fl'>1</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; [1] "1979-12-02"</div><div class='input'><span class='fu'>time_shift</span>(<span class='fu'><a href='ts_window.html'>ts_end</a></span>(<span class='no'>mdeaths</span>), <span class='st'>"-14 sec"</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; [1] "1979-12-01 00:59:46 CET"</div><div class='input'><span class='fu'>time_shift</span>(<span class='fu'><a href='ts_window.html'>ts_end</a></span>(<span class='no'>mdeaths</span>), <span class='st'>"-1 year"</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; [1] "1978-12-01"</div><div class='input'><span class='fu'>ts_window</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>time_shift</span>(<span class='fu'><a href='ts_window.html'>ts_end</a></span>(<span class='no'>mdeaths</span>), -<span class='fl'>1</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;          mdeaths fdeaths
+#&gt; Dec 1979    1341     574</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

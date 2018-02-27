@@ -4,21 +4,21 @@ library(tsbox)
 context("date utils")
 
 
-test_that("df aggregation using first_day_of_ functions is working", {
+test_that("df aggregation using first_time_of_ functions is working", {
 
   # 3 cols
   library(dplyr)
   x <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
-    mutate(time = first_day_of_year(time)) %>%
+    mutate(time = first_time_of_year(time)) %>%
     group_by(id, time) %>%
     summarize(value = mean(value)) %>%
     ungroup()
 
-  expect_equal(x, ts_tbl(ts_frequency(ts_c(mdeaths, fdeaths), "year")))
+  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(mdeaths, fdeaths), "year")), id))
 
 
   x <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
-    mutate(time = first_day_of_quarter(time)) %>%
+    mutate(time = first_time_of_quarter(time)) %>%
     group_by(id, time) %>%
     summarize(value = mean(value)) %>%
     ungroup()
@@ -27,7 +27,7 @@ test_that("df aggregation using first_day_of_ functions is working", {
 
 
   x <- ts_tbl(ts_c(EuStockMarkets)) %>%
-    mutate(time = first_day_of_month(time)) %>%
+    mutate(time = as.Date(first_time_of_month(time))) %>%
     group_by(id, time) %>%
     summarize(value = mean(value)) %>%
     ungroup()

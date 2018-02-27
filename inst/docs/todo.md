@@ -12,8 +12,11 @@
 - [X] if time_shift works ts_lag will work with high freq as well
 
 
-- [ ] copy_class should be able to deal with length 1 series, so we can do
+- [X] copy_class should be able to deal with length 1 series, so we can do
   ts_window(mdeaths, start = ts_end(mdeaths))
+
+
+- [ ] How to extract last values?
 
   This may give us some alternatives to ts_last("1 year").
 
@@ -25,8 +28,6 @@
       almost surely isnt. Perhaps use ISODate?
 - [ ]   # POSIXct merges only work well when converted to integer. Don't do this 
         # for Date. try to make this consistent
-
-- [ ] ts_last("1 year"),  ts_last(1), same integer or character use as in ts_lag
 
 - [ ] Avoid error when col order is wrong
 
