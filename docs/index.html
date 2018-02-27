@@ -111,7 +111,7 @@ x.tbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.ht
 <a href="#use-same-functions-for-ts-xts-data-frame-data-table-or-tibble" class="anchor"></a>Use same functions for ts, xts, data.frame, data.table or tibble</h3>
 <p>Because this works reliably and without user input, it is easy to write functions that work for all classes. So whether we want to <strong>smooth</strong>, <strong>scale</strong>, <strong>differentiate</strong>, <strong>chain</strong>, <strong>forecast</strong>, <strong>regularize</strong> or <strong>seasonally adjust</strong> a time series, we can use the same commands to whatever time series class at hand:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/ts_trend.html">ts_trend</a></span>(x.ts) 
-<span class="kw">ts_pc</span>(x.xts)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/tsbox/topics/ts_pc">ts_pc</a></span>(x.xts)
 <span class="kw"><a href="reference/ts_pc.html">ts_pcy</a></span>(x.df)
 <span class="kw"><a href="reference/ts_lag.html">ts_lag</a></span>(x.dt)</code></pre></div>
 </div>
@@ -124,8 +124,8 @@ x.tbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.ht
 <span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(EuStockMarkets, mdeaths)
 
 <span class="co"># combine time series to a new, single time series</span>
-<span class="kw">ts_bind</span>(<span class="kw"><a href="reference/ts_ts.html">ts_dt</a></span>(mdeaths), AirPassengers)
-<span class="kw">ts_bind</span>(<span class="kw"><a href="reference/ts_ts.html">ts_xts</a></span>(AirPassengers), <span class="kw"><a href="reference/ts_ts.html">ts_tbl</a></span>(mdeaths))</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/tsbox/topics/ts_bind">ts_bind</a></span>(<span class="kw"><a href="reference/ts_ts.html">ts_dt</a></span>(mdeaths), AirPassengers)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/tsbox/topics/ts_bind">ts_bind</a></span>(<span class="kw"><a href="reference/ts_ts.html">ts_xts</a></span>(AirPassengers), <span class="kw"><a href="reference/ts_ts.html">ts_tbl</a></span>(mdeaths))</code></pre></div>
 </div>
 <div id="and-plot-just-about-everything" class="section level3">
 <h3 class="hasAnchor">

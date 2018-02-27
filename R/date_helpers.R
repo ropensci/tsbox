@@ -39,7 +39,7 @@ regularize_date <- function(x, full.year = FALSE) {
         tz = attr(x, "tzone")
       )
     } else {
-      from <- date_year(from)
+      from <- first_time_of_year(from)
     }
   }
   if (inherits(x, "POSIXct")){

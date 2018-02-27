@@ -4,7 +4,6 @@ library(tsbox)
 
 context("ts_bind")
 
-
 test_that("ts_bind works as it should.", {
   expect_equal(
     AirPassengers,
@@ -22,7 +21,6 @@ test_that("ts_bind works as it should.", {
   )
   expect_equal(ts_df(AirPassengers), ts_bind(AirPassengers = ts_window(ts_df(AirPassengers), start = "1950-01-01"), ts_window(ts_df(AirPassengers), end = "1949-12-01")))
   expect_equal(ts_tbl(AirPassengers), ts_bind(AirPassengers = ts_window(ts_tbl(AirPassengers), start = "1950-01-01"), ts_window(ts_tbl(AirPassengers), end = "1949-12-01")))
-
 
   expect_is(ts_bind(ts_dt(mdeaths), AirPassengers), "data.table")
 
@@ -63,8 +61,3 @@ test_that("ts_bind works with scalars", {
   expect_equal(as.numeric(window(ts_bind(ts_c(mdeaths, fdeaths), 1), start = 1980)[,'mdeaths']), 1)
 })
 
-
-
-
-#' ts_chain(ts_window(mdeaths, end = "1975-12-01"), fdeaths)
-#'

@@ -76,7 +76,7 @@ ts_c <- function(...) {
   )
 
   if (length(unique(lapply(ll.dts, colname_id))) > 1) {
-    stop("if present, id columns must be the same for all objects")
+    stop("if present, id columns must be the same for all objects", call. = FALSE)
   }
 
   ll.dts <- unify_time_class(ll.dts)

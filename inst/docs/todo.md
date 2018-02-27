@@ -7,17 +7,27 @@
       - removed altogther, they are confusing and unneeded. 
       ts_window(template = ) is probably more useful.
 
-- [ ] Spell checking individual docs
+      
+- [X] date_shift should prob become time_shift, mostly used internally 
+- [X] if time_shift works ts_lag will work with high freq as well
+
+
+- [X] copy_class should be able to deal with length 1 series, so we can do
+  ts_window(mdeaths, start = ts_end(mdeaths))
+
+
+- [ ] How to extract last values?
+
+  This may give us some alternatives to ts_last("1 year").
+
+  ts_window(AirPassengers, end = -1)         # everything except last obs
+  ts_window(AirPassengers, start = "1 last") # only the last obs
+
 
 - [ ] as.POSIXct(idx, origin = "1970-01-01"), whats the correct origin? This 
       almost surely isnt. Perhaps use ISODate?
 - [ ]   # POSIXct merges only work well when converted to integer. Don't do this 
-        # for Date
-      Yes, but this is a rounding issue. Round everything to seconds for:
-
-      mergers, widening etc? try to make this consistent
-
-      
+        # for Date. try to make this consistent
 
 - [ ] Avoid error when col order is wrong
 
@@ -26,9 +36,6 @@
       for nonstandard aggregation, e.g. hours to weeks, we need something like 
       lubridate anyway. Is there any usecase?
 
-      date_shift should prob become time_shift, mostly used internally 
-
-      if time_shift works ts_lag will work with high freq as well
 
 - [ ] ts_frequency with incomplete periods?
 

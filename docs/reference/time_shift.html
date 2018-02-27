@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lag or Lead of Time Series — ts_lag • tsbox</title>
+<title>Manipulating Dates — time_shift • tsbox</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,10 +27,12 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Lag or Lead of Time Series — ts_lag" />
+<meta property="og:title" content="Manipulating Dates — time_shift" />
 
-<meta property="og:description" content="Shift time stamps in ts-boxable time series, either by a number of periods or
-by a fixed amount of time." />
+<meta property="og:description" content="time_shift adds seconds, minutes, hours, days, weeks, months, quarters or years to dates.
+first_time_of_month, first_time_of_quarter and first_time_of_yeae return the first day of the
+period and are useful for customized aggregation of data frames. For standard
+aggregation, use ts_frequency()." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -114,22 +116,30 @@ by a fixed amount of time." />
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lag or Lead of Time Series</h1>
+    <h1>Manipulating Dates</h1>
     </div>
 
     
-    <p>Shift time stamps in ts-boxable time series, either by a number of periods or
-by a fixed amount of time.</p>
+    <p><code>time_shift</code> adds seconds, minutes, hours, days, weeks, months, quarters or years to dates.
+<code>first_time_of_month</code>, <code>first_time_of_quarter</code> and <code>first_time_of_yeae</code> return the first day of the
+period and are useful for customized aggregation of data frames. For standard
+aggregation, use <code><a href='ts_frequency.html'>ts_frequency()</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>ts_lag</span>(<span class='no'>x</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>time_shift</span>(<span class='no'>x</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>first_time_of_month</span>(<span class='no'>x</span>)
+
+<span class='fu'>first_time_of_quarter</span>(<span class='no'>x</span>)
+
+<span class='fu'>first_time_of_year</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code>, or <code>tibble</code>.</p></td>
+      <td><p><code>Date</code> or <code>POSIXct</code>. If <code>POSIXct</code>, it is converted into <code>Date</code>.</p></td>
     </tr>
     <tr>
       <th>by</th>
@@ -140,16 +150,11 @@ by a fixed amount of time.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a ts-boxable time series, with the same class as the input. If time
-stamp shifting causes the object to be irregular, a data frame is returned.</p>
+    <p>an object of class <code>Date</code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The lag order, <code>by</code>, is defined as in R base. Thus, -1 is a lag and +1 a lead
-(dplyr uses an opposite definition).</p>
-<p>If <code>by</code> is integer, the time stamp is shifted by the number of periods. This
-requires the series to be regular.</p>
-<p>If <code>by</code> is character, the time stamp is shifted by a specific amount of time.
+    <p>If <code>by</code> is character, the time stamp is shifted by a specific amount of time.
 This can be one of one of <code>"sec"</code>, <code>"min"</code>, <code>"hour"</code>, <code>"day"</code>, <code>"week"</code>,
 <code>"month"</code>, <code>"quarter" or</code>"year", optionally preceded by a (positive or
 negative) integer and a space, or followed by plural "s". This is passed to
@@ -157,20 +162,21 @@ negative) integer and a space, or followed by plural "s". This is passed to
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code>ts_lag()</code>, for shifting regular series. <code>time_shift()</code>, for
-shifting <code>Date</code> or <code>POSIXct</code> vectors.</p>
+    <p><code><a href='ts_frequency.html'>ts_frequency()</a></code> for standard aggregation. <code>time_shift()</code>, for
+shifting time stamps of a ts-boxable object.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='no'>AirPassengers</span>, <span class='fu'>ts_lag</span>(<span class='no'>AirPassengers</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='img'><img src='ts_lag-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_lag</span>(<span class='no'>AirPassengers</span>, <span class='st'>"1 month"</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;      Feb Mar Apr May Jun Jul
-#&gt; 1949 112 118 132 129 121 135</div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_lag</span>(<span class='no'>AirPassengers</span>, <span class='st'>"1 year"</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun
-#&gt; 1950 112 118 132 129 121 135</div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_lag</span>(<span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>AirPassengers</span>), <span class='st'>"2 day"</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;         time value
-#&gt; 1 1949-01-03   112
-#&gt; 2 1949-02-03   118
-#&gt; 3 1949-03-03   132
-#&gt; 4 1949-04-03   129
-#&gt; 5 1949-05-03   121
-#&gt; 6 1949-06-03   135</div><div class='input'># head(ts_lag(ts_df(AirPassengers), "2 min")) not yet working
+    <pre class="examples"><div class='input'><span class='no'>ap.time</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>AirPassengers</span>)$<span class='no'>time</span></div><div class='output co'>#&gt; </div><div class='input'><span class='fu'>head</span>(<span class='fu'>first_time_of_month</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-02-01" "1949-03-01" "1949-04-01" "1949-05-01"
+#&gt; [6] "1949-06-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>first_time_of_quarter</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-01-01" "1949-01-01" "1949-04-01" "1949-04-01"
+#&gt; [6] "1949-04-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>first_time_of_year</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-01-01" "1949-01-01" "1949-01-01" "1949-01-01"
+#&gt; [6] "1949-01-01"</div><div class='input'>
+<span class='fu'>head</span>(<span class='fu'>time_shift</span>(<span class='no'>ap.time</span>, <span class='fl'>14</span>))</div><div class='output co'>#&gt; [1] "1950-03-01" "1950-04-01" "1950-05-01" "1950-06-01" "1950-07-01"
+#&gt; [6] "1950-08-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>time_shift</span>(<span class='no'>ap.time</span>, <span class='st'>"7 week"</span>))</div><div class='output co'>#&gt; [1] "1949-02-19" "1949-03-19" "1949-04-19" "1949-05-19" "1949-06-19"
+#&gt; [6] "1949-07-19"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>time_shift</span>(<span class='no'>ap.time</span>, <span class='st'>"-1 month"</span>))</div><div class='output co'>#&gt; [1] "1948-12-01" "1949-01-01" "1949-02-01" "1949-03-01" "1949-04-01"
+#&gt; [6] "1949-05-01"</div><div class='input'>
+<span class='fu'>time_shift</span>(<span class='fu'><a href='ts_window.html'>ts_end</a></span>(<span class='no'>mdeaths</span>), <span class='fl'>1</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; [1] "1979-12-02"</div><div class='input'><span class='fu'>time_shift</span>(<span class='fu'><a href='ts_window.html'>ts_end</a></span>(<span class='no'>mdeaths</span>), <span class='st'>"-14 sec"</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; [1] "1979-12-01 00:59:46 CET"</div><div class='input'><span class='fu'>time_shift</span>(<span class='fu'><a href='ts_window.html'>ts_end</a></span>(<span class='no'>mdeaths</span>), <span class='st'>"-1 year"</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; [1] "1978-12-01"</div><div class='input'><span class='fu'>ts_window</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>), <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>time_shift</span>(<span class='fu'><a href='ts_window.html'>ts_end</a></span>(<span class='no'>mdeaths</span>), -<span class='fl'>1</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt;          mdeaths fdeaths
+#&gt; Dec 1979    1341     574</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

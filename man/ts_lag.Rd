@@ -41,6 +41,6 @@ head(ts_lag(ts_df(AirPassengers), "2 day"))
 # head(ts_lag(ts_df(AirPassengers), "2 min")) not yet working
 }
 \seealso{
-\code{\link[=ts_lag]{ts_lag()}}, for shifting regular series. \code{\link[=date_shift]{date_shift()}}, for
-shifting \code{Date} vectors.
+\code{\link[=ts_lag]{ts_lag()}}, for shifting regular series. \code{\link[=time_shift]{time_shift()}}, for
+shifting \code{Date} or \code{POSIXct} vectors.
 }

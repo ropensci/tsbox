@@ -1,7 +1,7 @@
 # helper functions for converters
 # (need to be adjusted if new classes are added)
 
-.supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tbl", "dts", "tslist")
+.supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tsibble", "tbl", "dts", "tslist")
 
 
 #' Test if an Object is ts-Boxable
@@ -15,7 +15,7 @@
 #' ts_boxable(lm)
 #' @export
 ts_boxable <- function(x) {
-  class(x)[1] %in% .supported.classes
+  relevant_class(x) %in% .supported.classes
 }
 
 
@@ -66,6 +66,9 @@ relevant_class <- function(x) {
   if (inherits(x, "data.table")) {
     return("data.table")
   }
+  if (inherits(x, "tbl_ts")) {
+    return("tsibble")
+  }
   if (inherits(x, "tbl")) {
     return("tbl")
   }
@@ -75,7 +78,7 @@ relevant_class <- function(x) {
   if (inherits(x, "tslist")) {
     return("tslist")
   }
-  stop("not a ts_boxable object.")
+  return("")
 }
 
 #' Re-Class ts-Boxable Object
@@ -106,9 +109,23 @@ copy_class <- function(x, template, preserve.mode = TRUE, preserve.names = TRUE,
       return(x)
     }
   }
-  ans <- as_class(relevant_class(template))(x)
 
-
+  # treating ts separate, so we can return length 1 time series
+  if (inherits(template, "ts")){
+    if (inherits(x, "ts")){
+      ans <- x
+    } else {
+      x.dts <- ts_dts(x)
+      # is there only one observation?
+      if (number_of_series(x.dts) == nrow(ts_dts(x.dts))){
+        ans <- ts_ts_dts(ts_dts(x), frequency = frequency(template))
+      } else {
+        ans <- as_class(relevant_class(template))(x)
+      }
+    }
+  } else {
+    ans <- as_class(relevant_class(template))(x)
+  }
 
   # data frames should keep mode of time col.
   if (preserve.mode && 
@@ -128,6 +145,7 @@ copy_class <- function(x, template, preserve.mode = TRUE, preserve.names = TRUE,
   }
 
   if (preserve.names && 
+      # inherits(ans, "ts_tsbl") &&  # naming does not work in tsib
       inherits(ans, "data.frame") && 
       inherits(template, "data.frame")) {
     if (!identical(names(ans), names(template))){

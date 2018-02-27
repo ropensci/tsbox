@@ -35,23 +35,8 @@ ts_to_date_time <- function(x) {
     stopifnot(inherits(x, "ts"))
     if (NCOL(x) > 1) x <- x[, 1]
     start <- dectime_to_POSIXct(tsp(x)[1])
-    # end <- dectime_to_POSIXct(tsp(x)[2])
 
-      start <- round(start, "secs")
-
-    # if (md$freq <= 525600){
-    #   start <- round(start, "mins")
-    #   # end <- round(end, "mins")
-    # } else if (md$freq <= 8767){
-    #   start <- round(start, "hours")
-    #   # end <- round(end, "hours")
-    # } else if (md$freq <= 365.25){
-    #   # start <- round(start, "days")
-    #   # end <- round(end, "days")
-    # } else {
-    #   start <- round(start, "secs")
-    #   # end <- round(end, "secs")
-    # }
+    start <- round(start, "secs")
 
     z <- seq(
       from = start,
@@ -78,13 +63,14 @@ ts_to_date_time <- function(x) {
 
 
 
-date_time_to_tsp <- function(x) {
-  if (length(x) <= 1) {
-    stop("time series too short for frequency detection", call. = FALSE)
-  }
+date_time_to_tsp <- function(x, freq = NULL) {
 
-  freq <- frequency_table(x)$freq
-# browser()
+  if (is.null(freq)){
+    if (length(x) <= 1) {
+      stop("time series too short for frequency detection", call. = FALSE)
+    }
+    freq <- frequency_table(x)$freq
+  }
   # Non heuristic conversion
   if (length(freq) > 1 || freq == -1){
     z <- POSIXct_to_tsp(as.POSIXct(x))
@@ -102,10 +88,22 @@ date_time_to_tsp <- function(x) {
     }
     z <- tsp(ts(x, frequency = freq, start = start)) # a bit inefficient
   } else {
-    reg.date <- regularize_date(x, full.year = TRUE)
-    dum <- ts(reg.date, frequency = freq, start = data.table::year(x[1]))
-    start <- time(dum)[dum >= as.integer(x[1])][1]
-    z <- tsp(window(dum, start = start))
+    # this should be able to deal with Date and POSIXct.
+    str <- .mapdiff[freq == frequency]$string
+    if (length(str) == 0) stop("cannot deal with frequency: ", frequency)
+
+    start.time <- first_time_of_year(x[1])
+    end.time <- time_shift(start.time, "1 year")
+
+    sq.time0 <- seq(start.time, end.time, by = str)
+    sq.time <- sq.time0[-length(sq.time0)]
+
+    sq.ts <- ts(sq.time, frequency = freq, start = data.table::year(x[1]))
+    start <- time(sq.ts)[sq.ts >= as.integer(x[1])][1]
+
+    tsp(ts(x, start = start, frequency = frequency))
   }
   z
 }
+
+

@@ -42,7 +42,7 @@ perform the main operation on the object (here: `rowSums`). Finally they convert
 the result back to the original class, using `copy_class`.
 
 
-## Functions from external Packages
+## Functions from external packages
 
 Here is a slightly more complex example, which uses a post processing function:
 
