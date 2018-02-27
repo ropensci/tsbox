@@ -42,6 +42,9 @@ time_shift <- function(x, by = NULL) {
   }
 
   add_to_one_time <- function(x) seq(x, length.out = 2, by = by)[2]
+
+  if (length(x) == 1) return(add_to_one_time(x))
+
   # this is the correct, perhaps not the fastest regularity test
   # also understands monthly, quarterly etc.
   diffdt <- frequency_table(x)

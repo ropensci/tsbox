@@ -35,8 +35,11 @@ regular_core <- function(x) {
   # A quick regularity check to avoid full regualrization for most serise
   is_regular <- function(x) {
 
+    if (length(x) == 1) return(TRUE)
+
     if (any(is.na(x))) stop("time column cannot contain NAs", call. = FALSE)
     dd <- diff(as.numeric(x))
+
     rng <- max(dd) - min(dd)
 
     z <- (rng < 1) || (rng < 5 && rng / mean(dd) < 0.15)

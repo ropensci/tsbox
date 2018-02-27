@@ -24,10 +24,7 @@
 - [ ] as.POSIXct(idx, origin = "1970-01-01"), whats the correct origin? This 
       almost surely isnt. Perhaps use ISODate?
 - [ ]   # POSIXct merges only work well when converted to integer. Don't do this 
-        # for Date
-      Yes, but this is a rounding issue. Round everything to seconds for:
-
-      mergers, widening etc? try to make this consistent
+        # for Date. try to make this consistent
 
 - [ ] ts_last("1 year"),  ts_last(1), same integer or character use as in ts_lag
 
