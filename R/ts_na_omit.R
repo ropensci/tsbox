@@ -13,13 +13,19 @@
 #'
 #' @examples
 #' x <- AirPassengers
-#' x[c(10, 15)] <- NA
+#' x[c(2, 4)] <- NA
 #'
-#' # does not change anything for ts objects
-#' ts_na_omit(x)
+#' # A ts object does only know explicit NAs
+#' head(ts_na_omit(x))
 #'
-#' # but turns an explicit NA into an implicit for data.frames
-#' ts_na_omit(ts_dts(x))
+#' # by default, NAs are implicit in data frames
+#' head(ts_df(x))
+#' 
+#' # make NAs explicit
+#' head(ts_regular(ts_df(x)))
+#' 
+#' # and implicit again
+#' head(ts_na_omit(ts_regular(ts_df(x))))
 #' @export
 ts_na_omit <- function(x) {
   value <- NULL

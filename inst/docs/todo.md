@@ -16,6 +16,34 @@
   ts_window(mdeaths, start = ts_end(mdeaths))
 
 
+
+- [ ] redesign dts
+  - attributes
+  - proper extractor functions
+  - since we can update attributes without copy, extractors may update if 
+    attribute is NA. 
+
+    (This reduces the need to guess stuff and perhaps leads to 
+    cleaner messages)
+
+    - dts_frequency()
+    - dts_regular()
+    - dts_start()
+    - dts_mode()  
+
+    - dts_ctime
+    - dts_cid
+    - dts_cvalue
+
+  x[, dts_ctime(x), with = FALSE]
+
+
+- [ ] add proper class registry to specific files
+
+- [ ] unified and automated class testing: each class in registry should go through a bunch of tests.
+
+
+
 - [ ] How to extract last values?
 
   This may give us some alternatives to ts_last("1 year").

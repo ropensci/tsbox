@@ -1,7 +1,48 @@
 # helper functions for converters
 # (need to be adjusted if new classes are added)
 
+
+
+
+
 .supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tsibble", "tbl", "dts", "tslist")
+
+#' Extract Relevant Class
+#'
+#' Mainly used internally.
+#'
+#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @examples
+#' relevant_class(AirPassengers)
+#' relevant_class(ts_df(AirPassengers))
+#' @export
+relevant_class <- function(x) {
+  if (inherits(x, "dts")) {
+    return("dts")
+  }
+  if (inherits(x, "ts")) {
+    return("ts")
+  }
+  if (inherits(x, "xts")) {
+    return("xts")
+  }
+  if (inherits(x, "data.table")) {
+    return("data.table")
+  }
+  if (inherits(x, "tbl_ts")) {
+    return("tsibble")
+  }
+  if (inherits(x, "tbl")) {
+    return("tbl")
+  }
+  if (inherits(x, "data.frame")) {
+    return("data.frame")
+  }
+  if (inherits(x, "tslist")) {
+    return("tslist")
+  }
+  return("")
+}
 
 
 #' Test if an Object is ts-Boxable
@@ -44,42 +85,7 @@ desired_class <- function(ll) {
   }
 }
 
-#' Extract the Relevant Class
-#'
-#' Mainly used internally.
-#'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
-#' @examples
-#' relevant_class(AirPassengers)
-#' relevant_class(ts_df(AirPassengers))
-#' @export
-relevant_class <- function(x) {
-  if (inherits(x, "dts")) {
-    return("dts")
-  }
-  if (inherits(x, "ts")) {
-    return("ts")
-  }
-  if (inherits(x, "xts")) {
-    return("xts")
-  }
-  if (inherits(x, "data.table")) {
-    return("data.table")
-  }
-  if (inherits(x, "tbl_ts")) {
-    return("tsibble")
-  }
-  if (inherits(x, "tbl")) {
-    return("tbl")
-  }
-  if (inherits(x, "data.frame")) {
-    return("data.frame")
-  }
-  if (inherits(x, "tslist")) {
-    return("tslist")
-  }
-  return("")
-}
+
 
 #' Re-Class ts-Boxable Object
 #'
@@ -94,8 +100,11 @@ relevant_class <- function(x) {
 #' @param preserve.names should the name of the time column be preserved (data frame only)
 #' @param preserve.time should the values time column be preserved (data frame only)
 #' @export
-copy_class <- function(x, template, preserve.mode = TRUE, preserve.names = TRUE, 
+copy_class <- function(x, template, 
+                       preserve.mode = TRUE, 
+                       preserve.names = TRUE, 
                        preserve.time = FALSE) {
+
   if (!ts_boxable(x)) {
     if (inherits(template, "ts")) {
       x <- ts(x)
@@ -110,7 +119,7 @@ copy_class <- function(x, template, preserve.mode = TRUE, preserve.names = TRUE,
     }
   }
 
-  # treating ts separate, so we can return length 1 time series
+  # to deal with 1 period time series: separate ts treatment
   if (inherits(template, "ts")){
     if (inherits(x, "ts")){
       ans <- x
@@ -127,30 +136,25 @@ copy_class <- function(x, template, preserve.mode = TRUE, preserve.names = TRUE,
     ans <- as_class(relevant_class(template))(x)
   }
 
-  # data frames should keep mode of time col.
-  if (preserve.mode && 
-      inherits(ans, "data.frame") && 
-      inherits(template, "data.frame")) {
+  # data frames may keep mode, names or time stamps
+  if (inherits(ans, "data.frame") && inherits(template, "data.frame")) {
     tn <- guess_time(ans)
-    if ((class(ans[[tn]])[1] == "Date") && (class(template[[tn]])[1] == "POSIXct")) {
-      ans[[tn]] <- as.POSIXct(ans[[tn]])
+    if (preserve.mode) {
+      if ((class(ans[[tn]])[1] == "Date") && (class(template[[tn]])[1] == "POSIXct")) {
+        ans[[tn]] <- as.POSIXct(ans[[tn]])
+      }
     }
-  }
 
-  if (preserve.time && 
-    inherits(ans, "data.frame") && 
-    inherits(template, "data.frame")) {
-    tn <- guess_time(ans)
-    ans[[tn]] <- template[[tn]]
-  }
-
-  if (preserve.names && 
-      # inherits(ans, "ts_tsbl") &&  # naming does not work in tsib
-      inherits(ans, "data.frame") && 
-      inherits(template, "data.frame")) {
-    if (!identical(names(ans), names(template))){
-      names(ans) <- names(template)
+    if (preserve.time) {
+      ans[[tn]] <- template[[tn]]
     }
+
+    if (preserve.names) {
+      if (!identical(names(ans), names(template))){
+        names(ans) <- names(template)
+      }
+    }
+
   }
 
   ans
