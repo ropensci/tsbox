@@ -108,7 +108,7 @@ time_shift <- function(x, by = NULL) {
 #' @name time_shift
 #' @export
 first_time_of_month <- function(x) {
-  x0 <- as.Date(x)
+  x0 <- (x)
   d <- "1"
   m <- data.table::month(x0)
   y <- data.table::year(x0)
@@ -122,7 +122,7 @@ first_time_of_month <- function(x) {
 #' @name time_shift
 #' @export
 first_time_of_quarter <- function(x) {
-  x0 <- as.Date(x)
+  x0 <- (x)
   d <- "1"
   m <- (data.table::quarter(x) - 1) * 3 + 1
   y <- data.table::year(x0)
@@ -136,7 +136,7 @@ first_time_of_quarter <- function(x) {
 #' @name time_shift
 #' @export
 first_time_of_year <- function(x) {
-  x0 <- as.Date(x)
+  x0 <- (x)
   d <- "1"
   m <- "1"
   y <- data.table::year(x0)

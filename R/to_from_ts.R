@@ -17,12 +17,12 @@ ts_ts_dts <- function(x, frequency = NULL) {
       stop("no regular pattern detected", call. = FALSE)
     }
 
-    tsp <- try(date_time_to_tsp(wx[[1]]), silent = TRUE)
-    if (inherits(tsp, "try-error")) {
-      message(paste0(gsub("Error : |\\n", "", tsp), ", returning data.frame"))
-      # browser()
-      return(ts_df(x))
-    }
+    tsp <- date_time_to_tsp(wx[[1]])
+    # if (inherits(tsp, "try-error")) {
+    #   message(paste0(gsub("Error : |\\n", "", tsp), ", returning data.frame"))
+    #   # browser()
+    #   return(ts_df(x))
+    # }
   } else {
     tsp <- date_time_to_tsp(wx[[1]], freq = frequency)
   }
