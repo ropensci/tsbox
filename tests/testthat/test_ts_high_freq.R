@@ -16,6 +16,26 @@ test_that("no NA when converting second data ", {
 
 test_that("heuristic high frequency data works", {
 
+
+  x <- ts_ts(data.frame(
+    time = seq(from = as.POSIXct("2000-01-01"), length.out = 10, by = "1 sec"),
+    value = 1:10
+  ))
+  expect_is(x, "ts")
+
+  x <- ts_ts(data.frame(
+    time = seq(from = as.POSIXct("2000-01-01"), length.out = 10, by = "4 hour"),
+    value = 1:10
+  ))
+  expect_is(x, "ts")
+
+  x <- ts_ts(data.frame(
+    time = seq(from = as.POSIXct("2000-01-01"), length.out = 10, by = "1 day"),
+    value = 1:10
+  ))
+  expect_is(x, "ts")
+
+
   x <- data.frame(
     time = seq(from = as.POSIXct("2000-01-01"), length.out = 10, by = "1 sec"),
     value = 1:10

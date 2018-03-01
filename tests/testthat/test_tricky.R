@@ -63,8 +63,8 @@ test_that("Non unique colnames work fine", {
   )
 
   expect_equal(
-    ts_ts(ts_c(mdeaths, EuStockMarkets, ts_df(ts_c(mdeaths, EuStockMarkets)))),
-    ts_c(mdeaths, EuStockMarkets, ts_c(mdeaths, EuStockMarkets))
+    ts_c(mdeaths, EuStockMarkets, ts_tbl(ts_c(mdeaths, EuStockMarkets))),
+    ts_tbl(ts_c(mdeaths, EuStockMarkets, ts_c(mdeaths, EuStockMarkets)))
   )
 
   expect_equal(
