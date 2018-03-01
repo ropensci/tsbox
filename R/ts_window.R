@@ -48,13 +48,13 @@
 #' ts_window(discoveries, template = AirPassengers)
 ts_window <- function(x, start = NULL, end = NULL, template = NULL) {
   x.dts <- ts_dts(x)
-  ctime <- colname_time(x.dts)
+  ctime <- dts_cname(x.dts)$time
 
   if (!is.null(template)){
-    xdts <- ts_dts(template)
-    rr <- range(xdts[[colname_time(xdts)]])
-    start <- rr[1]
-    end <- rr[2]
+    t.dts <- ts_dts(template)
+    rng <- range(xdts[[dts_cname(t.dts)$time]])
+    start <- rng[1]
+    end <- rng[2]
   }
 
   # Outfactor in universal anytime wrapper?
@@ -66,7 +66,7 @@ ts_window <- function(x, start = NULL, end = NULL, template = NULL) {
     x
   }
 
-  if (inherits(x.dts[[ctime]], "POSIXct")) {
+  if (dts_tattr(x.dts)$class == "POSIXct") {
     anyfun <- function(x) anytime(if_num_char(x))
   } else {
     anyfun <- function(x) anydate(if_num_char(x))
@@ -93,12 +93,12 @@ ts_window <- function(x, start = NULL, end = NULL, template = NULL) {
 #' @export
 #' @name ts_window
 ts_start <- function(x) {
-  xdts <- ts_dts(x)
-  range(xdts[[colname_time(xdts)]])[1]
+  x.dts <- ts_dts(x)
+  range(x.dts[[dts_cname(x.dts)$time]])[1]
 }
 #' @export
 #' @name ts_window
 ts_end <- function(x) {
-  xdts <- ts_dts(x)
-  range(xdts[[colname_time(xdts)]])[2]
+  x.dts <- ts_dts(x)
+  range(x.dts[[dts_cname(x.dts)$time]])[2]
 }

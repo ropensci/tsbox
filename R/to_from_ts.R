@@ -6,23 +6,15 @@ ts_ts_dts <- function(x, frequency = NULL) {
   wx <- wide_core(combine_id_cols(ts_regular(x)))
 
   if (is.null(frequency)){
+
     # try to regularize common time axis
     # this is needed if there are uncovered parts among several series
     reg.time <- regularize_date(wx[[1]])
-
     if (!is.null(reg.time)) {
-
       setnames(wx, 1, "time") # time col may have a different name
-
-      is.posixct <- inherits(wx[, time], "POSIXct")
-      if (is.posixct) {
-        tz <- attr(wx[, time], "tzone")
-        wx[, time := as.integer(time)]
-        reg.time <- as.integer(as.POSIXct(reg.time, tz = tz))
-      }
-
-      wx <- merge(data.table(time = reg.time), wx, by = "time", all.x = TRUE)
-      if (is.posixct) wx[, time := as.POSIXct(time, origin = '1970-01-01', tz = tz)]
+      merge_time_date(data.table::data.table(time = reg.time), wx, by.x = "time", by.y = "time")
+    } else {
+      stop("no regular pattern detected", call. = FALSE)
     }
 
     tsp <- try(date_time_to_tsp(wx[[1]]), silent = TRUE)
@@ -34,7 +26,6 @@ ts_ts_dts <- function(x, frequency = NULL) {
   } else {
     tsp <- date_time_to_tsp(wx[[1]], freq = frequency)
   }
-
   # tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
   if (NCOL(cdta) == 1) {
@@ -61,13 +52,13 @@ ts_dts.ts <- function(x) {
   if (ncol(m) == 1) {
     names(dta)[1] <- "value"
     # needs the ts_dts.data.table
-    z <- ts_dts(dta[, list(time, value)])
+    setcolorder(dta, c("time", "value"))
   } else {
-    z <- long_core(dta)
+    dta <- melt(dta, id.vars = "time", variable.name = "id", variable.factor = FALSE)
+    setcolorder(dta, c("id", "time", "value"))
   }
   # implicit NAs by default, use ts_regular to get explict NAs
-  z <- ts_na_omit(z)
-  z
+  dts_init(dta)
 }
 
 

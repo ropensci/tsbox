@@ -128,17 +128,17 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
 
   # bring into canonical form
-  colname.id <- colname_id(x)
-  colname.time <- colname_time(x)
-  colname.value <- colname_value(x)
+  cid <- dts_cname(x)$id
+  ctime <- dts_cname(x)$time
+  cvalue <- dts_cname(x)$value
 
-  if (length(colname.id) == 0) {
+  if (length(cid) == 0) {
     x$id <- "dummy"
-    colname.id <- "id"
-    setcolorder(x, c("id", colname.time, colname.value))
+    cid <- "id"
+    setcolorder(x, c("id", ctime, cvalue))
   }
   setnames(
-    x, c(colname.id, colname.time, colname.value),
+    x, c(cid, ctime, cvalue),
     c("id", "time", "value")
   )
 

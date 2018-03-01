@@ -65,6 +65,7 @@ ts_to_date_time <- function(x) {
 
 date_time_to_tsp <- function(x, freq = NULL) {
 
+
   if (is.null(freq)){
     if (length(x) <= 1) {
       stop("time series too short for frequency detection", call. = FALSE)
@@ -89,7 +90,8 @@ date_time_to_tsp <- function(x, freq = NULL) {
     z <- tsp(ts(x, frequency = freq, start = start)) # a bit inefficient
   } else {
     # this should be able to deal with Date and POSIXct.
-    str <- .mapdiff[freq == frequency]$string
+    .freq <- freq
+    str <- .mapdiff[freq == .freq]$string
     if (length(str) == 0) stop("cannot deal with frequency: ", frequency)
 
     start.time <- first_time_of_year(x[1])
@@ -100,8 +102,8 @@ date_time_to_tsp <- function(x, freq = NULL) {
 
     sq.ts <- ts(sq.time, frequency = freq, start = data.table::year(x[1]))
     start <- time(sq.ts)[sq.ts >= as.integer(x[1])][1]
-
-    tsp(ts(x, start = start, frequency = frequency))
+# browser()
+    tsp(ts(x, start = start, frequency = freq))
   }
   z
 }

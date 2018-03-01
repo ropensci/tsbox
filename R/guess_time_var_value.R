@@ -66,6 +66,10 @@ guess_value <- function(x) {
   z
 }
 
+
+
+
+# outdated?
 guess_time_value <- function(x) {
   value.name <- guess_value(x)
   time.name <- guess_time(x, value.name = value.name)

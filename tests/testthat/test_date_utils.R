@@ -40,7 +40,7 @@ test_that("time_shift is working", {
   x <- ts_tbl(ts_c(mdeaths, fdeaths))
   expect_equal(x$time, time_shift(x$time))
 
-  x1 <- ts_df(ts_c(mdeaths, fdeaths)) %>%
+  x1 <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
     mutate(time = time_shift(time, by = "month")) 
   xlag <- ts_lag(x)
 

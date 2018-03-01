@@ -44,6 +44,14 @@ long_core <- function(x) {
   ts_dts(z)
 }
 
+# same as above but no dts conversion
+long_core_basic <- function(x) {
+  stopifnot(inherits(x, "data.table"))
+  time.name <- guess_time(x)
+  melt(x, id.vars = time.name, variable.name = "id", variable.factor = FALSE)
+  # ts_dts(z)
+}
+
 #' @export
 #' @name ts_long
 ts_wide <- function(x) {

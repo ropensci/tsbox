@@ -16,9 +16,9 @@ ts_scale <- function (x, center = TRUE, scale = TRUE){
   value <- NULL
   z <- ts_dts(x)
 
-  colname.id <- colname_id(z)
-  colname.value <- colname_value(z)
-  setnames(z, colname.value, "value")
+  cid <- dts_cname(z)$id
+  cvalue <- dts_cname(z)$value
+  setnames(z, cvalue, "value")
 
   scale_core <- function(value) {
     z <- scale(value, center = center, scale = scale)
@@ -27,12 +27,12 @@ ts_scale <- function (x, center = TRUE, scale = TRUE){
     z
   }
 
-  .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+  .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
   z[
     ,
     value := scale_core(value),
     by = eval(.by)
   ]
-  setnames(z, "value", colname.value)
+  setnames(z, "value", cvalue)
   ts_na_omit(copy_class(z, x))
 }
