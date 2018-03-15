@@ -65,7 +65,6 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   op <- par(no.readonly = TRUE) # restore par on exit
   # on.exit(par(op))
 
-  lwd <- 1.5
   cex <- 0.9
   title.cex <- 1.2
   text.col <- "grey10"
@@ -154,16 +153,30 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   xticks <- pretty(tind)
   xlabels <- format(xticks, "%Y")
 
-  col <- colors_tsbox()[1:number_of_series(x)]
 
   # Lines
   ids <- unique(x[, id])
+
+
+  # graphical parameters, via options
+  col <- getOption("tsbox.col", colors_tsbox())
+  lty <- getOption("tsbox.lty", "solid")
+  lwd <- getOption("tsbox.lwd", 1)
+
+  recycle_par <- function(x){
+    x0 <- x[1:(min(length(x), length(ids)))]
+    cbind(ids, x0)[, 2]
+  }
+
+  col <- recycle_par(col)
+  lty <- recycle_par(lty)
+  lwd <- recycle_par(lwd)
 
   if (has.legend) {
     legend(
       "bottomleft",
       legend = ids, horiz = TRUE,
-      bty = "n", lty = 1, lwd = lwd, col = col, cex = 0.9 * cex, adj = 0,
+      bty = "n", lty = lty, lwd = lwd, col = col, cex = 0.9 * cex, adj = 0,
       text.col = text.col
     )
   }
@@ -174,8 +187,8 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   # Main Plot
   plot(
-    x = tind, type = "n", lty = 1, pch = 19, col = 1,
-    cex = 1.5, lwd = 1, las = 1, bty = "n", xaxt = "n",
+    x = tind, type = "n", lty = lty[1], pch = 19, col = 1,
+    cex = 1.5, lwd = lwd[1], las = 1, bty = "n", xaxt = "n",
     xlim = xlim, ylim = ylim, xlab = "", ylab = ylab,
     yaxt = "n"
   )
@@ -201,7 +214,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
     cd <- cd[!is.na(value)]
     lines(
       y = cd[, value],
-      x = as.numeric(as.POSIXct(cd[, time])), col = col[i], lwd = lwd
+      x = as.numeric(as.POSIXct(cd[, time])), col = col[i], lty = lty[i], lwd = lwd[i]
     )
   }
 
