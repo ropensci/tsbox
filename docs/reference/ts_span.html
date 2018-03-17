@@ -177,19 +177,19 @@ possible. See examples.</p>
 #&gt; 1977 2240 1634 1722 1801 1246 1162 1087 1013  959 1179 1229 1655
 #&gt; 1978 2019 2284 1942 1423 1340 1187 1098 1004  970 1140 1110 1812
 #&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
-<span class='co'># ts_end and ts_start, together with time_shift allow flexible specification</span>
+<span class='co'># ts_end and ts_start, together with date_shift allow flexible specification</span>
 <span class='co'># of relative ranges:</span>
 
 <span class='co'># latest value</span>
-<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>time_shift</span>(<span class='fu'>ts_end</span>(<span class='no'>mdeaths</span>), -<span class='fl'>1</span>))</div><div class='output co'>#&gt;       Dec
+<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>date_shift</span>(<span class='fu'>ts_end</span>(<span class='no'>mdeaths</span>), -<span class='fl'>1</span>))</div><div class='output co'>#&gt;       Dec
 #&gt; 1979 1341</div><div class='input'>
 <span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
-  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>time_shift</span>(<span class='fu'>ts_end</span>(<span class='no'>mdeaths</span>), <span class='st'>"-3 years"</span>)),
+  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>date_shift</span>(<span class='fu'>ts_end</span>(<span class='no'>mdeaths</span>), <span class='st'>"-3 years"</span>)),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Three years"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The last three years of data"</span>
 )</div><div class='img'><img src='ts_span-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='fu'>ts_ggplot</span>(
-  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>time_shift</span>(<span class='fu'>ts_start</span>(<span class='no'>mdeaths</span>), <span class='st'>"28 weeks"</span>)),
+  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>date_shift</span>(<span class='fu'>ts_start</span>(<span class='no'>mdeaths</span>), <span class='st'>"28 weeks"</span>)),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"28 weeks later"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The first 28 weeks of data"</span>
 ) + <span class='fu'><a href='ts_ggplot.html'>theme_tsbox</a></span>() + <span class='fu'><a href='ts_ggplot.html'>scale_color_tsbox</a></span>()</div><div class='img'><img src='ts_span-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>

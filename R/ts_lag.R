@@ -19,7 +19,7 @@
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
 #'
-#' @seealso [ts_lag()], for shifting regular series. [time_shift()], for
+#' @seealso [ts_lag()], for shifting regular series. [date_shift()], for
 #'   shifting `Date` or `POSIXct` vectors.
 #'
 #' @return a ts-boxable time series, with the same class as the input. If time
@@ -51,7 +51,7 @@ ts_lag <- function(x, by = 1) {
   setnames(z, cname$value, "value")
 
   lag_one <- function(x){
-    x[, list(time = time_shift(time, by = by), value)]
+    x[, list(time = date_shift(time, by = by), value)]
   }
 
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))

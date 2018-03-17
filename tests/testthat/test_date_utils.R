@@ -4,12 +4,12 @@ library(tsbox)
 context("date utils")
 
 
-test_that("df aggregation using first_time_of_ functions is working", {
+test_that("df aggregation using date_ functions is working", {
 
   # 3 cols
   library(dplyr)
   x <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
-    mutate(time = first_time_of_year(time)) %>%
+    mutate(time = date_year(time)) %>%
     group_by(id, time) %>%
     summarize(value = mean(value)) %>%
     ungroup()
@@ -18,7 +18,7 @@ test_that("df aggregation using first_time_of_ functions is working", {
 
 
   x <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
-    mutate(time = first_time_of_quarter(time)) %>%
+    mutate(time = date_quarter(time)) %>%
     group_by(id, time) %>%
     summarize(value = mean(value)) %>%
     ungroup()
@@ -27,7 +27,7 @@ test_that("df aggregation using first_time_of_ functions is working", {
 
 
   x <- ts_tbl(ts_c(EuStockMarkets)) %>%
-    mutate(time = as.Date(first_time_of_month(time))) %>%
+    mutate(time = as.Date(date_month(time))) %>%
     group_by(id, time) %>%
     summarize(value = mean(value)) %>%
     ungroup()
@@ -36,12 +36,12 @@ test_that("df aggregation using first_time_of_ functions is working", {
 })
 
 
-test_that("time_shift is working", {
+test_that("date_shift is working", {
   x <- ts_tbl(ts_c(mdeaths, fdeaths))
-  expect_equal(x$time, time_shift(x$time))
+  expect_equal(x$time, date_shift(x$time))
 
   x1 <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
-    mutate(time = time_shift(time, by = "month")) 
+    mutate(time = date_shift(time, by = "month")) 
   xlag <- ts_lag(x)
 
   expect_equal(xlag, x1)

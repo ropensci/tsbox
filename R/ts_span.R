@@ -26,20 +26,20 @@
 #' # it's fine to use an to date outside of series span
 #' ts_span(mdeaths, end = "2001-01-01")
 #'
-#' # ts_end and ts_start, together with time_shift allow flexible specification
+#' # ts_end and ts_start, together with date_shift allow flexible specification
 #' # of relative ranges:
 #' 
 #' # latest value
-#' ts_span(mdeaths, start = time_shift(ts_end(mdeaths), -1))
+#' ts_span(mdeaths, start = date_shift(ts_end(mdeaths), -1))
 #' 
 #' ts_plot(
-#'   ts_span(mdeaths, start = time_shift(ts_end(mdeaths), "-3 years")),
+#'   ts_span(mdeaths, start = date_shift(ts_end(mdeaths), "-3 years")),
 #'   title = "Three years",
 #'   subtitle = "The last three years of data"
 #' )
 #' 
 #' ts_ggplot(
-#'   ts_span(mdeaths, end = time_shift(ts_start(mdeaths), "28 weeks")),
+#'   ts_span(mdeaths, end = date_shift(ts_start(mdeaths), "28 weeks")),
 #'   title = "28 weeks later",
 #'   subtitle = "The first 28 weeks of data"
 #' ) + theme_tsbox() + scale_color_tsbox()

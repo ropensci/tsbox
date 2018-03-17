@@ -7,8 +7,8 @@
       ts_span(template = ) is probably more useful.
 
       
-- [X] date_shift should prob become time_shift, mostly used internally 
-- [X] if time_shift works ts_lag will work with high freq as well
+- [X] date_shift should prob become date_shift, mostly used internally 
+- [X] if date_shift works ts_lag will work with high freq as well
 
 
 - [X] copy_class should be able to deal with length 1 series, so we can do

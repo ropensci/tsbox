@@ -105,8 +105,8 @@ date_time_to_tsp <- function(x, frequency = NULL) {
 
     str <- md$str
     
-    start.time <- first_time_of_year(x[1])
-    end.time <- time_shift(start.time, "1 year")
+    start.time <- date_year(x[1])
+    end.time <- date_shift(start.time, "1 year")
 
     sq.time0 <- seq(start.time, end.time, by = str)
     sq.time <- sq.time0[-length(sq.time0)]

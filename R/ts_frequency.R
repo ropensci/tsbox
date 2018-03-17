@@ -29,9 +29,9 @@ ts_frequency <- function(x, to = "year", aggregate = "mean") {
 }
 
 period.date <- list(
-  month = first_time_of_month,
-  quarter = first_time_of_quarter,
-  year = first_time_of_year
+  month = date_month,
+  quarter = date_quarter,
+  year = date_year
 )
 
 numeric.period <- c(month = 12, quarter = 4, year = 1)

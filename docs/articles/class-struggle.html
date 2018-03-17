@@ -138,7 +138,7 @@ x.tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_t
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1 &lt;-<span class="st"> </span>dta.tsibble <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">group_by</a></span>(origin, id) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/tsummarise">tsummarise</a></span>(
-    <span class="dt">time =</span> <span class="kw"><a href="../reference/time_shift.html">first_time_of_month</a></span>(time),
+    <span class="dt">time =</span> <span class="kw"><a href="../reference/date_shift.html">date_month</a></span>(time),
     <span class="dt">value =</span> <span class="kw">mean</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
   )</code></pre></div>
 </div>
@@ -147,7 +147,7 @@ x.tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_t
 <a href="#the-dplyr-way" class="anchor"></a>the dplyr way</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a2 &lt;-<span class="st"> </span>dta.tsibble <span class="op">%&gt;%</span>
 <span class="st">  </span>ts_tbl <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">group_by</a></span>(origin, id, <span class="dt">time =</span> <span class="kw"><a href="../reference/time_shift.html">first_time_of_month</a></span>(time)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">group_by</a></span>(origin, id, <span class="dt">time =</span> <span class="kw"><a href="../reference/date_shift.html">date_month</a></span>(time)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">summarise</a></span>(
     <span class="dt">value =</span> <span class="kw">mean</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
   )</code></pre></div>
