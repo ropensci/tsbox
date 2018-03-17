@@ -6,7 +6,7 @@
 \alias{ts_start}
 \alias{ts_span}
 \alias{ts_end}
-\title{Time Span}
+\title{Limit Time Span}
 \usage{
 ts_span(x, start = NULL, end = NULL, template = NULL)
 
@@ -29,43 +29,51 @@ will be extracted from the object.}
 a ts-boxable time series, with the same class as the input.
 }
 \description{
-Filter series for time span
+Filter time series for a time span.
 }
 \details{
 All date and times, when entered as charachter strings, are processed by
 \code{anytime::anydate()} or \code{anytime::anytime()}. Thus a wide range of inputs are
 possible. See examples.
+
+\code{start} and \code{end} can be specified relative to each other,
+using one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
+\code{"month"}, \code{"quarter" or}"year", or an abbreviation. This
+is passed to \code{\link[=date_shift]{date_shift()}}. If the series are of the same frequency, the
+shift can be spefied in periods. See examples.
 }
 \examples{
 
 # use 'anytime' shortcuts
 ts_span(mdeaths, start = "1979")       # shortcut for 1979-01-01
-
 ts_span(mdeaths, start = "1979-4")     # shortcut for 1979-04-01
-
 ts_span(mdeaths, start = "197904")     # shortcut for 1979-04-01
 
 # it's fine to use an to date outside of series span
 ts_span(mdeaths, end = "2001-01-01")
 
-# ts_end and ts_start, together with date_shift allow flexible specification
-# of relative ranges:
+# use strings to set start or end relative to each other
 
-# latest value
-ts_span(mdeaths, start = date_shift(ts_end(mdeaths), -1))
+ts_span(mdeaths, start = "-7 month")   # last 7 months
+ts_span(mdeaths, start = -7)           # last 7 periods
+ts_span(mdeaths, start = -1)           # last single value
+ts_span(mdeaths, end = "1e4 hours")    # first 10000 hours
 
 ts_plot(
-  ts_span(mdeaths, start = date_shift(ts_end(mdeaths), "-3 years")),
-  title = "Three years",
-  subtitle = "The last three years of data"
+  ts_span(mdeaths, start = "-3 years"),
+  title = "Three years ago",
+  subtitle = "The last three years of available data"
 )
 
 ts_ggplot(
-  ts_span(mdeaths, end = date_shift(ts_start(mdeaths), "28 weeks")),
+  ts_span(mdeaths, end = "28 weeks"),
   title = "28 weeks later",
-  subtitle = "The first 28 weeks of data"
+  subtitle = "The first 28 weeks of available data"
 ) + theme_tsbox() + scale_color_tsbox()
 
 # Limit span of 'discoveries' to the same span as 'AirPassengers'
 ts_span(discoveries, template = AirPassengers)
+}
+\seealso{
+\code{\link[=date_shift]{date_shift()}}
 }

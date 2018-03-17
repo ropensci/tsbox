@@ -6,18 +6,18 @@
 #' aggregation, use [ts_frequency()].
 #'
 #' If `by` is character, the time stamp is shifted by a specific amount of time.
-#' This can be one of one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
-#' `"month"`, `"quarter" or `"year", optionally preceded by a (positive or
-#' negative) integer and a space, or followed by plural "s". This is passed to
-#' [base::seq.Date()]. This does not require the series to be regular.
+#' This can be one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
+#' `"month"`, `"quarter" or `"year", or an abbreviation, optionally preceded by 
+#' a (positive or negative) integer and a space, or followed by plural "s". This 
+#' is passed to [base::seq.Date()]. This does not require the series to be 
+#' regular.
 #' 
 #' @param x `Date` or `POSIXct`. If `POSIXct`, it is converted into `Date`.
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
 #' 
 #' @return an object of class `Date`
-#' @seealso [ts_frequency()] for standard aggregation. [date_shift()], for
-#'   shifting time stamps of a ts-boxable object.
+#' @seealso [ts_frequency()] for standard aggregation.
 #'
 #' @examples
 #' ap.time <- ts_df(AirPassengers)$time
@@ -46,9 +46,9 @@ date_shift <- function(x, by = NULL) {
     x <- as.POSIXct(x)
   }
 
-  add_to_one_date <- function(x) seq(x, length.out = 2, by = by)[2]
+  add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
 
-  if (length(x) == 1) return(add_to_one_date(x))
+  if (length(x) == 1) return(add_to_one(x))
 
   # this is the correct, perhaps not the fastest regularity test
   # also understands monthly, quarterly etc.
@@ -60,9 +60,9 @@ date_shift <- function(x, by = NULL) {
     if (is.numeric(by)){
       spl <- strsplit(diffdt$string, split = " ")[[1]]
       str <- paste(by * as.numeric(spl[1]), spl[2])
-      add_to_one_date <- function(x) seq(x, length.out = 2, by = str)[2]
+      add_to_one <- function(x) seq(x, length.out = 2, by = str)[2]
     }
-    z <- seq(from = add_to_one_date(x[1]), by = fm$string, length.out = length(x))
+    z <- seq(from = add_to_one(x[1]), by = fm$string, length.out = length(x))
     return(z)
   } 
 
@@ -74,10 +74,10 @@ date_shift <- function(x, by = NULL) {
       if (is.numeric(by)){
         spl <- strsplit(diffdt$string, split = " ")[[1]]
         str <- paste(by * as.numeric(spl[1]), spl[2])
-        add_to_one_date <- function(x) seq(x, length.out = 2, by = str)[2]
+        add_to_one <- function(x) seq(x, length.out = 2, by = str)[2]
       }
 
-      z <- seq(from = add_to_one_date(xreg[1]), by = fm$string, length.out = length(xreg))
+      z <- seq(from = add_to_one(xreg[1]), by = fm$string, length.out = length(xreg))
       z <- z[match(as.integer(x), as.integer(xreg))]
 
       stopifnot(!any(is.na(z)))
@@ -91,18 +91,24 @@ date_shift <- function(x, by = NULL) {
 
   if (inherits(x, "Date")){
     # only do on unique values (which is faster in some cases)
-    add_to_one_date <- function(x) seq(x, length.out = 2, by = by)[2]
+    add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
     xu <- unique(x)
-    zu <- do.call(c, lapply(xu, add_to_one_date))
+    zu <- do.call(c, lapply(xu, add_to_one))
     z <- merge(data.table(x = x), data.table(x = xu, z = zu), all.x = TRUE, sort = FALSE)$z
     return(z)
   }
 
   # shift each time stamp separately (slow)
-  do.call(c, lapply(x, add_to_one_date))
+  do.call(c, lapply(x, add_to_one))
 }
 
 
+is_shift_string <- function(x){
+  if (is.null(x)) return(FALSE)
+  stopifnot(length(x) == 1)
+  sstr <- c("sec", "min", "hour", "day", "week", "month", "quarter", "year")
+  any(vapply(sstr, function(e) grepl(e, x), TRUE))
+}
 
 
 #' @name date_shift
@@ -146,3 +152,5 @@ date_year <- function(x) {
   }
   z
 }
+
+

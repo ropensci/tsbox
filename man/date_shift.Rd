@@ -35,10 +35,11 @@ aggregation, use \code{\link[=ts_frequency]{ts_frequency()}}.
 }
 \details{
 If \code{by} is character, the time stamp is shifted by a specific amount of time.
-This can be one of one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
-\code{"month"}, \code{"quarter" or}"year", optionally preceded by a (positive or
-negative) integer and a space, or followed by plural "s". This is passed to
-\code{\link[base:seq.Date]{base::seq.Date()}}. This does not require the series to be regular.
+This can be one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
+\code{"month"}, \code{"quarter" or}"year", or an abbreviation, optionally preceded by
+a (positive or negative) integer and a space, or followed by plural "s". This
+is passed to \code{\link[base:seq.Date]{base::seq.Date()}}. This does not require the series to be
+regular.
 }
 \examples{
 ap.time <- ts_df(AirPassengers)$time
@@ -57,6 +58,5 @@ ts_span(ts_c(mdeaths, fdeaths), start = date_shift(ts_end(mdeaths), -1))
 
 }
 \seealso{
-\code{\link[=ts_frequency]{ts_frequency()}} for standard aggregation. \code{\link[=date_shift]{date_shift()}}, for
-shifting time stamps of a ts-boxable object.
+\code{\link[=ts_frequency]{ts_frequency()}} for standard aggregation.
 }
