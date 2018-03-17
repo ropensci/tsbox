@@ -7,6 +7,7 @@ add_dts_class <- function(x) {
 
 rm_dts_class <- function(x) {
   setattr(x, "class", setdiff(attr(x, "class"), "dts"))
+  setattr(x, "cname", NULL)
   x[]
 }
 
@@ -21,6 +22,8 @@ number_of_series <- function(x) {
   }
 }
 
+
+# TODO substitute
 colname_value <- function(x) {
   stopifnot(inherits(x, "dts"))
   dts_cname(x)$value
@@ -43,5 +46,9 @@ colname_id <- function(x) {
 combine_id_cols <- function(x) {
   stopifnot(inherits(x, "dts"))
   if (NCOL(x) <= 3) return(x)
-  combine_cols_data.table(x, dts_cname(x)$id)
+  cname <- dts_cname(x)
+  z <- combine_cols_data.table(x, dts_cname(x)$id)
+  cname$id <- "id"
+  setattr(z, "cname", cname)
+  z
 }

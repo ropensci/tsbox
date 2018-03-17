@@ -2,18 +2,30 @@
 
 ts_tsibble_dts <- function(x) {
   stopifnot(requireNamespace("tsibble"))
-  cid <- colname_id(x)
-  ctime <- colname_time(x)
+  cid <- dts_cname(x)$id
+  ctime <- dts_cname(x)$time
+  x <- dts_rm(x)
+
   # for some reason, this does not work
   # tsibble::as_tsibble(x, key = id(!!cid), index = !!ctime)
   # eval parse workaround:
-  estr <- paste0(
-    "tsibble::as_tsibble(x, key = id(",
-    paste(cid, collapse = ", "),
-    "), index = ",
-    ctime,
-    ")"
-  )
+
+  if (length(cid) > 0){
+    estr <- paste0(
+      "tsibble::as_tsibble(x, key = id(",
+      paste(cid, collapse = ", "),
+      "), index = ",
+      ctime,
+      ")"
+    )
+  } else {
+    estr <- paste0(
+      "tsibble::as_tsibble(x, index = ",
+      ctime,
+      ")"
+    )
+  }
+
   z <- eval(parse(text = estr), envir = environment())
   z
 }
@@ -35,17 +47,16 @@ ts_dts.tbl_ts <- function(x) {
     stop("no measured vars in tsibble")
   }
 
-  
-  time.var <- setdiff(names(x), c(names(tsibble::key_vars(x)), tsibble::measured_vars(x)))
+  time <- setdiff(names(x), c(names(tsibble::key_vars(x)), tsibble::measured_vars(x)))
 
-  if (!identical(time.var, guess_time(z))){
-    # rename if guessing does not work
-    if (length(time.var) == 1){
-      setnames(z, time.var, "time")
-    }
-  }
+  cname <- list(id = tsibble::key_vars(x),
+                time = time,
+                value = "value")
 
-  ts_dts(z)
+
+  z <- dts_init(z)
+  setattr(z, "cname", cname)
+  z
 }
 
 

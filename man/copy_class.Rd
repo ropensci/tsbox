@@ -4,7 +4,7 @@
 \alias{copy_class}
 \title{Re-Class ts-Boxable Object}
 \usage{
-copy_class(x, template, preserve.mode = TRUE, preserve.names = TRUE,
+copy_class(x, template, preserve.mode = TRUE, preserve.names = FALSE,
   preserve.time = FALSE)
 }
 \arguments{

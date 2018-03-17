@@ -12,7 +12,7 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
     z2 <- copy(ts_dts(e2))
   }
 
-
+  cname <- dts_cname(z1)
   colname.id1 <- colname_id(z1)
   colname.timz1 <- colname_time(z1)
   colname.valuz1 <- colname_value(z1)
@@ -48,7 +48,7 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
     z2[, time := as.integer(as.POSIXct(time))]
   }
 
-  z <- merge(z1, z2, by = c("time", colname.id))
+  z <- merge(z1, z2, by = c(colname.id, "time"))
   z[, value := fun(value, value2)]
   z[, value2 := NULL]
 
@@ -58,6 +58,7 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
 
   setnames(z, "time", colname.time)
   setnames(z, "value", colname.value)
+  setattr(z, "cname", cname)
   copy_class(z, e1)
 }
 

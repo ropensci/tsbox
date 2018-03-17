@@ -34,8 +34,9 @@ is_regular_one_basic <- function(x) {
 regular_core <- function(x) {
   stopifnot(inherits(x, "dts"))
 
-  ctime <- dts_cname(x)$time
-  cid <- dts_cname(x)$id
+  cname <- dts_cname(x)
+  ctime <- cname$time
+  cid <- cname$id
 
   regular_core_one <- function(x) {
     if (is_regular_one_basic(x[[ctime]])) return(x)
@@ -49,8 +50,16 @@ regular_core <- function(x) {
   if (length(cid) == 0) {
     z <- regular_core_one(x)
   } else {
-    z <- x[, regular_core_one(.SD), by = cid]
+    .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
+    z <- x[, regular_core_one(.SD), by = eval(.by)]
   }
 
+  setattr(z, "cname", cname)
+  
+  # resulting time column name should be ctime
+  setnames(z, "time", ctime)
+
+  # preserve original col order
+  setcolorder(z, names(x))
   z
 }

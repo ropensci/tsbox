@@ -30,9 +30,11 @@
 ts_na_omit <- function(x) {
   value <- NULL
   z <- ts_dts(x)
-  colname.value <- colname_value(z)
-  setnames(z, colname.value, "value")
+  cname <- dts_cname(z)
+  cvalue <- cname$value
+  setnames(z, cvalue, "value")
   z <- z[!is.na(value)]
-  setnames(z, "value", colname.value)
+  setnames(z, "value", cvalue)
+  setattr(z, "cname", cname) 
   as_class(relevant_class(x))(z)
 }

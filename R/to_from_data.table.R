@@ -10,31 +10,7 @@ ts_data.table_dts <- function(x) {
 #' @export
 #' @method ts_dts data.table
 ts_dts.data.table <- function(x) {
-  if (nrow(x) == 0) return( add_dts_class(x))
-
-  tv <- guess_time_value(x)
-
-  if (NCOL(x) == 2) {
-    z <- copy(x)
-    tvdiff <- character(0)
-  } else {
-    tvdiff <- setdiff(names(x), tv)
-    z <- x[, c(tvdiff, tv), with = FALSE]
-  }
-
-  setnames(z, tv[1], "time")
-
-  z[, time := as_time_or_date(time)]
-
-  # Ensure time is ordered, but ids are not
-  # - setorder(z, ids, time) does too much
-  # - this also works if tvdiff is character(0)
-  .by <- parse(text = paste0("list(", paste(tvdiff, collapse = ", "), ")"))
-  z <- z[, .SD[order(time)], by = eval(.by)]
-
-  setnames(z, "time", tv[1])
-
-  add_dts_class(z)
+  dts_init(x)
 }
 
 

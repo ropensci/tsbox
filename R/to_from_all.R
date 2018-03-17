@@ -102,7 +102,7 @@ desired_class <- function(ll) {
 #' @export
 copy_class <- function(x, template, 
                        preserve.mode = TRUE, 
-                       preserve.names = TRUE, 
+                       preserve.names = FALSE, 
                        preserve.time = FALSE) {
 
   if (!ts_boxable(x)) {

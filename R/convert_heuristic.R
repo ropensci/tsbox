@@ -65,14 +65,17 @@ ts_to_date_time <- function(x) {
 
 date_time_to_tsp <- function(x, frequency = NULL) {
 
+  freq <- NULL 
+
   if (is.null(frequency)){
     if (length(x) <= 1) {
       stop("time series too short for frequency detection", call. = FALSE)
     }
     frequency <- frequency_table(x)$freq
+    stopifnot(length(frequency) == 1)
   }
   # Non heuristic conversion
-  if (length(frequency) > 1 || frequency == -1){
+  if (frequency == -1){
     z <- POSIXct_to_tsp(as.POSIXct(x))
   # Low frequency conversion
   } else if (frequency <= 12){

@@ -5,10 +5,15 @@ ts_apply_dts <- function(x, fun, ...) {
   stopifnot(inherits(x, "dts"))
   if (number_of_series(x) == 1) return(fun(x, ...))
 
-  cid <- dts_cname(x)$id
-  .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
+  cname <- dts_cname(x)
+  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+
+  # modifiy cname, to reflect single series character of .SD
+  cname.sd <- cname
+  cname.sd$id <- character(0)
+  setattr(x, "cname", cname.sd)
   z <- x[, fun(.SD), by = eval(.by)]
-  browser()
+  setattr(z, "cname", cname)
   dts_init(z)
 }
 

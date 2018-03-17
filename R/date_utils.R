@@ -32,7 +32,7 @@
 #' time_shift(ts_end(mdeaths), 1)
 #' time_shift(ts_end(mdeaths), "-14 sec")
 #' time_shift(ts_end(mdeaths), "-1 year")
-#' ts_window(ts_c(mdeaths, fdeaths), start = time_shift(ts_end(mdeaths), -1))
+#' ts_span(ts_c(mdeaths, fdeaths), start = time_shift(ts_end(mdeaths), -1))
 #' 
 #' @export
 time_shift <- function(x, by = NULL) {

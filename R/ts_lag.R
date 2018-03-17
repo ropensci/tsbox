@@ -46,25 +46,24 @@ ts_lag <- function(x, by = 1) {
     z <- ts_regular(z)
   }
 
-  colname.id <- colname_id(z)
-  colname.value <- colname_value(z)
-  colname.time <- colname_time(z)
-
-  setnames(z, colname.time, "time")
-  setnames(z, colname.value, "value")
+  cname <- dts_cname(z)
+  setnames(z, cname$time, "time")
+  setnames(z, cname$value, "value")
 
   lag_one <- function(x){
     x[, list(time = time_shift(time, by = by), value)]
   }
 
-  .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
   z <- z[
     ,
     lag_one(.SD),
     by = eval(.by)
   ]
-  setnames(z, "value", colname.value)
-  setnames(z, "time", colname.time)
+  
+  setnames(z, "value", cname$value)
+  setnames(z, "time", cname$time)
+  setattr(z, "cname", cname)
   copy_class(z, x)
 }
 

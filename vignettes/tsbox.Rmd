@@ -106,7 +106,7 @@ them. The following prolongs a short time series with percentage change rates of
 a longer one:
 
 ```r
-md.short <- ts_window(mdeaths, end = "1976-12-01")
+md.short <- ts_span(mdeaths, end = "1976-12-01")
 ts_chain(md.short, fdeaths)
 ```
 
@@ -120,7 +120,7 @@ annual:
 ts_frequency(ts_c(AirPassengers, austres), "year", sum)
 ```
 
-We already met `ts_window`, which can be used to limit the time span of a
+We already met `ts_span`, which can be used to limit the time span of a
 series. `ts_regular` makes irregular time series regular, by turning implicit
 missing values into explicit `NA`s.
 

@@ -57,7 +57,7 @@ With a long tsibble at hand, we can apply all usual functions from tsbox:
 ```r
 dta.tsibble %>% 
   filter(id == "temp") %>% 
-  ts_window(start = "2013-08-01") %>% 
+  ts_span(start = "2013-08-01") %>% 
   ts_trend() %>% 
   ts_plot() 
 ```
@@ -66,7 +66,7 @@ With the result being just the same as for any other ts-boxable object:
 ```r
 dta.tbl %>% 
   filter(id == "temp") %>% 
-  ts_window(start = "2013-08-01") %>% 
+  ts_span(start = "2013-08-01") %>% 
   ts_trend() %>% 
   ts_plot() 
 

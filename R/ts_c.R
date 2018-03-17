@@ -66,16 +66,19 @@ ts_c <- function(...) {
   # name unnamed
   ll.dts[is.unnamed] <- Map(
     function(dt, id) {
+      cname <- dts_cname(dt)
+      cname$id <- "id"
       dt$id <- id
       # this will have exactly 3 cols
       setcolorder(dt, c(3, 1, 2))
+      setattr(dt, "cname", cname)
       dt
     },
     dt = ll.dts[is.unnamed],
     id = names.for.unnamed
   )
 
-  if (length(unique(lapply(ll.dts, colname_id))) > 1) {
+  if (length(unique(lapply(ll.dts, function(e) dts_cname(e)$id))) > 1) {
     stop("if present, id columns must be the same for all objects", call. = FALSE)
   }
 

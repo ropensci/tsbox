@@ -40,6 +40,22 @@ test_that("Some trickier stuff works.", {
 
 
 
+test_that("Irregular regular series work.", {
+  expect_s3_class(
+    data.frame(
+      time = c(
+        seq.Date(as.Date("2010-01-01"), by = "day", length.out = 10),
+        seq.Date(as.Date("2010-02-01"), by = "day", length.out = 10),
+        seq.Date(as.Date("2010-03-01"), by = "day", length.out = 10)
+      ),
+      value = rnorm(30)
+    ) %>% 
+      ts_ts(), 
+    "ts"
+  )
+})
+
+
 test_that("No Invalid .internal.selfref detected.", {
   x <- ts_dts(AirPassengers)
   expect_silent(x[, s := "sdfsd"])

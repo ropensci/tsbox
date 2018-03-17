@@ -1,6 +1,6 @@
-#' Time Windows
+#' Time Span
 #'
-#' Filter series for time range.
+#' Filter series for time span
 #'
 #' All date and times, when entered as charachter strings, are processed by
 #' `anytime::anydate()` or `anytime::anytime()`. Thus a wide range of inputs are
@@ -10,49 +10,51 @@
 #' @param start start date, character string, `Date` or `POSIXct`
 #' @param end end date, character string, `Date` or `POSIXct`.
 #' @param template ts-boxable time series, an object of class `ts`, `xts`, 
-#'   `data.frame`, `data.table`, or `tibble`. If provided, `start` and `end` 
+#'   `data.frame`, `data.table`, or `tibble`. If provided, `from` and `to` 
 #'   will be extracted from the object.
 #' @return a ts-boxable time series, with the same class as the input.
 #' @export
 #' @examples
 #' 
 #' # use 'anytime' shortcuts
-#' ts_window(mdeaths, start = "1979")       # shortcut for 1979-01-01
+#' ts_span(mdeaths, start = "1979")       # shortcut for 1979-01-01
 #' 
-#' ts_window(mdeaths, start = "1979-4")     # shortcut for 1979-04-01
+#' ts_span(mdeaths, start = "1979-4")     # shortcut for 1979-04-01
 #' 
-#' ts_window(mdeaths, start = "197904")     # shortcut for 1979-04-01
+#' ts_span(mdeaths, start = "197904")     # shortcut for 1979-04-01
 #' 
-#' # it's fine to use an end date outside of series span
-#' ts_window(mdeaths, end = "2001-01-01")
+#' # it's fine to use an to date outside of series span
+#' ts_span(mdeaths, end = "2001-01-01")
 #'
 #' # ts_end and ts_start, together with time_shift allow flexible specification
 #' # of relative ranges:
 #' 
 #' # latest value
-#' ts_window(mdeaths, start = time_shift(ts_end(mdeaths), -1))
+#' ts_span(mdeaths, start = time_shift(ts_end(mdeaths), -1))
 #' 
 #' ts_plot(
-#'   ts_window(mdeaths, start = time_shift(ts_end(mdeaths), "-3 years")),
+#'   ts_span(mdeaths, start = time_shift(ts_end(mdeaths), "-3 years")),
 #'   title = "Three years",
 #'   subtitle = "The last three years of data"
 #' )
 #' 
 #' ts_ggplot(
-#'   ts_window(mdeaths, end = time_shift(ts_start(mdeaths), "28 weeks")),
+#'   ts_span(mdeaths, end = time_shift(ts_start(mdeaths), "28 weeks")),
 #'   title = "28 weeks later",
 #'   subtitle = "The first 28 weeks of data"
 #' ) + theme_tsbox() + scale_color_tsbox()
 #' 
 #' # Limit span of 'discoveries' to the same span as 'AirPassengers'
-#' ts_window(discoveries, template = AirPassengers)
-ts_window <- function(x, start = NULL, end = NULL, template = NULL) {
+#' ts_span(discoveries, template = AirPassengers)
+ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
+
+
   x.dts <- ts_dts(x)
   ctime <- dts_cname(x.dts)$time
 
   if (!is.null(template)){
     t.dts <- ts_dts(template)
-    rng <- range(xdts[[dts_cname(t.dts)$time]])
+    rng <- range(x.dts[[dts_cname(t.dts)$time]])
     start <- rng[1]
     end <- rng[2]
   }
@@ -83,21 +85,22 @@ ts_window <- function(x, start = NULL, end = NULL, template = NULL) {
   }
 
   if (nrow(x.dts) == 0){
-    stop("window contains no data, select different 'start' or 'end'", call. = FALSE)
+    stop("span contains no data, select different 'start' or 'end'", call. = FALSE)
   }
   z <- copy_class(x.dts, x)
 
   z
 }
 
+
 #' @export
-#' @name ts_window
+#' @name ts_span
 ts_start <- function(x) {
   x.dts <- ts_dts(x)
   range(x.dts[[dts_cname(x.dts)$time]])[1]
 }
 #' @export
-#' @name ts_window
+#' @name ts_span
 ts_end <- function(x) {
   x.dts <- ts_dts(x)
   range(x.dts[[dts_cname(x.dts)$time]])[2]

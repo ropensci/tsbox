@@ -23,7 +23,7 @@ ts_long <- function(x) {
 # by ts_dts.ts and ts_dts.xts
 long_core_multi_id <- function(x) {
   stopifnot(inherits(x, "data.table"))
-  time.name <- suppressMessages(guess_time(x))
+  time.name <- guess_time(x)
   # guess id: ids on the left of time colum
   id.names <- setdiff(names(x)[seq(which(names(x) == time.name))], time.name)
   if (length(id.names) > 0){
@@ -33,23 +33,8 @@ long_core_multi_id <- function(x) {
     id.vars <- time.name
   }
   z <- melt(x, id.vars = id.vars, variable.name = "id", variable.factor = FALSE)
-  suppressMessages(ts_dts(z))
-}
-
-# core function is also used by ts_dts.ts and ts_dts.xts
-long_core <- function(x) {
-  stopifnot(inherits(x, "data.table"))
-  time.name <- guess_time(x)
-  z <- melt(x, id.vars = time.name, variable.name = "id", variable.factor = FALSE)
+  setcolorder(z, c("id", time.name, "value"))
   ts_dts(z)
-}
-
-# same as above but no dts conversion
-long_core_basic <- function(x) {
-  stopifnot(inherits(x, "data.table"))
-  time.name <- guess_time(x)
-  melt(x, id.vars = time.name, variable.name = "id", variable.factor = FALSE)
-  # ts_dts(z)
 }
 
 #' @export

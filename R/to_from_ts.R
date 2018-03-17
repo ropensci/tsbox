@@ -12,7 +12,7 @@ ts_ts_dts <- function(x, frequency = NULL) {
     reg.time <- regularize_date(wx[[1]])
     if (!is.null(reg.time)) {
       setnames(wx, 1, "time") # time col may have a different name
-      merge_time_date(data.table::data.table(time = reg.time), wx, by.x = "time", by.y = "time")
+      wx <- merge_time_date(data.table::data.table(time = reg.time), wx, by.x = "time", by.y = "time")
     } else {
       stop("no regular pattern detected", call. = FALSE)
     }
@@ -24,7 +24,7 @@ ts_ts_dts <- function(x, frequency = NULL) {
     #   return(ts_df(x))
     # }
   } else {
-    tsp <- date_time_to_tsp(wx[[1]], freq = frequency)
+    tsp <- date_time_to_tsp(wx[[1]], frequency = frequency)
   }
   # tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
@@ -43,7 +43,6 @@ ts_ts_dts <- function(x, frequency = NULL) {
 #' @export
 #' @method ts_dts ts
 ts_dts.ts <- function(x) {
-  value <- NULL
   stopifnot(inherits(x, "ts"))
   timec <- ts_to_date_time(x)
   m <- as.matrix(x)

@@ -53,7 +53,7 @@ head(time_shift(ap.time, "-1 month"))
 time_shift(ts_end(mdeaths), 1)
 time_shift(ts_end(mdeaths), "-14 sec")
 time_shift(ts_end(mdeaths), "-1 year")
-ts_window(ts_c(mdeaths, fdeaths), start = time_shift(ts_end(mdeaths), -1))
+ts_span(ts_c(mdeaths, fdeaths), start = time_shift(ts_end(mdeaths), -1))
 
 }
 \seealso{

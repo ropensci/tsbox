@@ -65,7 +65,7 @@ reference:
     Functions to manipulate the frequency and time span
   contents:
   - ts_frequency
-  - ts_window
+  - ts_span
   - ts_regular 
   - ts_na_omit
 
