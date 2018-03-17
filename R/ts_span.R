@@ -137,11 +137,8 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
   z
 }
 
-
 # x <- ts_dts(ts_c(fdeaths, mdeaths))
 # get_frequency(x)
-
-# not fully worked out
 get_shift_string <- function(x){
   freq <- NULL
   x <- ts_dts(x)
@@ -156,38 +153,6 @@ get_shift_string <- function(x){
   z <- x[, list(string = frequency_one(time)), by = eval(.by)]
   as.data.frame(z)
 }
-
-
-
-
-
-
-
-
-  # this is the correct, perhaps not the fastest regularity test
-  # also understands monthly, quarterly etc.
-
-
-
-
-
-  # # Outfactor in universal anytime wrapper?
-  # if_num_char <- function(x){
-  #   if (inherits(x, "numeric")) {
-  #     if (length(x) > 1) stop("numeric date input must be of length 1", call. = FALSE)
-  #     return(as.character(x))
-  #   }
-  #   x
-  # }
-
-  # if (dts_tattr(x.dts)$class == "POSIXct") {
-  #   anyfun <- function(x) anytime(if_num_char(x))
-  # } else {
-  #   anyfun <- function(x) anydate(if_num_char(x))
-  # }
-
-
-
 
 
 #' @export
