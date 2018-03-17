@@ -77,10 +77,12 @@ frequency_core <- function(x, to, aggregate) {
     )
   }
 
-  if (length(colname_id(x)) > 0) {
+  cname <- dts_cname(x)
+
+  if (length(cname$id) > 0) {
     byexpr <- parse(text = paste0(
       "list(",
-      paste(colname_id(x), collapse = ", "), ", ",
+      paste(cname$id, collapse = ", "), ", ",
       "time",
       ")"
     ))
@@ -88,20 +90,16 @@ frequency_core <- function(x, to, aggregate) {
     byexpr <- expression(list(time))
   }
 
-  # temp renaming
-  cvalue <- colname_value(x)
-  ctime <- colname_time(x)
-
   x0 <- copy(x)
-  data.table::setnames(x0, cvalue,  "value")
-  data.table::setnames(x0, ctime, "time")
+  data.table::setnames(x0, cname$value,  "value")
+  data.table::setnames(x0, cname$time, "time")
 
   pdfun <- period.date[[to]]
   x0[, time := pdfun(time)]
 
   z <- x0[, list(value = aggregate(value)), by = eval(byexpr)]
-  data.table::setnames(z, "value", cvalue)
-  data.table::setnames(z, "time", ctime)
+  data.table::setnames(z, "value", cname$value)
+  data.table::setnames(z, "time", cname$time)
 
 
   z[]

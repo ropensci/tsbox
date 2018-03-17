@@ -19,7 +19,6 @@ ts_chain <- function(...) {
 }
 
 
-# x <- b[[colname_time(b)]] %in% a[[colname_time(a)]]
 first_true <- function(x) {
   which(cumsum(as.integer(x)) == 1L)[1]
 }
@@ -40,30 +39,33 @@ chain_two <- function(a, b) {
 
   stopifnot(inherits(b, "dts"), inherits(a, "dts"))
 
+  cname <- dts_cname(a)
+  cname2 <- dts_cname(b)
+
   # unify time class if needed
-  cls <- union(class(b[[colname_time(b)]]), class(a[[colname_time(a)]]))
+  cls <- union(class(b[[cname2$time]]), class(a[[cname$time]]))
   if ("POSIXct" %in% cls && "Date" %in% cls) {
-    b[[colname_time(b)]] <- as.POSIXct(b[[colname_time(b)]])
-    a[[colname_time(a)]] <- as.POSIXct(a[[colname_time(a)]])
+    b[[cname2$time]] <- as.POSIXct(b[[cname2$time]])
+    a[[cname$time]] <- as.POSIXct(a[[cname$time]])
   }
 
   # b is longer than a into the future: extraploation
-  if (max(b[[colname_time(b)]]) > max(a[[colname_time(a)]])) {
-    where.in.b <- last_true(b[[colname_time(b)]] %in% a[[colname_time(a)]])
-    where.in.a <- a[[colname_time(a)]] %in% b[[colname_time(b)]][where.in.b]
-    anchor.a <- a[[colname_value(a)]][where.in.a]
+  if (max(b[[cname2$time]]) > max(a[[cname$time]])) {
+    where.in.b <- last_true(b[[cname2$time]] %in% a[[cname$time]])
+    where.in.a <- a[[cname$time]] %in% b[[cname2$time]][where.in.b]
+    anchor.a <- a[[cname$value]][where.in.a]
     extra.b <- b[where.in.b:nrow(b)]
-    extra.b[[colname_value(b)]] <- extra.b[[colname_value(b)]] / extra.b[[colname_value(b)]][1] * anchor.a
+    extra.b[[cname2$value]] <- extra.b[[cname2$value]] / extra.b[[cname2$value]][1] * anchor.a
     a <- ts_bind(a, extra.b[-1])
   }
 
   # b is longer than a into the past: retropolation
-  if (min(b[[colname_time(b)]]) < min(a[[colname_time(a)]])) {
-    where.in.b <- first_true(b[[colname_time(b)]] %in% a[[colname_time(a)]])
-    where.in.a <- a[[colname_time(a)]] %in% b[[colname_time(b)]][where.in.b]
-    anchor.a <- a[[colname_value(a)]][where.in.a]
+  if (min(b[[cname2$time]]) < min(a[[cname$time]])) {
+    where.in.b <- first_true(b[[cname2$time]] %in% a[[cname$time]])
+    where.in.a <- a[[cname$time]] %in% b[[cname2$time]][where.in.b]
+    anchor.a <- a[[cname$value]][where.in.a]
     retro.b <- b[1:where.in.b]
-    retro.b[[colname_value(b)]] <- retro.b[[colname_value(b)]] / retro.b[[colname_value(b)]][1] * anchor.a
+    retro.b[[cname2$value]] <- retro.b[[cname2$value]] / retro.b[[cname2$value]][1] * anchor.a
     a <- ts_bind(a[-1], retro.b)
   }
 

@@ -52,12 +52,12 @@ ts_c <- function(...) {
   }
 
   ll.dts <- lapply(ll, ts_dts)
-  vnames <- lapply(ll.dts, colname_id)
+  vnames <- lapply(ll.dts, function(e) dts_cname(e)$id)
 
-  colname.id <- colname_id(ll.dts[[1]])
+  cid <- dts_cname(ll.dts[[1]])$id
   # In case first element is unnamed series
-  if (length(colname.id) == 0) {
-    colname.id <- "id"
+  if (length(cid) == 0) {
+    cid <- "id"
   }
 
   # add names from call for single series
@@ -85,8 +85,8 @@ ts_c <- function(...) {
   ll.dts <- unify_time_class(ll.dts)
 
   # ensure id uniqueness (not happy)
-  for (id.i in colname.id){
-    all.levels <- lapply(ll.dts, function(e) unique(e[[id.i]]))
+  for (cid.i in cid){
+    all.levels <- lapply(ll.dts, function(e) unique(e[[cid.i]]))
     # only do if needed
     if (length(unique(unlist(all.levels))) == length(unlist(all.levels))) break
     unique.levels <- character(0)
@@ -101,7 +101,7 @@ ts_c <- function(...) {
       as.character(`levels<-`(as.factor(x), sort(names)))
     }
     set_levels_dt <- function(dt, names){
-      dt[[id.i]] <- set_levels(dt[[id.i]], names)
+      dt[[cid.i]] <- set_levels(dt[[cid.i]], names)
       dt
     }
     ll.dts <- Map(set_levels_dt, ll.dts, all.levels)

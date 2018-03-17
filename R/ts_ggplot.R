@@ -58,28 +58,26 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
   # only a single id col
   x <- combine_id_cols(x)
 
-  colname.time <- colname_time(x)
-  colname.value <- colname_value(x)
-  colname.id <- colname_id(x)
+  cname <- dts_cname(x)
 
   df <- ts_df(x)
-  df <- df[!is.na(df[, colname.value]), ]
+  df <- df[!is.na(df[, cname$value]), ]
 
   n <- NCOL(df)
   stopifnot(n > 1)
   if (n == 2) {
-    p <- ggplot2::ggplot(df, ggplot2::aes_string(x = colname.time, y = colname.value))
+    p <- ggplot2::ggplot(df, ggplot2::aes_string(x = cname$time, y = cname$value))
   } else if (n > 2) {
 
     # numeric variable 'levels'
-    if (class(df[[colname.id]]) %in% c("integer", "numeric")) {
-      df[[colname.id]] <- as.character(df[[colname.id]])
+    if (class(df[[cname$id]]) %in% c("integer", "numeric")) {
+      df[[cname$id]] <- as.character(df[[cname$id]])
     }
 
-    if (length(unique(df[[colname.id]])) > 29) {
-      stop(length(unique(df[[colname.id]])), " time series supplied. Maximum is 29.", call. = FALSE)
+    if (length(unique(df[[cname$id]])) > 29) {
+      stop(length(unique(df[[cname$id]])), " time series supplied. Maximum is 29.", call. = FALSE)
     }
-    p <- ggplot2::ggplot(df, ggplot2::aes_string(x = colname.time, y = colname.value, color = colname.id))
+    p <- ggplot2::ggplot(df, ggplot2::aes_string(x = cname$time, y = cname$value, color = cname$id))
   }
   p <- p + ggplot2::geom_line()
 

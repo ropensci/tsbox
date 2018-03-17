@@ -7,37 +7,29 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
   # 'recycling', if a scalar is provided
   if (length(e2) == 1 && is.numeric(e2)){
     z2 <- copy(z1)
-    z2[[colname_value(z2)]] <- e2
+    z2[[dts_cname(z2)$value]] <- e2
   } else {
     z2 <- copy(ts_dts(e2))
   }
 
   cname <- dts_cname(z1)
-  colname.id1 <- colname_id(z1)
-  colname.timz1 <- colname_time(z1)
-  colname.valuz1 <- colname_value(z1)
+  cname2 <- dts_cname(z2)
 
-  colname.id <- colname_id(z2)
-  colname.time <- colname_time(z2)
-  colname.value <- colname_value(z2)
-
-  if (!identical(colname.id1, colname.id)){
+  if (!identical(cname$id, cname2$id)){
     stop("id columns are not identical", call. = FALSE)
   }
-  if (!identical(colname.timz1, colname.time)){
+  if (!identical(cname$time, cname2$time)){
     stop("time column is not identical", call. = FALSE)
   }
-  if (!identical(colname.valuz1, colname.value)){
+  if (!identical(cname$value, cname2$value)){
     stop("value column is not identical", call. = FALSE)
   }
 
-
   # the following is quite standard, should be unified and factored out
-
-  setnames(z1, colname.value, "value")
-  setnames(z2, colname.value, "value2")
-  setnames(z1, colname.time, "time")
-  setnames(z2, colname.time, "time")
+  setnames(z1, cname$value, "value")
+  setnames(z2, cname$value, "value2")
+  setnames(z1, cname$time, "time")
+  setnames(z2, cname$time, "time")
 
   is.posixct.z1 <- inherits(z1$time, "POSIXct")
   is.posixct.z2 <- inherits(z1$time, "POSIXct")
@@ -48,7 +40,7 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
     z2[, time := as.integer(as.POSIXct(time))]
   }
 
-  z <- merge(z1, z2, by = c(colname.id, "time"))
+  z <- merge(z1, z2, by = c(cname$id, "time"))
   z[, value := fun(value, value2)]
   z[, value2 := NULL]
 
@@ -56,8 +48,8 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
     z[, time := as.POSIXct(time, origin = "1970-01-01", tz = tzone)]
   }
 
-  setnames(z, "time", colname.time)
-  setnames(z, "value", colname.value)
+  setnames(z, "time", cname$time)
+  setnames(z, "value", cname$value)
   setattr(z, "cname", cname)
   copy_class(z, e1)
 }
