@@ -1,11 +1,10 @@
 - [X] ts_compound() should start at 1
 - [X] unify ts_lag and ts_shift?
 
-- [C] ts_window(), extend regular series, fill w NA?
 - [X] ts_align vs ts_union, bad naming, one should be enough, -> ts_intersect, 
       only keep common time stamps, no need to regularize, unless its ts
       - removed altogther, they are confusing and unneeded. 
-      ts_window(template = ) is probably more useful.
+      ts_span(template = ) is probably more useful.
 
       
 - [X] date_shift should prob become time_shift, mostly used internally 
@@ -13,7 +12,7 @@
 
 
 - [X] copy_class should be able to deal with length 1 series, so we can do
-  ts_window(mdeaths, start = ts_end(mdeaths))
+  ts_span(mdeaths, start = ts_end(mdeaths))
 
 
 
@@ -48,8 +47,8 @@
 
   This may give us some alternatives to ts_last("1 year").
 
-  ts_window(AirPassengers, end = -1)         # everything except last obs
-  ts_window(AirPassengers, start = "1 last") # only the last obs
+  ts_span(AirPassengers, end = -1)         # everything except last obs
+  ts_span(AirPassengers, start = "1 last") # only the last obs
 
 
 - [ ] as.POSIXct(idx, origin = "1970-01-01"), whats the correct origin? This 

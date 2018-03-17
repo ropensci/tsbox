@@ -2,19 +2,19 @@
 % Please edit documentation in R/deprecated.R
 \name{ts_window}
 \alias{ts_window}
-\title{Defunct}
+\title{Deprecated}
 \usage{
-ts_window(x, from = NULL, to = NULL, template = NULL)
+ts_window(x, start = NULL, end = NULL, template = NULL)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 
-\item{from}{from date, character string, \code{Date} or \code{POSIXct}}
+\item{start}{start date, character string, \code{Date} or \code{POSIXct}}
 
-\item{to}{to date, character string, \code{Date} or \code{POSIXct}.}
+\item{end}{end date, character string, \code{Date} or \code{POSIXct}.}
 
 \item{template}{ts-boxable time series, an object of class \code{ts}, \code{xts},}
 }
 \description{
-Defunct
+Deprecated
 }

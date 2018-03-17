@@ -119,13 +119,13 @@ x.tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_t
 <p>With a long tsibble at hand, we can apply all usual functions from tsbox:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dta.tsibble <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">filter</a></span>(id <span class="op">==</span><span class="st"> "temp"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ts_window</span>(<span class="dt">start =</span> <span class="st">"2013-08-01"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ts_span</span>(<span class="dt">start =</span> <span class="st">"2013-08-01"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_trend.html">ts_trend</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_plot.html">ts_plot</a></span>() </code></pre></div>
 <p>With the result being just the same as for any other ts-boxable object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dta.tbl <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">filter</a></span>(id <span class="op">==</span><span class="st"> "temp"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ts_window</span>(<span class="dt">start =</span> <span class="st">"2013-08-01"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ts_span</span>(<span class="dt">start =</span> <span class="st">"2013-08-01"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_trend.html">ts_trend</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_plot.html">ts_plot</a></span>() </code></pre></div>
 <div id="aggregation-3-ways" class="section level3">

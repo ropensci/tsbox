@@ -131,7 +131,7 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <p>Multiple series can be also combined to a single series:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ts_bind</span>(<span class="kw"><a href="../reference/ts_ts.html">ts_xts</a></span>(mdeaths), AirPassengers)</code></pre></div>
 <p><code>ts_chain</code> offers an alternative way to combine time series, by <em>chain-linking</em> them. The following prolongs a short time series with percentage change rates of a longer one:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">md.short &lt;-<span class="st"> </span><span class="kw">ts_window</span>(mdeaths, <span class="dt">end =</span> <span class="st">"1976-12-01"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">md.short &lt;-<span class="st"> </span><span class="kw">ts_span</span>(mdeaths, <span class="dt">end =</span> <span class="st">"1976-12-01"</span>)
 <span class="kw"><a href="../reference/ts_bind.html">ts_chain</a></span>(md.short, fdeaths)</code></pre></div>
 </div>
 <div id="frequency-conversion-and-alignment" class="section level2">
@@ -139,7 +139,7 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <a href="#frequency-conversion-and-alignment" class="anchor"></a>Frequency conversion and alignment</h2>
 <p>There are functions to convert the frequency of time series and to regularize irregular time series. The following changes the frequency of two series to annual:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_frequency.html">ts_frequency</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(AirPassengers, austres), <span class="st">"year"</span>, sum)</code></pre></div>
-<p>We already met <code>ts_window</code>, which can be used to limit the time span of a series. <code>ts_regular</code> makes irregular time series regular, by turning implicit missing values into explicit <code>NA</code>s.</p>
+<p>We already met <code>ts_span</code>, which can be used to limit the time span of a series. <code>ts_regular</code> makes irregular time series regular, by turning implicit missing values into explicit <code>NA</code>s.</p>
 </div>
 <div id="and-plot-just-about-everything" class="section level2">
 <h2 class="hasAnchor">

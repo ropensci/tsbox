@@ -193,7 +193,7 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; Mar 1974    1877     827
 #&gt; Apr 1974    1877     677
 #&gt; May 1974    1492     522
-#&gt; Jun 1974    1249     406</div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_df</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;        id       time value
+#&gt; Jun 1974    1249     406</div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_df</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;        id       time value
 #&gt; 1 mdeaths 1974-01-01  2134
 #&gt; 2 mdeaths 1974-02-01  1863
 #&gt; 3 mdeaths 1974-03-01  1877
@@ -201,7 +201,7 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 5 mdeaths 1974-05-01  1492
 #&gt; 6 mdeaths 1974-06-01  1249</div><div class='input'>
 <span class='fu'>suppressMessages</span>(<span class='fu'>library</span>(<span class='no'>dplyr</span>))
-<span class='fu'>head</span>(<span class='fu'>ts_tbl</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; # A tibble: 6 x 3
+<span class='fu'>head</span>(<span class='fu'>ts_tbl</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 3
 #&gt;   id      time       value
 #&gt;   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt;
 #&gt; 1 mdeaths 1974-01-01 2134.
@@ -211,7 +211,7 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 5 mdeaths 1974-05-01 1492.
 #&gt; 6 mdeaths 1974-06-01 1249.</div><div class='input'>
 <span class='fu'>suppressMessages</span>(<span class='fu'>library</span>(<span class='no'>data.table</span>))
-<span class='fu'>head</span>(<span class='fu'>ts_dt</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;         id       time value
+<span class='fu'>head</span>(<span class='fu'>ts_dt</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;         id       time value
 #&gt; 1: mdeaths 1974-01-01  2134
 #&gt; 2: mdeaths 1974-02-01  1863
 #&gt; 3: mdeaths 1974-03-01  1877
@@ -219,7 +219,7 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 5: mdeaths 1974-05-01  1492
 #&gt; 6: mdeaths 1974-06-01  1249</div><div class='input'>
 <span class='fu'>suppressMessages</span>(<span class='fu'>library</span>(<span class='no'>xts</span>))
-<span class='fu'>head</span>(<span class='fu'>ts_xts</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;            mdeaths fdeaths
+<span class='fu'>head</span>(<span class='fu'>ts_xts</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;            mdeaths fdeaths
 #&gt; 1974-01-01    2134     901
 #&gt; 1974-02-01    1863     689
 #&gt; 1974-03-01    1877     827
@@ -228,7 +228,7 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 1974-06-01    1249     406</div><div class='input'>
 <span class='co'># heuristic time conversion</span>
 <span class='co'># 1 momth: approx. 1/12 year</span>
-<span class='fu'>head</span>(<span class='fu'>ts_df</span>(<span class='no'>AirPassengers</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;         time value
+<span class='fu'>head</span>(<span class='fu'>ts_df</span>(<span class='no'>AirPassengers</span>))</div><div class='output co'>#&gt;         time value
 #&gt; 1 1949-01-01   112
 #&gt; 2 1949-02-01   118
 #&gt; 3 1949-03-01   132
@@ -237,7 +237,7 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 6 1949-06-01   135</div><div class='input'>
 <span class='co'># exact time conversion</span>
 <span class='co'># 1 trading day: exactly 1/260 year</span>
-<span class='fu'>head</span>(<span class='fu'>ts_df</span>(<span class='no'>EuStockMarkets</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;    id                time   value
+<span class='fu'>head</span>(<span class='fu'>ts_df</span>(<span class='no'>EuStockMarkets</span>))</div><div class='output co'>#&gt;    id                time   value
 #&gt; 1 DAX 1991-07-01 03:18:27 1628.75
 #&gt; 2 DAX 1991-07-02 13:01:32 1613.63
 #&gt; 3 DAX 1991-07-03 22:44:38 1606.51
@@ -248,13 +248,14 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 <span class='no'>multi.id.df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/data.table/topics/rbindlist'>rbind</a></span>(
   <span class='fu'><a href='http://www.rdocumentation.org/packages/data.table/topics/transform.data.table'>within</a></span>(<span class='fu'>ts_df</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>)), <span class='no'>type</span> <span class='kw'>&lt;-</span> <span class='st'>"level"</span>),
   <span class='fu'><a href='http://www.rdocumentation.org/packages/data.table/topics/transform.data.table'>within</a></span>(<span class='fu'>ts_pc</span>(<span class='fu'>ts_df</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>))), <span class='no'>type</span> <span class='kw'>&lt;-</span> <span class='st'>"pc"</span>)
-)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; </div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_ts</span>(<span class='no'>multi.id.df</span>))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;          fdeaths_level mdeaths_level fdeaths_pc  mdeaths_pc
+)
+<span class='fu'>head</span>(<span class='fu'>ts_ts</span>(<span class='no'>multi.id.df</span>))</div><div class='output co'>#&gt;          fdeaths_level mdeaths_level fdeaths_pc  mdeaths_pc
 #&gt; Jan 1974           901          2134         NA          NA
 #&gt; Feb 1974           689          1863  -23.52941 -12.6991565
 #&gt; Mar 1974           827          1877   20.02903   0.7514761
 #&gt; Apr 1974           677          1877  -18.13785   0.0000000
 #&gt; May 1974           522          1492  -22.89513 -20.5114544
-#&gt; Jun 1974           406          1249  -22.22222 -16.2868633</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='no'>multi.id.df</span>)</div><div class='output co'>#&gt; </div><div class='img'><img src='ts_ts-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; Jun 1974           406          1249  -22.22222 -16.2868633</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='no'>multi.id.df</span>)</div><div class='img'><img src='ts_ts-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
