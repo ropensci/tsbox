@@ -9,7 +9,7 @@
 #' `start` and `end` can be specified relative to each other, 
 #' using one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
 #' `"month"`, `"quarter" or `"year", or an abbreviation. This 
-#' is passed to [date_shift()]. If the series are of the same frequency, the
+#' is passed to [time_shift()]. If the series are of the same frequency, the
 #' shift can be spefied in periods. See examples.
 #' 
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
@@ -19,7 +19,7 @@
 #'   `data.frame`, `data.table`, or `tibble`. If provided, `from` and `to` 
 #'   will be extracted from the object.
 #' @return a ts-boxable time series, with the same class as the input.
-#' @seealso [date_shift()]
+#' @seealso [time_shift()]
 #' @export
 #' @examples
 #' 
@@ -89,10 +89,10 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
 
   # specification by shift string: create date
   if (!is.null(start) && grepl("[a-z]", start)){
-    start <- date_shift(date_shift(ts_end(x), start), sstr)
+    start <- time_shift(time_shift(ts_end(x), start), sstr)
   }
   if (!is.null(end) && grepl("[a-z]", end)){
-    end <- date_shift(date_shift(ts_start(x), end), paste0("-", sstr))
+    end <- time_shift(time_shift(ts_start(x), end), paste0("-", sstr))
   }
 
   # specification by template: get start and end from template

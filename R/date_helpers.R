@@ -23,8 +23,7 @@ regularize_date <- function(x) {
 
   diffdt <- frequency_table(x)
   fm <- diffdt[which.max(freq)]
-  
-  # standard freq or not, if there is a single difference, it is already
+# browser()
   # regular, exit
   if (fm$share == 1) return(x)
 
@@ -34,7 +33,7 @@ regularize_date <- function(x) {
   if (inherits(x, "POSIXct")){
 
     # for some reason, POSIXct is not precise for quartals
-    if (fm$freq <= 12){
+    if (fm$freq <= 12 && fm$freq > -1){
       z <- as.POSIXct(seq(from = as.Date(from), to = as.Date(to), by = fm$string), tz = attr(x, "tzone"))
       if (!all(as.integer(x) %in% as.integer(z))){
         # but sometimes it is, so give it a second try

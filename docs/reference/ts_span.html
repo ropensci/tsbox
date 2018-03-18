@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Time Span — ts_span • tsbox</title>
+<title>Limit Time Span — ts_span • tsbox</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Time Span — ts_span" />
+<meta property="og:title" content="Limit Time Span — ts_span" />
 
-<meta property="og:description" content="Filter series for time span" />
+<meta property="og:description" content="Filter time series for a time span." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -113,11 +113,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Time Span</h1>
+    <h1>Limit Time Span</h1>
     </div>
 
     
-    <p>Filter series for time span</p>
+    <p>Filter time series for a time span.</p>
     
 
     <pre class="usage"><span class='fu'>ts_span</span>(<span class='no'>x</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
@@ -157,17 +157,24 @@ will be extracted from the object.</p></td>
 
     <p>All date and times, when entered as charachter strings, are processed by
 <code><a href='http://www.rdocumentation.org/packages/anytime/topics/anytime'>anytime::anydate()</a></code> or <code><a href='http://www.rdocumentation.org/packages/anytime/topics/anytime'>anytime::anytime()</a></code>. Thus a wide range of inputs are
-possible. See examples.</p>
+possible. See examples.
+    <code>start</code> and <code>end</code> can be specified relative to each other,
+using one of <code>"sec"</code>, <code>"min"</code>, <code>"hour"</code>, <code>"day"</code>, <code>"week"</code>,
+<code>"month"</code>, <code>"quarter" or</code>"year", or an abbreviation. This
+is passed to <code><a href='time_shift.html'>time_shift()</a></code>. If the series are of the same frequency, the
+shift can be spefied in periods. See examples.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='time_shift.html'>time_shift()</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># use 'anytime' shortcuts</span>
 <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1979"</span>)       <span class='co'># shortcut for 1979-01-01</span></div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
-#&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
-<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1979-4"</span>)     <span class='co'># shortcut for 1979-04-01</span></div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
-#&gt; 1979 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
-<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"197904"</span>)     <span class='co'># shortcut for 1979-04-01</span></div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1979-4"</span>)     <span class='co'># shortcut for 1979-04-01</span></div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"197904"</span>)     <span class='co'># shortcut for 1979-04-01</span></div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1979 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
 <span class='co'># it's fine to use an to date outside of series span</span>
 <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"2001-01-01"</span>)</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
@@ -177,21 +184,23 @@ possible. See examples.</p>
 #&gt; 1977 2240 1634 1722 1801 1246 1162 1087 1013  959 1179 1229 1655
 #&gt; 1978 2019 2284 1942 1423 1340 1187 1098 1004  970 1140 1110 1812
 #&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
-<span class='co'># ts_end and ts_start, together with date_shift allow flexible specification</span>
-<span class='co'># of relative ranges:</span>
+<span class='co'># use strings to set start or end relative to each other</span>
 
-<span class='co'># latest value</span>
-<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>date_shift</span>(<span class='fu'>ts_end</span>(<span class='no'>mdeaths</span>), -<span class='fl'>1</span>))</div><div class='output co'>#&gt;       Dec
-#&gt; 1979 1341</div><div class='input'>
+<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"-7 month"</span>)   <span class='co'># last 7 months</span></div><div class='output co'>#&gt;       Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> -<span class='fl'>7</span>)           <span class='co'># last 7 periods</span></div><div class='output co'>#&gt;       Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> -<span class='fl'>1</span>)           <span class='co'># last single value</span></div><div class='output co'>#&gt;       Dec
+#&gt; 1979 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1e4 hours"</span>)    <span class='co'># first 10000 hours</span></div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
+#&gt; 1975 2103                                                       </div><div class='input'>
 <span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
-  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>date_shift</span>(<span class='fu'>ts_end</span>(<span class='no'>mdeaths</span>), <span class='st'>"-3 years"</span>)),
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Three years"</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The last three years of data"</span>
+  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"-3 years"</span>),
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Three years ago"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The last three years of available data"</span>
 )</div><div class='img'><img src='ts_span-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='fu'>ts_ggplot</span>(
-  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>date_shift</span>(<span class='fu'>ts_start</span>(<span class='no'>mdeaths</span>), <span class='st'>"28 weeks"</span>)),
+  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"28 weeks"</span>),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"28 weeks later"</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The first 28 weeks of data"</span>
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The first 28 weeks of available data"</span>
 ) + <span class='fu'><a href='ts_ggplot.html'>theme_tsbox</a></span>() + <span class='fu'><a href='ts_ggplot.html'>scale_color_tsbox</a></span>()</div><div class='img'><img src='ts_span-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Limit span of 'discoveries' to the same span as 'AirPassengers'</span>
 <span class='fu'>ts_span</span>(<span class='no'>discoveries</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; Time Series:
@@ -211,6 +220,8 @@ possible. See examples.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

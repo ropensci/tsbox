@@ -8,7 +8,7 @@
 \usage{
 ts_compound(x, denominator = 100)
 
-ts_index(x, base)
+ts_index(x, base = NULL)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}

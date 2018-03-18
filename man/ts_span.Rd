@@ -39,7 +39,7 @@ possible. See examples.
 \code{start} and \code{end} can be specified relative to each other,
 using one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
 \code{"month"}, \code{"quarter" or}"year", or an abbreviation. This
-is passed to \code{\link[=date_shift]{date_shift()}}. If the series are of the same frequency, the
+is passed to \code{\link[=time_shift]{time_shift()}}. If the series are of the same frequency, the
 shift can be spefied in periods. See examples.
 }
 \examples{
@@ -75,5 +75,5 @@ ts_ggplot(
 ts_span(discoveries, template = AirPassengers)
 }
 \seealso{
-\code{\link[=date_shift]{date_shift()}}
+\code{\link[=time_shift]{time_shift()}}
 }

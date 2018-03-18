@@ -6,7 +6,7 @@
 
 guess_tattr <- function(x){
   x.time <- x[[dts_cname(x)$time]]
-  class <- class(x.time)
+  class <- class(x.time)[1]
   if (!(class %in% c("Date", "POSIXct"))) {
     stop("[time] col is not of class 'Date' or 'POSIXct'", call. = FALSE)
   }

@@ -1,9 +1,7 @@
-#' Manipulating Dates
-#'
-#' `date_shift` adds seconds, minutes, hours, days, weeks, months, quarters or years to dates.
-#' `date_month`, `date_quarter` and `date_yeae` return the first day of the
-#' period and are useful for customized aggregation of data frames. For standard
-#' aggregation, use [ts_frequency()].
+#' Shift Time Stamps
+#' 
+#' `time_shift` adds seconds, minutes, hours, days, weeks, months, quarters or
+#' years to dates.
 #'
 #' If `by` is character, the time stamp is shifted by a specific amount of time.
 #' This can be one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
@@ -21,28 +19,25 @@
 #'
 #' @examples
 #' ap.time <- ts_df(AirPassengers)$time
-#' head(date_month(ap.time))
-#' head(date_quarter(ap.time))
-#' head(date_year(ap.time))
 #'
-#' head(date_shift(ap.time, 14))
-#' head(date_shift(ap.time, "7 week"))
-#' head(date_shift(ap.time, "-1 month"))
+#' head(time_shift(ap.time, 14))
+#' head(time_shift(ap.time, "7 week"))
+#' head(time_shift(ap.time, "-1 month"))
 #'
-#' date_shift(ts_end(mdeaths), 1)
-#' date_shift(ts_end(mdeaths), "-14 sec")
-#' date_shift(ts_end(mdeaths), "-1 year")
-#' ts_span(ts_c(mdeaths, fdeaths), start = date_shift(ts_end(mdeaths), -1))
+#' time_shift(ts_end(mdeaths), 1)
+#' time_shift(ts_end(mdeaths), "-14 sec")
+#' time_shift(ts_end(mdeaths), "-1 year")
+#' ts_span(ts_c(mdeaths, fdeaths), start = time_shift(ts_end(mdeaths), -1))
 #' 
 #' @export
-date_shift <- function(x, by = NULL) {
+time_shift <- function(x, by = NULL) {
 
   freq <- NULL
   
   if (is.null(by)) return(x)
 
   # high freq can be added to POSIXct only
-  if (is.character(by) && grepl("sec|min|hour", by)){
+  if (is.character(by) && grepl("sec|min|hour|[^a-z]s$|[^a-z]h$", by)){
     x <- as.POSIXct(x)
   }
 
@@ -103,16 +98,6 @@ date_shift <- function(x, by = NULL) {
 }
 
 
-is_shift_string <- function(x){
-  if (is.null(x)) return(FALSE)
-  stopifnot(length(x) == 1)
-  sstr <- c("sec", "min", "hour", "day", "week", "month", "quarter", "year")
-  any(vapply(sstr, function(e) grepl(e, x), TRUE))
-}
-
-
-#' @name date_shift
-#' @export
 date_month <- function(x) {
   x0 <- (x)
   d <- "1"
@@ -125,8 +110,6 @@ date_month <- function(x) {
   z
 }
 
-#' @name date_shift
-#' @export
 date_quarter <- function(x) {
   x0 <- (x)
   d <- "1"
@@ -139,8 +122,6 @@ date_quarter <- function(x) {
   z
 }
 
-#' @name date_shift
-#' @export
 date_year <- function(x) {
   x0 <- (x)
   d <- "1"

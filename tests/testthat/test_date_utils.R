@@ -36,13 +36,23 @@ test_that("df aggregation using date_ functions is working", {
 })
 
 
-test_that("date_shift is working", {
+test_that("time_shift is working", {
   x <- ts_tbl(ts_c(mdeaths, fdeaths))
-  expect_equal(x$time, date_shift(x$time))
+  expect_equal(x$time, time_shift(x$time))
 
   x1 <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
-    mutate(time = date_shift(time, by = "month")) 
+    mutate(time = time_shift(time, by = "month")) 
   xlag <- ts_lag(x)
 
   expect_equal(xlag, x1)
 })
+
+
+# test_that("time zones are not removed", {
+#   x <- ts_tbl(EuStockMarkets)
+#   attr(x$time, "tzone") <- "UTC"
+
+#   # ts_pc(x)
+
+# })
+

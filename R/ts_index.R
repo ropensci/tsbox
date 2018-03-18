@@ -52,8 +52,7 @@ ts_compound <- function(x, denominator = 100) {
 #'   title = "A Very Manual Forecast"
 #' )
 #' @export
-ts_index <- function(x, base) {
-  base <- anydate(as.character(base))
+ts_index <- function(x, base = NULL) {
 
   not_in_data <- NULL
   value <- NULL
@@ -68,6 +67,18 @@ ts_index <- function(x, base) {
   }
 
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+
+  # use latest start point as base candidtate
+  if (is.null(base)){
+    dt_min_time <- z[
+      ,
+      list(min.time = min(time)),
+      by = eval(.by)
+    ]
+    base <- max(dt_min_time$min.time)
+  } else {
+    base <- anydate(as.character(base))
+  }
 
   # check if base date in data (rewrite)
   dt_in_data <- z[

@@ -2,14 +2,10 @@
 # --- Convertors for dectime to POSIXct and back -------------------------------
 
 seconds_since_70 <- function(year) {
-  sq <- seq(
-    as.POSIXct("1990-01-01", tz = ""),
-    to = as.POSIXct("2010-01-01", tz = ""),
-    by = "1 year"
-  )
-  as.numeric(
-    seq(as.POSIXct(paste0(year, "-01-01")), length.out = 2, by = "1 year")
-  )
+  as.numeric(seq(
+    as.POSIXct(paste0(year, "-01-01"), tz = ""), 
+    length.out = 2, by = "1 year"
+  ))
 }
 
 dectime_to_POSIXct <- function(x) {
@@ -17,6 +13,7 @@ dectime_to_POSIXct <- function(x) {
   year <- floor(x)
   intra <- x - year
   ss70 <- seconds_since_70(year)
+  # as current time zone
   as.POSIXct(ss70[1] + diff(ss70) * intra, origin = "1970-01-01", tz = "")
 }
 

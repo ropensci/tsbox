@@ -88,7 +88,7 @@ reference:
   desc: >
     Inclued is a set of functions that makes it easier to work with dates
   contents:
-  - date_shift
+  - time_shift
   - starts_with("first_time_of")
 
 - title: Arithmetic operators

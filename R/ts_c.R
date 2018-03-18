@@ -119,11 +119,14 @@ ts_c <- function(...) {
 
 
 unify_time_class <- function(ll) {
-  cl <- vapply(ll, function(e) class(e[[2]])[1], "")
+  cl <- vapply(ll, function(e) dts_tattr(e)$class, "")
   if (length(unique(cl)) > 1) {
-
-    tz <- attr(ll[cl == "POSIXct"][[1]], "tzone")
-    ll[cl == "Date"] <- lapply(ll[cl == "Date"], function(e) change_class.data.table(e, colnames(e)[2], "as.POSIXct", tz = tz))
+    tz <- dts_tattr(ll[[1]])$tz
+    make_date_posixct <- function(x) {
+      x[[dts_cname(x)$time]] <- as.POSIXct(x[[dts_cname(x)$time]], origin = "1970-01-01", tz = tz)
+      x
+    }
+    ll[cl == "Date"] <- lapply(ll[cl == "Date"], make_date_posixct)
   }
   ll
 }

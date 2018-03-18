@@ -71,7 +71,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     if (length(x) <= 1) {
       stop("time series too short for frequency detection", call. = FALSE)
     }
-    frequency <- frequency_table(x)$freq
+    frequency <- unique(frequency_table(x)$freq)
     stopifnot(length(frequency) == 1)
   }
   # Non heuristic conversion
@@ -106,7 +106,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     str <- md$str
     
     start.time <- date_year(x[1])
-    end.time <- date_shift(start.time, "1 year")
+    end.time <- time_shift(start.time, "1 year")
 
     sq.time0 <- seq(start.time, end.time, by = str)
     sq.time <- sq.time0[-length(sq.time0)]

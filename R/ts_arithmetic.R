@@ -35,7 +35,7 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
   is.posixct.z2 <- inherits(z1$time, "POSIXct")
 
   if (is.posixct.z1 || is.posixct.z2){
-    tzone <- unique(c(attr(z1$time, "tzone"), attr(z2$time, "tzone")))[1]
+    tzone <- unique(c(dts_tattr(z1)$tzone), dts_tattr(z2)$tzone)[1]
     z1[, time := as.integer(as.POSIXct(time))]
     z2[, time := as.integer(as.POSIXct(time))]
   }

@@ -16,22 +16,6 @@ combine_cols_data.table <- function(dt, cols) {
   z[]
 }
 
-# this is inefficient, better do 
-# x[['time']] <- as.POSIXct(x[['time']])
-change_class.data.table <- function(dt, col, operator = "as.POSIXct", tz = NULL) {
-  # probably not the best way to do it
-
-  if (is.null(tz)){
-    qq.str <- paste0(col, " := ", operator, "(", col, ")")
-  } else {
-    qq.str <- paste0(col, " := ", operator, "(", col, ", tz = ", tz, ")")
-  }
-
-  qq <- parse(text = qq.str)
-  z <- dt[, eval(qq)]
-  return(z)
-}
-
 
 # merging dts over time col
 #
