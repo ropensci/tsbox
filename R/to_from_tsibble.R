@@ -14,7 +14,7 @@ ts_tsibble_dts <- function(x) {
 
   if (length(cid) > 0){
     estr <- paste0(
-      "tsibble::as_tsibble(x, key = id(",
+      "tsibble::as_tsibble(x, key = tsibble::id(",
       paste(cid, collapse = ", "),
       "), index = ",
       ctime,
@@ -50,8 +50,8 @@ ts_dts.tbl_ts <- function(x) {
   }
 
   time <- setdiff(names(x), c(names(tsibble::key_vars(x)), tsibble::measured_vars(x)))
-
-  cname <- list(id = tsibble::key_vars(x),
+browser
+  cname <- list(id = unname(unlist(tsibble::key_vars(x))),
                 time = time,
                 value = "value")
 

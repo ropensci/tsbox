@@ -141,8 +141,8 @@ ts_dts.ts <- function(x) {
 #' @export
 #' @import data.table
 #' @importFrom anytime anydate anytime
-#' @importFrom stats as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var prcomp start tsp<- window
-#' @importFrom utils browseURL relist
+#' @importFrom stats setNames as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var prcomp start tsp<- window
+#' @importFrom utils getFromNamespace browseURL relist
 #' @import data.table
 ts_ts <- function(x) {
   stopifnot(ts_boxable(x))
