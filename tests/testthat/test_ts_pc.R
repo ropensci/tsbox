@@ -44,7 +44,7 @@ test_that("ts_compound, ts_index and ts_pc are consistent", {
   expect_equal(ts_compound(ts_pc(ts_c(AirPassengers))),
                ts_index(ts_c(AirPassengers)))
 
-}
+})
 
 
 test_that("pc and ts_index works with NA", {
