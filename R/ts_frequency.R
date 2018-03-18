@@ -3,7 +3,7 @@
 #' Changes the frequency of a time series. Currently, incomplete
 #' periods are aggregated as well, but this is likely to change.
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
 #' @param aggregate character string, or function. Either `"mean"`, `"sum"`,

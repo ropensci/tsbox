@@ -8,7 +8,7 @@
 #' With the exception of `ts_prcomp`, these functions depend on external
 #' packages.
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @param ... further arguments, passed to the underlying function. For help, consider these functions, e.g., [stats::prcomp].
 #'
 #' @return Usually, a ts-boxable time series, with the same class as the input. `ts_dygraphs` draws a plot.

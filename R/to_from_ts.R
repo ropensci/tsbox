@@ -1,3 +1,5 @@
+register_class("ts")
+
 # to ---------------------------------------------------------------------------
 
 ts_ts_dts <- function(x, frequency = NULL) {
@@ -101,7 +103,7 @@ ts_dts.ts <- function(x) {
 #' time conversion**. The year is divided into 260 equally long units, and time
 #' stamp of a period will be a point in time (of class `"POSIXct"`).
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #'
 #' @return ts-boxable time series of the desired class, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #'

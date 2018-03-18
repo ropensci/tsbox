@@ -2,7 +2,7 @@
 #'
 #' Pick (and optionally rename) series from multiple time series.
 #'  
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @param ... character string(s), names of the series to be picked. If arguments are named, the series will be renamed.
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples

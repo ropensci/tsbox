@@ -6,7 +6,7 @@
 #' Note that internal NAs in `ts` time series will not be removed, as this
 #' conflicts with the regular structure.
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @return a ts-boxable time series, with the same class as the input.
 #'
 #' @seealso [ts_regular], for the opposite, turning implicit into explicit missing values.

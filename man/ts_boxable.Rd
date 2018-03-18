@@ -7,7 +7,7 @@
 ts_boxable(x)
 }
 \arguments{
-\item{x}{time series object, either \code{ts}, \code{xts}, \code{data.frame} or \code{data.table}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 }
 \value{
 logical, either \code{TRUE} or \code{FALSE}

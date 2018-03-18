@@ -1,3 +1,5 @@
+register_class("data.frame")
+
 # to ---------------------------------------------------------------------------
 
 ts_data.frame_dts <- function(x) {
@@ -29,3 +31,4 @@ ts_data.frame <- function(x) {
 ts_df <- function(x) {
   ts_data.frame(x)
 }
+

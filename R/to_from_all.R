@@ -3,45 +3,35 @@
 
 
 
+.tsbox_registry <- new.env(parent = emptyenv())
 
+register_class <- function(tsbox.class, actual.class = tsbox.class){
+  class <- setNames(actual.class, tsbox.class)
+  classes <- c(class, .tsbox_registry$class)
+  # to keep names
+  classes <- classes[classes == unique(classes)]
+  assign("class", classes, envir = .tsbox_registry)
+}
 
-.supported.classes <- c("ts", "mts", "xts", "data.frame", "data.table", "tbl_df", "tsibble", "tbl", "dts", "tslist")
+register_class("dts")
+
+supported_classes <- function(){
+  .tsbox_registry$class
+}
+
 
 #' Extract Relevant Class
 #'
 #' Mainly used internally.
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @examples
 #' relevant_class(AirPassengers)
 #' relevant_class(ts_df(AirPassengers))
 #' @export
 relevant_class <- function(x) {
-  if (inherits(x, "dts")) {
-    return("dts")
-  }
-  if (inherits(x, "ts")) {
-    return("ts")
-  }
-  if (inherits(x, "xts")) {
-    return("xts")
-  }
-  if (inherits(x, "data.table")) {
-    return("data.table")
-  }
-  if (inherits(x, "tbl_ts")) {
-    return("tsibble")
-  }
-  if (inherits(x, "tbl")) {
-    return("tbl")
-  }
-  if (inherits(x, "data.frame")) {
-    return("data.frame")
-  }
-  if (inherits(x, "tslist")) {
-    return("tslist")
-  }
-  return("")
+  stopifnot(ts_boxable(x))
+  intersect(class(x), supported_classes())[1]
 }
 
 
@@ -49,14 +39,14 @@ relevant_class <- function(x) {
 #'
 #' Mainly used internally.
 #'
-#' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @inherit ts_dts
 #' @return logical, either `TRUE` or `FALSE`
 #' @examples
 #' ts_boxable(AirPassengers)
 #' ts_boxable(lm)
 #' @export
 ts_boxable <- function(x) {
-  relevant_class(x) %in% .supported.classes
+  any(supported_classes() %in% class(x))
 }
 
 
@@ -65,8 +55,10 @@ ts_boxable <- function(x) {
 # @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
 # @return returns a function
 as_class <- function(x) {
-  stopifnot(x %in% .supported.classes)
-  get(paste0("ts_", x))
+  stopifnot(any(supported_classes() %in% x))
+
+  x.tsbox <- names(supported_classes())[match(x, supported_classes())]
+  getFromNamespace(paste0("ts_", x.tsbox), ns = "tsbox")
 }
 
 
@@ -94,7 +86,7 @@ desired_class <- function(ll) {
 #'
 #' Inspired by `xts::reclass`, which does something similar.
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`. Object to re-class.
+#' @inherit ts_dts
 #' @param template ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`. Template.
 #' @param preserve.mode should the mode the time column be preserved (data frame only)
 #' @param preserve.names should the name of the time column be preserved (data frame only)

@@ -4,7 +4,7 @@
 #' compared to the previous period, `ts_pcy` and `ts_diffy` calculate compared to
 #' the same period of the previous year.
 #'  
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' head(ts_diff(ts_c(fdeaths, mdeaths)))

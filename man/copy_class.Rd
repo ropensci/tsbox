@@ -8,7 +8,7 @@ copy_class(x, template, preserve.mode = TRUE, preserve.names = FALSE,
   preserve.time = FALSE)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}. Object to re-class.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 
 \item{template}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}. Template.}
 

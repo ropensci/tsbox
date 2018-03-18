@@ -1,3 +1,5 @@
+register_class("tbl", "tbl_df")
+
 # to ---------------------------------------------------------------------------
 
 ts_tbl_dts <- function(x) {
@@ -5,6 +7,10 @@ ts_tbl_dts <- function(x) {
   tibble::as_data_frame(as.data.frame(ts_data.table(x)))
 }
 
+as.tbl_df <- function(x) {
+  stopifnot(requireNamespace("tibble"))
+  tibble::as_data_frame(x)
+}
 
 # from -------------------------------------------------------------------------
 

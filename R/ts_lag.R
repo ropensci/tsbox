@@ -15,7 +15,7 @@
 #' negative) integer and a space, or followed by plural "s". This is passed to
 #' [base::seq.Date()]. This does not require the series to be regular.
 #' 
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
 #'

@@ -1,3 +1,5 @@
+register_class("data.table")
+
 # to ---------------------------------------------------------------------------
 
 ts_data.table_dts <- function(x) {

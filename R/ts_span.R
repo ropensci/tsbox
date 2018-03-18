@@ -12,7 +12,7 @@
 #' is passed to [time_shift()]. If the series are of the same frequency, the
 #' shift can be specified in periods. See examples.
 #' 
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @param start start date, character string, `Date` or `POSIXct`
 #' @param end end date, character string, `Date` or `POSIXct`.
 #' @param template ts-boxable time series, an object of class `ts`, `xts`, 

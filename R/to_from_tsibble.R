@@ -1,3 +1,5 @@
+register_class("tsibble", "tbl_ts")
+
 # to ---------------------------------------------------------------------------
 
 ts_tsibble_dts <- function(x) {

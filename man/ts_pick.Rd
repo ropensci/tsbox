@@ -27,5 +27,5 @@ ts_plot(ts_pick(
 
 # Programming use
 to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")
-ts_pick(EuStockMarkets, to.be.picked.and.renamed)
+head(ts_pick(EuStockMarkets, to.be.picked.and.renamed))
 }
