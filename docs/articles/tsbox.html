@@ -60,7 +60,7 @@
       <a href="../articles/convert.html">Time Conversion and Reguarization</a>
     </li>
     <li>
-      <a href="../articles/class-struggle.html">Extending tsbox to new classes</a>
+      <a href="../articles/class-struggle.html">Additional Examples</a>
     </li>
   </ul>
 </li>
@@ -97,13 +97,13 @@
     
 <div class="contents">
 <p>The R ecosystem knows a <a href="https://cran.r-project.org/web/views/TimeSeries.html">vast number</a> of time series standards. Instead of creating the ultimate <a href="https://xkcd.com/927/">15th</a> time series class, tsbox provides a set of tools that are <strong>agnostic towards the existing standards</strong>. The tools also allow you to handle time series as plain data frames, thus making it easy to deal with time series in a <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> or <a href="https://CRAN.R-project.org/package=data.table">data.table</a> workflow.</p>
-<p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong> or <strong>tibble</strong> to each other. Because this works reliably and without user input, we can easily write functions that work for all classes. So whether we want to smooth, scale, differentiate, chain, forecast, regularize or seasonally adjust a time series, we can use the same commands to whatever time series class at hand. And, most conveniently, we get a time series plot function that works for all classes and frequencies.</p>
+<p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong>, <strong>tibble</strong>, <strong>zoo</strong>, <strong>tsibble</strong> or <strong>timeSeries</strong> to each other. Because this works reliably and without user input, we can easily write functions that work for all classes. So whether we want to smooth, scale, differentiate, chain, forecast, regularize or seasonally adjust a time series, we can use the same commands to whatever time series class at hand. And, most conveniently, we get a time series plot function that works for all classes and frequencies.</p>
 <p>To install:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"christophsax/tsbox"</span>)</code></pre></div>
 <div id="convert-everything-to-everything" class="section level2">
 <h2 class="hasAnchor">
 <a href="#convert-everything-to-everything" class="anchor"></a>Convert everything to everything</h2>
-<p>tsbox can convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong> or <strong>tibble</strong> to each other:</p>
+<p>tsbox can convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong>, <strong>tibble</strong>, <strong>zoo</strong>, <strong>tsibble</strong> or <strong>timeSeries</strong> to each other:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tsbox)
 x.ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths)
 x.xts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_xts</a></span>(x.ts)
@@ -136,6 +136,9 @@ x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.
 <p><code>ts_chain</code> offers an alternative way to combine time series, by <em>chain-linking</em> them. The following prolongs a short time series with percentage change rates of a longer one:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">md.short &lt;-<span class="st"> </span><span class="kw">ts_span</span>(mdeaths, <span class="dt">end =</span> <span class="st">"1976-12-01"</span>)
 <span class="kw"><a href="../reference/ts_bind.html">ts_chain</a></span>(md.short, fdeaths)</code></pre></div>
+<p>To pick a subset of time series, and optionally rename, use <code>ts_pick</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/ts_pick.html">ts_pick</a></span>(EuStockMarkets, <span class="st">'DAX'</span>, <span class="st">'SMI'</span>)
+<span class="kw"><a href="../reference/ts_pick.html">ts_pick</a></span>(EuStockMarkets, <span class="st">`</span><span class="dt">my shiny new name</span><span class="st">`</span> =<span class="st"> 'DAX'</span>, <span class="st">'SMI'</span>)</code></pre></div>
 </div>
 <div id="frequency-conversion-and-alignment" class="section level2">
 <h2 class="hasAnchor">

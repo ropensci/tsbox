@@ -13,8 +13,10 @@ test_that("two way conversion", {
     # single series
     expect_equal(ts_ts(ts_fun(AirPassengers)), AirPassengers)
 
-    # non standard regualr
-    expect_equal(ts_ts(ts_fun(EuStockMarkets)), EuStockMarkets)
+    # non standard regualar
+    if (!(class %in% c("timeSeries"))){  # stored in seconds only, which prevents back covnersion to ts
+      expect_equal(ts_ts(ts_fun(EuStockMarkets)), EuStockMarkets)
+    }
 
     # mixed frequencies
     expect_equal(ts_ts(ts_fun(ts_c(austres, AirPassengers))), ts_c(austres, AirPassengers))

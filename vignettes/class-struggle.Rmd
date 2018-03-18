@@ -1,6 +1,6 @@
 ---
 title: "Class Struggle"
-subtitle: "Extending tsbox to New Classes"
+subtitle: "Additional Examples"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{introduction}
@@ -62,7 +62,7 @@ dta.tsibble %>%
   ts_plot() 
 ```
 
-Because tsobx functions work identical for all ts-boxable objects, the same commands could be used, e.g., on a standard tibble:
+Because tsbox functions work identical for all ts-boxable objects, the same commands could be used, e.g., on a standard tibble:
 
 ```r
 dta.tbl %>% 

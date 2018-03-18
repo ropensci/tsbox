@@ -15,7 +15,7 @@ data frames, thus making it easy to deal with time series in a
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
 tsbox is built around a set of converters, which convert time series stored as
-**ts**, **xts**, **data.frame**, **data.table** or **tibble** to each other.
+**ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**, **tsibble** or **timeSeries** to each other.
 
 To install:
 ```r

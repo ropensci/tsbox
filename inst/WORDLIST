@@ -1,6 +1,5 @@
 boxable
 Boxable
-centric
 Christoph
 customizability
 dplyr
@@ -15,6 +14,7 @@ th
 tibble
 tibbles
 tibbletime
+timeSeries
 tsibble
 tsibbles
 vectorized

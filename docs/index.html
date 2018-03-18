@@ -64,7 +64,7 @@
       <a href="articles/convert.html">Time Conversion and Reguarization</a>
     </li>
     <li>
-      <a href="articles/class-struggle.html">Extending tsbox to new classes</a>
+      <a href="articles/class-struggle.html">Additional Examples</a>
     </li>
   </ul>
 </li>
@@ -95,7 +95,7 @@
 <a href="#tsbox-class-agnostic-time-series-in-r" class="anchor"></a>tsbox: Class-Agnostic Time Series in R</h1></div>
 
 <p>The R ecosystem knows a <a href="https://cran.r-project.org/web/views/TimeSeries.html">vast number</a> of time series standards. Instead of creating the ultimate <a href="https://xkcd.com/927/">15th</a> time series class, tsbox provides a set of tools that are <strong>agnostic towards the existing standards</strong>. The tools also allow you to handle time series as plain data frames, thus making it easy to deal with time series in a <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> or <a href="https://CRAN.R-project.org/package=data.table">data.table</a> workflow.</p>
-<p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong> or <strong>tibble</strong> to each other.</p>
+<p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong>, <strong>tibble</strong>, <strong>zoo</strong>, <strong>tsibble</strong> or <strong>timeSeries</strong> to each other.</p>
 <p>To install:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"christophsax/tsbox"</span>)</code></pre></div>
 <div id="convert-everything-to-everything" class="section level3">
