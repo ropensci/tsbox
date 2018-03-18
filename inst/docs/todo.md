@@ -11,7 +11,6 @@
 - [X] redesign dts
 - [X] How to extract last values? use ts_span(AirPassengers, end = -1) 
 - [ ] regularization, shifting of regular, non standard series (EuStockmarkets)
-
 - [X] ts_index base default
 
 - [ ] add proper class registry to specific files

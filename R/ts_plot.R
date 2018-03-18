@@ -161,7 +161,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   # graphical parameters, via options
   col <- getOption("tsbox.col", colors_tsbox())
   lty <- getOption("tsbox.lty", "solid")
-  lwd <- getOption("tsbox.lwd", 1)
+  lwd <- getOption("tsbox.lwd", 1.5)
 
   recycle_par <- function(x){
     x0 <- x[1:(min(length(x), length(ids)))]

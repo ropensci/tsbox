@@ -112,7 +112,7 @@
     <div class="page-header">
       <h1>
         Reference
-        <small>version&nbsp;0.0.14.0</small>
+        <small>version&nbsp;0.0.14.1</small>
       </h1>
     </div>
 
@@ -141,7 +141,7 @@
       </tbody><tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-combine" class="hasAnchor"><a href="#section-combine" class="anchor"></a>Combine</h2>
+            <h2 id="section-combine-and-separate" class="hasAnchor"><a href="#section-combine-and-separate" class="anchor"></a>Combine and Separate</h2>
             <p class="section-desc"><p>A set of helper functions to combine multiple time series</p></p>
           </th>
         </tr>
@@ -157,6 +157,18 @@
             <p><code><a href="ts_bind.html">ts_bind</a></code> <code><a href="ts_bind.html">ts_chain</a></code> </p>
           </td>
           <td><p>Bind Time Series</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="ts_span.html">ts_span</a></code> <code><a href="ts_span.html">ts_start</a></code> <code><a href="ts_span.html">ts_end</a></code> </p>
+          </td>
+          <td><p>Limit Time Span</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="ts_pick.html">ts_pick</a></code> </p>
+          </td>
+          <td><p>Pick Series (Experimental)</p></td>
         </tr>
       </tbody><tbody>
         <tr>
@@ -239,8 +251,8 @@
       </tbody><tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-align" class="hasAnchor"><a href="#section-align" class="anchor"></a>Align</h2>
-            <p class="section-desc"><p>Functions to manipulate the frequency and time span</p></p>
+            <h2 id="section-frequency" class="hasAnchor"><a href="#section-frequency" class="anchor"></a>Frequency</h2>
+            <p class="section-desc"><p>Functions to manipulate frequency</p></p>
           </th>
         </tr>
         <tr>
@@ -249,12 +261,6 @@
             <p><code><a href="ts_frequency.html">ts_frequency</a></code> </p>
           </td>
           <td><p>Change Frequency</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_span.html">ts_span</a></code> <code><a href="ts_span.html">ts_start</a></code> <code><a href="ts_span.html">ts_end</a></code> </p>
-          </td>
-          <td><p>Limit Time Span</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -349,11 +355,11 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-convert">Convert</a></li>
-      <li><a href="#section-combine">Combine</a></li>
+      <li><a href="#section-combine-and-separate">Combine and Separate</a></li>
       <li><a href="#section-transform">Transform</a></li>
       <li><a href="#section-plot">Plot</a></li>
       <li><a href="#section-reshape">Reshape</a></li>
-      <li><a href="#section-align">Align</a></li>
+      <li><a href="#section-frequency">Frequency</a></li>
       <li><a href="#section-user-defined-ts-functions">User defined ts-functions</a></li>
       <li><a href="#section-working-with-dates">Working with dates</a></li>
       <li><a href="#section-arithmetic-operators">Arithmetic operators</a></li>

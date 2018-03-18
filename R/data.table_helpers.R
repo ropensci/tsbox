@@ -6,9 +6,9 @@ filter_data.table <- function(DT, column.name, operator = "%in%", filter.value) 
   `[`(DT, eval(q))
 }
 
-combine_cols_data.table <- function(dt, cols) {
+combine_cols_data.table <- function(dt, cols, sep = '_') {
   # probably not the best way to do it
-  qq.str <- paste0("id := paste(", paste(cols, collapse = ", "), ", sep = '_')")
+  qq.str <- paste0("id := paste(", paste(cols, collapse = ", "), ", sep = '", sep, "')")
   qq <- parse(text = qq.str)
   z <- dt[, eval(qq)]
   z[, (setdiff(cols, "id")) := NULL] # but this is the right way to do it
@@ -17,35 +17,44 @@ combine_cols_data.table <- function(dt, cols) {
 }
 
 
-# merging dts over time col
+# merging dts over time col, using rolling joins
 #
-# if merge should be done over POSIXct, columns are converted to integer and
-# converted back after the merge
-merge_time_date <- function(x, y, by.x, by.y){
-  class.x <- class(x[[by.x]])[1]
-  class.y <- class(y[[by.y]])[1]
+merge_time_date <- function(x, y, by.x = "time", by.y = "time"){
+
+  s <- time.x <- time.y <- NULL
+
+  x0 <- copy(x)
+  y0 <- copy(y)
+
+  setnames(x0, by.x, "time")
+  setnames(y0, by.y, "time")
+
+  class.x <- class(x0[["time"]])[1]
+  class.y <- class(y0[["time"]])[1]
 
   class <- unique(c(class.x, class.y))
   if (length(class) > 1) {
-    x[[by.x]] <- as.POSIXct(x[[by.x]])
-    y[[by.y]] <- as.POSIXct(y[[by.y]])
+    x0[["time"]] <- as.POSIXct(x0[["time"]])
+    y0[["time"]] <- as.POSIXct(y0[["time"]])
     class <- "POSIXct"
   } 
 
-  # convert POSIXct to integer, for merge to succeed
-  if (class == "POSIXct"){
-    tz.x <- attr(x[[by.x]], "tzone")
-    tz.y <- attr(x[[by.y]], "tzone")
-    tz <- unique(c(tz.x, tz.y, ""))[1]
-    x[[by.x]] <- as.integer(x[[by.x]])
-    y[[by.y]] <- as.integer(y[[by.y]])
-  }
+  # rolling join
+  x0[, s := seq_along(time)]
+  x0[, time.x := time]
+  y0[, time.y := time]
+  y0[, time := time - 0.1]  # for robustness
+  rj <- y0[x0, roll = 1, on = "time"]
 
-  z <- merge(x, y, by.x = by.x, by.y = by.y, all.x = TRUE)
+  if (!all(x0$s %in% rj$s)) (stop("incomplete merge"))
 
-  # reconvert result to POSIXct
-  if (class == "POSIXct"){
-    z[[by.x]] <- as.POSIXct(z[[by.x]], origin = "1970-01-01", tz = tz)
-  }
+  rj[, time := NULL]
+
+  # new time col name comes from x, the rest from y
+  setnames(rj, "time.x", by.x)
+  new.names <- c(names(x), setdiff(names(y), by.y))
+  z <- rj[, new.names, with = FALSE]
+
   z
 }
+

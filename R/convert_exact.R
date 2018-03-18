@@ -33,11 +33,12 @@ POSIXct_to_dectime <- function(x) {
 ts_to_POSIXct <- function(x) {
   stopifnot(inherits(x, "ts"))
   if (NCOL(x) > 1) x <- x[, 1]
-  seq(
+  z <- seq(
     from = dectime_to_POSIXct(tsp(x)[1]),
     to = dectime_to_POSIXct(tsp(x)[2]),
     length.out = length(x)
   )
+  z
 }
 
 

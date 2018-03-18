@@ -59,5 +59,7 @@ test_that("ts_chain gives correct results", {
 test_that("ts_bind works with scalars", {
   expect_equal(as.numeric(window(ts_bind(mdeaths, 1), start = 1980)), 1)
   expect_equal(as.numeric(window(ts_bind(ts_c(mdeaths, fdeaths), 1), start = 1980)[,'mdeaths']), 1)
+  expect_is(ts_bind(EuStockMarkets, 1), "ts")
+
 })
 

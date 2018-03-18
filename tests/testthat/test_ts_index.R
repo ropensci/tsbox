@@ -19,7 +19,7 @@ test_that("ts_index series have same pc rates", {
 test_that("ts_index drops errors", {
   expect_error(ts_index(mdeaths, "2000-01-01"))
   expect_error(ts_index(ts_c(mdeaths, fdeaths), "2000-01-01"))
-  expect_error(ts_index(EuStockMarkets, "1998-01-01"))
+  expect_error(ts_index(EuStockMarkets, "2100-01-01"))
 })
 
 test_that("ts_index works with multi ids", {

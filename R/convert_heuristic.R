@@ -12,8 +12,8 @@ ts_to_date_time <- function(x) {
   fr <- frequency(x)
 
   division <- first.subperiod / (1 / fr)
-
-  if (abs(division - round(division)) > 1e-5) {
+# browser()
+  if (abs(division - round(division)) > 1e-3) {
     stop(
       "subperiod is not dividable by frequency\n\n",
       "If you encounter this rare rounding issue, many thanks for ",

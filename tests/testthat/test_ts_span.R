@@ -3,7 +3,6 @@ library(tsbox)
 
 context("ts_span")
 
-
 test_that("ts_span does the same as base window", {
   ts_win2 <- ts_(window)
   expect_equal(
@@ -34,4 +33,5 @@ test_that("ts_span does the same as base window", {
 
   expect_equal(x[1, 1], ts_start(austres))
   expect_equal(x[nrow(x), 1], ts_end(austres))
+
 })

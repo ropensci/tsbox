@@ -2,7 +2,7 @@
 #'
 #' Filter time series for a time span.
 #'
-#' All date and times, when entered as charachter strings, are processed by
+#' All date and times, when entered as character strings, are processed by
 #' `anytime::anydate()` or `anytime::anytime()`. Thus a wide range of inputs are
 #' possible. See examples.
 #' 
@@ -10,7 +10,7 @@
 #' using one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
 #' `"month"`, `"quarter" or `"year", or an abbreviation. This 
 #' is passed to [time_shift()]. If the series are of the same frequency, the
-#' shift can be spefied in periods. See examples.
+#' shift can be specified in periods. See examples.
 #' 
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param start start date, character string, `Date` or `POSIXct`
@@ -123,7 +123,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
     x.dts <- filter_data.table(x.dts, ctime, ">=", anyfun(start))
   }
   if (!is.null(end)) {
-    if (!is.null(start) && start >= end) {
+    if (!is.null(start) && start > end) {
       stop("'start' cannot be at or after 'end'", call. = FALSE)
     }
     x.dts <- filter_data.table(x.dts, ctime, "<=", anyfun(end))

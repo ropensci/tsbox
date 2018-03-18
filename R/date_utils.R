@@ -50,6 +50,8 @@ time_shift <- function(x, by = NULL) {
   diffdt <- frequency_table(x)
   fm <- diffdt[which.max(freq)]
 
+  if (fm$freq == -1) return(time_shift_non_heuristic(x = x, by = by))
+
   # if series is regular, take shortcut
   if (fm$share == 1) {
     if (is.numeric(by)){
@@ -96,6 +98,52 @@ time_shift <- function(x, by = NULL) {
   # shift each time stamp separately (slow)
   do.call(c, lapply(x, add_to_one))
 }
+
+
+time_shift_non_heuristic <- function(x, by) {
+
+  xreg <- regularize_date(x)
+
+  # regular
+  if (!is.null(xreg)){
+    xreg.num <- as.numeric(xreg)
+    dff <- unique(round(diff(xreg.num), 5))
+    stopifnot(length(dff) == 1)
+
+    if (is.numeric(by)){
+      # regular, by as period
+      z.num <- seq(from = xreg.num[1] + by * dff, by = dff, length.out = length(xreg))
+    } else {
+       # regular, by as period
+      add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
+      z.num <- seq(from = as.numeric(add_to_one(xreg[1]), by = by), 
+               by = dff, length.out = length(xreg))
+    }
+
+    if (inherits(x, "POSIXct")){
+      z <- as.POSIXct(z.num, origin = "1970-01-01", tz = attr(x, "tzone"))
+    } else {
+      z <- as.Date(z.num, origin = "1970-01-01")
+    }
+    
+    return(z)
+  }
+
+  # non regular, by as string
+  if (!is.numeric(by)) {
+    # shift each time stamp separately (slow)
+    add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
+    z <- (do.call(c, lapply(x, add_to_one)))
+  } else {
+    # non regular, by as numeric (fail)
+    stop("irregular series can not be shifted by period")
+  }
+
+  z
+}
+
+
+
 
 
 date_month <- function(x) {

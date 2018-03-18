@@ -46,13 +46,12 @@ bind_two <- function(a, b) {
     a <- ts_regular(a)
 
     add_scalar_one <- function(x) {
-      diffdt <- frequency_table(x$time)
-      # this is what we expect from a dts that went through ts_regular
-      stopifnot(nrow(diffdt) == 1)
-      stopifnot(diffdt$share == 1)
+      per.to.add <- length(b)
+      shft <- time_shift(x$time[(length(x$time) - per.to.add - 5):length(x$time)], per.to.add)
+      new.time.stamps <- shft[(length(shft) - per.to.add + 1):length(shft)]
 
       new.x <- data.table(
-        time = seq(from = max(x$time), length.out = length(b) + 1, by = diffdt$string)[-1],
+        time = new.time.stamps,
         value = b
       )
       rbind(x, new.x)

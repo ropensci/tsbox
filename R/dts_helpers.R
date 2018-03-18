@@ -49,11 +49,11 @@ number_of_series <- function(x) {
 }
 
 # Combine several id columns in one
-combine_id_cols <- function(x) {
+combine_id_cols <- function(x, sep = "_") {
   stopifnot(inherits(x, "dts"))
   if (NCOL(x) <= 3) return(x)
   cname <- dts_cname(x)
-  z <- combine_cols_data.table(x, dts_cname(x)$id)
+  z <- combine_cols_data.table(x, dts_cname(x)$id, sep = sep)
   cname$id <- "id"
   setattr(z, "cname", cname)
   z
