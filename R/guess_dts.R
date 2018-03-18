@@ -54,4 +54,3 @@ guess_cname <- function(x) {
     value = value.name
   )
 }
-

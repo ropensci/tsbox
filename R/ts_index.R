@@ -38,7 +38,7 @@ ts_compound <- function(x, denominator = 100) {
 #' `ts_compound` builds an index from percentage change rates, starting with 1
 #' and compounding the rates.
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @param base base date, character string, `Date` or `POSIXct`, at which the
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples

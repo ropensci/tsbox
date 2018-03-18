@@ -46,10 +46,10 @@ ts_wide <- function(x) {
   z <- wide_core(x.dts)
   # reclass
   rc <- relevant_class(x)
-  if (rc == "tbl") {
-    stopifnot(requireNamespace("tibble"))
-    as.tbl <- function(x) tibble::as_data_frame(x)
-  }
+  # if (rc == "tbl") {
+  #   stopifnot(requireNamespace("tibble"))
+  #   as.tbl <- function(x) tibble::as_data_frame(x)
+  # }
   as_class <- get(paste0("as.", rc))
   as_class(z)
 }

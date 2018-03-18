@@ -1,6 +1,6 @@
 ---
 title: "Class Struggle"
-subtitle: "Extending tsbox to Additional Classes"
+subtitle: "Additional Examples"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{introduction}
@@ -8,16 +8,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-There are many other time series classes, and it is relatively straightforward
-to integrate them in tsbox. Here I try to briefly discuss each supported class,
-starting with a very new one.
+Integrating new classes to tsbox is relatively easy. The following discusses
+some of the classes, starting with a very new one.
 
 ## tsibble
 
 The [tsibble](http://pkg.earo.me/tsibble/) package provides a data class of
-`tbl_ts` to store and manage temporal-context data frames in a tidy manner. A
-tsibble consists of a time index, keys and other measured variables in a 
-data-centric format, which is built on top of the tibble.
+`tbl_ts` to store time series data frames in a 'tidy' manner. A tsibble consists
+of a time index, keys and other measured variables and is built on top of the
+tibble.
 
 tsbox converters can be applied to tsibbles the usual way:
 
@@ -40,6 +39,7 @@ tsbox want deals with multiple time series in the long format, so we transform
 the variables into the desired form, using `ts_long`:
 
 ```r
+suppressMessages(library(dplyr))
 dta.tbl <- nycflights13::weather %>% 
   select(origin, time = time_hour, temp, humid, precip) %>% 
   ts_long() 
@@ -62,7 +62,8 @@ dta.tsibble %>%
   ts_plot() 
 ```
 
-With the result being just the same as for any other ts-boxable object:
+Because tsbox functions work identical for all ts-boxable objects, the same commands could be used, e.g., on a standard tibble:
+
 ```r
 dta.tbl %>% 
   filter(id == "temp") %>% 
@@ -74,16 +75,20 @@ dta.tbl %>%
 
 ### Aggregation, 3 ways
 
-Some functionality is offered for tsibbles. The following shows how aggregation
-can be performed using tsibbles, tibbles or any ts-boxable object:
+Some special functionality is offered by the tsibble package The following shows
+how aggregation can be performed using tsibbles, tibbles or any ts-boxable
+object:
 
 #### the tsibble way
 
 ```r
+library(data.table) # for month(), year()
+first_of_month <- function(x) as.Date(paste(year(x), month(x), 1, sep = "-"))
+
 a1 <- dta.tsibble %>%
-  group_by(origin, id) %>%
+  group_by(origin, id) %>% 
   tsummarise(
-    time = date_month(time),
+    time = first_of_month(time),
     value = mean(value, na.rm = TRUE)
   )
 ```
@@ -93,7 +98,7 @@ a1 <- dta.tsibble %>%
 ```r
 a2 <- dta.tsibble %>%
   ts_tbl %>% 
-  group_by(origin, id, time = date_month(time)) %>%
+  group_by(origin, id, time = first_of_month(time)) %>%
   summarise(
     value = mean(value, na.rm = TRUE)
   )
@@ -103,7 +108,7 @@ a2 <- dta.tsibble %>%
 
 ```r
 a3 <- dta.tsibble %>%
-  ts_frequency("month", "mean") %>% 
+  ts_frequency("month", mean) %>% 
   arrange(origin, id)
 ```
 

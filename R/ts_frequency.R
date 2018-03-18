@@ -3,7 +3,7 @@
 #' Changes the frequency of a time series. Currently, incomplete
 #' periods are aggregated as well, but this is likely to change.
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
 #' @param aggregate character string, or function. Either `"mean"`, `"sum"`,
@@ -95,7 +95,7 @@ frequency_core <- function(x, to, aggregate) {
   data.table::setnames(x0, cname$time, "time")
 
   pdfun <- period.date[[to]]
-  x0[, time := pdfun(time)]
+  x0[, time := as.Date(pdfun(time))]
 
   z <- x0[, list(value = aggregate(value)), by = eval(byexpr)]
   data.table::setnames(z, "value", cname$value)

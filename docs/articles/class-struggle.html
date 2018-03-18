@@ -59,6 +59,9 @@
     <li>
       <a href="../articles/convert.html">Time Conversion and Reguarization</a>
     </li>
+    <li>
+      <a href="../articles/class-struggle.html">Additional Examples</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -85,18 +88,18 @@
   <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>Class Struggle</h1>
-            <h3 class="subtitle">Extending tsbox to Additional Classes</h3>
+            <h3 class="subtitle">Additional Examples</h3>
             
           </div>
 
     
     
 <div class="contents">
-<p>There are many other time series classes, and it is relatively straightforward to integrate them in tsbox. Here I try to briefly discuss each supported class, starting with a very new one.</p>
+<p>Integrating new classes to tsbox is relatively easy. The following discusses some of the classes, starting with a very new one.</p>
 <div id="tsibble" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tsibble" class="anchor"></a>tsibble</h2>
-<p>The <a href="http://pkg.earo.me/tsibble/">tsibble</a> package provides a data class of <code>tbl_ts</code> to store and manage temporal-context data frames in a tidy manner. A tsibble consists of a time index, keys and other measured variables in a data-centric format, which is built on top of the tibble.</p>
+<p>The <a href="http://pkg.earo.me/tsibble/">tsibble</a> package provides a data class of <code>tbl_ts</code> to store time series data frames in a ‘tidy’ manner. A tsibble consists of a time index, keys and other measured variables and is built on top of the tibble.</p>
 <p>tsbox converters can be applied to tsibbles the usual way:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(tsibble))
 <span class="kw">library</span>(tsbox)
@@ -109,8 +112,9 @@ x.tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_t
 <span class="co"># etc.</span></code></pre></div>
 <p>Here is a longer example, using the example from the tsibble documentation.</p>
 <p>tsbox want deals with multiple time series in the long format, so we transform the variables into the desired form, using <code>ts_long</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dta.tbl &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">select</a></span>(origin, <span class="dt">time =</span> time_hour, temp, humid, precip) <span class="op">%&gt;%</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(dplyr))
+dta.tbl &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>weather <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(origin, <span class="dt">time =</span> time_hour, temp, humid, precip) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ts_long</span>() </code></pre></div>
 <p>Next, we convert the tibble to a tsibble. Because tsbox guesses the time and the value and the key columns, calling <code>ts_tsibble</code> is sufficient:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dta.tsibble &lt;-
@@ -118,27 +122,30 @@ x.tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_t
 <span class="st">  </span><span class="kw"><a href="../reference/ts_ts.html">ts_tsibble</a></span>() </code></pre></div>
 <p>With a long tsibble at hand, we can apply all usual functions from tsbox:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dta.tsibble <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">filter</a></span>(id <span class="op">==</span><span class="st"> "temp"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(id <span class="op">==</span><span class="st"> "temp"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ts_span</span>(<span class="dt">start =</span> <span class="st">"2013-08-01"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_trend.html">ts_trend</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_plot.html">ts_plot</a></span>() </code></pre></div>
-<p>With the result being just the same as for any other ts-boxable object:</p>
+<p>Because tsbox functions work identical for all ts-boxable objects, the same commands could be used, e.g., on a standard tibble:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dta.tbl <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">filter</a></span>(id <span class="op">==</span><span class="st"> "temp"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(id <span class="op">==</span><span class="st"> "temp"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ts_span</span>(<span class="dt">start =</span> <span class="st">"2013-08-01"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_trend.html">ts_trend</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_plot.html">ts_plot</a></span>() </code></pre></div>
 <div id="aggregation-3-ways" class="section level3">
 <h3 class="hasAnchor">
 <a href="#aggregation-3-ways" class="anchor"></a>Aggregation, 3 ways</h3>
-<p>Some functionality is offered for tsibbles. The following shows how aggregation can be performed using tsibbles, tibbles or any ts-boxable object:</p>
+<p>Some special functionality is offered by the tsibble package The following shows how aggregation can be performed using tsibbles, tibbles or any ts-boxable object:</p>
 <div id="the-tsibble-way" class="section level4">
 <h4 class="hasAnchor">
 <a href="#the-tsibble-way" class="anchor"></a>the tsibble way</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1 &lt;-<span class="st"> </span>dta.tsibble <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">group_by</a></span>(origin, id) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table) <span class="co"># for month(), year()</span>
+first_of_month &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">as.Date</span>(<span class="kw">paste</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/data.table/topics/IDateTime">year</a></span>(x), <span class="kw"><a href="http://www.rdocumentation.org/packages/data.table/topics/IDateTime">month</a></span>(x), <span class="dv">1</span>, <span class="dt">sep =</span> <span class="st">"-"</span>))
+
+a1 &lt;-<span class="st"> </span>dta.tsibble <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin, id) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/tsummarise">tsummarise</a></span>(
-    <span class="dt">time =</span> <span class="kw">date_month</span>(time),
+    <span class="dt">time =</span> <span class="kw">first_of_month</span>(time),
     <span class="dt">value =</span> <span class="kw">mean</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
   )</code></pre></div>
 </div>
@@ -147,8 +154,8 @@ x.tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_t
 <a href="#the-dplyr-way" class="anchor"></a>the dplyr way</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a2 &lt;-<span class="st"> </span>dta.tsibble <span class="op">%&gt;%</span>
 <span class="st">  </span>ts_tbl <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">group_by</a></span>(origin, id, <span class="dt">time =</span> <span class="kw">date_month</span>(time)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">summarise</a></span>(
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin, id, <span class="dt">time =</span> <span class="kw">first_of_month</span>(time)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(
     <span class="dt">value =</span> <span class="kw">mean</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
   )</code></pre></div>
 </div>
@@ -156,10 +163,10 @@ x.tsbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_t
 <h4 class="hasAnchor">
 <a href="#the-tsbox-way" class="anchor"></a>the tsbox way</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a3 &lt;-<span class="st"> </span>dta.tsibble <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ts_frequency.html">ts_frequency</a></span>(<span class="st">"month"</span>, <span class="st">"mean"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/reexports">arrange</a></span>(origin, id)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(a1, a2)
-<span class="kw">all.equal</span>(a1, a3)</code></pre></div>
+<span class="st">  </span><span class="kw"><a href="../reference/ts_frequency.html">ts_frequency</a></span>(<span class="st">"month"</span>, mean) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(origin, id)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/data.table/topics/all.equal.data.table">all.equal</a></span>(a1, a2)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/data.table/topics/all.equal.data.table">all.equal</a></span>(a1, a3)</code></pre></div>
 </div>
 </div>
 </div>

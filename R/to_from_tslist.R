@@ -1,12 +1,16 @@
+register_class("tslist")
+
 # to ---------------------------------------------------------------------------
 
 ts_tslist_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
   if (number_of_series(x) == 1) {
-    z <- ts_ts(x)
+    z <- list(ts_ts(x))
   } else {
     x <- combine_id_cols(x)
-    z <- lapply(split(x, x$id), ts_ts)
+    spl <- split(x, x$id)
+    spl <- spl[unique(x$id)]
+    z <- lapply(spl, ts_ts)
   }
   class(z) <- c("tslist", "list")
   z
@@ -16,7 +20,7 @@ ts_tslist_dts <- function(x) {
 # from -------------------------------------------------------------------------
 
 #' @export
-#' @method ts_dts xts
+#' @method ts_dts tslist
 ts_dts.tslist <- function(x) {
   ts_dts(rbindlist(lapply(x, ts_dts), idcol = "id"))
 }

@@ -2,7 +2,7 @@
 #'
 #' Trend estimation that uses [stats::loess()].
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @inherit ts_dts
 #' @param ... arguments, passed to [stats::loess()]:
 #' - `degree` degree of Loess smoothing
 #' - `span` smoothing parameter, if `NULL`, an automated search performed (see Details)

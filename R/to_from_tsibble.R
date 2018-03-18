@@ -1,3 +1,5 @@
+register_class("tsibble", "tbl_ts")
+
 # to ---------------------------------------------------------------------------
 
 ts_tsibble_dts <- function(x) {
@@ -12,7 +14,7 @@ ts_tsibble_dts <- function(x) {
 
   if (length(cid) > 0){
     estr <- paste0(
-      "tsibble::as_tsibble(x, key = id(",
+      "tsibble::as_tsibble(x, key = tsibble::id(",
       paste(cid, collapse = ", "),
       "), index = ",
       ctime,
@@ -49,7 +51,9 @@ ts_dts.tbl_ts <- function(x) {
 
   time <- setdiff(names(x), c(names(tsibble::key_vars(x)), tsibble::measured_vars(x)))
 
-  cname <- list(id = tsibble::key_vars(x),
+  kv <- tsibble::key_vars(x)
+  if (identical(kv, "NULL")) kv <- NULL
+  cname <- list(id = unname(unlist(kv)),
                 time = time,
                 value = "value")
 
