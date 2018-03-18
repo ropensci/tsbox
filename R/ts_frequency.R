@@ -95,7 +95,7 @@ frequency_core <- function(x, to, aggregate) {
   data.table::setnames(x0, cname$time, "time")
 
   pdfun <- period.date[[to]]
-  x0[, time := pdfun(time)]
+  x0[, time := as.Date(pdfun(time))]
 
   z <- x0[, list(value = aggregate(value)), by = eval(byexpr)]
   data.table::setnames(z, "value", cname$value)
