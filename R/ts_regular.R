@@ -37,12 +37,13 @@ regular_core <- function(x) {
   cname <- dts_cname(x)
   ctime <- cname$time
   cid <- cname$id
+    # browser()
 
   regular_core_one <- function(x) {
     if (is_regular_one_basic(x[[ctime]])) return(x)
     reg.time <- regularize_date(x[[ctime]])
     if (is.null(reg.time)) {
-      stop("no regular pattern detected", call. = FALSE)
+      stop("series has no regular pattern", call. = FALSE)
     }
     merge_time_date(data.table(time = reg.time), x, by.x = "time", by.y = ctime)
   }

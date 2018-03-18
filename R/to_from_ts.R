@@ -14,7 +14,7 @@ ts_ts_dts <- function(x, frequency = NULL) {
       setnames(wx, 1, "time") # time col may have a different name
       wx <- merge_time_date(data.table::data.table(time = reg.time), wx, by.x = "time", by.y = "time")
     } else {
-      stop("no regular pattern detected", call. = FALSE)
+      stop("series has no regular pattern", call. = FALSE)
     }
 
     tsp <- date_time_to_tsp(wx[[1]])

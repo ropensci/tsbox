@@ -61,24 +61,21 @@ wide_core <- function(x) {
   stopifnot(ncol(x) == 3)
 
   cname <- dts_cname(x)
+  # tattr <- dts_tattr(x)
 
   n.non.unique <- nrow(x) - nrow(unique(x, by = c(cname$id, cname$time)))
   if (n.non.unique > 0) {
     stop("contains ", n.non.unique, " duplicate entries", call. = FALSE)
   }
 
-  # POSIXct merges only work well when converted to integer. Don't do this 
-  # for Date
-  is.posixct <- inherits(x, "POSIXct")
 
   setnames(x, cname$time, "time")
-  if (is.posixct) x[, time := as.integer(time)]
+
+  # Casting works fine for POSIXct as well.
   z <- dcast(
     x, as.formula(paste("time", "~", cname$id)),
     value.var = cname$value, drop = FALSE
-  )
-  if (is.posixct) z[, time := as.POSIXct(time, origin = '1970-01-01 00:00:00')]
-  
+  )  
   setnames(z, "time", cname$time)
 
   # keep order as in input
