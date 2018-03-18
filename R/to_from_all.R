@@ -67,13 +67,16 @@ desired_class <- function(ll) {
   z <- unique(vapply(ll, relevant_class, ""))
   if (length(z) == 1) {
     if (z == "ts") {
-      # no "ts" if mixed frequecies
-      if (length(unique(vapply(ll, frequency, 1))) > 1) return("data.frame")
+      # no "ts" if mixed high frequecies
+      uf <- unique(vapply(ll, frequency, 1))
+      if ((length(uf) > 1) && (max(uf) > 12)) {
+        return("data.frame")
+      }
     }
     return(z)
   } else {
     # first non ts class
-    return(z[z != "ts"])
+    return(z[z != "ts"][1])
   }
 }
 

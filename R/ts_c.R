@@ -36,19 +36,19 @@ ts_c <- function(...) {
 
   desired.class <- desired_class(ll)
 
-  # special treatment for ts
-  # - speed gain
-  # - solves spacing issue for in series NAs
-  # - but its still terrible code
+  # special treatment for same frequency ts for speed and accuracy gain
   if (identical(unique(desired.class), "ts")){
-    is.unnamed <- vapply(ll, function(e) length(colnames(e)) <= 1, TRUE)
-    names.for.unnamed <- call.names[is.unnamed]
-    ll.names <- ll
-    ll.names[is.unnamed] <- names.for.unnamed
-    ll.names[!is.unnamed] <- lapply(ll[!is.unnamed], colnames)
-    z <- do.call(cbind, ll)
-    colnames(z) <- make.unique(unlist(ll.names))
-    return(z)
+    # same frequency?
+    if (length(unique(vapply(ll, frequency, 1))) == 1){
+      is.unnamed <- vapply(ll, function(e) length(colnames(e)) <= 1, TRUE)
+      names.for.unnamed <- call.names[is.unnamed]
+      ll.names <- ll
+      ll.names[is.unnamed] <- names.for.unnamed
+      ll.names[!is.unnamed] <- lapply(ll[!is.unnamed], colnames)
+      z <- do.call(cbind, ll)
+      colnames(z) <- make.unique(unlist(ll.names))
+      return(z)
+    }
   }
 
   ll.dts <- lapply(ll, ts_dts)
@@ -107,13 +107,13 @@ ts_c <- function(...) {
     ll.dts <- Map(set_levels_dt, ll.dts, all.levels)
   }
 
-  z <- rbindlist(ll.dts)
-  z <- try(as_class(desired.class)(z))
+  z0 <- rbindlist(ll.dts)
+  z <- try(as_class(desired.class)(z0), silent = TRUE)
 
   if (inherits(z, "try-error")) {
-    message("Cannot coerce output to class '", class, "', returning data.frame.")
-    z <- ts_df(z)
-  }
+    z <- ts_df(z0)
+    message("cannot convert output to class '", desired.class, "', returning 'data.frame'")
+  } 
   z
 }
 

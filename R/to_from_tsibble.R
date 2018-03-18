@@ -50,7 +50,7 @@ ts_dts.tbl_ts <- function(x) {
   }
 
   time <- setdiff(names(x), c(names(tsibble::key_vars(x)), tsibble::measured_vars(x)))
-browser
+
   cname <- list(id = unname(unlist(tsibble::key_vars(x))),
                 time = time,
                 value = "value")

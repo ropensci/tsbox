@@ -13,7 +13,7 @@ test_that("two way conversion", {
     expect_equal(ts_ts(ts_fun(EuStockMarkets)), EuStockMarkets)
 
     # mixed frequencies
-    # expect_equal(ts_ts(ts_fun(ts_c(austres, AirPassengers))), ts_c(austres, AirPassengers))
+    expect_equal(ts_ts(ts_fun(ts_c(austres, AirPassengers))), ts_c(austres, AirPassengers))
 
     # non alphabetical order, multi series
     expect_equal(ts_ts(ts_fun(ts_c(mdeaths, fdeaths))), ts_c(mdeaths, fdeaths))
