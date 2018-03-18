@@ -21,9 +21,7 @@ combine_cols_data.table <- function(dt, cols, sep = '_') {
 #
 merge_time_date <- function(x, y, by.x = "time", by.y = "time"){
 
-   # x <- ll1[[1]]
-   # y = ll12[1]]
-
+  s <- time.x <- time.y <- NULL
 
   x0 <- copy(x)
   y0 <- copy(y)

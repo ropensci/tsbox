@@ -30,11 +30,11 @@ last_true <- function(x) {
 
 
 chain_two <- function(a, b) {
-  b <- ts_na_omit(ts_dts(b))
-  a <- ts_na_omit(ts_dts(a))
+  b <- ts_dts(b)
+  a <- ts_dts(a)
 
   if ((number_of_series(b) > 1) || (number_of_series(a) > 1)) {
-    stop("only single series can be (currently) chained")
+    stop("only single series can be chained")
   }
 
   stopifnot(inherits(b, "dts"), inherits(a, "dts"))
@@ -65,7 +65,7 @@ chain_two <- function(a, b) {
     where.in.a <- a[[cname$time]] %in% b[[cname2$time]][where.in.b]
     anchor.a <- a[[cname$value]][where.in.a]
     retro.b <- b[1:where.in.b]
-    retro.b[[cname2$value]] <- retro.b[[cname2$value]] / retro.b[[cname2$value]][1] * anchor.a
+    retro.b[[cname2$value]] <- retro.b[[cname2$value]] / retro.b[[cname2$value]][nrow(retro.b)] * anchor.a
     a <- ts_bind(a[-1], retro.b)
   }
 

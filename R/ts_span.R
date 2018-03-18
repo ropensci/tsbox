@@ -123,7 +123,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
     x.dts <- filter_data.table(x.dts, ctime, ">=", anyfun(start))
   }
   if (!is.null(end)) {
-    if (!is.null(start) && start >= end) {
+    if (!is.null(start) && start > end) {
       stop("'start' cannot be at or after 'end'", call. = FALSE)
     }
     x.dts <- filter_data.table(x.dts, ctime, "<=", anyfun(end))
