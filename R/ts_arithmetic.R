@@ -1,5 +1,5 @@
 ts_arithmetic <- function(e1, e2, fun = `-`){
-  value <- value2 <- NULL
+  value <- value2 <- .id <- NULL
   z1 <- copy(ts_dts(e1))
 
   if (identical(nrow(z1), 0L)) return(e1)

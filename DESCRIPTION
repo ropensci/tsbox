@@ -24,7 +24,8 @@ Suggests:
     scales,
     knitr,
     rmarkdown,
-    tsibble
+    tsibble,
+    nycflights13
 License: GPL-3
 URL: https://www.tsbox.help
 BugReports: https://github.com/christophsax/tsbox/issues
