@@ -7,7 +7,7 @@
 ts_pick(x, ...)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tibble}, \code{tsibble} or \code{timeSeries}.}
 
 \item{...}{character string(s), names of the series to be picked. If arguments are named, the series will be renamed.}
 }

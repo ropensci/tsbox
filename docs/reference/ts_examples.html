@@ -142,7 +142,7 @@ graphical visualization, <code>ts_forecast</code> return an univariate forecast,
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code>, or <code>tibble</code>.</p></td>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tibble</code>, <code>tsibble</code> or <code>timeSeries</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -175,13 +175,14 @@ packages.</p>
   <span class='fu'>ts_forecast</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='kw'>`male (fct)`</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>,  <span class='kw'>`female (fct)`</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>))),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Deaths from lung diseases"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"Exponential smoothing forecast"</span>
-)</div><div class='img'><img src='ts_examples-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+)</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet</span></div><div class='input'>
 <span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
   <span class='kw'>`Raw series`</span> <span class='kw'>=</span> <span class='no'>AirPassengers</span>,
   <span class='kw'>`Adjusted series`</span> <span class='kw'>=</span> <span class='fu'>ts_seas</span>(<span class='no'>AirPassengers</span>),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Airline passengers"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"X-13 seasonal adjustment"</span>
-)</div><div class='img'><img src='ts_examples-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+)
+
 
 <span class='fu'>ts_dygraphs</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>EuStockMarkets</span>))</div></pre>
   </div>
