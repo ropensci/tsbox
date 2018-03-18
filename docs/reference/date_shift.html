@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Manipulating Dates — date_shift • tsbox</title>
+<title>Manipulating Dates — time_shift • tsbox</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Manipulating Dates — date_shift" />
+<meta property="og:title" content="Manipulating Dates — time_shift" />
 
-<meta property="og:description" content="date_shift adds days, weeks, months, quarters or years to dates.
+<meta property="og:description" content="time_shift adds days, weeks, months, quarters or years to dates.
 date_month, date_quarter and date_year return the first day of the
 period and are useful for customized aggregation of data frames. For standard
 aggregation, use ts_frequency()." />
@@ -120,13 +120,13 @@ aggregation, use ts_frequency()." />
     </div>
 
     
-    <p><code>date_shift</code> adds days, weeks, months, quarters or years to dates.
+    <p><code>time_shift</code> adds days, weeks, months, quarters or years to dates.
 <code>date_month</code>, <code>date_quarter</code> and <code>date_year</code> return the first day of the
 period and are useful for customized aggregation of data frames. For standard
 aggregation, use <code><a href='ts_frequency.html'>ts_frequency()</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>date_shift</span>(<span class='no'>x</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>time_shift</span>(<span class='no'>x</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>date_month</span>(<span class='no'>x</span>)
 
@@ -159,7 +159,7 @@ integer and a space, or followed by "s".</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='ts_frequency.html'>ts_frequency()</a></code> for standard aggregation. <code>date_shift()</code>, for
+    <p><code><a href='ts_frequency.html'>ts_frequency()</a></code> for standard aggregation. <code>time_shift()</code>, for
 shifting time stamps of a ts-boxable object.</p>
     
 
@@ -169,9 +169,9 @@ shifting time stamps of a ts-boxable object.</p>
 #&gt; [6] "1949-06-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>date_month</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-02-01" "1949-03-01" "1949-04-01" "1949-05-01"
 #&gt; [6] "1949-06-01"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>date_year</span>(<span class='no'>ap.time</span>))</div><div class='output co'>#&gt; [1] "1949-01-01" "1949-01-01" "1949-01-01" "1949-01-01" "1949-01-01"
 #&gt; [6] "1949-01-01"</div><div class='input'>
-<span class='fu'>head</span>(<span class='fu'>date_shift</span>(<span class='no'>ap.time</span>, <span class='fl'>14</span>))</div><div class='output co'>#&gt; [1] "1949-01-15" "1949-02-15" "1949-03-15" "1949-04-15" "1949-05-15"
-#&gt; [6] "1949-06-15"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>date_shift</span>(<span class='no'>ap.time</span>, <span class='st'>"7 week"</span>))</div><div class='output co'>#&gt; [1] "1949-02-19" "1949-03-22" "1949-04-19" "1949-05-20" "1949-06-19"
-#&gt; [6] "1949-07-20"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>date_shift</span>(<span class='no'>ap.time</span>, <span class='st'>"-1 month"</span>))</div><div class='output co'>#&gt; [1] "1948-12-01" "1949-01-01" "1949-02-01" "1949-03-01" "1949-04-01"
+<span class='fu'>head</span>(<span class='fu'>time_shift</span>(<span class='no'>ap.time</span>, <span class='fl'>14</span>))</div><div class='output co'>#&gt; [1] "1949-01-15" "1949-02-15" "1949-03-15" "1949-04-15" "1949-05-15"
+#&gt; [6] "1949-06-15"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>time_shift</span>(<span class='no'>ap.time</span>, <span class='st'>"7 week"</span>))</div><div class='output co'>#&gt; [1] "1949-02-19" "1949-03-22" "1949-04-19" "1949-05-20" "1949-06-19"
+#&gt; [6] "1949-07-20"</div><div class='input'><span class='fu'>head</span>(<span class='fu'>time_shift</span>(<span class='no'>ap.time</span>, <span class='st'>"-1 month"</span>))</div><div class='output co'>#&gt; [1] "1948-12-01" "1949-01-01" "1949-02-01" "1949-03-01" "1949-04-01"
 #&gt; [6] "1949-05-01"</div><div class='input'>
 </div></pre>
   </div>

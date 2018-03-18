@@ -66,37 +66,41 @@ guess_value <- function(x) {
   z
 }
 
-guess_time_value <- function(x) {
-  value.name <- guess_value(x)
-  time.name <- guess_time(x, value.name = value.name)
-
-  msg <- NULL
-  if (time.name != "time") {
-    msg <- paste0("[time]: '", time.name, "' ")
-  }
-  if (value.name != "value") {
-    msg <- paste0(msg, "[value]: '", value.name, "' ")
-    # check if data frame is incidentally wide
-    cnames <- colnames(x)
-    cols.right.of.time <- cnames[(which(cnames == time.name) + 1):length(cnames)]
-    if (length(cols.right.of.time) > 1){
-      value.cols <- vapply(x[, cols.right.of.time, with = FALSE], is_value, TRUE)
-      if (sum(value.cols) > 1){
-        message(
-        "More than one value column detected after the time colum, using the outermost.\n",
-        "Are you using a wide data frame? ",
-        "To convert, use 'ts_long'.\n"
-        )
-      }
-    }
-  }
-
-  msg_optional(msg)
 
 
 
-  c(
-    time.name = time.name,
-    value.name = value.name
-  )
-}
+# # outdated?
+# guess_time_value <- function(x) {
+#   value.name <- guess_value(x)
+#   time.name <- guess_time(x, value.name = value.name)
+
+#   msg <- NULL
+#   if (time.name != "time") {
+#     msg <- paste0("[time]: '", time.name, "' ")
+#   }
+#   if (value.name != "value") {
+#     msg <- paste0(msg, "[value]: '", value.name, "' ")
+#     # check if data frame is incidentally wide
+#     cnames <- colnames(x)
+#     cols.right.of.time <- cnames[(which(cnames == time.name) + 1):length(cnames)]
+#     if (length(cols.right.of.time) > 1){
+#       value.cols <- vapply(x[, cols.right.of.time, with = FALSE], is_value, TRUE)
+#       if (sum(value.cols) > 1){
+#         message(
+#         "More than one value column detected after the time colum, using the outermost.\n",
+#         "Are you using a wide data frame? ",
+#         "To convert, use 'ts_long'.\n"
+#         )
+#       }
+#     }
+#   }
+
+#   msg_optional(msg)
+
+
+
+#   c(
+#     time.name = time.name,
+#     value.name = value.name
+#   )
+# }

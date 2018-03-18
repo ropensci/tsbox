@@ -52,12 +52,12 @@ ts_c <- function(...) {
   }
 
   ll.dts <- lapply(ll, ts_dts)
-  vnames <- lapply(ll.dts, colname_id)
+  vnames <- lapply(ll.dts, function(e) dts_cname(e)$id)
 
-  colname.id <- colname_id(ll.dts[[1]])
+  cid <- dts_cname(ll.dts[[1]])$id
   # In case first element is unnamed series
-  if (length(colname.id) == 0) {
-    colname.id <- "id"
+  if (length(cid) == 0) {
+    cid <- "id"
   }
 
   # add names from call for single series
@@ -66,24 +66,27 @@ ts_c <- function(...) {
   # name unnamed
   ll.dts[is.unnamed] <- Map(
     function(dt, id) {
+      cname <- dts_cname(dt)
+      cname$id <- "id"
       dt$id <- id
       # this will have exactly 3 cols
       setcolorder(dt, c(3, 1, 2))
+      setattr(dt, "cname", cname)
       dt
     },
     dt = ll.dts[is.unnamed],
     id = names.for.unnamed
   )
 
-  if (length(unique(lapply(ll.dts, colname_id))) > 1) {
+  if (length(unique(lapply(ll.dts, function(e) dts_cname(e)$id))) > 1) {
     stop("if present, id columns must be the same for all objects", call. = FALSE)
   }
 
   ll.dts <- unify_time_class(ll.dts)
 
   # ensure id uniqueness (not happy)
-  for (id.i in colname.id){
-    all.levels <- lapply(ll.dts, function(e) unique(e[[id.i]]))
+  for (cid.i in cid){
+    all.levels <- lapply(ll.dts, function(e) unique(e[[cid.i]]))
     # only do if needed
     if (length(unique(unlist(all.levels))) == length(unlist(all.levels))) break
     unique.levels <- character(0)
@@ -98,7 +101,7 @@ ts_c <- function(...) {
       as.character(`levels<-`(as.factor(x), sort(names)))
     }
     set_levels_dt <- function(dt, names){
-      dt[[id.i]] <- set_levels(dt[[id.i]], names)
+      dt[[cid.i]] <- set_levels(dt[[cid.i]], names)
       dt
     }
     ll.dts <- Map(set_levels_dt, ll.dts, all.levels)
@@ -116,11 +119,14 @@ ts_c <- function(...) {
 
 
 unify_time_class <- function(ll) {
-  cl <- vapply(ll, function(e) class(e[[2]])[1], "")
+  cl <- vapply(ll, function(e) dts_tattr(e)$class, "")
   if (length(unique(cl)) > 1) {
-
-    tz <- attr(ll[cl == "POSIXct"][[1]], "tzone")
-    ll[cl == "Date"] <- lapply(ll[cl == "Date"], function(e) change_class.data.table(e, colnames(e)[2], "as.POSIXct", tz = tz))
+    tz <- dts_tattr(ll[[1]])$tz
+    make_date_posixct <- function(x) {
+      x[[dts_cname(x)$time]] <- as.POSIXct(x[[dts_cname(x)$time]], origin = "1970-01-01", tz = tz)
+      x
+    }
+    ll[cl == "Date"] <- lapply(ll[cl == "Date"], make_date_posixct)
   }
   ll
 }

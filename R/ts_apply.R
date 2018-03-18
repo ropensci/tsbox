@@ -4,10 +4,17 @@
 ts_apply_dts <- function(x, fun, ...) {
   stopifnot(inherits(x, "dts"))
   if (number_of_series(x) == 1) return(fun(x, ...))
-  colname.id <- colname_id(x)
-  .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+
+  cname <- dts_cname(x)
+  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+
+  # modifiy cname, to reflect single series character of .SD
+  cname.sd <- cname
+  cname.sd$id <- character(0)
+  setattr(x, "cname", cname.sd)
   z <- x[, fun(.SD), by = eval(.by)]
-  ts_dts(z)
+  setattr(z, "cname", cname)
+  dts_init(z)
 }
 
 # ts_apply(ts_c(mdeaths, fdeaths), ts_diff)

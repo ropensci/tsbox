@@ -101,8 +101,17 @@ frequency_table <- function(x) {
     include.lowest = TRUE
   )
 
-  z <- .mapdiff[i][, N := diffdt$N]
-  z <- z[, list(N = sum(N), freq = freq[1]), by = string]
+  z0 <- .mapdiff[i][, N := diffdt$N]
+  z <- z0[, list(N = sum(N), freq = freq[1]), by = string]
   z[, share := N / (sum(N))]
+
+  # regular non standard series 
+  # (perhaps we could also calculate freqeuncy here)
+  if (length(z[freq == -1, share]) > 0 && z[freq == -1, share] == 1) {
+    z <- diffdt[, string := paste(round(diff, 2), "sec")][, freq := -1][, diff := NULL][, list(string, N, freq)]
+    z <- z[, list(N = sum(N), freq = freq[1]), by = string]
+    z[, share := N / (sum(N))]
+  }
+
   z[]
 }

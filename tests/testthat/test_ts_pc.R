@@ -26,3 +26,19 @@ test_that("colname guessing works as expected", {
   expect_equal(ts_diffy(AirPassengers), ts_ts(ts_xts(ts_df(ts_diffy(x.df)))))
 })
 
+
+test_that("ts_pc works with ts_index", {
+
+  expect_equal(ts_pc(mdeaths), ts_pc(ts_index(mdeaths)))
+  expect_equal(ts_pc(AirPassengers), ts_pc(ts_index(AirPassengers)))
+
+})
+
+
+
+# test_that("pc calculation works on non standard series", {
+
+  # x <- ts_tbl(EuStockMarkets)
+  # ts_pc(AirPassengers)
+
+# }

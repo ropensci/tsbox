@@ -18,12 +18,9 @@ ts_trend <- function(x, ...) {
   value <- NULL
   z <- ts_na_omit(ts_dts(x))
 
-  colname.value <- colname_value(z)
-  colname.time <- colname_time(z)
-  colname.id <- colname_id(z)
-
-  setnames(z, colname.value, "value")
-  setnames(z, colname.time, "time")
+  cid <- dts_cname(z)$id
+  ctime <- dts_cname(z)$time
+  cvalue <- dts_cname(z)$value
 
   myloess <- function(y, x, ...) {
     predict(loess(
@@ -31,17 +28,20 @@ ts_trend <- function(x, ...) {
       ...
     ))
   }
+ 
+  .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
 
-  .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+  setnames(z, cvalue, "value")
+  setnames(z, ctime, "time")
 
   z[
     ,
-    value := myloess(y = value, x = time, ...),
+    value := myloess(y = value, x = time),
     by = eval(.by)
   ]
-
-  setnames(z, "value", colname.value)
-  setnames(z, "time", colname.time)
+  
+  setnames(z, "value", cvalue)
+  setnames(z, "time", ctime)
 
   copy_class(z, x)
 }

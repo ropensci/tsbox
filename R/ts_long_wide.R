@@ -23,7 +23,7 @@ ts_long <- function(x) {
 # by ts_dts.ts and ts_dts.xts
 long_core_multi_id <- function(x) {
   stopifnot(inherits(x, "data.table"))
-  time.name <- suppressMessages(guess_time(x))
+  time.name <- guess_time(x)
   # guess id: ids on the left of time colum
   id.names <- setdiff(names(x)[seq(which(names(x) == time.name))], time.name)
   if (length(id.names) > 0){
@@ -33,14 +33,7 @@ long_core_multi_id <- function(x) {
     id.vars <- time.name
   }
   z <- melt(x, id.vars = id.vars, variable.name = "id", variable.factor = FALSE)
-  suppressMessages(ts_dts(z))
-}
-
-# core function is also used by ts_dts.ts and ts_dts.xts
-long_core <- function(x) {
-  stopifnot(inherits(x, "data.table"))
-  time.name <- guess_time(x)
-  z <- melt(x, id.vars = time.name, variable.name = "id", variable.factor = FALSE)
+  setcolorder(z, c("id", time.name, "value"))
   ts_dts(z)
 }
 
@@ -67,11 +60,9 @@ wide_core <- function(x) {
   # no multi id
   stopifnot(ncol(x) == 3)
 
-  value.name <- colname_value(x)
-  time.name <- colname_time(x)
-  id.name <- colname_id(x)
+  cname <- dts_cname(x)
 
-  n.non.unique <- nrow(x) - nrow(unique(x, by = c(id.name, time.name)))
+  n.non.unique <- nrow(x) - nrow(unique(x, by = c(cname$id, cname$time)))
   if (n.non.unique > 0) {
     stop("contains ", n.non.unique, " duplicate entries", call. = FALSE)
   }
@@ -80,17 +71,17 @@ wide_core <- function(x) {
   # for Date
   is.posixct <- inherits(x, "POSIXct")
 
-  setnames(x, time.name, "time")
+  setnames(x, cname$time, "time")
   if (is.posixct) x[, time := as.integer(time)]
   z <- dcast(
-    x, as.formula(paste("time", "~", id.name)),
-    value.var = value.name, drop = FALSE
+    x, as.formula(paste("time", "~", cname$id)),
+    value.var = cname$value, drop = FALSE
   )
   if (is.posixct) z[, time := as.POSIXct(time, origin = '1970-01-01 00:00:00')]
   
-  setnames(z, "time", time.name)
+  setnames(z, "time", cname$time)
 
   # keep order as in input
-  setcolorder(z, c(time.name, unique(as.character(x[[id.name]]))))
+  setcolorder(z, c(cname$time, unique(as.character(x[[cname$id]]))))
   z
 }

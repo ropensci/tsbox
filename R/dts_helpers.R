@@ -1,44 +1,60 @@
-add_dts_class <- function(x) {
-  # do not copy!
+
+
+dts_init <- function(x){
+  stopifnot(inherits(x, "data.frame"))
+  x <- as.data.table(x)
+  stopifnot(inherits(x, "data.table"))
   setattr(x, "class", c("dts", attr(x, "class")))
-  # class(x) <- c("dts", class(x))
-  x[]
+  stopifnot(inherits(x, "dts"))
+  x <- ts_na_omit(x)
+  x
 }
 
-rm_dts_class <- function(x) {
+dts_rm <- function(x) {
   setattr(x, "class", setdiff(attr(x, "class"), "dts"))
-  x[]
+  setattr(x, "cname", NULL)
+  setattr(x, "tattr", NULL)
+  x
+}
+
+dts_cname <- function(x){
+  stopifnot(inherits(x, "dts"))
+  z <- attr(x, "cname")
+  if (is.null(z)){
+    z <- guess_cname(x)
+    setattr(x, "cname", z)
+  }
+  z
+}
+
+dts_tattr <- function(x){
+  stopifnot(inherits(x, "dts"))
+  z <- attr(x, "tattr")
+  if (is.null(z)){
+    z <- guess_tattr(x)
+    setattr(x, "tattr", z)
+  }
+  z
 }
 
 number_of_series <- function(x) {
   stopifnot(inherits(x, "dts"))
-  colname.id <- colname_id(x)
-  if ((length(colname.id)) == 0) {
+  cid <- dts_cname(x)$id
+  if ((length(cid)) == 0) {
     1
   } else {
-    dt.id <- x[, colname.id, with = FALSE]
+    dt.id <- x[, cid, with = FALSE]
     nrow(unique(dt.id))
   }
-}
-
-colname_value <- function(x) {
-  stopifnot(inherits(x, "dts"))
-  names(x)[ncol(x)]
-}
-colname_time <- function(x) {
-  stopifnot(inherits(x, "dts"))
-  names(x)[ncol(x) - 1]
-}
-colname_id <- function(x) {
-  stopifnot(inherits(x, "dts"))
-  setdiff(names(x), c(colname_value(x), colname_time(x)))
 }
 
 # Combine several id columns in one
 combine_id_cols <- function(x) {
   stopifnot(inherits(x, "dts"))
   if (NCOL(x) <= 3) return(x)
-  # in a dts, time val is allways at the end
-  id.names <- colname_id(x)
-  combine_cols_data.table(x, id.names)
+  cname <- dts_cname(x)
+  z <- combine_cols_data.table(x, dts_cname(x)$id)
+  cname$id <- "id"
+  setattr(z, "cname", cname)
+  z
 }

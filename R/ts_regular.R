@@ -24,56 +24,42 @@ ts_regular <- function(x) {
   copy_class(z, x)
 }
 
+# A basic test for regularity. Fast, but misses some regular series
+is_regular_one_basic <- function(x) {
+  if (length(x) == 1) return(TRUE)
+  rng <- range(diff(as.numeric(x)))
+  (rng[2] - rng[1]) < 1
+}
+
 regular_core <- function(x) {
   stopifnot(inherits(x, "dts"))
-  ctime <- colname_time(x)
-  cid <- colname_id(x)
 
-  x <- copy(x)
-  setnames(x, ctime, "time")
+  cname <- dts_cname(x)
+  ctime <- cname$time
+  cid <- cname$id
 
-  # A quick regularity check to avoid full regualrization for most serise
-  is_regular <- function(x) {
-
-    if (length(x) == 1) return(TRUE)
-
-    if (any(is.na(x))) stop("time column cannot contain NAs", call. = FALSE)
-    dd <- diff(as.numeric(x))
-
-    rng <- max(dd) - min(dd)
-
-    z <- (rng < 1) || (rng < 5 && rng / mean(dd) < 0.15)
-
-    # if (!z && (max(dd) - min(dd) < 100)) message("missing speedup? at diff: ", max(dd) - min(dd))
-
-    z
-  }
-
-
-  regular_core_one_series <- function(x) {
-    # to speed it up
-    if (is_regular(x$time)) return(x)
-
-    reg.time <- regularize_date(x$time)
-
+  regular_core_one <- function(x) {
+    if (is_regular_one_basic(x[[ctime]])) return(x)
+    reg.time <- regularize_date(x[[ctime]])
     if (is.null(reg.time)) {
-      stop(
-        "series does no show regular pattern and cannot be regularized",
-        call. = FALSE
-      )
+      stop("no regular pattern detected", call. = FALSE)
     }
-    # if POSIXct and successful regularization, change to date, to join
-    if (inherits(reg.time, "Date") && inherits(x$time, "POSIXct")) {
-      x$time <- as.Date(x$time)
-    }
-    merge(data.table(time = reg.time), x, by = "time", all.x = TRUE)
+    merge_time_date(data.table(time = reg.time), x, by.x = "time", by.y = ctime)
   }
 
   if (length(cid) == 0) {
-    z <- regular_core_one_series(x)
+    z <- regular_core_one(x)
   } else {
-    z <- x[, regular_core_one_series(.SD), by = cid]
+    .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
+    z <- x[, regular_core_one(.SD), by = eval(.by)]
   }
+
+  setattr(z, "cname", cname)
+  
+  # resulting time column name should be ctime
   setnames(z, "time", ctime)
-  z[]
+
+  # preserve original col order
+  setcolorder(z, names(x))
+  z
 }

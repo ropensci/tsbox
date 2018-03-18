@@ -12,7 +12,7 @@
 #' used (if possible).
 #'
 #' @examples
-#' ts_bind(ts_window(mdeaths, end = "1975-12-01"), fdeaths)
+#' ts_bind(ts_span(mdeaths, end = "1975-12-01"), fdeaths)
 #' ts_bind(mdeaths, c(2, 2))
 #' ts_bind(mdeaths, 3, ts_bind(fdeaths, c(99, 2)))
 #' ts_bind(ts_dt(mdeaths), AirPassengers)
@@ -37,9 +37,8 @@ bind_two <- function(a, b) {
   value_b <- NULL
 
   a <- ts_dts(copy(a))
-  colname.value <- colname_value(a)
-  colname.time <- colname_time(a)
-  colname.id <- colname_id(a)
+
+  cname <- dts_cname(a)
 
   # append scalars to dts object
   if (!ts_boxable(b)) {
@@ -59,37 +58,37 @@ bind_two <- function(a, b) {
       rbind(x, new.x)
     }
 
-    setnames(a, colname.time, "time")
-    setnames(a, colname.value, "value")
-    .by <- parse(text = paste0("list(", paste(colname.id, collapse = ", "), ")"))
+    setnames(a, cname$time, "time")
+    setnames(a, cname$value, "value")
+    .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
     z <- a[
       ,
       add_scalar_one(.SD),
       by = eval(.by)
     ]
-    setnames(z, "value", colname.value)
-    setnames(z, "time", colname.time)
+    setnames(z, "value", cname$value)
+    setnames(z, "time", cname$time)
     return(z)
   }
 
   b <- ts_dts(copy(b))
 
-  setnames(a, colname.time, "time")
-  setnames(b, colname_time(b), "time")
+  setnames(a, cname$time, "time")
+  setnames(b, dts_cname(b)$time, "time")
 
-  setnames(a, colname.value, "value")
-  setnames(b, colname.value, "value_b")
+  setnames(a, cname$value, "value")
+  setnames(b, cname$value, "value_b")
 
-  if (!identical(colname.id, colname_id(b))) {
+  if (!identical(cname$id, dts_cname(b)$id)) {
     stop(
       "Series do not have the same ids: ",
-      paste(colname.id, collapse = ", "),
+      paste(cname$id, collapse = ", "),
       "and",
-      paste(colname_id(b), collapse = ", ")
+      paste(dts_cname(b)$id, collapse = ", ")
     )
   }
 
-  z <- merge(a, b, by = c(colname.id, "time"), all = TRUE)
+  z <- merge(a, b, by = c(cname$id, "time"), all = TRUE)
   # remove key added by merge
   setkey(z, NULL)
   z <- z[is.na(value), value := value_b]
@@ -98,7 +97,7 @@ bind_two <- function(a, b) {
   # canonical col order
   setcolorder(z, c(setdiff(names(z), c("time", "value")), c("time", "value")))
 
-  setnames(z, "time", colname.time)
-  setnames(z, "value", colname.value)
+  setnames(z, "time", cname$time)
+  setnames(z, "value", cname$value)
   z[]
 }

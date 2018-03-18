@@ -21,22 +21,19 @@ ts_dts.xts <- function(x) {
   attributes(idx) <- NULL
 
   dta <- as.data.frame(x, row.names = FALSE)
-
   if (tclass[1] == "Date") {
     time <- as.Date(as.POSIXct(idx, origin = "1970-01-01"))
   } else if (tclass[1] == "POSIXct") {
     time <- as.POSIXct(idx, origin = "1970-01-01")
   }
-
-  z <- data.table(time = time, dta)
-
-  if (NCOL(z) == 2) {
-    setnames(z, c("time", "value"))
-    z <- ts_dts(z)
+  dta <- data.table(time = time, dta)
+  if (NCOL(dta) == 2) {
+    setnames(dta, c("time", "value"))
   } else {
-    z <- long_core(z)
+    dta <- melt(dta, id.vars = "time", variable.name = "id", variable.factor = FALSE)
+    setcolorder(dta, c("id", "time", "value"))
   }
-  z
+  dts_init(dta)
 }
 
 

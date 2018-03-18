@@ -1,36 +1,25 @@
 - [X] ts_compound() should start at 1
 - [X] unify ts_lag and ts_shift?
-
-- [C] ts_window(), extend regular series, fill w NA?
 - [X] ts_align vs ts_union, bad naming, one should be enough, -> ts_intersect, 
       only keep common time stamps, no need to regularize, unless its ts
       - removed altogther, they are confusing and unneeded. 
-      ts_window(template = ) is probably more useful.
-
-      
-- [X] date_shift should prob become time_shift, mostly used internally 
+      ts_span(template = ) is probably more useful.
+- [X] time_shift should prob become time_shift, mostly used internally 
 - [X] if time_shift works ts_lag will work with high freq as well
-
-
 - [X] copy_class should be able to deal with length 1 series, so we can do
-  ts_window(mdeaths, start = ts_end(mdeaths))
+  ts_span(mdeaths, start = ts_end(mdeaths))
+- [X] redesign dts
+- [X] How to extract last values? use ts_span(AirPassengers, end = -1) 
+- [ ] regularization, shifting of regular, non standard series (EuStockmarkets)
 
+- [X] ts_index base default
 
-- [ ] How to extract last values?
-
-  This may give us some alternatives to ts_last("1 year").
-
-  ts_window(AirPassengers, end = -1)         # everything except last obs
-  ts_window(AirPassengers, start = "1 last") # only the last obs
-
-
+- [ ] add proper class registry to specific files
+- [ ] unified and automated class testing: each class in registry should go through a bunch of tests.
 - [ ] as.POSIXct(idx, origin = "1970-01-01"), whats the correct origin? This 
       almost surely isnt. Perhaps use ISODate?
 - [ ]   # POSIXct merges only work well when converted to integer. Don't do this 
         # for Date. try to make this consistent
-
-- [ ] Avoid error when col order is wrong
-
 - [ ] How useful are the date_ functions?
       for standard aggregation, we have now ts_frequency, 
       for nonstandard aggregation, e.g. hours to weeks, we need something like 

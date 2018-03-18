@@ -9,8 +9,9 @@ as_time_or_date <- function(x) {
   anydate(as.character(x))
 }
 
-
-regularize_date <- function(x, full.year = FALSE) {
+# if this is regular, it is as fast as possilbe, and checks reliably for 
+# regularity.
+regularize_date <- function(x) {
   stopifnot(class(x)[1] %in% c("POSIXct", "Date"))
 
   N <- NULL
@@ -22,30 +23,17 @@ regularize_date <- function(x, full.year = FALSE) {
 
   diffdt <- frequency_table(x)
   fm <- diffdt[which.max(freq)]
-  
-  # standard freq or not, if there is a single difference, it is already
+# browser()
   # regular, exit
   if (fm$share == 1) return(x)
 
   from <- x[1]
   to <- x[length(x)]
-  if (full.year){
-    if (inherits(x, "POSIXct")){
-      from <- ISOdate(
-        year = data.table::year(round(from, "mins")), 
-        month = 1, 
-        day = 1, 
-        hour = 0, 
-        tz = attr(x, "tzone")
-      )
-    } else {
-      from <- first_time_of_year(from)
-    }
-  }
+
   if (inherits(x, "POSIXct")){
 
     # for some reason, POSIXct is not precise for quartals
-    if (fm$freq <= 12){
+    if (fm$freq <= 12 && fm$freq > -1){
       z <- as.POSIXct(seq(from = as.Date(from), to = as.Date(to), by = fm$string), tz = attr(x, "tzone"))
       if (!all(as.integer(x) %in% as.integer(z))){
         # but sometimes it is, so give it a second try
@@ -62,3 +50,5 @@ regularize_date <- function(x, full.year = FALSE) {
   if (!all(as.integer(x) %in% as.integer(z))) return(NULL)
   z
 }
+
+

@@ -139,24 +139,25 @@ enforced.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x0</span> <span class='kw'>&lt;-</span> <span class='no'>AirPassengers</span>
 <span class='no'>x0</span>[<span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>15</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ts_na_omit.html'>ts_na_omit</a></span>(<span class='fu'><a href='ts_dts.html'>ts_dts</a></span>(<span class='no'>x0</span>))</div><div class='output co'>#&gt; </div><div class='input'><span class='fu'>ts_regular</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;            time value
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ts_na_omit.html'>ts_na_omit</a></span>(<span class='fu'><a href='ts_dts.html'>ts_dts</a></span>(<span class='no'>x0</span>))
+<span class='fu'>ts_regular</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;            time value
 #&gt;   1: 1949-01-01   112
 #&gt;   2: 1949-02-01   118
 #&gt;   3: 1949-03-01   132
 #&gt;   4: 1949-04-01   129
 #&gt;   5: 1949-05-01   121
 #&gt;  ---                 
-#&gt; 140: 1960-08-01   606
-#&gt; 141: 1960-09-01   508
-#&gt; 142: 1960-10-01   461
-#&gt; 143: 1960-11-01   390
-#&gt; 144: 1960-12-01   432</div><div class='input'>
+#&gt; 138: 1960-08-01   606
+#&gt; 139: 1960-09-01   508
+#&gt; 140: 1960-10-01   461
+#&gt; 141: 1960-11-01   390
+#&gt; 142: 1960-12-01   432</div><div class='input'>
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='no'>mdeaths</span>
 <span class='no'>m</span>[<span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>69</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
 <span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='no'>fdeaths</span>
 <span class='no'>f</span>[<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>15</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
 
-<span class='fu'>ts_regular</span>(<span class='fu'><a href='ts_na_omit.html'>ts_na_omit</a></span>(<span class='fu'><a href='ts_dts.html'>ts_dts</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>f</span>, <span class='no'>m</span>))))</div><div class='output co'>#&gt; </div><div class='output co'>#&gt;      id       time value
+<span class='fu'>ts_regular</span>(<span class='fu'><a href='ts_na_omit.html'>ts_na_omit</a></span>(<span class='fu'><a href='ts_dts.html'>ts_dts</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>f</span>, <span class='no'>m</span>))))</div><div class='output co'>#&gt;      id       time value
 #&gt;   1:  f 1974-02-01   689
 #&gt;   2:  f 1974-03-01    NA
 #&gt;   3:  f 1974-04-01   677

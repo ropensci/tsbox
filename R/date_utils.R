@@ -1,29 +1,24 @@
-#' Manipulating Dates
-#'
-#' `time_shift` adds seconds, minutes, hours, days, weeks, months, quarters or years to dates.
-#' `first_time_of_month`, `first_time_of_quarter` and `first_time_of_yeae` return the first day of the
-#' period and are useful for customized aggregation of data frames. For standard
-#' aggregation, use [ts_frequency()].
+#' Shift Time Stamps
+#' 
+#' `time_shift` adds seconds, minutes, hours, days, weeks, months, quarters or
+#' years to dates.
 #'
 #' If `by` is character, the time stamp is shifted by a specific amount of time.
-#' This can be one of one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
-#' `"month"`, `"quarter" or `"year", optionally preceded by a (positive or
-#' negative) integer and a space, or followed by plural "s". This is passed to
-#' [base::seq.Date()]. This does not require the series to be regular.
+#' This can be one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
+#' `"month"`, `"quarter" or `"year", or an abbreviation, optionally preceded by 
+#' a (positive or negative) integer and a space, or followed by plural "s". This 
+#' is passed to [base::seq.Date()]. This does not require the series to be 
+#' regular.
 #' 
 #' @param x `Date` or `POSIXct`. If `POSIXct`, it is converted into `Date`.
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
 #' 
 #' @return an object of class `Date`
-#' @seealso [ts_frequency()] for standard aggregation. [time_shift()], for
-#'   shifting time stamps of a ts-boxable object.
+#' @seealso [ts_frequency()] for standard aggregation.
 #'
 #' @examples
 #' ap.time <- ts_df(AirPassengers)$time
-#' head(first_time_of_month(ap.time))
-#' head(first_time_of_quarter(ap.time))
-#' head(first_time_of_year(ap.time))
 #'
 #' head(time_shift(ap.time, 14))
 #' head(time_shift(ap.time, "7 week"))
@@ -32,7 +27,7 @@
 #' time_shift(ts_end(mdeaths), 1)
 #' time_shift(ts_end(mdeaths), "-14 sec")
 #' time_shift(ts_end(mdeaths), "-1 year")
-#' ts_window(ts_c(mdeaths, fdeaths), start = time_shift(ts_end(mdeaths), -1))
+#' ts_span(ts_c(mdeaths, fdeaths), start = time_shift(ts_end(mdeaths), -1))
 #' 
 #' @export
 time_shift <- function(x, by = NULL) {
@@ -42,13 +37,13 @@ time_shift <- function(x, by = NULL) {
   if (is.null(by)) return(x)
 
   # high freq can be added to POSIXct only
-  if (is.character(by) && grepl("sec|min|hour", by)){
+  if (is.character(by) && grepl("sec|min|hour|[^a-z]s$|[^a-z]h$", by)){
     x <- as.POSIXct(x)
   }
 
-  add_to_one_time <- function(x) seq(x, length.out = 2, by = by)[2]
+  add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
 
-  if (length(x) == 1) return(add_to_one_time(x))
+  if (length(x) == 1) return(add_to_one(x))
 
   # this is the correct, perhaps not the fastest regularity test
   # also understands monthly, quarterly etc.
@@ -60,9 +55,9 @@ time_shift <- function(x, by = NULL) {
     if (is.numeric(by)){
       spl <- strsplit(diffdt$string, split = " ")[[1]]
       str <- paste(by * as.numeric(spl[1]), spl[2])
-      add_to_one_time <- function(x) seq(x, length.out = 2, by = str)[2]
+      add_to_one <- function(x) seq(x, length.out = 2, by = str)[2]
     }
-    z <- seq(from = add_to_one_time(x[1]), by = fm$string, length.out = length(x))
+    z <- seq(from = add_to_one(x[1]), by = fm$string, length.out = length(x))
     return(z)
   } 
 
@@ -74,10 +69,10 @@ time_shift <- function(x, by = NULL) {
       if (is.numeric(by)){
         spl <- strsplit(diffdt$string, split = " ")[[1]]
         str <- paste(by * as.numeric(spl[1]), spl[2])
-        add_to_one_time <- function(x) seq(x, length.out = 2, by = str)[2]
+        add_to_one <- function(x) seq(x, length.out = 2, by = str)[2]
       }
 
-      z <- seq(from = add_to_one_time(xreg[1]), by = fm$string, length.out = length(xreg))
+      z <- seq(from = add_to_one(xreg[1]), by = fm$string, length.out = length(xreg))
       z <- z[match(as.integer(x), as.integer(xreg))]
 
       stopifnot(!any(is.na(z)))
@@ -91,24 +86,20 @@ time_shift <- function(x, by = NULL) {
 
   if (inherits(x, "Date")){
     # only do on unique values (which is faster in some cases)
-    add_to_one_date <- function(x) seq(x, length.out = 2, by = by)[2]
+    add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
     xu <- unique(x)
-    zu <- do.call(c, lapply(xu, add_to_one_date))
+    zu <- do.call(c, lapply(xu, add_to_one))
     z <- merge(data.table(x = x), data.table(x = xu, z = zu), all.x = TRUE, sort = FALSE)$z
     return(z)
   }
 
   # shift each time stamp separately (slow)
-  do.call(c, lapply(x, add_to_one_time))
+  do.call(c, lapply(x, add_to_one))
 }
 
 
-
-
-#' @name time_shift
-#' @export
-first_time_of_month <- function(x) {
-  x0 <- as.Date(x)
+date_month <- function(x) {
+  x0 <- (x)
   d <- "1"
   m <- data.table::month(x0)
   y <- data.table::year(x0)
@@ -119,10 +110,8 @@ first_time_of_month <- function(x) {
   z
 }
 
-#' @name time_shift
-#' @export
-first_time_of_quarter <- function(x) {
-  x0 <- as.Date(x)
+date_quarter <- function(x) {
+  x0 <- (x)
   d <- "1"
   m <- (data.table::quarter(x) - 1) * 3 + 1
   y <- data.table::year(x0)
@@ -133,10 +122,8 @@ first_time_of_quarter <- function(x) {
   z
 }
 
-#' @name time_shift
-#' @export
-first_time_of_year <- function(x) {
-  x0 <- as.Date(x)
+date_year <- function(x) {
+  x0 <- (x)
   d <- "1"
   m <- "1"
   y <- data.table::year(x0)
@@ -146,3 +133,5 @@ first_time_of_year <- function(x) {
   }
   z
 }
+
+
