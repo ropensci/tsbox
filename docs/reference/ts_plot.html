@@ -155,6 +155,7 @@ with limited customizability. For more theme options, use <code>ts_ggplot()</cod
     <p>Both <code>ts_plot()</code> and <code>ts_ggplot()</code> combine multiple ID dimensions into a single
 dimension. To plot multiple dimensions in different shapes, facets, etc., use
 standard ggplot.</p>
+<p>Limited customizability of <code>ts_plot</code> is available via options. See examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -177,7 +178,17 @@ save a plot to the file system.</p>
   <span class='fu'><a href='ts_ts.html'>ts_tbl</a></span>(<span class='no'>co2</span>),
   <span class='no'>JohnsonJohnson</span>,
   <span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>discoveries</span>)
-)))</div><div class='img'><img src='ts_plot-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+)))</div><div class='img'><img src='ts_plot-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># customize ts_plot</span>
+<span class='no'>op</span> <span class='kw'>&lt;-</span> <span class='fu'>options</span>(
+  <span class='kw'>tsbox.lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>tsbox.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gray51"</span>, <span class='st'>"gray11"</span>),
+  <span class='kw'>tsbox.lty</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>
+)
+<span class='fu'>ts_plot</span>(
+  <span class='st'>"Female"</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>,
+  <span class='st'>"Male"</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>
+)</div><div class='img'><img src='ts_plot-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>options</span>(<span class='no'>op</span>)  <span class='co'># restore defaults</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

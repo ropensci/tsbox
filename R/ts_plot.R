@@ -7,6 +7,8 @@
 #' Both `ts_plot()` and [ts_ggplot()] combine multiple ID dimensions into a single
 #' dimension. To plot multiple dimensions in different shapes, facets, etc., use
 #' standard ggplot.
+#' 
+#' Limited customizability of `ts_plot` is available via options. See examples.
 #'
 #' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
 #' @param title title (optional)
@@ -33,6 +35,18 @@
 #'   JohnsonJohnson, 
 #'   ts_df(discoveries)
 #' )))
+#' 
+#' # customize ts_plot
+#' op <- options(
+#'   tsbox.lwd = 3, 
+#'   tsbox.col = c("gray51", "gray11"), 
+#'   tsbox.lty = "dashed"
+#' )
+#' ts_plot(
+#'   "Female" = fdeaths,
+#'   "Male" = mdeaths
+#' )
+#' options(op)  # restore defaults
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff

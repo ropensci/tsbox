@@ -26,6 +26,8 @@ with limited customizability. For more theme options, use \code{\link[=ts_ggplot
 Both \code{ts_plot()} and \code{\link[=ts_ggplot]{ts_ggplot()}} combine multiple ID dimensions into a single
 dimension. To plot multiple dimensions in different shapes, facets, etc., use
 standard ggplot.
+
+Limited customizability of \code{ts_plot} is available via options. See examples.
 }
 \examples{
 ts_plot(
@@ -44,6 +46,18 @@ ts_plot(ts_scale(ts_c(
   JohnsonJohnson, 
   ts_df(discoveries)
 )))
+
+# customize ts_plot
+op <- options(
+  tsbox.lwd = 3, 
+  tsbox.col = c("gray51", "gray11"), 
+  tsbox.lty = "dashed"
+)
+ts_plot(
+  "Female" = fdeaths,
+  "Male" = mdeaths
+)
+options(op)  # restore defaults
 }
 \seealso{
 \code{\link[=ts_ggplot]{ts_ggplot()}}, for a plotting function based on ggplot2.
