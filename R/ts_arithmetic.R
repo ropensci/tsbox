@@ -34,8 +34,8 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
       cid <- "id"
     }
 
-    ll1 <- split(z1, z1[[cid]])
-    ll2 <- split(z2, z2[[cid]])
+    ll1 <- split(z1, z1[[cid]])[unique(z1[[cid]])]
+    ll2 <- split(z2, z2[[cid]])[unique(z2[[cid]])]
 
     ll1 <- lapply(ll1, function(e) e[, (cid) := NULL])
     ll2 <- lapply(ll2, function(e) e[, (cid) := NULL])

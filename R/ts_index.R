@@ -62,9 +62,11 @@ ts_index <- function(x, base = NULL) {
   setnames(z, cname$time, "time")
   setnames(z, cname$value, "value")
 
-  if (inherits(z$time, "POSIXct")) {
-    stop("indexing only works on 'Date', not 'POSIXct'")
-  }
+  
+
+  # if (inherits(z$time, "POSIXct")) {
+  #   stop("indexing only works on 'Date', not 'POSIXct'")
+  # }
 
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
 
@@ -77,7 +79,8 @@ ts_index <- function(x, base = NULL) {
     ]
     base <- max(dt_min_time$min.time)
   } else {
-    base <- anydate(as.character(base))
+    # let ts_span parse base and make sure it exists in data
+    base <- ts_start(ts_span(z, start = base))
   }
 
   # check if base date in data (rewrite)

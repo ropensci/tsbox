@@ -27,18 +27,30 @@ test_that("colname guessing works as expected", {
 })
 
 
-test_that("ts_pc works with ts_index", {
+test_that("ts_compound, ts_index and ts_pc are consistent", {
 
   expect_equal(ts_pc(mdeaths), ts_pc(ts_index(mdeaths)))
   expect_equal(ts_pc(AirPassengers), ts_pc(ts_index(AirPassengers)))
 
+  expect_equal(ts_compound(ts_pc(EuStockMarkets)), 
+               ts_index(EuStockMarkets))
+
+  expect_equal(ts_compound(ts_pc(ts_c(mdeaths, fdeaths))),
+               ts_index(ts_c(mdeaths, fdeaths)))
+
+  expect_equal(ts_pc(ts_compound(ts_pc(ts_c(mdeaths, fdeaths)))),
+               ts_pc(ts_index(ts_c(mdeaths, fdeaths))))
+
+  expect_equal(ts_compound(ts_pc(ts_c(AirPassengers))),
+               ts_index(ts_c(AirPassengers)))
+
+}
+
+
+test_that("pc and ts_index works with NA", {
+  x0 <- EuStockMarkets
+  x0[5:10, ] <- NA
+  expect_is(ts_index(ts_pc(x0)), "ts")
 })
 
 
-
-# test_that("pc calculation works on non standard series", {
-
-  # x <- ts_tbl(EuStockMarkets)
-  # ts_pc(AirPassengers)
-
-# }
