@@ -10,7 +10,8 @@
 #' @return object with the same class as input
 #' @examples
 #' df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
-#' ts_ts(ts_long(df.wide))
+#' head(df.wide)
+#' head(ts_long(df.wide))
 #' @export
 ts_long <- function(x) {
   rc <- relevant_class(x)
