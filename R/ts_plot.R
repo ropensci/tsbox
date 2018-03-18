@@ -155,8 +155,11 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
 
   # Lines
-  ids <- unique(x[, id])
-
+  ids <- as.character(unique(x[, id]))
+  if ((length(ids)) > 20) {
+    message("too many series. Only showing the first 20.")
+    ids <- ids[1:20]
+  }
 
   # graphical parameters, via options
   col <- getOption("tsbox.col", colors_tsbox())
