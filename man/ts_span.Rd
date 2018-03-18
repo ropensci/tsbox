@@ -32,7 +32,7 @@ a ts-boxable time series, with the same class as the input.
 Filter time series for a time span.
 }
 \details{
-All date and times, when entered as charachter strings, are processed by
+All date and times, when entered as character strings, are processed by
 \code{anytime::anydate()} or \code{anytime::anytime()}. Thus a wide range of inputs are
 possible. See examples.
 
@@ -40,7 +40,7 @@ possible. See examples.
 using one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
 \code{"month"}, \code{"quarter" or}"year", or an abbreviation. This
 is passed to \code{\link[=time_shift]{time_shift()}}. If the series are of the same frequency, the
-shift can be spefied in periods. See examples.
+shift can be specified in periods. See examples.
 }
 \examples{
 

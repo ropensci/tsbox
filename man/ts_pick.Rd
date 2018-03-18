@@ -4,14 +4,12 @@
 \alias{ts_pick}
 \title{Pick Series (Experimental)}
 \usage{
-ts_pick(x, ..., .id = NULL)
+ts_pick(x, ...)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
 
-\item{...}{names of the series to be picked (quoted or unquoted, for interactive use). If arguments are named, the series will be renamed.}
-
-\item{.id}{character string, names of the series to be picked (for programming). If elements are named, the series will be renamed.}
+\item{...}{character string(s), names of the series to be picked. If arguments are named, the series will be renamed.}
 }
 \value{
 a ts-boxable time series, with the same class as the input.
@@ -23,11 +21,11 @@ Pick (and optionally rename) series from multiple time series.
 # Interactive use
 ts_plot(ts_pick(
   EuStockMarkets, 
-  `My Dax` = DAX, 
-  `My Smi` = SMI
+  `My Dax` = "DAX", 
+  `My Smi` = "SMI"
 ))
 
 # Programming use
 to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")
-ts_pick(EuStockMarkets, .id = to.be.picked.and.renamed)
+ts_pick(EuStockMarkets, to.be.picked.and.renamed)
 }

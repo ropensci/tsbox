@@ -165,11 +165,11 @@ conflicts with the regular structure.</p>
 <span class='co'># make NAs explicit</span>
 <span class='fu'>head</span>(<span class='fu'><a href='ts_regular.html'>ts_regular</a></span>(<span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>x</span>)))</div><div class='output co'>#&gt;         time value
 #&gt; 1 1949-01-01   112
-#&gt; 2 1949-03-01   132
-#&gt; 3 1949-05-01   121
-#&gt; 4 1949-06-01   135
-#&gt; 5 1949-07-01   148
-#&gt; 6 1949-08-01   148</div><div class='input'>
+#&gt; 2 1949-02-01    NA
+#&gt; 3 1949-03-01   132
+#&gt; 4 1949-04-01    NA
+#&gt; 5 1949-05-01   121
+#&gt; 6 1949-06-01   135</div><div class='input'>
 <span class='co'># and implicit again</span>
 <span class='fu'>head</span>(<span class='fu'>ts_na_omit</span>(<span class='fu'><a href='ts_regular.html'>ts_regular</a></span>(<span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='no'>x</span>))))</div><div class='output co'>#&gt;         time value
 #&gt; 1 1949-01-01   112

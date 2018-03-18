@@ -29,9 +29,19 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
 
     if (length(cname$id) > 1){
       sep.str <- "!%!#"
-      z1 <- combine_id_cols(z1, sep = sep.str)
-      z2 <- combine_id_cols(z2, sep = sep.str)
+
+      cid <- cname$id
+      dt.id <- unique(z1[, cid, with = FALSE])
+
+      paste2 <- function(...) paste(..., sep = sep.str)
+      dt.id[, .id := do.call(paste2, as.list(dt.id))]
+
+      z1 <- merge(z1, dt.id, by = cid, sort = FALSE)[, (cid) := NULL]
+      z2 <- merge(z2, dt.id, by = cid, sort = FALSE)[, (cid) := NULL]
+      setnames(z1, ".id", "id")
+      setnames(z2, ".id", "id")
       cid <- "id"
+
     }
 
     ll1 <- split(z1, z1[[cid]])[unique(z1[[cid]])]
@@ -44,17 +54,10 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
 
     # separate id cols
     if (length(cname$id) > 1){
-      sep_id <- function(x){
-        spl <- strsplit(x$id, split = sep.str)
-        ids <- do.call(data.table, lapply(seq_along(cname$id), function(id) sapply(spl, function(e) e[id])))
-        setnames(ids, cname$id)
-        x$id <- NULL
-        cbind(ids, x)
-      }
-      z1 <- sep_id(z1)
-      z2 <- sep_id(z2)
+      setnames(z, "id", ".id")
+      z <- merge(z, dt.id, by = ".id", sort = FALSE)[, .id := NULL]
+      setcolorder(z, c(cname$id, "time", "value", "value2"))
     }
-    
   } else {
     z <- merge_time_date(z1, z2)
   }
