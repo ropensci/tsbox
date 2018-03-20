@@ -10,23 +10,17 @@
   ts_span(mdeaths, start = ts_end(mdeaths))
 - [X] redesign dts
 - [X] How to extract last values? use ts_span(AirPassengers, end = -1) 
-- [ ] regularization, shifting of regular, non standard series (EuStockmarkets)
+- [X] regularization, shifting of regular, non standard series (EuStockmarkets)
 - [X] ts_index base default
-
-- [ ] add proper class registry to specific files
-- [ ] unified and automated class testing: each class in registry should go through a bunch of tests.
-- [ ] as.POSIXct(idx, origin = "1970-01-01"), whats the correct origin? This 
+- [X] add proper class registry to specific files
+- [X] unified and automated class testing: each class in registry should go through a bunch of tests.
+- [X] as.POSIXct(idx, origin = "1970-01-01"), whats the correct origin? This 
       almost surely isnt. Perhaps use ISODate?
-- [ ]   # POSIXct merges only work well when converted to integer. Don't do this 
-        # for Date. try to make this consistent
-- [ ] How useful are the date_ functions?
-      for standard aggregation, we have now ts_frequency, 
-      for nonstandard aggregation, e.g. hours to weeks, we need something like 
-      lubridate anyway. Is there any usecase?
+- [X] POSIXct does not merge well. Use rolling joins instead.
+- [X] How useful are the date_ functions?
 
-
+- [ ] use bquote, rather than eval parse text (to_from_tsibble, but perhaps elsewhere)
 - [ ] ts_frequency with incomplete periods?
-
 
 - Documentation
 

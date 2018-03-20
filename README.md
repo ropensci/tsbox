@@ -36,9 +36,9 @@ x.dt <- ts_dt(x.df)
 x.tbl <- ts_tbl(x.dt)
 ```
 
-### Use same functions for ts, xts, data.frame, data.table or tibble
+### Use same functions for time series classes
 
-Because this works reliably and without user input, it is easy to write
+Because this works reliably, it is easy to write
 functions that work for all classes. So whether we want to **smooth**,
 **scale**, **differentiate**, **chain**, **forecast**, **regularize** or
 **seasonally adjust** a time series, we can use the same commands to whatever

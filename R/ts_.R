@@ -35,11 +35,14 @@ load_suggested <- function(pkg) {
 #' ts_(function(x) predict(prcomp(x)))(ts_c(mdeaths, fdeaths))
 #' ts_(function(x) predict(prcomp(x, scale = TRUE)))(ts_c(mdeaths, fdeaths))
 #' ts_(dygraphs::dygraph, class = "xts")
+#' 
+#' # attach series to serach path
+#' ts_attach <- ts_(attach, class = "tslist", reclass = FALSE)
+#' ts_attach(EuStockMarkets)
+#' ts_plot(DAX, SMI)
+#' detach()
 ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
-  supported.classes <- c(
-    "ts", "mts", "xts", "data.frame", "data.table", "tbl",
-    "dts"
-  )
+  supported.classes <- names(supported_classes())
   stopifnot(class %in% supported.classes)
 
   fstr <- as.character(substitute(fun))

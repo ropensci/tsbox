@@ -20,7 +20,7 @@ data frames, thus making it easy to deal with time series in a
 
 tsbox is built around a set of converters, which convert time series stored as
 **ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**, **tsibble** or **timeSeries** to each other.
-Because this works reliably and without user input, we can easily write
+Because this works reliably, we can easily write
 functions that work for all classes. So whether we want to smooth, scale,
 differentiate, chain, forecast, regularize or seasonally adjust a time series,
 we can use the same commands to whatever time series class at hand. And, most
@@ -47,12 +47,11 @@ x.dt <- ts_dt(x.tbl)
 
 ```
 
-## Use same functions for ts, xts, data.frame, data.table or tibble
+## Use same functions for all time series classes
 
 tsbox provides a basic toolkit for handling time series. These functions start
 with `ts_`, so you use them with auto complete (press Tab). These functions work
-with any *ts-boxable* time series, ts, xts, data.frame, data.table or tibble,
-and **return the class of their inputs**.
+with any *ts-boxable* time series, ts, xts, data.frame, data.table tibble, zoo, tsibble or timeSeries and **return the class of their inputs**.
 
 For example, the `ts_scale` function performs *normalization* - it subtracts the
 mean and divides by the standard deviation of series. Like almost all ts-
