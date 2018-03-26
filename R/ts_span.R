@@ -99,7 +99,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
   if (!is.null(template)){
     stopifnot(is.null(start), is.null(end))
     t.dts <- ts_dts(template)
-    rng <- range(x.dts[[dts_cname(t.dts)$time]])
+    rng <- range(t.dts[[dts_cname(t.dts)$time]])
     start <- rng[1]
     end <- rng[2]
   }

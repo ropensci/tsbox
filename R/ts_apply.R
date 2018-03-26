@@ -18,6 +18,8 @@ ts_apply_dts <- function(x, fun, ...) {
 }
 
 # ts_apply(ts_c(mdeaths, fdeaths), ts_diff)
+#' @export
+#' @name ts_
 ts_apply <- function(x, fun, ...) {
   stopifnot(ts_boxable(x))
   z <- ts_apply_dts(ts_dts(x), fun, ...)
