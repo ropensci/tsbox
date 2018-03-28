@@ -19,6 +19,8 @@ ts_apply_dts <- function(x, fun, ...) {
 
 # ts_apply(ts_c(mdeaths, fdeaths), ts_diff)
 #' @export
+#' @inherit ts_dts
+#' @param ... arguments passed to subfunction
 #' @name ts_
 ts_apply <- function(x, fun, ...) {
   stopifnot(ts_boxable(x))
