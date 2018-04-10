@@ -1,8 +1,8 @@
 Package: tsbox
 Type: Package
 Title: Class-Agnostic Time Series
-Version: 0.0.14.2
-Date: 2018-03-18
+Version: 0.0.14.3
+Date: 2018-04-10
 Authors@R: person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"))
 Description: Tools that are agnostic towards existing time series classes. 
   Converts time series from different classes and time series stored in data
