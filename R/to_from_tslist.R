@@ -8,8 +8,9 @@ ts_tslist_dts <- function(x) {
     z <- list(ts_ts(x))
   } else {
     x <- combine_id_cols(x)
-    spl <- split(x, x$id)
-    spl <- spl[unique(x$id)]
+    cid <- dts_cname(x)$id
+    spl <- split(x, x[[cid]])
+    spl <- spl[unique(x[[cid]])]
     z <- lapply(spl, ts_ts)
   }
   class(z) <- c("tslist", "list")
