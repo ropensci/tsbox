@@ -11,7 +11,14 @@ is_time <- function(x) {
     ) # lost 3
   }
   x <- as.character(x)
-  all(!is.na(anytime(x)))
+  tt <- anytime(x)
+
+  if (any(is.na(anytime(x)))) return(FALSE)
+
+  # exclude unrealistic years
+  if ((as.POSIXlt(max(tt))$year + 1900L) > 2500) return(FALSE)
+  
+  TRUE
 }
 
 is_value <- function(x) {
