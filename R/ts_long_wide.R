@@ -33,7 +33,7 @@ long_core_multi_id <- function(x) {
   } else {
     id.vars <- time.name
   }
-  z <- melt(x, id.vars = id.vars, variable.name = "id", variable.factor = FALSE)
+  z <- suppressWarnings(melt(x, id.vars = id.vars, variable.name = "id", variable.factor = FALSE))
   setcolorder(z, c(id.names, "id", time.name, "value"))
   ts_dts(z)
 }

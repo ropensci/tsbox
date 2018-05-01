@@ -23,3 +23,10 @@ test_that("ts_wide works has correct time stamps.", {
   expect_equal(ts_wide(ts_xts(a)), ts_xts(a))
   expect_equal(ts_wide(ts_ts(a)), ts_ts(a))
 })
+
+test_that("economics dataset can be converted to long format", {
+  library(ggplot2)
+  library(tsbox)
+  expect_is(ts_long(economics), "tbl_df")
+})
+
