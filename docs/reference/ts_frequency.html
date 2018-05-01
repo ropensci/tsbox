@@ -25,13 +25,16 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Change Frequency — ts_frequency" />
 
-<meta property="og:description" content="Changes the frequency of a time series. Currently, incomplete
-periods are aggregated as well, but this is likely to change." />
+<meta property="og:description" content="Changes the frequency of a time series. By default, incomplete
+periods of regular series are omitted." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -41,16 +44,14 @@ periods are aggregated as well, but this is likely to change." />
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46240882-5"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46240882-5', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46240882-5');
 </script>
 
   </head>
@@ -66,8 +67,12 @@ periods are aggregated as well, but this is likely to change." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsbox</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsbox</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -107,6 +112,7 @@ periods are aggregated as well, but this is likely to change." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -114,20 +120,24 @@ periods are aggregated as well, but this is likely to change." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Change Frequency</h1>
+    
+    <div class="hidden name"><code>ts_frequency.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>Changes the frequency of a time series. Currently, incomplete
-periods are aggregated as well, but this is likely to change.</p>
+    <p>Changes the frequency of a time series. By default, incomplete
+periods of regular series are omitted.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>ts_frequency</span>(<span class='no'>x</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>aggregate</span> <span class='kw'>=</span> <span class='st'>"mean"</span>)</pre>
+    <pre class="usage"><span class='fu'>ts_frequency</span>(<span class='no'>x</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>aggregate</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>incomplete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -143,6 +153,11 @@ periods are aggregated as well, but this is likely to change.</p>
       <th>aggregate</th>
       <td><p>character string, or function. Either <code>"mean"</code>, <code>"sum"</code>,
 <code>"first"</code>, or <code>"last"</code>, or any aggregate function, such as <code><a href='http://www.rdocumentation.org/packages/base/topics/mean'>base::mean()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>incomplete</th>
+      <td><p>logical, if <code>TRUE</code>, incomplete periods are aggregated as
+well. For irregular series, incomplete periods are always aggregated.</p></td>
     </tr>
     </table>
     
@@ -214,8 +229,18 @@ periods are aggregated as well, but this is likely to change.</p>
 #&gt; End = 1960 
 #&gt; Frequency = 1 
 #&gt;  [1] 1520 1676 2042 2364 2700 2867 3408 3939 4421 4572 5140 5714</div><div class='input'>
-<span class='co'># Note that incomplete years are (currently) aggregated as well</span>
+<span class='co'># Note that incomplete years are omited by default</span>
 <span class='fu'>ts_frequency</span>(<span class='no'>EuStockMarkets</span>, <span class='st'>"year"</span>)</div><div class='output co'>#&gt; Time Series:
+#&gt; Start = 1992 
+#&gt; End = 1997 
+#&gt; Frequency = 1 
+#&gt;           DAX      SMI      CAC     FTSE
+#&gt; 1992 1637.459 1854.162 1852.869 2559.458
+#&gt; 1993 1802.471 2372.175 2015.391 2957.114
+#&gt; 1994 2123.445 2716.570 2061.115 3144.673
+#&gt; 1995 2135.226 2824.320 1872.022 3343.207
+#&gt; 1996 2560.317 3610.032 2071.866 3821.407
+#&gt; 1997 3694.279 5173.600 2745.503 4673.295</div><div class='input'><span class='fu'>ts_frequency</span>(<span class='no'>EuStockMarkets</span>, <span class='st'>"year"</span>, <span class='kw'>incomplete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Time Series:
 #&gt; Start = 1991 
 #&gt; End = 1998 
 #&gt; Frequency = 1 
@@ -255,5 +280,8 @@ periods are aggregated as well, but this is likely to change.</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -25,14 +25,17 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Convert Everything to Everything — ts_ts" />
 
 <meta property="og:description" content="tsbox is built around a set of converters, which convert time series
 stored as ts, xts, data.frame, data.table or tibble to each
 other." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -42,16 +45,14 @@ other." />
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46240882-5"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46240882-5', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46240882-5');
 </script>
 
   </head>
@@ -67,8 +68,12 @@ other." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsbox</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsbox</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -108,6 +113,7 @@ other." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -115,17 +121,21 @@ other." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert Everything to Everything</h1>
+    
+    <div class="hidden name"><code>ts_ts.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>tsbox is built around a set of converters, which convert time series
 stored as <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code> or <code>tibble</code> to each
 other.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>ts_data.frame</span>(<span class='no'>x</span>)
 
@@ -149,7 +159,7 @@ other.</p>
 
 <span class='fu'>ts_zoo</span>(<span class='no'>x</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -175,7 +185,8 @@ used as <strong>value column</strong>.</p></li>
 The time stamp, <code>time</code>, indicates the beginning of a period.</p></li>
 <li><p><strong>All remaining</strong> columns are <strong>id columns</strong>. Each unique combination of id
 columns points to a time series.</p></li>
-</ol><p><strong>Alternatively</strong>, the <strong>time</strong> column and the <strong>value</strong> column to be explicitly named as
+</ol>
+    <p><strong>Alternatively</strong>, the <strong>time</strong> column and the <strong>value</strong> column to be explicitly named as
 <code>time</code> and <code>value</code>. If explicit names are used, the column order will be
 ignored.</p>
 <p>Whenever possible, tsbox relies on <strong>heuristic time conversion</strong>. When a
@@ -211,12 +222,12 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 <span class='fu'>head</span>(<span class='fu'>ts_tbl</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 3
 #&gt;   id      time       value
 #&gt;   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt;
-#&gt; 1 mdeaths 1974-01-01 2134.
-#&gt; 2 mdeaths 1974-02-01 1863.
-#&gt; 3 mdeaths 1974-03-01 1877.
-#&gt; 4 mdeaths 1974-04-01 1877.
-#&gt; 5 mdeaths 1974-05-01 1492.
-#&gt; 6 mdeaths 1974-06-01 1249.</div><div class='input'>
+#&gt; 1 mdeaths 1974-01-01  2134
+#&gt; 2 mdeaths 1974-02-01  1863
+#&gt; 3 mdeaths 1974-03-01  1877
+#&gt; 4 mdeaths 1974-04-01  1877
+#&gt; 5 mdeaths 1974-05-01  1492
+#&gt; 6 mdeaths 1974-06-01  1249</div><div class='input'>
 <span class='fu'>suppressMessages</span>(<span class='fu'>library</span>(<span class='no'>data.table</span>))
 <span class='fu'>head</span>(<span class='fu'>ts_dt</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;         id       time value
 #&gt; 1: mdeaths 1974-01-01  2134
@@ -262,7 +273,7 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; Mar 1974           827          1877   20.02903   0.7514761
 #&gt; Apr 1974           677          1877  -18.13785   0.0000000
 #&gt; May 1974           522          1492  -22.89513 -20.5114544
-#&gt; Jun 1974           406          1249  -22.22222 -16.2868633</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='no'>multi.id.df</span>)</div><div class='img'><img src='ts_ts-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; Jun 1974           406          1249  -22.22222 -16.2868633</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='no'>multi.id.df</span>)</div><div class='img'><img src='ts_ts-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -292,5 +303,8 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

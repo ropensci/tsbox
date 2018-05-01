@@ -25,9 +25,12 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Function reference" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -37,16 +40,14 @@
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46240882-5"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46240882-5', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46240882-5');
 </script>
 
   </head>
@@ -62,8 +63,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsbox</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsbox</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -103,6 +108,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -110,248 +116,243 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.0.14.2</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-convert" class="hasAnchor"><a href="#section-convert" class="anchor"></a>Convert</h2>
-            <p class="section-desc"><p>tsbox is built around a set of converters, which convert time series stored as <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code> or <code>tibble</code> to each other.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_ts.html">ts_data.frame</a></code> <code><a href="ts_ts.html">ts_df</a></code> <code><a href="ts_ts.html">ts_data.table</a></code> <code><a href="ts_ts.html">ts_dt</a></code> <code><a href="ts_ts.html">ts_tbl</a></code> <code><a href="ts_ts.html">ts_timeSeries</a></code> <code><a href="ts_ts.html">ts_ts</a></code> <code><a href="ts_ts.html">ts_tsibble</a></code> <code><a href="ts_ts.html">ts_tslist</a></code> <code><a href="ts_ts.html">ts_xts</a></code> <code><a href="ts_ts.html">ts_zoo</a></code> </p>
-          </td>
-          <td><p>Convert Everything to Everything</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-combine-and-separate" class="hasAnchor"><a href="#section-combine-and-separate" class="anchor"></a>Combine and Separate</h2>
-            <p class="section-desc"><p>A set of helper functions to combine multiple time series</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_c.html">ts_c</a></code> </p>
-          </td>
-          <td><p>Collect Time Series</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_bind.html">ts_bind</a></code> <code><a href="ts_bind.html">ts_chain</a></code> </p>
-          </td>
-          <td><p>Bind Time Series</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_span.html">ts_span</a></code> <code><a href="ts_span.html">ts_start</a></code> <code><a href="ts_span.html">ts_end</a></code> </p>
-          </td>
-          <td><p>Limit Time Span</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_pick.html">ts_pick</a></code> </p>
-          </td>
-          <td><p>Pick Series (Experimental)</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-transform" class="hasAnchor"><a href="#section-transform" class="anchor"></a>Transform</h2>
-            <p class="section-desc"><p>Transformation functions with a unified interface for common time series opperations</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_scale.html">ts_scale</a></code> </p>
-          </td>
-          <td><p>Normalized Time Series</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_trend.html">ts_trend</a></code> </p>
-          </td>
-          <td><p>Loess Trend Estimation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_pc.html">ts_pc</a></code> <code><a href="ts_pc.html">ts_diff</a></code> <code><a href="ts_pc.html">ts_pcy</a></code> <code><a href="ts_pc.html">ts_diffy</a></code> </p>
-          </td>
-          <td><p>First Differences and Percentage Change Rates</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_index.html">ts_compound</a></code> <code><a href="ts_index.html">ts_index</a></code> </p>
-          </td>
-          <td><p>Indices from Levels or Percentage Rates</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_lag.html">ts_lag</a></code> </p>
-          </td>
-          <td><p>Lag or Lead of Time Series</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-plot" class="hasAnchor"><a href="#section-plot" class="anchor"></a>Plot</h2>
-            <p class="section-desc"><p>Simple and fast plotting functions for any time series</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_plot.html">ts_plot</a></code> </p>
-          </td>
-          <td><p>Plot Time Series</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_ggplot.html">ts_ggplot</a></code> <code><a href="ts_ggplot.html">theme_tsbox</a></code> <code><a href="ts_ggplot.html">colors_tsbox</a></code> <code><a href="ts_ggplot.html">scale_color_tsbox</a></code> <code><a href="ts_ggplot.html">scale_fill_tsbox</a></code> </p>
-          </td>
-          <td><p>Plot Time Series, Using ggplot2</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_save.html">ts_save</a></code> </p>
-          </td>
-          <td><p>Save Previous Plot</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-reshape" class="hasAnchor"><a href="#section-reshape" class="anchor"></a>Reshape</h2>
-            <p class="section-desc"><p>Reshaping wide data frames into long data frames and back</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_long.html">ts_long</a></code> <code><a href="ts_long.html">ts_wide</a></code> </p>
-          </td>
-          <td><p>Reshaping Multiple Time Series</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-frequency" class="hasAnchor"><a href="#section-frequency" class="anchor"></a>Frequency</h2>
-            <p class="section-desc"><p>Functions to manipulate frequency</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_frequency.html">ts_frequency</a></code> </p>
-          </td>
-          <td><p>Change Frequency</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_regular.html">ts_regular</a></code> </p>
-          </td>
-          <td><p>Enforce Regularity</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_na_omit.html">ts_na_omit</a></code> </p>
-          </td>
-          <td><p>Omit NA values</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-user-defined-ts-functions" class="hasAnchor"><a href="#section-user-defined-ts-functions" class="anchor"></a>User defined ts-functions</h2>
-            <p class="section-desc"><p><code>ts_</code> turns existing functions into functions that can deal with any ts- boxable time series object. The example functions are useful themself.</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_examples.html">ts_prcomp</a></code> <code><a href="ts_examples.html">ts_dygraphs</a></code> <code><a href="ts_examples.html">ts_forecast</a></code> <code><a href="ts_examples.html">ts_seas</a></code> </p>
-          </td>
-          <td><p>Principal Components, Dygraphs, Forecasts, Seasonal Adjustment</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_.html">load_suggested</a></code> <code><a href="ts_.html">ts_</a></code> </p>
-          </td>
-          <td><p>Constructing ts-Functions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="copy_class.html">copy_class</a></code> </p>
-          </td>
-          <td><p>Re-Class ts-Boxable Object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="relevant_class.html">relevant_class</a></code> </p>
-          </td>
-          <td><p>Extract Relevant Class</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_boxable.html">ts_boxable</a></code> </p>
-          </td>
-          <td><p>Test if an Object is ts-Boxable</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_dts.html">ts_dts</a></code> </p>
-          </td>
-          <td><p>Internal Time Series Class</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-working-with-dates" class="hasAnchor"><a href="#section-working-with-dates" class="anchor"></a>Working with dates</h2>
-            <p class="section-desc"><p>Inclued is a set of functions that makes it easier to work with dates</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="time_shift.html">time_shift</a></code> </p>
-          </td>
-          <td><p>Shift Time Stamps</p></td>
-        </tr>
-      </tbody><tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-arithmetic-operators" class="hasAnchor"><a href="#section-arithmetic-operators" class="anchor"></a>Arithmetic operators</h2>
-            <p class="section-desc"><p>Arithmetic operators can be applied on ts-boxable objects</p></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ts_arithmetic.html">%ts+%</a></code> <code><a href="ts_arithmetic.html">%ts-%</a></code> <code><a href="ts_arithmetic.html">%ts*%</a></code> <code><a href="ts_arithmetic.html">%ts/%</a></code> </p>
-          </td>
-          <td><p>Arithmetic Operators for ts-boxable objects</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-convert" class="hasAnchor"><a href="#section-convert" class="anchor"></a>Convert</h2>
+          <p class="section-desc"><p>tsbox is built around a set of converters, which convert time series stored as <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code> or <code>tibble</code> to each other.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_ts.html">ts_data.frame()</a></code> <code><a href="ts_ts.html">ts_df()</a></code> <code><a href="ts_ts.html">ts_data.table()</a></code> <code><a href="ts_ts.html">ts_dt()</a></code> <code><a href="ts_ts.html">ts_tbl()</a></code> <code><a href="ts_ts.html">ts_timeSeries()</a></code> <code><a href="ts_ts.html">ts_ts()</a></code> <code><a href="ts_ts.html">ts_tsibble()</a></code> <code><a href="ts_ts.html">ts_tslist()</a></code> <code><a href="ts_ts.html">ts_xts()</a></code> <code><a href="ts_ts.html">ts_zoo()</a></code> </p>
+        </td>
+        <td><p>Convert Everything to Everything</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-combine-and-separate" class="hasAnchor"><a href="#section-combine-and-separate" class="anchor"></a>Combine and Separate</h2>
+          <p class="section-desc"><p>A set of helper functions to combine multiple time series</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_c.html">ts_c()</a></code> </p>
+        </td>
+        <td><p>Collect Time Series</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_bind.html">ts_bind()</a></code> <code><a href="ts_bind.html">ts_chain()</a></code> </p>
+        </td>
+        <td><p>Bind Time Series</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_span.html">ts_span()</a></code> <code><a href="ts_span.html">ts_start()</a></code> <code><a href="ts_span.html">ts_end()</a></code> </p>
+        </td>
+        <td><p>Limit Time Span</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_pick.html">ts_pick()</a></code> </p>
+        </td>
+        <td><p>Pick Series (Experimental)</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-transform" class="hasAnchor"><a href="#section-transform" class="anchor"></a>Transform</h2>
+          <p class="section-desc"><p>Transformation functions with a unified interface for common time series opperations</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_scale.html">ts_scale()</a></code> </p>
+        </td>
+        <td><p>Normalized Time Series</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_trend.html">ts_trend()</a></code> </p>
+        </td>
+        <td><p>Loess Trend Estimation</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_pc.html">ts_pc()</a></code> <code><a href="ts_pc.html">ts_diff()</a></code> <code><a href="ts_pc.html">ts_pcy()</a></code> <code><a href="ts_pc.html">ts_diffy()</a></code> </p>
+        </td>
+        <td><p>First Differences and Percentage Change Rates</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_index.html">ts_compound()</a></code> <code><a href="ts_index.html">ts_index()</a></code> </p>
+        </td>
+        <td><p>Indices from Levels or Percentage Rates</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_lag.html">ts_lag()</a></code> </p>
+        </td>
+        <td><p>Lag or Lead of Time Series</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-plot" class="hasAnchor"><a href="#section-plot" class="anchor"></a>Plot</h2>
+          <p class="section-desc"><p>Simple and fast plotting functions for any time series</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_plot.html">ts_plot()</a></code> </p>
+        </td>
+        <td><p>Plot Time Series</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_ggplot.html">ts_ggplot()</a></code> <code><a href="ts_ggplot.html">theme_tsbox()</a></code> <code><a href="ts_ggplot.html">colors_tsbox()</a></code> <code><a href="ts_ggplot.html">scale_color_tsbox()</a></code> <code><a href="ts_ggplot.html">scale_fill_tsbox()</a></code> </p>
+        </td>
+        <td><p>Plot Time Series, Using ggplot2</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_save.html">ts_save()</a></code> </p>
+        </td>
+        <td><p>Save Previous Plot</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-reshape" class="hasAnchor"><a href="#section-reshape" class="anchor"></a>Reshape</h2>
+          <p class="section-desc"><p>Reshaping wide data frames into long data frames and back</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_long.html">ts_long()</a></code> <code><a href="ts_long.html">ts_wide()</a></code> </p>
+        </td>
+        <td><p>Reshaping Multiple Time Series</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-frequency" class="hasAnchor"><a href="#section-frequency" class="anchor"></a>Frequency</h2>
+          <p class="section-desc"><p>Functions to manipulate frequency</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_frequency.html">ts_frequency()</a></code> </p>
+        </td>
+        <td><p>Change Frequency</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_regular.html">ts_regular()</a></code> </p>
+        </td>
+        <td><p>Enforce Regularity</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_na_omit.html">ts_na_omit()</a></code> </p>
+        </td>
+        <td><p>Omit NA values</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-user-defined-ts-functions" class="hasAnchor"><a href="#section-user-defined-ts-functions" class="anchor"></a>User defined ts-functions</h2>
+          <p class="section-desc"><p><code>ts_</code> turns existing functions into functions that can deal with any ts- boxable time series object. The example functions are useful themself.</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_examples.html">ts_prcomp()</a></code> <code><a href="ts_examples.html">ts_dygraphs()</a></code> <code><a href="ts_examples.html">ts_forecast()</a></code> <code><a href="ts_examples.html">ts_seas()</a></code> </p>
+        </td>
+        <td><p>Principal Components, Dygraphs, Forecasts, Seasonal Adjustment</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_.html">load_suggested()</a></code> <code><a href="ts_.html">ts_()</a></code> <code><a href="ts_.html">ts_apply()</a></code> </p>
+        </td>
+        <td><p>Constructing ts-Functions</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="copy_class.html">copy_class()</a></code> </p>
+        </td>
+        <td><p>Re-Class ts-Boxable Object</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="relevant_class.html">relevant_class()</a></code> </p>
+        </td>
+        <td><p>Extract Relevant Class</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_boxable.html">ts_boxable()</a></code> </p>
+        </td>
+        <td><p>Test if an Object is ts-Boxable</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_dts.html">ts_dts()</a></code> </p>
+        </td>
+        <td><p>Internal Time Series Class</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-working-with-dates" class="hasAnchor"><a href="#section-working-with-dates" class="anchor"></a>Working with dates</h2>
+          <p class="section-desc"><p>Inclued is a set of functions that makes it easier to work with dates</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="time_shift.html">time_shift()</a></code> </p>
+        </td>
+        <td><p>Shift Time Stamps</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-arithmetic-operators" class="hasAnchor"><a href="#section-arithmetic-operators" class="anchor"></a>Arithmetic operators</h2>
+          <p class="section-desc"><p>Arithmetic operators can be applied on ts-boxable objects</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ts_arithmetic.html">`%ts+%`()</a></code> <code><a href="ts_arithmetic.html">`%ts-%`()</a></code> <code><a href="ts_arithmetic.html">`%ts*%`()</a></code> <code><a href="ts_arithmetic.html">`%ts/%`()</a></code> </p>
+        </td>
+        <td><p>Arithmetic Operators for ts-boxable objects</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -382,5 +383,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

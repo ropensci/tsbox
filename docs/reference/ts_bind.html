@@ -25,14 +25,17 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Bind Time Series — ts_bind" />
 
 <meta property="og:description" content="Combine time series to a new, single time series. ts_bind combines time
 series as they are, ts_chain chains them together, using percentage change
 rates." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -42,16 +45,14 @@ rates." />
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46240882-5"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46240882-5', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46240882-5');
 </script>
 
   </head>
@@ -67,8 +68,12 @@ rates." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsbox</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsbox</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -108,6 +113,7 @@ rates." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -115,28 +121,32 @@ rates." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Bind Time Series</h1>
+    
+    <div class="hidden name"><code>ts_bind.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Combine time series to a new, single time series. <code>ts_bind</code> combines time
 series as they are, <code>ts_chain</code> chains them together, using percentage change
 rates.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>ts_bind</span>(<span class='no'>...</span>)
 
 <span class='fu'>ts_chain</span>(<span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>ts-boxable time series, objects of class <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code>, or <code>tibble</code>.</p></td>
+      <td><p>ts-boxable time series, objects of class <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code>, or <code>tibble</code>. Or a numeric vector (see examples).</p></td>
     </tr>
     </table>
     
@@ -148,7 +158,7 @@ used (if possible).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='ts_c.html'>ts_c</a> to collect multiple time series</p>
+    <div class='dont-index'><p><a href='ts_c.html'>ts_c</a> to collect multiple time series</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -183,7 +193,24 @@ used (if possible).</p>
 #&gt; 213: 1979-09-01   940
 #&gt; 214: 1979-10-01  1081
 #&gt; 215: 1979-11-01  1294
-#&gt; 216: 1979-12-01  1341</div><div class='input'><span class='fu'>ts_chain</span>(<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1975-12-01"</span>), <span class='no'>fdeaths</span>)</div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
+#&gt; 216: 1979-12-01  1341</div><div class='input'>
+<span class='co'># numeric vectors</span>
+<span class='fu'>ts_bind</span>(<span class='fl'>12</span>, <span class='no'>AirPassengers</span>, <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>3</span>))</div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+#&gt; 1948                                              12
+#&gt; 1949 112 118 132 129 121 135 148 148 136 119 104 118
+#&gt; 1950 115 126 141 135 125 149 170 170 158 133 114 140
+#&gt; 1951 145 150 178 163 172 178 199 199 184 162 146 166
+#&gt; 1952 171 180 193 181 183 218 230 242 209 191 172 194
+#&gt; 1953 196 196 236 235 229 243 264 272 237 211 180 201
+#&gt; 1954 204 188 235 227 234 264 302 293 259 229 203 229
+#&gt; 1955 242 233 267 269 270 315 364 347 312 274 237 278
+#&gt; 1956 284 277 317 313 318 374 413 405 355 306 271 306
+#&gt; 1957 315 301 356 348 355 422 465 467 404 347 305 336
+#&gt; 1958 340 318 362 348 363 435 491 505 404 359 310 337
+#&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405
+#&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432
+#&gt; 1961   2   3                                        </div><div class='input'>
+<span class='fu'>ts_chain</span>(<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1975-12-01"</span>), <span class='no'>fdeaths</span>)</div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
 #&gt; 1974 2134.0000 1863.0000 1877.0000 1877.0000 1492.0000 1249.0000 1280.0000
 #&gt; 1975 2103.0000 2137.0000 2153.0000 1833.0000 1403.0000 1288.0000 1186.0000
 #&gt; 1976 2055.2815 3057.4656 2400.9546 1425.5668 1197.7977 1125.4475 1007.5435
@@ -199,7 +226,7 @@ used (if possible).</p>
 #&gt; 1979 1015.5824 1053.0973 1101.3307 1304.9831 1538.1115</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='fu'>ts_pc</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(
   <span class='kw'>comb</span> <span class='kw'>=</span> <span class='fu'>ts_chain</span>(<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1975-12-01"</span>), <span class='no'>fdeaths</span>),
   <span class='no'>fdeaths</span>
-)))</div><div class='img'><img src='ts_bind-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
+)))</div><div class='img'><img src='ts_bind-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -228,5 +255,8 @@ used (if possible).</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

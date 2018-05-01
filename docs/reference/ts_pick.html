@@ -25,12 +25,15 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Pick Series (Experimental) — ts_pick" />
 
 <meta property="og:description" content="Pick (and optionally rename) series from multiple time series." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -40,16 +43,14 @@
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46240882-5"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46240882-5', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46240882-5');
 </script>
 
   </head>
@@ -65,8 +66,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsbox</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsbox</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -106,6 +111,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -113,19 +119,23 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Pick Series (Experimental)</h1>
+    
+    <div class="hidden name"><code>ts_pick.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Pick (and optionally rename) series from multiple time series.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>ts_pick</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -149,7 +159,27 @@
   <span class='no'>EuStockMarkets</span>,
   <span class='kw'>`My Dax`</span> <span class='kw'>=</span> <span class='st'>"DAX"</span>,
   <span class='kw'>`My Smi`</span> <span class='kw'>=</span> <span class='st'>"SMI"</span>
-))</div><div class='img'><img src='ts_pick-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+))</div><div class='img'><img src='ts_pick-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_pick</span>(<span class='no'>EuStockMarkets</span>, <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>)))</div><div class='output co'>#&gt; Time Series:
+#&gt; Start = c(1991, 130) 
+#&gt; End = c(1991, 135) 
+#&gt; Frequency = 260 
+#&gt;              DAX    SMI
+#&gt; 1991.496 1628.75 1678.1
+#&gt; 1991.500 1613.63 1688.5
+#&gt; 1991.504 1606.51 1678.6
+#&gt; 1991.508 1621.04 1684.1
+#&gt; 1991.512 1618.16 1686.6
+#&gt; 1991.515 1610.61 1671.6</div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_pick</span>(<span class='no'>EuStockMarkets</span>, <span class='kw'>`My Dax`</span> <span class='kw'>=</span> <span class='st'>'DAX'</span>, <span class='kw'>`My Smi`</span> <span class='kw'>=</span> <span class='st'>'SMI'</span>))</div><div class='output co'>#&gt; Time Series:
+#&gt; Start = c(1991, 130) 
+#&gt; End = c(1991, 135) 
+#&gt; Frequency = 260 
+#&gt;           My Dax My Smi
+#&gt; 1991.496 1628.75 1678.1
+#&gt; 1991.500 1613.63 1688.5
+#&gt; 1991.504 1606.51 1678.6
+#&gt; 1991.508 1621.04 1684.1
+#&gt; 1991.512 1618.16 1686.6
+#&gt; 1991.515 1610.61 1671.6</div><div class='input'>
 <span class='co'># Programming use</span>
 <span class='no'>to.be.picked.and.renamed</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='kw'>`My Dax`</span> <span class='kw'>=</span> <span class='st'>"DAX"</span>, <span class='kw'>`My Smi`</span> <span class='kw'>=</span> <span class='st'>"SMI"</span>)
 <span class='fu'>head</span>(<span class='fu'>ts_pick</span>(<span class='no'>EuStockMarkets</span>, <span class='no'>to.be.picked.and.renamed</span>))</div><div class='output co'>#&gt; Time Series:
@@ -189,5 +219,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

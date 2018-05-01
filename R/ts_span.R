@@ -64,8 +64,6 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
   x.dts <- ts_dts(x)
   sstr <- unique(get_shift_string(x.dts)$string)
   ctime <- dts_cname(x.dts)$time
-
-
   if (length(sstr) > 1 && is.numeric(end) && end < 999){
     stop("mixed frequencies: 'end' cannot be specified as integer", call. = FALSE)
   }
@@ -141,7 +139,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
 # get_frequency(x)
 get_shift_string <- function(x){
   freq <- NULL
-  x <- ts_dts(x)
+  x <- copy(ts_dts(x))
   stopifnot(inherits(x, "dts"))
   frequency_one <- function(x) {
     diffdt <- frequency_table(x)
