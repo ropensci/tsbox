@@ -12,6 +12,8 @@
 #'   `My Dax` = "DAX", 
 #'   `My Smi` = "SMI"
 #' ))
+#' head(ts_pick(EuStockMarkets, c(1, 2))
+#' head(ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI'))
 #' 
 #' # Programming use
 #' to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")
@@ -25,12 +27,25 @@ ts_pick <- function(x, ...) {
                               width.cutoff = 500L))
 
   .id <- c(...)
+
   if (is.null(names(.id))) names(.id) <- .id
   names(.id)[names(.id) == ""] <- .id[names(.id) == ""]
 
   z <- combine_id_cols(ts_dts(x))
 
   cname <- dts_cname(z)
+
+  if (is.numeric(.id)) {
+    names.id <- names(.id)
+    base.id <- as.character(unname(.id))
+    .id <- unique(z[[cname$id]])[.id]
+    if (!identical(names.id, base.id)){
+      .id <- setNames(.id, names.id)
+    } else {
+      .id <- setNames(.id, .id)
+    }
+    
+  }
 
   setkeyv(z, cname$id)
   z <- z[.id]
