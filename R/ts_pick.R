@@ -12,7 +12,7 @@
 #'   `My Dax` = "DAX", 
 #'   `My Smi` = "SMI"
 #' ))
-#' head(ts_pick(EuStockMarkets, c(1, 2))
+#' head(ts_pick(EuStockMarkets, c(1, 2)))
 #' head(ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI'))
 #' 
 #' # Programming use

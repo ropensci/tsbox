@@ -25,14 +25,17 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Reshaping Multiple Time Series — ts_long" />
 
 <meta property="og:description" content="Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
 Note that long format data frames are ts-boxable objects, where wide format data
 frames are not." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -42,16 +45,14 @@ frames are not." />
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46240882-5"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46240882-5', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46240882-5');
 </script>
 
   </head>
@@ -67,8 +68,12 @@ frames are not." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsbox</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsbox</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -108,6 +113,7 @@ frames are not." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -115,23 +121,27 @@ frames are not." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Reshaping Multiple Time Series</h1>
+    
+    <div class="hidden name"><code>ts_long.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
 Note that long format data frames are ts-boxable objects, where wide format data
 frames are not.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>ts_long</span>(<span class='no'>x</span>)
 
 <span class='fu'>ts_wide</span>(<span class='no'>x</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -148,79 +158,19 @@ frames are not.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df.wide</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_wide</span>(<span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>)))
-<span class='fu'>ts_ts</span>(<span class='fu'>ts_long</span>(<span class='no'>df.wide</span>))</div><div class='output co'>#&gt;          mdeaths fdeaths
-#&gt; Jan 1974    2134     901
-#&gt; Feb 1974    1863     689
-#&gt; Mar 1974    1877     827
-#&gt; Apr 1974    1877     677
-#&gt; May 1974    1492     522
-#&gt; Jun 1974    1249     406
-#&gt; Jul 1974    1280     441
-#&gt; Aug 1974    1131     393
-#&gt; Sep 1974    1209     387
-#&gt; Oct 1974    1492     582
-#&gt; Nov 1974    1621     578
-#&gt; Dec 1974    1846     666
-#&gt; Jan 1975    2103     830
-#&gt; Feb 1975    2137     752
-#&gt; Mar 1975    2153     785
-#&gt; Apr 1975    1833     664
-#&gt; May 1975    1403     467
-#&gt; Jun 1975    1288     438
-#&gt; Jul 1975    1186     421
-#&gt; Aug 1975    1133     412
-#&gt; Sep 1975    1053     343
-#&gt; Oct 1975    1347     440
-#&gt; Nov 1975    1545     531
-#&gt; Dec 1975    2066     771
-#&gt; Jan 1976    2020     767
-#&gt; Feb 1976    2750    1141
-#&gt; Mar 1976    2283     896
-#&gt; Apr 1976    1479     532
-#&gt; May 1976    1189     447
-#&gt; Jun 1976    1160     420
-#&gt; Jul 1976    1113     376
-#&gt; Aug 1976     970     330
-#&gt; Sep 1976     999     357
-#&gt; Oct 1976    1208     445
-#&gt; Nov 1976    1467     546
-#&gt; Dec 1976    2059     764
-#&gt; Jan 1977    2240     862
-#&gt; Feb 1977    1634     660
-#&gt; Mar 1977    1722     663
-#&gt; Apr 1977    1801     643
-#&gt; May 1977    1246     502
-#&gt; Jun 1977    1162     392
-#&gt; Jul 1977    1087     411
-#&gt; Aug 1977    1013     348
-#&gt; Sep 1977     959     387
-#&gt; Oct 1977    1179     385
-#&gt; Nov 1977    1229     411
-#&gt; Dec 1977    1655     638
-#&gt; Jan 1978    2019     796
-#&gt; Feb 1978    2284     853
-#&gt; Mar 1978    1942     737
-#&gt; Apr 1978    1423     546
-#&gt; May 1978    1340     530
-#&gt; Jun 1978    1187     446
-#&gt; Jul 1978    1098     431
-#&gt; Aug 1978    1004     362
-#&gt; Sep 1978     970     387
-#&gt; Oct 1978    1140     430
-#&gt; Nov 1978    1110     425
-#&gt; Dec 1978    1812     679
-#&gt; Jan 1979    2263     821
-#&gt; Feb 1979    1820     785
-#&gt; Mar 1979    1846     727
-#&gt; Apr 1979    1531     612
-#&gt; May 1979    1215     478
-#&gt; Jun 1979    1075     429
-#&gt; Jul 1979    1056     405
-#&gt; Aug 1979     975     379
-#&gt; Sep 1979     940     393
-#&gt; Oct 1979    1081     411
-#&gt; Nov 1979    1294     487
-#&gt; Dec 1979    1341     574</div></pre>
+<span class='fu'>head</span>(<span class='no'>df.wide</span>)</div><div class='output co'>#&gt;         time mdeaths fdeaths
+#&gt; 1 1974-01-01    2134     901
+#&gt; 2 1974-02-01    1863     689
+#&gt; 3 1974-03-01    1877     827
+#&gt; 4 1974-04-01    1877     677
+#&gt; 5 1974-05-01    1492     522
+#&gt; 6 1974-06-01    1249     406</div><div class='input'><span class='fu'>head</span>(<span class='fu'>ts_long</span>(<span class='no'>df.wide</span>))</div><div class='output co'>#&gt;        id       time value
+#&gt; 1 mdeaths 1974-01-01  2134
+#&gt; 2 mdeaths 1974-02-01  1863
+#&gt; 3 mdeaths 1974-03-01  1877
+#&gt; 4 mdeaths 1974-04-01  1877
+#&gt; 5 mdeaths 1974-05-01  1492
+#&gt; 6 mdeaths 1974-06-01  1249</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -247,5 +197,8 @@ frames are not.</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

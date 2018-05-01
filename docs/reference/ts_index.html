@@ -25,14 +25,17 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Indices from Levels or Percentage Rates — ts_index" />
 
 <meta property="og:description" content="ts_index returns an index series, with value of 1 at base date.
 ts_compound builds an index from percentage change rates, starting with 1
 and compounding the rates." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -42,16 +45,14 @@ and compounding the rates." />
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46240882-5"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-46240882-5', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-46240882-5');
 </script>
 
   </head>
@@ -67,8 +68,12 @@ and compounding the rates." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">tsbox</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">tsbox</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -108,6 +113,7 @@ and compounding the rates." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -115,23 +121,27 @@ and compounding the rates." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Indices from Levels or Percentage Rates</h1>
+    
+    <div class="hidden name"><code>ts_index.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>ts_index</code> returns an index series, with value of 1 at <code>base</code> date.
 <code>ts_compound</code> builds an index from percentage change rates, starting with 1
 and compounding the rates.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>ts_compound</span>(<span class='no'>x</span>, <span class='kw'>denominator</span> <span class='kw'>=</span> <span class='fl'>100</span>)
 
 <span class='fu'>ts_index</span>(<span class='no'>x</span>, <span class='kw'>base</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -173,7 +183,7 @@ decimal fraction</p></td>
     <span class='fu'>ts_compound</span>(<span class='fu'>ts_bind</span>(<span class='fu'>ts_pc</span>(<span class='no'>mdeaths</span>), <span class='fl'>15</span>, <span class='fl'>23</span>, <span class='fl'>33</span>))),
   <span class='kw'>`So Far`</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"A Very Manual Forecast"</span>
-)</div><div class='img'><img src='ts_index-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -200,5 +210,8 @@ decimal fraction</p></td>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
