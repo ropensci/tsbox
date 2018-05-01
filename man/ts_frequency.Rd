@@ -4,7 +4,7 @@
 \alias{ts_frequency}
 \title{Change Frequency}
 \usage{
-ts_frequency(x, to = "year", aggregate = "mean")
+ts_frequency(x, to = "year", aggregate = "mean", incomplete = FALSE)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tibble}, \code{tsibble} or \code{timeSeries}.}
@@ -14,13 +14,16 @@ ts_frequency(x, to = "year", aggregate = "mean")
 
 \item{aggregate}{character string, or function. Either \code{"mean"}, \code{"sum"},
 \code{"first"}, or \code{"last"}, or any aggregate function, such as \code{\link[base:mean]{base::mean()}}.}
+
+\item{incomplete}{logical, if \code{TRUE}, incomplete periods are aggregated as
+well. For irregular series, incomplete periods are always aggregated.}
 }
 \value{
 a ts-boxable time series, with the same class as the input.
 }
 \description{
-Changes the frequency of a time series. Currently, incomplete
-periods are aggregated as well, but this is likely to change.
+Changes the frequency of a time series. By default, incomplete
+periods of regular series are omitted.
 }
 \examples{
 ts_frequency(cbind(mdeaths, fdeaths), "year", "sum")
@@ -30,7 +33,8 @@ ts_frequency(cbind(mdeaths, fdeaths), "quarter", "last")
 ts_frequency(AirPassengers, 4, "sum")
 ts_frequency(AirPassengers, 1, "sum")
 
-# Note that incomplete years are (currently) aggregated as well
+# Note that incomplete years are omited by default
 ts_frequency(EuStockMarkets, "year")
+ts_frequency(EuStockMarkets, "year", incomplete = TRUE)
 
 }
