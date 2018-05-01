@@ -1,13 +1,16 @@
 #' Change Frequency
 #'
-#' Changes the frequency of a time series. Currently, incomplete
-#' periods are aggregated as well, but this is likely to change.
+#' Changes the frequency of a time series. By default, incomplete
+#' periods of regular series are omitted.
 #'
 #' @inherit ts_dts
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
 #' @param aggregate character string, or function. Either `"mean"`, `"sum"`,
 #'  `"first"`, or `"last"`, or any aggregate function, such as [base::mean()].
+#'  
+#' @param incomplete logical, if `TRUE`, incomplete periods are aggregated as
+#'   well. For irregular series, incomplete periods are always aggregated.
 #'
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
@@ -18,13 +21,14 @@
 #' ts_frequency(AirPassengers, 4, "sum")
 #' ts_frequency(AirPassengers, 1, "sum")
 #'
-#' # Note that incomplete years are (currently) aggregated as well
+#' # Note that incomplete years are omited by default
 #' ts_frequency(EuStockMarkets, "year")
+#' ts_frequency(EuStockMarkets, "year", incomplete = TRUE)
 #'
 #' @export
-ts_frequency <- function(x, to = "year", aggregate = "mean") {
+ts_frequency <- function(x, to = "year", aggregate = "mean", incomplete = FALSE) {
   stopifnot(ts_boxable(x))
-  z <- frequency_core(ts_dts(x), to = to, aggregate = aggregate)
+  z <- frequency_core(ts_dts(x), to = to, aggregate = aggregate, incomplete = incomplete)
   copy_class(z, x, preserve.mode = FALSE)
 }
 
@@ -36,9 +40,20 @@ period.date <- list(
 
 numeric.period <- c(month = 12, quarter = 4, year = 1)
 
-
-frequency_core <- function(x, to, aggregate) {
+frequency_core <- function(x, to, aggregate, incomplete) {
   stopifnot(inherits(x, "dts"))
+
+  # make sure incomplete periods result in NA
+  if (incomplete == FALSE){
+    try.x <- try(ts_regular(x))
+    if (inherits(x, "try-error")){
+      message("series is not regular, 'incomplete' set to TRUE. Aggregation may be based on incomplete periods")
+      incomplete <- TRUE
+    } else {
+      x <- ts_bind(NA, try.x, NA)
+    }
+    
+  }
 
   if (is.character(aggregate)) {
     if (!aggregate %in% c("mean", "sum", "first", "last")) {
@@ -49,8 +64,8 @@ frequency_core <- function(x, to, aggregate) {
     }
     aggregate <- switch(
       aggregate,
-      mean = function(x) mean(x, na.rm = TRUE),
-      sum = function(x) sum(x, na.rm = TRUE),
+      mean = function(x) mean(x, na.rm = incomplete),
+      sum = function(x) sum(x, na.rm = incomplete),
       first = data.table::first,
       last = data.table::last
     )
@@ -98,9 +113,10 @@ frequency_core <- function(x, to, aggregate) {
   x0[, time := as.Date(pdfun(time))]
 
   z <- x0[, list(value = aggregate(value)), by = eval(byexpr)]
+  z <- z[!is.na(value)]
+
   data.table::setnames(z, "value", cname$value)
   data.table::setnames(z, "time", cname$time)
-
 
   z[]
 }

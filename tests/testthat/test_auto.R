@@ -15,22 +15,20 @@ test_that("two way conversion", {
     # single series
     expect_equal(ts_ts(ts_fun(AirPassengers)), AirPassengers)
 
+    # latest tsibble does not keep var order
+    if (class == "tsibble") break 
 
-    if (!(class %in% c("tsibble"))){ 
-      # latest tsibble is reorders id order
-
-      # non standard regualar
-      if (!(class %in% c("timeSeries"))){  # stored in seconds only, which prevents back covnersion to ts
-        expect_equal(ts_ts(ts_fun(EuStockMarkets)), EuStockMarkets)
-      }
-
-      # mixed frequencies
-      expect_equal(ts_ts(ts_fun(ts_c(austres, AirPassengers))), ts_c(austres, AirPassengers))
-      # non alphabetical order, multi series
-      expect_equal(ts_ts(ts_fun(ts_c(mdeaths, fdeaths))), ts_c(mdeaths, fdeaths))
-      # non alphabetical order, multi series
-      expect_equal(ts_ts(ts_fun(ts_c(mdeaths, AirPassengers))), ts_c(mdeaths, AirPassengers))
+    # non standard regualar
+    if (!(class %in% c("timeSeries"))){  # stored in seconds only, which prevents back covnersion to ts
+      expect_equal(ts_ts(ts_fun(EuStockMarkets)), EuStockMarkets)
     }
+    
+    # mixed frequencies
+    expect_equal(ts_ts(ts_fun(ts_c(austres, AirPassengers))), ts_c(austres, AirPassengers))
+    # non alphabetical order, multi series
+    expect_equal(ts_ts(ts_fun(ts_c(mdeaths, fdeaths))), ts_c(mdeaths, fdeaths))
+    # non alphabetical order, multi series
+    expect_equal(ts_ts(ts_fun(ts_c(mdeaths, AirPassengers))), ts_c(mdeaths, AirPassengers))
 
   }
 

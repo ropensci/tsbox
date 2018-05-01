@@ -62,6 +62,7 @@ wide_core <- function(x) {
   stopifnot(ncol(x) == 3)
 
   cname <- dts_cname(x)
+
   # tattr <- dts_tattr(x)
 
   n.non.unique <- nrow(x) - nrow(unique(x, by = c(cname$id, cname$time)))
@@ -69,8 +70,14 @@ wide_core <- function(x) {
     stop("contains ", n.non.unique, " duplicate entries", call. = FALSE)
   }
 
+  # dcast is confused by factors
+  if (is.factor(x[[cname$id]])) x[[cname$id]] <- as.character(x[[cname$id]])
 
   setnames(x, cname$time, "time")
+
+  # dcast is confused by some things
+  cname$id <- gsub("~", "_", cname$id, fixed = TRUE)
+  setnames(x, gsub("~", "_", names(x), fixed = TRUE))
 
   # Casting works fine for POSIXct as well.
   z <- dcast(

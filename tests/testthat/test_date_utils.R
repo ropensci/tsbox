@@ -26,13 +26,22 @@ test_that("df aggregation using date_ functions is working", {
   expect_equal(x, ts_tbl(ts_frequency(ts_c(mdeaths, fdeaths), "quarter")))
 
 
+  x <- ts_bind(NA, ts_tbl(ts_c(EuStockMarkets)), NA) %>%
+    mutate(time = as.Date(date_month(time))) %>%
+    group_by(id, time) %>%
+    summarize(value = mean(value)) %>%
+    ungroup() %>% 
+    ts_na_omit()
+  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(EuStockMarkets), "month")), id))
+
+  # include incompletes
   x <- ts_tbl(ts_c(EuStockMarkets)) %>%
     mutate(time = as.Date(date_month(time))) %>%
     group_by(id, time) %>%
     summarize(value = mean(value)) %>%
     ungroup()
+  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(EuStockMarkets), "month", incomplete = TRUE)), id))
 
-  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(EuStockMarkets), "month")), id))
 })
 
 
