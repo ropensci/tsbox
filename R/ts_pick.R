@@ -29,11 +29,14 @@ ts_pick <- function(x, ...) {
   names(.id)[names(.id) == ""] <- .id[names(.id) == ""]
 
   z <- combine_id_cols(ts_dts(x))
-  setkey(z, id)
+
+  cname <- dts_cname(z)
+
+  setkeyv(z, cname$id)
   z <- z[.id]
-  z$id <- as.factor(z$id)
-  levels(z$id) <- names(.id)[match(levels(z$id), .id)]
-  z$id <- as.character(z$id)
+  z[[cname$id]] <- as.factor(z[[cname$id]])
+  levels(z[[cname$id]]) <- names(.id)[match(levels(z[[cname$id]]), .id)]
+  z[[cname$id]] <- as.character(z[[cname$id]])
 
   copy_class(z, x)
 }
