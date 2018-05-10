@@ -10,25 +10,21 @@ ts_tsibble_dts <- function(x) {
 
   # for some reason, this does not work
   # tsibble::as_tsibble(x, key = id(!!cid), index = !!ctime)
-  # eval parse workaround:
-
+  # bquote workaround:
   if (length(cid) > 0){
-    estr <- paste0(
-      "tsibble::as_tsibble(x, key = tsibble::id(",
-      paste(cid, collapse = ", "),
-      "), index = ",
-      ctime,
-      ")"
+    if (length(cid) > 1){
+      cid.str <- paste(cid, collapse = ", ")
+      key.expr <- parse(text = paste0("tsibble::id(", cid.str, ")"))[[1]]
+    } else {
+      key.expr <- bquote(tsibble::id(.(as.name(cid))))
+    }
+    expr <- bquote(
+      tsibble::as_tsibble(x, key = .(key.expr), index = .(as.name(ctime)))
     )
   } else {
-    estr <- paste0(
-      "tsibble::as_tsibble(x, index = ",
-      ctime,
-      ")"
-    )
+    expr <- bquote(tsibble::as_tsibble(x, index = .(as.name(ctime))))
   }
-
-  z <- eval(parse(text = estr), envir = environment())
+  z <- eval(expr, envir = environment())
   z
 }
 
