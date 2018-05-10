@@ -9,7 +9,7 @@
 #' @param aggregate character string, or function. Either `"mean"`, `"sum"`,
 #'  `"first"`, or `"last"`, or any aggregate function, such as [base::mean()].
 #'  
-#' @param incomplete logical, if `TRUE`, incomplete periods are aggregated as
+#' @param na.rm logical, if `TRUE`, incomplete periods are aggregated as
 #'   well. For irregular series, incomplete periods are always aggregated.
 #'
 #' @return a ts-boxable time series, with the same class as the input.
@@ -23,12 +23,12 @@
 #'
 #' # Note that incomplete years are omited by default
 #' ts_frequency(EuStockMarkets, "year")
-#' ts_frequency(EuStockMarkets, "year", incomplete = TRUE)
+#' ts_frequency(EuStockMarkets, "year", na.rm = TRUE)
 #'
 #' @export
-ts_frequency <- function(x, to = "year", aggregate = "mean", incomplete = FALSE) {
+ts_frequency <- function(x, to = "year", aggregate = "mean", na.rm = FALSE) {
   stopifnot(ts_boxable(x))
-  z <- frequency_core(ts_dts(x), to = to, aggregate = aggregate, incomplete = incomplete)
+  z <- frequency_core(ts_dts(x), to = to, aggregate = aggregate, na.rm = na.rm)
   copy_class(z, x, preserve.mode = FALSE)
 }
 
@@ -40,15 +40,15 @@ period.date <- list(
 
 numeric.period <- c(month = 12, quarter = 4, year = 1)
 
-frequency_core <- function(x, to, aggregate, incomplete) {
+frequency_core <- function(x, to, aggregate, na.rm) {
   stopifnot(inherits(x, "dts"))
 
   # make sure incomplete periods result in NA
-  if (incomplete == FALSE){
+  if (na.rm == FALSE){
     try.x <- try(ts_regular(x))
     if (inherits(x, "try-error")){
-      message("series is not regular, 'incomplete' set to TRUE. Aggregation may be based on incomplete periods")
-      incomplete <- TRUE
+      message("series is not regular, 'na.rm' set to TRUE. Aggregation may be based on incomplete periods")
+      na.rm <- TRUE
     } else {
       x <- ts_bind(NA, try.x, NA)
     }
@@ -64,8 +64,8 @@ frequency_core <- function(x, to, aggregate, incomplete) {
     }
     aggregate <- switch(
       aggregate,
-      mean = function(x) mean(x, na.rm = incomplete),
-      sum = function(x) sum(x, na.rm = incomplete),
+      mean = function(x) mean(x, na.rm = na.rm),
+      sum = function(x) sum(x, na.rm = na.rm),
       first = data.table::first,
       last = data.table::last
     )

@@ -108,8 +108,7 @@ a2 <- dta.tsibble %>%
 
 ```r
 a3 <- dta.tsibble %>%
-  ts_frequency("month", mean) %>% 
-  arrange(origin, id)
+  ts_frequency("month", mean, na.rm = TRUE)
 ```
 
 ```r

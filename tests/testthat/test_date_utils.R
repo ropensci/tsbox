@@ -40,7 +40,7 @@ test_that("df aggregation using date_ functions is working", {
     group_by(id, time) %>%
     summarize(value = mean(value)) %>%
     ungroup()
-  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(EuStockMarkets), "month", incomplete = TRUE)), id))
+  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(EuStockMarkets), "month", na.rm = TRUE)), id))
 
 })
 
