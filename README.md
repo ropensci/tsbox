@@ -6,7 +6,7 @@ tsbox: Class-Agnostic Time Series in R
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsbox)](https://cran.r-project.org/package=tsbox)
 
 The R ecosystem knows a [vast
-number](https://cran.r-project.org/web/views/TimeSeries.html)  of time series
+number](https://CRAN.R-project.org/view=TimeSeries)  of time series
 standards. Instead of creating the ultimate [15th](https://xkcd.com/927/) time
 series class, tsbox provides a set of tools that are **agnostic towards the
 existing standards**. The tools also allow you to handle time series as plain

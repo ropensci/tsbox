@@ -4,6 +4,9 @@ context("README.md")
 
 
 test_that("examples from README.md work properly", {
+
+  skip_on_cran()
+  
   x.ts <- ts_c(mdeaths, fdeaths)
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)

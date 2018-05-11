@@ -197,7 +197,7 @@ standard ggplot (see examples).</p>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_ggplot</span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='no'>ldeaths</span>, <span class='kw'>female</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>, <span class='kw'>male</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>)
 <span class='no'>p</span></div><div class='img'><img src='ts_ggplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># with themes for the look and feel of ts_plot()</span>
-<span class='no'>p</span> + <span class='fu'>theme_tsbox</span>() + <span class='fu'>scale_color_tsbox</span>()</div><div class='img'><img src='ts_ggplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>theme_tsbox</span>() + <span class='fu'>scale_color_tsbox</span>()</div><div class='output co'>#&gt; <span class='error'>Error in grid.Call(C_convert, x, as.integer(whatfrom), as.integer(whatto),     valid.units(unitTo)): VECTOR_ELT() can only be applied to a 'list', not a 'NULL'</span></div><div class='input'>
 <span class='co'># also use themes with standard ggplot</span>
 <span class='fu'>suppressMessages</span>(<span class='fu'>library</span>(<span class='no'>ggplot2</span>))
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='no'>ldeaths</span>, <span class='kw'>female</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>, <span class='kw'>male</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>))
@@ -205,7 +205,7 @@ standard ggplot (see examples).</p>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap'>facet_wrap</a></span>(<span class='st'>"id"</span>) +
   <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_path'>geom_line</a></span>() +
   <span class='fu'>theme_tsbox</span>() +
-  <span class='fu'>scale_color_tsbox</span>()</div><div class='img'><img src='ts_ggplot-3.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>scale_color_tsbox</span>()</div><div class='img'><img src='ts_ggplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='fu'>library</span>(<span class='no'>dataseries</span>)
 <span class='no'>dta</span> <span class='kw'>&lt;-</span> <span class='fu'>ds</span>(<span class='fu'>c</span>(<span class='st'>"GDP.PBRTT.A.R"</span>, <span class='st'>"CCI.CCIIR"</span>), <span class='st'>"xts"</span>)

@@ -5,6 +5,9 @@ library(tsbox)
 context("basic conversion handling")
 
 test_that("conversion produces right classes", {
+
+  skip_on_cran()
+
   expect_s3_class(ts_xts(AirPassengers), "xts")
   expect_s3_class(ts_ts(AirPassengers), "ts")
   expect_s3_class(ts_df(AirPassengers), "data.frame")
@@ -44,6 +47,9 @@ test_that("conversion produces right classes", {
 
 
 test_that("conversion between objects works as expected: ldeaths", {
+
+  skip_on_cran()
+
   x.ts <- ts_c(mdeaths, fdeaths)
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
@@ -78,6 +84,9 @@ test_that("conversion between objects works as expected: ldeaths", {
 
 
 test_that("conversion between objects works as expected: discoveries", {
+
+  skip_on_cran()
+
   x.ts <- discoveries
   x.xts <- ts_xts(discoveries)
   x.df <- ts_df(x.xts)
@@ -107,6 +116,9 @@ test_that("conversion between objects works as expected: discoveries", {
 
 
 test_that("conversion between objects works as expected: EuStockMarkets", {
+
+  skip_on_cran()
+
   x.ts <- EuStockMarkets
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
@@ -142,6 +154,8 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
 
 
 test_that("some trickier situations work properly", {
+  skip_on_cran()
+  skip_if_not_installed("forecast")
   expect_is(
     ts_bind(
       ts_c(AirPassengers, mdeaths),

@@ -167,8 +167,7 @@ a1 &lt;-<span class="st"> </span>dta.tsibble <span class="op">%&gt;%</span>
 <h4 class="hasAnchor">
 <a href="#the-tsbox-way" class="anchor"></a>the tsbox way</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a3 &lt;-<span class="st"> </span>dta.tsibble <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ts_frequency.html">ts_frequency</a></span>(<span class="st">"month"</span>, mean) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(origin, id)</code></pre></div>
+<span class="st">  </span><span class="kw"><a href="../reference/ts_frequency.html">ts_frequency</a></span>(<span class="st">"month"</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/data.table/topics/all.equal.data.table">all.equal</a></span>(a1, a2)
 <span class="kw"><a href="http://www.rdocumentation.org/packages/data.table/topics/all.equal.data.table">all.equal</a></span>(a1, a3)</code></pre></div>
 </div>

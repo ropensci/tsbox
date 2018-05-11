@@ -19,6 +19,8 @@ test_that("main functions work with non standard cnames", {
   expect_is(ts_index(x2), "tbl_df")
   expect_is(ts_lag(x), "tbl_df")
   expect_is(ts_pick(x, 'mdeaths'), "tbl_df")
+
+  skip_on_cran()
   expect_is(ts_plot(x), "call")
 
 })

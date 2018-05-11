@@ -5,6 +5,8 @@ context("nyc fligths")
 
 test_that("minimal example works", {
 
+  skip_if_not_installed("nycflights13")
+
   library(dplyr)
   library(nycflights13)
   dta <- weather %>% 

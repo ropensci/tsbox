@@ -5,6 +5,8 @@ context("ts_plot")
 
 
 test_that("ts_plot works", {
+  skip_on_cran()
+
   ts_plot(AirPassengers, title = "AirPassengers", subtitle = "Heyhey")
   tf <- tempfile(fileext = ".pdf")
   ts_save(tf, open = FALSE)

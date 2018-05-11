@@ -5,6 +5,8 @@ context("ts_")
 
 
 test_that("ts_ works with more exotic options", {
+  skip_if_not_installed("dygraphs")
+
   expect_equal(ts_(rowSums)(ts_c(mdeaths, fdeaths)), mdeaths + fdeaths)
   ts_(dygraphs::dygraph, class = "xts")
 

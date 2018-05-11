@@ -100,7 +100,7 @@
 
     
     
-<p>The R ecosystem knows a <a href="https://cran.r-project.org/web/views/TimeSeries.html">vast number</a> of time series standards. Instead of creating the ultimate <a href="https://xkcd.com/927/">15th</a> time series class, tsbox provides a set of tools that are <strong>agnostic towards the existing standards</strong>. The tools also allow you to handle time series as plain data frames, thus making it easy to deal with time series in a <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> or <a href="https://CRAN.R-project.org/package=data.table">data.table</a> workflow.</p>
+<p>The R ecosystem knows a <a href="https://CRAN.R-project.org/view=TimeSeries">vast number</a> of time series standards. Instead of creating the ultimate <a href="https://xkcd.com/927/">15th</a> time series class, tsbox provides a set of tools that are <strong>agnostic towards the existing standards</strong>. The tools also allow you to handle time series as plain data frames, thus making it easy to deal with time series in a <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> or <a href="https://CRAN.R-project.org/package=data.table">data.table</a> workflow.</p>
 <p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong>, <strong>tibble</strong>, <strong>zoo</strong>, <strong>tsibble</strong> or <strong>timeSeries</strong> to each other. Because this works reliably, we can easily write functions that work for all classes. So whether we want to smooth, scale, differentiate, chain, forecast, regularize or seasonally adjust a time series, we can use the same commands to whatever time series class at hand. And, most conveniently, we get a time series plot function that works for all classes and frequencies.</p>
 <p>To install:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"christophsax/tsbox"</span>)</code></pre></div>
@@ -197,12 +197,6 @@ dta <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_trend.html">ts_trend</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ts_plot.html">ts_plot</a></span>()</code></pre></div>
 </div>
-<div id="using-tsbox-with-zoo-tibbletime-or-tsibble" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-tsbox-with-zoo-tibbletime-or-tsibble" class="anchor"></a>Using tsbox with zoo, tibbletime or tsibble</h2>
-<p>A few other packages are dealing with time series</p>
-<p>And it also can be used with <a href="https://cran.r-project.org/web/packages/tibbletime/index.html">tibbletime</a> and <a href="https://cran.r-project.org/web/packages/tsibble/index.html">tsibble</a>.</p>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -217,7 +211,6 @@ dta <span class="op">%&gt;%</span><span class="st"> </span>
       <li><a href="#and-plot-just-about-everything">And plot just about everything</a></li>
       <li><a href="#time-series-in-data-frames">Time series in data frames</a></li>
       <li><a href="#using-tsbox-in-a-dplyr-pipe-workflow">Using tsbox in a dplyr / pipe workflow</a></li>
-      <li><a href="#using-tsbox-with-zoo-tibbletime-or-tsibble">Using tsbox with zoo, tibbletime or tsibble</a></li>
       </ul>
 </div>
       </div>

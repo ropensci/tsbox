@@ -135,7 +135,7 @@ periods of regular series are omitted.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ts_frequency</span>(<span class='no'>x</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>aggregate</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>incomplete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ts_frequency</span>(<span class='no'>x</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>aggregate</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,7 +155,7 @@ periods of regular series are omitted.</p>
 <code>"first"</code>, or <code>"last"</code>, or any aggregate function, such as <code><a href='http://www.rdocumentation.org/packages/base/topics/mean'>base::mean()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>incomplete</th>
+      <th>na.rm</th>
       <td><p>logical, if <code>TRUE</code>, incomplete periods are aggregated as
 well. For irregular series, incomplete periods are always aggregated.</p></td>
     </tr>
@@ -240,7 +240,7 @@ well. For irregular series, incomplete periods are always aggregated.</p></td>
 #&gt; 1994 2123.445 2716.570 2061.115 3144.673
 #&gt; 1995 2135.226 2824.320 1872.022 3343.207
 #&gt; 1996 2560.317 3610.032 2071.866 3821.407
-#&gt; 1997 3694.279 5173.600 2745.503 4673.295</div><div class='input'><span class='fu'>ts_frequency</span>(<span class='no'>EuStockMarkets</span>, <span class='st'>"year"</span>, <span class='kw'>incomplete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Time Series:
+#&gt; 1997 3694.279 5173.600 2745.503 4673.295</div><div class='input'><span class='fu'>ts_frequency</span>(<span class='no'>EuStockMarkets</span>, <span class='st'>"year"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Time Series:
 #&gt; Start = 1991 
 #&gt; End = 1998 
 #&gt; Frequency = 1 

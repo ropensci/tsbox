@@ -10,7 +10,7 @@ vignette: >
 ---
 
 The R ecosystem knows a [vast
-number](https://cran.r-project.org/web/views/TimeSeries.html)  of time series
+number](https://CRAN.R-project.org/view=TimeSeries)  of time series
 standards. Instead of creating the ultimate [15th](https://xkcd.com/927/) time
 series class, tsbox provides a set of tools that are **agnostic towards the
 existing standards**. The tools also allow you to handle time series as plain
@@ -210,8 +210,3 @@ dta %>%
 
 ```
 
-## Using tsbox with zoo, tibbletime or tsibble
-
-A few other packages are dealing with time series
-
-And it also can be used with [tibbletime](https://cran.r-project.org/web/packages/tibbletime/index.html) and [tsibble](https://cran.r-project.org/web/packages/tsibble/index.html).

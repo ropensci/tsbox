@@ -18,22 +18,18 @@
       almost surely isnt. Perhaps use ISODate?
 - [X] POSIXct does not merge well. Use rolling joins instead.
 - [X] How useful are the date_ functions?
-
-- [ ] use bquote, rather than eval parse text (to_from_tsibble, but perhaps elsewhere)
-- [ ] ts_frequency with incomplete periods?
+- [X] use bquote, rather than eval parse text (to_from_tsibble, but perhaps elsewhere)
+- [X] ts_frequency with incomplete periods?
 
 - Documentation
-
   - [ ] LONGTERM Documentation for auto generated ts_ functions.
         It would be nice if help is also available. 
         Can we do this? Ideally, the pop up rstudio should show what ts_seas is doing?
 
 - Frequency Conversion
-
   - [ ] LONGTERM Conversion to higher frequency (needs tempdisagg update)
 
 - Graph etc
-
   - [ ] LONGTERM legend in base plot: It would be to have a variable space 
         between entries, but not sure if possible
   - [ ] LONGTERM ts_iframe not sure if this belongs here, but it is just nice
@@ -45,23 +41,14 @@
 ### People struggling with xts to ts conversion
 
 http://stackoverflow.com/questions/14705783/coercing-xts-to-ts-without-specifying-start-and-end-date
-
 http://stackoverflow.com/questions/35696119/coerce-xts-to-ts-in-r
-
 http://stackoverflow.com/questions/32455478/force-xts-object-to-ts
-
-
 
 ### People struggling with data.frame to ts conversion
 
 https://stackoverflow.com/questions/34664669/how-to-add-time-series-objects-ts-in-a-data-table-by-row
 
-
-
-### People struggling with plots
-
-
-
+### People struggling with time series plots
 
 ### People struggling with frequency conversion
 
