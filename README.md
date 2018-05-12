@@ -2,6 +2,7 @@ tsbox: Class-Agnostic Time Series in R
 ======================================
 
 [![Build Status](https://travis-ci.org/christophsax/tsbox.svg?branch=master)](https://travis-ci.org/christophsax/tsbox)
+[![Build status](https://ci.appveyor.com/api/projects/status/xp7tropxe2dkdxoc?svg=true)](https://ci.appveyor.com/project/christophsax/tsbox)
 [![codecov](https://codecov.io/github/christophsax/tsbox/branch/master/graphs/badge.svg)](https://codecov.io/github/christophsax/tsbox)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tsbox)](https://cran.r-project.org/package=tsbox)
 
