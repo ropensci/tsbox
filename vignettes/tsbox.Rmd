@@ -4,7 +4,7 @@ subtitle: "Class-Agnostic Time Series"
 author: "Christoph Sax"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{introduction}
+  %\VignetteIndexEntry{Introduction to tsbox}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -27,9 +27,14 @@ we can use the same commands to whatever time series class at hand. And, most
 conveniently, we get a time series plot function that works for all classes and
 frequencies.
 
-To install:
-
+To install the stable version from CRAN:
 ```r
+install.packages("tsbox")
+```
+
+To install the development version:
+```r
+# install.packages("remotes")
 remotes::install_github("christophsax/tsbox")
 ```
 

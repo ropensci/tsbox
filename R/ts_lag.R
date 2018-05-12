@@ -3,8 +3,8 @@
 #' Shift time stamps in ts-boxable time series, either by a number of periods or
 #' by a fixed amount of time.
 #'
-#' The lag order, `by`, is defined as in R base. Thus, -1 is a lag and +1 a lead
-#' (dplyr uses an opposite definition). 
+#' The lag order, `by`, is defined the oposite way as in R base. Thus, -1 is a 
+#' lead and +1 a lag.
 #' 
 #' If `by` is integer, the time stamp is shifted by the number of periods. This
 #' requires the series to be regular.
@@ -18,8 +18,6 @@
 #' @inherit ts_dts
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
-#'
-#' @seealso [ts_lag()], for shifting regular series. 
 #'
 #' @return a ts-boxable time series, with the same class as the input. If time
 #'  stamp shifting causes the object to be irregular, a data frame is returned.

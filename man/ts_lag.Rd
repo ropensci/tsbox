@@ -21,8 +21,8 @@ Shift time stamps in ts-boxable time series, either by a number of periods or
 by a fixed amount of time.
 }
 \details{
-The lag order, \code{by}, is defined as in R base. Thus, -1 is a lag and +1 a lead
-(dplyr uses an opposite definition).
+The lag order, \code{by}, is defined the oposite way as in R base. Thus, -1 is a
+lead and +1 a lag.
 
 If \code{by} is integer, the time stamp is shifted by the number of periods. This
 requires the series to be regular.
@@ -41,7 +41,4 @@ head(ts_lag(AirPassengers, "1 month"))
 head(ts_lag(AirPassengers, "1 year"))
 head(ts_lag(ts_df(AirPassengers), "2 day"))
 # head(ts_lag(ts_df(AirPassengers), "2 min")) not yet working
-}
-\seealso{
-\code{\link[=ts_lag]{ts_lag()}}, for shifting regular series.
 }

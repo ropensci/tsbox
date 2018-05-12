@@ -2,7 +2,7 @@
 title: "User Defined ts-Functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{introduction}
+  %\VignetteIndexEntry{User defined ts-functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

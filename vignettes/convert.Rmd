@@ -2,7 +2,7 @@
 title: "Time Conversion and Regularization"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{introduction}
+  %\VignetteIndexEntry{Time conversion and regularization}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

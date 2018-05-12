@@ -15,9 +15,15 @@ data frames, thus making it easy to deal with time series in a
 [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
-To install:
+To install the stable version from CRAN:
 ```r
-devtools::install_github("christophsax/tsbox")
+install.packages("tsbox")
+```
+
+To install the development version:
+```r
+# install.packages("remotes")
+remotes::install_github("christophsax/tsbox")
 ```
 
 ### Convert everything to everything
