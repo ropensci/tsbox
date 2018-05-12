@@ -69,7 +69,7 @@ by a fixed amount of time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.2</span>
       </span>
     </div>
 
@@ -158,8 +158,8 @@ stamp shifting causes the object to be irregular, a data frame is returned.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The lag order, <code>by</code>, is defined as in R base. Thus, -1 is a lag and +1 a lead
-(dplyr uses an opposite definition).</p>
+    <p>The lag order, <code>by</code>, is defined the oposite way as in R base. Thus, -1 is a
+lead and +1 a lag.</p>
 <p>If <code>by</code> is integer, the time stamp is shifted by the number of periods. This
 requires the series to be regular.</p>
 <p>If <code>by</code> is character, the time stamp is shifted by a specific amount of time.
@@ -167,10 +167,6 @@ This can be one of one of <code>"sec"</code>, <code>"min"</code>, <code>"hour"</
 <code>"month"</code>, <code>"quarter" or</code>"year", optionally preceded by a (positive or
 negative) integer and a space, or followed by plural "s". This is passed to
 <code><a href='http://www.rdocumentation.org/packages/base/topics/seq.Date'>base::seq.Date()</a></code>. This does not require the series to be regular.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code>ts_lag()</code>, for shifting regular series.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -193,8 +189,6 @@ negative) integer and a space, or followed by plural "s". This is passed to
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -10,9 +10,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Class-Agnostic Time Series">
-<meta property="og:description" content="A comprehensive toolkit that works identically for all time series 
-  classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
-  'timeSeries', 'tsibble'. Also converts reliably between classes.">
+<meta property="og:description" content="Time series toolkit with identical behavior for all 
+  time series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
+  'timeSeries', 'tsibble'. Also converts reliably between these classes.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tsbox</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.2</span>
       </span>
     </div>
 
@@ -94,8 +94,11 @@
 <a href="#tsbox-class-agnostic-time-series-in-r" class="anchor"></a>tsbox: Class-Agnostic Time Series in R</h1></div>
 
 <p>The R ecosystem knows a <a href="https://CRAN.R-project.org/view=TimeSeries">vast number</a> of time series standards. Instead of creating the ultimate <a href="https://xkcd.com/927/">15th</a> time series class, tsbox provides a set of tools that are <strong>agnostic towards the existing standards</strong>. The tools also allow you to handle time series as plain data frames, thus making it easy to deal with time series in a <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> or <a href="https://CRAN.R-project.org/package=data.table">data.table</a> workflow.</p>
-<p>To install:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"christophsax/tsbox"</span>)</code></pre></div>
+<p>To install the stable version from CRAN:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"tsbox"</span>)</code></pre></div>
+<p>To install the development version:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("remotes")</span>
+remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"christophsax/tsbox"</span>)</code></pre></div>
 <div id="convert-everything-to-everything" class="section level3">
 <h3 class="hasAnchor">
 <a href="#convert-everything-to-everything" class="anchor"></a>Convert everything to everything</h3>
@@ -137,12 +140,6 @@ x.timeSeries &lt;-<span class="st"> </span><span class="kw"><a href="reference/t
 <pre><code><a href="reference/ts_plot.html">ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))</a></code></pre>
 <p><img src="https://raw.githubusercontent.com/christophsax/tsbox/master/vignettes/fig/myfig.png"></p>
 </div>
-<div id="license" class="section level2">
-<h2 class="hasAnchor">
-<a href="#license" class="anchor"></a>License</h2>
-<p>tsbox is free and open source, licensed under GPL-3.</p>
-<p><em>Thanks for <a href="mailto:christoph.sax@gmail.com">feedback</a>!</em></p>
-</div>
 </div>
   </div>
 
@@ -171,6 +168,7 @@ x.timeSeries &lt;-<span class="st"> </span><span class="kw"><a href="reference/t
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/christophsax/tsbox"><img src="https://travis-ci.org/christophsax/tsbox.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://ci.appveyor.com/project/christophsax/tsbox"><img src="https://ci.appveyor.com/api/projects/status/xp7tropxe2dkdxoc?svg=true" alt="Build status"></a></li>
 <li><a href="https://codecov.io/github/christophsax/tsbox"><img src="https://codecov.io/github/christophsax/tsbox/branch/master/graphs/badge.svg" alt="codecov"></a></li>
 <li><a href="https://cran.r-project.org/package=tsbox"><img src="http://www.r-pkg.org/badges/version/tsbox" alt="CRAN_Status_Badge"></a></li>
 </ul>
