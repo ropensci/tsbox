@@ -80,7 +80,7 @@ ts_dts.ts <- function(x) {
 #' 
 #' 1. Using the remaining columns, and starting on the right again, the first
 #' `Date`, `POSIXct`, `numeric` or `character` column is used as **time column**.
-#' `character` strings are parsed by [anytime::anytime()] or [anytime::anydate()]. 
+#' `character` strings are parsed by [anytime::anytime()]. 
 #' The time stamp, `time`, indicates the beginning of a period. 
 #' 
 #' 1. **All remaining** columns are **id columns**. Each unique combination of id

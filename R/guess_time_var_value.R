@@ -11,9 +11,11 @@ is_time <- function(x) {
     ) # lost 3
   }
   x <- as.character(x)
-  tt <- anytime(x)
-
-  if (any(is.na(anytime(x)))) return(FALSE)
+  tt <- anytime(x, useR = TRUE)
+  
+  # useR = FALSE crashes R session on Win
+  # https://github.com/eddelbuettel/anytime/issues/76
+  if (any(is.na(tt))) return(FALSE)
 
   # exclude unrealistic years
   if ((as.POSIXlt(max(tt))$year + 1900L) > 2500) return(FALSE)

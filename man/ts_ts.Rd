@@ -68,7 +68,7 @@ is done in the following order:
 used as \strong{value column}.
 \item Using the remaining columns, and starting on the right again, the first
 \code{Date}, \code{POSIXct}, \code{numeric} or \code{character} column is used as \strong{time column}.
-\code{character} strings are parsed by \code{\link[anytime:anytime]{anytime::anytime()}} or \code{\link[anytime:anydate]{anytime::anydate()}}.
+\code{character} strings are parsed by \code{\link[anytime:anytime]{anytime::anytime()}}.
 The time stamp, \code{time}, indicates the beginning of a period.
 \item \strong{All remaining} columns are \strong{id columns}. Each unique combination of id
 columns points to a time series.

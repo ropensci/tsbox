@@ -1,12 +1,12 @@
 Package: tsbox
 Type: Package
 Title: Class-Agnostic Time Series
-Version: 0.0.14.7
+Version: 0.0.14.8
 Date: 2018-05-12
 Authors@R: person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"))
-Description: A comprehensive toolkit that works identically for all time series 
+Description: A comprehensive toolkit with the same behavior for all time series 
   classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
-  'timeSeries', 'tsibble'. Also converts reliably between classes.
+  'timeSeries', 'tsibble'. Also converts reliably between these classes.
 Imports:
     data.table,
     anytime
