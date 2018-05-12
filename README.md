@@ -79,10 +79,3 @@ ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'D
 ![](https://raw.githubusercontent.com/christophsax/tsbox/master/vignettes/fig/myfig.png)
 
 
-
-## License
-
-tsbox is free and open source, licensed under GPL-3.
-
-*Thanks for [feedback](mailto:christoph.sax@gmail.com)!*
-
