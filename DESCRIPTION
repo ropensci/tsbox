@@ -4,8 +4,8 @@ Title: Class-Agnostic Time Series
 Version: 0.0.14.8
 Date: 2018-05-12
 Authors@R: person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"))
-Description: A comprehensive toolkit with the same behavior for all time series 
-  classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
+Description: A time series toolkit with identical behavior for all 
+  time series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
   'timeSeries', 'tsibble'. Also converts reliably between these classes.
 Imports:
     data.table,
