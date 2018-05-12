@@ -38,8 +38,7 @@ possible. See examples.
 
 \code{start} and \code{end} can be specified relative to each other,
 using one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
-\code{"month"}, \code{"quarter" or}"year", or an abbreviation. This
-is passed to \code{\link[=time_shift]{time_shift()}}. If the series are of the same frequency, the
+\code{"month"}, \code{"quarter" or}"year", or an abbreviation. If the series are of the same frequency, the
 shift can be specified in periods. See examples.
 }
 \examples{
@@ -59,6 +58,7 @@ ts_span(mdeaths, start = -7)           # last 7 periods
 ts_span(mdeaths, start = -1)           # last single value
 ts_span(mdeaths, end = "1e4 hours")    # first 10000 hours
 
+\donttest{
 ts_plot(
   ts_span(mdeaths, start = "-3 years"),
   title = "Three years ago",
@@ -70,10 +70,8 @@ ts_ggplot(
   title = "28 weeks later",
   subtitle = "The first 28 weeks of available data"
 ) + theme_tsbox() + scale_color_tsbox()
+}
 
 # Limit span of 'discoveries' to the same span as 'AirPassengers'
 ts_span(discoveries, template = AirPassengers)
-}
-\seealso{
-\code{\link[=time_shift]{time_shift()}}
 }

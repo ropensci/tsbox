@@ -33,10 +33,12 @@ ts_bind(ts_dt(mdeaths), AirPassengers)
 ts_bind(12, AirPassengers, c(2, 3))
 
 ts_chain(ts_span(mdeaths, end = "1975-12-01"), fdeaths)
+\donttest{
 ts_plot(ts_pc(ts_c(
   comb = ts_chain(ts_span(mdeaths, end = "1975-12-01"), fdeaths),
   fdeaths
 )))
+}
 }
 \seealso{
 \link{ts_c} to collect multiple time series

@@ -19,6 +19,7 @@
 #'   [ts_dygraphs()], for interactive time series plots. [ts_save()] to
 #'   save a plot to the file system.
 #' @examples
+#' \donttest{
 #' ts_plot(
 #'   AirPassengers, 
 #'   title = "Airline passengers",
@@ -47,6 +48,7 @@
 #'   "Male" = mdeaths
 #' )
 #' options(op)  # restore defaults
+#' }
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff

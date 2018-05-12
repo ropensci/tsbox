@@ -7,6 +7,7 @@
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' # Interactive use
+#' \donttest{
 #' ts_plot(ts_pick(
 #'   EuStockMarkets, 
 #'   `My Dax` = "DAX", 
@@ -14,6 +15,7 @@
 #' ))
 #' head(ts_pick(EuStockMarkets, c(1, 2)))
 #' head(ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI'))
+#' }
 #' 
 #' # Programming use
 #' to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")

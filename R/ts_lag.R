@@ -19,14 +19,15 @@
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
 #'
-#' @seealso [ts_lag()], for shifting regular series. [time_shift()], for
-#'   shifting `Date` or `POSIXct` vectors.
+#' @seealso [ts_lag()], for shifting regular series. 
 #'
 #' @return a ts-boxable time series, with the same class as the input. If time
 #'  stamp shifting causes the object to be irregular, a data frame is returned.
 #'
 #' @examples
+#' \donttest{
 #' ts_plot(AirPassengers, ts_lag(AirPassengers))
+#' }
 #' head(ts_lag(AirPassengers, "1 month"))
 #' head(ts_lag(AirPassengers, "1 year"))
 #' head(ts_lag(ts_df(AirPassengers), "2 day"))

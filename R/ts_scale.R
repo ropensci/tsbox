@@ -10,8 +10,10 @@
 #' @param scale logical
 #' @export
 #' @examples
+#' \donttest{
 #' ts_plot(ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries))))
 #' ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
+#' }
 ts_scale <- function (x, center = TRUE, scale = TRUE){
   value <- NULL
   z <- ts_dts(x)

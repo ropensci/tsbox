@@ -14,6 +14,7 @@
 #' @return Usually, a ts-boxable time series, with the same class as the input. `ts_dygraphs` draws a plot.
 #'
 #' @examples
+#' \donttest{
 #' ts_plot(
 #'   ts_scale(ts_c(
 #'     Male = mdeaths, 
@@ -40,7 +41,7 @@
 #' 
 #' 
 #' ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
-#'
+#' }
 #' @export
 #' @name ts_examples
 ts_prcomp <- ts_(function(x) predict(prcomp(x, scale = TRUE)))

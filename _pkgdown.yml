@@ -85,12 +85,6 @@ reference:
   - ts_boxable
   - ts_dts
 
-- title: Working with dates
-  desc: >
-    Inclued is a set of functions that makes it easier to work with dates
-  contents:
-  - time_shift
-
 - title: Arithmetic operators
   desc: >
     Arithmetic operators can be applied on ts-boxable objects

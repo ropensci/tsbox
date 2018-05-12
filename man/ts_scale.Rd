@@ -17,6 +17,8 @@ ts_scale(x, center = TRUE, scale = TRUE)
 Subtract mean and divide by standard deviation. Based on \code{\link[base:scale]{base::scale()}}.
 }
 \examples{
+\donttest{
 ts_plot(ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries))))
 ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
+}
 }

@@ -44,6 +44,7 @@ ts_compound <- function(x, denominator = 100) {
 #' @examples
 #' head(ts_compound(ts_pc(ts_c(fdeaths, mdeaths))))
 #' head(ts_index(ts_df(ts_c(fdeaths, mdeaths)), "1974-02-01"))
+#' \donttest{
 #' ts_plot(
 #'   `My Expert Knowledge` = ts_chain(
 #'     mdeaths, 
@@ -51,6 +52,7 @@ ts_compound <- function(x, denominator = 100) {
 #'   `So Far` = mdeaths,
 #'   title = "A Very Manual Forecast"
 #' )
+#' }
 #' @export
 ts_index <- function(x, base = NULL) {
 

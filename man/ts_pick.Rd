@@ -19,6 +19,7 @@ Pick (and optionally rename) series from multiple time series.
 }
 \examples{
 # Interactive use
+\donttest{
 ts_plot(ts_pick(
   EuStockMarkets, 
   `My Dax` = "DAX", 
@@ -26,6 +27,7 @@ ts_plot(ts_pick(
 ))
 head(ts_pick(EuStockMarkets, c(1, 2)))
 head(ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI'))
+}
 
 # Programming use
 to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")

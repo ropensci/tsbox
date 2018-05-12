@@ -34,13 +34,14 @@ negative) integer and a space, or followed by plural "s". This is passed to
 \code{\link[base:seq.Date]{base::seq.Date()}}. This does not require the series to be regular.
 }
 \examples{
+\donttest{
 ts_plot(AirPassengers, ts_lag(AirPassengers))
+}
 head(ts_lag(AirPassengers, "1 month"))
 head(ts_lag(AirPassengers, "1 year"))
 head(ts_lag(ts_df(AirPassengers), "2 day"))
 # head(ts_lag(ts_df(AirPassengers), "2 min")) not yet working
 }
 \seealso{
-\code{\link[=ts_lag]{ts_lag()}}, for shifting regular series. \code{\link[=time_shift]{time_shift()}}, for
-shifting \code{Date} or \code{POSIXct} vectors.
+\code{\link[=ts_lag]{ts_lag()}}, for shifting regular series.
 }

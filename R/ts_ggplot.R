@@ -20,6 +20,7 @@
 #' @seealso [ts_plot()], for a simpler and faster plotting function. 
 #'   [ts_dygraphs()], for interactive time series plots.
 #' @examples
+#' \donttest{
 #' # using the ggplot2 graphic system
 #' p <- ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
 #' p
@@ -35,6 +36,7 @@
 #'   geom_line() +
 #'   theme_tsbox() +
 #'   scale_color_tsbox()
+#' }
 #'
 #' \dontrun{
 #' library(dataseries)

@@ -49,6 +49,7 @@ dimension. To plot multiple dimensions in different shapes, facets, etc., use
 standard ggplot (see examples).
 }
 \examples{
+\donttest{
 # using the ggplot2 graphic system
 p <- ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
 p
@@ -64,6 +65,7 @@ ggplot(df, aes(x = time, y = value)) +
   geom_line() +
   theme_tsbox() +
   scale_color_tsbox()
+}
 
 \dontrun{
 library(dataseries)

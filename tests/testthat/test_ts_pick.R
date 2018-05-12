@@ -4,7 +4,7 @@ library(tsbox)
 context("ts_pick")
 
 test_that("ts_pick works", {
-    # Programming use
+  # Programming use
   to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")
   a <- ts_pick(EuStockMarkets, to.be.picked.and.renamed)
   b <- ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI')

@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.7</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@ first_of_month &lt;-<span class="st"> </span><span class="cf">function</span>(x)
 
 a1 &lt;-<span class="st"> </span>dta.tsibble <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(origin, id) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/tsummarise">tsummarise</a></span>(
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tsibble/topics/tsibble-deprecated">tsummarise</a></span>(
     <span class="dt">time =</span> <span class="kw">first_of_month</span>(time),
     <span class="dt">value =</span> <span class="kw">mean</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
   )</code></pre></div>

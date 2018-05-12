@@ -8,8 +8,7 @@
 #' 
 #' `start` and `end` can be specified relative to each other, 
 #' using one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
-#' `"month"`, `"quarter" or `"year", or an abbreviation. This 
-#' is passed to [time_shift()]. If the series are of the same frequency, the
+#' `"month"`, `"quarter" or `"year", or an abbreviation. If the series are of the same frequency, the
 #' shift can be specified in periods. See examples.
 #' 
 #' @inherit ts_dts
@@ -19,7 +18,6 @@
 #'   `data.frame`, `data.table`, or `tibble`. If provided, `from` and `to` 
 #'   will be extracted from the object.
 #' @return a ts-boxable time series, with the same class as the input.
-#' @seealso [time_shift()]
 #' @export
 #' @examples
 #' 
@@ -38,6 +36,7 @@
 #' ts_span(mdeaths, start = -1)           # last single value
 #' ts_span(mdeaths, end = "1e4 hours")    # first 10000 hours
 #' 
+#' \donttest{
 #' ts_plot(
 #'   ts_span(mdeaths, start = "-3 years"),
 #'   title = "Three years ago",
@@ -49,6 +48,7 @@
 #'   title = "28 weeks later",
 #'   subtitle = "The first 28 weeks of available data"
 #' ) + theme_tsbox() + scale_color_tsbox()
+#'}
 #' 
 #' # Limit span of 'discoveries' to the same span as 'AirPassengers'
 #' ts_span(discoveries, template = AirPassengers)

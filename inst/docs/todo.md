@@ -20,6 +20,7 @@
 - [X] How useful are the date_ functions?
 - [X] use bquote, rather than eval parse text (to_from_tsibble, but perhaps elsewhere)
 - [X] ts_frequency with incomplete periods?
+- [ ] use bquote everywhere
 
 - Documentation
   - [ ] LONGTERM Documentation for auto generated ts_ functions.

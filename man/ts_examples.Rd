@@ -38,6 +38,7 @@ With the exception of \code{ts_prcomp}, these functions depend on external
 packages.
 }
 \examples{
+\donttest{
 ts_plot(
   ts_scale(ts_c(
     Male = mdeaths, 
@@ -64,5 +65,5 @@ ts_plot(
 
 
 ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
-
+}
 }

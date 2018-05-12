@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.7</span>
       </span>
     </div>
 
@@ -113,7 +113,9 @@ x.ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_c.h
 x.xts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_xts</a></span>(x.ts)
 x.df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_df</a></span>(x.xts)
 x.tbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_tbl</a></span>(x.df)
-x.dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_dt</a></span>(x.tbl)</code></pre></div>
+x.zoo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_zoo</a></span>(x.tbl)
+x.tsibble &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_tsibble</a></span>(x.zoo)
+x.timeSeries &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_timeSeries</a></span>(x.tsibble)</code></pre></div>
 </div>
 <div id="use-same-functions-for-all-time-series-classes" class="section level2">
 <h2 class="hasAnchor">

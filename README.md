@@ -14,9 +14,6 @@ data frames, thus making it easy to deal with time series in a
 [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
-tsbox is built around a set of converters, which convert time series stored as
-**ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**, **tsibble** or **timeSeries** to each other.
-
 To install:
 ```r
 devtools::install_github("christophsax/tsbox")
@@ -24,16 +21,19 @@ devtools::install_github("christophsax/tsbox")
 
 ### Convert everything to everything
 
-tsbox can convert time series stored as `ts`, `xts`, `data.frame`,
-`data.table` or `tibble` to each other:
+tsbox is built around a set of converters, which convert time series stored as
+**ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**, 
+**tsibble** or **timeSeries** to each other:
 
 ```r
 library(tsbox)
 x.ts <- ts_c(mdeaths, fdeaths)
 x.xts <- ts_xts(x.ts)
 x.df <- ts_df(x.xts)
-x.dt <- ts_dt(x.df)
-x.tbl <- ts_tbl(x.dt)
+x.tbl <- ts_tbl(x.df)
+x.zoo <- ts_zoo(x.tbl)
+x.tsibble <- ts_tsibble(x.zoo)
+x.timeSeries <- ts_timeSeries(x.tsibble)
 ```
 
 ### Use same functions for time series classes

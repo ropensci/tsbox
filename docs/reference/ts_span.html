@@ -68,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.14.7</span>
       </span>
     </div>
 
@@ -173,13 +173,8 @@ will be extracted from the object.</p></td>
 possible. See examples.</p>
 <p><code>start</code> and <code>end</code> can be specified relative to each other,
 using one of <code>"sec"</code>, <code>"min"</code>, <code>"hour"</code>, <code>"day"</code>, <code>"week"</code>,
-<code>"month"</code>, <code>"quarter" or</code>"year", or an abbreviation. This
-is passed to <code><a href='time_shift.html'>time_shift()</a></code>. If the series are of the same frequency, the
+<code>"month"</code>, <code>"quarter" or</code>"year", or an abbreviation. If the series are of the same frequency, the
 shift can be specified in periods. See examples.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='time_shift.html'>time_shift()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -205,7 +200,7 @@ shift can be specified in periods. See examples.</p>
 #&gt; 1979 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1e4 hours"</span>)    <span class='co'># first 10000 hours</span></div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
 #&gt; 1975 2103                                                       </div><div class='input'>
-<span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
+</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
   <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"-3 years"</span>),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Three years ago"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The last three years of available data"</span>
@@ -230,8 +225,6 @@ shift can be specified in periods. See examples.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -2,10 +2,12 @@
 #' @export
 #' @examples
 #' ts_chain(ts_span(mdeaths, end = "1975-12-01"), fdeaths)
+#' \donttest{
 #' ts_plot(ts_pc(ts_c(
 #'   comb = ts_chain(ts_span(mdeaths, end = "1975-12-01"), fdeaths),
 #'   fdeaths
 #' )))
+#' }
 ts_chain <- function(...) {
   ll <- list(...)
 

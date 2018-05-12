@@ -30,6 +30,7 @@ standard ggplot.
 Limited customizability of \code{ts_plot} is available via options. See examples.
 }
 \examples{
+\donttest{
 ts_plot(
   AirPassengers, 
   title = "Airline passengers",
@@ -58,6 +59,7 @@ ts_plot(
   "Male" = mdeaths
 )
 options(op)  # restore defaults
+}
 }
 \seealso{
 \code{\link[=ts_ggplot]{ts_ggplot()}}, for a plotting function based on ggplot2.

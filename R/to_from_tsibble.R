@@ -45,8 +45,8 @@ ts_dts.tbl_ts <- function(x) {
     stop("no measured vars in tsibble")
   }
 
-  time <- setdiff(names(x), c(names(tsibble::key_vars(x)), tsibble::measured_vars(x)))
-
+  time <- setdiff(names(x), c(tsibble::key_vars(x), tsibble::measured_vars(x)))
+  stopifnot(length(time) == 1)
   kv <- tsibble::key_vars(x)
   if (identical(kv, "NULL")) kv <- NULL
   cname <- list(id = unname(unlist(kv)),
