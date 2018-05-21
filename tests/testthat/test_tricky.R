@@ -91,3 +91,26 @@ test_that("Non unique colnames work fine", {
 })
 
 
+test_that("Only combined ids are unique", {
+
+  # individual ids columns don't matter
+  df1 <- df2 <- ts_df(ts_c(mdeaths, fdeaths)) 
+  df1$cat <- "1"
+  df2$cat <- "2"
+  comb <- ts_c(df1, df2)
+  expect_equal(unique(comb$id), c("mdeaths", "fdeaths"))
+
+  df1 <- df2 <- ts_df(ts_c(mdeaths, mdeaths, fdeaths)) 
+  df1$cat <- "1"
+  df2$cat <- "2"
+  comb <- ts_c(df1, df2)
+  expect_equal(unique(comb$id), c("mdeaths", "mdeaths.1", "fdeaths"))
+
+  df1 <- df2 <- ts_df(ts_c(mdeaths, fdeaths))
+  df1$cat <- "1"
+  df2$cat <- "1"
+  comb <- ts_c(df1, df2)
+  expect_equal(unique(comb$cat), c("1", "1.1"))
+})
+
+
