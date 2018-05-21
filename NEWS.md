@@ -7,6 +7,10 @@
 
 # tsbox 0.0.3 ???
 
+## Features
+
+- Support for tibbletime time series (#90)
+
 ## Bug fixes
 
 - Automatically detect numbers or text from 1600 to 2200 as time column (#92)
