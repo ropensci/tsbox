@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.2.9000</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
     
     
 <p>The R ecosystem knows a <a href="https://CRAN.R-project.org/view=TimeSeries">vast number</a> of time series standards. Instead of creating the ultimate <a href="https://xkcd.com/927/">15th</a> time series class, tsbox provides a set of tools that are <strong>agnostic towards the existing standards</strong>. The tools also allow you to handle time series as plain data frames, thus making it easy to deal with time series in a <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> or <a href="https://CRAN.R-project.org/package=data.table">data.table</a> workflow.</p>
-<p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong>, <strong>tibble</strong>, <strong>zoo</strong>, <strong>tsibble</strong> or <strong>timeSeries</strong> to each other. Because this works reliably, we can easily write functions that work for all classes. So whether we want to smooth, scale, differentiate, chain, forecast, regularize or seasonally adjust a time series, we can use the same commands to whatever time series class at hand. And, most conveniently, we get a time series plot function that works for all classes and frequencies.</p>
+<p>tsbox is built around a set of converters, which convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong>, <strong>tibble</strong>, <strong>zoo</strong>, <strong>tsibble</strong>, <strong>tibbletime</strong> or <strong>timeSeries</strong> to each other. Because this works reliably, we can easily write functions that work for all classes. So whether we want to smooth, scale, differentiate, chain, forecast, regularize or seasonally adjust a time series, we can use the same commands to whatever time series class at hand. And, most conveniently, we get a time series plot function that works for all classes and frequencies.</p>
 <p>To install the stable version from CRAN:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"tsbox"</span>)</code></pre></div>
 <p>To install the development version:</p>
@@ -110,15 +110,17 @@ remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
 <div id="convert-everything-to-everything" class="section level2">
 <h2 class="hasAnchor">
 <a href="#convert-everything-to-everything" class="anchor"></a>Convert everything to everything</h2>
-<p>tsbox can convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong>, <strong>tibble</strong>, <strong>zoo</strong>, <strong>tsibble</strong> or <strong>timeSeries</strong> to each other:</p>
+<p>tsbox can convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong>, <strong>tibble</strong>, <strong>zoo</strong>, <strong>tsibble</strong>, <strong>tibbletime</strong> or <strong>timeSeries</strong> to each other:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tsbox)
-x.ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths)
+x.ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(fdeaths, mdeaths)
 x.xts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_xts</a></span>(x.ts)
 x.df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_df</a></span>(x.xts)
 x.tbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_tbl</a></span>(x.df)
 x.zoo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_zoo</a></span>(x.tbl)
 x.tsibble &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_tsibble</a></span>(x.zoo)
-x.timeSeries &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_timeSeries</a></span>(x.tsibble)</code></pre></div>
+x.tibbletime &lt;-<span class="st"> </span><span class="kw">ts_tibbletime</span>(x.tsibble)
+x.timeSeries &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_ts.html">ts_timeSeries</a></span>(x.tibbletime)
+<span class="kw">all.equal</span>(<span class="kw">ts_ts</span>(x.timeSeries), x.ts)  <span class="co"># TRUE</span></code></pre></div>
 </div>
 <div id="use-same-functions-for-all-time-series-classes" class="section level2">
 <h2 class="hasAnchor">

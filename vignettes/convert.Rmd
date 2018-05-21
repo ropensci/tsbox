@@ -7,8 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-tsbox relies on a set of converters to convert time series stored as `ts`,
-`xts`, `data.frame`, `data.table` or `tibble` to each other. This vignette
+tsbox relies on a set of converters to convert time series stored as **ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**, **tsibble**, **tibbletime** or **timeSeries** to each other. This vignette
 describes some background on two particular challenges, the conversion of
 *equispaced points in time* to *actual dates or times*, and the *regularization 
 of irregular time sequences*.

@@ -112,6 +112,8 @@ unify_time_class <- function(ll) {
 
 # makes ids in list of data tables unique
 make_ids_unique <- function(ll, cid) {
+  id <- NULL
+  .element <- NULL
   old.id <- unname(lapply(ll, function(e) unique(e[, cid, with = FALSE])))
   old.id.tab <- rbindlist(old.id, idcol = ".element")
   if (length(cid) > 1){
