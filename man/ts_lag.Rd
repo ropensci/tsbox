@@ -35,7 +35,7 @@ negative) integer and a space, or followed by plural "s". This is passed to
 }
 \examples{
 \donttest{
-ts_plot(AirPassengers, ts_lag(AirPassengers))
+ts_plot(AirPassengers, ts_lag(AirPassengers), title = "Illustrating the need for glasses")
 }
 head(ts_lag(AirPassengers, "1 month"))
 head(ts_lag(AirPassengers, "1 year"))
