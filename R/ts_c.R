@@ -83,29 +83,7 @@ ts_c <- function(...) {
   }
 
   ll.dts <- unify_time_class(ll.dts)
-
-  # ensure id uniqueness (not happy)
-  for (cid.i in cid){
-    all.levels <- lapply(ll.dts, function(e) unique(e[[cid.i]]))
-    # only do if needed
-    if (length(unique(unlist(all.levels))) == length(unlist(all.levels))) break
-    unique.levels <- character(0)
-    for (i in seq_along(all.levels)){
-      st <- length(unique.levels) + 1
-      en <- length(unique.levels) + length(all.levels[[i]])
-      unique.levels <- make.unique(c(unique.levels, all.levels[[i]]))
-      all.levels[[i]] <- unique.levels[st:en]
-    }
-    # set_levels(rep(c("c", "a", "b"), each = 5), c("Chr", "Al", "Be"))
-    set_levels <- function(x, names){
-      as.character(`levels<-`(as.factor(x), sort(names)))
-    }
-    set_levels_dt <- function(dt, names){
-      dt[[cid.i]] <- set_levels(dt[[cid.i]], names)
-      dt
-    }
-    ll.dts <- Map(set_levels_dt, ll.dts, all.levels)
-  }
+  ll.dts <- make_ids_unique(ll.dts, cid = cid)
 
   z0 <- rbindlist(ll.dts)
   z <- try(as_class(desired.class)(z0), silent = TRUE)
@@ -129,4 +107,39 @@ unify_time_class <- function(ll) {
     ll[cl == "Date"] <- lapply(ll[cl == "Date"], make_date_posixct)
   }
   ll
+}
+
+
+# makes ids in list of data tables unique
+make_ids_unique <- function(ll, cid) {
+  old.id <- unname(lapply(ll, function(e) unique(e[, cid, with = FALSE])))
+  old.id.tab <- rbindlist(old.id, idcol = ".element")
+  if (length(cid) > 1){
+    old.id.tab <- combine_cols_data.table(old.id.tab, cid, sep = "._.")  
+  } else {
+    setnames(old.id.tab, cid, "id")
+  }
+  old.id.tab[, id := make.unique(id)]
+  z0 <- setNames(tstrsplit(old.id.tab$id, split = "._."), cid)
+  z <- as.data.table(c(z0, list(.element = old.id.tab[, .element])))
+  new.id <- unname(split(z[, cid, with = FALSE], z$.element))
+  Map(set_levels_dt, ll, old.id, new.id)
+}
+
+# new names must have the same order as the old names
+set_levels <- function(x, names){
+  as.character(`levels<-`(as.factor(x), sort(names)))
+}
+
+set_levels_dt <- function(dt, old, new) {
+  stopifnot(identical(dim(new), dim(old)))
+  stopifnot(identical(names(new), names(old)))
+  if (isTRUE(all.equal(new, old, check.attributes = FALSE))) return(dt)
+
+  for (cid.i in names(new)) {
+    if (!identical(old[[cid.i]], new[[cid.i]])){
+      dt[[cid.i]] <- set_levels(dt[[cid.i]], new[[cid.i]])
+    }
+  }
+  dt
 }
