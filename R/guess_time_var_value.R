@@ -1,5 +1,8 @@
 # to determine id, time, value, when coverting from data frame likes
 
+  # 3 times faster if we store .years
+.years <- as.character(1600:2200)
+
 is_time <- function(x) {
   if (class(x)[1] %in% c("Date", "POSIXct")) return(TRUE) # beyond doubt
   # use a short vector for time detection
@@ -11,6 +14,10 @@ is_time <- function(x) {
     ) # lost 3
   }
   x <- as.character(x)
+
+  # detect years as column
+  if (all(x %in% .years)) return(TRUE)
+
   tt <- anytime(x, useR = TRUE)
   
   # useR = FALSE crashes R session on Win
