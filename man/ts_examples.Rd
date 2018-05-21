@@ -20,7 +20,7 @@ ts_forecast(x, ...)
 ts_seas(x, ...)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tibble}, \code{tsibble} or \code{timeSeries}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}
 
 \item{...}{further arguments, passed to the underlying function. For help, consider these functions, e.g., \link[stats:prcomp]{stats::prcomp}.}
 }

@@ -11,7 +11,7 @@ ts_compound(x, denominator = 100)
 ts_index(x, base = NULL)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tibble}, \code{tsibble} or \code{timeSeries}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}
 
 \item{denominator}{numeric, set equal to one if percentage change rate is given a
 decimal fraction}
