@@ -32,7 +32,7 @@ ts_tsibble_dts <- function(x) {
 # from -------------------------------------------------------------------------
 
 #' @export
-#' @method ts_dts data.frame
+#' @method ts_dts tbl_ts
 ts_dts.tbl_ts <- function(x) {
   stopifnot(requireNamespace("tsibble"))
 

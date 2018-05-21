@@ -1,13 +1,14 @@
 library(testthat)
 library(tsbox)
 
-# install.packages(c("tsibble", "xts", "timeSeries", "zoo"))
+# install.packages(c("tsibble", "xts", "timeSeries", "zoo", "tibbletime"))
 
 context("automated tests for all supported classes")
 
 
 test_that("two way conversion", {
 
+    skip_if_not_installed("tibbletime")
     skip_if_not_installed("tsibble")
     skip_if_not_installed("timeSeries")
     skip_if_not_installed("zoo")

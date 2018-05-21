@@ -1,7 +1,7 @@
 Package: tsbox
 Type: Package
 Title: Class-Agnostic Time Series
-Version: 0.0.2.9000
+Version: 0.0.2.9001
 Date: 2018-05-12
 Authors@R: person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"))
 Description: Time series toolkit with identical behavior for all 
@@ -23,6 +23,7 @@ Suggests:
     knitr,
     rmarkdown,
     tsibble,
+    tibbletime,
     zoo,
     timeSeries,
     nycflights13
