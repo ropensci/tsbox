@@ -117,12 +117,12 @@ make_ids_unique <- function(ll, cid) {
   old.id <- unname(lapply(ll, function(e) unique(e[, cid, with = FALSE])))
   old.id.tab <- rbindlist(old.id, idcol = ".element")
   if (length(cid) > 1){
-    old.id.tab <- combine_cols_data.table(old.id.tab, cid, sep = "._.")  
+    old.id.tab <- combine_cols_data.table(old.id.tab, cid, sep = "__cut_here__")  
   } else {
     setnames(old.id.tab, cid, "id")
   }
   old.id.tab[, id := make.unique(id)]
-  z0 <- setNames(tstrsplit(old.id.tab$id, split = "._."), cid)
+  z0 <- setNames(tstrsplit(old.id.tab$id, split = "__cut_here__"), cid)
   z <- as.data.table(c(z0, list(.element = old.id.tab[, .element])))
   new.id <- unname(split(z[, cid, with = FALSE], z$.element))
   Map(set_levels_dt, ll, old.id, new.id)
