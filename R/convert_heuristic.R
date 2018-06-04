@@ -1,7 +1,7 @@
 ts_to_date_time <- function(x) {
 
-  freq <- NULL 
-  
+  freq <- NULL
+
   stopifnot(inherits(x, "ts"))
 
   # if 'mts', only consider first column
@@ -26,11 +26,11 @@ ts_to_date_time <- function(x) {
   md <- .mapdiff[freq == fr]
 
   # non heuristic conversion for non-heuristics
-  if (nrow(md) == 0 ) { 
+  if (nrow(md) == 0 ) {
     z <- ts_to_POSIXct(x)
-  
+
   # heuristic high freq > 12
-  } else if (md$freq > 12) { 
+  } else if (md$freq > 12) {
 
     stopifnot(inherits(x, "ts"))
     if (NCOL(x) > 1) x <- x[, 1]
@@ -65,7 +65,7 @@ ts_to_date_time <- function(x) {
 
 date_time_to_tsp <- function(x, frequency = NULL) {
 
-  freq <- NULL 
+  freq <- NULL
 
   if (is.null(frequency)){
     if (length(x) <= 1) {
@@ -79,6 +79,9 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     z <- POSIXct_to_tsp(as.POSIXct(x))
   # Low frequency conversion
   } else if (frequency <= 12){
+    if (inherits(x, "POSIXct")){
+      x <- as.Date(x)
+    }
     st <- as.POSIXlt(x[1])
     y <- st$year + 1900L
     m <- st$mon + 1L
@@ -104,7 +107,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     }
 
     str <- md$str
-    
+
     start.time <- date_year(x[1])
     end.time <- time_shift(start.time, "1 year")
 
@@ -119,5 +122,3 @@ date_time_to_tsp <- function(x, frequency = NULL) {
   }
   z
 }
-
-
