@@ -108,6 +108,9 @@ date_time_to_tsp <- function(x, frequency = NULL) {
 
     str <- md$str
 
+    # daily POSIXct should be treated as Date
+    if (str == "1 day") x <- as.Date(x)
+
     start.time <- date_year(x[1])
     end.time <- time_shift(start.time, "1 year")
 
