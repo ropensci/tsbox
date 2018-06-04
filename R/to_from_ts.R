@@ -18,13 +18,7 @@ ts_ts_dts <- function(x, frequency = NULL) {
     } else {
       stop("series has no regular pattern", call. = FALSE)
     }
-
     tsp <- date_time_to_tsp(wx[[1]])
-    # if (inherits(tsp, "try-error")) {
-    #   message(paste0(gsub("Error : |\\n", "", tsp), ", returning data.frame"))
-    #   # browser()
-    #   return(ts_df(x))
-    # }
   } else {
     tsp <- date_time_to_tsp(wx[[1]], frequency = frequency)
   }
