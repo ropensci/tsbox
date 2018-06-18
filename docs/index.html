@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tsbox</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.2.9001</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.3</span>
       </span>
     </div>
 
@@ -107,10 +107,11 @@ remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
 x.ts &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_c.html">ts_c</a></span>(fdeaths, mdeaths)
 x.xts &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_xts</a></span>(x.ts)
 x.df &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_df</a></span>(x.xts)
-x.tbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_tbl</a></span>(x.df)
+x.dt &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_df</a></span>(x.df)
+x.tbl &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_tbl</a></span>(x.dt)
 x.zoo &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_zoo</a></span>(x.tbl)
 x.tsibble &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_tsibble</a></span>(x.zoo)
-x.tibbletime &lt;-<span class="st"> </span><span class="kw">ts_tibbletime</span>(x.tsibble)
+x.tibbletime &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_tibbletime</a></span>(x.tsibble)
 x.timeSeries &lt;-<span class="st"> </span><span class="kw"><a href="reference/ts_ts.html">ts_timeSeries</a></span>(x.tibbletime)
 <span class="kw">all.equal</span>(<span class="kw">ts_ts</span>(x.timeSeries), x.ts)  <span class="co"># TRUE</span></code></pre></div>
 </div>
