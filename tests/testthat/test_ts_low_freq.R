@@ -19,9 +19,11 @@ test_that("regular low frequency data works with POSIXct", {
 
 
 
-  EuStockMarkets[, "DAX"] %>% 
+  x <- EuStockMarkets[, "DAX"] %>% 
     ts_df() %>% 
     ts_regular()
+
+  expect_is(x, "data.frame")
 
 
 })
