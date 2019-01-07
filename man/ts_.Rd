@@ -3,8 +3,6 @@
 \name{ts_}
 \alias{ts_}
 \alias{load_suggested}
-\alias{ts_}
-\alias{ts_}
 \alias{ts_apply}
 \title{Constructing ts-Functions}
 \usage{

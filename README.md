@@ -29,7 +29,7 @@ remotes::install_github("christophsax/tsbox")
 ### Convert everything to everything
 
 tsbox is built around a set of converters, which convert time series stored as
-**ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**, 
+**ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**,
 **tsibble**,  **tibbletime** or **timeSeries** to each other:
 
 ```r
@@ -55,7 +55,7 @@ functions that work for all classes. So whether we want to **smooth**,
 time series class at hand:
 
 ```r
-ts_trend(x.ts) 
+ts_trend(x.ts)
 ts_pc(x.xts)
 ts_pcy(x.df)
 ts_lag(x.dt)

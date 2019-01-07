@@ -9,7 +9,7 @@ as_time_or_date <- function(x) {
   anydate(as.character(x))
 }
 
-# if this is regular, it is as fast as possilbe, and checks reliably for 
+# if this is regular, it is as fast as possilbe, and checks reliably for
 # regularity.
 regularize_date <- function(x) {
   stopifnot(class(x)[1] %in% c("POSIXct", "Date"))
@@ -64,7 +64,7 @@ regularize_non_heuristic <- function(x) {
   if (length(dd) == 1) return(x) # already regular
 
   min.dd <- min(dd)
-  
+
   # all diffs must be integer multiples of minimal diff
   if (any((dd %% min.dd) > 0.1)) return(NULL)
 # browser()

@@ -2,7 +2,6 @@
 % Please edit documentation in R/ts_bind.R, R/ts_chain.R
 \name{ts_bind}
 \alias{ts_bind}
-\alias{ts_bind}
 \alias{ts_chain}
 \title{Bind Time Series}
 \usage{

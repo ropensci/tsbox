@@ -3,11 +3,8 @@
 \name{ts_arithmetic}
 \alias{ts_arithmetic}
 \alias{\%ts+\%}
-\alias{ts_arithmetic}
 \alias{\%ts-\%}
-\alias{ts_arithmetic}
 \alias{\%ts*\%}
-\alias{ts_arithmetic}
 \alias{\%ts/\%}
 \title{Arithmetic Operators for ts-boxable objects}
 \usage{

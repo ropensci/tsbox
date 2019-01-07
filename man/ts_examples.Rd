@@ -3,11 +3,8 @@
 \name{ts_examples}
 \alias{ts_examples}
 \alias{ts_prcomp}
-\alias{ts_examples}
 \alias{ts_dygraphs}
-\alias{ts_examples}
 \alias{ts_forecast}
-\alias{ts_examples}
 \alias{ts_seas}
 \title{Principal Components, Dygraphs, Forecasts, Seasonal Adjustment}
 \usage{
@@ -41,25 +38,25 @@ packages.
 \donttest{
 ts_plot(
   ts_scale(ts_c(
-    Male = mdeaths, 
+    Male = mdeaths,
     Female = fdeaths,
     `First principal compenent` = -ts_prcomp(ts_c(mdeaths, fdeaths))[, 1]
   )),
-  title = "Deaths from lung diseases", 
+  title = "Deaths from lung diseases",
   subtitle = "Normalized values"
 )
 
 ts_plot(ts_c(
   male = mdeaths, female = fdeaths,
   ts_forecast(ts_c(`male (fct)` = mdeaths,  `female (fct)` = fdeaths))),
-  title = "Deaths from lung diseases", 
+  title = "Deaths from lung diseases",
   subtitle = "Exponential smoothing forecast"
 )
 
 ts_plot(
   `Raw series` = AirPassengers,
   `Adjusted series` = ts_seas(AirPassengers),
-  title = "Airline passengers", 
+  title = "Airline passengers",
   subtitle = "X-13 seasonal adjustment"
 )
 

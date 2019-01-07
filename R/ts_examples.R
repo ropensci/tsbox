@@ -17,29 +17,29 @@
 #' \donttest{
 #' ts_plot(
 #'   ts_scale(ts_c(
-#'     Male = mdeaths, 
+#'     Male = mdeaths,
 #'     Female = fdeaths,
 #'     `First principal compenent` = -ts_prcomp(ts_c(mdeaths, fdeaths))[, 1]
 #'   )),
-#'   title = "Deaths from lung diseases", 
+#'   title = "Deaths from lung diseases",
 #'   subtitle = "Normalized values"
 #' )
-#' 
+#'
 #' ts_plot(ts_c(
 #'   male = mdeaths, female = fdeaths,
 #'   ts_forecast(ts_c(`male (fct)` = mdeaths,  `female (fct)` = fdeaths))),
-#'   title = "Deaths from lung diseases", 
+#'   title = "Deaths from lung diseases",
 #'   subtitle = "Exponential smoothing forecast"
 #' )
-#' 
+#'
 #' ts_plot(
 #'   `Raw series` = AirPassengers,
 #'   `Adjusted series` = ts_seas(AirPassengers),
-#'   title = "Airline passengers", 
+#'   title = "Airline passengers",
 #'   subtitle = "X-13 seasonal adjustment"
 #' )
-#' 
-#' 
+#'
+#'
 #' ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
 #' }
 #' @export
@@ -56,4 +56,4 @@ ts_forecast <- ts_(function(x) forecast::forecast(x)$mean, vectorize = TRUE)
 
 #' @export
 #' @name ts_examples
-ts_seas <- ts_(function(x) seasonal::final(seasonal::seas(x)), vectorize = TRUE)
+ts_seas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)), vectorize = TRUE)

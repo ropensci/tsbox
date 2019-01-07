@@ -89,7 +89,10 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     if (frequency == 4) start <- c(y, ((m - 1) / 3) + 1)
     if (frequency == 12) start <- c(y, m)
     if (d != 1) {
-      stop("time column needs to specified as the first date of the period", call. = FALSE)
+      stop(
+        "time column needs to specified as the first date of the period",
+        call. = FALSE
+      )
     }
     z <- tsp(ts(x, frequency = frequency, start = start)) # a bit inefficient
   } else {

@@ -3,7 +3,6 @@
 \name{ts_index}
 \alias{ts_index}
 \alias{ts_compound}
-\alias{ts_index}
 \title{Indices from Levels or Percentage Rates}
 \usage{
 ts_compound(x, denominator = 100)

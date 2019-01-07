@@ -12,7 +12,7 @@ ts_apply_dts <- function(x, fun, ...) {
   cname.sd <- cname
   cname.sd$id <- character(0)
   setattr(x, "cname", cname.sd)
-  z <- x[, fun(.SD), by = eval(.by)]
+  z <- x[, fun(.SD, ...), by = eval(.by)]
   setattr(z, "cname", cname)
   dts_init(z)
 }
@@ -27,3 +27,4 @@ ts_apply <- function(x, fun, ...) {
   z <- ts_apply_dts(ts_dts(x), fun, ...)
   copy_class(z, x)
 }
+
