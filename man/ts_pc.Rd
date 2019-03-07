@@ -2,11 +2,8 @@
 % Please edit documentation in R/ts_pc.R
 \name{ts_pc}
 \alias{ts_pc}
-\alias{ts_pc}
 \alias{ts_diff}
-\alias{ts_pc}
 \alias{ts_pcy}
-\alias{ts_pc}
 \alias{ts_diffy}
 \title{First Differences and Percentage Change Rates}
 \usage{

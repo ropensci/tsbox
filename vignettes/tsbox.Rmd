@@ -40,8 +40,8 @@ remotes::install_github("christophsax/tsbox")
 
 ## Convert everything to everything
 
-tsbox can convert time series stored as **ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**, 
-**tsibble**,  **tibbletime** or **timeSeries** to each 
+tsbox can convert time series stored as **ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**,
+**tsibble**,  **tibbletime** or **timeSeries** to each
 other:
 
 ```r
@@ -72,7 +72,7 @@ different time series comparable. All of the following operations perform the
 same task, but return the same object class as the input:
 
 ```r
-ts_scale(x.ts)           
+ts_scale(x.ts)
 ts_scale(x.xts)
 ts_scale(x.df)
 ts_scale(x.dt)
@@ -154,8 +154,8 @@ If you want to use different names than the object names, just name the argument
 
 ```r
 ts_plot(
-  `Airline Passengers` = AirPassengers, 
-  `Lynx trappings` = ts_df(lynx), 
+  `Airline Passengers` = AirPassengers,
+  `Lynx trappings` = ts_df(lynx),
   `Deaths from Lung Diseases` = ts_xts(fdeaths),
   title = "Airlines, trappings, and deaths",
   subtitle = "Monthly passengers, annual trappings, monthly deaths"
@@ -192,7 +192,7 @@ used as **value column**.
 1. Using the remaining columns, and starting on the right again, the first
 `Date`, `POSIXct`, `numeric` or `character` column is used as **time column**.
 `character` strings are parsed by `anytime::anytime()`.
-The time stamp, `time`, indicates the beginning of a period. 
+The time stamp, `time`, indicates the beginning of a period.
 
 1. **All remaining** columns are **id columns**. Each unique combination of id
 columns points to a time series.
@@ -210,13 +210,13 @@ into a dplyr workflow:
 ```r
 library(dplyr)
 library(nycflights13)
-dta <- weather %>% 
-  select(origin, time = time_hour, temp, humid, precip) %>% 
-  ts_long() 
+dta <- weather %>%
+  select(origin, time = time_hour, temp, humid, precip) %>%
+  ts_long()
 
-dta %>% 
-  filter(id == "temp") %>% 
-  ts_trend() %>% 
+dta %>%
+  filter(id == "temp") %>%
+  ts_trend() %>%
   ts_plot()
 
 ```

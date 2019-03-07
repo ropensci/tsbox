@@ -2,9 +2,7 @@
 % Please edit documentation in R/ts_span.R
 \name{ts_span}
 \alias{ts_span}
-\alias{ts_span}
 \alias{ts_start}
-\alias{ts_span}
 \alias{ts_end}
 \title{Limit Time Span}
 \usage{
@@ -38,7 +36,7 @@ possible. See examples.
 
 \code{start} and \code{end} can be specified relative to each other,
 using one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
-\code{"month"}, \code{"quarter" or}"year", or an abbreviation. If the series are of the same frequency, the
+\code{"month"}, \code{"quarter" or }"year", or an abbreviation. If the series are of the same frequency, the
 shift can be specified in periods. See examples.
 }
 \examples{

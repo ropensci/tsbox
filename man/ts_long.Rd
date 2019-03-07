@@ -2,7 +2,6 @@
 % Please edit documentation in R/ts_long_wide.R
 \name{ts_long}
 \alias{ts_long}
-\alias{ts_long}
 \alias{ts_wide}
 \title{Reshaping Multiple Time Series}
 \usage{

@@ -2,13 +2,9 @@
 % Please edit documentation in R/ts_ggplot.R
 \name{ts_ggplot}
 \alias{ts_ggplot}
-\alias{ts_ggplot}
 \alias{theme_tsbox}
-\alias{ts_ggplot}
 \alias{colors_tsbox}
-\alias{ts_ggplot}
 \alias{scale_color_tsbox}
-\alias{ts_ggplot}
 \alias{scale_fill_tsbox}
 \title{Plot Time Series, Using ggplot2}
 \usage{
