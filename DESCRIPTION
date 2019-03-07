@@ -4,11 +4,11 @@ Title: Class-Agnostic Time Series
 Version: 0.0.3
 Date: 2018-06-18
 Authors@R: person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"))
-Description: Time series toolkit with identical behavior for all 
+Description: Time series toolkit with identical behavior for all
   time series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
   'timeSeries', 'tsibble'. Also converts reliably between these classes.
 Imports:
-    data.table,
+    data.table (>= 1.10.0),
     anytime
 Suggests:
     testthat,
@@ -28,6 +28,7 @@ Suggests:
     timeSeries,
     nycflights13
 License: GPL-3
+Encoding: UTF-8
 URL: https://www.tsbox.help
 BugReports: https://github.com/christophsax/tsbox/issues
 Roxygen: list(markdown = TRUE)
