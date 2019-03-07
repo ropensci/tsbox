@@ -2,7 +2,8 @@
 
 ## Features
 
--
+- ts_default new function to change column names to defaults (time, value), so
+  that no auto detection is performed afterwards.
 
 
 ## Bug fixes
