@@ -19,3 +19,13 @@ test_that("ts_ works with more exotic options", {
   expect_error(load_suggested("blabla"))
   expect_error(ts_(function(x) x, reclass = FALSE, vectorize = TRUE))
 })
+
+
+test_that("ts_ based functions pass arguments in seasonal", {
+  skip_if_not_installed("seasonal")
+
+  sa <- ts_seas(ts_c(mdeaths, fdeaths), x11 = "")
+  expect_equal(ts_pick(sa, 'mdeaths'), predict(seasonal::seas(mdeaths, x11 = "")))
+  expect_equal(ts_pick(sa, 'fdeaths'), predict(seasonal::seas(fdeaths, x11 = "")))
+
+})
