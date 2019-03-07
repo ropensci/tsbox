@@ -23,7 +23,13 @@ ts_tslist_dts <- function(x) {
 #' @export
 #' @method ts_dts tslist
 ts_dts.tslist <- function(x) {
-  ts_dts(rbindlist(lapply(x, ts_dts), idcol = "id"))
+  ll <- lapply(x, ts_dts)
+  if (length(ll) > 1) {
+    z <- rbindlist(ll, idcol = "id")
+  } else {
+    z <- ll[[1]]
+  }
+  ts_dts(z)
 }
 
 

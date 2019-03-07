@@ -4,10 +4,12 @@
 \alias{ts_regular}
 \title{Enforce Regularity}
 \usage{
-ts_regular(x)
+ts_regular(x, fill = NA)
 }
 \arguments{
-\item{x}{a ts-boxable time series}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}
+
+\item{fill}{instead of \code{NA}, an alternative value can be specified}
 }
 \description{
 Enforces regularity in data frame and \code{xts} objects, by turning implicit
@@ -19,6 +21,7 @@ x0 <- AirPassengers
 x0[c(10, 15)] <- NA
 x <- ts_na_omit(ts_dts(x0))
 ts_regular(x)
+ts_regular(x, fill = 0)
 
 m <- mdeaths
 m[c(10, 69)] <- NA

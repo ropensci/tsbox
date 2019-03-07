@@ -4,12 +4,14 @@
 #' `NA`s into explicit `NA`s. In `ts` objects, regularity is automatically
 #' enforced.
 #'
-#' @param x a ts-boxable time series
+#' @inherit ts_dts
+#' @param fill instead of `NA`, an alternative value can be specified
 #' @examples
 #' x0 <- AirPassengers
 #' x0[c(10, 15)] <- NA
 #' x <- ts_na_omit(ts_dts(x0))
 #' ts_regular(x)
+#' ts_regular(x, fill = 0)
 #'
 #' m <- mdeaths
 #' m[c(10, 69)] <- NA
@@ -18,9 +20,14 @@
 #'
 #' ts_regular(ts_na_omit(ts_dts(ts_c(f, m))))
 #' @export
-ts_regular <- function(x) {
+ts_regular <- function(x, fill = NA) {
   stopifnot(ts_boxable(x))
   z <- regular_core(ts_dts(x))
+  if (!is.na(fill)) {
+    if (length(fill) != 1) stop("'fill' must be of length 1", call. = FALSE)
+    cvalue <- dts_cname(x)$value
+    z[[cvalue]][is.na(z[[cvalue]])] <- fill
+  }
   copy_class(z, x)
 }
 
@@ -56,7 +63,7 @@ regular_core <- function(x) {
   }
 
   setattr(z, "cname", cname)
-  
+
   # resulting time column name should be ctime
   setnames(z, "time", ctime)
 
