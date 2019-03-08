@@ -140,7 +140,6 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
 }
 
 # x <- ts_dts(ts_c(fdeaths, mdeaths))
-# get_frequency(x)
 get_shift_string <- function(x){
   freq <- NULL
   x <- copy(ts_dts(x))
@@ -159,7 +158,7 @@ frequency_one <- function(x) {
   if (fm$freq == -1) {
     udiff <- unique(diff(as.numeric(x)))
     # all.equal(max(udiff), min(udiff)) # should be 'numerically' unique
-    if (!all.equal(max(udiff), min(udiff))) stop("incomplete regualrization. Somehting is wrong.")
+    if (!all.equal(max(udiff), min(udiff))) stop("incomplete regularization. Somehting is wrong.")
     udiff <- mean(udiff)
     # unit <- "day"
     unit <- if(inherits(x, "POSIXct")) "sec" else "day"
