@@ -19,6 +19,8 @@ ids(x, simplify = TRUE)
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}
 
 \item{type}{decimal or by string}
+
+\item{simplify}{should the id data.frame be simplified to a vector?}
 }
 \description{
 These functions do not start with \code{ts_}, because they don't return an object

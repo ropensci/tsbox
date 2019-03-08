@@ -1,8 +1,14 @@
 # tsbox 0.0.4 (2018-03-??)
 
+## Changes
+
+- Rectangular structures (data.frame, tibble, data.table, xts) keep explicit NAs
+  by default. Use ts_na_omit() to make explict NAs implicit. As previously,
+  ts_regular() makes implicit NAs explicit.
+
 ## Features
 
-- ts_default new function to change column names to defaults (time, value), so
+- ts_default, new function to change column names to defaults (time, value), so
   that no auto detection is performed afterwards (#118)
 - ts_regular gains 'fill' argument, to specify replacement value for NA (#101)
 
@@ -15,6 +21,7 @@
   or period now works as expected, also for non-heuristic series, such as
   EuStockMarkets (#106)
 - time column of daily data is treated as Date (#114)
+
 
 # tsbox 0.0.3 (2018-06-18)
 

@@ -31,6 +31,8 @@ ts_pc2 <- function(x) {
 
 
 ts_apply_time_value <- function(x, fun, regular = TRUE) {
+  value <- NULL
+
   if (regular) {
     x.dts <- ts_dts(ts_regular(x))
   } else {

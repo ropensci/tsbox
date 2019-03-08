@@ -11,7 +11,7 @@ dts_init <- function(x){
   setnames(x, cname$time, "time")
   x[, time := as_time_or_date(time)]
   setnames(x, "time", cname$time)
-  setattr(z, "cname", cname)
+  setattr(x, "cname", cname)
   x
 }
 

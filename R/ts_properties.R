@@ -50,6 +50,7 @@ freq <- function(x, type = c("freq", "string")) {
 
 
 #' @export
+#' @param simplify should the id data.frame be simplified to a vector?
 #' @name from
 ids <- function(x, simplify = TRUE) {
   stopifnot(ts_boxable(x))
