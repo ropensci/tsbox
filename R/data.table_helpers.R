@@ -1,11 +1,5 @@
 # function for easier access to data.table
 
-filter_data.table <- function(DT, column.name, operator = "%in%", filter.value) {
-  str <- paste0(column.name, " ", operator, " \"", filter.value, "\"")
-  q <- parse(text = str)
-  `[`(DT, eval(q))
-}
-
 combine_cols_data.table <- function(dt, cols, sep = '_') {
   # probably not the best way to do it
   qq.str <- paste0("id := paste(", paste(cols, collapse = ", "), ", sep = '", sep, "')")
@@ -37,7 +31,7 @@ merge_time_date <- function(x, y, by.x = "time", by.y = "time"){
     x0[["time"]] <- as.POSIXct(x0[["time"]])
     y0[["time"]] <- as.POSIXct(y0[["time"]])
     class <- "POSIXct"
-  } 
+  }
 
   # rolling join
   x0[, s := seq_along(time)]

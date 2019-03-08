@@ -11,16 +11,10 @@ ts_to_date_time <- function(x) {
   first.subperiod <- tsp(x)[1] %% 1
   fr <- frequency(x)
 
-  division <- first.subperiod / (1 / fr)
-  if (abs(division - round(division)) > 1e-3) {
-    stop(
-      "subperiod is not dividable by frequency\n\n",
-      "If you encounter this rare rounding issue, many thanks for ",
-      "reporting a reproducible example on:",
-      "\n\n    https://github.com/christophsax/tsbox\n",
-      call. = FALSE
-    )
-  }
+  # we did not allow an offset, but this is wrong. offset is common, e.g., for weekly data.
+  # division <- first.subperiod / (1 / fr)
+  # offset <- division - round(division)
+  # stopifnot(abs(offset) < 1e-3)
 
   md <- .mapdiff[freq == fr]
 
@@ -100,12 +94,12 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     # this should be able to deal with Date and POSIXct.
 
     md <- .mapdiff[freq == frequency]
-    if (ncol(md) == 0) stop("cannot deal with frequency: ", frequency)
 
     # non heuristic converson for high frequencies
     # heuristic converison is slow
-    if (md$freq > 500){
-      return(POSIXct_to_tsp(as.POSIXct(x)))
+    if (frequency > 500 || nrow(md) == 0){
+      tsp <- tsp(ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency))
+      return(tsp)
     }
 
     str <- md$str
@@ -118,7 +112,6 @@ date_time_to_tsp <- function(x, frequency = NULL) {
 
     sq.ts <- ts(sq.time, frequency = frequency, start = data.table::year(x[1]))
     start <- time(sq.ts)[sq.ts >= as.integer(x[1])][1]
-
 
     z <- tsp(ts(x, start = start, frequency = frequency))
   }
