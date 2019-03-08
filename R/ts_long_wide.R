@@ -2,7 +2,8 @@
 #'
 #' Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
 #' Note that long format data frames are ts-boxable objects, where wide format data
-#' frames are not.
+#' frames are not. `ts_long` automatically identifies a **time** column, and
+#' uses columns on the left as id columns.
 #'
 #' @param x a ts-boxable time series, or a wide `data.frame`,
 #' `data.table`, or `tibble`.
@@ -20,15 +21,21 @@ ts_long <- function(x) {
   copy_class(z, x, preserve.names = FALSE)
 }
 
-# a version of long_core that deals with mulit id. less robust and not used
+# a version of long_core that deals with multi id. less robust and not used
 # by ts_dts.ts and ts_dts.xts
 long_core_multi_id <- function(x) {
   stopifnot(inherits(x, "data.table"))
   time.name <- guess_time(x)
   # guess id: ids on the left of time colum
-  id.names <- setdiff(names(x)[seq(which(names(x) == time.name))], time.name)
+  all.names <- names(x)
+  time.pos <- which(all.names == time.name)
+  id.names <- setdiff(all.names[1:time.pos], time.name)
+  value.names <- setdiff(all.names[time.pos:length(all.names)], time.name)
+  if (length(value.names) == 0) {
+    stop("no [value] columns detected (columns right of [time] column)", call. = FALSE)
+  }
   if (length(id.names) > 0){
-    message("[id]: ",  paste(paste0("'", id.names, "'"), collapse = ", "))
+    message("[id] (columns left of [time] column): ",  paste(paste0("'", id.names, "'"), collapse = ", "))
     id.vars <- c(id.names, time.name)
   } else {
     id.vars <- time.name
@@ -83,7 +90,7 @@ wide_core <- function(x) {
   z <- dcast(
     x, as.formula(paste("time", "~", cname$id)),
     value.var = cname$value, drop = FALSE
-  )  
+  )
   setnames(z, "time", cname$time)
 
   # keep order as in input

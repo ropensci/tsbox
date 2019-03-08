@@ -1,22 +1,23 @@
 #' Pick Series (Experimental)
 #'
 #' Pick (and optionally rename) series from multiple time series.
-#'  
+#'
 #' @inherit ts_dts
-#' @param ... character string(s), names of the series to be picked. If arguments are named, the series will be renamed.
+#' @param ... character string(s), names of the series to be picked, or integer, with positions.
+#'   If arguments are named, the series will be renamed.
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' # Interactive use
 #' \donttest{
 #' ts_plot(ts_pick(
-#'   EuStockMarkets, 
-#'   `My Dax` = "DAX", 
+#'   EuStockMarkets,
+#'   `My Dax` = "DAX",
 #'   `My Smi` = "SMI"
 #' ))
 #' head(ts_pick(EuStockMarkets, c(1, 2)))
 #' head(ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI'))
 #' }
-#' 
+#'
 #' # Programming use
 #' to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")
 #' head(ts_pick(EuStockMarkets, to.be.picked.and.renamed))
@@ -25,7 +26,7 @@ ts_pick <- function(x, ...) {
   stopifnot(ts_boxable(x))
 
   id <- NULL
-  call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse, 
+  call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse,
                               width.cutoff = 500L))
 
   .id <- c(...)
@@ -33,7 +34,10 @@ ts_pick <- function(x, ...) {
   if (is.null(names(.id))) names(.id) <- .id
   names(.id)[names(.id) == ""] <- .id[names(.id) == ""]
 
-  z <- combine_id_cols(ts_dts(x))
+  x.dts <- ts_dts(x)
+  if (ncol(x.dts) == 2) return(x)  # do nothing with singel time series
+
+  z <- combine_id_cols(x.dts)
 
   cname <- dts_cname(z)
 
@@ -46,7 +50,12 @@ ts_pick <- function(x, ...) {
     } else {
       .id <- setNames(.id, .id)
     }
-    
+
+  }
+
+  missing.in.data <- !(.id %in% z[[cname$id]])
+  if (any(missing.in.data)) {
+    stop("values missing in data: ", paste(.id[missing.in.data], collapse = ", "), call. = FALSE)
   }
 
   setkeyv(z, cname$id)
