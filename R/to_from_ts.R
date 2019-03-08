@@ -68,15 +68,15 @@ ts_dts.ts <- function(x) {
 #' In data frames, multiple time series will be stored in a 'long' format. tsbox
 #' detects a *value*, a *time* and zero to several *id* columns. Column detection
 #' is done in the following order:
-#' 
+#'
 #' 1. Starting **on the right**, the first first `numeric` or `integer` column is
 #' used as **value column**.
-#' 
+#'
 #' 1. Using the remaining columns, and starting on the right again, the first
 #' `Date`, `POSIXct`, `numeric` or `character` column is used as **time column**.
-#' `character` strings are parsed by [anytime::anytime()]. 
-#' The time stamp, `time`, indicates the beginning of a period. 
-#' 
+#' `character` strings are parsed by [anytime::anytime()].
+#' The time stamp, `time`, indicates the beginning of a period.
+#'
 #' 1. **All remaining** columns are **id columns**. Each unique combination of id
 #' columns points to a time series.
 #'
@@ -106,18 +106,18 @@ ts_dts.ts <- function(x) {
 #' x.ts <- ts_c(mdeaths, fdeaths)
 #' head(x.ts)
 #' head(ts_df(x.ts))
-#' 
+#'
 #' suppressMessages(library(dplyr))
 #' head(ts_tbl(x.ts))
-#' 
+#'
 #' suppressMessages(library(data.table))
 #' head(ts_dt(x.ts))
-#' 
+#'
 #' suppressMessages(library(xts))
 #' head(ts_xts(x.ts))
 #'
 #' # heuristic time conversion
-#' # 1 momth: approx. 1/12 year
+#' # 1 month: approx. 1/12 year
 #' head(ts_df(AirPassengers))
 #'
 #' # exact time conversion
