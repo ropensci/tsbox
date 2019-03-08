@@ -8,10 +8,16 @@ dts_init <- function(x){
   stopifnot(inherits(x, "dts"))
   cname <- dts_cname(x)
 
+  # new
   setnames(x, cname$time, "time")
   x[, time := as_time_or_date(time)]
   setnames(x, "time", cname$time)
   setattr(x, "cname", cname)
+
+  # old
+  # x <- ts_na_omit(x)
+
+
   x
 }
 
