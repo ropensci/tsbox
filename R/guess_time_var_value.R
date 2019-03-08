@@ -19,14 +19,14 @@ is_time <- function(x) {
   if (all(x %in% .years)) return(TRUE)
 
   tt <- anytime(x, useR = TRUE)
-  
+
   # useR = FALSE crashes R session on Win
   # https://github.com/eddelbuettel/anytime/issues/76
   if (any(is.na(tt))) return(FALSE)
 
   # exclude unrealistic years
   if ((as.POSIXlt(max(tt))$year + 1900L) > 2500) return(FALSE)
-  
+
   TRUE
 }
 
@@ -52,7 +52,7 @@ guess_time <- function(x, value.name = "value") {
   }
 
   if (is.na(z)) {
-    stop("No time column detected. To be explict, name time column as 'time'.")
+    stop("No [time] column detected. To be explict, name time column as 'time'.")
   }
 
   z
@@ -71,7 +71,7 @@ guess_value <- function(x) {
     }
   }
   if (is.na(z)) {
-    stop("No value column detected. To be explict, name value column as 'value'.")
+    stop("No [value] column detected. To be explict, name value column as 'value'.")
   }
   z
 }
