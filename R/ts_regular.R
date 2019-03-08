@@ -22,6 +22,13 @@
 #' @export
 ts_regular <- function(x, fill = NA) {
   stopifnot(ts_boxable(x))
+  if (inherits(x, "ts")) {  # to save time
+    if (!is.na(fill)) {
+      x[is.na(x)] <- fill
+    }
+    return(x)
+  }
+  # standard routine
   z <- regular_core(ts_dts(x))
   if (!is.na(fill)) {
     if (length(fill) != 1) stop("'fill' must be of length 1", call. = FALSE)
