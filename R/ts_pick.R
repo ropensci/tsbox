@@ -1,7 +1,7 @@
 #' Pick Series (Experimental)
 #'
 #' Pick (and optionally rename) series from multiple time series.
-#'  
+#'
 #' @inherit ts_dts
 #' @param ... character string(s), names of the series to be picked. If arguments are named, the series will be renamed.
 #' @return a ts-boxable time series, with the same class as the input.
@@ -9,14 +9,14 @@
 #' # Interactive use
 #' \donttest{
 #' ts_plot(ts_pick(
-#'   EuStockMarkets, 
-#'   `My Dax` = "DAX", 
+#'   EuStockMarkets,
+#'   `My Dax` = "DAX",
 #'   `My Smi` = "SMI"
 #' ))
 #' head(ts_pick(EuStockMarkets, c(1, 2)))
 #' head(ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI'))
 #' }
-#' 
+#'
 #' # Programming use
 #' to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")
 #' head(ts_pick(EuStockMarkets, to.be.picked.and.renamed))
@@ -25,7 +25,7 @@ ts_pick <- function(x, ...) {
   stopifnot(ts_boxable(x))
 
   id <- NULL
-  call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse, 
+  call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse,
                               width.cutoff = 500L))
 
   .id <- c(...)
@@ -46,7 +46,7 @@ ts_pick <- function(x, ...) {
     } else {
       .id <- setNames(.id, .id)
     }
-    
+
   }
 
   setkeyv(z, cname$id)
