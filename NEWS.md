@@ -21,6 +21,7 @@
   or period now works as expected, also for non-heuristic series, such as
   EuStockMarkets (#106)
 - time column of daily data is treated as Date (#114)
+- ts_pick, error if picked series is not in data
 
 
 # tsbox 0.0.3 (2018-06-18)

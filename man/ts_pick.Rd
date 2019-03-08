@@ -9,7 +9,8 @@ ts_pick(x, ...)
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}
 
-\item{...}{character string(s), names of the series to be picked. If arguments are named, the series will be renamed.}
+\item{...}{character string(s), names of the series to be picked, or integer, with positions.
+If arguments are named, the series will be renamed.}
 }
 \value{
 a ts-boxable time series, with the same class as the input.
@@ -21,8 +22,8 @@ Pick (and optionally rename) series from multiple time series.
 # Interactive use
 \donttest{
 ts_plot(ts_pick(
-  EuStockMarkets, 
-  `My Dax` = "DAX", 
+  EuStockMarkets,
+  `My Dax` = "DAX",
   `My Smi` = "SMI"
 ))
 head(ts_pick(EuStockMarkets, c(1, 2)))
