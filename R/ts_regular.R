@@ -25,7 +25,7 @@ ts_regular <- function(x, fill = NA) {
   z <- regular_core(ts_dts(x))
   if (!is.na(fill)) {
     if (length(fill) != 1) stop("'fill' must be of length 1", call. = FALSE)
-    cvalue <- dts_cname(x)$value
+    cvalue <- dts_cname(z)$value
     z[[cvalue]][is.na(z[[cvalue]])] <- fill
   }
   copy_class(z, x)

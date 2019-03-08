@@ -47,5 +47,8 @@ test_that("fill argument works", {
   x <- ts_na_omit(ts_dts(x0))
   z <- ts_regular(x, -9999)
   expect_equal(z[[2]][2], -9999)
+  expect_equal(ts_regular(x0, 0)[2], 0)
 })
+
+
 
