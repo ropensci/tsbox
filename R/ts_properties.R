@@ -22,7 +22,7 @@ from <- function(x) {
 #' @name from
 to <- function(x) {
   stopifnot(ts_boxable(x))
-  x.dts <- ts_dts(x)
+  x.dts <- copy(ts_dts(x))
   cname <- dts_cname(x.dts)
   setnames(x.dts, cname$time, "time")
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
@@ -33,24 +33,27 @@ to <- function(x) {
 }
 
 #' @export
+#' @param type decimal or by string
 #' @name from
-freq <- function(x) {
+freq <- function(x, type = c("freq", "string")) {
   stopifnot(ts_boxable(x))
-  x.dts <- ts_dts(x)
+  type <- match.arg(type)
+  x.dts <- copy(ts_dts(x))
   cname <- dts_cname(x.dts)
   setnames(x.dts, cname$time, "time")
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
-  z <- x.dts[, list(string = frequency_one(time)), by = eval(.by)]$string
+  z <- x.dts[, list(string = frequency_one(time)[[type]]), by = eval(.by)]$string
   id.names <- ids(x.dts)
   if (length(id.names) > 0) names(z) <- ids(x.dts)
   z
 }
 
+
 #' @export
 #' @name from
 ids <- function(x, simplify = TRUE) {
   stopifnot(ts_boxable(x))
-  x.dts <- ts_dts(x)
+  x.dts <- copy(ts_dts(x))
   cname <- dts_cname(x.dts)
   x.dts[[cname$value]] <- NULL
   x.dts[[cname$time]] <- NULL

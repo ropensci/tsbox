@@ -147,14 +147,15 @@ get_shift_string <- function(x){
   cname <- dts_cname(x)
   setnames(x, cname$time, "time")
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
-  z <- x[, list(string = frequency_one(time)), by = eval(.by)]
+  z <- x[, list(string = frequency_one(time)$string), by = eval(.by)]
   as.data.frame(z)
 }
-# used by get_shift_string only
+
+# determine frequency of a single series
+# returns list, with components freq, string
 frequency_one <- function(x) {
   diffdt <- frequency_table(x)
   fm <- diffdt[which.max(freq)]
-  z <- fm$string
   if (fm$freq == -1) {
     udiff <- unique(diff(as.numeric(x)))
     # all.equal(max(udiff), min(udiff)) # should be 'numerically' unique
@@ -162,9 +163,11 @@ frequency_one <- function(x) {
     udiff <- mean(udiff)
     # unit <- "day"
     unit <- if(inherits(x, "POSIXct")) "sec" else "day"
-    z <- paste(udiff, unit)
+    nominator <- if(inherits(x, "POSIXct")) 31556952 else 365.2425
+    fm$string <- paste(udiff, unit)
+    fm$freq <- nominator / udiff
   }
-  z
+  fm
 }
 
 
