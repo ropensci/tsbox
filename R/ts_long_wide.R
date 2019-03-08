@@ -3,7 +3,7 @@
 #' Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
 #' Note that long format data frames are ts-boxable objects, where wide format data
 #' frames are not. `ts_long` automatically identifies a **time** column, and
-#' identifies all columns on the left as id columns.
+#' uses columns on the left as id columns.
 #'
 #' @param x a ts-boxable time series, or a wide `data.frame`,
 #' `data.table`, or `tibble`.

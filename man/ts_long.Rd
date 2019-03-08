@@ -19,7 +19,8 @@ object with the same class as input
 \description{
 Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
 Note that long format data frames are ts-boxable objects, where wide format data
-frames are not.
+frames are not. \code{ts_long} automatically identifies a \strong{time} column, and
+uses columns on the left as id columns.
 }
 \examples{
 df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
