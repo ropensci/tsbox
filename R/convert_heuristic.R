@@ -31,6 +31,11 @@ ts_to_date_time <- function(x) {
 
     start <- round(start, "secs")
 
+    # daily data should be stored as Date
+    if (identical(md$string, "1 day")) {
+      start <- as.Date(start)
+    }
+
     z <- seq(
       from = start,
       by = md$string,

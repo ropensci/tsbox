@@ -14,7 +14,7 @@
 - ts_span various fixes, boundary specifcation by shift string ("1 year")
   or period now works as expected, also for non-heuristic series, such as
   EuStockMarkets (#106)
-
+- time column of daily data is treated as Date (#114)
 
 # tsbox 0.0.3 (2018-06-18)
 
