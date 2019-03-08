@@ -5,6 +5,9 @@ ts_apply_dts <- function(x, fun, ...) {
   stopifnot(inherits(x, "dts"))
   if (number_of_series(x) == 1) return(fun(x, ...))
 
+  # probably ok to do this here.
+  x <- ts_na_omit(x)
+
   cname <- dts_cname(x)
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
 
