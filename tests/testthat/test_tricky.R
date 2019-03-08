@@ -121,4 +121,12 @@ test_that("No duplicated series are allowed", {
       data_frame(id = "reihe_1", time = 2011:2018, value = 1:8)
     )
   expect_error(ts_ts(dta))
+  # mutliple ids
+  dta <-
+  bind_rows(
+    data_frame(rr = "a", id = "reihe_1", time = 2011:2018, value = 2:9),
+    data_frame(rr = "a", id = "reihe_1", time = 2011:2018, value = 1:8)
+  )
+  expect_error(ts_ts(dta))
+
 })
