@@ -7,16 +7,15 @@ dts_init <- function(x){
   setattr(x, "class", c("dts", attr(x, "class")))
   stopifnot(inherits(x, "dts"))
   cname <- dts_cname(x)
+  # old
+  # x[[cname$time]] <- as_time_or_date(x[[cname$time]])
+  # x <- ts_na_omit(x)
 
   # new
   setnames(x, cname$time, "time")
   x[, time := as_time_or_date(time)]
   setnames(x, "time", cname$time)
   setattr(x, "cname", cname)
-
-  # old
-  # x <- ts_na_omit(x)
-
 
   x
 }
