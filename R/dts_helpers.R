@@ -8,7 +8,7 @@ dts_init <- function(x){
   stopifnot(inherits(x, "dts"))
   cname <- dts_cname(x)
   x[[cname$time]] <- as_time_or_date(x[[cname$time]])
-  x <- ts_na_omit(x)
+  # x <- ts_na_omit(x)
   x
 }
 
