@@ -11,6 +11,15 @@ dts_init <- function(x){
   # x[[cname$time]] <- as_time_or_date(x[[cname$time]])
   # x <- ts_na_omit(x)
 
+  # do not allow duplicates
+  is.dup <- duplicated(x[, c(cname$id, cname$time), with = FALSE])
+  if (any(is.dup)) {
+    z <- as.data.frame(unique(x[is.dup, cname$id, with = FALSE]))
+    paste_ <- function(...) paste(..., sep = "_")
+    dups <- do.call(paste_, as.list(z))
+    stop("duplicated series: ", paste(dups, collapse = ", "), call. = FALSE)
+  }
+
   # new
   setnames(x, cname$time, "time")
   x[, time := as_time_or_date(time)]

@@ -95,9 +95,9 @@ desired_class <- function(ll) {
 #' @param preserve.names should the name of the time column be preserved (data frame only)
 #' @param preserve.time should the values time column be preserved (data frame only)
 #' @export
-copy_class <- function(x, template, 
-                       preserve.mode = TRUE, 
-                       preserve.names = FALSE, 
+copy_class <- function(x, template,
+                       preserve.mode = TRUE,
+                       preserve.names = FALSE,
                        preserve.time = FALSE) {
 
   if (!ts_boxable(x)) {
