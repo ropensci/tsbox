@@ -1,66 +1,65 @@
-#' Extract Time Series Properties
+#' Time Series Properties
 #'
-#' These functions do not start with `ts_`, because they don't return an object
-#' of the same class as the input.
 #' @inherit ts_dts
+#' @param spark.width integer, with of the spark graph, in numer of character.
+#'   Set to `NULL` to turn off.
 #'
 #' @export
-#' @name from
-from <- function(x) {
-  stopifnot(ts_boxable(x))
-  x.dts <- ts_dts(x)
-  cname <- dts_cname(x.dts)
-  setnames(x.dts, cname$time, "time")
-  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
-  z <- x.dts[, list(string = time[1]), by = eval(.by)]$string
-  id.names <- ids(x.dts)
-  if (length(id.names) > 0) names(z) <- ids(x.dts)
-  z
-}
-
+#' @exapmle
+#' ts_prop(ts_c(mdeaths, austres))
+#' # Extracting specific properties
+#' ts_prop(AirPassengers)
 #' @export
-#' @name from
-to <- function(x) {
+ts_prop <- function(x, spark.width = 15) {
   stopifnot(ts_boxable(x))
-  x.dts <- copy(ts_dts(x))
-  cname <- dts_cname(x.dts)
-  setnames(x.dts, cname$time, "time")
-  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
-  z <- x.dts[, list(string = time[length(time)]), by = eval(.by)]$string
-  id.names <- ids(x.dts)
-  if (length(id.names) > 0) names(z) <- ids(x.dts)
-  z
+
+  # TODO check for regularity, the following only works for regular series
+
+  x.dts <- ts_regular(combine_id_cols(ts_na_omit(ts_dts(ts_default(x)))))
+  if (!("id" %in% names(x.dts))) x.dts$id <- deparse(substitute(x))
+  if (is.null(spark.width)) {
+    ans <- x.dts[,list(
+      obs = length(time),
+      freq = frequency_one(time)$string,
+      start = min(time),
+      end = max(time)
+    ), by = id]
+  } else {
+    ans <- x.dts[,list(
+      obs = length(time),
+      freq = frequency_one(time)$string,
+      start = min(time),
+      end = max(time),
+      spark = ts_spark_core(x = value, width = spark.width)
+    ), by = id]
+  }
+
+  as.data.frame(ans)
+
 }
 
-#' @export
-#' @param type decimal or by string
-#' @name from
-freq <- function(x, type = c("freq", "string")) {
-  stopifnot(ts_boxable(x))
-  type <- match.arg(type)
-  x.dts <- copy(ts_dts(x))
-  cname <- dts_cname(x.dts)
-  setnames(x.dts, cname$time, "time")
-  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
-  z <- x.dts[, list(string = frequency_one(time)[[type]]), by = eval(.by)]$string
-  id.names <- ids(x.dts)
-  if (length(id.names) > 0) names(z) <- ids(x.dts)
-  z
+
+ts_spark_core <- function(x, width)  {
+  cat.y <- cut(
+    seq(0, 1, length.out = length(x)),
+    seq(0, 1, by = 1 / width),
+    include.lowest = TRUE,
+    labels = FALSE
+  )
+
+  x.agg <- tapply(x, cat.y, mean)
+  rr <- range(x.agg)
+  x.agg.scaled <- (x.agg - rr[1]) / (rr[2] - rr[1])
+
+  bars <- vapply(9601:9608, intToUtf8, character(1))
+  # bars <- bars[-c(4, 8)]
+  factor <- cut(x.agg.scaled, breaks = seq(0, 1, length.out = length(bars) +
+      1), labels = bars, include.lowest = TRUE)
+  chars <- as.character(factor)
+  chars[is.na(chars)] <- bars[length(bars)]
+  paste(chars, collapse = "")
 }
 
 
-#' @export
-#' @param simplify should the id data.frame be simplified to a vector?
-#' @name from
-ids <- function(x, simplify = TRUE) {
-  stopifnot(ts_boxable(x))
-  x.dts <- copy(ts_dts(x))
-  cname <- dts_cname(x.dts)
-  x.dts[[cname$value]] <- NULL
-  x.dts[[cname$time]] <- NULL
-  z <- as.data.frame(unique(x.dts))
-  paste_ <- function(...) paste(..., sep = "_")
-  do.call(paste_, as.list(z))
-}
 
 

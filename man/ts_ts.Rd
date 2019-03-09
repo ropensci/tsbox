@@ -101,7 +101,7 @@ suppressMessages(library(xts))
 head(ts_xts(x.ts))
 
 # heuristic time conversion
-# 1 momth: approx. 1/12 year
+# 1 month: approx. 1/12 year
 head(ts_df(AirPassengers))
 
 # exact time conversion
