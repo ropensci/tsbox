@@ -6,11 +6,11 @@
 #'
 #' @export
 #' @exapmle
-#' ts_prop(ts_c(mdeaths, austres))
+#' ts_summary(ts_c(mdeaths, austres))
 #' # Extracting specific properties
-#' ts_prop(AirPassengers)
+#' ts_summary(AirPassengers)
 #' @export
-ts_prop <- function(x, spark.width = 15) {
+ts_summary <- function(x, spark.width = 15) {
   stopifnot(ts_boxable(x))
 
   # TODO check for regularity, the following only works for regular series
@@ -30,7 +30,10 @@ ts_prop <- function(x, spark.width = 15) {
       freq = frequency_one(time)$string,
       start = min(time),
       end = max(time),
-      spark = ts_spark_core(x = value, width = spark.width)
+      spark = ts_spark_core(x = value, width = spark.width),
+      min = min(value),
+      median = median(value),
+      max = max(value),
     ), by = id]
   }
 
