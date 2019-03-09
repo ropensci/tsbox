@@ -16,8 +16,10 @@
 #' head(ts_default(df))
 #' @export
 ts_default <- function(x) {
+  if (inherits(x, "ts")) return(x)
   z <- ts_dts(x)
   cname <- dts_cname(z)
+  if (identical(cname$time, "time") && identical(cname$value, "value")) return(x)
   setnames(z, cname$time, "time")
   setnames(z, cname$value, "value")
   copy_class(z, x)
