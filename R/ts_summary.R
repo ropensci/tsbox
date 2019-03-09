@@ -22,7 +22,10 @@ ts_summary <- function(x, spark.width = 15) {
       obs = length(time),
       freq = frequency_one(time)$string,
       start = min(time),
-      end = max(time)
+      end = max(time)#,
+      # min = min(value),
+      # median = median(value),
+      # max = max(value)
     ), by = id]
   } else {
     ans <- x.dts[,list(
@@ -30,10 +33,10 @@ ts_summary <- function(x, spark.width = 15) {
       freq = frequency_one(time)$string,
       start = min(time),
       end = max(time),
-      spark = ts_spark_core(x = value, width = spark.width),
-      min = min(value),
-      median = median(value),
-      max = max(value),
+      spark = ts_spark_core(x = value, width = spark.width) #,
+      # min = min(value),
+      # median = median(value),
+      # max = max(value)
     ), by = id]
   }
 
