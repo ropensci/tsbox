@@ -23,6 +23,7 @@
 - time column of daily data is treated as Date (#114)
 - ts_pick, error if picked series is not in data (#100)
 - error when data contains duplicated series (#102)
+- ts_plot, improved axis labels for high frequency series (#117)
 
 
 # tsbox 0.0.3 (2018-06-18)

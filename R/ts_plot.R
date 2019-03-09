@@ -3,11 +3,11 @@
 #'
 #' `ts_plot()` is a fast and simple plotting function for ts-boxable time series,
 #' with limited customizability. For more theme options, use [ts_ggplot()].
-#' 
+#'
 #' Both `ts_plot()` and [ts_ggplot()] combine multiple ID dimensions into a single
 #' dimension. To plot multiple dimensions in different shapes, facets, etc., use
 #' standard ggplot.
-#' 
+#'
 #' Limited customizability of `ts_plot` is available via options. See examples.
 #'
 #' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
@@ -15,32 +15,32 @@
 #' @param subtitle subtitle (optional)
 #' @param ylab ylab (optional)
 #' @param family font family (optional, can also be set via `options`)
-#' @seealso [ts_ggplot()], for a plotting function based on ggplot2. 
+#' @seealso [ts_ggplot()], for a plotting function based on ggplot2.
 #'   [ts_dygraphs()], for interactive time series plots. [ts_save()] to
 #'   save a plot to the file system.
 #' @examples
 #' \donttest{
 #' ts_plot(
-#'   AirPassengers, 
+#'   AirPassengers,
 #'   title = "Airline passengers",
 #'   subtitle = "The classic Box & Jenkins airline data"
 #' )
-#'  
+#'
 #' # naming arguments
 #' ts_plot(total = ldeaths, female = fdeaths, male = mdeaths)
 #'
 #' # using different ts-boxable objects
 #' ts_plot(ts_scale(ts_c(
-#'   ts_xts(airmiles), 
-#'   ts_tbl(co2), 
-#'   JohnsonJohnson, 
+#'   ts_xts(airmiles),
+#'   ts_tbl(co2),
+#'   JohnsonJohnson,
 #'   ts_df(discoveries)
 #' )))
-#' 
+#'
 #' # customize ts_plot
 #' op <- options(
-#'   tsbox.lwd = 3, 
-#'   tsbox.col = c("gray51", "gray11"), 
+#'   tsbox.lwd = 3,
+#'   tsbox.col = c("gray51", "gray11"),
 #'   tsbox.lty = "dashed"
 #' )
 #' ts_plot(
@@ -167,8 +167,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   ylim <- range(values, na.rm = TRUE)
 
   xticks <- pretty(tind)
-  xlabels <- format(xticks, "%Y")
-
+  xlabels <- attr(xticks, "labels")
 
   # Lines
   ids <- as.character(unique(x[, id]))
@@ -266,7 +265,7 @@ ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10, height = 
   }
 
   filename <- normalizePath(filename, mustWork = FALSE)
-  
+
   cl <- ts_lastplot_call()
   if (is.null(cl) || !inherits(cl, "call")) {
     stop("ts_plot must be called first.")
