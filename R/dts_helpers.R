@@ -12,7 +12,7 @@ dts_init <- function(x){
   # x <- ts_na_omit(x)
 
   # do not allow duplicates
-  is.dup <- duplicated(x[, c(cname$id, cname$value), with = FALSE])
+  is.dup <- duplicated(x[, c(cname$id, cname$time), with = FALSE])
   if (any(is.dup)) {
     z <- as.data.frame(unique(x[is.dup, cname$id, with = FALSE]))
     paste_ <- function(...) paste(..., sep = "_")
