@@ -15,29 +15,24 @@ ts_summary <- function(x, spark.width = 15) {
 
   # TODO check for regularity, the following only works for regular series
 
-  x.dts <- ts_regular(combine_id_cols(ts_na_omit(ts_dts(ts_default(x)))))
+  x.dts <- ts_regular(combine_id_cols(ts_dts(ts_default(x))))
   if (!("id" %in% names(x.dts))) x.dts$id <- deparse(substitute(x))
-  if (is.null(spark.width)) {
-    ans <- x.dts[,list(
-      obs = length(time),
-      freq = frequency_one(time)$string,
-      start = min(time),
-      end = max(time)#,
-      # min = min(value),
-      # median = median(value),
-      # max = max(value)
+
+  x.dts.trimmed <- ts_regular(ts_na_omit(x.dts))
+
+  ans <- x.dts.trimmed[,list(
+    obs = length(time),
+    freq = frequency_one(time)$string,
+    start = min(time),
+    end = max(time)
+  ), by = id]
+
+  if (!is.null(spark.width)) {
+    spark <- x.dts[,list(
+      spark = ts_spark_core(x = value, spark.width = spark.width) #,
     ), by = id]
-  } else {
-    ans <- x.dts[,list(
-      obs = length(time),
-      freq = frequency_one(time)$string,
-      start = min(time),
-      end = max(time),
-      spark = ts_spark_core(x = value, width = spark.width) #,
-      # min = min(value),
-      # median = median(value),
-      # max = max(value)
-    ), by = id]
+
+    ans[, spark_line := spark$spark]
   }
 
   as.data.frame(ans)
@@ -45,27 +40,32 @@ ts_summary <- function(x, spark.width = 15) {
 }
 
 
-ts_spark_core <- function(x, width)  {
+ts_spark_core <- function(x, spark.width)  {
   cat.y <- cut(
     seq(0, 1, length.out = length(x)),
-    seq(0, 1, by = 1 / width),
+    seq(0, 1, by = 1 / (2 * spark.width)),
     include.lowest = TRUE,
     labels = FALSE
   )
 
-  x.agg <- tapply(x, cat.y, mean)
-  rr <- range(x.agg)
-  x.agg.scaled <- (x.agg - rr[1]) / (rr[2] - rr[1])
+  x.agg <- tapply(x, cat.y, mean, na.rm = TRUE)
+  rr <- range(x.agg, na.rm = TRUE)
 
-  bars <- vapply(9601:9608, intToUtf8, character(1))
-  # bars <- bars[-c(4, 8)]
-  factor <- cut(x.agg.scaled, breaks = seq(0, 1, length.out = length(bars) +
-      1), labels = bars, include.lowest = TRUE)
-  chars <- as.character(factor)
-  chars[is.na(chars)] <- bars[length(bars)]
+  x.agg.scaled <- (x.agg - rr[1])/(rr[2] - rr[1])
+
+  # https://github.com/ropensci/skimr/blob/master/R/stats.R
+  braille <- function(x) {
+      x <- c(7L, 3L, 2L, 1L, 8L, 6L, 5L, 4L)[x]
+      raised <- 1:8 %in% x
+      val <- 10240 + sum(raised * 2^(0:7))
+      intToUtf8(val)
+  }
+  stopifnot(is.numeric(x))
+  y <- findInterval(x.agg.scaled, seq(0, 1, length.out = 5), all.inside = TRUE)
+  ind <- matrix(y, ncol = 2, byrow = TRUE)
+  ind[, 2] <- ind[, 2] + 4
+  chars <- apply(ind, 1, braille)
   paste(chars, collapse = "")
 }
-
-
 
 
