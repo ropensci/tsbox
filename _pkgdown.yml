@@ -12,7 +12,7 @@ template:
 reference:
 - title: Convert
   desc: >
-    tsbox is built around a set of converters, which convert time series to each other:
+    tsbox is built around a set of converters, which convert time series to each other
   contents:
   - ts_ts
   - ts_xts
@@ -42,20 +42,23 @@ reference:
   - ts_scale
   - ts_trend
   - ts_pc
+  - ts_pca
   - ts_pcy
   - ts_diff
   - ts_diffy
   - ts_index
   - ts_lag
 
-- title: Plot
+- title: Plot and Summary
   desc: >
-    Simple and fast plotting functions for any time series
+    Simple and fast plotting and summary functions
   contents:
+  - ts_summary
   - ts_plot
   - ts_ggplot
   - theme_tsbox
   - ts_save
+  - ts_default
 
 - title: Reshape
   desc: >

@@ -3,8 +3,8 @@
 \name{ts_pc}
 \alias{ts_pc}
 \alias{ts_diff}
-\alias{ts_pcy}
 \alias{ts_pca}
+\alias{ts_pcy}
 \alias{ts_diffy}
 \title{First Differences and Percentage Change Rates}
 \usage{
@@ -12,9 +12,9 @@ ts_pc(x)
 
 ts_diff(x)
 
-ts_pcy(x)
-
 ts_pca(x)
+
+ts_pcy(x)
 
 ts_diffy(x)
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Enforce Regularity — ts_regular • tsbox</title>
+<title>Time Series Properties — ts_summary • tsbox</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,9 @@
 
 
 
-<meta property="og:title" content="Enforce Regularity — ts_regular" />
+<meta property="og:title" content="Time Series Properties — ts_summary" />
 
-<meta property="og:description" content="Enforces regularity in data frame and xts objects, by turning implicit
-NAs into explicit NAs. In ts objects, regularity is automatically
-enforced." />
+<meta property="og:description" content="Time Series Properties" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,20 +127,18 @@ enforced." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Enforce Regularity</h1>
+    <h1>Time Series Properties</h1>
     
-    <div class="hidden name"><code>ts_regular.Rd</code></div>
+    <div class="hidden name"><code>ts_summary.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Enforces regularity in data frame and <code>xts</code> objects, by turning implicit
-<code>NA</code>s into explicit <code>NA</code>s. In <code>ts</code> objects, regularity is automatically
-enforced.</p>
+    <p>Time Series Properties</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ts_regular</span>(<span class='no'>x</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>ts_summary</span>(<span class='no'>x</span>, <span class='kw'>spark.width</span> <span class='kw'>=</span> <span class='fl'>15</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,56 +148,18 @@ enforced.</p>
       <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, or <code>timeSeries</code>.</p></td>
     </tr>
     <tr>
-      <th>fill</th>
-      <td><p>instead of <code>NA</code>, an alternative value can be specified</p></td>
+      <th>spark.width</th>
+      <td><p>integer, with of the spark graph, in numer of character.
+Set to <code>NULL</code> to turn off.</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x0</span> <span class='kw'>&lt;-</span> <span class='no'>AirPassengers</span>
-<span class='no'>x0</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>15</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ts_na_omit.html'>ts_na_omit</a></span>(<span class='fu'><a href='ts_dts.html'>ts_dts</a></span>(<span class='no'>x0</span>))
-<span class='fu'>ts_regular</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;            time value
-#&gt;   1: 1949-01-01   112
-#&gt;   2: 1949-02-01   118
-#&gt;   3: 1949-03-01   132
-#&gt;   4: 1949-04-01   129
-#&gt;   5: 1949-05-01   121
-#&gt;  ---                 
-#&gt; 140: 1960-08-01   606
-#&gt; 141: 1960-09-01   508
-#&gt; 142: 1960-10-01   461
-#&gt; 143: 1960-11-01   390
-#&gt; 144: 1960-12-01   432</div><div class='input'><span class='fu'>ts_regular</span>(<span class='no'>x</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt;            time value
-#&gt;   1: 1949-01-01   112
-#&gt;   2: 1949-02-01   118
-#&gt;   3: 1949-03-01   132
-#&gt;   4: 1949-04-01   129
-#&gt;   5: 1949-05-01   121
-#&gt;  ---                 
-#&gt; 140: 1960-08-01   606
-#&gt; 141: 1960-09-01   508
-#&gt; 142: 1960-10-01   461
-#&gt; 143: 1960-11-01   390
-#&gt; 144: 1960-12-01   432</div><div class='input'>
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='no'>mdeaths</span>
-<span class='no'>m</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>69</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='no'>fdeaths</span>
-<span class='no'>f</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>15</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
-
-<span class='fu'>ts_regular</span>(<span class='fu'><a href='ts_na_omit.html'>ts_na_omit</a></span>(<span class='fu'><a href='ts_dts.html'>ts_dts</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>f</span>, <span class='no'>m</span>))))</div><div class='output co'>#&gt;      id       time value
-#&gt;   1:  f 1974-02-01   689
-#&gt;   2:  f 1974-03-01    NA
-#&gt;   3:  f 1974-04-01   677
-#&gt;   4:  f 1974-05-01   522
-#&gt;   5:  f 1974-06-01   406
-#&gt;  ---                    
-#&gt; 139:  m 1979-08-01   975
-#&gt; 140:  m 1979-09-01    NA
-#&gt; 141:  m 1979-10-01  1081
-#&gt; 142:  m 1979-11-01  1294
-#&gt; 143:  m 1979-12-01  1341</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>ts_summary</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>austres</span>))</div><div class='output co'>#&gt;        id obs freq_str freq      start        end      spark_line
+#&gt; 1 mdeaths  72  1 month   12 1971-04-01 1993-04-01 ⠒⡠⠊⢄⡐⠡⣀⠒⢄⡠⠡⣀⠌⢂⣀
+#&gt; 2 austres  89  1 month   12 1971-04-01 1993-04-01 ⣀⣀⣀⣀⡠⠤⠤⠤⠒⠒⠒⠊⠉⠉⠉</div><div class='input'><span class='co'># Extracting specific properties</span>
+<span class='fu'>ts_summary</span>(<span class='no'>AirPassengers</span>)$<span class='no'>start</span></div><div class='output co'>#&gt; [1] "1949-01-01"</div><div class='input'><span class='fu'>ts_summary</span>(<span class='no'>AirPassengers</span>)$<span class='no'>freq</span></div><div class='output co'>#&gt; [1] 12</div><div class='input'><span class='fu'>ts_summary</span>(<span class='no'>AirPassengers</span>)$<span class='no'>obs</span></div><div class='output co'>#&gt; [1] 144</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
