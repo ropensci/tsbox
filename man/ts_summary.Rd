@@ -15,3 +15,10 @@ Set to \code{NULL} to turn off.}
 \description{
 Time Series Properties
 }
+\examples{
+ts_summary(ts_c(mdeaths, austres))
+# Extracting specific properties
+ts_summary(AirPassengers)$start
+ts_summary(AirPassengers)$freq
+ts_summary(AirPassengers)$obs
+}

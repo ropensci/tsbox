@@ -17,3 +17,10 @@ test_that("ts_summary works with irregular series", {
   expect_true(is.na(smry[2, 3]))
 
 })
+
+
+test_that("ts_summary works with single series", {
+
+  expect_is(ts_summary(AirPassengers), "data.frame")
+
+})

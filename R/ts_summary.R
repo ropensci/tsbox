@@ -5,29 +5,25 @@
 #'   Set to `NULL` to turn off.
 #'
 #' @export
-#' @exapmle
+#' @examples
 #' ts_summary(ts_c(mdeaths, austres))
 #' # Extracting specific properties
-#' ts_summary(AirPassengers)
+#' ts_summary(AirPassengers)$start
+#' ts_summary(AirPassengers)$freq
+#' ts_summary(AirPassengers)$obs
 #' @export
-
-  # x <- ts_c(
-  #   mdeaths,
-  #   irreg = data.frame(
-  #     time = as.POSIXct(c("2000-01-01", "2001-01-01", "2005-03-03", "2007-03-03", "2007-03-05", "2007-03-09", "2007-05-03", "2007-09-03")),
-  #     value = 1:8
-  #   )
-  # )
-  # ts_summary(x)
-
-
-
 ts_summary <- function(x, spark.width = 15) {
   stopifnot(ts_boxable(x))
 
   x.dts <- ts_dts(ts_default(x))
   # support multi id
   cid <- dts_cname(x.dts)$id
+  if (length(cid) == 0) {
+    x.dts$id <- deparse(substitute(x))
+    setcolorder(x.dts, c("id", "time", "value"))
+    cid <- "id"
+  }
+
   .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
 
   ans.freq <- x.dts[, frequency_one(time), by = eval(.by)]
