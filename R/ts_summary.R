@@ -10,30 +10,46 @@
 #' # Extracting specific properties
 #' ts_summary(AirPassengers)
 #' @export
+
+  # x <- ts_c(
+  #   mdeaths,
+  #   irreg = data.frame(
+  #     time = as.POSIXct(c("2000-01-01", "2001-01-01", "2005-03-03", "2007-03-03", "2007-03-05", "2007-03-09", "2007-05-03", "2007-09-03")),
+  #     value = 1:8
+  #   )
+  # )
+  # ts_summary(x)
+
+
+
 ts_summary <- function(x, spark.width = 15) {
   stopifnot(ts_boxable(x))
 
-  # TODO check for regularity, the following only works for regular series
+  x.dts <- ts_dts(ts_default(x))
+  # support multi id
+  cid <- dts_cname(x.dts)$id
+  .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
 
-  x.dts <- ts_regular(combine_id_cols(ts_dts(ts_default(x))))
-  if (!("id" %in% names(x.dts))) x.dts$id <- deparse(substitute(x))
+  ans.freq <- x.dts[, frequency_one(time), by = eval(.by)]
+  ans.freq[, c("share", "N") := NULL]
+  setnames(ans.freq, "string", "freq_str")
+  regular.series <- ans.freq[!is.na(freq)][, cid, with = FALSE]
 
-  x.dts.trimmed <- ts_regular(ts_na_omit(x.dts))
-
-  ans <- x.dts.trimmed[,list(
-    obs = length(time),
-    freq = frequency_one(time)$string,
+  ans.other <- x.dts[,list(
+    obs = length(na.omit(value)),
     start = min(time),
     end = max(time)
-  ), by = id]
+  ), by = eval(.by)]
 
-  if (!is.null(spark.width)) {
-    spark <- x.dts[,list(
-      spark = ts_spark_core(x = value, spark.width = spark.width) #,
-    ), by = id]
+  # some stuff can be done for regular series only
+  ans.regular <- ts_regular(ts_na_omit(x.dts[regular.series, on = cid]))[,
+    list(spark_line = ts_spark_core(x = value, spark.width = spark.width)),
+    by = eval(.by)
+  ]
 
-    ans[, spark_line := spark$spark]
-  }
+  ans <- ans.regular[ans.freq[ans.other, on = cid], on = cid]
+
+  setcolorder(ans, c(cid, "obs", "freq_str", "freq", "start", "end", "spark_line"))
 
   as.data.frame(ans)
 

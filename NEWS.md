@@ -6,11 +6,17 @@
   by default. Use ts_na_omit() to make explict NAs implicit. As previously,
   ts_regular() makes implicit NAs explicit.
 
-## Features
+
+## New Functions and Features
 
 - ts_default, new function to change column names to defaults (time, value), so
   that no auto detection is performed afterwards (#118)
+- ts_summary, returns a data frame with summary information of a ts-boxable
+  object
 - ts_regular gains 'fill' argument, to specify replacement value for NA (#101)
+- ts_pc, ts_pcy, ts_diff, ts_diffy have been rewritten and are much faster. They
+  now return a series of the same lenth as the input, with NA at the beginning.
+
 
 ## Bug fixes
 
