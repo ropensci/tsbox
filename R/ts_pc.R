@@ -15,7 +15,7 @@
 #' @export
 ts_pc <- function(x) {
   ts_apply(x, function(x) {
-    x[, .(time, value = 100 * (value / c(NA, value[-length(value)]) - 1))]
+    x[, list(time, value = 100 * (value / c(NA, value[-length(value)]) - 1))]
   })
 }
 
@@ -24,7 +24,7 @@ ts_pc <- function(x) {
 #' @export
 ts_diff <- function(x) {
   ts_apply(x, function(x) {
-    x[, .(time, value = value - c(NA, value[-length(value)]))]
+    x[, list(time, value = value - c(NA, value[-length(value)]))]
   })
 }
 
@@ -34,7 +34,7 @@ ts_diff <- function(x) {
 ts_pca <- function(x) {
   ts_apply(x, function(x) {
     fr <- frequency_one(x$time)$freq
-    x[, .(time, value = 100 * ((value / c(NA, value[-length(value)]))^fr - 1))]
+    x[, list(time, value = 100 * ((value / c(NA, value[-length(value)]))^fr - 1))]
   })
 }
 
@@ -43,8 +43,8 @@ ts_pca <- function(x) {
 #' @export
 ts_pcy <- function(x) {
   ts_apply(x, function(x) {
-    xlag <- data.table(time = time_shift(x$time, "1 year"), lag = x$value)
-    xlag[x, on = "time"][, .(time, value = (value / lag - 1) * 100)]
+    xlag <- data.table(time = time_shift(x$time, "1 year"), value_lag = x$value)
+    xlag[x, on = "time"][, list(time, value = (value / value_lag - 1) * 100)]
   })
 }
 
@@ -54,8 +54,8 @@ ts_pcy <- function(x) {
 #' @export
 ts_diffy <- function(x) {
   ts_apply(x, function(x) {
-    xlag <- data.table(time = time_shift(x$time, "1 year"), lag = x$value)
-    xlag[x, on = "time"][, .(time, value = value - lag)]
+    xlag <- data.table(time = time_shift(x$time, "1 year"), value_lag = x$value)
+    xlag[x, on = "time"][, list(time, value = value - value_lag)]
   })
 }
 
@@ -63,7 +63,7 @@ ts_diffy <- function(x) {
 #' @export
 ts_diffy <- function(x) {
   ts_apply(x, function(x) {
-    xlag <- data.table(time = time_shift(x$time, "1 year"), lag = x$value)
-    xlag[x, on = "time"][, .(time, value = value - lag)]
+    xlag <- data.table(time = time_shift(x$time, "1 year"), value_lag = x$value)
+    xlag[x, on = "time"][, list(time, value = value - value_lag)]
   })
 }
