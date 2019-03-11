@@ -64,6 +64,7 @@ test_that("formulas are correct", {
   expect_equal(ts_pcy(x)[8], 100 * (8/4 - 1))
   expect_equal(ts_diff(x)[8], 8 - 7)
   expect_equal(ts_diffy(x)[8], 8 - 4)
+  expect_equal(ts_pca(x)[8], 100 * ((8/7)^4 - 1))
 })
 
 
