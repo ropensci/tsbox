@@ -153,13 +153,25 @@ get_shift_string <- function(x){
 
 # determine frequency of a single series
 # returns list, with components freq, string
+
+# x1 <- as.POSIXct(c("2000-01-01", "2001-01-01", "2005-03-03", "2007-03-03", "2007-03-05", "2007-03-09", "2007-05-03", "2007-09-03"))
+# x2 <- ts_tbl(AirPassengers)$time
+# x3 <- ts_na_omit(ts_tbl(ts_bind(austres, AirPassengers)))$time
+# frequency_one(x1)
+# frequency_one(x2)
+# frequency_one(x3)
+
 frequency_one <- function(x) {
   diffdt <- frequency_table(x)
   fm <- diffdt[which.max(freq)]
-  if (fm$freq == -1) {
+  if (diffdt$freq[1] == -1) {  # if -1 is most common value
     udiff <- unique(diff(as.numeric(x)))
     # all.equal(max(udiff), min(udiff)) # should be 'numerically' unique
-    if (!all.equal(max(udiff), min(udiff))) stop("incomplete regularization. Somehting is wrong.")
+    if (max(udiff) - min(udiff) > 0) {
+      fm$string <- NA_character_
+      fm$freq <- NA_real_
+      return(fm)
+    }
     udiff <- mean(udiff)
     # unit <- "day"
     unit <- if(inherits(x, "POSIXct")) "sec" else "day"
