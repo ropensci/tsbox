@@ -82,10 +82,10 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
 
   # specification by shift string: create date
   if (!is.null(start) && grepl("[a-z]", start)){
-    start <- time_shift(time_shift(ts_end(x), sstr), start)
+    start <- time_shift(time_shift(max(x.dts[[ctime]]), sstr), start)
   }
   if (!is.null(end) && grepl("[a-z]", end)){
-    end <- time_shift(time_shift(ts_start(x), paste0("-", sstr)), end)
+    end <- time_shift(time_shift(min(x.dts[[ctime]]), paste0("-", sstr)), end)
   }
 
   # specification by template: get start and end from template
@@ -140,6 +140,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
 }
 
 # x <- ts_dts(ts_c(fdeaths, mdeaths))
+# x <- ts_dts(EuStockMarkets)
 get_shift_string <- function(x){
   freq <- NULL
   x <- copy(ts_dts(x))
@@ -167,7 +168,7 @@ frequency_one <- function(x) {
   if (diffdt$freq[1] == -1) {  # if -1 is most common value
     udiff <- unique(diff(as.numeric(x)))
     # all.equal(max(udiff), min(udiff)) # should be 'numerically' unique
-    if (max(udiff) - min(udiff) > 0) {
+    if (max(udiff) - min(udiff) > 1e5) {
       fm$string <- NA_character_
       fm$freq <- NA_real_
       return(fm)

@@ -1,21 +1,20 @@
 # Shift Time Stamps
-# 
+#
 # `time_shift` adds seconds, minutes, hours, days, weeks, months, quarters or
 # years to dates.
 #
 # If `by` is character, the time stamp is shifted by a specific amount of time.
 # This can be one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
-# `"month"`, `"quarter" or `"year", or an abbreviation, optionally preceded by 
-# a (positive or negative) integer and a space, or followed by plural "s". This 
-# is passed to [base::seq.Date()]. This does not require the series to be 
+# `"month"`, `"quarter" or `"year", or an abbreviation, optionally preceded by
+# a (positive or negative) integer and a space, or followed by plural "s". This
+# is passed to [base::seq.Date()]. This does not require the series to be
 # regular.
-# 
+#
 # @param x `Date` or `POSIXct`. If `POSIXct`, it is converted into `Date`.
 # @param by integer or character, either the number of shifting periods
 #   (integer), or an absolute amount of time (character). See details.
-# 
+#
 # @return an object of class `Date`
-# @seealso [ts_frequency()] for standard aggregation.
 #
 # @examples
 # ap.time <- ts_df(AirPassengers)$time
@@ -24,15 +23,18 @@
 # head(time_shift(ap.time, "7 week"))
 # head(time_shift(ap.time, "-1 month"))
 #
-# time_shift(ts_end(mdeaths), 1)
-# time_shift(ts_end(mdeaths), "-14 sec")
-# time_shift(ts_end(mdeaths), "-1 year")
-# ts_span(ts_c(mdeaths, fdeaths), start = time_shift(ts_end(mdeaths), -1))
-# 
+# time_shift(ts_summary(mdeaths)$end, 1)
+# time_shift(ts_summary(mdeaths)$end, "-14 sec")
+# time_shift(ts_summary(mdeaths)$end, "-1 year")
+# ts_span(
+#   ts_c(mdeaths, fdeaths),
+#   start = time_shift(ts_summary(mdeaths)$end, -1)
+# )
+#
 time_shift <- function(x, by = NULL) {
 
   freq <- NULL
-  
+
   if (is.null(by)) return(x)
 
   # high freq can be added to POSIXct only
@@ -60,7 +62,7 @@ time_shift <- function(x, by = NULL) {
     }
     z <- seq(from = add_to_one(x[1]), by = fm$string, length.out = length(x))
     return(z)
-  } 
+  }
 
   # if series is not regular, but seems regularizable, try and use shortcut if
   # possible
@@ -82,7 +84,7 @@ time_shift <- function(x, by = NULL) {
       return(z)
     }
   }
-  
+
   if (is.numeric(by)) stop("by cannot be integer when used with irregular sequence", call. = FALSE)
 
   if (inherits(x, "Date")){
@@ -115,7 +117,7 @@ time_shift_non_heuristic <- function(x, by) {
     } else {
        # regular, by as period
       add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
-      z.num <- seq(from = as.numeric(add_to_one(xreg[1]), by = by), 
+      z.num <- seq(from = as.numeric(add_to_one(xreg[1]), by = by),
                by = dff, length.out = length(xreg))
     }
 
@@ -124,7 +126,7 @@ time_shift_non_heuristic <- function(x, by) {
     } else {
       z <- as.Date(z.num, origin = "1970-01-01")
     }
-    
+
     return(z)
   }
 

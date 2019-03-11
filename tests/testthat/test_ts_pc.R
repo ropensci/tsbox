@@ -32,7 +32,7 @@ test_that("ts_compound, ts_index and ts_pc are consistent", {
   expect_equal(ts_pc(mdeaths), ts_pc(ts_index(mdeaths)))
   expect_equal(ts_pc(AirPassengers), ts_pc(ts_index(AirPassengers)))
 
-  expect_equal(ts_compound(ts_pc(EuStockMarkets)), 
+  expect_equal(ts_compound(ts_pc(EuStockMarkets)),
                ts_index(EuStockMarkets))
 
   expect_equal(ts_compound(ts_pc(ts_c(mdeaths, fdeaths))),
@@ -48,9 +48,13 @@ test_that("ts_compound, ts_index and ts_pc are consistent", {
 
 
 test_that("pc and ts_index works with NA", {
-  x0 <- EuStockMarkets
-  x0[5:10, ] <- NA
+  x0 <- mdeaths
+  x0[5:10] <- NA
   expect_is(ts_index(ts_pc(x0)), "ts")
+
+  x1 <- EuStockMarkets
+  x1[5:10, ] <- NA
+  expect_is(ts_index(ts_pc(x1)), "ts")
 })
 
 

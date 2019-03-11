@@ -7,8 +7,8 @@ ts_compound <- function(x, denominator = 100) {
   not_in_data <- NULL
   value <- NULL
   z <- ts_dts(x)
-  z <- ts_regular(z)
-  
+  z <- ts_regular(ts_na_omit(z))
+
   cname <- dts_cname(z)
   setnames(z, cname$time, "time")
   setnames(z, cname$value, "value")
@@ -16,7 +16,7 @@ ts_compound <- function(x, denominator = 100) {
   z[, value := value / denominator + 1]
 
   # Adding a future value to get the right length of time series
-  z <- ts_bind(ts_lag(z, -1), -99999)  
+  z <- ts_bind(ts_lag(z, -1), -99999)
 
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
 
@@ -47,7 +47,7 @@ ts_compound <- function(x, denominator = 100) {
 #' \donttest{
 #' ts_plot(
 #'   `My Expert Knowledge` = ts_chain(
-#'     mdeaths, 
+#'     mdeaths,
 #'     ts_compound(ts_bind(ts_pc(mdeaths), 15, 23, 33))),
 #'   `So Far` = mdeaths,
 #'   title = "A Very Manual Forecast"
@@ -64,7 +64,7 @@ ts_index <- function(x, base = NULL) {
   setnames(z, cname$time, "time")
   setnames(z, cname$value, "value")
 
-  
+
 
   # if (inherits(z$time, "POSIXct")) {
   #   stop("indexing only works on 'Date', not 'POSIXct'")
@@ -72,17 +72,17 @@ ts_index <- function(x, base = NULL) {
 
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
 
-  # use latest start point as base candidtate
+  # use latest non na start point as base candidtate
   if (is.null(base)){
     dt_min_time <- z[
-      ,
+      !is.na(value),
       list(min.time = min(time)),
       by = eval(.by)
     ]
     base <- max(dt_min_time$min.time)
   } else {
     # let ts_span parse base and make sure it exists in data
-    base <- ts_start(ts_span(z, start = base))
+    base <- range(ts_span(z, start = base)$time)[1]
   }
 
   # check if base date in data (rewrite)

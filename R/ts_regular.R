@@ -51,7 +51,6 @@ regular_core <- function(x) {
   cname <- dts_cname(x)
   ctime <- cname$time
   cid <- cname$id
-    # browser()
 
   regular_core_one <- function(x) {
     if (is_regular_one_basic(x[[ctime]])) return(x)

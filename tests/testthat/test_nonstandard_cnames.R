@@ -27,5 +27,5 @@ test_that("main functions work with non standard cnames", {
 
 test_that("years are detected as time", {
   df <- data.frame(year = 2000:2009, value = 1:10)
-  expect_equal(ts_end(ts_ts(df)), as.Date("2009-01-01"))
+  expect_equal(ts_summary(ts_ts(df))$end, as.Date("2009-01-01"))
 })

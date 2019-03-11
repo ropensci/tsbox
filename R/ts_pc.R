@@ -13,26 +13,20 @@
 #' head(ts_diffy(ts_c(fdeaths, mdeaths)))
 #' @export
 ts_pc <- function(x) {
+  ts_apply_time_value(x, function(time, value) {
+    100 * ((value / c(NA, value[-length(value)])) - 1)
+  })
+}
+
+ts_pc_old <- function(x) {
   stopifnot(ts_boxable(x))
   z <- ts_dts(x)
   z <- ts_regular(z)
   copy_class(((z %ts/% ts_lag(z)) %ts-% 1) %ts*% 100, x)
 }
 
-# alternatvie wrapper for functions. fun must be fun(time, value), probably
-# faster
-
-ts_pc2 <- function(x) {
-  pc_time_value <- function(time, value) {
-    100 * ((value / c(NA, value[-length(value)])) - 1)
-  }
-  ts_apply_time_value(x, pc_time_value)
-}
-
-
 ts_apply_time_value <- function(x, fun, regular = TRUE) {
   value <- NULL
-
   if (regular) {
     x.dts <- ts_dts(ts_regular(x))
   } else {
@@ -45,6 +39,7 @@ ts_apply_time_value <- function(x, fun, regular = TRUE) {
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
   x.dts[, value := fun(time = time, value = value), by = eval(.by)]
 
+  # x.dts <- x.dts[!is.na(value)]
   setnames(x.dts, "value", cname$value)
   setnames(x.dts, "time", cname$time)
   # setattr(x.dts, "cname", cname)
@@ -72,11 +67,21 @@ ts_apply_time_value <- function(x, fun, regular = TRUE) {
 #' @name ts_pc
 #' @export
 ts_diff <- function(x) {
-  stopifnot(ts_boxable(x))
-  z <- ts_dts(x)
-  z <- ts_regular(z)
-  copy_class(z %ts-% ts_lag(z), x)
+  ts_apply_time_value(x, function(time, value) {
+    value - c(NA, value[-length(value)])
+  })
 }
+
+
+# ts_pcy(AirPassengers)
+# ts_diff(EuStockMarkets) - ts_diff_old(EuStockMarkets)
+# ts_diff_old <- function(x) {
+#   stopifnot(ts_boxable(x))
+#   z <- ts_dts(x)
+#   z <- ts_regular(z)
+#   copy_class(z %ts-% ts_lag(z), x)
+# }
+
 
 #' @name ts_pc
 #' @export

@@ -31,8 +31,8 @@ test_that("ts_span does the same as base window", {
 
   x <- ts_df(austres)
 
-  expect_equal(x[1, 1], ts_start(austres))
-  expect_equal(x[nrow(x), 1], ts_end(austres))
+  expect_equal(x[1, 1], ts_summary(austres)$start)
+  expect_equal(x[nrow(x), 1],  ts_summary(austres)$end)
 
 })
 

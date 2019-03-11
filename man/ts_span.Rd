@@ -2,19 +2,9 @@
 % Please edit documentation in R/_deprecated.R, R/ts_span.R
 \name{ts_span}
 \alias{ts_span}
-\alias{ts_start}
-\alias{ts_end}
 \title{Limit Time Span}
 \usage{
-ts_start(x)
-
-ts_end(x)
-
 ts_span(x, start = NULL, end = NULL, template = NULL)
-
-ts_start(x)
-
-ts_end(x)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}

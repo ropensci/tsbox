@@ -67,7 +67,7 @@ regularize_non_heuristic <- function(x) {
 
   # all diffs must be integer multiples of minimal diff
   if (any((dd %% min.dd) > 0.1)) return(NULL)
-# browser()
+
   sq <- seq(from = x.num[1], to = x.num[length(x.num)] + 0.1, by = min.dd)
 
   if (inherits(x, "POSIXct")){
