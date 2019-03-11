@@ -12,15 +12,17 @@ template:
 reference:
 - title: Convert
   desc: >
-    tsbox is built around a set of converters, which convert time series stored
-    as `ts`, `xts`, `data.frame`, `data.table` or `tibble` to each
-    other.
+    tsbox is built around a set of converters, which convert time series to each other:
   contents:
   - ts_ts
   - ts_xts
   - ts_df
   - ts_dt
   - ts_tbl
+  - ts_zoo
+  - ts_tsibble
+  - ts_tibbletime
+  - ts_timeSeries
 
 - title: Combine and Separate
   desc: >

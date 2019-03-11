@@ -17,6 +17,7 @@
 #' @param template ts-boxable time series, an object of class `ts`, `xts`,
 #'   `data.frame`, `data.table`, or `tibble`. If provided, `from` and `to`
 #'   will be extracted from the object.
+#' @param extend logical. If true, the start and end values are allowed to extend the series (by adding `NA` values).
 #' @return a ts-boxable time series, with the same class as the input.
 #' @export
 #' @examples
@@ -52,7 +53,8 @@
 #'
 #' # Limit span of 'discoveries' to the same span as 'AirPassengers'
 #' ts_span(discoveries, template = AirPassengers)
-ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
+#' ts_span(mdeaths, end = "19801201", extend = TRUE)
+ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE) {
 
   if (!length(start) <= 1) {
     stop("'start' must be of length 1", call. = FALSE)
@@ -62,9 +64,11 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
   }
 
   x.dts <- ts_dts(x)
-  ctime <- dts_cname(x.dts)$time
+  cname <- dts_cname(x.dts)
   sstr <- unique(get_shift_string(x.dts)$string)
   spl.sstr <- strsplit(sstr, split = " ")[[1]]
+
+  setnames(x.dts, cname$time, "time")
 
   # specification by period: create shift_string
   if (is.numeric(start) && start < 999){
@@ -82,10 +86,36 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
 
   # specification by shift string: create date
   if (!is.null(start) && grepl("[a-z]", start)){
-    start <- time_shift(time_shift(max(x.dts[[ctime]]), sstr), start)
+    start <- time_shift(time_shift(max(x.dts$time), sstr), start)
   }
   if (!is.null(end) && grepl("[a-z]", end)){
-    end <- time_shift(time_shift(min(x.dts[[ctime]]), paste0("-", sstr)), end)
+    end <- time_shift(time_shift(min(x.dts$time), paste0("-", sstr)), end)
+  }
+
+  # specification by date: apply anytime
+
+  # Outfactor in universal anytime wrapper?
+  if_num_char <- function(x){
+    if (inherits(x, "numeric")) {
+      if (length(x) > 1) stop("numeric date input must be of length 1", call. = FALSE)
+      return(as.character(x))
+    }
+    x
+  }
+  if (dts_tattr(x.dts)$class == "POSIXct") {
+    anyfun <- function(x) anytime(if_num_char(x))
+    # some tolerance to >= <= in seconds
+    tolerance <- 0.3
+  } else {
+    anyfun <- function(x) anydate(if_num_char(x))
+    tolerance <- 0
+  }
+
+  if (!is.null(start)){
+    start <- anyfun(start) - tolerance
+  }
+  if (!is.null(end)){
+    end <- anyfun(end)
   }
 
   # specification by template: get start and end from template
@@ -97,43 +127,36 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL) {
     end <- rng[2]
   }
 
-  # Outfactor in universal anytime wrapper?
-  if_num_char <- function(x){
-    if (inherits(x, "numeric")) {
-      if (length(x) > 1) stop("numeric date input must be of length 1", call. = FALSE)
-      return(as.character(x))
+
+  if (extend) {
+    .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+    extend_one <- function(df, end = NULL, start = NULL) {
+      if (is.null(start)) start <- min(df$time)
+      if (is.null(end)) end <- max(df$time)
+      if (start > end) {
+        stop("'start' cannot be at or after 'end'", call. = FALSE)
+      }
+      by_str <- frequency_one(df$time)$string
+      full <- data.table(time = seq(start, end, by = by_str))
+      df[full, on = "time"]
     }
-    x
+    x.dts <- x.dts[, extend_one(.SD, start = start, end = end), by = eval(.by)]
   }
-
-  if (dts_tattr(x.dts)$class == "POSIXct") {
-    anyfun <- function(x) anytime(if_num_char(x))
-    # some tolerance to >= <= in seconds
-    tolerance <- 0.3
-  } else {
-    anyfun <- function(x) anydate(if_num_char(x))
-    tolerance <- 0
-  }
-
   if (!is.null(start)) {
-    .time <- anyfun(start) - tolerance
-    setnames(x.dts, ctime, "time")
-    x.dts <- x.dts[time >= .time]
-    setnames(x.dts, "time", ctime)
+    x.dts <- x.dts[time >= start]
   }
   if (!is.null(end)) {
     if (!is.null(start) && start > end) {
       stop("'start' cannot be at or after 'end'", call. = FALSE)
     }
-    .time <- anyfun(end) + tolerance
-    setnames(x.dts, ctime, "time")
-    x.dts <- x.dts[time <= .time]
-    setnames(x.dts, "time", ctime)
+    x.dts <- x.dts[time <= end]
   }
 
   if (nrow(x.dts) == 0){
-    stop("span contains no data, select different 'start' or 'end'", call. = FALSE)
+    stop("span contains no data; select different 'start' or 'end'", call. = FALSE)
   }
+
+  setnames(x.dts, "time", cname$time)
   z <- copy_class(x.dts, x)
 
   z

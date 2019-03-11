@@ -16,6 +16,7 @@
 - ts_regular gains 'fill' argument, to specify replacement value for NA (#101)
 - ts_pc, ts_pcy, ts_diff, ts_diffy have been rewritten and are much faster. They
   now return a series of the same lenth as the input, with NA at the beginning.
+- ts_span gains 'extend' argument, to add explicit NAs
 
 
 ## Bug fixes

@@ -67,4 +67,20 @@ test_that("works with non-heuristic frequencies (#106)", {
 
 
 
+test_that("extending by NA works", {
+  expect_equal(
+    ts_span(mdeaths, end = "19801201", extend = TRUE),
+    window(mdeaths, end = c(1980, 12), extend = TRUE)
+  )
+
+  expect_equal(
+    ts_span(mdeaths, start = "1973", extend = TRUE),
+    window(mdeaths, start = 1973, extend = TRUE)
+  )
+
+})
+
+
+
+
 
