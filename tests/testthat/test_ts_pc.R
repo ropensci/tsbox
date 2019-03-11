@@ -58,3 +58,13 @@ test_that("pc and ts_index works with NA", {
 })
 
 
+test_that("formulas are correct", {
+  x <- ts(c(1:8), start = 2000, frequency = 4)
+  expect_equal(ts_pc(x)[8], 100 * (8/7 - 1))
+  expect_equal(ts_pcy(x)[8], 100 * (8/4 - 1))
+  expect_equal(ts_diff(x)[8], 8 - 7)
+  expect_equal(ts_diffy(x)[8], 8 - 4)
+})
+
+
+
