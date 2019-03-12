@@ -1,8 +1,8 @@
 #' Time Series Properties
 #'
 #' @inherit ts_dts
-#' @param spark.width integer, with of the spark graph, in numer of character.
-#'   Set to `NULL` to turn off.
+#' @param spark.width integer, width of the spark line, in numer of characters.
+#'   Set to `NULL` to turn off (and speed it up).
 #'
 #' @export
 #' @examples
@@ -41,20 +41,26 @@ ts_summary <- function(x, spark.width = 15) {
     end = max(time)
   ), by = eval(.by)]
 
-  # some stuff can be done for regular series only
-  ans.regular <- ts_span(
-    x.dts[regular.series, on = cid],
-    start = min(x.dts$time, na.rm = TRUE),
-    end =  max(x.dts$time, na.rm = TRUE),
-    extend = TRUE
-  )[,
-    list(spark_line = ts_spark_core(x = value, spark.width = spark.width)),
-    by = eval(.by)
-  ]
+  if (!is.null(spark.width)) {
+    # some stuff can be done for regular series only
+    ans.regular <- ts_span(
+      x.dts[regular.series, on = cid],
+      start = min(x.dts$time, na.rm = TRUE),
+      end =  max(x.dts$time, na.rm = TRUE),
+      extend = TRUE
+    )[,
+      list(spark_line = ts_spark_core(x = value, spark.width = spark.width)),
+      by = eval(.by)
+    ]
 
-  ans <- ans.regular[ans.freq[ans.other, on = cid], on = cid]
+    ans <- ans.regular[ans.freq[ans.other, on = cid], on = cid]
+    setcolorder(ans, c(cid, "obs", "freq_str", "freq", "start", "end", "spark_line"))
 
-  setcolorder(ans, c(cid, "obs", "freq_str", "freq", "start", "end", "spark_line"))
+  } else {
+    ans <- ans.freq[ans.other, on = cid]
+    setcolorder(ans, c(cid, "obs", "freq_str", "freq", "start", "end"))
+  }
+
 
   as.data.frame(ans)
 
