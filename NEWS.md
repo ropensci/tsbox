@@ -15,7 +15,9 @@
   object. Also used to extract time series properties (ts_summary(x)$start, ts_summary(x)$freq, etc.)
 - ts_regular gains 'fill' argument, to specify replacement value for NA (#101)
 - ts_pc, ts_pcy, ts_diff, ts_diffy have been rewritten and are much faster. They
-  now return a series of the same lenth as the input, with NA at the beginning.
+  now return a series of the same lenth as the input, with NAs at the beginning.
+- ts_pca, new function to calculate annualized percentage change rate
+- ts_span gains 'extend' argument, to add explicit NAs
 
 
 ## Bug fixes

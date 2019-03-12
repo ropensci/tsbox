@@ -1,21 +1,37 @@
 # ts_apply works on dts, so it may cause quite a bit of overhead if applied,
 # e.g. on a ts object.
 
+# fun can rely on time and value colum beeing called 'time' and 'value'
+
 ts_apply_dts <- function(x, fun, ...) {
   stopifnot(inherits(x, "dts"))
-  if (number_of_series(x) == 1) return(fun(x, ...))
+  if (number_of_series(x) == 1) return({
+    cname <- dts_cname(x)
+    setnames(x, cname$time, "time")
+    setnames(x, cname$value, "value")
+    z <- fun(x, ...)
+    setnames(z, "time", cname$time)
+    setnames(z, "value", cname$value)
+    z
+  })
 
   # probably ok to do this here.
-  x <- ts_na_omit(x)
+  # x <- ts_na_omit(x)
 
   cname <- dts_cname(x)
+  setnames(x, cname$time, "time")
+  setnames(x, cname$value, "value")
   .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
 
   # modifiy cname, to reflect single series character of .SD
   cname.sd <- cname
   cname.sd$id <- character(0)
+
   setattr(x, "cname", cname.sd)
   z <- x[, fun(.SD, ...), by = eval(.by)]
+
+  setnames(z, "time", cname$time)
+  setnames(z, "value", cname$value)
   setattr(z, "cname", cname)
   dts_init(z)
 }

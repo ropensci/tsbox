@@ -3,6 +3,7 @@
 \name{ts_pc}
 \alias{ts_pc}
 \alias{ts_diff}
+\alias{ts_pca}
 \alias{ts_pcy}
 \alias{ts_diffy}
 \title{First Differences and Percentage Change Rates}
@@ -10,6 +11,8 @@
 ts_pc(x)
 
 ts_diff(x)
+
+ts_pca(x)
 
 ts_pcy(x)
 
@@ -22,13 +25,14 @@ ts_diffy(x)
 a ts-boxable time series, with the same class as the input.
 }
 \description{
-\code{ts_pcy} and \code{ts_diffy} calculate the percentage change rate and the difference
-compared to the previous period, \code{ts_pcy} and \code{ts_diffy} calculate compared to
-the same period of the previous year.
+\code{ts_pcy} and \code{ts_diffy} calculate the percentage change rate and the
+difference compared to the previous period, \code{ts_pcy} and \code{ts_diffy} calculate
+compared to the same period of the previous year. \code{ts_pca} calulates
+annualized percentage change rates compared to the previous period.
 }
 \examples{
-head(ts_diff(ts_c(fdeaths, mdeaths)))
-head(ts_pc(ts_c(fdeaths, mdeaths)))
-head(ts_pcy(ts_c(fdeaths, mdeaths)))
-head(ts_diffy(ts_c(fdeaths, mdeaths)))
+tail(ts_diff(ts_c(fdeaths, mdeaths)))
+tail(ts_pc(ts_c(fdeaths, mdeaths)))
+tail(ts_pcy(ts_c(fdeaths, mdeaths)))
+tail(ts_diffy(ts_c(fdeaths, mdeaths)))
 }

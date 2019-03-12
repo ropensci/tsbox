@@ -2,7 +2,7 @@ template:
   params:
     bootswatch: cerulean
     ganalytics: UA-46240882-5
-    
+
 # home:
   # strip_header: true
   # links:
@@ -12,62 +12,67 @@ template:
 reference:
 - title: Convert
   desc: >
-    tsbox is built around a set of converters, which convert time series stored 
-    as `ts`, `xts`, `data.frame`, `data.table` or `tibble` to each 
-    other.
+    tsbox is built around a set of converters, which convert time series to each other
   contents:
-  - ts_ts 
+  - ts_ts
   - ts_xts
-  - ts_df 
-  - ts_dt 
+  - ts_df
+  - ts_dt
   - ts_tbl
+  - ts_zoo
+  - ts_tsibble
+  - ts_tibbletime
+  - ts_timeSeries
 
 - title: Combine and Separate
   desc: >
     A set of helper functions to combine multiple time series
   contents:
   - ts_c
-  - ts_bind 
-  - ts_chain 
+  - ts_bind
+  - ts_chain
   - ts_span
   - ts_pick
 
 - title: Transform
   desc: >
-    Transformation functions with a unified interface for common time series 
+    Transformation functions with a unified interface for common time series
     opperations
   contents:
-  - ts_scale 
-  - ts_trend 
-  - ts_pc    
-  - ts_pcy   
-  - ts_diff  
-  - ts_diffy 
-  - ts_index 
-  - ts_lag   
+  - ts_scale
+  - ts_trend
+  - ts_pc
+  - ts_pca
+  - ts_pcy
+  - ts_diff
+  - ts_diffy
+  - ts_index
+  - ts_lag
 
-- title: Plot
+- title: Plot and Summary
   desc: >
-    Simple and fast plotting functions for any time series
+    Simple and fast plotting and summary functions
   contents:
+  - ts_summary
   - ts_plot
   - ts_ggplot
   - theme_tsbox
   - ts_save
+  - ts_default
 
 - title: Reshape
   desc: >
     Reshaping wide data frames into long data frames and back
   contents:
   - ts_wide
-  - ts_long 
+  - ts_long
 
 - title: Frequency
   desc: >
     Functions to manipulate frequency
   contents:
   - ts_frequency
-  - ts_regular 
+  - ts_regular
   - ts_na_omit
 
 - title: User defined ts-functions

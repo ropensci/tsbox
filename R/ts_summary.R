@@ -13,9 +13,13 @@
 #' ts_summary(AirPassengers)$obs
 #' @export
 ts_summary <- function(x, spark.width = 15) {
+
+  freq <- NULL
+  value <- NULL
   stopifnot(ts_boxable(x))
 
-  x.dts <- ts_dts(ts_default(x))
+  # implicit NAs for most operations
+  x.dts <- ts_na_omit(ts_dts(ts_default(x)))
   # support multi id
   cid <- dts_cname(x.dts)$id
   if (length(cid) == 0) {
@@ -38,7 +42,12 @@ ts_summary <- function(x, spark.width = 15) {
   ), by = eval(.by)]
 
   # some stuff can be done for regular series only
-  ans.regular <- ts_regular(ts_na_omit(x.dts[regular.series, on = cid]))[,
+  ans.regular <- ts_span(
+    x.dts[regular.series, on = cid],
+    start = min(x.dts$time, na.rm = TRUE),
+    end =  max(x.dts$time, na.rm = TRUE),
+    extend = TRUE
+  )[,
     list(spark_line = ts_spark_core(x = value, spark.width = spark.width)),
     by = eval(.by)
   ]
@@ -61,6 +70,7 @@ ts_spark_core <- function(x, spark.width)  {
   )
 
   x.agg <- tapply(x, cat.y, mean, na.rm = TRUE)
+
   rr <- range(x.agg, na.rm = TRUE)
 
   x.agg.scaled <- (x.agg - rr[1])/(rr[2] - rr[1])
