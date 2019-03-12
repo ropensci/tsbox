@@ -1,8 +1,8 @@
 #' Time Series Properties
 #'
 #' @inherit ts_dts
-#' @param spark.width integer, with of the spark graph, in numer of character.
-#'   Set to `NULL` to turn off.
+#' @param spark.width integer, width of the spark line, in numer of characters.
+#'   Set to `NULL` to turn off (and speed it up).
 #'
 #' @export
 #' @examples
@@ -41,53 +41,61 @@ ts_summary <- function(x, spark.width = 15) {
     end = max(time)
   ), by = eval(.by)]
 
-  # some stuff can be done for regular series only
-  ans.regular <- ts_span(
-    x.dts[regular.series, on = cid],
-    start = min(x.dts$time, na.rm = TRUE),
-    end =  max(x.dts$time, na.rm = TRUE),
-    extend = TRUE
-  )[,
-    list(spark_line = ts_spark_core(x = value, spark.width = spark.width)),
-    by = eval(.by)
-  ]
+  if (!is.null(spark.width)) {
+    # some stuff can be done for regular series only
+    ans.regular <- ts_span(
+      x.dts[regular.series, on = cid],
+      start = min(x.dts$time, na.rm = TRUE),
+      end =  max(x.dts$time, na.rm = TRUE),
+      extend = TRUE
+    )[,
+      list(spark_line = ts_spark_core(x = value, spark.width = spark.width)),
+      by = eval(.by)
+    ]
 
-  ans <- ans.regular[ans.freq[ans.other, on = cid], on = cid]
+    ans <- ans.regular[ans.freq[ans.other, on = cid], on = cid]
+    setcolorder(ans, c(cid, "obs", "freq_str", "freq", "start", "end", "spark_line"))
 
-  setcolorder(ans, c(cid, "obs", "freq_str", "freq", "start", "end", "spark_line"))
+  } else {
+    ans <- ans.freq[ans.other, on = cid]
+    setcolorder(ans, c(cid, "obs", "freq_str", "freq", "start", "end"))
+  }
+
 
   as.data.frame(ans)
 
 }
 
+# inspired by the sparklines in skimr
+# https://github.com/ropensci/skimr/blob/master/R/stats.R
 
-ts_spark_core <- function(x, spark.width)  {
+# intToUtf8(braille.map)
+braille.map <- setNames(
+  c(10432L, 10336L, 10320L, 10312L, 10372L, 10276L, 10260L, 10252L,
+    10370L, 10274L, 10258L, 10250L, 10369L, 10273L, 10257L, 10249L,
+    10368L, 10272L, 10256L, 10248L, 10304L, 10244L, 10242L, 10241L, 32L
+    ),
+    c("11", "12", "13", "14", "21", "22", "23", "24", "31", "32",
+    "33", "34", "41", "42", "43", "44", " 1", " 2", " 3", " 4",
+    "1 ", "2 ", "3 ", "4 ", "  "
+    )
+)
+
+ts_spark_core <- function(x, spark.width = 15)  {
   cat.y <- cut(
     seq(0, 1, length.out = length(x)),
     seq(0, 1, by = 1 / (2 * spark.width)),
     include.lowest = TRUE,
     labels = FALSE
   )
-
   x.agg <- tapply(x, cat.y, mean, na.rm = TRUE)
-
   rr <- range(x.agg, na.rm = TRUE)
-
-  x.agg.scaled <- (x.agg - rr[1])/(rr[2] - rr[1])
-
-  # https://github.com/ropensci/skimr/blob/master/R/stats.R
-  braille <- function(x) {
-      x <- c(7L, 3L, 2L, 1L, 8L, 6L, 5L, 4L)[x]
-      raised <- 1:8 %in% x
-      val <- 10240 + sum(raised * 2^(0:7))
-      intToUtf8(val)
-  }
-  stopifnot(is.numeric(x))
-  y <- findInterval(x.agg.scaled, seq(0, 1, length.out = 5), all.inside = TRUE)
-  ind <- matrix(y, ncol = 2, byrow = TRUE)
-  ind[, 2] <- ind[, 2] + 4
-  chars <- apply(ind, 1, braille)
-  paste(chars, collapse = "")
+  scaled <- (x.agg - rr[1]) / (rr[2] - rr[1])
+  cat.scaled <- as.character(findInterval(scaled, c(0, 0.25, 0.5, 0.75, 1), all.inside = TRUE))
+  cat.scaled[is.na(cat.scaled)] <- " "
+  m <- matrix(cat.scaled, ncol = 2, byrow = TRUE)
+  cat.scaled.grouped <- paste0(m[, 1], m[, 2])
+  intToUtf8(braille.map[cat.scaled.grouped])
 }
 
 

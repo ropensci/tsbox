@@ -9,8 +9,8 @@ ts_summary(x, spark.width = 15)
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}
 
-\item{spark.width}{integer, with of the spark graph, in numer of character.
-Set to \code{NULL} to turn off.}
+\item{spark.width}{integer, width of the spark line, in numer of characters.
+Set to \code{NULL} to turn off (and speed it up).}
 }
 \description{
 Time Series Properties
