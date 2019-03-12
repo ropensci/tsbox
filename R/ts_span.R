@@ -68,6 +68,8 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
   sstr <- unique(get_shift_string(x.dts)$string)
   spl.sstr <- strsplit(sstr, split = " ")[[1]]
 
+  tattr <- dts_tattr(x.dts)$class
+
   setnames(x.dts, cname$time, "time")
 
   # specification by period: create shift_string
@@ -102,7 +104,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
     }
     x
   }
-  if (dts_tattr(x.dts)$class == "POSIXct") {
+  if (tattr == "POSIXct") {
     anyfun <- function(x) anytime(if_num_char(x))
     # some tolerance to >= <= in seconds
     tolerance <- 0.3
@@ -115,7 +117,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
     start <- anyfun(start) - tolerance
   }
   if (!is.null(end)){
-    end <- anyfun(end)
+    end <- anyfun(end) + tolerance
   }
 
   # specification by template: get start and end from template
@@ -127,20 +129,29 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
     end <- rng[2]
   }
 
-
+  # ts_span(econ_us, start = 1980, extend = TRUE)
   if (extend) {
     .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
     extend_one <- function(df, end = NULL, start = NULL) {
-      if (is.null(start)) start <- min(df$time)
-      if (is.null(end)) end <- max(df$time)
+      mystart <- min(df$time, na.rm = TRUE)
+      myend <- max(df$time, na.rm = TRUE)
+      if (is.null(start)) start <- mystart
+      if (is.null(end)) end <- myend
       if (start > end) {
         stop("'start' cannot be at or after 'end'", call. = FALSE)
       }
       by_str <- frequency_one(df$time)$string
-      full <- data.table(time = seq(start, end, by = by_str))
-      df[full, on = "time"]
+      # target sequence must be aligned dates of sereis, not with start and date
+      sq <- c(
+        seq(mystart, start, by = paste0("-", by_str)),
+        seq(mystart, end, by = by_str)[-1]
+      )
+      full <- data.table(time = sq)
+      z <- df[full, on = "time"]
+      setorder(z, time)
+      z
     }
-    x.dts <- x.dts[, extend_one(.SD, start = start, end = end), by = eval(.by)]
+    x.dts <- ts_na_omit(x.dts)[, extend_one(.SD, start = start, end = end), by = eval(.by)]
   }
   if (!is.null(start)) {
     x.dts <- x.dts[time >= start]

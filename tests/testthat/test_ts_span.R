@@ -80,6 +80,14 @@ test_that("extending by NA works", {
 
 })
 
+test_that("extending by NA works for different frequencies", {
+  x <- ts_span(ts_df(ts_c(AirPassengers, austres)), start = 1930, extend = TRUE)
+  expect_identical(
+    ts_span(x, start = "1930-01-01", end = "1930-01-01")$value,
+    c(NA_real_, NA_real_)
+  )
+})
+
 
 
 
