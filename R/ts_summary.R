@@ -32,7 +32,7 @@ ts_summary <- function(x, spark.width = 15) {
 
   ans.freq <- x.dts[, frequency_one(time), by = eval(.by)]
   ans.freq[, c("share", "N") := NULL]
-  setnames(ans.freq, "string", "freq_str")
+  setnames(ans.freq, "string", "diff")
   regular.series <- ans.freq[!is.na(freq)][, cid, with = FALSE]
 
   ans.other <- x.dts[,list(
@@ -54,11 +54,11 @@ ts_summary <- function(x, spark.width = 15) {
     ]
 
     ans <- ans.regular[ans.freq[ans.other, on = cid], on = cid]
-    setcolorder(ans, c(cid, "obs", "freq_str", "freq", "start", "end", "spark_line"))
+    setcolorder(ans, c(cid, "obs", "diff", "freq", "start", "end", "spark_line"))
 
   } else {
     ans <- ans.freq[ans.other, on = cid]
-    setcolorder(ans, c(cid, "obs", "freq_str", "freq", "start", "end"))
+    setcolorder(ans, c(cid, "obs", "diff", "freq", "start", "end"))
   }
 
 
