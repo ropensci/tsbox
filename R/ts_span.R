@@ -197,6 +197,7 @@ get_shift_string <- function(x){
 # frequency_one(x3)
 
 frequency_one <- function(x) {
+  freq <- NULL
   diffdt <- frequency_table(x)
   fm <- diffdt[which.max(freq)]
   if (diffdt$freq[1] == -1) {  # if -1 is most common value

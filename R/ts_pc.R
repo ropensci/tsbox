@@ -15,6 +15,7 @@
 #' @export
 ts_pc <- function(x) {
   ts_apply(ts_regular(x), function(x) {
+    value <- NULL
     x[, list(time, value = 100 * (value / c(NA, value[-length(value)]) - 1))]
   })
 }
@@ -24,6 +25,7 @@ ts_pc <- function(x) {
 #' @export
 ts_diff <- function(x) {
   ts_apply(ts_regular(x), function(x) {
+    value <- NULL
     x[, list(time, value = value - c(NA, value[-length(value)]))]
   })
 }
@@ -34,6 +36,7 @@ ts_diff <- function(x) {
 ts_pca <- function(x) {
   ts_apply(ts_regular(x), function(x) {
     fr <- frequency_one(x$time)$freq
+    value <- NULL
     x[, list(time, value = 100 * ((value / c(NA, value[-length(value)]))^fr - 1))]
   })
 }
@@ -43,6 +46,8 @@ ts_pca <- function(x) {
 #' @export
 ts_pcy <- function(x) {
   ts_apply(ts_regular(x), function(x) {
+    value <- NULL
+    value_lag <- NULL
     xlag <- data.table(time = time_shift(x$time, "1 year"), value_lag = x$value)
     xlag[x, on = "time"][, list(time, value = (value / value_lag - 1) * 100)]
   })
@@ -52,6 +57,8 @@ ts_pcy <- function(x) {
 #' @export
 ts_diffy <- function(x) {
   ts_apply(ts_regular(x), function(x) {
+    value <- NULL
+    value_lag <- NULL
     xlag <- data.table(time = time_shift(x$time, "1 year"), value_lag = x$value)
     xlag[x, on = "time"][, list(time, value = value - value_lag)]
   })

@@ -13,6 +13,9 @@
 #' ts_summary(AirPassengers)$obs
 #' @export
 ts_summary <- function(x, spark.width = 15) {
+
+  freq <- NULL
+  value <- NULL
   stopifnot(ts_boxable(x))
 
   # implicit NAs for most operations
