@@ -1,7 +1,8 @@
 #' Time Series Properties
 #'
 #' @inherit ts_dts
-#' @param spark.width integer, width of the spark line, in numer of characters.
+#' @param spark logical should a sparkline added to the data frame
+#'   (experimental, ASCII only on Windows.)
 #'   Set to `NULL` to turn off (and speed it up).
 #'
 #' @export
@@ -12,7 +13,7 @@
 #' ts_summary(AirPassengers)$freq
 #' ts_summary(AirPassengers)$obs
 #' @export
-ts_summary <- function(x, spark.width = 15) {
+ts_summary <- function(x, spark = FALSE) {
 
   freq <- NULL
   value <- NULL
@@ -41,7 +42,7 @@ ts_summary <- function(x, spark.width = 15) {
     end = max(time)
   ), by = eval(.by)]
 
-  if (!is.null(spark.width)) {
+  if (spark) {
 
     if (.Platform$OS.type == "windows") {
       spark_fun <- spark_ascii

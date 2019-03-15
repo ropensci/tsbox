@@ -4,12 +4,13 @@
 \alias{ts_summary}
 \title{Time Series Properties}
 \usage{
-ts_summary(x, spark.width = 15)
+ts_summary(x, spark = FALSE)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}
 
-\item{spark.width}{integer, width of the spark line, in numer of characters.
+\item{spark}{logical should a sparkline added to the data frame
+(experimental, ASCII only on Windows.)
 Set to \code{NULL} to turn off (and speed it up).}
 }
 \description{
