@@ -105,7 +105,7 @@ spark_unicode <- function(x, spark.width = 15)  {
 }
 
 # unicode does not (yet?) work in R data.frames()
-ascii.map <- setNames(c("▄", "■", "▀", " "), c("1", "2", "3", " "))
+ascii.map <- setNames(c("_", ".", "-", "\"", " "), c("1", "2", "3", "4", " "))
 spark_ascii <- function(x, spark.width = 15)  {
   cat.y <- cut(
     seq(0, 1, length.out = length(x)),
@@ -116,7 +116,7 @@ spark_ascii <- function(x, spark.width = 15)  {
   x.agg <- tapply(x, cat.y, mean, na.rm = TRUE)
   rr <- range(x.agg, na.rm = TRUE)
   scaled <- (x.agg - rr[1]) / (rr[2] - rr[1])
-  cat.scaled <- as.character(findInterval(scaled, c(0, 1/3, 2/3, 1), all.inside = TRUE))
+  cat.scaled <- as.character(findInterval(scaled, c(0, 0.25, 0.5, 0.75, 1), all.inside = TRUE))
   cat.scaled[is.na(cat.scaled)] <- " "
   paste(ascii.map[cat.scaled], collapse = "")
 }
