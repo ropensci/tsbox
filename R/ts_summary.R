@@ -42,6 +42,13 @@ ts_summary <- function(x, spark.width = 15) {
   ), by = eval(.by)]
 
   if (!is.null(spark.width)) {
+
+    if (.Platform$OS.type == "windows") {
+      spark_fun <- spark_ascii
+    } else {
+      spark_fun <- spark_unicode
+    }
+
     # some stuff can be done for regular series only
     ans.regular <- ts_span(
       x.dts[regular.series, on = cid],
@@ -49,7 +56,7 @@ ts_summary <- function(x, spark.width = 15) {
       end =  max(x.dts$time, na.rm = TRUE),
       extend = TRUE
     )[,
-      list(spark_line = ts_spark_core(x = value, spark.width = spark.width)),
+      list(spark_line = spark_fun(x = value, spark.width = spark.width)),
       by = eval(.by)
     ]
 
@@ -80,8 +87,7 @@ braille.map <- setNames(
     "1 ", "2 ", "3 ", "4 ", "  "
     )
 )
-
-ts_spark_core <- function(x, spark.width = 15)  {
+spark_unicode <- function(x, spark.width = 15)  {
   cat.y <- cut(
     seq(0, 1, length.out = length(x)),
     seq(0, 1, by = 1 / (2 * spark.width)),
@@ -98,4 +104,20 @@ ts_spark_core <- function(x, spark.width = 15)  {
   intToUtf8(braille.map[cat.scaled.grouped])
 }
 
+# unicode does not (yet?) work in R data.frames()
+ascii.map <- setNames(c("▄", "■", "▀", " "), c("1", "2", "3", " "))
+spark_ascii <- function(x, spark.width = 15)  {
+  cat.y <- cut(
+    seq(0, 1, length.out = length(x)),
+    seq(0, 1, by = 1 / (spark.width)),
+    include.lowest = TRUE,
+    labels = FALSE
+  )
+  x.agg <- tapply(x, cat.y, mean, na.rm = TRUE)
+  rr <- range(x.agg, na.rm = TRUE)
+  scaled <- (x.agg - rr[1]) / (rr[2] - rr[1])
+  cat.scaled <- as.character(findInterval(scaled, c(0, 1/3, 2/3, 1), all.inside = TRUE))
+  cat.scaled[is.na(cat.scaled)] <- " "
+  paste(ascii.map[cat.scaled], collapse = "")
+}
 
