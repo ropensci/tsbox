@@ -10,6 +10,7 @@
 #' @examples
 #' tail(ts_diff(ts_c(fdeaths, mdeaths)))
 #' tail(ts_pc(ts_c(fdeaths, mdeaths)))
+#' tail(ts_pca(ts_c(fdeaths, mdeaths)))
 #' tail(ts_pcy(ts_c(fdeaths, mdeaths)))
 #' tail(ts_diffy(ts_c(fdeaths, mdeaths)))
 #' @export
