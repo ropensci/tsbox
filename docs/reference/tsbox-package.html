@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reshaping Multiple Time Series — ts_long • tsbox</title>
+<title>tsbox: Class-Agnostic Time Series — tsbox-package • tsbox</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,12 +30,14 @@
 
 
 
-<meta property="og:title" content="Reshaping Multiple Time Series — ts_long" />
+<meta property="og:title" content="tsbox: Class-Agnostic Time Series — tsbox-package" />
 
-<meta property="og:description" content="Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
-Note that long format data frames are ts-boxable objects, where wide format data
-frames are not. ts_long automatically identifies a time column, and
-uses columns on the left as id columns." />
+<meta property="og:description" content="The R ecosystem knows a vast number of time series classes: ts, xts, zoo,
+tsibble, tibbletime or timeSeries. The plethora of standards causes confusion.
+As different packages rely on different classes, it is hard to use them in the
+same analysis. tsbox provides a set of tools that make it easy to switch between
+these classes. It also allows the user to treat time series as plain data
+frames, facilitating the use with tools that assume rectangular data." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -127,65 +129,45 @@ uses columns on the left as id columns." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reshaping Multiple Time Series</h1>
+    <h1>tsbox: Class-Agnostic Time Series</h1>
     
-    <div class="hidden name"><code>ts_long.Rd</code></div>
+    <div class="hidden name"><code>tsbox-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
-Note that long format data frames are ts-boxable objects, where wide format data
-frames are not. <code>ts_long</code> automatically identifies a <strong>time</strong> column, and
-uses columns on the left as id columns.</p>
+    <p>The R ecosystem knows a vast number of time series classes: ts, xts, zoo,
+tsibble, tibbletime or timeSeries. The plethora of standards causes confusion.
+As different packages rely on different classes, it is hard to use them in the
+same analysis. tsbox provides a set of tools that make it easy to switch between
+these classes. It also allows the user to treat time series as plain data
+frames, facilitating the use with tools that assume rectangular data.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ts_long</span>(<span class='no'>x</span>)
+        
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-<span class='fu'>ts_wide</span>(<span class='no'>x</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>a ts-boxable time series, or a wide <code>data.frame</code>,
-<code>data.table</code>, or <code>tibble</code>.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>object with the same class as input</p>
+    <p>The package is built around a set of functions that convert time series of
+different classes to each other. They are frequency-agnostic, and allow the user
+to combine multiple non-standard and irregular frequencies. Because coercion
+works reliably, it is easy to write functions that work identically for all
+classes. So whether we want to smooth, scale, differentiate, chain-link,
+forecast, regularize or seasonally adjust a time series, we can use the same
+tsbox-command for any time series class.</p>
+<p>The best way to start is to check out the package <a href='https://www.tsbox.help'>website</a>.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df.wide</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_wide</span>(<span class='fu'><a href='ts_ts.html'>ts_df</a></span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>)))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>df.wide</span>)</div><div class='output co'>#&gt;         time mdeaths fdeaths
-#&gt; 1 1974-01-01    2134     901
-#&gt; 2 1974-02-01    1863     689
-#&gt; 3 1974-03-01    1877     827
-#&gt; 4 1974-04-01    1877     677
-#&gt; 5 1974-05-01    1492     522
-#&gt; 6 1974-06-01    1249     406</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>ts_long</span>(<span class='no'>df.wide</span>))</div><div class='output co'>#&gt;        id       time value
-#&gt; 1 mdeaths 1974-01-01  2134
-#&gt; 2 mdeaths 1974-02-01  1863
-#&gt; 3 mdeaths 1974-03-01  1877
-#&gt; 4 mdeaths 1974-04-01  1877
-#&gt; 5 mdeaths 1974-05-01  1492
-#&gt; 6 mdeaths 1974-06-01  1249</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#details">Details</a></li>
+          </ul>
 
+    <h2>Author</h2>
+    <p>Christoph Sax <a href='mailto:christoph.sax@gmail.com'>christoph.sax@gmail.com</a></p>
   </div>
 </div>
 

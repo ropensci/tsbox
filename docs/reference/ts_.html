@@ -99,9 +99,6 @@ ts-boxable time series objects." />
     <li>
       <a href="../articles/convert.html">Time Conversion and Reguarization</a>
     </li>
-    <li>
-      <a href="../articles/class-struggle.html">Additional Examples</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -357,7 +354,7 @@ to make arbitrary functions ts-boxable.</p></div>
 #&gt;     z &lt;- dygraphs::dygraph(ts_xts(x), ...)
 #&gt;     copy_class(z, x)
 #&gt; }
-#&gt; &lt;environment: 0x7fe7f91eedb0&gt;</div><div class='input'>
+#&gt; &lt;environment: 0x7fad9abe7770&gt;</div><div class='input'>
 <span class='co'># attach series to serach path</span>
 <span class='no'>ts_attach</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_</span>(<span class='no'>attach</span>, <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"tslist"</span>, <span class='kw'>reclass</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>ts_attach</span>(<span class='no'>EuStockMarkets</span>)
