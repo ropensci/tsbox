@@ -42,9 +42,11 @@ perform the main operation on the object (here: `rowSums`). Finally they convert
 the result back to the original class, using `copy_class`.
 
 The resulting function has a `...` argument. You can use it to pass
-argeuments to the uderlying functions. E.g.,
+arguments to the underlying functions. E.g.,
 
+```r
 ts_rowsums(ts_c(mdeaths, fdeaths), na.rm = TRUE)
+```
 
 
 ## Functions from external packages

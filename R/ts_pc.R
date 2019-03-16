@@ -2,7 +2,7 @@
 #'
 #' `ts_pcy` and `ts_diffy` calculate the percentage change rate and the
 #' difference compared to the previous period, `ts_pcy` and `ts_diffy` calculate
-#' compared to the same period of the previous year. `ts_pca` calulates
+#' compared to the same period of the previous year. `ts_pca` calculates
 #' annualized percentage change rates compared to the previous period.
 #'
 #' @inherit ts_dts

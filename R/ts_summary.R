@@ -1,12 +1,12 @@
 #' Time Series Properties
 #'
 #' Extract time series properties, such as the number of observations
-#' (`obs`), the time differences between observsations (`obs`), the number
+#' (`obs`), the time differences between observations (`obs`), the number
 #' of observations per year (`freq`), and the start time stamp (`start`)
 #' and the end time stamp (`end`) of the series.
 #'
 #' @inherit ts_dts
-#' @param spark logical should an additional column with a sparkline added to
+#' @param spark logical should an additional column with a spark-line added to
 #'   the data frame (experimental, ASCII only on Windows.)
 #'
 #' @return `ts_summary` returns a `data.frame`. Individual column can be accessed

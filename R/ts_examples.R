@@ -12,7 +12,7 @@
 #' @param ... further arguments, passed to the underlying function. For help,
 #'   consider these functions, e.g., [stats::prcomp].
 #'
-#' @seealso [Vingette](https://www.tsbox.help/articles/ts-functions.html) on how
+#' @seealso [Vignette](https://www.tsbox.help/articles/ts-functions.html) on how
 #'   to make arbitrary functions ts-boxable.
 #'
 #' @return Usually, a ts-boxable time series, with the same class as the input.

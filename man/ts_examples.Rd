@@ -67,6 +67,6 @@ ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
 }
 }
 \seealso{
-\href{https://www.tsbox.help/articles/ts-functions.html}{Vingette} on how
+\href{https://www.tsbox.help/articles/ts-functions.html}{Vignette} on how
 to make arbitrary functions ts-boxable.
 }

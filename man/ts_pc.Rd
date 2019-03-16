@@ -27,7 +27,7 @@ a ts-boxable time series, with the same class as the input.
 \description{
 \code{ts_pcy} and \code{ts_diffy} calculate the percentage change rate and the
 difference compared to the previous period, \code{ts_pcy} and \code{ts_diffy} calculate
-compared to the same period of the previous year. \code{ts_pca} calulates
+compared to the same period of the previous year. \code{ts_pca} calculates
 annualized percentage change rates compared to the previous period.
 }
 \examples{

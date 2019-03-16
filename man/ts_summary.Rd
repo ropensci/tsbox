@@ -9,7 +9,7 @@ ts_summary(x, spark = FALSE)
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}
 
-\item{spark}{logical should an additional column with a sparkline added to
+\item{spark}{logical should an additional column with a spark-line added to
 the data frame (experimental, ASCII only on Windows.)}
 }
 \value{
@@ -18,7 +18,7 @@ through the \code{$} notation (see examples).
 }
 \description{
 Extract time series properties, such as the number of observations
-(\code{obs}), the time differences between observsations (\code{obs}), the number
+(\code{obs}), the time differences between observations (\code{obs}), the number
 of observations per year (\code{freq}), and the start time stamp (\code{start})
 and the end time stamp (\code{end}) of the series.
 }

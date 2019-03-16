@@ -21,7 +21,7 @@ Shift time stamps in ts-boxable time series, either by a number of periods or
 by a fixed amount of time.
 }
 \details{
-The lag order, \code{by}, is defined the oposite way as in R base. Thus, -1 is a
+The lag order, \code{by}, is defined the opposite way as in R base. Thus, -1 is a
 lead and +1 a lag.
 
 If \code{by} is integer, the time stamp is shifted by the number of periods. This

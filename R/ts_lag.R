@@ -3,9 +3,9 @@
 #' Shift time stamps in ts-boxable time series, either by a number of periods or
 #' by a fixed amount of time.
 #'
-#' The lag order, `by`, is defined the oposite way as in R base. Thus, -1 is a 
+#' The lag order, `by`, is defined the opposite way as in R base. Thus, -1 is a
 #' lead and +1 a lag.
-#' 
+#'
 #' If `by` is integer, the time stamp is shifted by the number of periods. This
 #' requires the series to be regular.
 #'
@@ -14,7 +14,7 @@
 #' `"month"`, `"quarter" or `"year", optionally preceded by a (positive or
 #' negative) integer and a space, or followed by plural "s". This is passed to
 #' [base::seq.Date()]. This does not require the series to be regular.
-#' 
+#'
 #' @inherit ts_dts
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
@@ -59,7 +59,7 @@ ts_lag <- function(x, by = 1) {
     lag_one(.SD),
     by = eval(.by)
   ]
-  
+
   setnames(z, "value", cname$value)
   setnames(z, "time", cname$time)
   setattr(z, "cname", cname)
