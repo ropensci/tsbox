@@ -34,7 +34,7 @@
 
 <meta property="og:description" content="ts_pcy and ts_diffy calculate the percentage change rate and the
 difference compared to the previous period, ts_pcy and ts_diffy calculate
-compared to the same period of the previous year. ts_pca calulates
+compared to the same period of the previous year. ts_pca calculates
 annualized percentage change rates compared to the previous period." />
 <meta name="twitter:card" content="summary" />
 
@@ -76,7 +76,7 @@ annualized percentage change rates compared to the previous period." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.99991</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.99995</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@ annualized percentage change rates compared to the previous period." />
     
     <p><code>ts_pcy</code> and <code>ts_diffy</code> calculate the percentage change rate and the
 difference compared to the previous period, <code>ts_pcy</code> and <code>ts_diffy</code> calculate
-compared to the same period of the previous year. <code>ts_pca</code> calulates
+compared to the same period of the previous year. <code>ts_pca</code> calculates
 annualized percentage change rates compared to the previous period.</p>
     
     </div>
@@ -148,11 +148,9 @@ annualized percentage change rates compared to the previous period.</p>
 
 <span class='fu'>ts_diff</span>(<span class='no'>x</span>)
 
-<span class='fu'>ts_pcy</span>(<span class='no'>x</span>)
-
 <span class='fu'>ts_pca</span>(<span class='no'>x</span>)
 
-<span class='fu'>ts_diffy</span>(<span class='no'>x</span>)
+<span class='fu'>ts_pcy</span>(<span class='no'>x</span>)
 
 <span class='fu'>ts_diffy</span>(<span class='no'>x</span>)</pre>
     
@@ -183,7 +181,13 @@ annualized percentage change rates compared to the previous period.</p>
 #&gt; Sep 1979  3.693931 -3.589744
 #&gt; Oct 1979  4.580153 15.000000
 #&gt; Nov 1979 18.491484 19.703978
-#&gt; Dec 1979 17.864476  3.632148</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>tail</a></span>(<span class='fu'>ts_pcy</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>)))</div><div class='output co'>#&gt;             fdeaths    mdeaths
+#&gt; Dec 1979 17.864476  3.632148</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>tail</a></span>(<span class='fu'>ts_pca</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>)))</div><div class='output co'>#&gt;            fdeaths   mdeaths
+#&gt; Jul 1979 -49.88442 -19.26433
+#&gt; Aug 1979 -54.89650 -61.62147
+#&gt; Sep 1979  54.53971 -35.51201
+#&gt; Oct 1979  71.15566 435.02501
+#&gt; Nov 1979 666.02981 765.57158
+#&gt; Dec 1979 618.77866  53.43838</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>tail</a></span>(<span class='fu'>ts_pcy</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>)))</div><div class='output co'>#&gt;             fdeaths    mdeaths
 #&gt; Jul 1979  -6.032483  -3.825137
 #&gt; Aug 1979   4.696133  -2.888446
 #&gt; Sep 1979   1.550388  -3.092784

@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.99991</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.99995</span>
       </span>
     </div>
 
@@ -108,44 +108,46 @@
 <a class="sourceLine" id="cb1-2" title="2"><span class="kw">ts_rowsums</span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</a></code></pre></div>
 <p>Note that <code>ts_</code> returns a function, which can be with or without a name. Let’ have a closer look at how <code>ts_rowsums</code> looks like:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">ts_rowsums</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; function (x, ...) </span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; function (x, ...)</span></a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; {</span></a>
 <a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;     stopifnot(ts_boxable(x))</span></a>
 <a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;     z &lt;- rowSums(ts_ts(x), ...)</span></a>
 <a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;     copy_class(z, x)</span></a>
 <a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; }</span></a></code></pre></div>
 <p>This is how most ts-functions work. They use a specific converter function (here: <code>ts_ts</code>) to convert a ts-boxable object to the desired class. They then perform the main operation on the object (here: <code>rowSums</code>). Finally they convert the result back to the original class, using <code>copy_class</code>.</p>
+<p>The resulting function has a <code>...</code> argument. You can use it to pass arguments to the underlying functions. E.g.,</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">ts_rowsums</span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="functions-from-external-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#functions-from-external-packages" class="anchor"></a>Functions from external packages</h2>
 <p>Here is a slightly more complex example, which uses a post processing function:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">ts_prcomp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_.html">ts_</a></span>(<span class="cf">function</span>(x) <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/prcomp">prcomp</a></span>(x, <span class="dt">scale =</span> <span class="ot">TRUE</span>)))</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../reference/ts_examples.html">ts_prcomp</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">ts_prcomp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_.html">ts_</a></span>(<span class="cf">function</span>(x) <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/prcomp">prcomp</a></span>(x, <span class="dt">scale =</span> <span class="ot">TRUE</span>)))</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="../reference/ts_examples.html">ts_prcomp</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</a></code></pre></div>
 <p>It is easy to make functions from external packages ts-boxable, by wrapping them into <code>ts_</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">ts_dygraphs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_.html">ts_</a></span>(dygraphs<span class="op">::</span>dygraph, <span class="dt">class =</span> <span class="st">"xts"</span>)</a>
-<a class="sourceLine" id="cb4-2" title="2">ts_forecast &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_.html">ts_</a></span>(<span class="cf">function</span>(x) forecast<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/forecast/topics/forecast">forecast</a></span>(x)<span class="op">$</span>mean, <span class="dt">vectorize =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-3" title="3">ts_seas &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_.html">ts_</a></span>(<span class="cf">function</span>(x) seasonal<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/seasonal/topics/final">final</a></span>(seasonal<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/seasonal/topics/seas">seas</a></span>(x)), <span class="dt">vectorize =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-4" title="4"></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="kw"><a href="../reference/ts_examples.html">ts_dygraphs</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, EuStockMarkets))</a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="kw"><a href="../reference/ts_examples.html">ts_forecast</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="kw"><a href="../reference/ts_examples.html">ts_seas</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">ts_dygraphs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_.html">ts_</a></span>(dygraphs<span class="op">::</span>dygraph, <span class="dt">class =</span> <span class="st">"xts"</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2">ts_forecast &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_.html">ts_</a></span>(<span class="cf">function</span>(x, ...) forecast<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/forecast/topics/forecast">forecast</a></span>(x, ...)<span class="op">$</span>mean, <span class="dt">vectorize =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3">ts_seas &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ts_.html">ts_</a></span>(<span class="cf">function</span>(x, ...) seasonal<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/seasonal/topics/final">final</a></span>(seasonal<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/seasonal/topics/seas">seas</a></span>(x, ...)), <span class="dt">vectorize =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="kw"><a href="../reference/ts_examples.html">ts_dygraphs</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, EuStockMarkets))</a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="kw"><a href="../reference/ts_examples.html">ts_forecast</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="kw"><a href="../reference/ts_examples.html">ts_seas</a></span>(<span class="kw"><a href="../reference/ts_c.html">ts_c</a></span>(mdeaths, fdeaths))</a></code></pre></div>
 <p>If you are explicit about the namespace (e.g., <code><a href="https://www.rdocumentation.org/packages/dygraphs/topics/dygraph">dygraphs::dygraph</a></code>), <code>ts_</code> recognized the package in use and delivers a meaningful message if the package is not installed.</p>
 <p>Note that the <code>ts_</code> function deals with the conversion stuff, ‘vectorizes’ the function so that it can be used with multiple time series.</p>
 <p>Let’ have another look at <code>ts_forecast</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">ts_forecast</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="co">#&gt; function (x, ...) </span></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; {</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt;     load_suggested("forecast")</span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;     ff &lt;- function(x, ...) {</span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt;         stopifnot(ts_boxable(x))</span></a>
-<a class="sourceLine" id="cb5-7" title="7"><span class="co">#&gt;         z &lt;- (function(x) forecast::forecast(x)$mean)(ts_ts(x), </span></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt;             ...)</span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt;         copy_class(z, x)</span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt;     }</span></a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;     ts_apply(x, ff, ...)</span></a>
-<a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt; }</span></a></code></pre></div>
-<p>There three main differences here: First, the function requires the forecast package. If it is not installed, <code>load_suggested</code> will ask the user to do so. Second, the function in use is an anonymous function, <code>function(x) forecast::forecast(x)$mean</code>, that also extracts the <code>mean</code> from the result. Third, the function is ‘vectorized’, using <code>ts_apply</code>. This causes the process to be repeated for each time series in the object.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">ts_forecast</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; function (x, ...)</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; {</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt;     load_suggested("forecast")</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt;     ff &lt;- function(x, ...) {</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt;         stopifnot(ts_boxable(x))</span></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt;         z &lt;- (function(x, ...) forecast::forecast(ts_na_omit(x),</span></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt;             ...)$mean)(ts_ts(x), ...)</span></a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt;         copy_class(z, x)</span></a>
+<a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt;     }</span></a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt;     ts_apply(x, ff, ...)</span></a>
+<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; }</span></a></code></pre></div>
+<p>There three differences to the <code>ts_rowsum</code> example: First, the function requires the forecast package. If it is not installed, <code>load_suggested</code> will ask the user to do so. Second, the function in use is an anonymous function, <code>function(x) forecast::forecast(x, ...)$mean</code>, that also extracts the <code>$mean</code> component from the result. Third, the function is ‘vectorized’, using <code>ts_apply</code>. This causes the process to be repeated for each time series in the object.</p>
 </div>
   </div>
 

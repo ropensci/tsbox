@@ -32,7 +32,10 @@
 
 <meta property="og:title" content="Time Series Properties — ts_summary" />
 
-<meta property="og:description" content="Time Series Properties" />
+<meta property="og:description" content="Extract time series properties, such as the number of observations
+(obs), the time differences between observations (obs), the number
+of observations per year (freq), and the start time stamp (start)
+and the end time stamp (end) of the series." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -73,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.99991</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.99995</span>
       </span>
     </div>
 
@@ -134,11 +137,14 @@
 
     <div class="ref-description">
     
-    <p>Time Series Properties</p>
+    <p>Extract time series properties, such as the number of observations
+(<code>obs</code>), the time differences between observations (<code>obs</code>), the number
+of observations per year (<code>freq</code>), and the start time stamp (<code>start</code>)
+and the end time stamp (<code>end</code>) of the series.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ts_summary</span>(<span class='no'>x</span>, <span class='kw'>spark.width</span> <span class='kw'>=</span> <span class='fl'>15</span>)</pre>
+    <pre class="usage"><span class='fu'>ts_summary</span>(<span class='no'>x</span>, <span class='kw'>spark</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,24 +154,33 @@
       <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, or <code>timeSeries</code>.</p></td>
     </tr>
     <tr>
-      <th>spark.width</th>
-      <td><p>integer, with of the spark graph, in numer of character.
-Set to <code>NULL</code> to turn off.</p></td>
+      <th>spark</th>
+      <td><p>logical should an additional column with a spark-line added to
+the data frame (experimental, ASCII only on Windows.)</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>ts_summary</code> returns a <code>data.frame</code>. Individual column can be accessed
+through the <code>$</code> notation (see examples).</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ts_summary</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>austres</span>))</div><div class='output co'>#&gt;        id obs freq_str freq      start        end      spark_line
-#&gt; 1 mdeaths  72  1 month   12 1971-04-01 1993-04-01 ⠒⡠⠊⢄⡐⠡⣀⠒⢄⡠⠡⣀⠌⢂⣀
-#&gt; 2 austres  89  1 month   12 1971-04-01 1993-04-01 ⣀⣀⣀⣀⡠⠤⠤⠤⠒⠒⠒⠊⠉⠉⠉</div><div class='input'><span class='co'># Extracting specific properties</span>
+    <pre class="examples"><div class='input'><span class='fu'>ts_summary</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>austres</span>))</div><div class='output co'>#&gt;        id obs    diff freq      start        end
+#&gt; 1 mdeaths  72 1 month   12 1974-01-01 1979-12-01
+#&gt; 2 austres  89 3 month    4 1971-04-01 1993-04-01</div><div class='input'><span class='fu'>ts_summary</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>austres</span>), <span class='kw'>spark</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;        id obs    diff freq      start        end      spark_line
+#&gt; 1 mdeaths  72 1 month   12 1974-01-01 1979-12-01  ⠈⠔⠢⡐⢄         
+#&gt; 2 austres  89 3 month    4 1971-04-01 1993-04-01 ⣀⣀⣀⣀⡠⠤⠤⠤⠒⠒⠒⠊⠉⠉⠉</div><div class='input'><span class='co'># Extracting specific properties</span>
 <span class='fu'>ts_summary</span>(<span class='no'>AirPassengers</span>)$<span class='no'>start</span></div><div class='output co'>#&gt; [1] "1949-01-01"</div><div class='input'><span class='fu'>ts_summary</span>(<span class='no'>AirPassengers</span>)$<span class='no'>freq</span></div><div class='output co'>#&gt; [1] 12</div><div class='input'><span class='fu'>ts_summary</span>(<span class='no'>AirPassengers</span>)$<span class='no'>obs</span></div><div class='output co'>#&gt; [1] 144</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
