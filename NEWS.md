@@ -12,7 +12,8 @@
 - ts_default, new function to change column names to defaults (time, value), so
   that no auto detection is performed afterwards (#118)
 - ts_summary, returns a data frame with summary information of a ts-boxable
-  object. Also used to extract time series properties (ts_summary(x)$start, ts_summary(x)$freq, etc.)
+  object. Also used to extract time series properties (ts_summary(x)$start,
+  ts_summary(x)$freq, etc.)
 - ts_regular gains 'fill' argument, to specify replacement value for NA (#101)
 - ts_pc, ts_pcy, ts_diff, ts_diffy have been rewritten and are much faster. They
   now return a series of the same lenth as the input, with NAs at the beginning.

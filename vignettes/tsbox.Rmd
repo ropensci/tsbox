@@ -173,6 +173,13 @@ very similar to `ts_plot`.
 ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 ```
 
+Finally, `ts_summary` returns a data frame with frequently used time series
+properties:
+
+```r
+ts_summary(ts_c(mdeaths, austres, AirPassengers))
+```
+
 ## Time series in data frames
 
 Thanks to packages such as `data.table` and `dplyr`, data frames have become the

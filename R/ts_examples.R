@@ -9,9 +9,14 @@
 #' packages.
 #'
 #' @inherit ts_dts
-#' @param ... further arguments, passed to the underlying function. For help, consider these functions, e.g., [stats::prcomp].
+#' @param ... further arguments, passed to the underlying function. For help,
+#'   consider these functions, e.g., [stats::prcomp].
 #'
-#' @return Usually, a ts-boxable time series, with the same class as the input. `ts_dygraphs` draws a plot.
+#' @seealso [Vingette](https://www.tsbox.help/articles/ts-functions.html) on how
+#'   to make arbitrary functions ts-boxable.
+#'
+#' @return Usually, a ts-boxable time series, with the same class as the input.
+#'   `ts_dygraphs` draws a plot.
 #'
 #' @examples
 #' \donttest{
@@ -44,7 +49,7 @@
 #' }
 #' @export
 #' @name ts_examples
-ts_prcomp <- ts_(function(x) predict(prcomp(x, scale = TRUE)))
+ts_prcomp <- ts_(function(x, ...) predict(prcomp(x, scale = TRUE, ...)))
 
 #' @export
 #' @name ts_examples
@@ -52,7 +57,7 @@ ts_dygraphs <- ts_(dygraphs::dygraph, class = "xts", reclass = FALSE)
 
 #' @export
 #' @name ts_examples
-ts_forecast <- ts_(function(x) forecast::forecast(ts_na_omit(x))$mean, vectorize = TRUE)
+ts_forecast <- ts_(function(x, ...) forecast::forecast(ts_na_omit(x), ...)$mean, vectorize = TRUE)
 
 #' @export
 #' @name ts_examples
