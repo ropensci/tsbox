@@ -9,15 +9,22 @@ ts_summary(x, spark = FALSE)
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, or \code{timeSeries}.}
 
-\item{spark}{logical should a sparkline added to the data frame
-(experimental, ASCII only on Windows.)
-Set to \code{NULL} to turn off (and speed it up).}
+\item{spark}{logical should an additional column with a spark-line added to
+the data frame (experimental, ASCII only on Windows.)}
+}
+\value{
+\code{ts_summary} returns a \code{data.frame}. Individual column can be accessed
+through the \code{$} notation (see examples).
 }
 \description{
-Time Series Properties
+Extract time series properties, such as the number of observations
+(\code{obs}), the time differences between observations (\code{obs}), the number
+of observations per year (\code{freq}), and the start time stamp (\code{start})
+and the end time stamp (\code{end}) of the series.
 }
 \examples{
 ts_summary(ts_c(mdeaths, austres))
+ts_summary(ts_c(mdeaths, austres), spark = TRUE)
 # Extracting specific properties
 ts_summary(AirPassengers)$start
 ts_summary(AirPassengers)$freq
