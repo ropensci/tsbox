@@ -1,13 +1,21 @@
 #' Time Series Properties
 #'
+#' Extract time series properties, such as the number of observations
+#' (`obs`), the time differences between observsations (`obs`), the number
+#' of observations per year (`freq`), and the start time stamp (`start`)
+#' and the end time stamp (`end`) of the series.
+#'
 #' @inherit ts_dts
-#' @param spark logical should a sparkline added to the data frame
-#'   (experimental, ASCII only on Windows.)
-#'   Set to `NULL` to turn off (and speed it up).
+#' @param spark logical should an additional column with a sparkline added to
+#'   the data frame (experimental, ASCII only on Windows.)
+#'
+#' @return `ts_summary` returns a `data.frame`. Individual column can be accessed
+#'   through the `$` notation (see examples).
 #'
 #' @export
 #' @examples
 #' ts_summary(ts_c(mdeaths, austres))
+#' ts_summary(ts_c(mdeaths, austres), spark = TRUE)
 #' # Extracting specific properties
 #' ts_summary(AirPassengers)$start
 #' ts_summary(AirPassengers)$freq
@@ -57,7 +65,7 @@ ts_summary <- function(x, spark = FALSE) {
       end =  max(x.dts$time, na.rm = TRUE),
       extend = TRUE
     )[,
-      list(spark_line = spark_fun(x = value, spark.width = spark.width)),
+      list(spark_line = spark_fun(x = value, spark.width = 15)),
       by = eval(.by)
     ]
 
