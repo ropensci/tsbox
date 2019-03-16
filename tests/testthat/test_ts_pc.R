@@ -68,4 +68,16 @@ test_that("formulas are correct", {
 })
 
 
+test_that("time order does not affect outcome", {
+
+  x0 <- ts(1:5, start = 2000)
+  x <- ts_df(ts_c(a = x0, b = x0))
+  ud <- x[c(5:1, 10:6),]
+
+  expect_equal(ts_lag(ud), ts_lag(x))
+  expect_equal(ts_pc(ud), ts_pc(x))
+  expect_equal(ts_pc(ud), ts_pc(x))
+  expect_equal(ts_pca(ud), ts_pca(x))
+
+})
 
