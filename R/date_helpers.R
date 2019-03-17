@@ -73,7 +73,7 @@ regularize_non_heuristic <- function(x) {
   if (inherits(x, "POSIXct")){
     z <- as.POSIXct(sq, origin = "1970-01-01", tz = attr(x, "tzone"))
   } else {
-    z <- as.Date(sq)
+    z <- as.Date(sq, origin = "1970-01-01", tz = attr(x, "tzone"))
   }
 
   dtx <- data.table(x, s = seq_along(x), x0 = x)
