@@ -37,9 +37,10 @@ ts_dts.tbl_ts <- function(x) {
   stopifnot(requireNamespace("tsibble"))
 
   z <- as.data.table(x)
-  if (length(tsibble::measured_vars(x)) == 1){
-    setnames(z, tsibble::measured_vars(x), "value")
-  } else if (length(tsibble::measured_vars(x)) > 1){
+  mv <- tsibble::measured_vars(x)
+  if (length(mv) == 1){
+    setnames(z, mv, "value")
+  } else if (length(mv) > 1){
     z <- ts_long(z)
   } else {
     stop("no measured vars in tsibble")
@@ -49,7 +50,12 @@ ts_dts.tbl_ts <- function(x) {
   stopifnot(length(time) == 1)
   kv <- tsibble::key_vars(x)
   if (identical(kv, "NULL")) kv <- NULL
-  cname <- list(id = unname(unlist(kv)),
+
+  id <- unname(unlist(kv))
+
+  if (length(mv) > 1) id <- c(id, "id")
+
+  cname <- list(id = id,
                 time = time,
                 value = "value")
 

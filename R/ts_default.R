@@ -22,6 +22,10 @@ ts_default <- function(x) {
   if (identical(cname$time, "time") && identical(cname$value, "value")) return(x)
   setnames(z, cname$time, "time")
   setnames(z, cname$value, "value")
+
+  cname$time <- "time"
+  cname$value <- "value"
+  setattr(z, "cname", cname)
   copy_class(z, x)
 }
 
