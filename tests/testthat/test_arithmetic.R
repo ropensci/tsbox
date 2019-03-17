@@ -25,11 +25,22 @@ test_that("arithmetic operations work properly", {
     ts_ts(ts_df(fdeaths) %ts/% mdeaths)
   )
 
+
+
   # functional test
-  z <- ts_df(ts_c(mdeaths, fdeaths) %ts/% ts_c(mdeaths, fdeaths))
-  expect_is(z, "data.frame")
+  library(dplyr)
+  a <- bind_rows(
+    mutate(ts_tbl(ts_c(mdeaths, fdeaths)), id2 = "a"),
+    mutate(ts_tbl(ts_c(mdeaths, fdeaths)), id2 = "b")
+  )
+  expect_is(a %ts/% a, "data.frame")
+
   z <- ts_df(ts_c(mdeaths, fdeaths) %ts/% 1)
   expect_is(z, "data.frame")
+
+
+
+
 
 
 })
