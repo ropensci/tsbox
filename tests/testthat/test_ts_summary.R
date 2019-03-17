@@ -22,5 +22,6 @@ test_that("ts_summary works with irregular series", {
 test_that("ts_summary works with single series", {
 
   expect_is(ts_summary(AirPassengers), "data.frame")
+  expect_is(ts_summary(AirPassengers, spark = TRUE), "data.frame")
 
 })
