@@ -18,11 +18,33 @@ ts_to_date_time <- function(x) {
 
   md <- .mapdiff[freq == fr]
 
+
   # non heuristic conversion for non-heuristics
   if (nrow(md) == 0 ) {
     z <- ts_to_POSIXct(x)
 
   # heuristic high freq > 12
+  } else if (md$freq == 365.2425) {
+    # to improve accuracy for daily data, treat them separately
+    # (also seedate_time_to_tsp)
+
+    start.ts <- tsp(x)[1]
+    start.year <- floor(start.ts)
+    sq.ts <- ts(integer(10), start = start.ts, frequency = 365.2425)
+    sq.ts.ext <- window(sq.ts, start = floor(start(sq.ts)), extend = TRUE)
+    first.obs <- which(!is.na(sq.ts.ext))[1]
+
+    start.time <- as.Date(paste0(floor(floor(start.ts)), "-01-01"))
+    end.time <- as.Date(paste0(floor(floor(start.ts) + 1), "-01-01"))
+    sq.time <- seq(start.time, end.time, by = "1 day")
+    start <- sq.time[first.obs]
+
+    z <- seq(
+      from = start,
+      by = "1 day",
+      length.out = length(x)
+    )
+
   } else if (md$freq > 12) {
 
     stopifnot(inherits(x, "ts"))
@@ -94,19 +116,10 @@ date_time_to_tsp <- function(x, frequency = NULL) {
       )
     }
     z <- tsp(ts(x, frequency = frequency, start = start)) # a bit inefficient
-  } else {
-
-    # this should be able to deal with Date and POSIXct.
+  } else if (frequency == 365.2425){
+    # to improve accuracy for daily data, do not use non heuristic conversion
 
     md <- .mapdiff[freq == frequency]
-
-    # non heuristic converson for high frequencies
-    # heuristic converison is slow
-    if (frequency > 500 || nrow(md) == 0){
-      tsp <- tsp(ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency))
-      return(tsp)
-    }
-
     str <- md$str
 
     start.time <- date_year(x[1])
@@ -119,6 +132,11 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     start <- time(sq.ts)[sq.ts >= as.integer(x[1])][1]
 
     z <- tsp(ts(x, start = start, frequency = frequency))
+  } else {
+
+    # non heuristic converson
+    md <- .mapdiff[freq == frequency]
+    z <- tsp(ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency))
   }
   z
 }

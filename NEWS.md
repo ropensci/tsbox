@@ -30,7 +30,8 @@
 - `ts_span` various fixes, boundary specification by shift string (`"1 year"`)
   or period now works as expected, also for non-heuristic series, such as
   `EuStockMarkets` (#106)
-- time column of daily data is treated as Date (#114)
+- time column of daily data is treated as Date and survives two way conversion
+  (#114, #137)
 - `ts_pick`, error if picked series is not in data (#100)
 - error when data contains duplicated series (#102)
 - `ts_plot`, improved axis labels for high frequency series (#117)
