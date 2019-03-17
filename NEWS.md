@@ -35,6 +35,7 @@
 - `ts_pick`, error if picked series is not in data (#100)
 - error when data contains duplicated series (#102)
 - `ts_plot`, improved axis labels for high frequency series (#117)
+- fixed tsibble to anything conversion
 
 
 ## Deprecated
