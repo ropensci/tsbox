@@ -64,27 +64,6 @@ time_shift <- function(x, by = NULL) {
     return(z)
   }
 
-  # if series is not regular, but seems regularizable, try and use shortcut if
-  # possible
-  if (fm$share < 1 && fm$share > 0.8){
-    xreg <- regularize_date(x)
-    if (!is.null(xreg)){
-      if (is.numeric(by)){
-        spl <- strsplit(diffdt$string, split = " ")[[1]]
-        str <- paste(by * as.numeric(spl[1]), spl[2])
-        add_to_one <- function(x) seq(x, length.out = 2, by = str)[2]
-      }
-
-      z <- seq(from = add_to_one(xreg[1]), by = fm$string, length.out = length(xreg))
-      z <- z[match(as.integer(x), as.integer(xreg))]
-
-      stopifnot(!any(is.na(z)))
-      stopifnot(length(z) == length(x))
-
-      return(z)
-    }
-  }
-
   if (is.numeric(by)) stop("by cannot be integer when used with irregular sequence", call. = FALSE)
 
   if (inherits(x, "Date")){
