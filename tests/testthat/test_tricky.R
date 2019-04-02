@@ -117,15 +117,15 @@ test_that("Only combined ids are unique", {
 test_that("No duplicated series are allowed", {
   dta <-
     bind_rows(
-      data_frame(id = "reihe_1", time = 2011:2018, value = 2:9),
-      data_frame(id = "reihe_1", time = 2011:2018, value = 1:8)
+      tibble(id = "reihe_1", time = 2011:2018, value = 2:9),
+      tibble(id = "reihe_1", time = 2011:2018, value = 1:8)
     )
   expect_error(ts_ts(dta))
   # mutliple ids
   dta <-
   bind_rows(
-    data_frame(rr = "a", id = "reihe_1", time = 2011:2018, value = 2:9),
-    data_frame(rr = "a", id = "reihe_1", time = 2011:2018, value = 1:8)
+    tibble(rr = "a", id = "reihe_1", time = 2011:2018, value = 2:9),
+    tibble(rr = "a", id = "reihe_1", time = 2011:2018, value = 1:8)
   )
   expect_error(ts_ts(dta))
 

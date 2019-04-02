@@ -4,12 +4,12 @@ register_class("tbl", "tbl_df")
 
 ts_tbl_dts <- function(x) {
   stopifnot(requireNamespace("tibble"))
-  tibble::as_data_frame(as.data.frame(ts_data.table(x)))
+  tibble::as_tibble(as.data.frame(ts_data.table(x)))
 }
 
 as.tbl_df <- function(x) {
   stopifnot(requireNamespace("tibble"))
-  tibble::as_data_frame(x)
+  tibble::as_tibble(x)
 }
 
 # from -------------------------------------------------------------------------
