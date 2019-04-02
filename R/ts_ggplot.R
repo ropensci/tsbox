@@ -1,10 +1,10 @@
 #' Plot Time Series, Using ggplot2
 #'
 #' `ts_ggplot()` has the same syntax and produces a similar plot as [ts_plot()],
-#' but uses the [ggplot2](http://ggplot2.org/) graphic system, and can be
+#' but uses the [ggplot2](https://ggplot2.tidyverse.org/) graphic system, and can be
 #' customized. With [theme_tsbox()] and [scale_color_tsbox()], the output of
 #' `ts_ggplot` has a similar look and feel.
-#' 
+#'
 #' Both [ts_plot()] and `ts_ggplot()` combine multiple ID dimensions into a single
 #' dimension. To plot multiple dimensions in different shapes, facets, etc., use
 #' standard ggplot (see examples).
@@ -17,14 +17,14 @@
 #' @param ylab ylab (optional)
 #' @param base_family base font family (can also be set via `options`)
 #' @param base_size base font size
-#' @seealso [ts_plot()], for a simpler and faster plotting function. 
+#' @seealso [ts_plot()], for a simpler and faster plotting function.
 #'   [ts_dygraphs()], for interactive time series plots.
 #' @examples
 #' \donttest{
 #' # using the ggplot2 graphic system
 #' p <- ts_ggplot(total = ldeaths, female = fdeaths, male = mdeaths)
 #' p
-#' 
+#'
 #' # with themes for the look and feel of ts_plot()
 #' p + theme_tsbox() + scale_color_tsbox()
 #'
@@ -32,7 +32,7 @@
 #' suppressMessages(library(ggplot2))
 #' df <- ts_df(ts_c(total = ldeaths, female = fdeaths, male = mdeaths))
 #' ggplot(df, aes(x = time, y = value)) +
-#'   facet_wrap("id") + 
+#'   facet_wrap("id") +
 #'   geom_line() +
 #'   theme_tsbox() +
 #'   scale_color_tsbox()
@@ -97,14 +97,11 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
 #' @export
 #' @name ts_ggplot
 theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12) {
-  # 'Source Sans Pro'  # does not work on mac
-  # 'Slabo 13px'
 
   half_line <- base_size / 2
   ggplot2::theme_minimal(base_family = base_family, base_size = base_size) +
     ggplot2::theme(
 
-      # line = ggplot2::element_line(color = "grey30", size = 0.4),
       axis.title.x = ggplot2::element_blank(),
       axis.title.y = ggplot2::element_text(
         size = ggplot2::rel(0.9), color = "grey10",
@@ -114,22 +111,13 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12) 
       plot.subtitle = ggplot2::element_text(color = "grey10", margin = ggplot2::margin(t = 0, b = half_line * 1.2), size = ggplot2::rel(0.9), hjust = 0),
       plot.caption = ggplot2::element_text(color = "grey50", margin = ggplot2::margin(t = 0, b = half_line * 1.2), size = ggplot2::rel(0.8)),
 
-      # panel.grid = ggplot2::element_line(colour = NULL, linetype = 3),
-      # panel.grid.major = ggplot2::element_line(colour = "grey10"),
       panel.grid = ggplot2::element_line(size = 0.2),
-      # panel.grid.major.x = ggplot2::element_blank(),
-      # panel.grid.minor = ggplot2::element_blank(),
 
       axis.text = ggplot2::element_text(color = "grey10", size = ggplot2::rel(0.7)),
       legend.title = ggplot2::element_blank(),
       legend.text = ggplot2::element_text(color = "grey10", size = ggplot2::rel(0.9)),
       legend.position = "bottom",
       legend.direction = "horizontal"
-
-      # axis.ticks.x = ggplot2::element_line(color = "grey10"),
-      # axis.ticks.y = ggplot2::element_blank(),
-      # panel.border = ggplot2::element_blank(),
-      # axis.line.x =  ggplot2::element_line()
     )
 }
 
