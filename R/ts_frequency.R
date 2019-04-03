@@ -14,6 +14,7 @@
 #'
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
+#' \donttest{
 #' ts_frequency(cbind(mdeaths, fdeaths), "year", "sum")
 #' ts_frequency(cbind(mdeaths, fdeaths), "quarter", "last")
 #'
@@ -22,7 +23,7 @@
 #' # Note that incomplete years are omited by default
 #' ts_frequency(EuStockMarkets, "year")
 #' ts_frequency(EuStockMarkets, "year", na.rm = TRUE)
-#'
+#' }
 #' @export
 ts_frequency <- function(x, to = "year", aggregate = "mean", na.rm = FALSE) {
   stopifnot(ts_boxable(x))
