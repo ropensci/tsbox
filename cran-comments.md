@@ -1,6 +1,6 @@
 ## Fixes
 
-- Do not test examples that lead to NOTE on CRAN Debian
+- Do not test examples that led to NOTE on a CRAN flavor
 
 Flavor: r-devel-linux-x86_64-debian-gcc
 Check: examples, Result: NOTE
