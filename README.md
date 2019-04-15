@@ -93,6 +93,6 @@ ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'D
 
 ### Cheatsheet
 
-<a href="/blog/img/2019/04/10/tsbox-cheatsheet.pdf"><img src="/blog/img/2019/04/10/tsbox-cheatsheet-small.jpg"></a>
+<a href="https://cynkra.com/blog/img/2019/04/10/tsbox-cheatsheet.pdf"><img src="https://cynkra.com/blog/img/2019/04/10/tsbox-cheatsheet-small.jpg"></a>
 
 
