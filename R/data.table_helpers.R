@@ -1,13 +1,12 @@
 # function for easier access to data.table
-
+#' @importFrom rlang syms
+#' @importFrom rlang expr
 combine_cols_data.table <- function(dt, cols, sep = '_') {
-  # probably not the best way to do it
-  qq.str <- paste0("id := paste(", paste(cols, collapse = ", "), ", sep = '", sep, "')")
-  qq <- parse(text = qq.str)
-  z <- dt[, eval(qq)]
-  z[, (setdiff(cols, "id")) := NULL] # but this is the right way to do it
-  setcolorder(z, c("id", setdiff(names(z), "id")))
-  z[]
+  colsymbols <- rlang::syms(cols)
+
+  eval(rlang::expr(dt[, id := paste(!!!colsymbols)]))
+  dt[, (setdiff(cols, "id")) := NULL]
+  setcolorder(dt, "id")[]
 }
 
 
