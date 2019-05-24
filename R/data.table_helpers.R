@@ -1,6 +1,6 @@
 # function for easier access to data.table
 combine_cols_data.table <- function(dt, cols, sep = '_') {
-  dt[, id := do.call("paste", mget(cols))]
+  dt[, id := do.call("paste", c(mget(cols), sep = sep))]
   dt[, (setdiff(cols, "id")) := NULL]
   setcolorder(dt, "id")[]
 }
