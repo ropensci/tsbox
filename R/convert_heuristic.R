@@ -51,7 +51,8 @@ ts_to_date_time <- function(x) {
     if (NCOL(x) > 1) x <- x[, 1]
     start <- dectime_to_POSIXct(tsp(x)[1])
 
-    start <- round(start, "secs")
+    # causes conversion to POSIXlt, which messes daylight saving time
+    # start <- round(start, "secs")
 
     # daily data should be stored as Date
     if (identical(md$string, "1 day")) {

@@ -1,3 +1,12 @@
+# tsbox 0.1.9000 (2019-04-03)
+
+
+## Bug fixes
+
+- High-frequency conversion works with daylight saving time
+
+
+
 # tsbox 0.1.0 (2019-04-03)
 
 ## Changes
