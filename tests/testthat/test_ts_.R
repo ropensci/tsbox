@@ -26,7 +26,7 @@ test_that("ts_ based functions pass arguments in seasonal", {
   skip_if_not_installed("x13binary")
 
   if (!x13binary::supportedPlatform()) {
-    skip("x13binary is not supported on this platform"))
+    skip("x13binary is not supported on this platform")
   }
 
   sa <- ts_seas(ts_c(mdeaths, fdeaths), x11 = "")
