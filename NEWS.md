@@ -9,7 +9,7 @@
 
 - High-frequency conversion works with daylight saving time (#152)
 - Do not run x13binay in tests on Solaris (#143)
-
+- Use `key = id` when creating a tsibble (#156)
 
 # tsbox 0.1.0 (2019-04-03)
 
