@@ -23,6 +23,11 @@ test_that("ts_ works with more exotic options", {
 
 test_that("ts_ based functions pass arguments in seasonal", {
   skip_if_not_installed("seasonal")
+  skip_if_not_installed("x13binary")
+
+  if (!x13binary::supportedPlatform()) {
+    skip("x13binary is not supported on this platform"))
+  }
 
   sa <- ts_seas(ts_c(mdeaths, fdeaths), x11 = "")
   expect_equal(ts_pick(sa, 'mdeaths'), predict(seasonal::seas(mdeaths, x11 = "")))
