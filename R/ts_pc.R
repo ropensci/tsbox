@@ -2,8 +2,9 @@
 #'
 #' `ts_pcy` and `ts_diffy` calculate the percentage change rate and the
 #' difference compared to the previous period, `ts_pcy` and `ts_diffy` calculate
-#' compared to the same period of the previous year. `ts_pca` calculates
-#' annualized percentage change rates compared to the previous period.
+#' the percentage change rate compared to the same period of the previous year.
+#' `ts_pca` calculates annualized percentage change rates compared to the
+#' previous period.
 #'
 #' @inherit ts_dts
 #' @return a ts-boxable time series, with the same class as the input.
