@@ -64,7 +64,7 @@ regular_core <- function(x) {
   if (length(cid) == 0) {
     z <- regular_core_one(x)
   } else {
-    .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
+    .by <- by_expr(cid)
     z <- x[, regular_core_one(.SD), by = eval(.by)]
   }
 

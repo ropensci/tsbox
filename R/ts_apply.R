@@ -21,7 +21,7 @@ ts_apply_dts <- function(x, fun, ...) {
   cname <- dts_cname(x)
   setnames(x, cname$time, "time")
   setnames(x, cname$value, "value")
-  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+  .by <- by_expr(cname$id)
 
   # modifiy cname, to reflect single series character of .SD
   cname.sd <- cname

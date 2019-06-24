@@ -37,7 +37,7 @@ ts_summary <- function(x, spark = FALSE) {
     cid <- "id"
   }
 
-  .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
+  .by <- by_expr(cid)
 
   ans.freq <- x.dts[, frequency_one(time), by = eval(.by)]
   ans.freq[, c("share", "N") := NULL]

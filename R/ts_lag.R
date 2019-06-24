@@ -52,8 +52,7 @@ ts_lag <- function(x, by = 1) {
   lag_one <- function(x){
     x[, list(time = time_shift(time, by = by), value)]
   }
-
-  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+  .by <- by_expr(cname$id)
   z <- z[
     ,
     lag_one(.SD),

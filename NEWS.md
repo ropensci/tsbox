@@ -1,10 +1,13 @@
-# tsbox 0.1.9000 (2019-04-03)
+# tsbox 0.1.9001 (2019-06-??)
 
+## Features
+
+- Column names are backticked, so they can contain spaces or non-ASCII
+  characters (#151, thanks @stefanfritsch)
 
 ## Bug fixes
 
-- High-frequency conversion works with daylight saving time
-
+- High-frequency conversion works with daylight saving time (#152)
 
 
 # tsbox 0.1.0 (2019-04-03)

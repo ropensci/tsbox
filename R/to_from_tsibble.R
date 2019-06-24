@@ -13,7 +13,7 @@ ts_tsibble_dts <- function(x) {
   # bquote workaround:
   if (length(cid) > 0){
     if (length(cid) > 1){
-      cid.str <- paste(cid, collapse = ", ")
+      cid.str <- paste(backtick(cid), collapse = ", ")
       key.expr <- parse(text = paste0("tsibble::id(", cid.str, ")"))[[1]]
     } else {
       key.expr <- bquote(tsibble::id(.(as.name(cid))))

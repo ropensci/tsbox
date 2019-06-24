@@ -94,14 +94,9 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   cname <- dts_cname(x)
 
   if (length(cname$id) > 0) {
-    byexpr <- parse(text = paste0(
-      "list(",
-      paste(cname$id, collapse = ", "), ", ",
-      "time",
-      ")"
-    ))
+    .by <- by_expr(c(cname$id, "time"))
   } else {
-    byexpr <- expression(list(time))
+    .by <- by_expr("time")
   }
 
   x0 <- copy(x)
@@ -111,7 +106,7 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   pdfun <- period.date[[to]]
   x0[, time := as.Date(pdfun(time))]
 
-  z <- x0[, list(value = aggregate(value)), by = eval(byexpr)]
+  z <- x0[, list(value = aggregate(value)), by = eval(.by)]
   z <- z[!is.na(value)]
 
   data.table::setnames(z, "value", cname$value)

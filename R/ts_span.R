@@ -131,7 +131,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
 
   # ts_span(econ_us, start = 1980, extend = TRUE)
   if (extend) {
-    .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+    .by <- by_expr(cname$id)
     extend_one <- function(df, end = NULL, start = NULL) {
       mystart <- min(df$time, na.rm = TRUE)
       myend <- max(df$time, na.rm = TRUE)
@@ -181,7 +181,7 @@ get_shift_string <- function(x){
   stopifnot(inherits(x, "dts"))
   cname <- dts_cname(x)
   setnames(x, cname$time, "time")
-  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+  .by <- by_expr(cname$id)
   z <- x[, list(string = frequency_one(time)$string), by = eval(.by)]
   as.data.frame(z)
 }
