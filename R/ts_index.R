@@ -18,7 +18,7 @@ ts_compound <- function(x, denominator = 100) {
   # Adding a future value to get the right length of time series
   z <- ts_bind(ts_lag(z, -1), -99999)
 
-  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+  .by <- by_expr(cname$id)
 
   z[
     ,
@@ -70,7 +70,7 @@ ts_index <- function(x, base = NULL) {
   #   stop("indexing only works on 'Date', not 'POSIXct'")
   # }
 
-  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+  .by <- by_expr(cname$id)
 
   # use latest non na start point as base candidtate
   if (is.null(base)){

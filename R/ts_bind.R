@@ -16,10 +16,10 @@
 #' ts_bind(mdeaths, c(2, 2))
 #' ts_bind(mdeaths, 3, ts_bind(fdeaths, c(99, 2)))
 #' ts_bind(ts_dt(mdeaths), AirPassengers)
-#' 
+#'
 #' # numeric vectors
 #' ts_bind(12, AirPassengers, c(2, 3))
-#' 
+#'
 #' @export
 ts_bind <- function(...) {
   ll <- list(...)
@@ -67,13 +67,13 @@ bind_numeric <- function(a, b, backwards = FALSE) {
 
     if (backwards){
       setorder(z, time)
-    } 
+    }
     z
   }
 
   setnames(a, cname$time, "time")
   setnames(a, cname$value, "value")
-  .by <- parse(text = paste0("list(", paste(cname$id, collapse = ", "), ")"))
+  .by <- by_expr(cname$id)
   z <- a[
     ,
     add_scalar_one(.SD),

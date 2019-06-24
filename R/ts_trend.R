@@ -9,7 +9,7 @@
 #' @examples
 #' \donttest{
 #' ts_plot(
-#'    `Raw series` = fdeaths, 
+#'    `Raw series` = fdeaths,
 #'    `Loess trend` = ts_trend(fdeaths),
 #'    title = "Deaths from Lung Diseases",
 #'    subtitle = "per month"
@@ -26,12 +26,12 @@ ts_trend <- function(x, ...) {
 
   myloess <- function(y, x, ...) {
     predict(loess(
-      y ~ as.numeric(as.POSIXct(x)), 
+      y ~ as.numeric(as.POSIXct(x)),
       ...
     ))
   }
- 
-  .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
+
+  .by <- by_expr(cid)
 
   setnames(z, cvalue, "value")
   setnames(z, ctime, "time")
@@ -41,7 +41,7 @@ ts_trend <- function(x, ...) {
     value := myloess(y = value, x = time),
     by = eval(.by)
   ]
-  
+
   setnames(z, "value", cvalue)
   setnames(z, "time", ctime)
 

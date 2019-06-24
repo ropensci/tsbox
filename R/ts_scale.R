@@ -2,7 +2,7 @@
 # on other objects. Faster and keeps time stamp intact.
 
 #' Normalized Time Series
-#' 
+#'
 #' Subtract mean and divide by standard deviation. Based on [base::scale()].
 #'
 #' @param x ts_boxable time series
@@ -29,7 +29,7 @@ ts_scale <- function (x, center = TRUE, scale = TRUE){
     z
   }
 
-  .by <- parse(text = paste0("list(", paste(cid, collapse = ", "), ")"))
+  .by <- by_expr(cid)
   z[
     ,
     value := scale_core(value),
