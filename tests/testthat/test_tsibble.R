@@ -30,7 +30,7 @@ test_that("tsibble back-conversion works properly", {
 
   weather <- nycflights13::weather %>%
     select(origin, time_hour, temp, humid, precip)
-  weather_tsbl <- as_tsibble(weather, key = id(origin), index = time_hour)
+  weather_tsbl <- as_tsibble(weather, key = origin, index = time_hour)
   weather_tsbl %>%
     ts_default()
 })
