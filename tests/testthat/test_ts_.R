@@ -25,7 +25,8 @@ test_that("ts_ based functions pass arguments in seasonal", {
   skip_if_not_installed("seasonal")
   skip_if_not_installed("x13binary")
 
-  if (!x13binary::supportedPlatform()) {
+  library(x13binary)
+  if (!supportedPlatform()) {
     skip("x13binary is not supported on this platform")
   }
 
