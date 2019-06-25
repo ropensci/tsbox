@@ -23,9 +23,27 @@ test_that("ts_ works with more exotic options", {
 
 test_that("ts_ based functions pass arguments in seasonal", {
   skip_if_not_installed("seasonal")
-  skip_if_not_installed("x13binary")
 
-  library(x13binary)
+  # copied from x13binary::supportedPlatform
+  supportedPlatform <- function () {
+      z <- FALSE
+      if (.Platform$OS.type == "windows") {
+          z <- TRUE
+      }
+      if (Sys.info()["sysname"] %in% c("Linux")) {
+          z <- TRUE
+      }
+      if (Sys.info()["sysname"] %in% c("Darwin")) {
+          z <- compareVersion(Sys.info()["release"], "11.0.0") >=
+              0
+      }
+      if ((.Platform$OS.type == "unix") && !(Sys.info()["sysname"] %in%
+          c("Darwin", "Linux"))) {
+          z <- FALSE
+      }
+      z
+  }
+
   if (!supportedPlatform()) {
     skip("x13binary is not supported on this platform")
   }
