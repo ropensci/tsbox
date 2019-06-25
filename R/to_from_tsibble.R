@@ -16,7 +16,7 @@ ts_tsibble_dts <- function(x) {
       cid.str <- paste(backtick(cid), collapse = ", ")
       key.expr <- parse(text = paste0("c(", cid.str, ")"))[[1]]
     } else {
-      key.expr <- parse(text = cid.str)[[1]]
+      key.expr <- parse(text = backtick(cid))[[1]]
     }
     expr <- bquote(
       tsibble::as_tsibble(x, key = .(key.expr), index = .(as.name(ctime)))
