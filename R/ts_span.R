@@ -198,9 +198,10 @@ get_shift_string <- function(x){
 empty_fm <- function() {
   data.frame(
     string = NA_character_,
+    N = NA_integer_,
     freq = NA_real_,
     share = NA_real_,
-    N = NA_integer_
+    stringsAsFactors = FALSE
   )
 }
 frequency_one <- function(x) {
