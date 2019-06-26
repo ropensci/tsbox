@@ -1,7 +1,7 @@
 #' tsbox: Class-Agnostic Time Series
 #'
 #' The R ecosystem knows a vast number of time series classes: ts, xts, zoo,
-#' tsibble, tibbletime or timeSeries. The plethora of standards causes confusion.
+#' tsibble, tibbletime, tis, or timeSeries. The plethora of standards causes confusion.
 #' As different packages rely on different classes, it is hard to use them in the
 #' same analysis. tsbox provides a set of tools that make it easy to switch between
 #' these classes. It also allows the user to treat time series as plain data
