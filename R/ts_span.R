@@ -62,8 +62,8 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
   if (!length(end) <= 1) {
     stop("'end' must be of length 1", call. = FALSE)
   }
-
   x.dts <- ts_dts(x)
+  if (nrow(x.dts) == 0) return(x)
   cname <- dts_cname(x.dts)
   sstr <- unique(get_shift_string(x.dts)$string)
   spl.sstr <- strsplit(sstr, split = " ")[[1]]
@@ -195,18 +195,28 @@ get_shift_string <- function(x){
 # frequency_one(x1)
 # frequency_one(x2)
 # frequency_one(x3)
-
+empty_fm <- function() {
+  data.frame(
+    string = NA_character_,
+    N = NA_integer_,
+    freq = NA_real_,
+    share = NA_real_,
+    stringsAsFactors = FALSE
+  )
+}
 frequency_one <- function(x) {
+  if (length(x) == 1L) {
+    return(empty_fm())
+  }
   freq <- NULL
   diffdt <- frequency_table(x)
+  if (is.na(diffdt$freq[1])) diffdt$freq[1] <- -1
   fm <- diffdt[which.max(freq)]
   if (diffdt$freq[1] == -1) {  # if -1 is most common value
     udiff <- unique(diff(as.numeric(x)))
     # all.equal(max(udiff), min(udiff)) # should be 'numerically' unique
     if (max(udiff) - min(udiff) > 1e5) {
-      fm$string <- NA_character_
-      fm$freq <- NA_real_
-      return(fm)
+      return(empty_fm())
     }
     udiff <- mean(udiff)
     # unit <- "day"

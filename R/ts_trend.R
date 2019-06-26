@@ -20,31 +20,17 @@ ts_trend <- function(x, ...) {
   value <- NULL
   z <- ts_na_omit(ts_dts(x))
 
-  cid <- dts_cname(z)$id
-  ctime <- dts_cname(z)$time
-  cvalue <- dts_cname(z)$value
-
-  myloess <- function(y, x, ...) {
-    predict(loess(
-      y ~ as.numeric(as.POSIXct(x)),
-      ...
+  predict_loess <- function(.SD, ...) {
+    z <- copy(.SD)
+    value_loess <- predict(loess(
+      value ~ as.numeric(as.POSIXct(time)),
+      ...,
+      data = .SD
     ))
+    z[, value := value_loess]
+    z
   }
 
-  .by <- by_expr(cid)
-
-  setnames(z, cvalue, "value")
-  setnames(z, ctime, "time")
-
-  z[
-    ,
-    value := myloess(y = value, x = time),
-    by = eval(.by)
-  ]
-
-  setnames(z, "value", cvalue)
-  setnames(z, "time", ctime)
-
-  copy_class(z, x)
+  ts_apply_dts(z, predict_loess,...)
 }
 

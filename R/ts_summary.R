@@ -57,19 +57,25 @@ ts_summary <- function(x, spark = FALSE) {
     } else {
       spark_fun <- spark_unicode
     }
+    x.dts.regular <- x.dts[regular.series, on = cid]
 
     # some stuff can be done for regular series only
-    ans.regular <- ts_span(
-      x.dts[regular.series, on = cid],
-      start = min(x.dts$time, na.rm = TRUE),
-      end =  max(x.dts$time, na.rm = TRUE),
-      extend = TRUE
-    )[,
-      list(spark_line = spark_fun(x = value, spark.width = 15)),
-      by = eval(.by)
-    ]
+    if (nrow(x.dts.regular) > 0){
+      x.dts.regular <- ts_span(
+        x.dts.regular,
+        start = min(x.dts.regular$time, na.rm = TRUE),
+        end =  max(x.dts.regular$time, na.rm = TRUE),
+        extend = TRUE
+      )[,
+        list(spark_line = spark_fun(x = value, spark.width = 15)),
+        by = eval(.by)
+      ]
+    } else {
+      x.dts.regular$spark_line <- NA_character_
+    }
 
-    ans <- ans.regular[ans.freq[ans.other, on = cid], on = cid]
+
+    ans <- x.dts.regular[ans.freq[ans.other, on = cid], on = cid]
     setcolorder(ans, c(cid, "obs", "diff", "freq", "start", "end", "spark_line"))
 
   } else {
