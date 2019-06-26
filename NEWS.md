@@ -4,6 +4,7 @@
 
 - Column names are backticked, so they can contain spaces or non-ASCII
   characters (#151, thanks @stefanfritsch)
+- Support for 'tis' time series (#150)
 
 ## Bug fixes
 

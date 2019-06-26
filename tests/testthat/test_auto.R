@@ -12,6 +12,8 @@ test_that("two way conversion", {
     skip_if_not_installed("tsibble")
     skip_if_not_installed("timeSeries")
     skip_if_not_installed("zoo")
+    skip_if_not_installed("tis")
+
 
   for (class in names(tsbox:::supported_classes())){
     message(class)
@@ -23,8 +25,9 @@ test_that("two way conversion", {
     # tsibble alphabetically reorders key column, separate test below
     if (class == "tsibble") break
 
-    # non standard regualar
-    if (!(class %in% c("timeSeries"))){  # stored in seconds only, which prevents back covnersion to ts
+    # tis: does not deal correctly with 'as.tis(EuStockMarkets)'
+    # timeSeries: stored in seconds only, which prevents back covnersion to ts
+    if (!(class %in% c("timeSeries", "tis"))){
       expect_equal(ts_ts(ts_fun(EuStockMarkets)), EuStockMarkets)
     }
 

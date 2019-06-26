@@ -6,7 +6,7 @@ Date: 2019-04-03
 Authors@R: person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"))
 Description: Time series toolkit with identical behavior for all
   time series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
-  'timeSeries', 'tsibble'. Also converts reliably between these classes.
+  'timeSeries', 'tsibble', 'tis'. Also converts reliably between these classes.
 Imports:
     data.table (>= 1.10.0),
     anytime
@@ -25,6 +25,7 @@ Suggests:
     tsibble (>= 0.8.2),
     tibbletime,
     zoo,
+    tis,
     timeSeries,
     nycflights13
 License: GPL-3
