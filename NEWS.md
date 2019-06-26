@@ -8,10 +8,11 @@
 ## Bug fixes
 
 - High-frequency conversion works with daylight saving time (#152)
-- Do not run x13binay in tests on Solaris (#143)
+- Do not run x13binary in tests on Solaris (#143)
 - Use `key = id` when creating a tsibble (#156)
 - ts_trend passes arguments to loess (#147)
 - ts_summary works with single or irregular observations (#145, #146)
+- ts_frequency handles na.rm correctly (#148)
 
 
 # tsbox 0.1.0 (2019-04-03)
