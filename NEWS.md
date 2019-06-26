@@ -11,6 +11,8 @@
 - Do not run x13binay in tests on Solaris (#143)
 - Use `key = id` when creating a tsibble (#156)
 - ts_trend passes arguments to loess (#147)
+- ts_summary works with single or irregular observations (#145, #146)
+
 
 # tsbox 0.1.0 (2019-04-03)
 
