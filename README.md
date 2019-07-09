@@ -33,7 +33,7 @@ remotes::install_github("christophsax/tsbox")
 
 tsbox is built around a set of converters, which convert time series stored as
 **ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**,
-**tsibble**,  **tibbletime** or **timeSeries** to each other:
+**tsibble**,  **tibbletime**, **timeSeries**, **irts** or **tis** to each other:
 
 ```r
 library(tsbox)
@@ -46,7 +46,10 @@ x.zoo <- ts_zoo(x.tbl)
 x.tsibble <- ts_tsibble(x.zoo)
 x.tibbletime <- ts_tibbletime(x.tsibble)
 x.timeSeries <- ts_timeSeries(x.tibbletime)
-all.equal(ts_ts(x.timeSeries), x.ts)  # TRUE
+x.irts <- ts_irts(x.tibbletime)
+x.tis <- ts_tis(x.irts)
+all.equal(ts_ts(x.tis), x.ts)
+#> [1] TRUE
 ```
 
 ### Use same functions for time series classes
