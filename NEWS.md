@@ -2,8 +2,9 @@
 
 ## Features
 
-- Column names are backticked, so they can contain spaces or non-ASCII
-  characters (#151, thanks @stefanfritsch)
+- Contrstuction of expressions for data.tables are done problerly and now
+  are able to contain spaces or non-ASCII characters
+  (#151, thanks @stefanfritsch)
 - Support for 'tis' time series (#150)
 - Support for 'irts' time series, from package tseries
 

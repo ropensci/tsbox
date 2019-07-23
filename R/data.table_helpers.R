@@ -1,10 +1,9 @@
 # function for easier access to data.table
 
 combine_cols_data.table <- function(dt, cols, sep = '_') {
-  # probably not the best way to do it
-  qq.str <- paste0("id := paste(", paste(backtick(cols), collapse = ", "), ", sep = '", sep, "')")
-  qq <- parse(text = qq.str)
-  z <- dt[, eval(qq)]
+  paste_sep <- function(...) paste(..., sep = sep)
+  qq <- as.call(c(quote(paste_sep), lapply(cols, as.name)))
+  z <- dt[, id := eval(qq)]
   z[, (setdiff(cols, "id")) := NULL] # but this is the right way to do it
   setcolorder(z, c("id", setdiff(names(z), "id")))
   z[]

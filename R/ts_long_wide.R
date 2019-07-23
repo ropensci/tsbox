@@ -81,10 +81,11 @@ wide_core <- function(x) {
   # # dcast is confused by some things
   # cname$id <- gsub("~", "_", cname$id, fixed = TRUE)
   # setnames(x, gsub("~", "_", names(x), fixed = TRUE))
-
+  #
   # Casting works fine for POSIXct as well.
   z <- dcast(
-    x, as.formula(paste("time", "~", backtick(cname$id))),
+    x,
+    as.formula(substitute(time ~ id, list(id = as.name(cname$id)))),
     value.var = cname$value, drop = FALSE
   )
   setnames(z, "time", cname$time)

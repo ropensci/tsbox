@@ -8,6 +8,12 @@ ts_tsibble_dts <- function(x) {
   ctime <- dts_cname(x)$time
   x <- dts_rm(x)
 
+# tsibble::as_tsibble(x, key = id(!!cid), index = !!ctime)
+
+  backtick <- function(x) {
+    paste0("`", x, "`")
+  }
+
   # for some reason, this does not work
   # tsibble::as_tsibble(x, key = id(!!cid), index = !!ctime)
   # bquote workaround:
