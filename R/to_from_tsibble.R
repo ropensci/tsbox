@@ -8,29 +8,11 @@ ts_tsibble_dts <- function(x) {
   ctime <- dts_cname(x)$time
   x <- dts_rm(x)
 
-# tsibble::as_tsibble(x, key = id(!!cid), index = !!ctime)
-
-  backtick <- function(x) {
-    paste0("`", x, "`")
-  }
-
-  # for some reason, this does not work
-  # tsibble::as_tsibble(x, key = id(!!cid), index = !!ctime)
-  # bquote workaround:
   if (length(cid) > 0){
-    if (length(cid) > 1){
-      cid.str <- paste(backtick(cid), collapse = ", ")
-      key.expr <- parse(text = paste0("c(", cid.str, ")"))[[1]]
-    } else {
-      key.expr <- parse(text = backtick(cid))[[1]]
-    }
-    expr <- bquote(
-      tsibble::as_tsibble(x, key = .(key.expr), index = .(as.name(ctime)))
-    )
+    z <- tsibble::as_tsibble(x, key = !! cid, index = !! ctime)
   } else {
-    expr <- bquote(tsibble::as_tsibble(x, index = .(as.name(ctime))))
+    z <- tsibble::as_tsibble(x, index = !! ctime)
   }
-  z <- eval(expr, envir = environment())
   z
 }
 
@@ -43,32 +25,47 @@ ts_dts.tbl_ts <- function(x) {
   stopifnot(requireNamespace("tsibble"))
 
   z <- as.data.table(x)
-  mv <- tsibble::measured_vars(x)
-  if (length(mv) == 1){
-    setnames(z, mv, "value")
-  } else if (length(mv) > 1){
-    z <- ts_long(z)
-  } else {
-    stop("no measured vars in tsibble")
+
+  # using tsibble meta data, we can confident about ctime
+  cid <- tsibble::key_vars(x)
+  measures <- tsibble::measured_vars(x)
+  ctime <- setdiff(names(z), c(measures, cid))
+  # browser()
+  setnames(z, ctime, "time")
+
+  # Ignoring non-numeric measure vars
+  measures.non.numeric <- measures[!sapply(z[, measures, with = FALSE], is.numeric)]
+  if (length(measures.non.numeric) > 0) {
+    message(
+      "Ignoring non-numeric measure vars (",
+      paste(measures.non.numeric, collapse = ", "),
+      ")."
+    )
+    z[, (measures.non.numeric) := NULL]
   }
 
-  time <- setdiff(names(x), c(tsibble::key_vars(x), tsibble::measured_vars(x)))
-  stopifnot(length(time) == 1)
-  kv <- tsibble::key_vars(x)
-  if (identical(kv, "NULL")) kv <- NULL
-
-  id <- unname(unlist(kv))
-
-  if (length(mv) > 1) id <- c(id, "id")
-
-  cname <- list(id = id,
-                time = time,
-                value = "value")
+  cvalue <- setdiff(names(z), c("time", cid))
 
 
-  z <- dts_init(z)
-  setattr(z, "cname", cname)
-  z
+  # get rid of tsibble specifc classes, like yearweek
+  if (inherits(z$time, "Date")) {
+    z$time <- as.Date(z$time)
+  }
+  if (inherits(z$time, "POSIXct")) {
+    z$time <- as.POSIXct(z$time)
+  }
+
+# browser()
+  if (length(cvalue) > 1) {
+    # also works if 'cid' includes 'id'
+    z <- melt(z, id.vars = c(cid, "time"), measure.vars = cvalue, variable.name = "id")
+    cvalue <- "value"
+  }
+
+  setcolorder(z, c(setdiff(names(z), c("time", cvalue)), "time", cvalue))
+  setnames(z, "time", ctime)
+  ts_dts(z)
+
 }
 
 

@@ -16,6 +16,7 @@
 - ts_trend passes arguments to loess (#147)
 - ts_summary works with single or irregular observations (#145, #146)
 - ts_frequency handles na.rm correctly (#148)
+- handles data sets from tsibbledata (#164)
 
 
 # tsbox 0.1.0 (2019-04-03)

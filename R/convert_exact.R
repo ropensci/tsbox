@@ -25,6 +25,7 @@ dectime_to_POSIXct <- function(x) {
 
 POSIXct_to_dectime <- function(x) {
   tz <- attributes(x)$tzone
+  if (is.null(tz)) tz <- ""
   stopifnot(length(x) == 1)
   year <- as.POSIXlt(x)$year + 1900L
   intra <- (as.numeric(x) - seconds_at_start_of_year(year, tz)) / seconds_in_year(year, tz)
