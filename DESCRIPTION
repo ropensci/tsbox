@@ -23,6 +23,7 @@ Suggests:
     knitr,
     rmarkdown,
     tsibble (>= 0.8.2),
+    tsibbledata,
     tibbletime,
     tseries,
     zoo,

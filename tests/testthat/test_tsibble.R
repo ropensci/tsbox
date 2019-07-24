@@ -38,6 +38,8 @@ test_that("tsibble back-conversion works properly", {
 test_that("tsibbledata sets can be read", {
   skip_if_not_installed("tsibble")
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
 
   # slow tests are commented out
 

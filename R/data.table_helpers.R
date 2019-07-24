@@ -2,6 +2,7 @@
 
 combine_cols_data.table <- function(dt, cols, sep = '_') {
   paste_sep <- function(...) paste(..., sep = sep)
+  id <- NULL
   qq <- as.call(c(quote(paste_sep), lapply(cols, as.name)))
   z <- dt[, id := eval(qq)]
   z[, (setdiff(cols, "id")) := NULL] # but this is the right way to do it
