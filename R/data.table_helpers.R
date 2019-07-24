@@ -14,7 +14,7 @@ combine_cols_data.table <- function(dt, cols, sep = '_') {
 #
 merge_time_date <- function(x, y, by.x = "time", by.y = "time"){
 
-  s <- time.x <- time.y <- NULL
+  `__time_seq` <- time.x <- time.y <- NULL
 
   x0 <- copy(x)
   y0 <- copy(y)
@@ -33,13 +33,13 @@ merge_time_date <- function(x, y, by.x = "time", by.y = "time"){
   }
 
   # rolling join
-  x0[, s := seq_along(time)]
+  x0[, `__time_seq` := seq_along(time)]
   x0[, time.x := time]
   y0[, time.y := time]
   y0[, time := time - 0.1]  # for robustness
   rj <- y0[x0, roll = 1, on = "time"]
 
-  if (!all(x0$s %in% rj$s)) (stop("incomplete merge"))
+  if (!all(x0$`__time_seq` %in% rj$`__time_seq`)) (stop("incomplete merge"))
 
   rj[, time := NULL]
 
