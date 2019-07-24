@@ -12,7 +12,7 @@ test_that("two way conversion", {
   skip_if_not_installed("tsibble")
   skip_if_not_installed("timeSeries")
   skip_if_not_installed("zoo")
-  skip_if_not_installed("tis")
+  skip_if_not_installed("tseries")
 
   for (class in names(tsbox:::supported_classes())){
     message(class)
