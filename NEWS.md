@@ -2,8 +2,9 @@
 
 ## Features
 
-- Column names are backticked, so they can contain spaces or non-ASCII
-  characters (#151, thanks @stefanfritsch)
+- Contrstuction of expressions for data.tables are done problerly and now
+  are able to contain spaces or non-ASCII characters
+  (#151, thanks @stefanfritsch)
 - Support for 'tis' time series (#150)
 - Support for 'irts' time series, from package tseries
 
@@ -15,6 +16,7 @@
 - ts_trend passes arguments to loess (#147)
 - ts_summary works with single or irregular observations (#145, #146)
 - ts_frequency handles na.rm correctly (#148)
+- handles data sets from tsibbledata (#164)
 
 
 # tsbox 0.1.0 (2019-04-03)

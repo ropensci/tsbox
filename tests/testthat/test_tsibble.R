@@ -21,7 +21,6 @@ test_that("two way conversion works for tsibbles, too.", {
 })
 
 
-
 test_that("tsibble back-conversion works properly", {
 
   skip_if_not_installed("nycflights13")
@@ -35,3 +34,25 @@ test_that("tsibble back-conversion works properly", {
     ts_default()
 })
 
+
+test_that("tsibbledata sets can be read", {
+  skip_if_not_installed("tsibble")
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+
+  # slow tests are commented out
+
+  # expect_is(ts_ts(tsibbledata::PBS), "ts")
+  # expect_is(ts_ts(tsibbledata::global_economy), "ts")
+  expect_is(ts_ts(tsibbledata::ansett), "ts")
+  expect_is(ts_ts(tsibbledata::hh_budget), "ts")
+  expect_is(ts_ts(tsibbledata::aus_livestock), "ts")
+  expect_is(ts_tbl(tsibbledata::nyc_bikes), "tbl_df")
+  expect_is(ts_ts(tsibbledata::aus_production), "ts")
+  expect_is(ts_ts(tsibbledata::olympic_running), "ts")
+  # expect_is(ts_ts(tsibbledata::aus_retail), "ts")
+  expect_is(ts_ts(tsibbledata::pelt), "ts")
+  expect_is(ts_ts(tsibbledata::gafa_stock), "ts")
+  expect_is(ts_ts(tsibbledata::vic_elec), "ts")
+})
