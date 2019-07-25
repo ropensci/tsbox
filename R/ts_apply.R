@@ -17,6 +17,7 @@ ts_apply_dts <- function(x, fun, ...) {
       for (i in missing.cid) {
         z[[i]] <- unique(x[[i]])
       }
+      setcolorder(z, names(x))
     }
 
     setnames(z, "time", cname$time)
