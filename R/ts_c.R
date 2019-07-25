@@ -85,7 +85,7 @@ ts_c <- function(...) {
   ll.dts <- unify_time_class(ll.dts)
   ll.dts <- make_ids_unique(ll.dts, cid = cid)
 
-  z0 <- rbindlist(ll.dts)
+  z0 <- rbindlist(ll.dts, use.names = TRUE)
   z <- try(as_class(desired.class)(z0), silent = TRUE)
 
   if (inherits(z, "try-error")) {
