@@ -10,6 +10,15 @@ ts_apply_dts <- function(x, fun, ...) {
     setnames(x, cname$time, "time")
     setnames(x, cname$value, "value")
     z <- fun(x, ...)
+
+    # ensure id columns are preserved
+    missing.cid <- setdiff(cname$id, colnames(z))
+    if (length(missing.cid) > 0) {
+      for (i in missing.cid) {
+        z[[i]] <- unique(x[[i]])
+      }
+    }
+
     setnames(z, "time", cname$time)
     setnames(z, "value", cname$value)
     z
