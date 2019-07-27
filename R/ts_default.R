@@ -25,6 +25,8 @@ ts_default <- function(x) {
 
   cname$time <- "time"
   cname$value <- "value"
+
+  setcolorder(z, c(setdiff(names(z), c("time", "value")), c("time", "value")))
   setattr(z, "cname", cname)
   copy_class(z, x)
 }
