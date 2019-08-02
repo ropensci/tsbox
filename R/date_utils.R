@@ -54,7 +54,8 @@ time_shift <- function(x, by = NULL) {
   if (fm$freq == -1) return(time_shift_non_heuristic(x = x, by = by))
 
   # if series is regular, take shortcut
-  if (fm$share == 1) {
+  # do not for "-1 day" etc. strings
+  if (fm$share == 1 && !grepl("^\\-", by)) {
     if (is.numeric(by)){
       spl <- strsplit(diffdt$string, split = " ")[[1]]
       str <- paste(by * as.numeric(spl[1]), spl[2])
