@@ -6,6 +6,7 @@
   are able to contain spaces or non-ASCII characters
   (#151, thanks @stefanfritsch)
 - ts_default() puts data frames in default order (ids, time, value) (#166)
+- Consistent handling of non-default colnames and colorder in data frames (#166)
 - Support for 'tis' time series (#150)
 - Support for 'irts' time series, from package tseries
 
