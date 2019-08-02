@@ -16,7 +16,7 @@ guess_tattr <- function(x){
     tz = ""
   }
   list(
-    class = class, 
+    class = class,
     tz = tz
   )
 }
@@ -33,8 +33,9 @@ guess_cname <- function(x) {
     msg <- paste0(msg, "[value]: '", value.name, "' ")
     # check if data frame is incidentally wide
     cnames <- colnames(x)
-    cols.right.of.time <- cnames[(which(cnames == time.name) + 1):length(cnames)]
-    if (length(cols.right.of.time) > 1){
+    idx.time <- which(cnames == time.name)
+    if ((idx.time - length(cnames)) > 1){
+      cols.right.of.time <- cnames[(idx.time + 1):length(cnames)]
       value.cols <- vapply(x[, cols.right.of.time, with = FALSE], is_value, TRUE)
       if (sum(value.cols) > 1){
         message(

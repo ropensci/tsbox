@@ -85,7 +85,21 @@ ts_c <- function(...) {
   ll.dts <- unify_time_class(ll.dts)
   ll.dts <- make_ids_unique(ll.dts, cid = cid)
 
+  # make sure the detected ctime and cvalues are used
+  cname <- dts_cname(ll.dts[[1]])
+  default_colnames <- function(x) {
+    cname <- attr(x, "cname")
+    setnames(x, cname$time, "time")
+    setnames(x, cname$value, "value")
+    x
+  }
+  ll.dts <- lapply(ll.dts, default_colnames)
+
   z0 <- rbindlist(ll.dts, use.names = TRUE)
+  setnames(z0, "time", cname$time)
+  setnames(z0, "value", cname$value)
+  setattr(z0, "cname", cname)
+
   z <- try(as_class(desired.class)(z0), silent = TRUE)
 
   if (inherits(z, "try-error")) {
