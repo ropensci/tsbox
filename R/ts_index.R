@@ -7,26 +7,22 @@ ts_compound <- function(x, denominator = 100) {
   not_in_data <- NULL
   value <- NULL
   z <- ts_dts(x)
-  z <- ts_regular(ts_na_omit(z))
+  d <- dts_default(z); z <- d$x
 
-  cname <- dts_cname(z)
-  setnames(z, cname$time, "time")
-  setnames(z, cname$value, "value")
+  z <- ts_regular(ts_na_omit(z))
 
   z[, value := value / denominator + 1]
 
   # Adding a future value to get the right length of time series
   z <- ts_bind(ts_lag(z, -1), -99999)
 
-  .by <- by_expr(cname$id)
-
+  .by <- by_expr(dts_cname(z)$id)
   z[
     ,
     value := c(1, cumprod(value[-length(value)])),
     by = eval(.by)
   ]
-  setnames(z, "value", cname$value)
-  setnames(z, "time", cname$time)
+  z <- dts_restore(z, d)
   ts_na_omit(copy_class(z, x))
 }
 
@@ -59,18 +55,10 @@ ts_index <- function(x, base = NULL) {
   not_in_data <- NULL
   value <- NULL
   z <- ts_dts(x)
+  d <- dts_default(z); z <- d$x
 
-  cname <- dts_cname(z)
-  setnames(z, cname$time, "time")
-  setnames(z, cname$value, "value")
-
-
-
-  # if (inherits(z$time, "POSIXct")) {
-  #   stop("indexing only works on 'Date', not 'POSIXct'")
-  # }
-
-  .by <- by_expr(cname$id)
+  cid <- dts_cname(z)$id
+  .by <- by_expr(cid)
 
   # use latest non na start point as base candidtate
   if (is.null(base)){
@@ -94,13 +82,13 @@ ts_index <- function(x, base = NULL) {
   if (any(dt_in_data$not_in_data)) {
     if (NCOL(z) > 3) {
       id.missing <- combine_cols_data.table(
-        dt_in_data[not_in_data == TRUE], cname$id
+        dt_in_data[not_in_data == TRUE], cid
       )$id
     } else if (NCOL(z) == 3) {
-      id.missing <- dt_in_data[not_in_data == TRUE][[cname$id]]
+      id.missing <- dt_in_data[not_in_data == TRUE][[cid]]
     }
 
-    if (length(cname$id) == 0) {
+    if (length(cid) == 0) {
       stop(base, " not in series", call. = FALSE)
     } else {
       stop(
@@ -115,7 +103,6 @@ ts_index <- function(x, base = NULL) {
     value := value / .SD[time == base, value],
     by = eval(.by)
   ]
-  setnames(z, "value", cname$value)
-  setnames(z, "time", cname$time)
-  ts_na_omit(copy_class(z, x))
+  z <- dts_restore(z, d)
+  copy_class(z, x)
 }
