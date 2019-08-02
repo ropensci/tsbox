@@ -2,10 +2,11 @@
 
 ## Features
 
-- Contrstuction of expressions for data.tables are done problerly and now
+- Construction of expressions for data.tables are done problerly and now
   are able to contain spaces or non-ASCII characters
   (#151, thanks @stefanfritsch)
 - ts_default() puts data frames in default order (ids, time, value) (#166)
+- Consistent handling of non-default colnames and colorder in data frames (#166)
 - Support for 'tis' time series (#150)
 - Support for 'irts' time series, from package tseries
 
@@ -18,6 +19,7 @@
 - ts_summary works with single or irregular observations (#145, #146)
 - ts_frequency handles na.rm correctly (#148)
 - handles data sets from tsibbledata (#164)
+- ts_lag handles negative `by` argument correctly (#177)
 
 
 # tsbox 0.1.0 (2019-04-03)
