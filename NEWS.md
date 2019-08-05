@@ -9,6 +9,7 @@
 - Consistent handling of non-default colnames and colorder in data frames (#166)
 - Support for 'tis' time series (#150)
 - Support for 'irts' time series, from package tseries
+- Tweakes color schemes
 
 ## Bug fixes
 

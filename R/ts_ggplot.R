@@ -126,19 +126,16 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""), base_size = 12) 
 #' @name ts_ggplot
 colors_tsbox <- function() {
   c(
+    # A soft black
     "#4D4D4D",
-    "#5DA5DA",
-    "#FAA43A",
-    "#60BD68",
-    "#F15854",
-    "#B276B2",
-    "#DECF3F",
-    "#F17CB0",
-    "#B2912F",
-    "#4afff0", "#34bdcc", "#4f61a1", "#461e78", "#440a4f", "#c3fbc4",
-    "#85f9d6", "#79c7ad", "#a6cc7a", "#dfff7b",
-    "#8d7b88", "#4e414f", "#baadb5", "#2d2538", "#837a80", "#fff68f",
-    "#800080", "#f8b1cc", "#c29bff", "#8d0808"
+    # Okabe and Ito, colorblindr, https://jfly.uni-koeln.de/color/,
+    # with orange moved to position 2
+    "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#999999",
+    # Additional Colors
+    "#4AFFF0", "#34BDCC", "#4F61A1", "#461E78", "#440A4F", "#C3FBC4",
+    "#85F9D6", "#79C7AD", "#A6CC7A", "#DFFF7B",
+    "#8D7B88", "#4E414F", "#BAADB5", "#2D2538", "#837A80", "#FFF68F",
+    "#800080", "#F8B1CC", "#C29BFF", "#8D0808"
   )
 }
 
