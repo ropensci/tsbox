@@ -1,5 +1,8 @@
 
 dts_first_of_period <- function(x) {
+  value <- NULL
+  has.value <- NULL
+
   x <- ts_na_omit(x)
   smry <- ts_summary(x)
   start <- date_year(smry$start)
@@ -14,7 +17,7 @@ dts_first_of_period <- function(x) {
   time <- seq(start, end, by = smry$diff)
   time_adj <- time[(max(which(time <= smry$start)):min(which(time >= smry$end)))]
   time.tmpl <- data.table(time = time_adj)
-  x1 <- x[, .(time, value)]
+  x1 <- x[, list(time, value)]
   x1[, has.value := TRUE]
   z <- x1[time.tmpl, roll = -Inf, on = "time"][has.value == TRUE]
   z[, has.value := NULL]
