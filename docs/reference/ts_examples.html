@@ -76,7 +76,7 @@ ts_seas the seasonally adjusted series." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -154,7 +154,7 @@ graphical visualization, <code>ts_forecast</code> return an univariate forecast,
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, or <code>timeSeries</code>.</p></td>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -194,7 +194,12 @@ to make arbitrary functions ts-boxable.</p></div>
   <span class='fu'>ts_forecast</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='kw'>`male (fct)`</span> <span class='kw'>=</span> <span class='no'>mdeaths</span>,  <span class='kw'>`female (fct)`</span> <span class='kw'>=</span> <span class='no'>fdeaths</span>))),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Deaths from lung diseases"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"Exponential smoothing forecast"</span>
-)</div><div class='img'><img src='ts_examples-2.png' alt='' width='700' height='433' /></div><div class='input'>
+)</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
+#&gt; <span class='message'>  method            from</span>
+#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'forecast':</span>
+#&gt; <span class='message'>  method             from    </span>
+#&gt; <span class='message'>  fitted.fracdiff    fracdiff</span>
+#&gt; <span class='message'>  residuals.fracdiff fracdiff</span></div><div class='img'><img src='ts_examples-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
   <span class='kw'>`Raw series`</span> <span class='kw'>=</span> <span class='no'>AirPassengers</span>,
   <span class='kw'>`Adjusted series`</span> <span class='kw'>=</span> <span class='fu'>ts_seas</span>(<span class='no'>AirPassengers</span>),

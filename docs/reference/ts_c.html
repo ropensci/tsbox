@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -174,7 +174,9 @@ In <code>ts</code> and <code>xts</code> objects, time series are combined horizo
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_c</span>(
   <span class='kw'>`International Airline Passengers`</span> <span class='kw'>=</span> <span class='fu'><a href='ts_ts.html'>ts_xts</a></span>(<span class='no'>AirPassengers</span>),
   <span class='kw'>`Deaths from Lung Diseases`</span> <span class='kw'>=</span> <span class='no'>ldeaths</span>
-)</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: xts</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;            International Airline Passengers Deaths from Lung Diseases
+)</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: xts</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'xts':</span>
+#&gt; <span class='message'>  method     from</span>
+#&gt; <span class='message'>  as.zoo.xts zoo </span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;            International Airline Passengers Deaths from Lung Diseases
 #&gt; 1949-01-01                              112                        NA
 #&gt; 1949-02-01                              118                        NA
 #&gt; 1949-03-01                              132                        NA
