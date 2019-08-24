@@ -5,7 +5,6 @@ tsbox: Class-Agnostic Time Series in R
 [![Build status](https://ci.appveyor.com/api/projects/status/xp7tropxe2dkdxoc?svg=true)](https://ci.appveyor.com/project/christophsax/tsbox)
 [![codecov](https://codecov.io/github/christophsax/tsbox/branch/master/graphs/badge.svg)](https://codecov.io/github/christophsax/tsbox)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/tsbox)](https://cran.r-project.org/package=tsbox)
-https://cranlogs.r-pkg.org/badges/tsbox
 [![Downloads](http://cranlogs.r-pkg.org/badges/tsbox)](https://cran.r-project.org/package=tsbox)
 
 The R ecosystem knows a [vast
