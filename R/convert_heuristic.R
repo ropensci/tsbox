@@ -112,7 +112,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     if (frequency == 12) start <- c(y, m)
     if (d != 1) {
       stop(
-        "time column needs to specified as the first date of the period",
+        "time column needs to be specified as the first date of the period",
         call. = FALSE
       )
     }
