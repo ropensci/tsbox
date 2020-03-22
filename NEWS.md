@@ -1,3 +1,10 @@
+# tsbox 0.2.0 (2020-03-22)
+
+## Features
+
+- Fix test case that failed with dplyr 1.0
+
+
 # tsbox 0.2.0 (2019-08-06)
 
 ## Features
