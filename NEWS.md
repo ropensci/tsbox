@@ -2,7 +2,7 @@
 
 ## Features
 
-- Fix test case that failed with dplyr 1.0
+- Fix test case that failed with dplyr 1.0 #182
 
 
 # tsbox 0.2.0 (2019-08-06)
