@@ -29,7 +29,7 @@ requires the series to be regular.
 
 If \code{by} is character, the time stamp is shifted by a specific amount of time.
 This can be one of one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
-\code{"month"}, \code{"quarter" or }"year", optionally preceded by a (positive or
+\code{"month"}, \verb{"quarter" or }"year", optionally preceded by a (positive or
 negative) integer and a space, or followed by plural "s". This is passed to
 \code{\link[base:seq.Date]{base::seq.Date()}}. This does not require the series to be regular.
 }

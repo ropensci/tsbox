@@ -4,8 +4,7 @@
 \alias{ts_plot}
 \title{Plot Time Series}
 \usage{
-ts_plot(..., title, subtitle, ylab = "", family = getOption("ts_font",
-  "sans"))
+ts_plot(..., title, subtitle, ylab = "", family = getOption("ts_font", "sans"))
 }
 \arguments{
 \item{...}{ts-boxable time series, objects of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}

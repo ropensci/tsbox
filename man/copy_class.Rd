@@ -4,8 +4,13 @@
 \alias{copy_class}
 \title{Re-Class ts-Boxable Object}
 \usage{
-copy_class(x, template, preserve.mode = TRUE, preserve.names = FALSE,
-  preserve.time = FALSE)
+copy_class(
+  x,
+  template,
+  preserve.mode = TRUE,
+  preserve.names = FALSE,
+  preserve.time = FALSE
+)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.}

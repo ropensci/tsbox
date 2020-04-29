@@ -4,8 +4,7 @@
 \alias{ts_span}
 \title{Limit Time Span}
 \usage{
-ts_span(x, start = NULL, end = NULL, template = NULL,
-  extend = FALSE)
+ts_span(x, start = NULL, end = NULL, template = NULL, extend = FALSE)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.}
@@ -33,7 +32,7 @@ possible. See examples.
 
 \code{start} and \code{end} can be specified relative to each other,
 using one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
-\code{"month"}, \code{"quarter" or }"year", or an abbreviation. If the series are of the same frequency, the
+\code{"month"}, \verb{"quarter" or }"year", or an abbreviation. If the series are of the same frequency, the
 shift can be specified in periods. See examples.
 }
 \examples{
