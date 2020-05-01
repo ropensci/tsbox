@@ -7,8 +7,9 @@ ts_to_date_time <- function(x) {
   # if 'mts', only consider first column
   if (NCOL(x) > 1) x <- x[, 1]
 
-  first.year <- tsp(x)[1] %/% 1
-  first.subperiod <- tsp(x)[1] %% 1
+  # add 1e-10 to avoid rounding problems #186
+  first.year <- (tsp(x)[1] + 1e-10) %/% 1
+  first.subperiod <- (tsp(x)[1] + 1e-10) %% 1
   fr <- frequency(x)
 
   # we did not allow an offset, but this is wrong. offset is common, e.g., for weekly data.

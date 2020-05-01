@@ -1,6 +1,13 @@
+# tsbox 0.2.1.9000 (2020-??-??)
+
+## Bug fixes
+
+-  ts to data frame conversion works with slight offsets #186
+
+
 # tsbox 0.2.1 (2020-04-29)
 
-## Features
+## Bug fixes
 
 - Fix test case that failed with dplyr 1.0 #182
 
