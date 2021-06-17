@@ -31,6 +31,7 @@ ts_trend <- function(x, ...) {
     z
   }
 
-  ts_apply_dts(z, predict_loess,...)
+  z <- ts_apply_dts(z, predict_loess,...)
+  copy_class(z, x)
 }
 
