@@ -51,6 +51,7 @@ regular_core <- function(x) {
   cname <- dts_cname(x)
   ctime <- cname$time
   cid <- cname$id
+  .SD <- NULL
 
   names.x <- copy(names(x))
   setnames(x, ctime, "time")
