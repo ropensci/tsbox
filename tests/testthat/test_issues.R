@@ -13,5 +13,5 @@ test_that("regular zoo and xts can be processed", {
   library(zoo)
   z <- as.zoo(USAccDeaths)
   expect_is(ts_tbl(z), "tbl")
-  expect_is(ts_tbl(as.xts(z)), "tbl")
+  expect_is(ts_tbl(xts::as.xts(z)), "tbl")
 })

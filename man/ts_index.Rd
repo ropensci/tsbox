@@ -17,7 +17,8 @@ ts_index(x, base = NULL)
 \item{denominator}{numeric, set equal to one if percentage change rate is
 given a decimal fraction}
 
-\item{base}{base date, character string, \code{Date} or \code{POSIXct}, at which the}
+\item{base}{base date, character string, \code{Date} or \code{POSIXct}, at which the
+index is set to 1.}
 }
 \value{
 a ts-boxable time series, with the same class as the input.

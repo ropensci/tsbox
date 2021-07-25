@@ -42,7 +42,7 @@ dts_first_of_period <- function(x) {
 #' )
 #' ts_first_of_period(x)
 #' ts_first_of_period(ts_lag(ts_df(austres), "14 days"))
-#' x <- ts_lag(data.table(
+#' x <- ts_lag(data.frame(
 #'   time = seq(anytime::anytime(1970), length.out = 10, by = "10 sec"),
 #'   value = rnorm(10)
 #' ), "3 sec")

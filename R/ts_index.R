@@ -36,6 +36,7 @@ ts_compound <- function(x, denominator = 100) {
 #'
 #' @inherit ts_dts
 #' @param base base date, character string, `Date` or `POSIXct`, at which the
+#'  index is set to 1.
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' head(ts_compound(ts_pc(ts_c(fdeaths, mdeaths))))
