@@ -10,7 +10,11 @@ NULL
 
 # utility function to find POSIXct range (for coding only)
 # find_range <- function(by = "1 month") {
-#   ser <- seq(from = as.POSIXct("1900-01-01"), to = as.POSIXct("2020-01-01"), by = by)
+#   ser <- seq(
+#     from = as.POSIXct("1900-01-01"),
+#     to = as.POSIXct("2020-01-01"),
+#     by = by
+#   )
 #   range(diff(as.numeric(as.POSIXct(ser))))
 # }
 # find_range("1 hour")

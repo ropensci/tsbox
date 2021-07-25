@@ -49,34 +49,38 @@ ts_xts(x)
 ts_zoo(x)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 }
 \value{
-ts-boxable time series of the desired class, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.
+ts-boxable time series of the desired class, an object of class \code{ts},
+\code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis},
+\code{irts} or \code{timeSeries}.
 }
 \description{
 tsbox is built around a set of converters, which convert time series
-stored as \code{ts}, \code{xts}, \code{data.frame}, \code{data.table} or \code{tibble} to each
-other.
+stored as \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries} to each other.
 }
 \details{
 In data frames, multiple time series will be stored in a 'long' format. tsbox
-detects a \emph{value}, a \emph{time} and zero to several \emph{id} columns. Column detection
-is done in the following order:
+detects a \emph{value}, a \emph{time} and zero to several \emph{id} columns. Column
+detection is done in the following order:
 \enumerate{
-\item Starting \strong{on the right}, the first first \code{numeric} or \code{integer} column is
-used as \strong{value column}.
+\item Starting \strong{on the right}, the first first \code{numeric} or \code{integer} column
+is used as \strong{value column}.
 \item Using the remaining columns, and starting on the right again, the first
-\code{Date}, \code{POSIXct}, \code{numeric} or \code{character} column is used as \strong{time column}.
-\code{character} strings are parsed by \code{\link[anytime:anytime]{anytime::anytime()}}.
+\code{Date}, \code{POSIXct}, \code{numeric} or \code{character} column is used as
+\strong{time column}. \code{character} strings are parsed by \code{\link[anytime:anytime]{anytime::anytime()}}.
 The time stamp, \code{time}, indicates the beginning of a period.
-\item \strong{All remaining} columns are \strong{id columns}. Each unique combination of id
-columns points to a time series.
+\item \strong{All remaining} columns are \strong{id columns}. Each unique combination of
+id columns points to a time series.
 }
 
-\strong{Alternatively}, the \strong{time} column and the \strong{value} column to be explicitly named as
-\code{time} and \code{value}. If explicit names are used, the column order will be
-ignored.
+\strong{Alternatively}, the \strong{time} column and the \strong{value} column to be
+explicitly named as \code{time} and \code{value}. If explicit names are used, the
+column order will be ignored.
 
 Whenever possible, tsbox relies on \strong{heuristic time conversion}. When a
 monthly \code{"ts"} time series, e.g., \code{AirPassengers}, is converted to a data

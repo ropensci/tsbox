@@ -57,8 +57,14 @@ ts_dygraphs <- ts_(dygraphs::dygraph, class = "xts", reclass = FALSE)
 
 #' @export
 #' @name ts_examples
-ts_forecast <- ts_(function(x, ...) forecast::forecast(ts_na_omit(x), ...)$mean, vectorize = TRUE)
+ts_forecast <- ts_(
+  function(x, ...) forecast::forecast(ts_na_omit(x), ...)$mean,
+  vectorize = TRUE
+)
 
 #' @export
 #' @name ts_examples
-ts_seas <- ts_(function(x, ...) seasonal::final(seasonal::seas(x, ...)), vectorize = TRUE)
+ts_seas <- ts_(
+  function(x, ...) seasonal::final(seasonal::seas(x, ...)),
+  vectorize = TRUE
+)

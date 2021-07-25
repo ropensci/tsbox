@@ -34,14 +34,15 @@ ts_dts.tbl_ts <- function(x) {
   setnames(z, ctime, "time")
 
   # Ignoring non-numeric measure vars
-  measures.non.numeric <- measures[!sapply(z[, measures, with = FALSE], is.numeric)]
-  if (length(measures.non.numeric) > 0) {
+  is.non.num <- vapply(z[, measures, with = FALSE], is.numeric, TRUE)
+  measures.non.num <- measures[!is.non.num]
+  if (length(measures.non.num) > 0) {
     message(
       "Ignoring non-numeric measure vars (",
-      paste(measures.non.numeric, collapse = ", "),
+      paste(measures.non.num, collapse = ", "),
       ")."
     )
-    z[, (measures.non.numeric) := NULL]
+    z[, (measures.non.num) := NULL]
   }
 
   cvalue <- setdiff(names(z), c("time", cid))
@@ -55,10 +56,11 @@ ts_dts.tbl_ts <- function(x) {
     z$time <- as.POSIXct(z$time)
   }
 
-# browser()
   if (length(cvalue) > 1) {
     # also works if 'cid' includes 'id'
-    z <- melt(z, id.vars = c(cid, "time"), measure.vars = cvalue, variable.name = "id")
+    z <- melt(
+      z, id.vars = c(cid, "time"), measure.vars = cvalue, variable.name = "id"
+    )
     cvalue <- "value"
   }
 

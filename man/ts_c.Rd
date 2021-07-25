@@ -7,7 +7,9 @@
 ts_c(...)
 }
 \arguments{
-\item{...}{ts-boxable time series, objects of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
+\item{...}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 }
 \value{
 a ts-boxable object of the same class as the input.

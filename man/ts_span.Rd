@@ -7,7 +7,9 @@
 ts_span(x, start = NULL, end = NULL, template = NULL, extend = FALSE)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 
 \item{start}{start date, character string, \code{Date} or \code{POSIXct}}
 
@@ -17,7 +19,8 @@ ts_span(x, start = NULL, end = NULL, template = NULL, extend = FALSE)
 \code{data.frame}, \code{data.table}, or \code{tibble}. If provided, \code{from} and \code{to}
 will be extracted from the object.}
 
-\item{extend}{logical. If true, the start and end values are allowed to extend the series (by adding \code{NA} values).}
+\item{extend}{logical. If true, the start and end values are allowed to
+extend the series (by adding \code{NA} values).}
 }
 \value{
 a ts-boxable time series, with the same class as the input.
@@ -32,8 +35,8 @@ possible. See examples.
 
 \code{start} and \code{end} can be specified relative to each other,
 using one of \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"},
-\code{"month"}, \verb{"quarter" or }"year", or an abbreviation. If the series are of the same frequency, the
-shift can be specified in periods. See examples.
+\code{"month"}, \verb{"quarter" or }"year", or an abbreviation. If the series are of
+the same frequency, the shift can be specified in periods. See examples.
 }
 \examples{
 

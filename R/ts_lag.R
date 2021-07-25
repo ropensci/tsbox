@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' \donttest{
-#' ts_plot(AirPassengers, ts_lag(AirPassengers), title = "Illustrating the need for glasses")
+#' ts_plot(AirPassengers, ts_lag(AirPassengers), title = "The need for glasses")
 #' }
 #' head(ts_lag(fdeaths, "1 month"))
 #' head(ts_lag(fdeaths, "1 year"))

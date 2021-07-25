@@ -1,6 +1,6 @@
 
-#' @param denominator numeric, set equal to one if percentage change rate is given a
-#'   decimal fraction
+#' @param denominator numeric, set equal to one if percentage change rate is
+#'   given a decimal fraction
 #' @name ts_index
 #' @export
 ts_compound <- function(x, denominator = 100) {

@@ -57,7 +57,8 @@ chain_two <- function(a, b) {
     where.in.a <- a[[cname$time]] %in% b[[cname2$time]][where.in.b]
     anchor.a <- a[[cname$value]][where.in.a]
     extra.b <- b[where.in.b:nrow(b)]
-    extra.b[[cname2$value]] <- extra.b[[cname2$value]] / extra.b[[cname2$value]][1] * anchor.a
+    extra.b[[cname2$value]] <- extra.b[[cname2$value]] /
+      extra.b[[cname2$value]][1] * anchor.a
     a <- ts_bind(a, extra.b[-1])
   }
 
@@ -67,7 +68,8 @@ chain_two <- function(a, b) {
     where.in.a <- a[[cname$time]] %in% b[[cname2$time]][where.in.b]
     anchor.a <- a[[cname$value]][where.in.a]
     retro.b <- b[1:where.in.b]
-    retro.b[[cname2$value]] <- retro.b[[cname2$value]] / retro.b[[cname2$value]][nrow(retro.b)] * anchor.a
+    retro.b[[cname2$value]] <- retro.b[[cname2$value]] /
+      retro.b[[cname2$value]][nrow(retro.b)] * anchor.a
     a <- ts_bind(a[-1], retro.b)
   }
 

@@ -7,10 +7,12 @@
 ts_pick(x, ...)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 
-\item{...}{character string(s), names of the series to be picked, or integer, with positions.
-If arguments are named, the series will be renamed.}
+\item{...}{character string(s), names of the series to be picked, or integer,
+with positions. If arguments are named, the series will be renamed.}
 }
 \value{
 a ts-boxable time series, with the same class as the input.

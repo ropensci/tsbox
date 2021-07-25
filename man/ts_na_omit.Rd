@@ -7,7 +7,9 @@
 ts_na_omit(x)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 }
 \value{
 a ts-boxable time series, with the same class as the input.
@@ -37,5 +39,6 @@ head(ts_regular(ts_df(x)))
 head(ts_na_omit(ts_regular(ts_df(x))))
 }
 \seealso{
-\link{ts_regular}, for the opposite, turning implicit into explicit missing values.
+\link{ts_regular}, for the opposite, turning implicit into explicit
+missing values.
 }

@@ -9,8 +9,8 @@
 #' @param spark logical should an additional column with a spark-line added to
 #'   the data frame (experimental, ASCII only on Windows.)
 #'
-#' @return `ts_summary` returns a `data.frame`. Individual column can be accessed
-#'   through the `$` notation (see examples).
+#' @return `ts_summary` returns a `data.frame`. Individual column can be
+#'   accessed through the `$` notation (see examples).
 #'
 #' @export
 #' @examples
@@ -76,11 +76,17 @@ ts_summary <- function(x, spark = FALSE) {
 
 
     ans <- x.dts.regular[ans.freq[ans.other, on = cid], on = cid]
-    setcolorder(ans, c(cid, "obs", "diff", "freq", "start", "end", "spark_line"))
+    setcolorder(
+      ans,
+      c(cid, "obs", "diff", "freq", "start", "end", "spark_line")
+    )
 
   } else {
     ans <- ans.freq[ans.other, on = cid]
-    setcolorder(ans, c(cid, "obs", "diff", "freq", "start", "end"))
+    setcolorder(
+      ans,
+      c(cid, "obs", "diff", "freq", "start", "end")
+    )
   }
 
 

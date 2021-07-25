@@ -9,7 +9,8 @@
 #' @inherit ts_dts
 #' @return a ts-boxable time series, with the same class as the input.
 #'
-#' @seealso [ts_regular], for the opposite, turning implicit into explicit missing values.
+#' @seealso [ts_regular], for the opposite, turning implicit into explicit
+#'   missing values.
 #'
 #' @examples
 #' x <- AirPassengers

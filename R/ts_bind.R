@@ -5,8 +5,9 @@
 #' rates.
 #'
 #' @seealso [ts_c] to collect multiple time series
-#' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`. Or a numeric vector (see examples).
-#'
+#' @param ... ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
+#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
+#'   `timeSeries`.
 #' @return A ts-boxable object of the same class as the input.
 #' If series of different classes are combined, the class of the first series is
 #' used (if possible).
@@ -51,7 +52,9 @@ bind_numeric <- function(a, b, backwards = FALSE) {
 
     if (!backwards){
       # having at least 5 obs allows time_shift to detect frequency
-      shft <- time_shift(x$time[(length(x$time) - per.to.add - 5):length(x$time)], per.to.add)
+      shft <- time_shift(
+        x$time[(length(x$time) - per.to.add - 5):length(x$time)], per.to.add
+      )
       new.time.stamps <- shft[(length(shft) - per.to.add + 1):length(shft)]
     } else {
       shft <- time_shift(x$time[1:(per.to.add + 5)], -per.to.add)

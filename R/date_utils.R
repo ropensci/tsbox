@@ -66,14 +66,22 @@ time_shift <- function(x, by = NULL) {
     return(z)
   }
 
-  if (is.numeric(by)) stop("by cannot be integer when used with irregular sequence", call. = FALSE)
+  if (is.numeric(by)) {
+    stop(
+      "by cannot be integer when used with irregular sequence",
+      call. = FALSE
+    )
+  }
 
   if (inherits(x, "Date")){
     # only do on unique values (which is faster in some cases)
     add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
     xu <- unique(x)
     zu <- do.call(c, lapply(xu, add_to_one))
-    z <- merge(data.table(x = x), data.table(x = xu, z = zu), all.x = TRUE, sort = FALSE)$z
+    z <- merge(
+      data.table(x = x),
+      data.table(x = xu, z = zu), all.x = TRUE, sort = FALSE
+    )$z
     return(z)
   }
 
@@ -94,7 +102,11 @@ time_shift_non_heuristic <- function(x, by) {
 
     if (is.numeric(by)){
       # regular, by as period
-      z.num <- seq(from = xreg.num[1] + by * dff, by = dff, length.out = length(xreg))
+      z.num <- seq(
+        from = xreg.num[1] + by * dff,
+        by = dff,
+        length.out = length(xreg)
+      )
     } else {
        # regular, by as period
       add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]

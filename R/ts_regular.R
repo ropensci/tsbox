@@ -61,7 +61,12 @@ regular_core <- function(x) {
     if (is.null(reg.time)) {
       stop("series has no regular pattern", call. = FALSE)
     }
-    merge_time_date(data.table(time = reg.time), x, by.x = "time", by.y = "time")
+    merge_time_date(
+      data.table(time = reg.time),
+      x,
+      by.x = "time",
+      by.y = "time"
+    )
   }
 
   if (length(cid) == 0) {

@@ -90,10 +90,15 @@ desired_class <- function(ll) {
 #' Inspired by `xts::reclass`, which does something similar.
 #'
 #' @inherit ts_dts
-#' @param template ts-boxable time series, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`. Template.
-#' @param preserve.mode should the mode the time column be preserved (data frame only)
-#' @param preserve.names should the name of the time column be preserved (data frame only)
-#' @param preserve.time should the values time column be preserved (data frame only)
+#' @param template ts-boxable time series, an object of class `ts`, `xts`,
+#'   `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
+#'   `irts` or `timeSeries`.
+#' @param preserve.mode should the mode the time column be preserved
+#'   (data frame only)
+#' @param preserve.names should the name of the time column be preserved
+#'   (data frame only)
+#' @param preserve.time should the values time column be preserved
+#'   (data frame only)
 #' @export
 copy_class <- function(x, template,
                        preserve.mode = TRUE,
@@ -135,7 +140,10 @@ copy_class <- function(x, template,
   if (inherits(ans, "data.frame") && inherits(template, "data.frame")) {
     tn <- guess_time(ans)
     if (preserve.mode) {
-      if ((class(ans[[tn]])[1] == "Date") && (class(template[[tn]])[1] == "POSIXct")) {
+      if (
+        (class(ans[[tn]])[1] == "Date") &&
+          (class(template[[tn]])[1] == "POSIXct")
+      ) {
         ans[[tn]] <- as.POSIXct(ans[[tn]])
       }
     }

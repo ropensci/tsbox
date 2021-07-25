@@ -12,7 +12,8 @@ ts_to_date_time <- function(x) {
   first.subperiod <- (tsp(x)[1] + 1e-10) %% 1
   fr <- frequency(x)
 
-  # we did not allow an offset, but this is wrong. offset is common, e.g., for weekly data.
+  # we did not allow an offset, but this is wrong. offset is common, e.g., for
+  # weekly data.
   # division <- first.subperiod / (1 / fr)
   # offset <- division - round(division)
   # stopifnot(abs(offset) < 1e-3)
@@ -138,7 +139,9 @@ date_time_to_tsp <- function(x, frequency = NULL) {
 
     # non heuristic converson
     md <- meta_freq()[freq == frequency]
-    z <- tsp(ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency))
+    z <- tsp(
+      ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency)
+    )
   }
   z
 }

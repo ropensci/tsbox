@@ -39,7 +39,10 @@ ts_pca <- function(x) {
   ts_apply(ts_regular(x), function(x) {
     fr <- frequency_one(x$time)$freq
     value <- NULL
-    x[, list(time, value = 100 * ((value / c(NA, value[-length(value)]))^fr - 1))]
+    x[
+      ,
+      list(time, value = 100 * ((value / c(NA, value[-length(value)]))^fr - 1))
+    ]
   })
 }
 

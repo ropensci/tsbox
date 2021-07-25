@@ -1,9 +1,9 @@
 #' Reshaping Multiple Time Series
 #'
-#' Functions to reshape multiple time series from 'wide' to 'long' and vice versa.
-#' Note that long format data frames are ts-boxable objects, where wide format data
-#' frames are not. `ts_long` automatically identifies a **time** column, and
-#' uses columns on the left as id columns.
+#' Functions to reshape multiple time series from 'wide' to 'long' and vice
+#' versa. Note that long format data frames are ts-boxable objects, where wide
+#' format data frames are not. `ts_long` automatically identifies a **time**
+#' column, and uses columns on the left as id columns.
 #'
 #' @param x a ts-boxable time series, or a wide `data.frame`,
 #' `data.table`, or `tibble`.
@@ -32,15 +32,23 @@ long_core_multi_id <- function(x) {
   id.names <- setdiff(all.names[1:time.pos], time.name)
   value.names <- setdiff(all.names[time.pos:length(all.names)], time.name)
   if (length(value.names) == 0) {
-    stop("no [value] columns detected (columns right of [time] column)", call. = FALSE)
+    stop(
+      "no [value] columns detected (columns right of [time] column)",
+      call. = FALSE
+    )
   }
   if (length(id.names) > 0){
-    message("[id] (columns left of [time] column): ",  paste(paste0("'", id.names, "'"), collapse = ", "))
+    message(
+      "[id] (columns left of [time] column): ",
+      paste(paste0("'", id.names, "'"), collapse = ", ")
+    )
     id.vars <- c(id.names, time.name)
   } else {
     id.vars <- time.name
   }
-  z <- suppressWarnings(melt(x, id.vars = id.vars, variable.name = "id", variable.factor = FALSE))
+  z <- suppressWarnings(
+    melt(x, id.vars = id.vars, variable.name = "id", variable.factor = FALSE)
+  )
   setcolorder(z, c(id.names, "id", time.name, "value"))
   ts_dts(z)
 }

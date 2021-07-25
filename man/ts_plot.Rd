@@ -7,7 +7,9 @@
 ts_plot(..., title, subtitle, ylab = "", family = getOption("ts_font", "sans"))
 }
 \arguments{
-\item{...}{ts-boxable time series, objects of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}.}
+\item{...}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 
 \item{title}{title (optional)}
 
@@ -18,13 +20,14 @@ ts_plot(..., title, subtitle, ylab = "", family = getOption("ts_font", "sans"))
 \item{family}{font family (optional, can also be set via \code{options})}
 }
 \description{
-\code{ts_plot()} is a fast and simple plotting function for ts-boxable time series,
-with limited customizability. For more theme options, use \code{\link[=ts_ggplot]{ts_ggplot()}}.
+\code{ts_plot()} is a fast and simple plotting function for ts-boxable time
+series, with limited customizability. For more theme options, use
+\code{\link[=ts_ggplot]{ts_ggplot()}}.
 }
 \details{
-Both \code{ts_plot()} and \code{\link[=ts_ggplot]{ts_ggplot()}} combine multiple ID dimensions into a single
-dimension. To plot multiple dimensions in different shapes, facets, etc., use
-standard ggplot.
+Both \code{ts_plot()} and \code{\link[=ts_ggplot]{ts_ggplot()}} combine multiple ID dimensions into a
+single dimension. To plot multiple dimensions in different shapes, facets,
+etc., use standard ggplot.
 
 Limited customizability of \code{ts_plot} is available via options. See examples.
 }

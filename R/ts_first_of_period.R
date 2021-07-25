@@ -9,14 +9,18 @@ dts_first_of_period <- function(x) {
   end <- as.Date(paste(data.table::year(smry$end) + 1, "1", "1", sep = "-"))
 
   if (smry$freq < 1) {  # e.g., decades
-    start <- as.Date(paste(data.table::year(smry$start) %/% 10 * 10, "1", "1", sep = "-"))
-    end <- as.Date(paste(data.table::year(smry$end) %/% 10 * 10 + 10, "1", "1", sep = "-"))
+    start <- as.Date(
+      paste(data.table::year(smry$start) %/% 10 * 10, "1", "1", sep = "-")
+    )
+    end <- as.Date(
+      paste(data.table::year(smry$end) %/% 10 * 10 + 10, "1", "1", sep = "-")
+    )
   }
 
   if (inherits(start, "POSIXct")) end <- as.POSIXct(end)
   time <- seq(start, end, by = smry$diff)
-  time_adj <- time[(max(which(time <= smry$start)):min(which(time >= smry$end)))]
-  time.tmpl <- data.table(time = time_adj)
+  t_adj <- time[(max(which(time <= smry$start)):min(which(time >= smry$end)))]
+  time.tmpl <- data.table(time = t_adj)
   x1 <- x[, list(time, value)]
   x1[, has.value := TRUE]
   z <- x1[time.tmpl, roll = -Inf, on = "time"][has.value == TRUE]
