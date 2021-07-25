@@ -30,13 +30,15 @@ ts_compound <- function(x, denominator = 100) {
 
 #' Indices from Levels or Percentage Rates
 #'
-#' `ts_index` returns an index series, with value of 1 at `base` date.
+#' `ts_index` returns an indexed series, with value of 1 at the `base` date or
+#' range.
 #' `ts_compound` builds an index from percentage change rates, starting with 1
 #' and compounding the rates.
 #'
 #' @inherit ts_dts
 #' @param base base date, character string, `Date` or `POSIXct`, at which the
-#'  index is set to 1.
+#'  index is set to 1. If two dates are provided, the average with the range is
+#'  set equal to 1 (see examples).
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' head(ts_compound(ts_pc(ts_c(fdeaths, mdeaths))))
@@ -49,6 +51,9 @@ ts_compound <- function(x, denominator = 100) {
 #'   `So Far` = mdeaths,
 #'   title = "A Very Manual Forecast"
 #' )
+#'
+#' # average of 1974 = 1
+#' ts_index(mdeaths, c("1974-01-01", "1974-12-31"))
 #' }
 #' @export
 ts_index <- function(x, base = NULL) {
@@ -71,41 +76,34 @@ ts_index <- function(x, base = NULL) {
       by = eval(.by)
     ]
     base <- max(dt_min_time$min.time)
-  } else {
+    z.base <- z[time == base, .(base_value = mean(value)), by = eval(.by)]
+
+  # single date specification
+  } else if(length(base) == 1) {
     # let ts_span parse base and make sure it exists in data
     base <- range(ts_span(z, start = base)$time)[1]
+    z.base <- z[time == base, .(base_value = mean(value)), by = eval(.by)]
+
+  # range of dates specification (use averages)
+  } else if (length(base) == 2) {
+    # let ts_span parse base and make sure it exists in data
+    base <- range(ts_span(z, start = base[1], end = base[2])$time)
+    z.base <- z[
+      time >= base[1] & time <= base[2],
+      .(base_value = mean(value)),
+      by = eval(.by)
+    ]
+  } else {
+    stop("'base' must be of length 1 or 2, or NULL.")
   }
 
-  # check if base date in data (rewrite)
-  dt_in_data <- z[
-    ,
-    list(not_in_data = !(base %in% time)),
-    by = eval(.by)
-  ]
-  if (any(dt_in_data$not_in_data)) {
-    if (NCOL(z) > 3) {
-      id.missing <- combine_cols_data.table(
-        dt_in_data[not_in_data == TRUE], cid
-      )$id
-    } else if (NCOL(z) == 3) {
-      id.missing <- dt_in_data[not_in_data == TRUE][[cid]]
-    }
-
-    if (length(cid) == 0) {
-      stop(base, " not in series", call. = FALSE)
-    } else {
-      stop(
-        base, " not in series: ",
-        paste(id.missing, collapse = ", "),
-        call. = FALSE
-      )
-    }
+  if (length(cid) > 0) {
+    z <- merge(z, z.base, by = cid, sort = FALSE)
+  } else {
+    z$base_value <- z.base$base_value
   }
-  z[
-    ,
-    value := value / .SD[time == base, value],
-    by = eval(.by)
-  ]
+  z[, value := value / base_value][, base_value := NULL]
+
   z <- dts_restore(z, d)
   copy_class(z, x)
 }

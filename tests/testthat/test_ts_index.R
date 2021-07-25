@@ -46,3 +46,14 @@ test_that("ts_index keeps NA", {
 test_that("ts_compound works", {
   expect_equal(ts_compound(ts_pc(mdeaths)), ts_index(mdeaths, "1974"))
 })
+
+test_that("ts_index works with ranges", {
+  base74 <- mdeaths / ts_frequency(mdeaths, "year")[1]
+  expect_equal(base74, ts_index(mdeaths, c("1974", "1974-12-31")))
+  expect_equal(
+    ts_pc(ts_index(mdeaths)),
+    ts_pc(ts_index(mdeaths, c("1974", "1975")))
+  )
+})
+
+
