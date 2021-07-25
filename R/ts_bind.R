@@ -36,6 +36,8 @@ ts_bind <- function(...) {
 
 bind_numeric <- function(a, b, backwards = FALSE) {
 
+  .SD <- NULL
+
   if (!ts_boxable(a)) {stop("at least one object must be ts-boxable")}
 
   a <- ts_dts(copy(a))
