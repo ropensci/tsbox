@@ -6,6 +6,7 @@
 - regular zoo and xts can be processed #175, #189
 - ts_na_interpolation() exported and added to examples in ?ts_examples #127
 - support regular timestamps in tsibble #196
+- ensure time is always ordered #202
 
 
 ## Bug fixes

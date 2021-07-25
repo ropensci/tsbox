@@ -1,5 +1,4 @@
 
-
 dts_init <- function(x){
   stopifnot(inherits(x, "data.frame"))
   x <- as.data.table(x)
@@ -7,9 +6,6 @@ dts_init <- function(x){
   setattr(x, "class", c("dts", attr(x, "class")))
   stopifnot(inherits(x, "dts"))
   cname <- dts_cname(x)
-  # old
-  # x[[cname$time]] <- as_time_or_date(x[[cname$time]])
-  # x <- ts_na_omit(x)
 
   # do not allow duplicates
   is.dup <- duplicated(x[, c(cname$id, cname$time), with = FALSE])
@@ -35,6 +31,13 @@ dts_init <- function(x){
   # new
   setnames(x, cname$time, "time")
   x[, time := as_time_or_date(time)]
+
+  # ensure time is always ordered (if not done before)
+  colorder <- names(x)
+  .by <- by_expr(dts_cname(x)$id)
+  x <- x[, setorderv(.SD, "time"), by = eval(.by)]
+  setcolorder(x, colorder)
+
   setnames(x, "time", cname$time)
   setattr(x, "cname", cname)
 
