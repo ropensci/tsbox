@@ -26,7 +26,11 @@ ts_dts.xts <- function(x) {
     time <- as.Date(as.POSIXct(idx, origin = "1970-01-01"))
   } else if (tclass[1] == "POSIXct") {
     time <- as.POSIXct(idx, origin = "1970-01-01")
+  } else {
+    # if regular, use as.ts to convert to ts
+    return(ts_dts(as.ts(zoo::as.zoo(x))))
   }
+
   dta <- data.table(time = time, dta)
   if (NCOL(dta) == 2) {
     setnames(dta, c("time", "value"))
