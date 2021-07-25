@@ -28,7 +28,8 @@ Suggests:
     zoo,
     tis,
     timeSeries,
-    nycflights13
+    nycflights13,
+    imputeTS
 License: GPL-3
 Encoding: UTF-8
 URL: https://www.tsbox.help, https://github.com/christophsax/tsbox

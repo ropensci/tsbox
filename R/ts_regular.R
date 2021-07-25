@@ -57,6 +57,10 @@ regular_core <- function(x) {
   setnames(x, ctime, "time")
 
   regular_core_one <- function(x) {
+    if (any(is.na(x$time))) {
+      stop("Time column contains missing values.", call. = FALSE)
+    }
+
     if (is_regular_one_basic(x$time)) return(x)
     reg.time <- regularize_date(x$time)
     if (is.null(reg.time)) {

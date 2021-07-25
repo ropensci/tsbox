@@ -17,7 +17,19 @@ dts_init <- function(x){
     z <- as.data.frame(unique(x[is.dup, cname$id, with = FALSE]))
     paste_ <- function(...) paste(..., sep = "_")
     dups <- do.call(paste_, as.list(z))
-    stop("duplicated series: ", paste(dups, collapse = ", "), call. = FALSE)
+    if (length(dups) > 0) {
+      stop(
+        "Object contains series with duplicated information: ",
+        paste(dups, collapse = ", "),
+        call. = FALSE
+      )
+    } else {
+      stop(
+        "Series contains duplicated values in time column: ",
+        unique(x[[cname$time]][duplicated(x[[cname$time]])]),
+        call. = FALSE
+      )
+    }
   }
 
   # new

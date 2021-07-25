@@ -55,11 +55,11 @@ bind_numeric <- function(a, b, backwards = FALSE) {
     if (!backwards){
       # having at least 5 obs allows time_shift to detect frequency
       shft <- time_shift(
-        x$time[(length(x$time) - per.to.add - 5):length(x$time)], per.to.add
+        x$time[max(length(x$time) - per.to.add - 5, 1):length(x$time)], per.to.add
       )
       new.time.stamps <- shft[(length(shft) - per.to.add + 1):length(shft)]
     } else {
-      shft <- time_shift(x$time[1:(per.to.add + 5)], -per.to.add)
+      shft <- time_shift(x$time[1:min(per.to.add + 5, length(x$time))], -per.to.add)
       new.time.stamps <- shft[1:per.to.add]
     }
 

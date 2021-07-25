@@ -33,6 +33,13 @@ frequency_table <- function(x) {
 
   stopifnot(class(x)[1] %in% c("Date", "POSIXct"))
 
+  if (length(x) < 2) {
+    stop(
+      "Need at least two timestamps to detect frequency.",
+      call. = FALSE
+    )
+  }
+
   # table with unique differences
   diffdt <- data.table(table(diff(as.numeric(as.POSIXct(sort(x))))))
   setnames(diffdt, "V1", "diff")

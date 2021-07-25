@@ -83,5 +83,11 @@ test_that("ts_bind works with scalars", {
   expect_equal(as.numeric(window(twoseries, start = 1980)[,'mdeaths']), 1)
   expect_is(ts_bind(EuStockMarkets, 1), "ts")
 
+
+
+})
+
+test_that("ts_bind works with short series and scalars (#197)", {
+  ts_bind(ts_tbl(mdeaths)[1:1,], 1)
 })
 
