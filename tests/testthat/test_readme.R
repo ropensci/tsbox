@@ -38,9 +38,19 @@ test_that("examples from README.md work properly", {
 
   ts_df(ts_c(fdeaths, mdeaths))
 
-  ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, "DAX"])))
-  ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[, "DAX"])))
-
+  # ts_plot(ts_scale(ts_c(
+  #   mdeaths,
+  #   austres,
+  #   AirPassengers,
+  #   DAX = EuStockMarkets[, "DAX"]
+  # )))
+  p <- ts_ggplot(ts_scale(ts_c(
+    mdeaths,
+    austres,
+    AirPassengers,
+    DAX = EuStockMarkets[, "DAX"]
+  )))
+  expect_true(ggplot2::is.ggplot(p))
 
   ts_(diff)(AirPassengers)
   ts_(rowSums)(ts_c(mdeaths, fdeaths))
@@ -50,7 +60,10 @@ test_that("examples from README.md work properly", {
 
   ts_dygraphs <- ts_(dygraphs::dygraph, class = "xts")
   ts_forecast <- ts_(function(x) forecast::forecast(x)$mean, vectorize = TRUE)
-  ts_seas <- ts_(function(x) seasonal::final(seasonal::seas(x)), vectorize = TRUE)
+  ts_seas <- ts_(
+    function(x) seasonal::final(seasonal::seas(x)),
+    vectorize = TRUE
+  )
 
   ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
   ts_forecast(ts_c(mdeaths, fdeaths))

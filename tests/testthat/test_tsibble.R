@@ -12,11 +12,20 @@ test_that("two way conversion works for tsibbles, too.", {
 
   # tsibble alphabetically reorders key column
   # mixed frequencies
-  expect_equal(ts_ts(ts_tsibble(ts_c(austres, AirPassengers))), ts_c(AirPassengers, austres))
+  expect_equal(
+    ts_ts(ts_tsibble(ts_c(austres, AirPassengers))),
+    ts_c(AirPassengers, austres)
+  )
   # non alphabetical order, multi series
-  expect_equal(ts_ts(ts_tsibble(ts_c(mdeaths, fdeaths))), ts_c(fdeaths, mdeaths))
+  expect_equal(
+    ts_ts(ts_tsibble(ts_c(mdeaths, fdeaths))),
+    ts_c(fdeaths, mdeaths)
+  )
   # non alphabetical order, multi series
-  expect_equal(ts_ts(ts_tsibble(ts_c(mdeaths, AirPassengers))), ts_c(AirPassengers, mdeaths))
+  expect_equal(
+    ts_ts(ts_tsibble(ts_c(mdeaths, AirPassengers))),
+    ts_c(AirPassengers, mdeaths)
+  )
 
 })
 

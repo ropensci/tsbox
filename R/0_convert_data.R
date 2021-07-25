@@ -1,7 +1,7 @@
 
 #' @importFrom data.table ":=" "data.table" "setcolorder" "as.data.table"
 #' @importFrom data.table "setattr" "setnames" "rbindlist" "tstrsplit" "copy"
-#' @importFrom data.table "dcast" "melt" "setkey" "setkeyv" setorder"
+#' @importFrom data.table "dcast" "melt" "setkey" "setkeyv" "setorder"
 NULL
 
 # Make sure data.table knows we know we're using it

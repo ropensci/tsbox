@@ -1,7 +1,9 @@
 library(testthat)
 library(tsbox)
 
-# install.packages(c("tsibble", "xts", "timeSeries", "zoo", "tibbletime", "tseries"))
+# install.packages(
+#   c("tsibble", "xts", "timeSeries", "zoo", "tibbletime", "tseries")
+# )
 
 context("automated tests for all supported classes")
 
@@ -32,11 +34,17 @@ test_that("two way conversion", {
     }
 
     # mixed frequencies
-    expect_equal(ts_ts(ts_fun(ts_c(austres, AirPassengers))), ts_c(austres, AirPassengers))
+    expect_equal(
+      ts_ts(ts_fun(ts_c(austres, AirPassengers))),
+      ts_c(austres, AirPassengers)
+    )
     # non alphabetical order, multi series
     expect_equal(ts_ts(ts_fun(ts_c(mdeaths, fdeaths))), ts_c(mdeaths, fdeaths))
     # non alphabetical order, multi series
-    expect_equal(ts_ts(ts_fun(ts_c(mdeaths, AirPassengers))), ts_c(mdeaths, AirPassengers))
+    expect_equal(
+      ts_ts(ts_fun(ts_c(mdeaths, AirPassengers))),
+      ts_c(mdeaths, AirPassengers)
+    )
 
   }
 

@@ -11,10 +11,22 @@ test_that("colname guessing works as expected", {
   x.df <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
     setNames(c("Haha", "Hoho", "Hihi"))
 
-  expect_equal(ts_pc(mdeaths), ts_ts(ts_xts(ts_df(ts_pc(x.df))))[, "mdeaths"])
-  expect_equal(ts_diff(mdeaths), ts_ts(ts_xts(ts_df(ts_diff(x.df))))[, "mdeaths"])
-  expect_equal(ts_pcy(mdeaths), ts_ts(ts_xts(ts_df(ts_pcy(x.df))))[, "mdeaths"])
-  expect_equal(ts_diffy(mdeaths), ts_ts(ts_xts(ts_df(ts_diffy(x.df))))[, "mdeaths"])
+  expect_equal(
+    ts_pc(mdeaths),
+    ts_ts(ts_xts(ts_df(ts_pc(x.df))))[, "mdeaths"]
+  )
+  expect_equal(
+    ts_diff(mdeaths),
+    ts_ts(ts_xts(ts_df(ts_diff(x.df))))[, "mdeaths"]
+  )
+  expect_equal(
+    ts_pcy(mdeaths),
+    ts_ts(ts_xts(ts_df(ts_pcy(x.df))))[, "mdeaths"]
+  )
+  expect_equal(
+    ts_diffy(mdeaths),
+    ts_ts(ts_xts(ts_df(ts_diffy(x.df))))[, "mdeaths"]
+  )
 
   # 2 cols
   x.df <- ts_tbl(AirPassengers) %>%
