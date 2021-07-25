@@ -8,6 +8,8 @@
 - ts_na_interpolation() exported and added to examples in ?ts_examples #127
 - point to tempdisagg::td() for low to high frequency conversion #142
 - better error messages if series contain duplicates #181
+- better error messages when converting one row data frames #179
+
 
 ## Bug fixes
 
