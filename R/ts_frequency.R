@@ -95,8 +95,9 @@ frequency_core <- function(x, to, aggregate, na.rm) {
 
   if (!(to %in% names(period.date))) {
     stop(
-      "period", to, "not supported. Try one of: ",
-      paste(names(period.date), collapse = ", ")
+      "period '", to, "' not supported. Try one of: ",
+      paste(names(period.date), collapse = ", "),
+      call. = FALSE
     )
   }
 
