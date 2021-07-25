@@ -25,17 +25,29 @@ dts_first_of_period <- function(x) {
 }
 
 
-# x <- ts_c(
-#   a = ts_lag(ts_df(mdeaths), "14 days"),
-#   b = ts_lag(ts_df(mdeaths), "-2 days")
-# )
-# ts_first_of_period(x)
-# ts_first_of_period(ts_lag(ts_df(austres), "14 days"))
-# x <- ts_lag(data.table(
-#   time = seq(anytime::anytime(1970), length.out = 10, by = "10 sec"),
-#   value = rnorm(10)
-# ), "3 sec")
-# ts_first_of_period(x)
+#' Use First Date of a Period
+#'
+#' Replace date or time values by the first of the period. tsbox usually relies
+#' on timestamps being the first value of a period.
+#'
+#' @param x ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
+#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
+#'   `timeSeries`.
+#' @return A ts-boxable object of the same class as the input.
+#'
+#' @examples
+#' x <- ts_c(
+#'   a = ts_lag(ts_df(mdeaths), "14 days"),
+#'   b = ts_lag(ts_df(mdeaths), "-2 days")
+#' )
+#' ts_first_of_period(x)
+#' ts_first_of_period(ts_lag(ts_df(austres), "14 days"))
+#' x <- ts_lag(data.table(
+#'   time = seq(anytime::anytime(1970), length.out = 10, by = "10 sec"),
+#'   value = rnorm(10)
+#' ), "3 sec")
+#' ts_first_of_period(x)
+#' @export
 ts_first_of_period <- function(x) {
   ts_apply(x, dts_first_of_period)
 }

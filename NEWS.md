@@ -1,5 +1,10 @@
 # tsbox 0.2.1.9000 (2021-??-??)
 
+
+## Features
+
+- export ts_first_of_period #178
+
 ## Bug fixes
 
 - ts to data frame conversion works with slight offsets #186
