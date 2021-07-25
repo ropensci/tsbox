@@ -1,3 +1,13 @@
+
+#' @importFrom data.table ":=" "data.table" "setcolorder" "as.data.table"
+#' @importFrom data.table "setattr" "setnames" "rbindlist" "tstrsplit" "copy"
+#' @importFrom data.table "dcast" "melt" "setkey"
+NULL
+
+# Make sure data.table knows we know we're using it
+.datatable.aware = TRUE
+
+
 # utility function to find POSIXct range (for coding only)
 # find_range <- function(by = "1 month") {
 #   ser <- seq(from = as.POSIXct("1900-01-01"), to = as.POSIXct("2020-01-01"), by = by)
