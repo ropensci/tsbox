@@ -1,16 +1,20 @@
 .ts_lastplot_env <- new.env(parent = emptyenv())
 #' Plot Time Series
 #'
-#' `ts_plot()` is a fast and simple plotting function for ts-boxable time series,
-#' with limited customizability. For more theme options, use [ts_ggplot()].
+#' `ts_plot()` is a fast and simple plotting function for ts-boxable time
+#' series, with limited customizability. For more theme options, use
+#' [ts_ggplot()].
 #'
-#' Both `ts_plot()` and [ts_ggplot()] combine multiple ID dimensions into a single
-#' dimension. To plot multiple dimensions in different shapes, facets, etc., use
-#' standard ggplot.
+#' Both `ts_plot()` and [ts_ggplot()] combine multiple ID dimensions into a
+#' single dimension. To plot multiple dimensions in different shapes, facets,
+#' etc., use standard ggplot.
 #'
 #' Limited customizability of `ts_plot` is available via options. See examples.
 #'
-#' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @param ... ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
+#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
+#'   `timeSeries`.
+#'
 #' @param title title (optional)
 #' @param subtitle subtitle (optional)
 #' @param ylab ylab (optional)
@@ -230,9 +234,10 @@ ts_plot <- function(..., title, subtitle, ylab = "",
     .idi <- ids[i]
     cd <- x[id == .idi] # this will be named id
     cd <- cd[!is.na(value)]
+    x.i <- as.numeric(as.POSIXct(cd[, time]))
     lines(
       y = cd[, value],
-      x = as.numeric(as.POSIXct(cd[, time])), col = col[i], lty = lty[i], lwd = lwd[i]
+      x = x.i, col = col[i], lty = lty[i], lwd = lwd[i]
     )
   }
 
@@ -255,8 +260,8 @@ ts_lastplot_call <- function() {
 #' @param device device
 #' @param open logical, should the saved plot be opened?
 #' @export
-ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10, height = 5,
-                    device = NULL, open = TRUE) {
+ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
+                    height = 5, device = NULL, open = TRUE) {
 
   if (is.null(device)){
     device <- gsub(".*\\.([a-z]+)$", "\\1", tolower(filename))

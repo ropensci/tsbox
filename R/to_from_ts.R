@@ -14,7 +14,10 @@ ts_ts_dts <- function(x, frequency = NULL) {
     reg.time <- regularize_date(wx[[1]])
     if (!is.null(reg.time)) {
       setnames(wx, 1, "time") # time col may have a different name
-      wx <- merge_time_date(data.table::data.table(time = reg.time), wx, by.x = "time", by.y = "time")
+      wx <- merge_time_date(
+        data.table::data.table(time = reg.time), wx,
+        by.x = "time", by.y = "time"
+      )
     } else {
       stop("series has no regular pattern", call. = FALSE)
     }
@@ -49,7 +52,12 @@ ts_dts.ts <- function(x) {
     # needs the ts_dts.data.table
     setcolorder(dta, c("time", "value"))
   } else {
-    dta <- melt(dta, id.vars = "time", variable.name = "id", variable.factor = FALSE)
+    dta <- melt(
+      dta,
+      id.vars = "time",
+      variable.name = "id",
+      variable.factor = FALSE
+    )
     setcolorder(dta, c("id", "time", "value"))
   }
   # implicit NAs by default, use ts_regular to get explict NAs
@@ -62,27 +70,27 @@ ts_dts.ts <- function(x) {
 #' Convert Everything to Everything
 #'
 #' tsbox is built around a set of converters, which convert time series
-#' stored as `ts`, `xts`, `data.frame`, `data.table` or `tibble` to each
-#' other.
+#' stored as `ts`, `xts`, `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`,
+#' `tbl_time`, `tis`, `irts` or `timeSeries` to each other.
 #'
 #' In data frames, multiple time series will be stored in a 'long' format. tsbox
-#' detects a *value*, a *time* and zero to several *id* columns. Column detection
-#' is done in the following order:
+#' detects a *value*, a *time* and zero to several *id* columns. Column
+#' detection is done in the following order:
 #'
-#' 1. Starting **on the right**, the first first `numeric` or `integer` column is
-#' used as **value column**.
+#' 1. Starting **on the right**, the first first `numeric` or `integer` column
+#' is used as **value column**.
 #'
 #' 1. Using the remaining columns, and starting on the right again, the first
-#' `Date`, `POSIXct`, `numeric` or `character` column is used as **time column**.
-#' `character` strings are parsed by [anytime::anytime()].
+#' `Date`, `POSIXct`, `numeric` or `character` column is used as
+#' **time column**. `character` strings are parsed by [anytime::anytime()].
 #' The time stamp, `time`, indicates the beginning of a period.
 #'
-#' 1. **All remaining** columns are **id columns**. Each unique combination of id
-#' columns points to a time series.
+#' 1. **All remaining** columns are **id columns**. Each unique combination of
+#' id columns points to a time series.
 #'
-#' **Alternatively**, the **time** column and the **value** column to be explicitly named as
-#' `time` and `value`. If explicit names are used, the column order will be
-#' ignored.
+#' **Alternatively**, the **time** column and the **value** column to be
+#' explicitly named as `time` and `value`. If explicit names are used, the
+#' column order will be ignored.
 #'
 #' Whenever possible, tsbox relies on **heuristic time conversion**. When a
 #' monthly `"ts"` time series, e.g., `AirPassengers`, is converted to a data
@@ -99,7 +107,9 @@ ts_dts.ts <- function(x) {
 #'
 #' @inherit ts_dts
 #'
-#' @return ts-boxable time series of the desired class, an object of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
+#' @return ts-boxable time series of the desired class, an object of class `ts`,
+#' `xts`, `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
+#' `irts` or `timeSeries`.
 #'
 #' @examples
 #'
@@ -133,11 +143,10 @@ ts_dts.ts <- function(x) {
 #' ts_plot(multi.id.df)
 #'
 #' @export
-#' @import data.table
 #' @importFrom anytime anydate anytime
-#' @importFrom stats setNames as.ts frequency loess na.omit optimize predict resid time ts tsp as.formula var prcomp start tsp<- window
+#' @importFrom stats setNames as.ts frequency loess na.omit optimize predict
+#' @importFrom stats resid time ts tsp as.formula var prcomp start tsp<- window
 #' @importFrom utils getFromNamespace browseURL relist
-#' @import data.table
 ts_ts <- function(x) {
   stopifnot(ts_boxable(x))
   if (relevant_class(x) == "ts") return(x)

@@ -3,8 +3,8 @@
 #' Pick (and optionally rename) series from multiple time series.
 #'
 #' @inherit ts_dts
-#' @param ... character string(s), names of the series to be picked, or integer, with positions.
-#'   If arguments are named, the series will be renamed.
+#' @param ... character string(s), names of the series to be picked, or integer,
+#'   with positions. If arguments are named, the series will be renamed.
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' # Interactive use
@@ -55,7 +55,11 @@ ts_pick <- function(x, ...) {
 
   missing.in.data <- !(.id %in% z[[cname$id]])
   if (any(missing.in.data)) {
-    stop("values missing in data: ", paste(.id[missing.in.data], collapse = ", "), call. = FALSE)
+    stop(
+      "values missing in data: ",
+      paste(.id[missing.in.data], collapse = ", "),
+      call. = FALSE
+    )
   }
 
   setkeyv(z, cname$id)

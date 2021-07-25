@@ -5,8 +5,9 @@
 #' In data frame objects, multiple time series are stored in a long data frame.
 #' In `ts` and `xts` objects, time series are combined horizontally.
 #'
-#' @param ... ts-boxable time series, objects of class `ts`, `xts`, `data.frame`, `data.table`, or `tibble`.
-#'
+#' @param ... ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
+#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
+#'   `timeSeries`.
 #' @return a ts-boxable object of the same class as the input.
 #' If series of different classes are combined, the class of the first series is
 #' used (if possible).
@@ -32,7 +33,8 @@ ts_c <- function(...) {
   call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse,
                               width.cutoff = 500L))
   # use name if specified in call
-  call.names[names(call.names) != ""] <- names(call.names)[names(call.names) != ""]
+  call.names[names(call.names) != ""] <-
+    names(call.names)[names(call.names) != ""]
 
   desired.class <- desired_class(ll)
 
@@ -79,7 +81,10 @@ ts_c <- function(...) {
   )
 
   if (length(unique(lapply(ll.dts, function(e) dts_cname(e)$id))) > 1) {
-    stop("if present, id columns must be the same for all objects", call. = FALSE)
+    stop(
+      "if present, id columns must be the same for all objects",
+      call. = FALSE
+    )
   }
 
   ll.dts <- unify_time_class(ll.dts)
@@ -104,7 +109,11 @@ ts_c <- function(...) {
 
   if (inherits(z, "try-error")) {
     z <- ts_df(z0)
-    message("cannot convert output to class '", desired.class, "', returning 'data.frame'")
+    message(
+      "cannot convert output to class '",
+      desired.class,
+      "', returning 'data.frame'"
+    )
   }
   z
 }
@@ -115,7 +124,11 @@ unify_time_class <- function(ll) {
   if (length(unique(cl)) > 1) {
     tz <- dts_tattr(ll[[1]])$tz
     make_date_posixct <- function(x) {
-      x[[dts_cname(x)$time]] <- as.POSIXct(x[[dts_cname(x)$time]], origin = "1970-01-01", tz = tz)
+      x[[dts_cname(x)$time]] <- as.POSIXct(
+        x[[dts_cname(x)$time]],
+        origin = "1970-01-01",
+        tz = tz
+      )
       x
     }
     ll[cl == "Date"] <- lapply(ll[cl == "Date"], make_date_posixct)

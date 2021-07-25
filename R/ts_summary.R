@@ -9,8 +9,8 @@
 #' @param spark logical should an additional column with a spark-line added to
 #'   the data frame (experimental, ASCII only on Windows.)
 #'
-#' @return `ts_summary` returns a `data.frame`. Individual column can be accessed
-#'   through the `$` notation (see examples).
+#' @return `ts_summary` returns a `data.frame`. Individual column can be
+#'   accessed through the `$` notation (see examples).
 #'
 #' @export
 #' @examples
@@ -76,11 +76,17 @@ ts_summary <- function(x, spark = FALSE) {
 
 
     ans <- x.dts.regular[ans.freq[ans.other, on = cid], on = cid]
-    setcolorder(ans, c(cid, "obs", "diff", "freq", "start", "end", "spark_line"))
+    setcolorder(
+      ans,
+      c(cid, "obs", "diff", "freq", "start", "end", "spark_line")
+    )
 
   } else {
     ans <- ans.freq[ans.other, on = cid]
-    setcolorder(ans, c(cid, "obs", "diff", "freq", "start", "end"))
+    setcolorder(
+      ans,
+      c(cid, "obs", "diff", "freq", "start", "end")
+    )
   }
 
 
@@ -112,7 +118,9 @@ spark_unicode <- function(x, spark.width = 15)  {
   x.agg <- tapply(x, cat.y, mean, na.rm = TRUE)
   rr <- range(x.agg, na.rm = TRUE)
   scaled <- (x.agg - rr[1]) / (rr[2] - rr[1])
-  cat.scaled <- as.character(findInterval(scaled, c(0, 0.25, 0.5, 0.75, 1), all.inside = TRUE))
+  cat.scaled <- as.character(
+    findInterval(scaled, c(0, 0.25, 0.5, 0.75, 1), all.inside = TRUE)
+  )
   cat.scaled[is.na(cat.scaled)] <- " "
   m <- matrix(cat.scaled, ncol = 2, byrow = TRUE)
   cat.scaled.grouped <- paste0(m[, 1], m[, 2])
@@ -131,7 +139,9 @@ spark_ascii <- function(x, spark.width = 15)  {
   x.agg <- tapply(x, cat.y, mean, na.rm = TRUE)
   rr <- range(x.agg, na.rm = TRUE)
   scaled <- (x.agg - rr[1]) / (rr[2] - rr[1])
-  cat.scaled <- as.character(findInterval(scaled, c(0, 0.25, 0.5, 0.75, 1), all.inside = TRUE))
+  cat.scaled <- as.character(
+    findInterval(scaled, c(0, 0.25, 0.5, 0.75, 1), all.inside = TRUE)
+  )
   cat.scaled[is.na(cat.scaled)] <- " "
   paste(ascii.map[cat.scaled], collapse = "")
 }

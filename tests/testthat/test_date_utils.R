@@ -14,7 +14,10 @@ test_that("df aggregation using date_ functions is working", {
     summarize(value = mean(value)) %>%
     ungroup()
 
-  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(mdeaths, fdeaths), "year")), id))
+  expect_equal(
+    x,
+    arrange(ts_tbl(ts_frequency(ts_c(mdeaths, fdeaths), "year")), id)
+  )
 
 
   x <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
@@ -23,7 +26,10 @@ test_that("df aggregation using date_ functions is working", {
     summarize(value = mean(value)) %>%
     ungroup()
 
-  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(mdeaths, fdeaths), "quarter")), id))
+  expect_equal(
+    x,
+    arrange(ts_tbl(ts_frequency(ts_c(mdeaths, fdeaths), "quarter")), id)
+  )
 
   x <- ts_bind(NA, ts_tbl(ts_c(EuStockMarkets)), NA) %>%
     mutate(time = as.Date(date_month(time))) %>%
@@ -31,7 +37,10 @@ test_that("df aggregation using date_ functions is working", {
     summarize(value = mean(value)) %>%
     ungroup() %>%
     ts_na_omit()
-  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(EuStockMarkets), "month")), id))
+  expect_equal(
+    x,
+    arrange(ts_tbl(ts_frequency(ts_c(EuStockMarkets), "month")), id)
+  )
 
   # include incompletes
   x <- ts_tbl(ts_c(EuStockMarkets)) %>%
@@ -39,7 +48,13 @@ test_that("df aggregation using date_ functions is working", {
     group_by(id, time) %>%
     summarize(value = mean(value)) %>%
     ungroup()
-  expect_equal(x, arrange(ts_tbl(ts_frequency(ts_c(EuStockMarkets), "month", na.rm = TRUE)), id))
+  expect_equal(
+    x,
+    arrange(
+      ts_tbl(ts_frequency(ts_c(EuStockMarkets), "month", na.rm = TRUE)),
+      id
+    )
+  )
 
 })
 
@@ -66,8 +81,13 @@ test_that("non heuristic reguarization works for Date", {
 
 test_that("time shift works in special situations", {
 
-  z <- time_shift(c(seq(as.POSIXct("2001-01-01"), as.POSIXct("2001-01-02"), by = "hour"),
-    as.POSIXct("2001-01-02 00:02:11 CET")), by = "hour")
+  z <- time_shift(
+    c(
+      seq(as.POSIXct("2001-01-01"), as.POSIXct("2001-01-02"), by = "hour"),
+      as.POSIXct("2001-01-02 00:02:11 CET")
+    ),
+    by = "hour"
+  )
   expect_is(z, "POSIXct")
 })
 
@@ -75,8 +95,6 @@ test_that("time shift works in special situations", {
 # test_that("time zones are not removed", {
 #   x <- ts_tbl(EuStockMarkets)
 #   attr(x$time, "tzone") <- "UTC"
-
 #   # ts_pc(x)
-
 # })
 

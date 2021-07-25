@@ -35,14 +35,14 @@ passed to subfunctions.}
 }
 \description{
 \code{ts_ggplot()} has the same syntax and produces a similar plot as \code{\link[=ts_plot]{ts_plot()}},
-but uses the \href{https://ggplot2.tidyverse.org/}{ggplot2} graphic system, and can be
-customized. With \code{\link[=theme_tsbox]{theme_tsbox()}} and \code{\link[=scale_color_tsbox]{scale_color_tsbox()}}, the output of
-\code{ts_ggplot} has a similar look and feel.
+but uses the \href{https://ggplot2.tidyverse.org/}{ggplot2} graphic system, and
+can be customized. With \code{\link[=theme_tsbox]{theme_tsbox()}} and \code{\link[=scale_color_tsbox]{scale_color_tsbox()}}, the output
+of \code{ts_ggplot} has a similar look and feel.
 }
 \details{
-Both \code{\link[=ts_plot]{ts_plot()}} and \code{ts_ggplot()} combine multiple ID dimensions into a single
-dimension. To plot multiple dimensions in different shapes, facets, etc., use
-standard ggplot (see examples).
+Both \code{\link[=ts_plot]{ts_plot()}} and \code{ts_ggplot()} combine multiple ID dimensions into a
+single dimension. To plot multiple dimensions in different shapes, facets,
+etc., use standard ggplot (see examples).
 }
 \examples{
 \donttest{
@@ -73,7 +73,7 @@ ts_ggplot(ts_scale(ts_span(
     ),
     start = "1995-01-01"
   ))) +
-  ggplot2::ggtitle("GDP and Consumer Sentiment", subtitle = "normalized values") +
+  ggplot2::ggtitle("GDP and Consumer Sentiment", subtitle = "normalized") +
   theme_tsbox() +
   scale_color_tsbox()
 }

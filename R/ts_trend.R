@@ -5,7 +5,8 @@
 #' @inherit ts_dts
 #' @param ... arguments, passed to [stats::loess()]:
 #' - `degree` degree of Loess smoothing
-#' - `span` smoothing parameter, if `NULL`, an automated search performed (see Details)
+#' - `span` smoothing parameter, if `NULL`, an automated search performed (see
+#'   Details)
 #' @examples
 #' \donttest{
 #' ts_plot(
@@ -31,6 +32,7 @@ ts_trend <- function(x, ...) {
     z
   }
 
-  ts_apply_dts(z, predict_loess,...)
+  z <- ts_apply_dts(z, predict_loess,...)
+  copy_class(z, x)
 }
 

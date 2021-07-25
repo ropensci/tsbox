@@ -1,8 +1,9 @@
-# tsbox 0.2.1.9000 (2020-??-??)
+# tsbox 0.2.1.9000 (2021-??-??)
 
 ## Bug fixes
 
--  ts to data frame conversion works with slight offsets #186
+- ts to data frame conversion works with slight offsets #186
+- ts_trend does retransform #193
 
 
 # tsbox 0.2.1 (2020-04-29)

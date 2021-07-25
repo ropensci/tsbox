@@ -8,3 +8,5 @@ travis
 ^_pkgdown\.yml$
 ^docs$
 cran-comments.md
+^codemeta\.json$
+^\.github$

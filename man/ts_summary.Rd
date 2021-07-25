@@ -7,14 +7,16 @@
 ts_summary(x, spark = FALSE)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 
 \item{spark}{logical should an additional column with a spark-line added to
 the data frame (experimental, ASCII only on Windows.)}
 }
 \value{
-\code{ts_summary} returns a \code{data.frame}. Individual column can be accessed
-through the \code{$} notation (see examples).
+\code{ts_summary} returns a \code{data.frame}. Individual column can be
+accessed through the \code{$} notation (see examples).
 }
 \description{
 Extract time series properties, such as the number of observations

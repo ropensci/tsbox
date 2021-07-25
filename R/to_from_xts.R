@@ -31,7 +31,9 @@ ts_dts.xts <- function(x) {
   if (NCOL(dta) == 2) {
     setnames(dta, c("time", "value"))
   } else {
-    dta <- melt(dta, id.vars = "time", variable.name = "id", variable.factor = FALSE)
+    dta <- melt(
+      dta, id.vars = "time", variable.name = "id", variable.factor = FALSE
+    )
     setcolorder(dta, c("id", "time", "value"))
   }
   dts_init(dta)

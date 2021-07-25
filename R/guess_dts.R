@@ -13,7 +13,7 @@ guess_tattr <- function(x){
   if (class == "POSIXct"){
     tz <- attr(x.time, 'tzone')
   } else {
-    tz = ""
+    tz <- ""
   }
   list(
     class = class,
@@ -35,11 +35,12 @@ guess_cname <- function(x) {
     cnames <- colnames(x)
     idx.time <- which(cnames == time.name)
     if ((idx.time - length(cnames)) > 1){
-      cols.right.of.time <- cnames[(idx.time + 1):length(cnames)]
-      value.cols <- vapply(x[, cols.right.of.time, with = FALSE], is_value, TRUE)
+      cols.r.of.time <- cnames[(idx.time + 1):length(cnames)]
+      value.cols <- vapply(x[, cols.r.of.time, with = FALSE], is_value, TRUE)
       if (sum(value.cols) > 1){
         message(
-        "More than one value column detected after the time colum, using the outermost.\n",
+        "More than one value column detected after the time colum, using the",
+        "outermost.\n",
         "Are you using a wide data frame? ",
         "To convert, use 'ts_long'.\n"
         )

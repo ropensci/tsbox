@@ -4,6 +4,7 @@
 # fun can rely on time and value colum beeing called 'time' and 'value'
 
 ts_apply_dts <- function(x, fun, ...) {
+  .SD <- NULL
   stopifnot(inherits(x, "dts"))
   d <- dts_default(x); x <- d$x
   if (number_of_series(x) == 1) {

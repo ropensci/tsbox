@@ -13,15 +13,22 @@ copy_class(
 )
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 
-\item{template}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{data.frame}, \code{data.table}, or \code{tibble}. Template.}
+\item{template}{ts-boxable time series, an object of class \code{ts}, \code{xts},
+\code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis},
+\code{irts} or \code{timeSeries}.}
 
-\item{preserve.mode}{should the mode the time column be preserved (data frame only)}
+\item{preserve.mode}{should the mode the time column be preserved
+(data frame only)}
 
-\item{preserve.names}{should the name of the time column be preserved (data frame only)}
+\item{preserve.names}{should the name of the time column be preserved
+(data frame only)}
 
-\item{preserve.time}{should the values time column be preserved (data frame only)}
+\item{preserve.time}{should the values time column be preserved
+(data frame only)}
 }
 \description{
 Copies class attributes from an existing ts-boxable series. Mainly used

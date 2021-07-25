@@ -9,7 +9,8 @@ test_that("regular low frequency data works with POSIXct", {
   
   # fails on some systems, time zones
   # x <- data.frame(
-  #   time = seq(from = as.POSIXct("2000-01-01"), length.out = 10, by = "1 month"),
+  #   time = seq(from = as.POSIXct("2000-01-01"),
+  #   length.out = 10, by = "1 month"),
   #   value = 1:10
   # )
   # 

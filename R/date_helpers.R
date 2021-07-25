@@ -36,7 +36,10 @@ regularize_date <- function(x) {
 
     # for some reason, POSIXct is not precise for quartals
     if (fm$freq <= 12 && fm$freq > -1){
-      z <- as.POSIXct(seq(from = as.Date(from), to = as.Date(to), by = fm$string), tz = attr(x, "tzone"))
+      z <- as.POSIXct(
+        seq(from = as.Date(from), to = as.Date(to), by = fm$string),
+        tz = attr(x, "tzone")
+      )
       if (!all(as.integer(x) %in% as.integer(z))){
         # but sometimes it is, so give it a second try
         z <- seq(from = from, to = to + 0.1, by = fm$string)

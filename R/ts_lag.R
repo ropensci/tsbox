@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' \donttest{
-#' ts_plot(AirPassengers, ts_lag(AirPassengers), title = "Illustrating the need for glasses")
+#' ts_plot(AirPassengers, ts_lag(AirPassengers), title = "The need for glasses")
 #' }
 #' head(ts_lag(fdeaths, "1 month"))
 #' head(ts_lag(fdeaths, "1 year"))
@@ -37,6 +37,7 @@ ts_lag <- function(x, by = 1) {
   stopifnot(length(by) == 1)
 
   value <- NULL
+  .SD <- NULL
 
   stopifnot(ts_boxable(x))
   z <- copy(ts_dts(x))

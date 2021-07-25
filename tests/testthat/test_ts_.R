@@ -49,7 +49,13 @@ test_that("ts_ based functions pass arguments in seasonal", {
   }
 
   sa <- ts_seas(ts_c(mdeaths, fdeaths), x11 = "")
-  expect_equal(ts_pick(sa, 'mdeaths'), predict(seasonal::seas(mdeaths, x11 = "")))
-  expect_equal(ts_pick(sa, 'fdeaths'), predict(seasonal::seas(fdeaths, x11 = "")))
+  expect_equal(
+    ts_pick(sa, 'mdeaths'),
+    predict(seasonal::seas(mdeaths, x11 = ""))
+  )
+  expect_equal(
+    ts_pick(sa, 'fdeaths'),
+    predict(seasonal::seas(fdeaths, x11 = ""))
+  )
 
 })

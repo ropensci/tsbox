@@ -1,6 +1,6 @@
 
-#' @param denominator numeric, set equal to one if percentage change rate is given a
-#'   decimal fraction
+#' @param denominator numeric, set equal to one if percentage change rate is
+#'   given a decimal fraction
 #' @name ts_index
 #' @export
 ts_compound <- function(x, denominator = 100) {
@@ -54,6 +54,8 @@ ts_index <- function(x, base = NULL) {
 
   not_in_data <- NULL
   value <- NULL
+  .SD <- NULL
+
   z <- ts_dts(x)
   d <- dts_default(z); z <- d$x
 

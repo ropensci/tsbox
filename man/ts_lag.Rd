@@ -7,7 +7,9 @@
 ts_lag(x, by = 1)
 }
 \arguments{
-\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 
 \item{by}{integer or character, either the number of shifting periods
 (integer), or an absolute amount of time (character). See details.}
@@ -35,7 +37,7 @@ negative) integer and a space, or followed by plural "s". This is passed to
 }
 \examples{
 \donttest{
-ts_plot(AirPassengers, ts_lag(AirPassengers), title = "Illustrating the need for glasses")
+ts_plot(AirPassengers, ts_lag(AirPassengers), title = "The need for glasses")
 }
 head(ts_lag(fdeaths, "1 month"))
 head(ts_lag(fdeaths, "1 year"))

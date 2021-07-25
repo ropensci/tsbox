@@ -24,8 +24,8 @@ test_that("operations do not depend on time zone", {
   # fails in some time zones and some systems. needs more investigation
   
   # x <- data.frame(
-  #   time = seq(from = as.POSIXct("2000-01-01"), length.out = 10, by = "1 day"),
-  #   value = 1:10
+  #   time = seq(from = as.POSIXct("2000-01-01"), length.out = 10,
+  #   by = "1 day"), value = 1:10
   # )
   # expect_equal(x, ts_df(ts_ts(x)))
 

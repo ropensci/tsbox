@@ -8,8 +8,8 @@
 #'
 #' `start` and `end` can be specified relative to each other,
 #' using one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
-#' `"month"`, `"quarter" or `"year", or an abbreviation. If the series are of the same frequency, the
-#' shift can be specified in periods. See examples.
+#' `"month"`, `"quarter" or `"year", or an abbreviation. If the series are of
+#' the same frequency, the shift can be specified in periods. See examples.
 #'
 #' @inherit ts_dts
 #' @param start start date, character string, `Date` or `POSIXct`
@@ -17,7 +17,8 @@
 #' @param template ts-boxable time series, an object of class `ts`, `xts`,
 #'   `data.frame`, `data.table`, or `tibble`. If provided, `from` and `to`
 #'   will be extracted from the object.
-#' @param extend logical. If true, the start and end values are allowed to extend the series (by adding `NA` values).
+#' @param extend logical. If true, the start and end values are allowed to
+#'   extend the series (by adding `NA` values).
 #' @return a ts-boxable time series, with the same class as the input.
 #' @export
 #' @examples
@@ -54,7 +55,10 @@
 #' # Limit span of 'discoveries' to the same span as 'AirPassengers'
 #' ts_span(discoveries, template = AirPassengers)
 #' ts_span(mdeaths, end = "19801201", extend = TRUE)
-ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE) {
+ts_span <- function(x, start = NULL, end = NULL, template = NULL,
+                    extend = FALSE) {
+
+  .SD <- NULL
 
   if (!length(start) <= 1) {
     stop("'start' must be of length 1", call. = FALSE)
@@ -75,13 +79,19 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
   # specification by period: create shift_string
   if (is.numeric(start) && start < 999){
     if (length(start) > 1){
-      stop("mixed frequencies: 'start' cannot be specified as integer", call. = FALSE)
+      stop(
+        "mixed frequencies: 'start' cannot be specified as integer",
+        call. = FALSE
+      )
     }
     start <- paste(start * as.numeric(spl.sstr[1]), spl.sstr[2])
   }
   if (is.numeric(end) && end < 999){
     if (length(end) > 1){
-      stop("mixed frequencies: 'end' cannot be specified as integer", call. = FALSE)
+      stop(
+        "mixed frequencies: 'end' cannot be specified as integer",
+        call. = FALSE
+      )
     }
     end <- paste(end * as.numeric(spl.sstr[1]), spl.sstr[2])
   }
@@ -99,7 +109,9 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
   # Outfactor in universal anytime wrapper?
   if_num_char <- function(x){
     if (inherits(x, "numeric")) {
-      if (length(x) > 1) stop("numeric date input must be of length 1", call. = FALSE)
+      if (length(x) > 1) {
+        stop("numeric date input must be of length 1", call. = FALSE)
+      }
       return(as.character(x))
     }
     x
@@ -151,7 +163,8 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
       setorder(z, time)
       z
     }
-    x.dts <- ts_na_omit(x.dts)[, extend_one(.SD, start = start, end = end), by = eval(.by)]
+    x.dts <- ts_na_omit(x.dts)
+    x.dts <- x.dts[, extend_one(.SD, start = start, end = end), by = eval(.by)]
   }
   if (!is.null(start)) {
     x.dts <- x.dts[time >= start]
@@ -164,7 +177,10 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL, extend = FALSE
   }
 
   if (nrow(x.dts) == 0){
-    stop("span contains no data; select different 'start' or 'end'", call. = FALSE)
+    stop(
+      "span contains no data; select different 'start' or 'end'",
+      call. = FALSE
+    )
   }
 
   setnames(x.dts, "time", cname$time)
@@ -189,7 +205,7 @@ get_shift_string <- function(x){
 # determine frequency of a single series
 # returns list, with components freq, string
 
-# x1 <- as.POSIXct(c("2000-01-01", "2001-01-01", "2005-03-03", "2007-03-03", "2007-03-05", "2007-03-09", "2007-05-03", "2007-09-03"))
+# x1 <- as.POSIXct(c("2000-01-01", "2001-01-01", "2005-03-03", "2007-03-03"))
 # x2 <- ts_tbl(AirPassengers)$time
 # x3 <- ts_na_omit(ts_tbl(ts_bind(austres, AirPassengers)))$time
 # frequency_one(x1)

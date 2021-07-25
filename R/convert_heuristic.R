@@ -12,12 +12,13 @@ ts_to_date_time <- function(x) {
   first.subperiod <- (tsp(x)[1] + 1e-10) %% 1
   fr <- frequency(x)
 
-  # we did not allow an offset, but this is wrong. offset is common, e.g., for weekly data.
+  # we did not allow an offset, but this is wrong. offset is common, e.g., for
+  # weekly data.
   # division <- first.subperiod / (1 / fr)
   # offset <- division - round(division)
   # stopifnot(abs(offset) < 1e-3)
 
-  md <- .mapdiff[freq == fr]
+  md <- meta_freq()[freq == fr]
 
 
   # non heuristic conversion for non-heuristics
@@ -121,7 +122,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
   } else if (frequency == 365.2425){
     # to improve accuracy for daily data, do not use non heuristic conversion
 
-    md <- .mapdiff[freq == frequency]
+    md <- meta_freq()[freq == frequency]
     str <- md$str
 
     start.time <- date_year(x[1])
@@ -137,8 +138,10 @@ date_time_to_tsp <- function(x, frequency = NULL) {
   } else {
 
     # non heuristic converson
-    md <- .mapdiff[freq == frequency]
-    z <- tsp(ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency))
+    md <- meta_freq()[freq == frequency]
+    z <- tsp(
+      ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency)
+    )
   }
   z
 }
