@@ -1,0 +1,13 @@
+bibentry(
+  bibtype      = "Manual",
+  title        = "tsbox: Class-Agnostic Time Series in in {R}",
+  author       = c(person(given = "Christoph",
+                          family = "Sax",
+                          email = "christoph.sax@gmail.com")),
+  note         = "{R package}",
+  url          = "https://www.tsbox.help",
+  year         = 2021,
+
+  header       = "To cite tsbox in publications use:"
+)
+
