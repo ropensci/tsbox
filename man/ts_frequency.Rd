@@ -27,6 +27,11 @@ a ts-boxable time series, with the same class as the input.
 Changes the frequency of a time series. By default, incomplete
 periods of regular series are omitted.
 }
+\details{
+The tempdisagg package can convert low frequency to high frequency data and
+has support for ts-boxable objects. See
+\code{vignette("hf-disagg", package = "tempdisagg")}.
+}
 \examples{
 \donttest{
 ts_frequency(cbind(mdeaths, fdeaths), "year", "sum")
@@ -38,4 +43,7 @@ ts_frequency(AirPassengers, 4, "sum")
 ts_frequency(EuStockMarkets, "year")
 ts_frequency(EuStockMarkets, "year", na.rm = TRUE)
 }
+}
+\seealso{
+\code{\link[tempdisagg:td]{tempdisagg::td()}}, for conversion from low to high frequency.
 }

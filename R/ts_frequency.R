@@ -3,6 +3,10 @@
 #' Changes the frequency of a time series. By default, incomplete
 #' periods of regular series are omitted.
 #'
+#' The tempdisagg package can convert low frequency to high frequency data and
+#' has support for ts-boxable objects. See
+#' `vignette("hf-disagg", package = "tempdisagg")`.
+#'
 #' @inherit ts_dts
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
@@ -11,6 +15,8 @@
 #'
 #' @param na.rm logical, if `TRUE`, incomplete periods are aggregated as
 #'   well. For irregular series, incomplete periods are always aggregated.
+#'
+#' @seealso [tempdisagg::td()], for conversion from low to high frequency.
 #'
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
