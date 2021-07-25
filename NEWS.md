@@ -13,6 +13,7 @@
 - tslist: Use ids to name single elements if possible #194
 - ts_bind works with short series and scalars #197
 - more tolerance towards misspecified ts objects #195
+- ts_wide does not fail on tsibble etc. #173
 
 ## Documentation
 

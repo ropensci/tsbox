@@ -57,7 +57,8 @@ long_core_multi_id <- function(x) {
 #' @name ts_long
 ts_wide <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) %in% c("ts", "xts")) return(x)
+  rc <- relevant_class(x)
+  if (rc %in% c("ts", "xts", "tbl_time", "tbl_ts", "tis")) return(x)
   x.dts <- combine_id_cols(ts_dts(x))
   z <- wide_core(x.dts)
   # reclass
