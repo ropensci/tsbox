@@ -5,6 +5,8 @@
 - export ts_first_of_period #178
 - regular zoo and xts can be processed #175, #189
 - ts_na_interpolation() exported and added to examples in ?ts_examples #127
+- support regular timestamps in tsibble #196
+
 
 ## Bug fixes
 
@@ -14,6 +16,7 @@
 - ts_bind works with short series and scalars #197
 - more tolerance towards misspecified ts objects #195
 - ts_wide does not fail on tsibble etc. #173
+
 
 ## Documentation
 
