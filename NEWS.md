@@ -1,9 +1,16 @@
 # tsbox 0.2.1.9000 (2021-??-??)
 
+
+## Features
+
+- export ts_first_of_period #178
+- regular zoo and xts can be processed #175
+
 ## Bug fixes
 
 - ts to data frame conversion works with slight offsets #186
 - ts_trend does retransform #193
+- tslist: Use ids to name single elements if possible #194
 
 
 # tsbox 0.2.1 (2020-04-29)

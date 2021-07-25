@@ -10,3 +10,4 @@ travis
 cran-comments.md
 ^codemeta\.json$
 ^\.github$
+contributing.md

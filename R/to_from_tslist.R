@@ -4,10 +4,15 @@ register_class("tslist")
 
 ts_tslist_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
+  x <- combine_id_cols(x)
   if (number_of_series(x) == 1) {
     z <- list(ts_ts(x))
+    # if a single series has an id, use to name element
+    cid <- dts_cname(x)$id
+    if (length(cid) > 0) {
+      names(z) <- unique(x[[cid]])
+    }
   } else {
-    x <- combine_id_cols(x)
     cid <- dts_cname(x)$id
     spl <- split(x, x[[cid]])
     spl <- spl[unique(x[[cid]])]

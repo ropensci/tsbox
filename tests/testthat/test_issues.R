@@ -7,3 +7,11 @@ test_that("ts_trend does retransform (#193)", {
   expect_s3_class(ans, "ts")
 })
 
+
+context("zoo and xts")
+test_that("regular zoo and xts can be processed", {
+  library(zoo)
+  z <- as.zoo(USAccDeaths)
+  expect_is(ts_tbl(z), "tbl")
+  expect_is(ts_tbl(xts::as.xts(z)), "tbl")
+})
