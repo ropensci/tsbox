@@ -58,6 +58,8 @@
 ts_span <- function(x, start = NULL, end = NULL, template = NULL,
                     extend = FALSE) {
 
+  .SD <- NULL
+
   if (!length(start) <= 1) {
     stop("'start' must be of length 1", call. = FALSE)
   }
