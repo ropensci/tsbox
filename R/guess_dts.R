@@ -13,7 +13,7 @@ guess_tattr <- function(x){
   if (class == "POSIXct"){
     tz <- attr(x.time, 'tzone')
   } else {
-    tz = ""
+    tz <- ""
   }
   list(
     class = class,
