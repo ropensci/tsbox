@@ -9,6 +9,7 @@
 
 - ts to data frame conversion works with slight offsets #186
 - ts_trend does retransform #193
+- tslist: Use ids to name single elements if possible #194
 
 
 # tsbox 0.2.1 (2020-04-29)

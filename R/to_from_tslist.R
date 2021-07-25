@@ -6,6 +6,8 @@ ts_tslist_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
   if (number_of_series(x) == 1) {
     z <- list(ts_ts(x))
+    # if a single series has an id, use to name element
+    names(z) <- unique(x[[dts_cname(x)$id]])
   } else {
     x <- combine_id_cols(x)
     cid <- dts_cname(x)$id
