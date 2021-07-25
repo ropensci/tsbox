@@ -35,7 +35,7 @@ dts_init <- function(x){
   # ensure time is always ordered (if not done before)
   colorder <- names(x)
   .by <- by_expr(dts_cname(x)$id)
-  x <- x[, setorderv(.SD, "time"), by = eval(.by)]
+  x <- x[, setorder(.SD, time), by = eval(.by)]
   setcolorder(x, colorder)
 
   setnames(x, "time", cname$time)
