@@ -4,7 +4,7 @@
 ## Features
 
 - export ts_first_of_period #178
-- regular zoo and xts can be processed #175
+- regular zoo and xts can be processed #175, #189
 
 ## Bug fixes
 
