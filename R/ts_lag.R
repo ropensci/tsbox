@@ -37,6 +37,7 @@ ts_lag <- function(x, by = 1) {
   stopifnot(length(by) == 1)
 
   value <- NULL
+  .SD <- NULL
 
   stopifnot(ts_boxable(x))
   z <- copy(ts_dts(x))
