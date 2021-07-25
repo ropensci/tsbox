@@ -5,7 +5,7 @@
 
 - export ts_first_of_period #178
 - regular zoo and xts can be processed #175, #189
-- ts_na_interpolation() exported and added to examples in ?ts_examples
+- ts_na_interpolation() exported and added to examples in ?ts_examples #127
 
 ## Bug fixes
 
