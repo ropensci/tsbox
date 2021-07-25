@@ -33,6 +33,10 @@ ts_dts.tbl_ts <- function(x) {
   # browser()
   setnames(z, ctime, "time")
 
+  if (class(z$time)[1] %in% c("yearmonth", "yearquarter", "yearweek")) {
+    z$time <- as.Date(z$time)
+  }
+
   # Ignoring non-numeric measure vars
   is.non.num <- vapply(z[, measures, with = FALSE], is.numeric, TRUE)
   measures.non.num <- measures[!is.non.num]

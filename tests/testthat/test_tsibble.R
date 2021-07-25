@@ -54,11 +54,11 @@ test_that("tsibbledata sets can be read", {
 
   # expect_is(ts_ts(tsibbledata::PBS), "ts")
   # expect_is(ts_ts(tsibbledata::global_economy), "ts")
-  # expect_is(ts_ts(tsibbledata::ansett), "ts")            # need week support
+  expect_is(ts_ts(tsibbledata::ansett), "ts")
   expect_is(ts_ts(tsibbledata::hh_budget), "ts")
-  # expect_is(ts_ts(tsibbledata::aus_livestock), "ts")     # need mth support
+  expect_is(ts_ts(tsibbledata::aus_livestock), "ts")
   expect_is(ts_tbl(tsibbledata::nyc_bikes), "tbl_df")
-  # expect_is(ts_ts(tsibbledata::aus_production), "ts")    # need qtr support
+  expect_is(ts_ts(tsibbledata::aus_production), "ts")
   expect_is(ts_ts(tsibbledata::olympic_running), "ts")
   # expect_is(ts_ts(tsibbledata::aus_retail), "ts")
   expect_is(ts_ts(tsibbledata::pelt), "ts")
