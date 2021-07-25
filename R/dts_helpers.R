@@ -25,7 +25,7 @@ dts_init <- function(x){
       )
     } else {
       stop(
-        "Series contains duplicated timestamps: ",
+        "Series contains duplicated values in time column: ",
         unique(x[[cname$time]][duplicated(x[[cname$time]])]),
         call. = FALSE
       )
