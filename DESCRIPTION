@@ -35,5 +35,7 @@ Encoding: UTF-8
 URL: https://www.tsbox.help
 BugReports: https://github.com/christophsax/tsbox/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
