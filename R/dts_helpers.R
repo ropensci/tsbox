@@ -1,5 +1,7 @@
 
 dts_init <- function(x){
+
+  .SD <- NULL
   stopifnot(inherits(x, "data.frame"))
   x <- as.data.table(x)
   stopifnot(inherits(x, "data.table"))

@@ -121,6 +121,7 @@ lf_time <- function(time, to) {
     by = "7 days"
     # time <- min(as.Date(time)) - 7
 
+    first_days <- NULL
     rng <- range(as.Date(time), na.rm = TRUE)
     all_days <- data.table(time = seq(rng[1] - 7, rng[2], by = "day"))
     all_days[data.table::wday(time) == 1, first_days := time]

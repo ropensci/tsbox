@@ -60,7 +60,9 @@ ts_index <- function(x, base = NULL) {
 
   not_in_data <- NULL
   value <- NULL
+  base_value <- NULL
   .SD <- NULL
+  . <- NULL
 
   z <- ts_dts(x)
   d <- dts_default(z); z <- d$x
