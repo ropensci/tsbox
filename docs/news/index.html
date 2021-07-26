@@ -8,21 +8,29 @@
 
 <title>Changelog • tsbox</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,7 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Changelog" />
+
 
 
 
@@ -54,9 +64,10 @@
   gtag('config', 'UA-46240882-5');
 </script>
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -101,7 +112,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/christophsax/tsbox">
@@ -116,48 +126,101 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/christophsax/tsbox/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tsbox-020-2019-08-06" class="section level1">
-<h1 class="page-header">
-<a href="#tsbox-020-2019-08-06" class="anchor"></a>tsbox 0.2.0 (2019-08-06)<small> 2019-08-06 </small>
+    <div id="tsbox-030-2021-07-26" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0">
+<a href="#tsbox-030-2021-07-26" class="anchor"></a>tsbox 0.3.0 (2021-07-26)<small> Unreleased </small>
 </h1>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h2>
 <ul>
-<li>Construction of expressions for data.tables are done problerly and now are able to contain spaces or non-ASCII characters (#151, thanks <a href='https://github.com/stefanfritsch'>@stefanfritsch</a>)</li>
-<li>ts_default() puts data frames in default order (ids, time, value) (#166)</li>
-<li>Consistent handling of non-default colnames and colorder in data frames (#166)</li>
-<li>Support for ‘tis’ time series (#150)</li>
-<li>Support for ‘irts’ time series, from package tseries</li>
-<li>Tweakes color schemes</li>
+<li>export ts_first_of_period <a href='https://github.com/christophsax/tsbox/issues/178'>#178</a></li>
+<li>regular zoo and xts can be processed <a href='https://github.com/christophsax/tsbox/issues/175'>#175</a>, <a href='https://github.com/christophsax/tsbox/issues/189'>#189</a></li>
+<li>ts_na_interpolation() exported and added to examples in ?ts_examples <a href='https://github.com/christophsax/tsbox/issues/127'>#127</a></li>
+<li>support regular timestamps in tsibble <a href='https://github.com/christophsax/tsbox/issues/196'>#196</a></li>
+<li>ensure time is always ordered <a href='https://github.com/christophsax/tsbox/issues/202'>#202</a></li>
+<li>ts_index(): base period can be entered as a range <a href='https://github.com/christophsax/tsbox/issues/188'>#188</a></li>
+<li>ts_frequency() also works for weeks, sec, min, hours <a href='https://github.com/christophsax/tsbox/issues/183'>#183</a></li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>High-frequency conversion works with daylight saving time (#152)</li>
-<li>Do not run x13binary in tests on Solaris (#143)</li>
-<li>Use <code>key = id</code> when creating a tsibble (#156)</li>
-<li>ts_trend passes arguments to loess (#147)</li>
-<li>ts_summary works with single or irregular observations (#145, #146)</li>
-<li>ts_frequency handles na.rm correctly (#148)</li>
-<li>handles data sets from tsibbledata (#164)</li>
-<li>ts_lag handles negative <code>by</code> argument correctly (#177)</li>
+<li>ts to data frame conversion works with slight offsets <a href='https://github.com/christophsax/tsbox/issues/186'>#186</a></li>
+<li>ts_trend does retransform <a href='https://github.com/christophsax/tsbox/issues/193'>#193</a></li>
+<li>tslist: Use ids to name single elements if possible <a href='https://github.com/christophsax/tsbox/issues/194'>#194</a></li>
+<li>ts_bind works with short series and scalars <a href='https://github.com/christophsax/tsbox/issues/197'>#197</a></li>
+<li>more tolerance towards misspecified ts objects <a href='https://github.com/christophsax/tsbox/issues/195'>#195</a></li>
+<li>ts_wide does not fail on tsibble etc. <a href='https://github.com/christophsax/tsbox/issues/173'>#173</a></li>
+</ul>
+</div>
+<div id="documentation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#documentation" class="anchor"></a>Documentation</h2>
+<ul>
+<li>point to tempdisagg::td() for low to high frequency conversion <a href='https://github.com/christophsax/tsbox/issues/142'>#142</a></li>
+<li>better error messages if series contain duplicates <a href='https://github.com/christophsax/tsbox/issues/181'>#181</a></li>
+<li>better error messages when converting one row data frames <a href='https://github.com/christophsax/tsbox/issues/179'>#179</a></li>
+<li>better error messages when time col contains NA <a href='https://github.com/christophsax/tsbox/issues/184'>#184</a></li>
+</ul>
+</div>
+</div>
+    <div id="tsbox-021-2020-04-29" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.1">
+<a href="#tsbox-021-2020-04-29" class="anchor"></a>tsbox 0.2.1 (2020-04-29)<small> 2020-04-29 </small>
+</h1>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fix test case that failed with dplyr 1.0 <a href='https://github.com/christophsax/tsbox/issues/182'>#182</a></li>
+</ul>
+</div>
+</div>
+    <div id="tsbox-020-2019-08-06" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.0">
+<a href="#tsbox-020-2019-08-06" class="anchor"></a>tsbox 0.2.0 (2019-08-06)<small> 2019-08-06 </small>
+</h1>
+<div id="features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features-1" class="anchor"></a>Features</h2>
+<ul>
+<li>Construction of expressions for data.tables are done problerly and now are able to contain spaces or non-ASCII characters (<a href='https://github.com/christophsax/tsbox/issues/151'>#151</a>, thanks <a href='https://github.com/stefanfritsch'>@stefanfritsch</a>)</li>
+<li>ts_default() puts data frames in default order (ids, time, value) (<a href='https://github.com/christophsax/tsbox/issues/166'>#166</a>)</li>
+<li>Consistent handling of non-default colnames and colorder in data frames (<a href='https://github.com/christophsax/tsbox/issues/166'>#166</a>)</li>
+<li>Support for ‘tis’ time series (<a href='https://github.com/christophsax/tsbox/issues/150'>#150</a>)</li>
+<li>Support for ‘irts’ time series, from package tseries</li>
+<li>Tweakes color schemes</li>
+</ul>
+</div>
+<div id="bug-fixes-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>High-frequency conversion works with daylight saving time (<a href='https://github.com/christophsax/tsbox/issues/152'>#152</a>)</li>
+<li>Do not run x13binary in tests on Solaris (<a href='https://github.com/christophsax/tsbox/issues/143'>#143</a>)</li>
+<li>Use <code>key = id</code> when creating a tsibble (<a href='https://github.com/christophsax/tsbox/issues/156'>#156</a>)</li>
+<li>ts_trend passes arguments to loess (<a href='https://github.com/christophsax/tsbox/issues/147'>#147</a>)</li>
+<li>ts_summary works with single or irregular observations (<a href='https://github.com/christophsax/tsbox/issues/145'>#145</a>, <a href='https://github.com/christophsax/tsbox/issues/146'>#146</a>)</li>
+<li>ts_frequency handles na.rm correctly (<a href='https://github.com/christophsax/tsbox/issues/148'>#148</a>)</li>
+<li>handles data sets from tsibbledata (<a href='https://github.com/christophsax/tsbox/issues/164'>#164</a>)</li>
+<li>ts_lag handles negative <code>by</code> argument correctly (<a href='https://github.com/christophsax/tsbox/issues/177'>#177</a>)</li>
 </ul>
 </div>
 </div>
     <div id="tsbox-010-2019-04-03" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.0">
 <a href="#tsbox-010-2019-04-03" class="anchor"></a>tsbox 0.1.0 (2019-04-03)<small> 2019-04-03 </small>
 </h1>
 <div id="changes" class="section level2">
@@ -172,11 +235,11 @@
 <a href="#new-functions-and-features" class="anchor"></a>New Functions and Features</h2>
 <ul>
 <li>
-<code>ts_default</code>, new function to change column names to defaults (time, value), so that no auto detection is performed afterwards (#118)</li>
+<code>ts_default</code>, new function to change column names to defaults (time, value), so that no auto detection is performed afterwards (<a href='https://github.com/christophsax/tsbox/issues/118'>#118</a>)</li>
 <li>
 <code>ts_summary</code>, returns a data frame with summary information of a ts-boxable object. Also used to extract time series properties (<code>ts_summary(x)$start</code>, <code>ts_summary(x)$freq</code>, etc.)</li>
 <li>
-<code>ts_regular</code> gains <code>fill</code> argument, to specify replacement value for <code>NA</code> (#101)</li>
+<code>ts_regular</code> gains <code>fill</code> argument, to specify replacement value for <code>NA</code> (<a href='https://github.com/christophsax/tsbox/issues/101'>#101</a>)</li>
 <li>
 <code>ts_pc</code>, <code>ts_pcy</code>, <code>ts_diff</code>, <code>ts_diffy</code> have been rewritten and are much faster. They now return a series of the same length as the input, with <code>NA</code>s at the beginning.</li>
 <li>
@@ -185,21 +248,21 @@
 <code>ts_span</code> gains <code>extend</code> argument, to add explicit <code>NA</code>s</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
-<code>ts_apply</code> pass on arguments. This allows functions generated by ts_ to pass on additional arguments. E.g., <code><a href="../reference/ts_examples.html">ts_seas(AirPassengers, x11 = "")</a></code> (#115, #103)</li>
-<li>unnamed <code>tslist</code> objects of length 1 don’t get an id anymore (#116)</li>
+<code>ts_apply</code> pass on arguments. This allows functions generated by ts_ to pass on additional arguments. E.g., <code><a href="../reference/ts_examples.html">ts_seas(AirPassengers, x11 = "")</a></code> (<a href='https://github.com/christophsax/tsbox/issues/115'>#115</a>, <a href='https://github.com/christophsax/tsbox/issues/103'>#103</a>)</li>
+<li>unnamed <code>tslist</code> objects of length 1 don’t get an id anymore (<a href='https://github.com/christophsax/tsbox/issues/116'>#116</a>)</li>
 <li>
-<code>ts_span</code> various fixes, boundary specification by shift string (<code>"1 year"</code>) or period now works as expected, also for non-heuristic series, such as <code>EuStockMarkets</code> (#106)</li>
-<li>time column of daily data is treated as Date and survives two way conversion (#114, #137)</li>
+<code>ts_span</code> various fixes, boundary specification by shift string (<code>"1 year"</code>) or period now works as expected, also for non-heuristic series, such as <code>EuStockMarkets</code> (<a href='https://github.com/christophsax/tsbox/issues/106'>#106</a>)</li>
+<li>time column of daily data is treated as Date and survives two way conversion (<a href='https://github.com/christophsax/tsbox/issues/114'>#114</a>, <a href='https://github.com/christophsax/tsbox/issues/137'>#137</a>)</li>
 <li>
-<code>ts_pick</code>, error if picked series is not in data (#100)</li>
-<li>error when data contains duplicated series (#102)</li>
+<code>ts_pick</code>, error if picked series is not in data (<a href='https://github.com/christophsax/tsbox/issues/100'>#100</a>)</li>
+<li>error when data contains duplicated series (<a href='https://github.com/christophsax/tsbox/issues/102'>#102</a>)</li>
 <li>
-<code>ts_plot</code>, improved axis labels for high frequency series (#117)</li>
+<code>ts_plot</code>, improved axis labels for high frequency series (<a href='https://github.com/christophsax/tsbox/issues/117'>#117</a>)</li>
 <li>fixed tsibble to anything conversion</li>
 </ul>
 </div>
@@ -213,33 +276,33 @@
 </div>
 </div>
     <div id="tsbox-003-2018-06-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.3">
 <a href="#tsbox-003-2018-06-18" class="anchor"></a>tsbox 0.0.3 (2018-06-18)<small> 2018-06-18 </small>
-</h1>
-<div id="features-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#features-1" class="anchor"></a>Features</h2>
-<ul>
-<li>Support for <code>tibbletime</code> time series (#90)</li>
-</ul>
-</div>
-<div id="bug-fixes-2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
-<ul>
-<li>Automatically detect numbers or text from 1600 to 2200 as time column (#92)</li>
-<li>Fix to correctly ensure uniqueness of non unique id combinations (#93)</li>
-<li>Fix to correctly parse <code>POSIXct</code> columns for monthly data in different time zones. Remove two way testing for daily series with <code>POSIXct</code> columns. This should fix mac binary build on CRAN (#97)</li>
-</ul>
-</div>
-</div>
-    <div id="tsbox-002-2018-05-12" class="section level1">
-<h1 class="page-header">
-<a href="#tsbox-002-2018-05-12" class="anchor"></a>tsbox 0.0.2 (2018-05-12)<small> 2018-05-14 </small>
 </h1>
 <div id="features-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features-2" class="anchor"></a>Features</h2>
+<ul>
+<li>Support for <code>tibbletime</code> time series (<a href='https://github.com/christophsax/tsbox/issues/90'>#90</a>)</li>
+</ul>
+</div>
+<div id="bug-fixes-4" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Automatically detect numbers or text from 1600 to 2200 as time column (<a href='https://github.com/christophsax/tsbox/issues/92'>#92</a>)</li>
+<li>Fix to correctly ensure uniqueness of non unique id combinations (<a href='https://github.com/christophsax/tsbox/issues/93'>#93</a>)</li>
+<li>Fix to correctly parse <code>POSIXct</code> columns for monthly data in different time zones. Remove two way testing for daily series with <code>POSIXct</code> columns. This should fix mac binary build on CRAN (<a href='https://github.com/christophsax/tsbox/issues/97'>#97</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="tsbox-002-2018-05-12" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.2">
+<a href="#tsbox-002-2018-05-12" class="anchor"></a>tsbox 0.0.2 (2018-05-12)<small> 2018-05-14 </small>
+</h1>
+<div id="features-3" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features-3" class="anchor"></a>Features</h2>
 <ul>
 <li>initial version</li>
 </ul>
@@ -247,19 +310,14 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#tsbox-020-2019-08-06">0.2.0</a></li>
-        <li><a href="#tsbox-010-2019-04-03">0.1.0</a></li>
-        <li><a href="#tsbox-003-2018-06-18">0.0.3</a></li>
-        <li><a href="#tsbox-002-2018-05-12">0.0.2</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -267,13 +325,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

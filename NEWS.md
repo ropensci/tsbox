@@ -1,4 +1,4 @@
-# tsbox 0.2.1.9000 (2021-??-??)
+# tsbox 0.3.0 (2021-07-26)
 
 ## Features
 
@@ -7,6 +7,8 @@
 - ts_na_interpolation() exported and added to examples in ?ts_examples #127
 - support regular timestamps in tsibble #196
 - ensure time is always ordered #202
+- ts_index(): base period can be entered as a range #188
+- ts_frequency() also works for weeks, sec, min, hours #183
 
 
 ## Bug fixes

@@ -8,21 +8,29 @@
 
 <title>Constructing ts-Functions — ts_ • tsbox</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Constructing ts-Functions — ts_" />
 
+<meta property="og:title" content="Constructing ts-Functions — ts_" />
 <meta property="og:description" content="ts_ turns an existing function into a function that can deal with
 ts-boxable time series objects." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -58,9 +66,10 @@ ts-boxable time series objects." />
   gtag('config', 'UA-46240882-5');
 </script>
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +83,7 @@ ts-boxable time series objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -105,7 +114,6 @@ ts-boxable time series objects." />
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/christophsax/tsbox">
@@ -120,36 +128,35 @@ ts-boxable time series objects." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Constructing ts-Functions</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/christophsax/tsbox/blob/master/R/ts_.R'><code>R/ts_.R</code></a>, <a href='https://github.com/christophsax/tsbox/blob/master/R/ts_apply.R'><code>R/ts_apply.R</code></a></small>
     <div class="hidden name"><code>ts_.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p><code>ts_</code> turns an existing function into a function that can deal with
 ts-boxable time series objects.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>load_suggested</span>(<span class='no'>pkg</span>)
+    <pre class="usage"><span class='fu'>load_suggested</span><span class='op'>(</span><span class='va'>pkg</span><span class='op'>)</span>
 
-<span class='fu'>ts_</span>(<span class='no'>fun</span>, <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"ts"</span>, <span class='kw'>vectorize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>reclass</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>ts_</span><span class='op'>(</span><span class='va'>fun</span>, class <span class='op'>=</span> <span class='st'>"ts"</span>, vectorize <span class='op'>=</span> <span class='cn'>FALSE</span>, reclass <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>ts_apply</span>(<span class='no'>x</span>, <span class='no'>fun</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'>ts_apply</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>fun</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pkg</th>
       <td><p>external package, to be suggested (automatically added by <code>ts_</code>)
-<code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code>. (See examples)</p></td>
+<code><a href='https://rdrr.io/r/stats/predict.html'>predict()</a></code>. (See examples)</p></td>
     </tr>
     <tr>
       <th>fun</th>
@@ -170,40 +177,44 @@ ts-boxable output as imputed?</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p></td>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>,
+<code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or
+<code>timeSeries</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>arguments passed to subfunction</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A function that accepts ts-boxable time series as an input.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>ts_</code> function is a constructor function for tsbox time series functions. It
-can be used to wrap any function that works with time series. The default is set
-to R base <code>"ts"</code> class. <code>ts_</code> deals with the conversion stuff, 'vectorizes' the
-function so that it can be used with multiple time series.</p>
-    
+    <p>The <code>ts_</code> function is a constructor function for tsbox time series functions.
+It can be used to wrap any function that works with time series. The default
+is set to R base <code>"ts"</code> class. <code>ts_</code> deals with the conversion stuff,
+'vectorizes' the function so that it can be used with multiple time series.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='ts_examples.html'>ts_examples</a>, for a few useful examples of functions generated by <code>ts_</code>.</p>
+    <div class='dont-index'><p><a href='ts_examples.html'>ts_examples</a>, for a few useful examples of functions generated by
+<code>ts_</code>.</p>
 <p><a href='https://www.tsbox.help/articles/ts-functions.html'>Vignette</a> on how
 to make arbitrary functions ts-boxable.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ts_</span>(<span class='no'>rowSums</span>)(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>))</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='fu'>ts_</span><span class='op'>(</span><span class='va'>rowSums</span><span class='op'>)</span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 3035 2552 2704 2554 2014 1655 1721 1524 1596 2074 2199 2512
 #&gt; 1975 2933 2889 2938 2497 1870 1726 1607 1545 1396 1787 2076 2837
 #&gt; 1976 2787 3891 3179 2011 1636 1580 1489 1300 1356 1653 2013 2823
 #&gt; 1977 3102 2294 2385 2444 1748 1554 1498 1361 1346 1564 1640 2293
 #&gt; 1978 2815 3137 2679 1969 1870 1633 1529 1366 1357 1570 1535 2491
-#&gt; 1979 3084 2605 2573 2143 1693 1504 1461 1354 1333 1492 1781 1915</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='fu'>ts_</span>(<span class='no'>rowMeans</span>)(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>)), <span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>)</div><div class='img'><img src='ts_-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ts_</span>(<span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/prcomp'>prcomp</a></span>(<span class='no'>x</span>)))(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>))</div><div class='output co'>#&gt;                   PC1         PC2
+#&gt; 1979 3084 2605 2573 2143 1693 1504 1461 1354 1333 1492 1781 1915</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fu'>ts_</span><span class='op'>(</span><span class='va'>rowMeans</span><span class='op'>)</span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span>
+</div><div class='img'><img src='ts_-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ts_</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/prcomp.html'>prcomp</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                   PC1         PC2
 #&gt; Jan 1974  -719.330257  74.1363473
 #&gt; Feb 1974  -388.333793 -19.8122618
 #&gt; Mar 1974  -453.416215 102.6796905
@@ -275,7 +286,8 @@ to make arbitrary functions ts-boxable.</p></div>
 #&gt; Sep 1979   578.098904  54.7051273
 #&gt; Oct 1979   440.743505  18.1196871
 #&gt; Nov 1979   214.815375   8.0459650
-#&gt; Dec 1979   138.438483  70.8517803</div><div class='input'><span class='fu'>ts_</span>(<span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/prcomp'>prcomp</a></span>(<span class='no'>x</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>))</div><div class='output co'>#&gt;                  PC1          PC2
+#&gt; Dec 1979   138.438483  70.8517803</div><div class='input'><span class='fu'>ts_</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/prcomp.html'>prcomp</a></span><span class='op'>(</span><span class='va'>x</span>, scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                  PC1          PC2
 #&gt; Jan 1974 -2.38059153  0.297375755
 #&gt; Feb 1974 -1.10407959 -0.094336308
 #&gt; Mar 1974 -1.66989390  0.425768781
@@ -347,35 +359,30 @@ to make arbitrary functions ts-boxable.</p></div>
 #&gt; Sep 1979  1.56730136  0.247826227
 #&gt; Oct 1979  1.26630196  0.088468492
 #&gt; Nov 1979  0.61956412  0.039773219
-#&gt; Dec 1979  0.20053725  0.305347710</div><div class='input'><span class='fu'>ts_</span>(<span class='kw pkg'>dygraphs</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/dygraphs/topics/dygraph'>dygraph</a></span>, <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"xts"</span>)</div><div class='output co'>#&gt; function (x, ...) 
+#&gt; Dec 1979  0.20053725  0.305347710</div><div class='input'><span class='fu'>ts_</span><span class='op'>(</span><span class='fu'>dygraphs</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/dygraphs/man/dygraph.html'>dygraph</a></span>, class <span class='op'>=</span> <span class='st'>"xts"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; function (x, ...) 
 #&gt; {
 #&gt;     load_suggested("dygraphs")
 #&gt;     stopifnot(ts_boxable(x))
 #&gt;     z &lt;- dygraphs::dygraph(ts_xts(x), ...)
 #&gt;     copy_class(z, x)
 #&gt; }
-#&gt; &lt;environment: 0x7fa16d933298&gt;</div><div class='input'>
+#&gt; &lt;environment: 0x7fd36a119ad0&gt;</div><div class='input'>
 <span class='co'># attach series to serach path</span>
-<span class='no'>ts_attach</span> <span class='kw'>&lt;-</span> <span class='fu'>ts_</span>(<span class='no'>attach</span>, <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"tslist"</span>, <span class='kw'>reclass</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>ts_attach</span>(<span class='no'>EuStockMarkets</span>)
-<span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='no'>DAX</span>, <span class='no'>SMI</span>)</div><div class='img'><img src='ts_-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/detach'>detach</a></span>()</div></pre>
+<span class='va'>ts_attach</span> <span class='op'>&lt;-</span> <span class='fu'>ts_</span><span class='op'>(</span><span class='va'>attach</span>, class <span class='op'>=</span> <span class='st'>"tslist"</span>, reclass <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>ts_attach</span><span class='op'>(</span><span class='va'>EuStockMarkets</span><span class='op'>)</span>
+<span class='fu'><a href='ts_plot.html'>ts_plot</a></span><span class='op'>(</span><span class='va'>DAX</span>, <span class='va'>SMI</span><span class='op'>)</span>
+</div><div class='img'><img src='ts_-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/detach.html'>detach</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'># }</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -383,13 +390,16 @@ to make arbitrary functions ts-boxable.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

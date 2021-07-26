@@ -8,21 +8,29 @@
 
 <title>Convert Everything to Everything — ts_ts • tsbox</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +38,12 @@
 
 
 
-<meta property="og:title" content="Convert Everything to Everything — ts_ts" />
 
+<meta property="og:title" content="Convert Everything to Everything — ts_ts" />
 <meta property="og:description" content="tsbox is built around a set of converters, which convert time series
-stored as ts, xts, data.frame, data.table or tibble to each
-other." />
-<meta name="twitter:card" content="summary" />
+stored as ts, xts, zoo, data.frame, data.table, tbl, tbl_ts,
+tbl_time, tis, irts or timeSeries to each other." />
+
 
 
 
@@ -59,9 +67,10 @@ other." />
   gtag('config', 'UA-46240882-5');
 </script>
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -75,7 +84,7 @@ other." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -106,7 +115,6 @@ other." />
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/christophsax/tsbox">
@@ -121,82 +129,85 @@ other." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert Everything to Everything</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/christophsax/tsbox/blob/master/R/to_from_data.frame.R'><code>R/to_from_data.frame.R</code></a>, <a href='https://github.com/christophsax/tsbox/blob/master/R/to_from_data.table.R'><code>R/to_from_data.table.R</code></a>, <a href='https://github.com/christophsax/tsbox/blob/master/R/to_from_tibble.R'><code>R/to_from_tibble.R</code></a>, and 9 more</small>
     <div class="hidden name"><code>ts_ts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>tsbox is built around a set of converters, which convert time series
-stored as <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code> or <code>tibble</code> to each
-other.</p>
-    
+stored as <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>,
+<code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code> to each other.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ts_data.frame</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>ts_data.frame</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_df</span>(<span class='no'>x</span>)
+<span class='fu'>ts_df</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_data.table</span>(<span class='no'>x</span>)
+<span class='fu'>ts_data.table</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_dt</span>(<span class='no'>x</span>)
+<span class='fu'>ts_dt</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_tbl</span>(<span class='no'>x</span>)
+<span class='fu'>ts_tbl</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_tibbletime</span>(<span class='no'>x</span>)
+<span class='fu'>ts_tibbletime</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_timeSeries</span>(<span class='no'>x</span>)
+<span class='fu'>ts_timeSeries</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_tis</span>(<span class='no'>x</span>)
+<span class='fu'>ts_tis</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_ts</span>(<span class='no'>x</span>)
+<span class='fu'>ts_ts</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_irts</span>(<span class='no'>x</span>)
+<span class='fu'>ts_irts</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_tsibble</span>(<span class='no'>x</span>)
+<span class='fu'>ts_tsibble</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_tslist</span>(<span class='no'>x</span>)
+<span class='fu'>ts_tslist</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_xts</span>(<span class='no'>x</span>)
+<span class='fu'>ts_xts</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_zoo</span>(<span class='no'>x</span>)</pre>
-    
+<span class='fu'>ts_zoo</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p></td>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>,
+<code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or
+<code>timeSeries</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ts-boxable time series of the desired class, an object of class <code>ts</code>, <code>xts</code>, <code>data.frame</code>, <code>data.table</code>, or <code>tibble</code>.</p>
-    
+    <p>ts-boxable time series of the desired class, an object of class <code>ts</code>,
+<code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>,
+<code>irts</code> or <code>timeSeries</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In data frames, multiple time series will be stored in a 'long' format. tsbox
-detects a <em>value</em>, a <em>time</em> and zero to several <em>id</em> columns. Column detection
-is done in the following order:</p><ol>
-<li><p>Starting <strong>on the right</strong>, the first first <code>numeric</code> or <code>integer</code> column is
-used as <strong>value column</strong>.</p></li>
+detects a <em>value</em>, a <em>time</em> and zero to several <em>id</em> columns. Column
+detection is done in the following order:</p><ol>
+<li><p>Starting <strong>on the right</strong>, the first first <code>numeric</code> or <code>integer</code> column
+is used as <strong>value column</strong>.</p></li>
 <li><p>Using the remaining columns, and starting on the right again, the first
-<code>Date</code>, <code>POSIXct</code>, <code>numeric</code> or <code>character</code> column is used as <strong>time column</strong>.
-<code>character</code> strings are parsed by <code><a href='https://www.rdocumentation.org/packages/anytime/topics/anytime'>anytime::anytime()</a></code>.
+<code>Date</code>, <code>POSIXct</code>, <code>numeric</code> or <code>character</code> column is used as
+<strong>time column</strong>. <code>character</code> strings are parsed by <code><a href='https://rdrr.io/pkg/anytime/man/anytime.html'>anytime::anytime()</a></code>.
 The time stamp, <code>time</code>, indicates the beginning of a period.</p></li>
-<li><p><strong>All remaining</strong> columns are <strong>id columns</strong>. Each unique combination of id
-columns points to a time series.</p></li>
+<li><p><strong>All remaining</strong> columns are <strong>id columns</strong>. Each unique combination of
+id columns points to a time series.</p></li>
 </ol>
-    <p><strong>Alternatively</strong>, the <strong>time</strong> column and the <strong>value</strong> column to be explicitly named as
-<code>time</code> and <code>value</code>. If explicit names are used, the column order will be
-ignored.</p>
+
+<p><strong>Alternatively</strong>, the <strong>time</strong> column and the <strong>value</strong> column to be
+explicitly named as <code>time</code> and <code>value</code>. If explicit names are used, the
+column order will be ignored.</p>
 <p>Whenever possible, tsbox relies on <strong>heuristic time conversion</strong>. When a
 monthly <code>"ts"</code> time series, e.g., <code>AirPassengers</code>, is converted to a data
 frame, each time stamp (of class <code>"Date"</code>) is the first day of the month. In
@@ -208,44 +219,48 @@ than January. Heuristic conversion is done for frequencies of 0.1 (decades),
 <p>For other frequencies, e.g. 260, of <code>EuStockMarkets</code>, tsbox uses  <strong>exact
 time conversion</strong>. The year is divided into 260 equally long units, and time
 stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x.ts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>x.ts</span>)</div><div class='output co'>#&gt;          mdeaths fdeaths
+<span class='va'>x.ts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>x.ts</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          mdeaths fdeaths
 #&gt; Jan 1974    2134     901
 #&gt; Feb 1974    1863     689
 #&gt; Mar 1974    1877     827
 #&gt; Apr 1974    1877     677
 #&gt; May 1974    1492     522
-#&gt; Jun 1974    1249     406</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>ts_df</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;        id       time value
+#&gt; Jun 1974    1249     406</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_df</span><span class='op'>(</span><span class='va'>x.ts</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        id       time value
 #&gt; 1 mdeaths 1974-01-01  2134
 #&gt; 2 mdeaths 1974-02-01  1863
 #&gt; 3 mdeaths 1974-03-01  1877
 #&gt; 4 mdeaths 1974-04-01  1877
 #&gt; 5 mdeaths 1974-05-01  1492
 #&gt; 6 mdeaths 1974-06-01  1249</div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/message'>suppressMessages</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>ts_tbl</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 3</span><span>
+<span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_tbl</span><span class='op'>(</span><span class='va'>x.ts</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 3</span>
 #&gt;   id      time       value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> mdeaths 1974-01-01  </span><span style='text-decoration: underline;'>2</span><span>134
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> mdeaths 1974-02-01  </span><span style='text-decoration: underline;'>1</span><span>863
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> mdeaths 1974-03-01  </span><span style='text-decoration: underline;'>1</span><span>877
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> mdeaths 1974-04-01  </span><span style='text-decoration: underline;'>1</span><span>877
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> mdeaths 1974-05-01  </span><span style='text-decoration: underline;'>1</span><span>492
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> mdeaths 1974-06-01  </span><span style='text-decoration: underline;'>1</span><span>249</div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/message'>suppressMessages</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>data.table</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>ts_dt</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;         id       time value
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> mdeaths 1974-01-01  <span style='text-decoration: underline;'>2</span>134
+#&gt; <span style='color: #BCBCBC;'>2</span> mdeaths 1974-02-01  <span style='text-decoration: underline;'>1</span>863
+#&gt; <span style='color: #BCBCBC;'>3</span> mdeaths 1974-03-01  <span style='text-decoration: underline;'>1</span>877
+#&gt; <span style='color: #BCBCBC;'>4</span> mdeaths 1974-04-01  <span style='text-decoration: underline;'>1</span>877
+#&gt; <span style='color: #BCBCBC;'>5</span> mdeaths 1974-05-01  <span style='text-decoration: underline;'>1</span>492
+#&gt; <span style='color: #BCBCBC;'>6</span> mdeaths 1974-06-01  <span style='text-decoration: underline;'>1</span>249</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-datatable.com'>data.table</a></span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_dt</span><span class='op'>(</span><span class='va'>x.ts</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         id       time value
 #&gt; 1: mdeaths 1974-01-01  2134
 #&gt; 2: mdeaths 1974-02-01  1863
 #&gt; 3: mdeaths 1974-03-01  1877
 #&gt; 4: mdeaths 1974-04-01  1877
 #&gt; 5: mdeaths 1974-05-01  1492
 #&gt; 6: mdeaths 1974-06-01  1249</div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/message'>suppressMessages</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>xts</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>ts_xts</span>(<span class='no'>x.ts</span>))</div><div class='output co'>#&gt;            mdeaths fdeaths
+<span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/joshuaulrich/xts'>xts</a></span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_xts</span><span class='op'>(</span><span class='va'>x.ts</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            mdeaths fdeaths
 #&gt; 1974-01-01    2134     901
 #&gt; 1974-02-01    1863     689
 #&gt; 1974-03-01    1877     827
@@ -254,7 +269,8 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 1974-06-01    1249     406</div><div class='input'>
 <span class='co'># heuristic time conversion</span>
 <span class='co'># 1 month: approx. 1/12 year</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>ts_df</span>(<span class='no'>AirPassengers</span>))</div><div class='output co'>#&gt;         time value
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_df</span><span class='op'>(</span><span class='va'>AirPassengers</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         time value
 #&gt; 1 1949-01-01   112
 #&gt; 2 1949-02-01   118
 #&gt; 3 1949-03-01   132
@@ -263,7 +279,8 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 6 1949-06-01   135</div><div class='input'>
 <span class='co'># exact time conversion</span>
 <span class='co'># 1 trading day: exactly 1/260 year</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>ts_df</span>(<span class='no'>EuStockMarkets</span>))</div><div class='output co'>#&gt;    id                time   value
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_df</span><span class='op'>(</span><span class='va'>EuStockMarkets</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    id                time   value
 #&gt; 1 DAX 1991-07-01 03:18:27 1628.75
 #&gt; 2 DAX 1991-07-02 13:01:32 1613.63
 #&gt; 3 DAX 1991-07-03 22:44:38 1606.51
@@ -271,33 +288,28 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 #&gt; 5 DAX 1991-07-06 18:10:48 1618.16
 #&gt; 6 DAX 1991-07-08 03:53:53 1610.61</div><div class='input'>
 <span class='co'># multiple id</span>
-<span class='no'>multi.id.df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/data.table/topics/rbindlist'>rbind</a></span>(
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/data.table/topics/transform.data.table'>within</a></span>(<span class='fu'>ts_df</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>)), <span class='no'>type</span> <span class='kw'>&lt;-</span> <span class='st'>"level"</span>),
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/data.table/topics/transform.data.table'>within</a></span>(<span class='fu'><a href='ts_pc.html'>ts_pc</a></span>(<span class='fu'>ts_df</span>(<span class='fu'><a href='ts_c.html'>ts_c</a></span>(<span class='no'>fdeaths</span>, <span class='no'>mdeaths</span>))), <span class='no'>type</span> <span class='kw'>&lt;-</span> <span class='st'>"pc"</span>)
-)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>ts_ts</span>(<span class='no'>multi.id.df</span>))</div><div class='output co'>#&gt;          fdeaths_level mdeaths_level fdeaths_pc  mdeaths_pc
+<span class='va'>multi.id.df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbind</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/transform.data.table.html'>within</a></span><span class='op'>(</span><span class='fu'>ts_df</span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>fdeaths</span>, <span class='va'>mdeaths</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>type</span> <span class='op'>&lt;-</span> <span class='st'>"level"</span><span class='op'>)</span>,
+  <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/transform.data.table.html'>within</a></span><span class='op'>(</span><span class='fu'><a href='ts_pc.html'>ts_pc</a></span><span class='op'>(</span><span class='fu'>ts_df</span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>fdeaths</span>, <span class='va'>mdeaths</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>type</span> <span class='op'>&lt;-</span> <span class='st'>"pc"</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_ts</span><span class='op'>(</span><span class='va'>multi.id.df</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          fdeaths_level mdeaths_level fdeaths_pc  mdeaths_pc
 #&gt; Jan 1974           901          2134         NA          NA
 #&gt; Feb 1974           689          1863  -23.52941 -12.6991565
 #&gt; Mar 1974           827          1877   20.02903   0.7514761
 #&gt; Apr 1974           677          1877  -18.13785   0.0000000
 #&gt; May 1974           522          1492  -22.89513 -20.5114544
-#&gt; Jun 1974           406          1249  -22.22222 -16.2868633</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(<span class='no'>multi.id.df</span>)</div><div class='img'><img src='ts_ts-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></span></pre>
+#&gt; Jun 1974           406          1249  -22.22222 -16.2868633</div><div class='input'><span class='fu'><a href='ts_plot.html'>ts_plot</a></span><span class='op'>(</span><span class='va'>multi.id.df</span><span class='op'>)</span>
+</div><div class='img'><img src='ts_ts-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -305,13 +317,16 @@ stamp of a period will be a point in time (of class <code>"POSIXct"</code>).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -1,5 +1,5 @@
 ---
-title: "Time Conversion and Regularization"
+title: "Time conversion and regularization"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Time conversion and regularization}
