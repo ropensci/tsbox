@@ -11,3 +11,4 @@ cran-comments.md
 ^codemeta\.json$
 ^\.github$
 contributing.md
+^README\.Rmd$
