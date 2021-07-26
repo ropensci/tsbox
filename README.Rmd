@@ -1,20 +1,30 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # tsbox: Class-Agnostic Time Series in R
 
 <!-- badges: start -->
-
 [![R-CMD-check](https://github.com/christophsax/tsbox/workflows/R-CMD-check/badge.svg)](https://github.com/christophsax/tsbox/actions)
 <!-- badges: end -->
 
 The R ecosystem knows a [vast
-number](https://CRAN.R-project.org/view=TimeSeries) of time series
-standards. Instead of creating the ultimate
-[15th](https://xkcd.com/927/) time series class, tsbox provides a set of
-tools that are **agnostic towards the existing standards**. The tools
-also allow you to handle time series as plain data frames, thus making
-it easy to deal with time series in a
+number](https://CRAN.R-project.org/view=TimeSeries)  of time series
+standards. Instead of creating the ultimate [15th](https://xkcd.com/927/) time
+series class, tsbox provides a set of tools that are **agnostic towards the
+existing standards**. The tools also allow you to handle time series as plain
+data frames, thus making it easy to deal with time series in a
 [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
@@ -22,26 +32,23 @@ See [tsbox.help](https://www.tsbox.help/) for the full documentation of
 the package.
 
 To install the stable version from CRAN:
-
-``` r
+```r
 install.packages("tsbox")
 ```
 
 To install the development version:
-
-``` r
+```r
 # install.packages("remotes")
 remotes::install_github("christophsax/tsbox")
 ```
 
 ### Convert everything to everything
 
-tsbox is built around a set of converters, which convert time series
-stored as **ts**, **xts**, **data.frame**, **data.table**, **tibble**,
-**zoo**, **tsibble**, **tibbletime**, **timeSeries**, **irts** or
-**tis** to each other:
+tsbox is built around a set of converters, which convert time series stored as
+**ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**,
+**tsibble**,  **tibbletime**, **timeSeries**, **irts** or **tis** to each other:
 
-``` r
+```r
 library(tsbox)
 x.ts <- ts_c(fdeaths, mdeaths)
 x.xts <- ts_xts(x.ts)
@@ -60,13 +67,13 @@ all.equal(ts_ts(x.tis), x.ts)
 
 ### Use same functions for time series classes
 
-Because this works reliably, it is easy to write functions that work for
-all classes. So whether we want to **smooth**, **scale**,
-**differentiate**, **chain**, **forecast**, **regularize** or
-**seasonally adjust** a time series, we can use the same commands to
-whatever time series class at hand:
+Because this works reliably, it is easy to write
+functions that work for all classes. So whether we want to **smooth**,
+**scale**, **differentiate**, **chain**, **forecast**, **regularize** or
+**seasonally adjust** a time series, we can use the same commands to whatever
+time series class at hand:
 
-``` r
+```r
 ts_trend(x.ts)
 ts_pc(x.xts)
 ts_pcy(x.df)
@@ -75,10 +82,10 @@ ts_lag(x.dt)
 
 ### Time series of the world, unite!
 
-A set of helper functions makes it easy to combine or align multiple
-time series of all classes:
+A set of helper functions makes it easy to combine or align multiple time
+series of all classes:
 
-``` r
+```r
 # collect time series as multiple time series
 ts_c(ts_dt(EuStockMarkets), AirPassengers)
 ts_c(EuStockMarkets, mdeaths)
@@ -90,13 +97,18 @@ ts_bind(ts_xts(AirPassengers), ts_tbl(mdeaths))
 
 ### And plot just about everything
 
-Plotting all kinds of classes and frequencies is as simple as it should
-be. And we finally get a legend!
+Plotting all kinds of classes and frequencies is as simple as it should be. And
+we finally get a legend!
 
-    ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
+```
+ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
+```
 
 ![](https://raw.githubusercontent.com/christophsax/tsbox/master/vignettes/fig/myfig.png)
+
 
 ### Cheatsheet
 
 <a href="https://www.cynkra.com/blog/2019-04-10-tsbox-01/tsbox-cheatsheet.pdf"><img style="max-width:50%;" src="https://www.cynkra.com/blog/2019-04-10-tsbox-01/tsbox-cheatsheet-small.jpg"></a>
+
+
