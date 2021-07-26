@@ -22,6 +22,8 @@ test_that("ts_ works with more exotic options", {
 
 
 test_that("ts_ based functions pass arguments in seasonal", {
+
+  skip_on_cran()
   skip_if_not_installed("seasonal")
 
   # copied from x13binary::supportedPlatform
