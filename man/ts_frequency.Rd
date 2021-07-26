@@ -4,7 +4,12 @@
 \alias{ts_frequency}
 \title{Change Frequency}
 \usage{
-ts_frequency(x, to = "year", aggregate = "mean", na.rm = FALSE)
+ts_frequency(
+  x,
+  to = c("year", "quarter", "month", "week", "day", "hour", "min", "sec"),
+  aggregate = "mean",
+  na.rm = FALSE
+)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
