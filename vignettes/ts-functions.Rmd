@@ -1,5 +1,5 @@
 ---
-title: "User Defined ts-Functions"
+title: "User defined ts-functions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{User defined ts-functions}

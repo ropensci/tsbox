@@ -8,21 +8,29 @@
 
 <title>Change Frequency — ts_frequency • tsbox</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Change Frequency — ts_frequency" />
 
+<meta property="og:title" content="Change Frequency — ts_frequency" />
 <meta property="og:description" content="Changes the frequency of a time series. By default, incomplete
 periods of regular series are omitted." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -58,9 +66,10 @@ periods of regular series are omitted." />
   gtag('config', 'UA-46240882-5');
 </script>
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +83,7 @@ periods of regular series are omitted." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -105,7 +114,6 @@ periods of regular series are omitted." />
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/christophsax/tsbox">
@@ -120,31 +128,37 @@ periods of regular series are omitted." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Change Frequency</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/christophsax/tsbox/blob/master/R/ts_frequency.R'><code>R/ts_frequency.R</code></a></small>
     <div class="hidden name"><code>ts_frequency.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Changes the frequency of a time series. By default, incomplete
 periods of regular series are omitted.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>ts_frequency</span>(<span class='no'>x</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>aggregate</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>ts_frequency</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"year"</span>, <span class='st'>"quarter"</span>, <span class='st'>"month"</span>, <span class='st'>"week"</span>, <span class='st'>"day"</span>, <span class='st'>"hour"</span>, <span class='st'>"min"</span>, <span class='st'>"sec"</span><span class='op'>)</span>,
+  aggregate <span class='op'>=</span> <span class='st'>"mean"</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p></td>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>,
+<code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or
+<code>timeSeries</code>.</p></td>
     </tr>
     <tr>
       <th>to</th>
@@ -154,7 +168,7 @@ periods of regular series are omitted.</p>
     <tr>
       <th>aggregate</th>
       <td><p>character string, or function. Either <code>"mean"</code>, <code>"sum"</code>,
-<code>"first"</code>, or <code>"last"</code>, or any aggregate function, such as <code><a href='https://www.rdocumentation.org/packages/base/topics/mean'>base::mean()</a></code>.</p></td>
+<code>"first"</code>, or <code>"last"</code>, or any aggregate function, such as <code><a href='https://rdrr.io/r/base/mean.html'>base::mean()</a></code>.</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
@@ -162,14 +176,23 @@ periods of regular series are omitted.</p>
 well. For irregular series, incomplete periods are always aggregated.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a ts-boxable time series, with the same class as the input.</p>
-    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The tempdisagg package can convert low frequency to high frequency data and
+has support for ts-boxable objects. See
+<code><a href='https://cran.rstudio.com/web/packages/tempdisagg/vignettes/hf-disagg.html'>vignette("hf-disagg", package = "tempdisagg")</a></code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/tempdisagg/man/td.html'>tempdisagg::td()</a></code>, for conversion from low to high frequency.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ts_frequency</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>cbind</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>), <span class='st'>"year"</span>, <span class='st'>"sum"</span>)</div><div class='output co'>#&gt; Time Series:
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='fu'>ts_frequency</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span>, <span class='st'>"year"</span>, <span class='st'>"sum"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Time Series:
 #&gt; Start = 1974 
 #&gt; End = 1979 
 #&gt; Frequency = 1 
@@ -179,7 +202,8 @@ well. For irregular series, incomplete periods are always aggregated.</p></td>
 #&gt; 1976   18697    7021
 #&gt; 1977   16927    6302
 #&gt; 1978   17329    6622
-#&gt; 1979   16437    6501</div><div class='input'><span class='fu'>ts_frequency</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>cbind</a></span>(<span class='no'>mdeaths</span>, <span class='no'>fdeaths</span>), <span class='st'>"quarter"</span>, <span class='st'>"last"</span>)</div><div class='output co'>#&gt;         mdeaths fdeaths
+#&gt; 1979   16437    6501</div><div class='input'><span class='fu'>ts_frequency</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span>, <span class='st'>"quarter"</span>, <span class='st'>"last"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         mdeaths fdeaths
 #&gt; 1974 Q1    1877     827
 #&gt; 1974 Q2    1249     406
 #&gt; 1974 Q3    1209     387
@@ -204,7 +228,8 @@ well. For irregular series, incomplete periods are always aggregated.</p></td>
 #&gt; 1979 Q2    1075     429
 #&gt; 1979 Q3     940     393
 #&gt; 1979 Q4    1341     574</div><div class='input'>
-<span class='fu'>ts_frequency</span>(<span class='no'>AirPassengers</span>, <span class='fl'>4</span>, <span class='st'>"sum"</span>)</div><div class='output co'>#&gt;      Qtr1 Qtr2 Qtr3 Qtr4
+<span class='fu'>ts_frequency</span><span class='op'>(</span><span class='va'>AirPassengers</span>, <span class='fl'>4</span>, <span class='st'>"sum"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      Qtr1 Qtr2 Qtr3 Qtr4
 #&gt; 1949  362  385  432  341
 #&gt; 1950  382  409  498  387
 #&gt; 1951  473  513  582  474
@@ -218,7 +243,8 @@ well. For irregular series, incomplete periods are always aggregated.</p></td>
 #&gt; 1959 1108 1288 1570 1174
 #&gt; 1960 1227 1468 1736 1283</div><div class='input'>
 <span class='co'># Note that incomplete years are omited by default</span>
-<span class='fu'>ts_frequency</span>(<span class='no'>EuStockMarkets</span>, <span class='st'>"year"</span>)</div><div class='output co'>#&gt; Time Series:
+<span class='fu'>ts_frequency</span><span class='op'>(</span><span class='va'>EuStockMarkets</span>, <span class='st'>"year"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Time Series:
 #&gt; Start = 1992 
 #&gt; End = 1997 
 #&gt; Frequency = 1 
@@ -228,7 +254,8 @@ well. For irregular series, incomplete periods are always aggregated.</p></td>
 #&gt; 1994 2123.445 2716.570 2061.115 3144.673
 #&gt; 1995 2135.226 2824.320 1872.022 3343.207
 #&gt; 1996 2560.317 3610.032 2071.866 3821.407
-#&gt; 1997 3694.279 5173.600 2745.503 4673.295</div><div class='input'><span class='fu'>ts_frequency</span>(<span class='no'>EuStockMarkets</span>, <span class='st'>"year"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Time Series:
+#&gt; 1997 3694.279 5173.600 2745.503 4673.295</div><div class='input'><span class='fu'>ts_frequency</span><span class='op'>(</span><span class='va'>EuStockMarkets</span>, <span class='st'>"year"</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Time Series:
 #&gt; Start = 1991 
 #&gt; End = 1998 
 #&gt; Frequency = 1 
@@ -240,20 +267,16 @@ well. For irregular series, incomplete periods are always aggregated.</p></td>
 #&gt; 1995 2135.226 2824.320 1872.022 3343.207
 #&gt; 1996 2560.317 3610.032 2071.866 3821.407
 #&gt; 1997 3694.279 5173.600 2745.503 4673.295
-#&gt; 1998 5162.252 7339.186 3723.700 5751.889</div></pre>
+#&gt; 1998 5162.252 7339.186 3723.700 5751.889</div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -261,13 +284,16 @@ well. For irregular series, incomplete periods are always aggregated.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

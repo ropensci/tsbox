@@ -8,21 +8,29 @@
 
 <title>Limit Time Span — ts_span • tsbox</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Limit Time Span — ts_span" />
 
+<meta property="og:title" content="Limit Time Span — ts_span" />
 <meta property="og:description" content="Filter time series for a time span." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -57,9 +65,10 @@
   gtag('config', 'UA-46240882-5');
 </script>
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -73,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -104,7 +113,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/christophsax/tsbox">
@@ -119,31 +127,31 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Limit Time Span</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/christophsax/tsbox/blob/master/R/ts_span.R'><code>R/ts_span.R</code></a></small>
     <div class="hidden name"><code>ts_span.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Filter time series for a time span.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>ts_span</span>(<span class='no'>x</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>x</span>, start <span class='op'>=</span> <span class='cn'>NULL</span>, end <span class='op'>=</span> <span class='cn'>NULL</span>, template <span class='op'>=</span> <span class='cn'>NULL</span>, extend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p></td>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>,
+<code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or
+<code>timeSeries</code>.</p></td>
     </tr>
     <tr>
       <th>start</th>
@@ -161,34 +169,38 @@ will be extracted from the object.</p></td>
     </tr>
     <tr>
       <th>extend</th>
-      <td><p>logical. If true, the start and end values are allowed to extend the series (by adding <code>NA</code> values).</p></td>
+      <td><p>logical. If true, the start and end values are allowed to
+extend the series (by adding <code>NA</code> values).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a ts-boxable time series, with the same class as the input.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>All date and times, when entered as character strings, are processed by
-<code><a href='https://www.rdocumentation.org/packages/anytime/topics/anytime'>anytime::anydate()</a></code> or <code><a href='https://www.rdocumentation.org/packages/anytime/topics/anytime'>anytime::anytime()</a></code>. Thus a wide range of inputs are
+<code><a href='https://rdrr.io/pkg/anytime/man/anytime.html'>anytime::anydate()</a></code> or <code><a href='https://rdrr.io/pkg/anytime/man/anytime.html'>anytime::anytime()</a></code>. Thus a wide range of inputs are
 possible. See examples.</p>
 <p><code>start</code> and <code>end</code> can be specified relative to each other,
 using one of <code>"sec"</code>, <code>"min"</code>, <code>"hour"</code>, <code>"day"</code>, <code>"week"</code>,
-<code>"month"</code>, <code>"quarter" or </code>"year", or an abbreviation. If the series are of the same frequency, the
-shift can be specified in periods. See examples.</p>
-    
+<code>"month"</code>, <code>"quarter" or </code>"year", or an abbreviation. If the series are of
+the same frequency, the shift can be specified in periods. See examples.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-</div><div class='input'><span class='co'># use 'anytime' shortcuts</span>
-<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1979"</span>)       <span class='co'># shortcut for 1979-01-01</span></div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
-#&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1979-4"</span>)     <span class='co'># shortcut for 1979-04-01</span></div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
-#&gt; 1979 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"197904"</span>)     <span class='co'># shortcut for 1979-04-01</span></div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+<span class='co'># \donttest{</span>
+<span class='co'># use 'anytime' shortcuts</span>
+<span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, start <span class='op'>=</span> <span class='st'>"1979"</span><span class='op'>)</span>       <span class='co'># shortcut for 1979-01-01</span>
+</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, start <span class='op'>=</span> <span class='st'>"1979-4"</span><span class='op'>)</span>     <span class='co'># shortcut for 1979-04-01</span>
+</div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, start <span class='op'>=</span> <span class='st'>"197904"</span><span class='op'>)</span>     <span class='co'># shortcut for 1979-04-01</span>
+</div><div class='output co'>#&gt;       Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1979 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
 <span class='co'># it's fine to use an to date outside of series span</span>
-<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"2001-01-01"</span>)</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+<span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, end <span class='op'>=</span> <span class='st'>"2001-01-01"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
 #&gt; 1975 2103 2137 2153 1833 1403 1288 1186 1133 1053 1347 1545 2066
 #&gt; 1976 2020 2750 2283 1479 1189 1160 1113  970  999 1208 1467 2059
@@ -197,28 +209,37 @@ shift can be specified in periods. See examples.</p>
 #&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341</div><div class='input'>
 <span class='co'># use strings to set start or end relative to each other</span>
 
-<span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"-7 month"</span>)   <span class='co'># last 7 months</span></div><div class='output co'>#&gt;       Jun  Jul  Aug  Sep  Oct  Nov  Dec
-#&gt; 1979 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> -<span class='fl'>7</span>)           <span class='co'># last 7 periods</span></div><div class='output co'>#&gt;       Jun  Jul  Aug  Sep  Oct  Nov  Dec
-#&gt; 1979 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> -<span class='fl'>1</span>)           <span class='co'># last single value</span></div><div class='output co'>#&gt;       Dec
-#&gt; 1979 1341</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1e4 hours"</span>)    <span class='co'># first 10000 hours</span></div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+<span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, start <span class='op'>=</span> <span class='st'>"-7 month"</span><span class='op'>)</span>   <span class='co'># last 7 months</span>
+</div><div class='output co'>#&gt;       Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, start <span class='op'>=</span> <span class='op'>-</span><span class='fl'>7</span><span class='op'>)</span>           <span class='co'># last 7 periods</span>
+</div><div class='output co'>#&gt;       Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1979 1075 1056  975  940 1081 1294 1341</div><div class='input'><span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, start <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>           <span class='co'># last single value</span>
+</div><div class='output co'>#&gt;       Dec
+#&gt; 1979 1341</div><div class='input'><span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, end <span class='op'>=</span> <span class='st'>"1e4 hours"</span><span class='op'>)</span>    <span class='co'># first 10000 hours</span>
+</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
 #&gt; 1975 2103                                                       </div><div class='input'>
-<span class='fu'><a href='ts_plot.html'>ts_plot</a></span>(
-  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"-3 years"</span>),
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Three years ago"</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The last three years of available data"</span>
-)</div><div class='img'><img src='ts_span-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ts_ggplot.html'>ts_ggplot</a></span>(
-  <span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"28 weeks"</span>),
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"28 weeks later"</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The first 28 weeks of available data"</span>
-) + <span class='fu'><a href='ts_ggplot.html'>theme_tsbox</a></span>() + <span class='fu'><a href='ts_ggplot.html'>scale_color_tsbox</a></span>()</div><div class='img'><img src='ts_span-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ts_plot.html'>ts_plot</a></span><span class='op'>(</span>
+  <span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, start <span class='op'>=</span> <span class='st'>"-3 years"</span><span class='op'>)</span>,
+  title <span class='op'>=</span> <span class='st'>"Three years ago"</span>,
+  subtitle <span class='op'>=</span> <span class='st'>"The last three years of available data"</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='ts_span-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ts_ggplot.html'>ts_ggplot</a></span><span class='op'>(</span>
+  <span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, end <span class='op'>=</span> <span class='st'>"28 weeks"</span><span class='op'>)</span>,
+  title <span class='op'>=</span> <span class='st'>"28 weeks later"</span>,
+  subtitle <span class='op'>=</span> <span class='st'>"The first 28 weeks of available data"</span>
+<span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='ts_ggplot.html'>theme_tsbox</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='ts_ggplot.html'>scale_color_tsbox</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='ts_span-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+
 <span class='co'># Limit span of 'discoveries' to the same span as 'AirPassengers'</span>
-<span class='fu'>ts_span</span>(<span class='no'>discoveries</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='no'>AirPassengers</span>)</div><div class='output co'>#&gt; Time Series:
+<span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>discoveries</span>, template <span class='op'>=</span> <span class='va'>AirPassengers</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Time Series:
 #&gt; Start = 1949 
 #&gt; End = 1959 
 #&gt; Frequency = 1 
-#&gt;  [1] 3 2 1 4 1 1 1 0 0 2 0</div><div class='input'><span class='fu'>ts_span</span>(<span class='no'>mdeaths</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"19801201"</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt;  [1] 3 2 1 4 1 1 1 0 0 2 0</div><div class='input'><span class='fu'>ts_span</span><span class='op'>(</span><span class='va'>mdeaths</span>, end <span class='op'>=</span> <span class='st'>"19801201"</span>, extend <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
 #&gt; 1974 2134 1863 1877 1877 1492 1249 1280 1131 1209 1492 1621 1846
 #&gt; 1975 2103 2137 2153 1833 1403 1288 1186 1133 1053 1347 1545 2066
 #&gt; 1976 2020 2750 2283 1479 1189 1160 1113  970  999 1208 1467 2059
@@ -227,20 +248,13 @@ shift can be specified in periods. See examples.</p>
 #&gt; 1979 2263 1820 1846 1531 1215 1075 1056  975  940 1081 1294 1341
 #&gt; 1980   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -248,13 +262,16 @@ shift can be specified in periods. See examples.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

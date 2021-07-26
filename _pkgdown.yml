@@ -74,6 +74,7 @@ reference:
   - ts_frequency
   - ts_regular
   - ts_na_omit
+  - ts_first_of_period
 
 - title: User defined ts-functions
   desc: >
