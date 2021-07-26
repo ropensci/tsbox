@@ -31,19 +31,22 @@
 #' ts_frequency(EuStockMarkets, "year", na.rm = TRUE)
 #' }
 #' @export
-ts_frequency <- function(x, to = "year", aggregate = "mean", na.rm = FALSE) {
+ts_frequency <- function(x, to = c("year", "quarter", "month", "week", "day",
+  "hour", "min", "sec"),
+   aggregate = "mean", na.rm = FALSE) {
   stopifnot(ts_boxable(x))
+
+  if (is.numeric(to)) {
+    numeric.period <- c(month = 12, quarter = 4, year = 1)
+    stopifnot(to %in% numeric.period)
+    to <- names(numeric.period)[numeric.period == to]
+  }
+
+  to <- match.arg(to)
+
   z <- frequency_core(ts_dts(x), to = to, aggregate = aggregate, na.rm = na.rm)
   copy_class(z, x, preserve.mode = FALSE)
 }
-
-period.date <- list(
-  month = date_month,
-  quarter = date_quarter,
-  year = date_year
-)
-
-numeric.period <- c(month = 12, quarter = 4, year = 1)
 
 frequency_core <- function(x, to, aggregate, na.rm) {
   stopifnot(inherits(x, "dts"))
@@ -81,24 +84,12 @@ frequency_core <- function(x, to, aggregate, na.rm) {
 
   if (!is.function(aggregate)) {
     stop(
-      "'aggregate' must be of 'character' or 'function'",
+      "'aggregate' must be of class 'character' or 'function'",
       call. = FALSE
     )
   }
 
   value <- NULL
-
-  if (is.numeric(to)) {
-    stopifnot(to %in% numeric.period)
-    to <- names(numeric.period)[numeric.period == to]
-  }
-
-  if (!(to %in% names(period.date))) {
-    stop(
-      "period", to, "not supported. Try one of: ",
-      paste(names(period.date), collapse = ", ")
-    )
-  }
 
   cname <- dts_cname(x)
 
@@ -112,8 +103,7 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   data.table::setnames(x0, cname$value,  "value")
   data.table::setnames(x0, cname$time, "time")
 
-  pdfun <- period.date[[to]]
-  x0[, time := as.Date(pdfun(time))]
+  x0$time <- lf_time(x0$time, to = to)
 
   z <- x0[, list(value = aggregate(value)), by = eval(.by)]
   z <- z[!is.na(value)]
@@ -122,4 +112,75 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   data.table::setnames(z, "time", cname$time)
 
   z[]
+}
+
+lf_time <- function(time, to) {
+
+  if (to == "week") {
+    # https://github.com/christophsax/tsbox/issues/183
+    by = "7 days"
+    # time <- min(as.Date(time)) - 7
+
+    rng <- range(as.Date(time), na.rm = TRUE)
+    all_days <- data.table(time = seq(rng[1] - 7, rng[2], by = "day"))
+    all_days[data.table::wday(time) == 1, first_days := time]
+    all_days[, first_days := data.table::nafill(first_days, type = "locf")]
+    all_days_first_days <- all_days[!is.na(first_days)]
+
+    time_first <-
+      merge(
+        data.table::data.table(time = as.Date(time)),
+        all_days_first_days,
+        by = "time",
+        all.x = TRUE,
+        sort = FALSE
+      )
+
+    z <- time_first$first_days
+    return(z)
+  }
+
+
+  d <- data.table::mday(time)
+  m <- data.table::month(time)
+  y <- data.table::year(time)
+
+  if (to == "month") {
+    d <- 1
+  }
+
+  if (to == "quarter") {
+    d <- 1
+    m <- (data.table::quarter(time) - 1) * 3 + 1
+  }
+
+  if (to == "year") {
+    d <- 1
+    m <- 1
+  }
+
+  if (to %in% c("month", "quarter", "year")) {
+    z <- as.Date(paste(y, m, d, sep = "-"))
+    return(z)
+  }
+
+  # return POSIXct
+  h <- data.table::hour(time)
+  min <- data.table::minute(time)
+  sec <- data.table::second(time)
+
+  if (to == "min") {
+    sec <- 0
+  }
+
+  if (to == "hour") {
+    sec <- 0
+    min <- 0
+  }
+
+  if (to %in% c("hour", "min", "sec")) {
+    z <- as.POSIXct(paste0(y, "-", m, "-", d, " ", h, ":", min, ":", sec))
+    return(z)
+  }
+
 }

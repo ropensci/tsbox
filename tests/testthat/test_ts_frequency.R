@@ -23,3 +23,51 @@ test_that("ts_frequency handles na.rm correctly", {
   expect_true(is.na(window(x0, start = 1985, end = 1985)[, 'austres']))
   expect_false(is.na(window(x1, start = 1985, end = 1985)[, 'austres']))
 })
+
+
+
+test_that("ts_frequency works with fancier frequencies", {
+
+  z <- ts_frequency(EuStockMarkets, to = "week", aggregate = "mean", na.rm = TRUE)
+  expect_equal(tail(z, 1)[1], 5414.375)
+
+  expect_is(
+    ts_frequency(mdeaths, to = "year", aggregate = "sum", na.rm = TRUE),
+    "ts"
+  )
+
+  expect_is(
+    ts_frequency(mdeaths, to = "month", aggregate = "sum", na.rm = TRUE),
+    "ts"
+  )
+
+  expect_is(
+    ts_frequency(mdeaths, to = "quarter", aggregate = "sum", na.rm = TRUE),
+    "ts"
+  )
+
+})
+
+
+test_that("ts_frequency works with POSIXct", {
+
+  x <- tibble(
+    time = seq(Sys.time(), length.out = 20, by = "10 sec"),
+    value = 1
+  )
+
+  expect_is(
+    ts_frequency(x, to = "min", aggregate = "sum", na.rm = TRUE),
+    "tbl_df"
+  )
+
+  expect_is(
+    ts_frequency(x, to = "hour", aggregate = "sum", na.rm = TRUE),
+    "tbl_df"
+  )
+
+})
+
+
+
+
