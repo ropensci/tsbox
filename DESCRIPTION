@@ -29,7 +29,8 @@ Suggests:
     tis,
     timeSeries,
     nycflights13,
-    imputeTS
+    imputeTS,
+    spelling
 License: GPL-3
 Encoding: UTF-8
 URL: https://www.tsbox.help, https://github.com/christophsax/tsbox
@@ -39,3 +40,4 @@ RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
+Language: en-US
