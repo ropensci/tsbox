@@ -28,11 +28,13 @@ x0 <- ts_c(ts_df(EuStockMarkets), AirPassengers)
 head(x0)
 
 # labeling
+\donttest{
 x1 <- ts_c(
   `International Airline Passengers` = ts_xts(AirPassengers),
   `Deaths from Lung Diseases` = ldeaths
 )
 head(x1)
+}
 
 }
 \seealso{

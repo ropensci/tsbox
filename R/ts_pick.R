@@ -16,11 +16,12 @@
 #' ))
 #' ts_pick(EuStockMarkets, c(1, 2))
 #' ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI')
-#' }
 #'
 #' # Programming use
 #' to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")
 #' ts_pick(EuStockMarkets, to.be.picked.and.renamed)
+#' }
+#'
 #' @export
 ts_pick <- function(x, ...) {
   stopifnot(ts_boxable(x))

@@ -19,11 +19,13 @@
 #' head(x0)
 #'
 #' # labeling
+#' \donttest{
 #' x1 <- ts_c(
 #'   `International Airline Passengers` = ts_xts(AirPassengers),
 #'   `Deaths from Lung Diseases` = ldeaths
 #' )
 #' head(x1)
+#' }
 #'
 #' @export
 ts_c <- function(...) {
