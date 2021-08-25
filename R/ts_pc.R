@@ -9,11 +9,11 @@
 #' @inherit ts_dts
 #' @return a ts-boxable time series, with the same class as the input.
 #' @examples
-#' tail(ts_diff(ts_c(fdeaths, mdeaths)))
-#' tail(ts_pc(ts_c(fdeaths, mdeaths)))
-#' tail(ts_pca(ts_c(fdeaths, mdeaths)))
-#' tail(ts_pcy(ts_c(fdeaths, mdeaths)))
-#' tail(ts_diffy(ts_c(fdeaths, mdeaths)))
+#' ts_diff(ts_c(fdeaths, mdeaths))
+#' ts_pc(ts_c(fdeaths, mdeaths))
+#' ts_pca(ts_c(fdeaths, mdeaths))
+#' ts_pcy(ts_c(fdeaths, mdeaths))
+#' ts_diffy(ts_c(fdeaths, mdeaths))
 #' @export
 ts_pc <- function(x) {
   ts_apply(ts_regular(x), function(x) {

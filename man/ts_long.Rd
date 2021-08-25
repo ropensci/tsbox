@@ -24,6 +24,6 @@ column, and uses columns on the left as id columns.
 }
 \examples{
 df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
-head(df.wide)
-head(ts_long(df.wide))
+df.wide
+ts_long(df.wide)
 }

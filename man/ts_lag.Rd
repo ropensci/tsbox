@@ -39,9 +39,9 @@ negative) integer and a space, or followed by plural "s". This is passed to
 \donttest{
 ts_plot(AirPassengers, ts_lag(AirPassengers), title = "The need for glasses")
 }
-head(ts_lag(fdeaths, "1 month"))
-head(ts_lag(fdeaths, "1 year"))
-head(ts_lag(ts_df(fdeaths), "2 day"))
-head(ts_lag(ts_df(fdeaths), "2 min"))
-head(ts_lag(ts_df(fdeaths), "-1 day"))
+ts_lag(fdeaths, "1 month")
+ts_lag(fdeaths, "1 year")
+ts_lag(ts_df(fdeaths), "2 day")
+ts_lag(ts_df(fdeaths), "2 min")
+ts_lag(ts_df(fdeaths), "-1 day")
 }

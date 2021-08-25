@@ -15,14 +15,15 @@
 #' @seealso [ts_bind], to bind multiple time series to a single series.
 #'
 #' @examples
-#' head(ts_c(ts_df(EuStockMarkets), AirPassengers))
+#' x0 <- ts_c(ts_df(EuStockMarkets), AirPassengers)
+#' head(x0)
 #'
 #' # labeling
-#' x <- ts_c(
+#' x1 <- ts_c(
 #'   `International Airline Passengers` = ts_xts(AirPassengers),
 #'   `Deaths from Lung Diseases` = ldeaths
 #' )
-#' head(x)
+#' head(x1)
 #'
 #' @export
 ts_c <- function(...) {

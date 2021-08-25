@@ -26,5 +26,5 @@ df <- ts_df(ts_c(mdeaths, fdeaths))
 # non-default colnames
 colnames(df) <- c("id", "date", "count")
 # switch back to default colnames
-head(ts_default(df))
+ts_default(df)
 }

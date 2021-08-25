@@ -114,32 +114,34 @@ ts_dts.ts <- function(x) {
 #' @examples
 #'
 #' x.ts <- ts_c(mdeaths, fdeaths)
-#' head(x.ts)
-#' head(ts_df(x.ts))
+#' x.ts
+#' ts_df(x.ts)
 #'
 #' suppressMessages(library(dplyr))
-#' head(ts_tbl(x.ts))
+#' ts_tbl(x.ts)
 #'
 #' suppressMessages(library(data.table))
-#' head(ts_dt(x.ts))
+#' ts_dt(x.ts)
 #'
 #' suppressMessages(library(xts))
-#' head(ts_xts(x.ts))
+#' ts_xts(x.ts)
 #'
 #' # heuristic time conversion
 #' # 1 month: approx. 1/12 year
-#' head(ts_df(AirPassengers))
+#' ts_df(AirPassengers)
 #'
 #' # exact time conversion
 #' # 1 trading day: exactly 1/260 year
-#' head(ts_df(EuStockMarkets))
+#' ts_df(EuStockMarkets)
 #'
-#' # multiple id
-#' multi.id.df <- rbind(
-#'   within(ts_df(ts_c(fdeaths, mdeaths)), type <- "level"),
-#'   within(ts_pc(ts_df(ts_c(fdeaths, mdeaths))), type <- "pc")
-#' )
-#' head(ts_ts(multi.id.df))
+#' # multiple ids
+#' a <- ts_df(ts_c(fdeaths, mdeaths))
+#' a$type <- "level"
+#' b <- ts_pc(a)
+#' b$type <- "pc"
+#' multi.id.df <- rbind(a, b)
+#'
+#' ts_ts(multi.id.df)
 #' ts_plot(multi.id.df)
 #'
 #' @export

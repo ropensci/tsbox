@@ -13,7 +13,7 @@
 #' # non-default colnames
 #' colnames(df) <- c("id", "date", "count")
 #' # switch back to default colnames
-#' head(ts_default(df))
+#' ts_default(df)
 #' @export
 ts_default <- function(x) {
   if (inherits(x, "ts")) return(x)
