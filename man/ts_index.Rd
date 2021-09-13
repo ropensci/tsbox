@@ -5,7 +5,7 @@
 \alias{ts_compound}
 \title{Indices from Levels or Percentage Rates}
 \usage{
-ts_compound(x, denominator = 100)
+ts_compound(x, denominator = 100L)
 
 ts_index(x, base = NULL)
 }
@@ -14,7 +14,7 @@ ts_index(x, base = NULL)
 \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
 \code{timeSeries}.}
 
-\item{denominator}{numeric, set equal to one if percentage change rate is
+\item{denominator}{positive number. Set equal to 1 if percentage change rate is
 given a decimal fraction}
 
 \item{base}{base date, character string, \code{Date} or \code{POSIXct}, at which the
