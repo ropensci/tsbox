@@ -19,9 +19,6 @@
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
 #'
-#' @return a ts-boxable time series, with the same class as the input. If time
-#'  stamp shifting causes the object to be irregular, a data frame is returned.
-#'
 #' @examples
 #' \donttest{
 #' ts_plot(AirPassengers, ts_lag(AirPassengers), title = "The need for glasses")

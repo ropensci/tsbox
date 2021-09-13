@@ -15,8 +15,9 @@ ts_lag(x, by = 1)
 (integer), or an absolute amount of time (character). See details.}
 }
 \value{
-a ts-boxable time series, with the same class as the input. If time
-stamp shifting causes the object to be irregular, a data frame is returned.
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Shift time stamps in ts-boxable time series, either by a number of periods or

@@ -37,6 +37,9 @@ time_shift <- function(x, by = NULL) {
 
   if (is.null(by)) return(x)
 
+  # ensure input of character parameters is not case dependent
+  if (is.character(by)) by <- tolower(by)
+
   # high freq can be added to POSIXct only
   if (is.character(by) && grepl("sec|min|hour|[^a-z]s$|[^a-z]h$", by)){
     x <- as.POSIXct(x)
