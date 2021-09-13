@@ -259,7 +259,16 @@ ts_lastplot_call <- function() {
 #' @param height height
 #' @param device device
 #' @param open logical, should the saved plot be opened?
+#' @return invisible `TRUE`, if successful
 #' @export
+#' @examples
+#' \donttest{
+#'   ts_plot(AirPassengers)
+#'   tf <- tempfile(fileext = ".pdf")
+#'   ts_save(tf)
+#'   unlink(tf)
+#' }
+#'
 ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
                     height = 5, device = NULL, open = TRUE) {
 
@@ -306,4 +315,6 @@ ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
   dev.off()
 
   if (open) browseURL(filename)
+
+  invisible(TRUE)
 }

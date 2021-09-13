@@ -11,7 +11,8 @@ ts_regular(x, fill = NA)
 \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
 \code{timeSeries}.}
 
-\item{fill}{instead of \code{NA}, an alternative value can be specified}
+\item{fill}{numeric, instead of \code{NA}, an alternative value can be specified.
+E.g., 0, -99.}
 }
 \value{
 a ts-boxable object of the same class as \code{x}, i.e., an object of

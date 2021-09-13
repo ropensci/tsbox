@@ -8,7 +8,7 @@
 #' @param x a ts-boxable time series, or a wide `data.frame`,
 #' `data.table`, or `tibble`.
 #'
-#' @return object with the same class as input
+#' @inherit ts_default return
 #' @examples
 #' df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
 #' df.wide

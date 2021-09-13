@@ -5,7 +5,8 @@
 #' enforced.
 #'
 #' @inherit ts_default
-#' @param fill instead of `NA`, an alternative value can be specified
+#' @param fill numeric, instead of `NA`, an alternative value can be specified.
+#'   E.g., 0, -99.
 #' @examples
 #' x0 <- AirPassengers
 #' x0[c(10, 15)] <- NA
@@ -22,6 +23,7 @@
 #' @export
 ts_regular <- function(x, fill = NA) {
   stopifnot(ts_boxable(x))
+  fill <- as.numeric(fill)
   if (inherits(x, "ts")) {  # to save time
     if (!is.na(fill)) {
       x[is.na(x)] <- fill
