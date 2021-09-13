@@ -25,6 +25,7 @@ supported_classes <- function(){
 #' Mainly used internally.
 #'
 #' @inherit ts_dts
+#' @return character, the relevant class of ts-boxable object
 #' @examples
 #' relevant_class(AirPassengers)
 #' relevant_class(ts_df(AirPassengers))
@@ -99,7 +100,10 @@ desired_class <- function(ll) {
 #'   (data frame only)
 #' @param preserve.time should the values time column be preserved
 #'   (data frame only)
+#' @return a ts-boxable object of the same class as `template`.
 #' @export
+#' @examples
+#' copy_class(mdeaths, ts_tbl(fdeaths))
 copy_class <- function(x, template,
                        preserve.mode = TRUE,
                        preserve.names = FALSE,

@@ -37,3 +37,6 @@ internally.
 \details{
 Inspired by \code{xts::reclass}, which does something similar.
 }
+\examples{
+copy_class(mdeaths, ts_tbl(fdeaths))
+}

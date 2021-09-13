@@ -98,10 +98,10 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
 
   # specification by shift string: create date
   if (!is.null(start) && grepl("[a-z]", start)){
-    start <- time_shift(time_shift(max(x.dts$time), sstr), start)
+    start <- time_shift(time_shift(max(x.dts$time), sstr), to.lower(start))
   }
   if (!is.null(end) && grepl("[a-z]", end)){
-    end <- time_shift(time_shift(min(x.dts$time), paste0("-", sstr)), end)
+    end <- time_shift(time_shift(min(x.dts$time), paste0("-", sstr)),  to.lower(end))
   }
 
   # specification by date: apply anytime
@@ -134,6 +134,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
 
   # specification by template: get start and end from template
   if (!is.null(template)){
+    stopifnot(ts_boxable(template))
     stopifnot(is.null(start), is.null(end))
     t.dts <- ts_dts(template)
     rng <- range(t.dts[[dts_cname(t.dts)$time]])
