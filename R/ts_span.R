@@ -96,11 +96,11 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   }
 
   # specification by shift string: create date
-  if (!is.null(start) && grepl("[a-z]", start)){
-    start <- time_shift(time_shift(max(x.dts$time), sstr), tolower(start))
+  if (!is.null(start) && grepl("[a-zA-Z]", start)){
+    start <- time_shift(time_shift(max(x.dts$time), sstr), start)
   }
-  if (!is.null(end) && grepl("[a-z]", end)){
-    end <- time_shift(time_shift(min(x.dts$time), paste0("-", sstr)),  tolower(end))
+  if (!is.null(end) && grepl("[a-zA-Z]", end)){
+    end <- time_shift(time_shift(min(x.dts$time), paste0("-", sstr)),  end)
   }
 
   # specification by date: apply anytime
