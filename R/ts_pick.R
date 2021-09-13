@@ -2,10 +2,9 @@
 #'
 #' Pick (and optionally rename) series from multiple time series.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param ... character string(s), names of the series to be picked, or integer,
 #'   with positions. If arguments are named, the series will be renamed.
-#' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' # Interactive use
 #' \donttest{

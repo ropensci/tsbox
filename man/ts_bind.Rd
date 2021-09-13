@@ -15,14 +15,20 @@ ts_chain(...)
 \code{timeSeries}.}
 }
 \value{
-A ts-boxable object of the same class as the input.
-If series of different classes are combined, the class of the first series is
-used (if possible).
+a ts-boxable object of the same class as the input, i.e., an object
+of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
+If series of different classes are combined, the class of the first series
+is used (if possible).
 }
 \description{
 Combine time series to a new, single time series. \code{ts_bind} combines time
 series as they are, \code{ts_chain} chains them together, using percentage change
 rates.
+}
+\details{
+In data frame objects, multiple time series are stored in a long data frame.
+In \code{ts} and \code{xts} objects, time series are combined horizontally.
 }
 \examples{
 ts_bind(ts_span(mdeaths, end = "1975-12-01"), fdeaths)

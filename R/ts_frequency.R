@@ -7,7 +7,7 @@
 #' has support for ts-boxable objects. See
 #' `vignette("hf-disagg", package = "tempdisagg")`.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
 #' @param aggregate character string, or function. Either `"mean"`, `"sum"`,
@@ -18,7 +18,6 @@
 #'
 #' @seealso [tempdisagg::td()], for conversion from low to high frequency.
 #'
-#' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' \donttest{
 #' ts_frequency(cbind(mdeaths, fdeaths), "year", "sum")

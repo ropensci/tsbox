@@ -11,7 +11,7 @@
 #' `"month"`, `"quarter" or `"year", or an abbreviation. If the series are of
 #' the same frequency, the shift can be specified in periods. See examples.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param start start date, character string, `Date` or `POSIXct`
 #' @param end end date, character string, `Date` or `POSIXct`.
 #' @param template ts-boxable time series, an object of class `ts`, `xts`,
@@ -19,7 +19,6 @@
 #'   will be extracted from the object.
 #' @param extend logical. If true, the start and end values are allowed to
 #'   extend the series (by adding `NA` values).
-#' @return a ts-boxable time series, with the same class as the input.
 #' @export
 #' @examples
 #'

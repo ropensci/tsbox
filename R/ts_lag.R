@@ -15,7 +15,7 @@
 #' negative) integer and a space, or followed by plural "s". This is passed to
 #' [base::seq.Date()]. This does not require the series to be regular.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
 #'

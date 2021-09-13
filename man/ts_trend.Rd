@@ -18,6 +18,11 @@ ts_trend(x, ...)
 Details)
 }}
 }
+\value{
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
+}
 \description{
 Trend estimation that uses \code{\link[stats:loess]{stats::loess()}}.
 }

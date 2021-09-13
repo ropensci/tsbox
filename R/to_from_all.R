@@ -24,7 +24,7 @@ supported_classes <- function(){
 #'
 #' Mainly used internally.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @return character, the relevant class of ts-boxable object
 #' @examples
 #' relevant_class(AirPassengers)
@@ -40,7 +40,7 @@ relevant_class <- function(x) {
 #'
 #' Mainly used internally.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @return logical, either `TRUE` or `FALSE`
 #' @examples
 #' ts_boxable(AirPassengers)
@@ -90,7 +90,7 @@ desired_class <- function(ll) {
 #'
 #' Inspired by `xts::reclass`, which does something similar.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param template ts-boxable time series, an object of class `ts`, `xts`,
 #'   `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
 #'   `irts` or `timeSeries`.
@@ -100,7 +100,10 @@ desired_class <- function(ll) {
 #'   (data frame only)
 #' @param preserve.time should the values time column be preserved
 #'   (data frame only)
-#' @return a ts-boxable object of the same class as `template`.
+#' @return a ts-boxable object of the same class as `template`,
+#'   i.e., an object of class `ts`, `xts`, `zoo`,
+#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
+#'   `timeSeries`.
 #' @export
 #' @examples
 #' copy_class(mdeaths, ts_tbl(fdeaths))

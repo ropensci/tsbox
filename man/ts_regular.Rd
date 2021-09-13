@@ -13,6 +13,11 @@ ts_regular(x, fill = NA)
 
 \item{fill}{instead of \code{NA}, an alternative value can be specified}
 }
+\value{
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
+}
 \description{
 Enforces regularity in data frame and \code{xts} objects, by turning implicit
 \code{NA}s into explicit \code{NA}s. In \code{ts} objects, regularity is automatically

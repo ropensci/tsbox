@@ -9,15 +9,12 @@
 #' With the exception of `ts_prcomp`, these functions depend on external
 #' packages.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param ... further arguments, passed to the underlying function. For help,
 #'   consider these functions, e.g., [stats::prcomp].
 #'
 #' @seealso [Vignette](https://www.tsbox.help/articles/ts-functions.html) on how
 #'   to make arbitrary functions ts-boxable.
-#'
-#' @return Usually, a ts-boxable time series, with the same class as the input.
-#'   `ts_dygraphs` draws a plot.
 #'
 #' @examples
 #' \donttest{

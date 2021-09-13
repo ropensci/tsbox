@@ -1,8 +1,6 @@
 #' Internal Time Series Class
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
-#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
-#'   `timeSeries`.
+#' @inherit ts_default
 #' @export
 ts_dts <- function(x) {
   UseMethod("ts_dts")

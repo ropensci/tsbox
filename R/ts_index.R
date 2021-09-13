@@ -35,11 +35,10 @@ ts_compound <- function(x, denominator = 100) {
 #' `ts_compound` builds an index from percentage change rates, starting with 1
 #' and compounding the rates.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param base base date, character string, `Date` or `POSIXct`, at which the
 #'  index is set to 1. If two dates are provided, the average with the range is
 #'  set equal to 1 (see examples).
-#' @return a ts-boxable time series, with the same class as the input.
 #' @examples
 #' ts_compound(ts_pc(ts_c(fdeaths, mdeaths)))
 #' ts_index(ts_df(ts_c(fdeaths, mdeaths)), "1974-02-01")

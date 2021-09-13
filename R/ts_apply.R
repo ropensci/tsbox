@@ -29,7 +29,7 @@ ts_apply_dts <- function(x, fun, ...) {
 
 # ts_apply(ts_c(mdeaths, fdeaths), ts_diff)
 #' @export
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param ... arguments passed to subfunction
 #' @name ts_
 ts_apply <- function(x, fun, ...) {

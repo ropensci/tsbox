@@ -5,12 +5,7 @@
 #' rates.
 #'
 #' @seealso [ts_c] to collect multiple time series
-#' @param ... ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
-#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
-#'   `timeSeries`.
-#' @return A ts-boxable object of the same class as the input.
-#' If series of different classes are combined, the class of the first series is
-#' used (if possible).
+#' @inherit ts_c
 #'
 #' @examples
 #' ts_bind(ts_span(mdeaths, end = "1975-12-01"), fdeaths)

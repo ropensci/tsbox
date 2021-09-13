@@ -7,11 +7,18 @@
 ts_scale(x, center = TRUE, scale = TRUE)
 }
 \arguments{
-\item{x}{ts_boxable time series}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 
 \item{center}{logical}
 
 \item{scale}{logical}
+}
+\value{
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Subtract mean and divide by standard deviation. Based on \code{\link[base:scale]{base::scale()}}.

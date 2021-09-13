@@ -6,8 +6,7 @@
 #' Note that internal NAs in `ts` time series will not be removed, as this
 #' conflicts with the regular structure.
 #'
-#' @inherit ts_dts
-#' @return a ts-boxable time series, with the same class as the input.
+#' @inherit ts_default
 #'
 #' @seealso [ts_regular], for the opposite, turning implicit into explicit
 #'   missing values.

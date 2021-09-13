@@ -22,7 +22,9 @@ index is set to 1. If two dates are provided, the average with the range is
 set equal to 1 (see examples).}
 }
 \value{
-a ts-boxable time series, with the same class as the input.
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 \code{ts_index} returns an indexed series, with value of 1 at the \code{base} date or

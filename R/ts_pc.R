@@ -6,8 +6,7 @@
 #' `ts_pca` calculates annualized percentage change rates compared to the
 #' previous period.
 #'
-#' @inherit ts_dts
-#' @return a ts-boxable time series, with the same class as the input.
+#' @inherit ts_default
 #' @examples
 #' ts_diff(ts_c(fdeaths, mdeaths))
 #' ts_pc(ts_c(fdeaths, mdeaths))

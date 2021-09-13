@@ -4,7 +4,7 @@
 #' `NA`s into explicit `NA`s. In `ts` objects, regularity is automatically
 #' enforced.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param fill instead of `NA`, an alternative value can be specified
 #' @examples
 #' x0 <- AirPassengers

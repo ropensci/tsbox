@@ -2,7 +2,7 @@
 #'
 #' Trend estimation that uses [stats::loess()].
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param ... arguments, passed to [stats::loess()]:
 #' - `degree` degree of Loess smoothing
 #' - `span` smoothing parameter, if `NULL`, an automated search performed (see

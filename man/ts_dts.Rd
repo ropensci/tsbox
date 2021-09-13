@@ -11,6 +11,22 @@ ts_dts(x)
 \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
 \code{timeSeries}.}
 }
+\value{
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
+}
 \description{
-Internal Time Series Class
+In data frame objects (\code{data.frame}, \code{tibble}, \code{data.table}), tsbox
+automatically detects the time and the value column. This function changes
+the column names to the defaults (\code{time}, \code{value}), so that auto-detection
+can be avoided in future operations.
+}
+\examples{
+
+df <- ts_df(ts_c(mdeaths, fdeaths))
+# non-default colnames
+colnames(df) <- c("id", "date", "count")
+# switch back to default colnames
+ts_default(df)
 }

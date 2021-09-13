@@ -1,6 +1,6 @@
 #' Start and end of time series
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @export
 #' @name tsbox-deprecated
 ts_start <- function(x) {

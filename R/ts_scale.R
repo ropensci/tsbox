@@ -5,7 +5,7 @@
 #'
 #' Subtract mean and divide by standard deviation. Based on [base::scale()].
 #'
-#' @param x ts_boxable time series
+#' @inherit ts_default
 #' @param center logical
 #' @param scale logical
 #' @export
