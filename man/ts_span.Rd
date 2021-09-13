@@ -40,7 +40,6 @@ the same frequency, the shift can be specified in periods. See examples.
 }
 \examples{
 
-\donttest{
 # use 'anytime' shortcuts
 ts_span(mdeaths, start = "1979")       # shortcut for 1979-01-01
 ts_span(mdeaths, start = "1979-4")     # shortcut for 1979-04-01
@@ -56,6 +55,7 @@ ts_span(mdeaths, start = -7)           # last 7 periods
 ts_span(mdeaths, start = -1)           # last single value
 ts_span(mdeaths, end = "1e4 hours")    # first 10000 hours
 
+\donttest{
 ts_plot(
   ts_span(mdeaths, start = "-3 years"),
   title = "Three years ago",
