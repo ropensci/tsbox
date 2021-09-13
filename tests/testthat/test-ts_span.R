@@ -89,6 +89,17 @@ test_that("extending by NA works for different frequencies", {
 })
 
 
+test_that("extending by template works", {
+  target <-
+    ts_span(ts_span(discoveries, template = AirPassengers, extend = FALSE), template = AirPassengers, extend = TRUE)
+  actual <- ts_span(ts_span(discoveries, template = AirPassengers, extend = TRUE))
+  expect_equal(target, actual)
+})
+
+
+
+
+
 
 
 

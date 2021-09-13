@@ -153,9 +153,13 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
         stop("'start' cannot be at or after 'end'", call. = FALSE)
       }
       by_str <- frequency_one(df$time)$string
-      # target sequence must be aligned dates of sereis, not with start and date
+      # target sequence must be aligned with dates of series, not with start and date
       sq <- c(
-        seq(mystart, start, by = paste0("-", by_str)),
+        if (mystart > start) {
+          seq(mystart, start, by = paste0("-", by_str))
+        } else {
+          mystart
+        },
         seq(mystart, end, by = by_str)[-1]
       )
       full <- data.table(time = sq)
