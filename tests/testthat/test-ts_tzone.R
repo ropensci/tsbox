@@ -2,7 +2,8 @@
 library(testthat)
 library(tsbox)
 
-
+#' @srrstats {G5.9b} *Running under different random seeds or initial conditions does not meaningfully change results*
+#'   Test that operations do not depend on time zone
 test_that("operations do not depend on time zone", {
 
   skip_on_cran()

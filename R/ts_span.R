@@ -12,8 +12,8 @@
 #' the same frequency, the shift can be specified in periods. See examples.
 #'
 #' @inherit ts_default
-#' @param start start date, character string, `Date` or `POSIXct`
-#' @param end end date, character string, `Date` or `POSIXct`.
+#' @param start start date, character string of length 1, `Date` or `POSIXct`
+#' @param end end date, character string of length 1, `Date` or `POSIXct`.
 #' @param template ts-boxable time series, an object of class `ts`, `xts`,
 #'   `data.frame`, `data.table`, or `tibble`. If provided, `from` and `to`
 #'   will be extracted from the object.
@@ -54,6 +54,11 @@
 #' # Limit span of 'discoveries' to the same span as 'AirPassengers'
 #' ts_span(discoveries, template = AirPassengers)
 #' ts_span(mdeaths, end = "19801201", extend = TRUE)
+#' @srrstats {G2.2} *Appropriately prohibit or restrict submission of multivariate input to parameters expected to be univariate.*
+#'   Done here.
+#' @srrstats {G2.0a} Provide explicit secondary documentation of any expectations on lengths of inputs
+#'   Done here.
+#' @srrstats {G2.0} *Implement assertions on lengths of inputs, particularly through asserting that inputs expected to be single- or multi-valued are indeed so.*
 ts_span <- function(x, start = NULL, end = NULL, template = NULL,
                     extend = FALSE) {
 

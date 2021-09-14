@@ -11,9 +11,9 @@ ts_span(x, start = NULL, end = NULL, template = NULL, extend = FALSE)
 \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
 \code{timeSeries}.}
 
-\item{start}{start date, character string, \code{Date} or \code{POSIXct}}
+\item{start}{start date, character string of length 1, \code{Date} or \code{POSIXct}}
 
-\item{end}{end date, character string, \code{Date} or \code{POSIXct}.}
+\item{end}{end date, character string of length 1, \code{Date} or \code{POSIXct}.}
 
 \item{template}{ts-boxable time series, an object of class \code{ts}, \code{xts},
 \code{data.frame}, \code{data.table}, or \code{tibble}. If provided, \code{from} and \code{to}
