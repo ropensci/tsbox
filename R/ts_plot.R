@@ -269,8 +269,16 @@ ts_lastplot_call <- function() {
 #'   unlink(tf)
 #' }
 #'
+#' @srrstats {G4.0} *Statistical Software which enables outputs to be written
+#' to local files should parse parameters specifying file names to ensure
+#' appropriate file suffices are automatically generated where not provided.*
 ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
                     height = 5, device = NULL, open = TRUE) {
+
+  # if no file suffix is provided use .pdf
+  if (!grepl("\\.[a-z]+$", filename) && is.null(device)) {
+    filename <- paste0(filename, ".pdf")
+  }
 
   if (is.null(device)){
     device <- gsub(".*\\.([a-z]+)$", "\\1", tolower(filename))

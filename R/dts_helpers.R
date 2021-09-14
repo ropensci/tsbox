@@ -1,4 +1,13 @@
 
+
+#' Create a Data Table Based Time Series Object
+#'
+#' @param x a `data.table` object
+#' @noRd
+#' @srrstats {TS1.5} *The software should ensure strict ordering of the time, frequency, or equivalent ordering index variable.*
+#'   Sorts if not already ordered.
+#' @srrstats {TS1.6} *Any violations of ordering should be caught in the pre-processing stages of all functions.*
+#'   Done here.
 dts_init <- function(x){
 
   .SD <- NULL

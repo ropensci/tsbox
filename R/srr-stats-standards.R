@@ -58,12 +58,19 @@
 #' @srrstatsTODO {G2.14c} *replace missing data with appropriately imputed values*
 #' @srrstatsTODO {G2.15} *Functions should never assume non-missingness, and should never pass data with potential missing values to any base routines with default `na.rm = FALSE`-type parameters (such as [`mean()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/mean.html), [`sd()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/sd.html) or [`cor()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cor.html)).*
 #' @srrstatsTODO {G2.16} *All functions should also provide options to handle undefined values (e.g., `NaN`, `Inf` and `-Inf`), including potentially ignoring or removing such values.* 
+
+
+# TODO Floating comparisons....
 #' @srrstatsTODO {G3.0} *Statistical software should never compare floating point numbers for equality. All numeric equality comparisons should either ensure that they are made between integers, or use appropriate tolerances for approximate equality.* 
-#' @srrstatsTODO {G3.1} *Statistical software which relies on covariance calculations should enable users to choose between different algorithms for calculating covariances, and should not rely solely on covariances from the `stats::cov` function.*
-#' @srrstatsTODO {G3.1a} *The ability to use arbitrarily specified covariance methods should be documented (typically in examples or vignettes).* 
-#' @srrstatsTODO {G4.0} *Statistical Software which enables outputs to be written to local files should parse parameters specifying file names to ensure appropriate file suffices are automatically generated where not provided.* 
-#' @srrstatsTODO {G5.0} *Where applicable or practicable, tests should use standard data sets with known properties (for example, the [NIST Standard Reference Datasets](https://www.itl.nist.gov/div898/strd/), or data sets provided by other widely-used R packages).*
-#' @srrstatsTODO {G5.1} *Data sets created within, and used to test, a package should be exported (or otherwise made generally available) so that users can confirm tests and run examples.* 
+
+
+#' @srrstats {G4.0} *Statistical Software which enables outputs to be written to local files should parse parameters specifying file names to ensure appropriate file suffices are automatically generated where not provided.*
+
+
+
+#' @srrstats {G5.0} *Where applicable or practicable, tests should use standard data sets with known properties (for example, the [NIST Standard Reference Datasets](https://www.itl.nist.gov/div898/strd/), or data sets provided by other widely-used R packages).*
+#'   Uses R datasets everywhere
+
 #' @srrstatsTODO {G5.2} *Appropriate error and warning behaviour of all functions should be explicitly demonstrated through tests. In particular,*
 #' @srrstatsTODO {G5.2a} *Every message produced within R code by `stop()`, `warning()`, `message()`, or equivalent should be unique*
 #' @srrstatsTODO {G5.2b} *Explicit tests should demonstrate conditions which trigger every one of those messages, and should compare the result with expected values.*
@@ -90,40 +97,56 @@
 
 
 
-#' @srrstatsTODO {G5.12} *Any conditions necessary to run extended tests such as platform requirements, memory, expected runtime, and artefacts produced that may need manual inspection, should be described in developer documentation such as a `CONTRIBUTING.md` or `tests/README.md` file.*
-#' @srrstatsTODO {TS1.0} *Time Series Software should use and rely on explicit class systems developed for representing time series data, and should not permit generic, non-time-series input* 
-#' @srrstatsTODO {TS1.1} *Time Series Software should explicitly document the types and classes of input data able to be passed to each function.* 
-#' @srrstatsTODO {TS1.2} *Time Series Software should implement validation routines to confirm that inputs are of acceptable classes (or represented in otherwise appropriate ways for software which does not use class systems).*
-#' @srrstatsTODO {TS1.3} *Time Series Software should implement a single pre-processing routine to validate input data, and to appropriately transform it to a single uniform type to be passed to all subsequent data-processing functions (the [`tsbox` package](https://www.tsbox.help/) provides one convenient approach for this).*
-#' @srrstatsTODO {TS1.4} *The pre-processing function described above should maintain all time- or date-based components or attributes of input data.* 
-#' @srrstatsTODO {TS1.5} *The software should ensure strict ordering of the time, frequency, or equivalent ordering index variable.*
-#' @srrstatsTODO {TS1.6} *Any violations of ordering should be caught in the pre-processing stages of all functions.* 
-#' @srrstatsTODO {TS1.7} *Accept inputs defined via the [`units` package](https://github.com/r-quantities/units/) for attributing SI units to R vectors.*
+#' @srrstats {TS1.0} *Time Series Software should use and rely on explicit class systems developed for representing time series data, and should not permit generic, non-time-series input*
+#'   This is the core of tsbox.
+#' @srrstats {TS1.1} *Time Series Software should explicitly document the types and classes of input data able to be passed to each function.*
+#'   Done for all functions.
+#' @srrstats {TS1.2} *Time Series Software should implement validation routines to confirm that inputs are of acceptable classes (or represented in otherwise appropriate ways for software which does not use class systems).*
+#'   Done for all functions.
+#' @srrstats {TS1.3} *Time Series Software should implement a single pre-processing routine to validate input data, and to appropriately transform it to a single uniform type to be passed to all subsequent data-processing functions (the [`tsbox` package](https://www.tsbox.help/) provides one convenient approach for this).*
+#'   This is at the core of tsbox: Everything is converted to a 'dts' object, operations are performed on theser, then they are converted back.
+#' @srrstats {TS1.4} *The pre-processing function described above should maintain all time- or date-based components or attributes of input data.*
+#'   All ts-boxable classes as well as 'dts' objects keep this information intact.
+#' @srrstats {TS1.5} *The software should ensure strict ordering of the time, frequency, or equivalent ordering index variable.*
+#' @srrstats {TS1.6} *Any violations of ordering should be caught in the pre-processing stages of all functions.*
+
+#' @srrstats {TS1.7} *Accept inputs defined via the [`units` package](https://github.com/r-quantities/units/) for attributing SI units to R vectors.*
+#'   Units definied via the `units` package, stay alive as long as one works with data frame like objects (data table, tibble). ts objects currently loose the unit, as they are not supported by `units`.
+
 #' @srrstatsTODO {TS1.8} *Where time intervals or periods may be days or months, be explicit about the system used to represent such, particularly regarding whether a calendar system is used, or whether a year is presumed to have 365 days, 365.2422 days, or some other value.* 
+
+# ts_regular, missing values
 #' @srrstatsTODO {TS2.0} *Time Series Software which presumes or requires regular data should only allow **explicit** missing values, and should issue appropriate diagnostic messages, potentially including errors, in response to any **implicit** missing values.*
+
 #' @srrstatsTODO {TS2.1} *Where possible, all functions should provide options for users to specify how to handle missing data, with options minimally including:*
 #' @srrstatsTODO {TS2.1a} *error on missing data; or.
 #' @srrstatsTODO {TS2.1b} *warn or ignore missing data, and proceed to analyse irregular data, ensuring that results from function calls with regular yet missing data return identical values to submitting equivalent irregular data with no missing values; or*
 #' @srrstatsTODO {TS2.1c} *replace missing data with appropriately imputed values.* 
-#' @srrstatsTODO {TS2.2} *Consider stationarity of all relevant moments - typically first (mean) and second (variance) order, or otherwise document why such consideration may be restricted to lower orders only.*
-#' @srrstatsTODO {TS2.3} *Explicitly document all assumptions and/or requirements of stationarity*
-#' @srrstatsTODO {TS2.4} *Implement appropriate checks for all relevant forms of stationarity, and either:*
-#' @srrstatsTODO {TS2.4a} *issue diagnostic messages or warnings; or*
-#' @srrstatsTODO {TS2.4b} *enable or advise on appropriate transformations to ensure stationarity.* 
-#' @srrstatsTODO {TS2.5} *Incorporate a system to ensure that both row and column orders follow the same ordering as the underlying time series data. This may, for example, be done by including the `index` attribute of the time series data as an attribute of the covariance matrix.*
-#' @srrstatsTODO {TS2.6} *Where applicable, covariance matrices should also include specification of appropriate units.* 
+
+#' @srrstats {TS2.5} *Incorporate a system to ensure that both row and column orders follow the same ordering as the underlying time series data. This may, for example, be done by including the `index` attribute of the time series data as an attribute of the covariance matrix.*
+#'   All output keeps column order. Row order is re-arranged by time if needed, in line with {TS1.5}. ts_default() reorders columns to id columns, `time` and `value`.
+
+
+#' @srrstats {TS4.0} *Return values should either:*
+#' @srrstats {TS4.0a} *Be in same class as input data, for example by using the [`tsbox` package](https://www.tsbox.help/) to re-convert from standard internal format (see 1.4, above); or*
+#'   The core of this package.
+#' @srrstats {TS4.1} *Any units included as attributes of input data should also be included within return values.*
+#'   Units definied via the `units` package stay alive as long as one works with data frame like objects (data table, tibble). ts objects currently loose the unit, as they are not supported by `units`.
+#' @srrstats {TS4.2} *The type and class of all return values should be explicitly documented.*
+#'   Done throughout the package and ensured by autotest
+#' @srrstats {TS4.3} *Return values should explicitly include all appropriate units and/or time scales*
+#'   Units definied via the `units` package stay alive as long as one works with data frame like objects (data table, tibble). ts objects currently loose the unit, as they are not supported by `units`.
+
+
+# TODO ts_forecast??
 #' @srrstatsTODO {TS3.0} *Provide tests to demonstrate at least one case in which errors widen appropriately with forecast horizon.*
 #' @srrstatsTODO {TS3.1} *If possible, provide at least one test which violates TS3.0*
 #' @srrstatsTODO {TS3.2} *Document the general drivers of forecast errors or horizons, as demonstrated via the particular cases of TS3.0 and TS3.1*
 #' @srrstatsTODO {TS3.3} *Either:*
 #' @srrstatsTODO {TS3.3a} *Document, preferable via an example, how to trim forecast values based on a specified error margin or equivalent; or*
-#' @srrstatsTODO {TS3.3b} *Provide an explicit mechanism to trim forecast values to a specified error margin, either via an explicit post-processing function, or via an input parameter to a primary analytic function.* 
-#' @srrstatsTODO {TS4.0} *Return values should either:*
-#' @srrstatsTODO {TS4.0a} *Be in same class as input data, for example by using the [`tsbox` package](https://www.tsbox.help/) to re-convert from standard internal format (see 1.4, above); or*
-#' @srrstatsTODO {TS4.0b} *Be in a unique, preferably class-defined, format.*
-#' @srrstatsTODO {TS4.1} *Any units included as attributes of input data should also be included within return values.*
-#' @srrstatsTODO {TS4.2} *The type and class of all return values should be explicitly documented.* 
-#' @srrstatsTODO {TS4.3} *Return values should explicitly include all appropriate units and/or time scales* 
+#' @srrstatsTODO {TS3.3b} *Provide an explicit mechanism to trim forecast values to a specified error margin, either via an explicit post-processing function, or via an input parameter to a primary analytic function.*
+#'
+#'
 #' @srrstatsTODO {TS4.4} *Document the effect of any such transformations on forecast data, including potential effects on both first- and second-order estimates.*
 #' @srrstatsTODO {TS4.5} *In decreasing order of preference, either:*
 #' @srrstatsTODO {TS4.5a} *Provide explicit routines or options to back-transform data commensurate with original, non-stationary input data*
@@ -137,6 +160,9 @@
 #' @srrstatsTODO {TS4.7a} *Returning forecast values alone*
 #' @srrstatsTODO {TS4.7b} *Returning distinct list items for model and forecast values*
 #' @srrstatsTODO {TS4.7c} *Combining model and forecast values into a single return object with an appropriate additional column clearly distinguishing the two kinds of data.* 
+
+
+# TODO ts_plot
 #' @srrstatsTODO {TS5.0} *Implement default `plot` methods for any implemented class system.*
 #' @srrstatsTODO {TS5.1} *When representing results in temporal domain(s), ensure that one axis is clearly labelled "time" (or equivalent), with continuous units.*
 #' @srrstatsTODO {TS5.2} *Default to placing the "time" (or equivalent) variable on the horizontal axis.*
@@ -146,6 +172,7 @@
 #' @srrstatsTODO {TS5.6} *By default indicate distributional limits of forecast on plot*
 #' @srrstatsTODO {TS5.7} *By default include model (input) values in plot, as well as forecast (output) values*
 #' @srrstatsTODO {TS5.8} *By default provide clear visual distinction between model (input) values and forecast (output) values.*
+
 #' @noRd
 NULL
 
@@ -164,5 +191,34 @@ NULL
 #'   No extended tests require large data sets
 #' @srrstatsNA {G5.11a} *When any downloads of additional data necessary for extended tests fail, the tests themselves should not fail, rather be skipped and implicitly succeed with an appropriate diagnostic message.*
 #'   No downloads of additional data
+#' @srrstatsNA {G5.12} *Any conditions necessary to run extended tests such as platform requirements, memory, expected runtime, and artefacts produced that may need manual inspection, should be described in developer documentation such as a `CONTRIBUTING.md` or `tests/README.md` file.*
+#'   No conditions apply.
+#'
+#' Stationarity
+#' @srrstatsNA {TS2.2} *Consider stationarity of all relevant moments - typically first (mean) and second (variance) order, or otherwise document why such consideration may be restricted to lower orders only.*
+#'   Validity of tsbox transformations generally does not depend on stationarity, so no such checks are performed.
+#' @srrstatsNA {TS2.3} *Explicitly document all assumptions and/or requirements of stationarity*
+#'   Validity of tsbox transformations generally does not depend on stationarity, so no such checks are performed.
+#' @srrstatsNA {TS2.4} *Implement appropriate checks for all relevant forms of stationarity, and either:*
+#'   Validity of tsbox transformations generally does not depend on stationarity, so no such checks are performed.
+#' @srrstatsNA {TS2.4a} *issue diagnostic messages or warnings; or*
+#'   Validity of tsbox transformations generally does not depend on stationarity, so no such checks are performed.
+#' @srrstatsNA {TS2.4b} *enable or advise on appropriate transformations to ensure stationarity.*
+#' @srrstatsNA {TS4.0b} *Be in a unique, preferably class-defined, format.*
+#'   Alternative {TS4.0a} is used.
+
+#' @srrstatsNA {G3.1} *Statistical software which relies on covariance calculations should enable users to choose between different algorithms for calculating covariances, and should not rely solely on covariances from the `stats::cov` function.*
+#'   No covariance calculations are performed.
+#' @srrstatsNA {G3.1a} *The ability to use arbitrarily specified covariance methods should be documented (typically in examples or vignettes).*
+#'   No covariance calculations are performed.
+#' @srrstatsNA {TS2.6} *Where applicable, covariance matrices should also include specification of appropriate units.*
+
+
+
+#' @srrstatsNA {G5.1} *Data sets created within, and used to test, a package should be exported (or otherwise made generally available) so that users can confirm tests and run examples.*
+#'   No specific test data set is used.
+
+
+
 #' @noRd
 NULL
