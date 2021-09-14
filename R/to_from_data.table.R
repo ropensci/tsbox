@@ -2,6 +2,8 @@ register_class("data.table")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_data.table_dts <- function(x) {
   dts_rm(x)[]
 }

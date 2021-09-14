@@ -2,6 +2,8 @@ register_class("data.frame")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_data.frame_dts <- function(x) {
   as.data.frame(ts_data.table(x))
 }

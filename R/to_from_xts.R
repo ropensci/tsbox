@@ -2,6 +2,8 @@ register_class("xts")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_xts_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
   stopifnot(requireNamespace("xts"))

@@ -2,6 +2,8 @@ register_class("tslist")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_tslist_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
   x <- combine_id_cols(x)

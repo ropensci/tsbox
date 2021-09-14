@@ -3,6 +3,18 @@
   # 3 times faster if we store .years
 .years <- as.character(1600:2200)
 
+
+#' Is This a time-like Vector?
+#'
+#' @param x any vector
+#'
+#' - Four digit integer are detected as years
+#' - Use anytime() to detect time stamps
+#'
+#' @examples
+#' is_time(ts_tbl(mdeaths)$time)
+#' is_time(ts_tbl(mdeaths)$value)
+#' @noRd
 is_time <- function(x) {
   if (class(x)[1] %in% c("Date", "POSIXct")) return(TRUE) # beyond doubt
   # use a short vector for time detection
@@ -30,11 +42,31 @@ is_time <- function(x) {
   TRUE
 }
 
+
+#' Is This a value-like Vector?
+#'
+#' @param x any vector
+#'
+#' - is.numeric() works for double and integer
+#'
+#' @examples
+#' is_value(ts_tbl(mdeaths)$time)
+#' @noRd
 is_value <- function(x) {
   is.numeric(x) # also works for integer
-  # class(x)[1] %in% c("numeric")
 }
 
+
+#' Guess Time Column
+#'
+#' Using `is_time()`, this starts at the last column and determines the first
+#' value column.
+#'
+#' @param x a data.frame
+#'
+#' @examples
+#' guess_time(ts_tbl(mdeaths))
+#' @noRd
 guess_time <- function(x, value.name = "value") {
   stopifnot(inherits(x, "data.frame"))
   cnames <- colnames(x)
@@ -62,6 +94,17 @@ guess_time <- function(x, value.name = "value") {
   z
 }
 
+
+#' Guess Value Column
+#'
+#' Using `is_value()`, this starts at the last column and determines the first
+#' value column.
+#'
+#' @param x a data.frame
+#'
+#' @examples
+#' guess_value(ts_tbl(mdeaths))
+#' @noRd
 guess_value <- function(x) {
   stopifnot(inherits(x, "data.frame"))
   cnames <- colnames(x)

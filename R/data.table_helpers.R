@@ -1,5 +1,13 @@
-# function for easier access to data.table
+# Function for easier access to data.table
 
+#' Combine Columns in a data.table
+#'
+#' @param dt `data.table`, or `dts`
+#' @param cols character vector, columns to combine
+#' @param sep character, separate columns by
+#' @examples
+#' combine_cols_data.table(data.table(cars), c("speed", "dist"))
+#' @noRd
 combine_cols_data.table <- function(dt, cols, sep = '_') {
   paste_sep <- function(...) paste(..., sep = sep)
   id <- NULL
@@ -11,8 +19,13 @@ combine_cols_data.table <- function(dt, cols, sep = '_') {
 }
 
 
-# merging dts over time col, using rolling joins
-#
+#' Merging dts by Time Column, Using Rolling Joins
+#'
+#' @param x `data.table`, or `dts`
+#' @param y `data.table`, or `dts`
+#' @param by.x character, column by which to merge
+#' @param by.y character, column by which to merge
+#' @noRd
 merge_time_date <- function(x, y, by.x = "time", by.y = "time"){
 
   `__time_seq` <- time.x <- time.y <- NULL

@@ -96,6 +96,15 @@ time_shift <- function(x, by = NULL) {
 }
 
 
+#' Shift Time Stamps without Heuristics
+#'
+#' If heuristics don't work, this slow routine is used for shifting time stamps
+#'
+#' @param x `Date` or `POSIXct`. If `POSIXct`, it is converted into `Date`.
+#' @param by integer or character, either the number of shifting periods
+#'   (integer), or an absolute amount of time (character). See details.
+#'
+#' @noRd
 time_shift_non_heuristic <- function(x, by) {
 
   xreg <- regularize_date(x)
@@ -141,3 +150,22 @@ time_shift_non_heuristic <- function(x, by) {
 
   z
 }
+
+
+#' First Date or POSIXct of a Year
+#'
+#' @param x Date or POSIXct
+#'
+#' @noRd
+date_year <- function(x) {
+  x0 <- (x)
+  d <- "1"
+  m <- "1"
+  y <- data.table::year(x0)
+  z <- as.Date(paste(y, m, d, sep = "-"))
+  if (inherits(x, "POSIXct")){
+    z <- as.POSIXct(z, origin = "1970-01-01", tz = attr(x, "tzone"))
+  }
+  z
+}
+

@@ -1,5 +1,3 @@
-
-
 #' Create a Data Table Based Time Series Object
 #'
 #' @param x a `data.table` object
@@ -55,6 +53,13 @@ dts_init <- function(x){
   x
 }
 
+
+#' dts Helper: Remove dts attributes
+#'
+#' @param x 'dts'
+#' @return a 'data.table'
+#'
+#' @noRd
 dts_rm <- function(x) {
   setattr(x, "class", setdiff(attr(x, "class"), "dts"))
   setattr(x, "cname", NULL)
@@ -62,6 +67,15 @@ dts_rm <- function(x) {
   x
 }
 
+
+#' dts Helper: Extract (and optionally guess) Column Names
+#'
+#' Once guessed, they are added as an attribute, so cnames need to be guessed
+#' only once.
+#'
+#' @param x 'dts'
+#'
+#' @noRd
 dts_cname <- function(x){
   stopifnot(inherits(x, "dts"))
   z <- attr(x, "cname")
@@ -72,6 +86,15 @@ dts_cname <- function(x){
   z
 }
 
+
+#' dts Helper: Extract (and optionally guess) Time Attribute
+#'
+#' Once guessed, they are added as an attribute, so cnames need to be guessed
+#' only once.
+#'
+#' @param x 'dts'
+#'
+#' @noRd
 dts_tattr <- function(x){
   stopifnot(inherits(x, "dts"))
   z <- attr(x, "tattr")
@@ -82,6 +105,12 @@ dts_tattr <- function(x){
   z
 }
 
+
+#' dts Helper: Determine the Number of Time Series
+#'
+#' @param x 'dts'
+#'
+#' @noRd
 number_of_series <- function(x) {
   stopifnot(inherits(x, "dts"))
   cid <- dts_cname(x)$id
@@ -93,7 +122,14 @@ number_of_series <- function(x) {
   }
 }
 
-# Combine several id columns in one
+
+#' dts Helper: Combine Several Id Columns into One
+#'
+#' Calls `combine_cols_data.table()`.
+#'
+#' @param x 'dts'
+#'
+#' @noRd
 combine_id_cols <- function(x, sep = "_") {
   stopifnot(inherits(x, "dts"))
   if (NCOL(x) <= 3) return(x)

@@ -2,6 +2,8 @@ register_class("timeSeries")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_timeSeries_dts <- function(x) {
   stopifnot(requireNamespace("timeSeries"))
   stopifnot(requireNamespace("xts"))

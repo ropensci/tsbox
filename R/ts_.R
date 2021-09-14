@@ -11,6 +11,7 @@ load_suggested <- function(pkg) {
   }
 }
 
+
 #' Constructing ts-Functions
 #'
 #' `ts_` turns an existing function into a function that can deal with
@@ -140,10 +141,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
     }
   }
 
-
   f <- eval(z, parent.frame())
   attr(f, "srcref") <- NULL # fix so prints correctly (from dtplyr)
   f
 }
-
-

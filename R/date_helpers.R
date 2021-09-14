@@ -1,3 +1,9 @@
+#' Convert Anything to Date or POSIXct
+#'
+#' @param x Date, POSIXct, or anything that can be coerced to character
+#' @examples
+#' as_time_or_date("2021.3")
+#' @noRd
 as_time_or_date <- function(x) {
   if (inherits(x, "Date")) {
     return(x)
@@ -9,8 +15,14 @@ as_time_or_date <- function(x) {
   anydate(as.character(x))
 }
 
-# if this is regular, it is as fast as possilbe, and checks reliably for
-# regularity.
+
+#' Regularize Dates
+#'
+#' If `x` is regular, it is as fast as possilbe, and checks reliably for
+#' regularity.
+#'
+#' @param x Date or POSIXct
+#' @noRd
 regularize_date <- function(x) {
   stopifnot(class(x)[1] %in% c("POSIXct", "Date"))
 
@@ -56,10 +68,14 @@ regularize_date <- function(x) {
   z
 }
 
-
+#' Regularize Dates without Heuristics
+#'
+#' If heuristics don't work, this slow routine used for Date regularization
+#'
+#' @param x Date or POSIXct
+#' @noRd
 regularize_non_heuristic <- function(x) {
   stopifnot(class(x)[1] %in% c("POSIXct", "Date"))
-
 
   x.num <- as.numeric(x)
   dd <- unique(round(diff(x.num), 5))

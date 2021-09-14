@@ -2,6 +2,8 @@ register_class("tibbletime", "tbl_time")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_tibbletime_dts <- function(x) {
   stopifnot(requireNamespace("tibbletime"))
   stopifnot(requireNamespace("tibble"))

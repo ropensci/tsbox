@@ -3,6 +3,8 @@
 
 # fun can rely on time and value colum beeing called 'time' and 'value'
 
+#' Convert to Class
+#' @noRd
 ts_apply_dts <- function(x, fun, ...) {
   .SD <- NULL
   stopifnot(inherits(x, "dts"))

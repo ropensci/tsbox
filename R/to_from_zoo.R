@@ -2,6 +2,8 @@ register_class("zoo")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_zoo_dts <- function(x) {
   stopifnot(requireNamespace("zoo"))
   zoo::as.zoo(ts_xts(x))

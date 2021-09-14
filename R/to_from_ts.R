@@ -2,6 +2,8 @@ register_class("ts")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_ts_dts <- function(x, frequency = NULL) {
   stopifnot(inherits(x, "dts"))
 

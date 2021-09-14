@@ -2,6 +2,8 @@ register_class("irts")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_irts_dts <- function(x) {
   stopifnot(requireNamespace("tseries"))
   x.dt <- ts_wide(ts_data.table(ts_default(x)))

@@ -1,3 +1,9 @@
+#' Extract Date or POSIXct from ts Object
+#'
+#' @param x ts object
+#' @examples
+#' ts_to_date_time(mdeaths)
+#' @noRd
 ts_to_date_time <- function(x) {
 
   freq <- NULL
@@ -19,7 +25,6 @@ ts_to_date_time <- function(x) {
   # stopifnot(abs(offset) < 1e-3)
 
   md <- meta_freq()[freq == fr]
-
 
   # non heuristic conversion for non-heuristics
   if (nrow(md) == 0 ) {
@@ -84,8 +89,11 @@ ts_to_date_time <- function(x) {
 
 }
 
-
-
+#' Extract Start, End and Frequency from Date or POSIXct
+#'
+#' @param x ts object
+#' @param frequency if missing it is detected from x
+#' @noRd
 date_time_to_tsp <- function(x, frequency = NULL) {
 
   freq <- NULL

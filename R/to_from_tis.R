@@ -2,6 +2,8 @@ register_class("tis")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_tis_dts <- function(x) {
   stopifnot(requireNamespace("tis"))
   x.ts <- ts_ts(x)

@@ -1,10 +1,14 @@
-# helper functions for converters
-# (need to be adjusted if new classes are added)
-
-
-
 .tsbox_registry <- new.env(parent = emptyenv())
 
+#' Register a Time Series Class
+#'
+#' So tsbox is aware of it. Run when tsbox is loaded.
+#'
+#' @param tsbox.class character, class name, as used by tsbox
+#' @param actual.class character, the actual class name, which may be different.
+#'   E.g., tsbox calls tibbles `tbl`, so it can convert time series through
+#'   `ts_tbl()`, while their actual name is `"tbl_df"`.
+#' @noRd
 register_class <- function(tsbox.class, actual.class = tsbox.class){
   class <- setNames(actual.class, tsbox.class)
   classes <- c(class, .tsbox_registry$class)
@@ -13,8 +17,17 @@ register_class <- function(tsbox.class, actual.class = tsbox.class){
   assign("class", classes, envir = .tsbox_registry)
 }
 
+
+# register dts class
 register_class("dts")
 
+
+#' Supported Classes
+#'
+#' Returns all classes that have been registered.
+#' @examples
+#' supported_classes()
+#' @noRd
 supported_classes <- function(){
   .tsbox_registry$class
 }
@@ -51,10 +64,11 @@ ts_boxable <- function(x) {
 }
 
 
-# Universal Converter Function
-#
-# @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
-# @return returns a function
+#' Universal Converter Function
+#'
+#' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
+#' @return returns a function
+#' @noRd
 as_class <- function(x) {
   stopifnot(any(supported_classes() %in% x))
 
@@ -63,7 +77,16 @@ as_class <- function(x) {
 }
 
 
-
+#' Desired Class
+#'
+#' If different time series objects are combined in `ts_c()`, `ts_bind()` etc.,
+#' which class should be returned
+#'
+#' @param ll a list with time series objects, usually collected via list(...)
+#' @return character string
+#' @examples
+#' desired_class(list(mdeaths, ts_df(fdeaths)))
+#' @noRd
 desired_class <- function(ll) {
   z <- unique(vapply(ll, relevant_class, ""))
   if (length(z) == 1) {
@@ -80,7 +103,6 @@ desired_class <- function(ll) {
     return(z[z != "ts"][1])
   }
 }
-
 
 
 #' Re-Class ts-Boxable Object

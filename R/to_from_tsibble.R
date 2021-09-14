@@ -2,6 +2,8 @@ register_class("tsibble", "tbl_ts")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_tsibble_dts <- function(x) {
   stopifnot(requireNamespace("tsibble"))
   cid <- dts_cname(x)$id

@@ -1,9 +1,15 @@
-# - called by dts accessors, it attribute is not yet present.
-# - can assume x is dts, not test needed
-# - same name as dts accessor
-# - should never manipulate x
-
-
+#' Guess Time Attribute
+#'
+#' @param x a 'dts'
+#'
+#' - called by dts accessors, it attribute is not yet present.
+#' - can assume x is dts, not test needed
+#' - same name as dts accessor
+#' - should never manipulate x
+#'
+#' @examples
+#' guess_tattr(ts_dts(mdeaths))
+#' @noRd
 guess_tattr <- function(x){
   x.time <- x[[dts_cname(x)$time]]
   class <- class(x.time)[1]
@@ -21,6 +27,19 @@ guess_tattr <- function(x){
   )
 }
 
+
+#' Guess Column Names
+#'
+#' @param x a 'dts'
+#'
+#' - called by dts accessors, it attribute is not yet present.
+#' - can assume x is dts, not test needed
+#' - same name as dts accessor
+#' - should never manipulate x
+#'
+#' @examples
+#' guess_cname(ts_dts(mdeaths))
+#' @noRd
 guess_cname <- function(x) {
   value.name <- guess_value(x)
   time.name <- guess_time(x, value.name = value.name)
