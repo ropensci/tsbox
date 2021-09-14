@@ -22,7 +22,6 @@
 #' ts_summary(AirPassengers)$obs
 #' @export
 ts_summary <- function(x, spark = FALSE) {
-
   freq <- NULL
   value <- NULL
   stopifnot(ts_boxable(x))
@@ -44,14 +43,13 @@ ts_summary <- function(x, spark = FALSE) {
   setnames(ans.freq, "string", "diff")
   regular.series <- ans.freq[!is.na(freq)][, cid, with = FALSE]
 
-  ans.other <- x.dts[,list(
+  ans.other <- x.dts[, list(
     obs = length(na.omit(value)),
     start = min(time),
     end = max(time)
   ), by = eval(.by)]
 
   if (spark) {
-
     if (.Platform$OS.type == "windows") {
       spark_fun <- spark_ascii
     } else {
@@ -60,7 +58,7 @@ ts_summary <- function(x, spark = FALSE) {
     x.dts.regular <- x.dts[regular.series, on = cid]
 
     # some stuff can be done for regular series only
-    if (nrow(x.dts.regular) > 0){
+    if (nrow(x.dts.regular) > 0) {
       x.dts.regular <- ts_span(
         x.dts.regular,
         start = min(x.dts.regular$time, na.rm = TRUE),
@@ -80,7 +78,6 @@ ts_summary <- function(x, spark = FALSE) {
       ans,
       c(cid, "obs", "diff", "freq", "start", "end", "spark_line")
     )
-
   } else {
     ans <- ans.freq[ans.other, on = cid]
     setcolorder(
@@ -91,7 +88,6 @@ ts_summary <- function(x, spark = FALSE) {
 
 
   as.data.frame(ans)
-
 }
 
 # inspired by the sparklines in skimr
@@ -99,16 +95,18 @@ ts_summary <- function(x, spark = FALSE) {
 
 # intToUtf8(braille.map)
 braille.map <- setNames(
-  c(10432L, 10336L, 10320L, 10312L, 10372L, 10276L, 10260L, 10252L,
+  c(
+    10432L, 10336L, 10320L, 10312L, 10372L, 10276L, 10260L, 10252L,
     10370L, 10274L, 10258L, 10250L, 10369L, 10273L, 10257L, 10249L,
     10368L, 10272L, 10256L, 10248L, 10304L, 10244L, 10242L, 10241L, 32L
-    ),
-    c("11", "12", "13", "14", "21", "22", "23", "24", "31", "32",
+  ),
+  c(
+    "11", "12", "13", "14", "21", "22", "23", "24", "31", "32",
     "33", "34", "41", "42", "43", "44", " 1", " 2", " 3", " 4",
     "1 ", "2 ", "3 ", "4 ", "  "
-    )
+  )
 )
-spark_unicode <- function(x, spark.width = 15)  {
+spark_unicode <- function(x, spark.width = 15) {
   cat.y <- cut(
     seq(0, 1, length.out = length(x)),
     seq(0, 1, by = 1 / (2 * spark.width)),
@@ -129,7 +127,7 @@ spark_unicode <- function(x, spark.width = 15)  {
 
 # unicode does not (yet?) work in R data.frames()
 ascii.map <- setNames(c("_", ".", "-", "\"", " "), c("1", "2", "3", "4", " "))
-spark_ascii <- function(x, spark.width = 15)  {
+spark_ascii <- function(x, spark.width = 15) {
   cat.y <- cut(
     seq(0, 1, length.out = length(x)),
     seq(0, 1, by = 1 / (spark.width)),
@@ -145,4 +143,3 @@ spark_ascii <- function(x, spark.width = 15)  {
   cat.scaled[is.na(cat.scaled)] <- " "
   paste(ascii.map[cat.scaled], collapse = "")
 }
-

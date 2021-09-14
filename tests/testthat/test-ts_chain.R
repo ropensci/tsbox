@@ -22,6 +22,4 @@ test_that("retropolation gives the correct results", {
     ts_span(ts_pc(retro), start = 1976.2),
     ts_span(ts_pc(mdeaths), start = 1976.2)
   )
-
 })
-

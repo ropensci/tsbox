@@ -6,8 +6,7 @@
 #'   Sorts if not already ordered.
 #' @srrstats {TS1.6} *Any violations of ordering should be caught in the pre-processing stages of all functions.*
 #'   Done here.
-dts_init <- function(x){
-
+dts_init <- function(x) {
   .SD <- NULL
   stopifnot(inherits(x, "data.frame"))
   x <- as.data.table(x)
@@ -76,10 +75,10 @@ dts_rm <- function(x) {
 #' @param x 'dts'
 #'
 #' @noRd
-dts_cname <- function(x){
+dts_cname <- function(x) {
   stopifnot(inherits(x, "dts"))
   z <- attr(x, "cname")
-  if (is.null(z)){
+  if (is.null(z)) {
     z <- guess_cname(x)
     setattr(x, "cname", z)
   }
@@ -95,10 +94,10 @@ dts_cname <- function(x){
 #' @param x 'dts'
 #'
 #' @noRd
-dts_tattr <- function(x){
+dts_tattr <- function(x) {
   stopifnot(inherits(x, "dts"))
   z <- attr(x, "tattr")
-  if (is.null(z)){
+  if (is.null(z)) {
     z <- guess_tattr(x)
     setattr(x, "tattr", z)
   }
@@ -132,7 +131,9 @@ number_of_series <- function(x) {
 #' @noRd
 combine_id_cols <- function(x, sep = "_") {
   stopifnot(inherits(x, "dts"))
-  if (NCOL(x) <= 3) return(x)
+  if (NCOL(x) <= 3) {
+    return(x)
+  }
   cname <- dts_cname(x)
   z <- combine_cols_data.table(x, dts_cname(x)$id, sep = sep)
   cname$id <- "id"

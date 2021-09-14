@@ -1,11 +1,13 @@
-ts_arithmetic <- function(e1, e2, fun = `-`){
+ts_arithmetic <- function(e1, e2, fun = `-`) {
   value <- value2 <- .id <- NULL
   z1 <- copy(ts_dts(e1))
 
-  if (identical(nrow(z1), 0L)) return(e1)
+  if (identical(nrow(z1), 0L)) {
+    return(e1)
+  }
 
   # 'recycling', if a scalar is provided
-  if (length(e2) == 1 && is.numeric(e2)){
+  if (length(e2) == 1 && is.numeric(e2)) {
     z2 <- copy(z1)
     z2[[dts_cname(z2)$value]] <- e2
   } else {
@@ -16,7 +18,7 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
   cname2 <- dts_cname(z2)
   cid <- cname$id
 
-  if (!identical(cname$id, cname2$id)){
+  if (!identical(cname$id, cname2$id)) {
     stop("id columns are not identical", call. = FALSE)
   }
 
@@ -25,9 +27,8 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
   setnames(z1, cname$time, "time")
   setnames(z2, cname2$time, "time")
 
-  if (length(cname$id) > 0){
-
-    if (length(cname$id) > 1){
+  if (length(cname$id) > 0) {
+    if (length(cname$id) > 1) {
       sep.str <- "!%!#"
 
       cid <- cname$id
@@ -41,7 +42,6 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
       setnames(z1, ".id", "id")
       setnames(z2, ".id", "id")
       cid <- "id"
-
     }
 
     ll1 <- split(z1, z1[[cid]])[unique(z1[[cid]])]
@@ -53,7 +53,7 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
     z <- rbindlist(Map(merge_time_date, x = ll1, y = ll2), idcol = cid)
 
     # separate id cols
-    if (length(cname$id) > 1){
+    if (length(cname$id) > 1) {
       setnames(z, "id", ".id")
       z <- merge(z, dt.id, by = ".id", sort = FALSE)[, .id := NULL]
       setcolorder(z, c(cname$id, "time", "value", "value2"))
@@ -102,5 +102,3 @@ ts_arithmetic <- function(e1, e2, fun = `-`){
 #' @name ts_arithmetic
 #' @export
 `%ts/%` <- function(e1, e2) ts_arithmetic(e1, e2, fun = `/`)
-
-

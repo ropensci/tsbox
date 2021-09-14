@@ -30,7 +30,6 @@
 #' ts_lag(ts_df(fdeaths), "-1 day")
 #' @export
 ts_lag <- function(x, by = 1) {
-
   stopifnot(length(by) == 1)
 
   value <- NULL
@@ -40,7 +39,7 @@ ts_lag <- function(x, by = 1) {
   z <- copy(ts_dts(x))
 
   # numeric by only with regular series
-  if (is.numeric(by)){
+  if (is.numeric(by)) {
     z <- ts_regular(z)
   }
 
@@ -48,7 +47,7 @@ ts_lag <- function(x, by = 1) {
   setnames(z, cname$time, "time")
   setnames(z, cname$value, "value")
 
-  lag_one <- function(x){
+  lag_one <- function(x) {
     x[, list(time = time_shift(time, by = by), value)]
   }
   .by <- by_expr(cname$id)
@@ -63,4 +62,3 @@ ts_lag <- function(x, by = 1) {
   setattr(z, "cname", cname)
   copy_class(z, x)
 }
-

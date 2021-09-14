@@ -13,10 +13,10 @@
 #' @examples
 #' \donttest{
 #' ts_plot(ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries))))
-#' ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
+#' ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, "DAX"])))
 #' }
 #' @srrstats {G1.3} *All statistical terminology should be clarified and unambiguously defined.*
-ts_scale <- function (x, center = TRUE, scale = TRUE){
+ts_scale <- function(x, center = TRUE, scale = TRUE) {
   value <- NULL
   z <- ts_dts(x)
 

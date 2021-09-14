@@ -10,7 +10,7 @@ ts_tibbletime_dts <- function(x) {
 
   z <- wide_core(combine_id_cols(x))
   ctime <- dts_cname(x)$time
-  tibbletime::as_tbl_time(z, index = !! ctime)
+  tibbletime::as_tbl_time(z, index = !!ctime)
 }
 
 
@@ -42,9 +42,11 @@ ts_dts.tbl_time <- function(x) {
     id <- "id"
   }
 
-  cname <- list(id = id,
-                time = time,
-                value = "value")
+  cname <- list(
+    id = id,
+    time = time,
+    value = "value"
+  )
 
   z <- dts_init(z)
   setattr(z, "cname", cname)
@@ -58,6 +60,8 @@ ts_dts.tbl_time <- function(x) {
 #' @export
 ts_tibbletime <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "tibbletime") return(x)
+  if (relevant_class(x) == "tibbletime") {
+    return(x)
+  }
   ts_tibbletime_dts(ts_dts(x))
 }

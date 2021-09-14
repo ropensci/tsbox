@@ -17,8 +17,6 @@ test_that("no NA when converting second data ", {
 
 
 test_that("heuristic high frequency data works", {
-
-
   x <- ts_ts(data.frame(
     time = seq(from = from_date, length.out = 10, by = "1 sec"),
     value = 1:10
@@ -87,14 +85,12 @@ test_that("heuristic high frequency data works", {
   expect_equal(x, ts_df(ts_ts(x)))
 
   # fails on some systems, time zones, needs investigation
-  
+
   # x <- data.frame(
   #   time = seq(from = from_date, length.out = 10, by = "1 day"),
   #   value = 1:10
   # )
   # expect_equal(x, ts_df(ts_ts(x)))
-
-
 })
 
 
@@ -124,8 +120,4 @@ test_that("non regular high frequency data works", {
     value = 1:10
   )
   expect_equal(x, ts_df(ts_ts(x)))
-
 })
-
-
-

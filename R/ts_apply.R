@@ -8,7 +8,8 @@
 ts_apply_dts <- function(x, fun, ...) {
   .SD <- NULL
   stopifnot(inherits(x, "dts"))
-  d <- dts_default(x); x <- d$x
+  d <- dts_default(x)
+  x <- d$x
   if (number_of_series(x) == 1) {
     z <- fun(x, ...)
     # ensure id columns are preserved
@@ -39,4 +40,3 @@ ts_apply <- function(x, fun, ...) {
   z <- ts_apply_dts(ts_dts(x), fun, ...)
   copy_class(z, x)
 }
-

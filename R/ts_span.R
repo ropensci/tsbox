@@ -49,7 +49,7 @@
 #'   title = "28 weeks later",
 #'   subtitle = "The first 28 weeks of available data"
 #' ) + theme_tsbox() + scale_color_tsbox()
-#'}
+#' }
 #'
 #' # Limit span of 'discoveries' to the same span as 'AirPassengers'
 #' ts_span(discoveries, template = AirPassengers)
@@ -61,7 +61,6 @@
 #' @srrstats {G2.0} *Implement assertions on lengths of inputs, particularly through asserting that inputs expected to be single- or multi-valued are indeed so.*
 ts_span <- function(x, start = NULL, end = NULL, template = NULL,
                     extend = FALSE) {
-
   .SD <- NULL
 
   if (!length(start) <= 1) {
@@ -71,7 +70,9 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
     stop("'end' must be of length 1", call. = FALSE)
   }
   x.dts <- ts_dts(x)
-  if (nrow(x.dts) == 0) return(x)
+  if (nrow(x.dts) == 0) {
+    return(x)
+  }
   cname <- dts_cname(x.dts)
   sstr <- unique(get_shift_string(x.dts)$string)
   spl.sstr <- strsplit(sstr, split = " ")[[1]]
@@ -81,8 +82,8 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   setnames(x.dts, cname$time, "time")
 
   # specification by period: create shift_string
-  if (is.numeric(start) && start < 999){
-    if (length(start) > 1){
+  if (is.numeric(start) && start < 999) {
+    if (length(start) > 1) {
       stop(
         "mixed frequencies: 'start' cannot be specified as integer",
         call. = FALSE
@@ -90,8 +91,8 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
     }
     start <- paste(start * as.numeric(spl.sstr[1]), spl.sstr[2])
   }
-  if (is.numeric(end) && end < 999){
-    if (length(end) > 1){
+  if (is.numeric(end) && end < 999) {
+    if (length(end) > 1) {
       stop(
         "mixed frequencies: 'end' cannot be specified as integer",
         call. = FALSE
@@ -101,17 +102,17 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   }
 
   # specification by shift string: create date
-  if (!is.null(start) && grepl("[a-zA-Z]", start)){
+  if (!is.null(start) && grepl("[a-zA-Z]", start)) {
     start <- time_shift(time_shift(max(x.dts$time), sstr), start)
   }
-  if (!is.null(end) && grepl("[a-zA-Z]", end)){
-    end <- time_shift(time_shift(min(x.dts$time), paste0("-", sstr)),  end)
+  if (!is.null(end) && grepl("[a-zA-Z]", end)) {
+    end <- time_shift(time_shift(min(x.dts$time), paste0("-", sstr)), end)
   }
 
   # specification by date: apply anytime
 
   # Outfactor in universal anytime wrapper?
-  if_num_char <- function(x){
+  if_num_char <- function(x) {
     if (inherits(x, "numeric")) {
       if (length(x) > 1) {
         stop("numeric date input must be of length 1", call. = FALSE)
@@ -129,15 +130,15 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
     tolerance <- 0
   }
 
-  if (!is.null(start)){
+  if (!is.null(start)) {
     start <- anyfun(start) - tolerance
   }
-  if (!is.null(end)){
+  if (!is.null(end)) {
     end <- anyfun(end) + tolerance
   }
 
   # specification by template: get start and end from template
-  if (!is.null(template)){
+  if (!is.null(template)) {
     stopifnot(ts_boxable(template))
     stopifnot(is.null(start), is.null(end))
     t.dts <- ts_dts(template)
@@ -185,7 +186,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
     x.dts <- x.dts[time <= end]
   }
 
-  if (nrow(x.dts) == 0){
+  if (nrow(x.dts) == 0) {
     stop(
       "span contains no data; select different 'start' or 'end'",
       call. = FALSE
@@ -200,7 +201,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
 
 # x <- ts_dts(ts_c(fdeaths, mdeaths))
 # x <- ts_dts(EuStockMarkets)
-get_shift_string <- function(x){
+get_shift_string <- function(x) {
   freq <- NULL
   x <- copy(ts_dts(x))
   stopifnot(inherits(x, "dts"))
@@ -237,7 +238,7 @@ frequency_one <- function(x) {
   diffdt <- frequency_table(x)
   if (is.na(diffdt$freq[1])) diffdt$freq[1] <- -1
   fm <- diffdt[which.max(freq)]
-  if (diffdt$freq[1] == -1) {  # if -1 is most common value
+  if (diffdt$freq[1] == -1) { # if -1 is most common value
     udiff <- unique(diff(as.numeric(x)))
     # all.equal(max(udiff), min(udiff)) # should be 'numerically' unique
     if (max(udiff) - min(udiff) > 1e5) {
@@ -245,8 +246,8 @@ frequency_one <- function(x) {
     }
     udiff <- mean(udiff)
     # unit <- "day"
-    unit <- if(inherits(x, "POSIXct")) "sec" else "day"
-    nominator <- if(inherits(x, "POSIXct")) 31556952 else 365.2425
+    unit <- if (inherits(x, "POSIXct")) "sec" else "day"
+    nominator <- if (inherits(x, "POSIXct")) 31556952 else 365.2425
     fm$string <- paste(udiff, unit)
     fm$freq <- nominator / udiff
   }

@@ -20,10 +20,10 @@
 #'
 #' # by default, NAs are implicit in data frames
 #' ts_df(x)
-#' 
+#'
 #' # make NAs explicit
 #' ts_regular(ts_df(x))
-#' 
+#'
 #' # and implicit again
 #' ts_na_omit(ts_regular(ts_df(x)))
 #' @export
@@ -35,6 +35,6 @@ ts_na_omit <- function(x) {
   setnames(z, cvalue, "value")
   z <- z[!is.na(value)]
   setnames(z, "value", cvalue)
-  setattr(z, "cname", cname) 
+  setattr(z, "cname", cname)
   as_class(relevant_class(x))(z)
 }

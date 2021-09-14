@@ -5,7 +5,6 @@ library(tsbox)
 context("basic conversion handling")
 
 test_that("conversion produces right classes", {
-
   skip_on_cran()
 
   expect_s3_class(ts_xts(AirPassengers), "xts")
@@ -47,7 +46,6 @@ test_that("conversion produces right classes", {
 
 
 test_that("conversion between objects works as expected: ldeaths", {
-
   skip_on_cran()
 
   x.ts <- ts_c(mdeaths, fdeaths)
@@ -84,7 +82,6 @@ test_that("conversion between objects works as expected: ldeaths", {
 
 
 test_that("conversion between objects works as expected: discoveries", {
-
   skip_on_cran()
 
   x.ts <- discoveries
@@ -116,7 +113,6 @@ test_that("conversion between objects works as expected: discoveries", {
 
 
 test_that("conversion between objects works as expected: EuStockMarkets", {
-
   skip_on_cran()
 
   x.ts <- EuStockMarkets

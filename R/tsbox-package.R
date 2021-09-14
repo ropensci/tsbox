@@ -41,4 +41,3 @@
 #' @srrstats {G1.4} *Software should use [`roxygen2`](https://roxygen2.r-lib.org/) to document all functions.*
 #'   roxygen2 is used for all documentation.
 NULL
-

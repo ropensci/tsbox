@@ -24,7 +24,7 @@
 ts_regular <- function(x, fill = NA) {
   stopifnot(ts_boxable(x))
   fill <- as.numeric(fill)
-  if (inherits(x, "ts")) {  # to save time
+  if (inherits(x, "ts")) { # to save time
     if (!is.na(fill)) {
       x[is.na(x)] <- fill
     }
@@ -42,7 +42,9 @@ ts_regular <- function(x, fill = NA) {
 
 # A basic test for regularity. Fast, but misses some regular series
 is_regular_one_basic <- function(x) {
-  if (length(x) == 1) return(TRUE)
+  if (length(x) == 1) {
+    return(TRUE)
+  }
   rng <- range(diff(as.numeric(x)))
   (rng[2] - rng[1]) < 1
 }
@@ -63,7 +65,9 @@ regular_core <- function(x) {
       stop("Time column contains missing values.", call. = FALSE)
     }
 
-    if (is_regular_one_basic(x$time)) return(x)
+    if (is_regular_one_basic(x$time)) {
+      return(x)
+    }
     reg.time <- regularize_date(x$time)
     if (is.null(reg.time)) {
       stop("series has no regular pattern", call. = FALSE)

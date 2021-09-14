@@ -67,4 +67,3 @@ ts_diffy <- function(x) {
     xlag[x, on = "time"][, list(time, value = value - value_lag)]
   })
 }
-

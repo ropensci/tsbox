@@ -51,7 +51,7 @@
 #'   "Female" = fdeaths,
 #'   "Male" = mdeaths
 #' )
-#' options(op)  # restore defaults
+#' options(op) # restore defaults
 #' }
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
@@ -185,7 +185,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   lty <- getOption("tsbox.lty", "solid")
   lwd <- getOption("tsbox.lwd", 1.5)
 
-  recycle_par <- function(x){
+  recycle_par <- function(x) {
     x0 <- x[1:(min(length(x), length(ids)))]
     cbind(ids, x0)[, 2]
   }
@@ -216,7 +216,8 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   )
 
   axis(
-    2, at = axTicks(2), labels = sprintf("%s", axTicks(2)),
+    2,
+    at = axTicks(2), labels = sprintf("%s", axTicks(2)),
     las = 1, cex.axis = 0.8, col = NA, line = -0.5, col.axis = axis.text.col
   )
 
@@ -263,10 +264,10 @@ ts_lastplot_call <- function() {
 #' @export
 #' @examples
 #' \donttest{
-#'   ts_plot(AirPassengers)
-#'   tf <- tempfile(fileext = ".pdf")
-#'   ts_save(tf)
-#'   unlink(tf)
+#' ts_plot(AirPassengers)
+#' tf <- tempfile(fileext = ".pdf")
+#' ts_save(tf)
+#' unlink(tf)
 #' }
 #'
 #' @srrstats {G4.0} *Statistical Software which enables outputs to be written
@@ -280,7 +281,7 @@ ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
     filename <- paste0(filename, ".pdf")
   }
 
-  if (is.null(device)){
+  if (is.null(device)) {
     device <- gsub(".*\\.([a-z]+)$", "\\1", tolower(filename))
   } else {
     filename <- gsub("\\.[a-z]+$", paste0(".", device), tolower(filename))

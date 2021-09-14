@@ -30,40 +30,44 @@
 #'   ts_c(mdeaths, fdeaths),
 #'   start = time_shift(ts_summary(mdeaths)$end, -1)
 #' )
-#'
 #' @srrstats {G2.3b} *Either: use `tolower()` or equivalent to ensure input of character parameters is not case dependent; or explicitly document that parameters are strictly case-sensitive.*
 #'   `by` string can be entered, e.g., as `1 Month`.
 #' @noRd
 time_shift <- function(x, by = NULL) {
-
   freq <- NULL
 
-  if (is.null(by)) return(x)
+  if (is.null(by)) {
+    return(x)
+  }
 
   # ensure input of character parameters is not case dependent
   if (is.character(by)) by <- tolower(by)
 
   # high freq can be added to POSIXct only
-  if (is.character(by) && grepl("sec|min|hour|[^a-z]s$|[^a-z]h$", by)){
+  if (is.character(by) && grepl("sec|min|hour|[^a-z]s$|[^a-z]h$", by)) {
     x <- as.POSIXct(x)
   }
 
   add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
 
-  if (length(x) == 1) return(add_to_one(x))
+  if (length(x) == 1) {
+    return(add_to_one(x))
+  }
 
   # this is the correct, perhaps not the fastest regularity test
   # also understands monthly, quarterly etc.
   diffdt <- frequency_table(x)
   fm <- diffdt[which.max(freq)]
 
-  if (fm$freq == -1) return(time_shift_non_heuristic(x = x, by = by))
+  if (fm$freq == -1) {
+    return(time_shift_non_heuristic(x = x, by = by))
+  }
 
   # if series is regular, take shortcut
   # do not for "-1 day" etc. strings
   is.neg.chr.by <- is.character(by) && grepl("^\\-", by)
   if (fm$share == 1 && !is.neg.chr.by) {
-    if (is.numeric(by)){
+    if (is.numeric(by)) {
       spl <- strsplit(diffdt$string, split = " ")[[1]]
       str <- paste(by * as.numeric(spl[1]), spl[2])
       add_to_one <- function(x) seq(x, length.out = 2, by = str)[2]
@@ -79,14 +83,15 @@ time_shift <- function(x, by = NULL) {
     )
   }
 
-  if (inherits(x, "Date")){
+  if (inherits(x, "Date")) {
     # only do on unique values (which is faster in some cases)
     add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
     xu <- unique(x)
     zu <- do.call(c, lapply(xu, add_to_one))
     z <- merge(
       data.table(x = x),
-      data.table(x = xu, z = zu), all.x = TRUE, sort = FALSE
+      data.table(x = xu, z = zu),
+      all.x = TRUE, sort = FALSE
     )$z
     return(z)
   }
@@ -106,16 +111,15 @@ time_shift <- function(x, by = NULL) {
 #'
 #' @noRd
 time_shift_non_heuristic <- function(x, by) {
-
   xreg <- regularize_date(x)
 
   # regular
-  if (!is.null(xreg)){
+  if (!is.null(xreg)) {
     xreg.num <- as.numeric(xreg)
     dff <- unique(round(diff(xreg.num), 5))
     stopifnot(length(dff) == 1)
 
-    if (is.numeric(by)){
+    if (is.numeric(by)) {
       # regular, by as period
       z.num <- seq(
         from = xreg.num[1] + by * dff,
@@ -123,13 +127,15 @@ time_shift_non_heuristic <- function(x, by) {
         length.out = length(xreg)
       )
     } else {
-       # regular, by as period
+      # regular, by as period
       add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
-      z.num <- seq(from = as.numeric(add_to_one(xreg[1]), by = by),
-               by = dff, length.out = length(xreg))
+      z.num <- seq(
+        from = as.numeric(add_to_one(xreg[1]), by = by),
+        by = dff, length.out = length(xreg)
+      )
     }
 
-    if (inherits(x, "POSIXct")){
+    if (inherits(x, "POSIXct")) {
       z <- as.POSIXct(z.num, origin = "1970-01-01", tz = attr(x, "tzone"))
     } else {
       z <- as.Date(z.num, origin = "1970-01-01")
@@ -163,9 +169,8 @@ date_year <- function(x) {
   m <- "1"
   y <- data.table::year(x0)
   z <- as.Date(paste(y, m, d, sep = "-"))
-  if (inherits(x, "POSIXct")){
+  if (inherits(x, "POSIXct")) {
     z <- as.POSIXct(z, origin = "1970-01-01", tz = attr(x, "tzone"))
   }
   z
 }
-

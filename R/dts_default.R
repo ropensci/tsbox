@@ -46,7 +46,7 @@ dts_restore <- function(x, d) {
 #'
 #' @param x 'data.table', or 'dts'
 #' @noRd
-dts_init_minimal <- function(x){
+dts_init_minimal <- function(x) {
   stopifnot(inherits(x, "data.table"))
   if (!inherits(x, "dts")) setattr(x, "class", c("dts", attr(x, "class")))
   x

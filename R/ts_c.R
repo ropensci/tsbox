@@ -33,10 +33,13 @@
 ts_c <- function(...) {
   ll <- list(...)
 
-  if (length(ll) == 1) return(ll[[1]])
+  if (length(ll) == 1) {
+    return(ll[[1]])
+  }
 
   call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse,
-                              width.cutoff = 500L))
+    width.cutoff = 500L
+  ))
   # use name if specified in call
   call.names[names(call.names) != ""] <-
     names(call.names)[names(call.names) != ""]
@@ -44,9 +47,9 @@ ts_c <- function(...) {
   desired.class <- desired_class(ll)
 
   # special treatment for same frequency ts for speed and accuracy gain
-  if (identical(unique(desired.class), "ts")){
+  if (identical(unique(desired.class), "ts")) {
     # same frequency?
-    if (length(unique(vapply(ll, frequency, 1))) == 1){
+    if (length(unique(vapply(ll, frequency, 1))) == 1) {
       is.unnamed <- vapply(ll, function(e) length(colnames(e)) <= 1, TRUE)
       names.for.unnamed <- call.names[is.unnamed]
       ll.names <- ll
@@ -148,7 +151,7 @@ make_ids_unique <- function(ll, cid) {
   .element <- NULL
   old.id <- unname(lapply(ll, function(e) unique(e[, cid, with = FALSE])))
   old.id.tab <- rbindlist(old.id, idcol = ".element")
-  if (length(cid) > 1){
+  if (length(cid) > 1) {
     old.id.tab <- combine_cols_data.table(old.id.tab, cid, sep = "__cut_here__")
   } else {
     setnames(old.id.tab, cid, "id")
@@ -161,17 +164,19 @@ make_ids_unique <- function(ll, cid) {
 }
 
 # new names must have the same order as the old names
-set_levels <- function(x, names){
+set_levels <- function(x, names) {
   as.character(`levels<-`(as.factor(x), sort(names)))
 }
 
 set_levels_dt <- function(dt, old, new) {
   stopifnot(identical(dim(new), dim(old)))
   stopifnot(identical(names(new), names(old)))
-  if (isTRUE(all.equal(new, old, check.attributes = FALSE))) return(dt)
+  if (isTRUE(all.equal(new, old, check.attributes = FALSE))) {
+    return(dt)
+  }
 
   for (cid.i in names(new)) {
-    if (!identical(old[[cid.i]], new[[cid.i]])){
+    if (!identical(old[[cid.i]], new[[cid.i]])) {
       dt[[cid.i]] <- set_levels(dt[[cid.i]], new[[cid.i]])
     }
   }

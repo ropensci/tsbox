@@ -15,7 +15,6 @@
 #'
 #' # numeric vectors
 #' ts_bind(12, AirPassengers, c(2, 3))
-#'
 #' @export
 ts_bind <- function(...) {
   ll <- list(...)
@@ -30,10 +29,11 @@ ts_bind <- function(...) {
 
 
 bind_numeric <- function(a, b, backwards = FALSE) {
-
   .SD <- NULL
 
-  if (!ts_boxable(a)) {stop("at least one object must be ts-boxable")}
+  if (!ts_boxable(a)) {
+    stop("at least one object must be ts-boxable")
+  }
 
   a <- ts_dts(copy(a))
   cname <- dts_cname(a)
@@ -47,7 +47,7 @@ bind_numeric <- function(a, b, backwards = FALSE) {
   add_scalar_one <- function(x) {
     per.to.add <- length(b)
 
-    if (!backwards){
+    if (!backwards) {
       # having at least 5 obs allows time_shift to detect frequency
       shft <- time_shift(
         x$time[max(length(x$time) - per.to.add - 5, 1):length(x$time)], per.to.add
@@ -65,7 +65,7 @@ bind_numeric <- function(a, b, backwards = FALSE) {
 
     z <- rbind(x, new.x)
 
-    if (backwards){
+    if (backwards) {
       setorder(z, time)
     }
     z

@@ -34,11 +34,9 @@ test_that("handles, regular, non standard series correctly", {
 
 
 test_that("does not change colnames in non standard order", {
-
   x <- ts_df(ts_c(mdeaths, fdeaths))
   setcolorder(x, c("time", "id", "value"))
   expect_equal(ts_regular(x), x)
-
 })
 
 test_that("fill argument works", {
@@ -49,6 +47,3 @@ test_that("fill argument works", {
   expect_equal(z[[2]][2], -9999)
   expect_equal(ts_regular(x0, 0)[2], 0)
 })
-
-
-

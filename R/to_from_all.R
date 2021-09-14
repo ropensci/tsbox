@@ -9,7 +9,7 @@
 #'   E.g., tsbox calls tibbles `tbl`, so it can convert time series through
 #'   `ts_tbl()`, while their actual name is `"tbl_df"`.
 #' @noRd
-register_class <- function(tsbox.class, actual.class = tsbox.class){
+register_class <- function(tsbox.class, actual.class = tsbox.class) {
   class <- setNames(actual.class, tsbox.class)
   classes <- c(class, .tsbox_registry$class)
   # to keep names
@@ -28,7 +28,7 @@ register_class("dts")
 #' @examples
 #' supported_classes()
 #' @noRd
-supported_classes <- function(){
+supported_classes <- function() {
   .tsbox_registry$class
 }
 
@@ -133,7 +133,6 @@ copy_class <- function(x, template,
                        preserve.mode = TRUE,
                        preserve.names = FALSE,
                        preserve.time = FALSE) {
-
   if (!ts_boxable(x)) {
     if (inherits(template, "ts")) {
       x <- ts(x)
@@ -149,13 +148,13 @@ copy_class <- function(x, template,
   }
 
   # to deal with 1 period time series: separate ts treatment
-  if (inherits(template, "ts")){
-    if (inherits(x, "ts")){
+  if (inherits(template, "ts")) {
+    if (inherits(x, "ts")) {
       ans <- x
     } else {
       x.dts <- ts_dts(x)
       # is there only one observation?
-      if (number_of_series(x.dts) == nrow(ts_dts(x.dts))){
+      if (number_of_series(x.dts) == nrow(ts_dts(x.dts))) {
         ans <- ts_ts_dts(ts_dts(x), frequency = frequency(template))
       } else {
         ans <- as_class(relevant_class(template))(x)
@@ -182,11 +181,10 @@ copy_class <- function(x, template,
     }
 
     if (preserve.names) {
-      if (!identical(names(ans), names(template))){
+      if (!identical(names(ans), names(template))) {
         names(ans) <- names(template)
       }
     }
-
   }
 
   ans

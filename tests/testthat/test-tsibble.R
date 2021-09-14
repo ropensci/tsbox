@@ -26,12 +26,10 @@ test_that("two way conversion works for tsibbles, too.", {
     ts_ts(ts_tsibble(ts_c(mdeaths, AirPassengers))),
     ts_c(AirPassengers, mdeaths)
   )
-
 })
 
 
 test_that("tsibble back-conversion works properly", {
-
   skip_if_not_installed("nycflights13")
   skip_if_not_installed("tsibble")
   library(tsibble)

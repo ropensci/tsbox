@@ -10,10 +10,10 @@ ts_tsibble_dts <- function(x) {
   ctime <- dts_cname(x)$time
   x <- dts_rm(x)
 
-  if (length(cid) > 0){
-    z <- tsibble::as_tsibble(x, key = !! cid, index = !! ctime)
+  if (length(cid) > 0) {
+    z <- tsibble::as_tsibble(x, key = !!cid, index = !!ctime)
   } else {
-    z <- tsibble::as_tsibble(x, index = !! ctime)
+    z <- tsibble::as_tsibble(x, index = !!ctime)
   }
   z
 }
@@ -65,7 +65,8 @@ ts_dts.tbl_ts <- function(x) {
   if (length(cvalue) > 1) {
     # also works if 'cid' includes 'id'
     z <- melt(
-      z, id.vars = c(cid, "time"), measure.vars = cvalue, variable.name = "id"
+      z,
+      id.vars = c(cid, "time"), measure.vars = cvalue, variable.name = "id"
     )
     cvalue <- "value"
   }
@@ -73,7 +74,6 @@ ts_dts.tbl_ts <- function(x) {
   setcolorder(z, c(setdiff(names(z), c("time", cvalue)), "time", cvalue))
   setnames(z, "time", ctime)
   ts_dts(z)
-
 }
 
 
@@ -84,6 +84,8 @@ ts_dts.tbl_ts <- function(x) {
 #' @export
 ts_tsibble <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "tsibble") return(x)
+  if (relevant_class(x) == "tsibble") {
+    return(x)
+  }
   ts_tsibble_dts(ts_dts(x))
 }

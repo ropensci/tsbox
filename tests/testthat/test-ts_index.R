@@ -55,5 +55,3 @@ test_that("ts_index works with ranges", {
     ts_pc(ts_index(mdeaths, c("1974", "1975")))
   )
 })
-
-

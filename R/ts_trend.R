@@ -14,10 +14,10 @@
 #' @examples
 #' \donttest{
 #' ts_plot(
-#'    `Raw series` = fdeaths,
-#'    `Loess trend` = ts_trend(fdeaths),
-#'    title = "Deaths from Lung Diseases",
-#'    subtitle = "per month"
+#'   `Raw series` = fdeaths,
+#'   `Loess trend` = ts_trend(fdeaths),
+#'   title = "Deaths from Lung Diseases",
+#'   subtitle = "per month"
 #' )
 #' }
 #' @export
@@ -36,7 +36,6 @@ ts_trend <- function(x, ...) {
     z
   }
 
-  z <- ts_apply_dts(z, predict_loess,...)
+  z <- ts_apply_dts(z, predict_loess, ...)
   copy_class(z, x)
 }
-

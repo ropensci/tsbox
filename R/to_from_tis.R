@@ -29,6 +29,8 @@ ts_dts.tis <- function(x) {
 #' @export
 ts_tis <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "tis") return(x)
+  if (relevant_class(x) == "tis") {
+    return(x)
+  }
   ts_tis_dts(ts_dts(x))
 }

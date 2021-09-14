@@ -4,7 +4,6 @@ library(tsbox)
 
 
 test_that("arithmetic operations work properly", {
-
   expect_equal(
     fdeaths + mdeaths,
     ts_ts(ts_df(fdeaths) %ts+% mdeaths)
@@ -37,10 +36,4 @@ test_that("arithmetic operations work properly", {
 
   z <- ts_df(ts_c(mdeaths, fdeaths) %ts/% 1)
   expect_is(z, "data.frame")
-
-
-
-
-
-
 })

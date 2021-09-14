@@ -9,7 +9,8 @@ ts_compound <- function(x, denominator = 100L) {
   stopifnot(denominator > 0)
   stopifnot(length(denominator) == 1)
   z <- ts_dts(x)
-  d <- dts_default(z); z <- d$x
+  d <- dts_default(z)
+  z <- d$x
 
   z <- ts_regular(ts_na_omit(z))
 
@@ -48,7 +49,8 @@ ts_compound <- function(x, denominator = 100L) {
 #' ts_plot(
 #'   `My Expert Knowledge` = ts_chain(
 #'     mdeaths,
-#'     ts_compound(ts_bind(ts_pc(mdeaths), 15, 23, 33))),
+#'     ts_compound(ts_bind(ts_pc(mdeaths), 15, 23, 33))
+#'   ),
 #'   `So Far` = mdeaths,
 #'   title = "A Very Manual Forecast"
 #' )
@@ -58,7 +60,6 @@ ts_compound <- function(x, denominator = 100L) {
 #' }
 #' @export
 ts_index <- function(x, base = NULL) {
-
   not_in_data <- NULL
   value <- NULL
   base_value <- NULL
@@ -66,13 +67,14 @@ ts_index <- function(x, base = NULL) {
   . <- NULL
 
   z <- ts_dts(x)
-  d <- dts_default(z); z <- d$x
+  d <- dts_default(z)
+  z <- d$x
 
   cid <- dts_cname(z)$id
   .by <- by_expr(cid)
 
   # use latest non na start point as base candidtate
-  if (is.null(base)){
+  if (is.null(base)) {
     dt_min_time <- z[
       !is.na(value),
       list(min.time = min(time)),
@@ -81,13 +83,13 @@ ts_index <- function(x, base = NULL) {
     base <- max(dt_min_time$min.time)
     z.base <- z[time == base, .(base_value = mean(value)), by = eval(.by)]
 
-  # single date specification
-  } else if(length(base) == 1) {
+    # single date specification
+  } else if (length(base) == 1) {
     # let ts_span parse base and make sure it exists in data
     base <- range(ts_span(z, start = base)$time)[1]
     z.base <- z[time == base, .(base_value = mean(value)), by = eval(.by)]
 
-  # range of dates specification (use averages)
+    # range of dates specification (use averages)
   } else if (length(base) == 2) {
     # let ts_span parse base and make sure it exists in data
     base <- range(ts_span(z, start = base[1], end = base[2])$time)

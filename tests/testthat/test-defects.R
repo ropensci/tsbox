@@ -22,4 +22,3 @@ test_that("ts to df conversion works with offset #186", {
   ans <- ts_df(a)
   expect_is(ans, "data.frame")
 })
-

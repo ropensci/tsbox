@@ -35,7 +35,6 @@ meta_freq <- function() {
 #' @param x Date, or POSIXct
 #' @noRd
 frequency_table <- function(x) {
-
   N <- freq <- share <- string <- NULL
 
   stopifnot(class(x)[1] %in% c("Date", "POSIXct"))
@@ -54,9 +53,9 @@ frequency_table <- function(x) {
 
   # which differences correspond to which frequency?
   i <- cut(
-    diffdt$diff, 
+    diffdt$diff,
     breaks = meta_freq()$diff,
-    labels = FALSE, 
+    labels = FALSE,
     include.lowest = TRUE
   )
 

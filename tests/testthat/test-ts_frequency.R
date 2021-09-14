@@ -10,7 +10,6 @@ test_that("ts_frequency survives freq conversion", {
 })
 
 test_that("ts_frequency handles na.rm correctly", {
-
   x <- ts_c(mdeaths, austres)
   window(x, start = c(1985, 6), end = c(1985, 12)) <- NA
 
@@ -20,14 +19,13 @@ test_that("ts_frequency handles na.rm correctly", {
   expect_identical(colnames(x0), colnames(x))
   expect_identical(colnames(x1), colnames(x))
 
-  expect_true(is.na(window(x0, start = 1985, end = 1985)[, 'austres']))
-  expect_false(is.na(window(x1, start = 1985, end = 1985)[, 'austres']))
+  expect_true(is.na(window(x0, start = 1985, end = 1985)[, "austres"]))
+  expect_false(is.na(window(x1, start = 1985, end = 1985)[, "austres"]))
 })
 
 
 
 test_that("ts_frequency works with fancier frequencies", {
-
   z <- ts_frequency(EuStockMarkets, to = "week", aggregate = "mean", na.rm = TRUE)
   expect_equal(tail(z, 1)[1], 5414.375)
 
@@ -45,12 +43,10 @@ test_that("ts_frequency works with fancier frequencies", {
     ts_frequency(mdeaths, to = "quarter", aggregate = "sum", na.rm = TRUE),
     "ts"
   )
-
 })
 
 
 test_that("ts_frequency works with POSIXct", {
-
   x <- tibble(
     time = seq(Sys.time(), length.out = 20, by = "10 sec"),
     value = 1
@@ -65,9 +61,4 @@ test_that("ts_frequency works with POSIXct", {
     ts_frequency(x, to = "hour", aggregate = "sum", na.rm = TRUE),
     "tbl_df"
   )
-
 })
-
-
-
-

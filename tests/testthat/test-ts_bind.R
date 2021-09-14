@@ -80,15 +80,11 @@ test_that("ts_chain gives correct results", {
 test_that("ts_bind works with scalars", {
   expect_equal(as.numeric(window(ts_bind(mdeaths, 1), start = 1980)), 1)
   twoseries <- ts_bind(ts_c(mdeaths, fdeaths), 1)
-  expect_equal(as.numeric(window(twoseries, start = 1980)[,'mdeaths']), 1)
+  expect_equal(as.numeric(window(twoseries, start = 1980)[, "mdeaths"]), 1)
   expect_is(ts_bind(EuStockMarkets, 1), "ts")
-
-
-
 })
 
 test_that("ts_bind works with short series and scalars (#197)", {
-  ans <- ts_bind(ts_tbl(mdeaths)[1:1,], 1)
+  ans <- ts_bind(ts_tbl(mdeaths)[1:1, ], 1)
   expect_is(ans, "tbl_df")
 })
-

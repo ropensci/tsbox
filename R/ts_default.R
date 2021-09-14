@@ -22,7 +22,9 @@
 #' @srrstats {G2.9} *Software should issue diagnostic messages for type conversion in which information is lost (such as conversion of variables from factor to character; standardisation of variable names; or removal of meta-data such as those associated with [`sf`-format](https://r-spatial.github.io/sf/) data) or added (such as insertion of variable or column names where none were provided).*
 #'   Auto detection issues diagnostic messages on [time] and [value] column.
 ts_default <- function(x) {
-  if (inherits(x, "ts")) return(x)
+  if (inherits(x, "ts")) {
+    return(x)
+  }
   z <- ts_dts(x)
   cname <- dts_cname(z)
   if (identical(cname$time, "time") && identical(cname$value, "value")) {
@@ -38,4 +40,3 @@ ts_default <- function(x) {
   setattr(z, "cname", cname)
   copy_class(z, x)
 }
-

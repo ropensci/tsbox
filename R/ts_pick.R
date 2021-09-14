@@ -14,7 +14,7 @@
 #'   `My Smi` = "SMI"
 #' ))
 #' ts_pick(EuStockMarkets, c(1, 2))
-#' ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI')
+#' ts_pick(EuStockMarkets, `My Dax` = "DAX", `My Smi` = "SMI")
 #'
 #' # Programming use
 #' to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")
@@ -27,7 +27,8 @@ ts_pick <- function(x, ...) {
 
   id <- NULL
   call.names <- unlist(lapply(substitute(placeholderFunction(...))[-1], deparse,
-                              width.cutoff = 500L))
+    width.cutoff = 500L
+  ))
 
   .id <- c(...)
 
@@ -35,7 +36,9 @@ ts_pick <- function(x, ...) {
   names(.id)[names(.id) == ""] <- .id[names(.id) == ""]
 
   x.dts <- ts_dts(x)
-  if (ncol(x.dts) == 2) return(x)  # do nothing with singel time series
+  if (ncol(x.dts) == 2) {
+    return(x)
+  } # do nothing with singel time series
 
   z <- combine_id_cols(x.dts)
 
@@ -45,12 +48,11 @@ ts_pick <- function(x, ...) {
     names.id <- names(.id)
     base.id <- as.character(unname(.id))
     .id <- unique(z[[cname$id]])[.id]
-    if (!identical(names.id, base.id)){
+    if (!identical(names.id, base.id)) {
       .id <- setNames(.id, names.id)
     } else {
       .id <- setNames(.id, .id)
     }
-
   }
 
   missing.in.data <- !(.id %in% z[[cname$id]])
@@ -70,7 +72,3 @@ ts_pick <- function(x, ...) {
 
   copy_class(z, x)
 }
-
-
-
-

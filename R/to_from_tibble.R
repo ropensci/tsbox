@@ -27,6 +27,8 @@ as.tbl_df <- function(x) {
 #' @export
 ts_tbl <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "tbl") return(x)
+  if (relevant_class(x) == "tbl") {
+    return(x)
+  }
   ts_tbl_dts(ts_dts(x))
 }

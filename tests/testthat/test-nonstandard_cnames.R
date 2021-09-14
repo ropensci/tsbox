@@ -4,7 +4,6 @@ library(tsbox)
 context("non standard cnames")
 
 test_that("main functions work with non standard cnames", {
-
   x <- ts_tbl(ts_c(mdeaths, AirPassengers))
   x2 <- ts_tbl(ts_c(fdeaths, mdeaths))
 
@@ -18,15 +17,13 @@ test_that("main functions work with non standard cnames", {
   expect_is(ts_frequency(x, "year"), "tbl_df")
   expect_is(ts_index(x2), "tbl_df")
   expect_is(ts_lag(x), "tbl_df")
-  expect_is(ts_pick(x, 'mdeaths'), "tbl_df")
+  expect_is(ts_pick(x, "mdeaths"), "tbl_df")
 
   skip_on_cran()
   expect_is(ts_plot(x), "call")
-
 })
 
 test_that("first object determines col order and col names (#166)", {
-
   ts1 <- ts_df(mdeaths)
   ts2 <- ts_df(fdeaths)
   colnames(ts1) <- c("time1", "value1")
@@ -41,12 +38,10 @@ test_that("first object determines col order and col names (#166)", {
   expect_identical(names(ts_diff(ts2)), names(ts2))
   expect_identical(names(ts_pc(ts2)), names(ts2))
   expect_identical(names(ts_forecast(ts2)), names(ts2))
-
 })
 
 
 test_that("invalid colnames are handled correctly", {
-
   x <- ts_tbl(ts_c(mdeaths, AirPassengers))
   x2 <- ts_tbl(ts_c(fdeaths, mdeaths))
 
@@ -60,11 +55,10 @@ test_that("invalid colnames are handled correctly", {
   expect_is(ts_frequency(x, "year"), "tbl_df")
   expect_is(ts_index(x2), "tbl_df")
   expect_is(ts_lag(x), "tbl_df")
-  expect_is(ts_pick(x, 'mdeaths'), "tbl_df")
+  expect_is(ts_pick(x, "mdeaths"), "tbl_df")
 
   skip_on_cran()
   expect_is(ts_plot(x), "call")
-
 })
 
 

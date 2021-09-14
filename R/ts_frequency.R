@@ -32,9 +32,11 @@
 #' @export
 #' @srrstats {G2.3a} *Use `match.arg()` or equivalent where applicable to only permit expected values.*
 #'   Used here.
-ts_frequency <- function(x, to = c("year", "quarter", "month", "week", "day",
-  "hour", "min", "sec"),
-   aggregate = "mean", na.rm = FALSE) {
+ts_frequency <- function(x, to = c(
+                           "year", "quarter", "month", "week", "day",
+                           "hour", "min", "sec"
+                         ),
+                         aggregate = "mean", na.rm = FALSE) {
   stopifnot(ts_boxable(x))
 
   if (is.numeric(to)) {
@@ -53,9 +55,9 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   stopifnot(inherits(x, "dts"))
 
   # make sure incomplete periods result in NA
-  if (na.rm == FALSE){
+  if (na.rm == FALSE) {
     try.x <- try(ts_regular(ts_na_omit(x)))
-    if (inherits(x, "try-error")){
+    if (inherits(x, "try-error")) {
       message(
         "series is not regular, 'na.rm' set to TRUE. ",
         "Aggregation may be based on incomplete periods"
@@ -64,7 +66,6 @@ frequency_core <- function(x, to, aggregate, na.rm) {
     } else {
       x <- ts_bind(NA, try.x, NA)
     }
-
   }
 
   if (is.character(aggregate)) {
@@ -74,8 +75,7 @@ frequency_core <- function(x, to, aggregate, na.rm) {
         call. = FALSE
       )
     }
-    aggregate <- switch(
-      aggregate,
+    aggregate <- switch(aggregate,
       mean = function(x) mean(x, na.rm = na.rm),
       sum = function(x) sum(x, na.rm = na.rm),
       first = data.table::first,
@@ -101,7 +101,7 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   }
 
   x0 <- copy(x)
-  data.table::setnames(x0, cname$value,  "value")
+  data.table::setnames(x0, cname$value, "value")
   data.table::setnames(x0, cname$time, "time")
 
   x0$time <- lf_time(x0$time, to = to)
@@ -116,10 +116,9 @@ frequency_core <- function(x, to, aggregate, na.rm) {
 }
 
 lf_time <- function(time, to) {
-
   if (to == "week") {
     # https://github.com/christophsax/tsbox/issues/183
-    by = "7 days"
+    by <- "7 days"
     # time <- min(as.Date(time)) - 7
 
     first_days <- NULL
@@ -184,5 +183,4 @@ lf_time <- function(time, to) {
     z <- as.POSIXct(paste0(y, "-", m, "-", d, " ", h, ":", min, ":", sec))
     return(z)
   }
-
 }

@@ -20,7 +20,7 @@ ts_irts_dts <- function(x) {
 ts_dts.irts <- function(x) {
   stopifnot(requireNamespace("tseries"))
   time <- as.POSIXct(x$time)
-  class(time) <- "POSIXct"  # need to loose POSIXt class
+  class(time) <- "POSIXct" # need to loose POSIXt class
   z <- data.table(time = time, x$value)
   if (ncol(z) >= 3) z <- ts_long(z)
   ts_dts(z)
@@ -33,6 +33,8 @@ ts_dts.irts <- function(x) {
 #' @export
 ts_irts <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "irts") return(x)
+  if (relevant_class(x) == "irts") {
+    return(x)
+  }
   ts_irts_dts(ts_dts(x))
 }

@@ -13,4 +13,3 @@ test_that("tslist of lenght 1 dont have an id", {
     ts_dts(ts_pick(EuStockMarkets, "DAX"))
   )
 })
-

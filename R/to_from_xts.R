@@ -38,7 +38,8 @@ ts_dts.xts <- function(x) {
     setnames(dta, c("time", "value"))
   } else {
     dta <- melt(
-      dta, id.vars = "time", variable.name = "id", variable.factor = FALSE
+      dta,
+      id.vars = "time", variable.name = "id", variable.factor = FALSE
     )
     setcolorder(dta, c("id", "time", "value"))
   }
@@ -52,6 +53,8 @@ ts_dts.xts <- function(x) {
 #' @export
 ts_xts <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "xts") return(x)
+  if (relevant_class(x) == "xts") {
+    return(x)
+  }
   ts_xts_dts(ts_dts(x))
 }

@@ -9,7 +9,7 @@ ts_ts_dts <- function(x, frequency = NULL) {
 
   wx <- wide_core(combine_id_cols(ts_regular(x)))
 
-  if (is.null(frequency)){
+  if (is.null(frequency)) {
 
     # try to regularize common time axis
     # this is needed if there are uncovered parts among several series
@@ -145,7 +145,6 @@ ts_dts.ts <- function(x) {
 #'
 #' ts_ts(multi.id.df)
 #' ts_plot(multi.id.df)
-#'
 #' @export
 #' @importFrom anytime anydate anytime
 #' @importFrom stats setNames as.ts frequency loess na.omit optimize predict
@@ -153,6 +152,8 @@ ts_dts.ts <- function(x) {
 #' @importFrom utils getFromNamespace browseURL relist
 ts_ts <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "ts") return(x)
+  if (relevant_class(x) == "ts") {
+    return(x)
+  }
   ts_ts_dts(ts_dts(x))
 }

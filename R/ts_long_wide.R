@@ -16,7 +16,9 @@
 #' @export
 ts_long <- function(x) {
   rc <- relevant_class(x)
-  if (rc %in% c("xts", "ts")) return(x)
+  if (rc %in% c("xts", "ts")) {
+    return(x)
+  }
   z <- long_core_multi_id(as.data.table(x))
   copy_class(z, x, preserve.names = FALSE)
 }
@@ -37,7 +39,7 @@ long_core_multi_id <- function(x) {
       call. = FALSE
     )
   }
-  if (length(id.names) > 0){
+  if (length(id.names) > 0) {
     message(
       "[id] (columns left of [time] column): ",
       paste(paste0("'", id.names, "'"), collapse = ", ")
@@ -58,7 +60,9 @@ long_core_multi_id <- function(x) {
 ts_wide <- function(x) {
   stopifnot(ts_boxable(x))
   rc <- relevant_class(x)
-  if (rc %in% c("ts", "xts", "tbl_time", "tbl_ts", "tis")) return(x)
+  if (rc %in% c("ts", "xts", "tbl_time", "tbl_ts", "tis")) {
+    return(x)
+  }
   x.dts <- combine_id_cols(ts_dts(x))
   z <- wide_core(x.dts)
   # reclass
@@ -69,7 +73,9 @@ ts_wide <- function(x) {
 
 wide_core <- function(x) {
   stopifnot(inherits(x, "dts"))
-  if (ncol(x) == 2) return(x) # nothing to do
+  if (ncol(x) == 2) {
+    return(x)
+  } # nothing to do
   # no multi id
   stopifnot(ncol(x) == 3)
 

@@ -27,6 +27,8 @@ ts_dts.zoo <- function(x) {
 #' @export
 ts_zoo <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "zoo") return(x)
+  if (relevant_class(x) == "zoo") {
+    return(x)
+  }
   ts_zoo_dts(ts_dts(x))
 }

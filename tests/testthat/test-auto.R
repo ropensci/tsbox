@@ -9,14 +9,13 @@ context("automated tests for all supported classes")
 
 
 test_that("two way conversion", {
-
   skip_if_not_installed("tibbletime")
   skip_if_not_installed("tsibble")
   skip_if_not_installed("timeSeries")
   skip_if_not_installed("zoo")
   skip_if_not_installed("tis")
 
-  for (class in names(tsbox:::supported_classes())){
+  for (class in names(tsbox:::supported_classes())) {
     message(class)
 
     ts_fun <- get(paste0("ts_", class))
@@ -29,7 +28,7 @@ test_that("two way conversion", {
 
     # tis: does not deal correctly with 'as.tis(EuStockMarkets)'
     # timeSeries: stored in seconds only, which prevents back covnersion to ts
-    if (!(class %in% c("timeSeries", "tis", "irts"))){
+    if (!(class %in% c("timeSeries", "tis", "irts"))) {
       expect_equal(ts_ts(ts_fun(EuStockMarkets)), EuStockMarkets)
     }
 
@@ -45,9 +44,5 @@ test_that("two way conversion", {
       ts_ts(ts_fun(ts_c(mdeaths, AirPassengers))),
       ts_c(mdeaths, AirPassengers)
     )
-
   }
-
 })
-
-

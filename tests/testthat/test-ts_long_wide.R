@@ -29,4 +29,3 @@ test_that("economics dataset can be converted to long format", {
   library(tsbox)
   expect_is(ts_long(economics), "tbl_df")
 })
-
