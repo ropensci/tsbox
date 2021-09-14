@@ -39,7 +39,7 @@ ts_compound <- function(x, denominator = 100L) {
 #'
 #' @inherit ts_default
 #' @param base base date, character string, `Date` or `POSIXct`, at which the
-#'  index is set to 1. If two dates are provided, the average with the range is
+#'  index is set to 1. If two dates are provided, the mean in the range is
 #'  set equal to 1 (see examples).
 #' @examples
 #' ts_compound(ts_pc(ts_c(fdeaths, mdeaths)))
@@ -53,7 +53,7 @@ ts_compound <- function(x, denominator = 100L) {
 #'   title = "A Very Manual Forecast"
 #' )
 #'
-#' # average of 1974 = 1
+#' # mean of 1974 = 1
 #' ts_index(mdeaths, c("1974-01-01", "1974-12-31"))
 #' }
 #' @export

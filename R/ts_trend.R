@@ -7,6 +7,10 @@
 #' - `degree` degree of Loess smoothing
 #' - `span` smoothing parameter, if `NULL`, an automated search performed (see
 #'   Details)
+#' @references Cleveland, William S., Eric Grosse, and William M. Shyu. "Local regression models." Statistical models in S. Routledge, 2017. 309-376.
+#' @srrstats {G1.0} *Statistical Software should list at least one primary reference from published academic literature.*
+#'   This is an upldated reference from ?loess
+#'
 #' @examples
 #' \donttest{
 #' ts_plot(

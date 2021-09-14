@@ -18,6 +18,21 @@
 #'
 #' The best way to start is to check out the package
 #' [website](https://www.tsbox.help).
+#'
+#' In the *ropensci* classification, this package is *An improvement on other
+#' implementations of similar algorithms in **R**. Many time series packages,
+#' e.g., [zoo](https://CRAN.R-project.org/package=zoo) or
+#' [tsibble](https://CRAN.R-project.org/package=tsibble) contain converter
+#' functions from one class to another, ofter from their newly introduced class
+#' to a `ts`-object.
+#'
+#' In most cases, tsbox transfroms an object into an augmented `data.table`. And
+#' uses the `data.table` infrastucture for efficient joining and reshping. After
+#' computation, it restores the original input class. This restoring feature is
+#' was also used in the `xts::reclass() function of the
+#' [xts](https://CRAN.R-project.org/package=xts) package.
+#'
+#' @srrstats {G1.1} *Statistical Software should document whether the algorithm(s) it implements are:* - *The first implementation of a novel algorithm*; or - *The first implementation within **R** of an algorithm which has previously been implemented in other languages or contexts*; or - *An improvement on other implementations of similar algorithms in **R***.
 #' @name tsbox-package
 #' @aliases tsbox
 #' @docType package
