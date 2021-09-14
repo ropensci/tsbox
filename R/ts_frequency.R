@@ -30,6 +30,8 @@
 #' ts_frequency(EuStockMarkets, "year", na.rm = TRUE)
 #' }
 #' @export
+#' @srrstats {G2.3a} *Use `match.arg()` or equivalent where applicable to only permit expected values.*
+#'   Used here.
 ts_frequency <- function(x, to = c("year", "quarter", "month", "week", "day",
   "hour", "min", "sec"),
    aggregate = "mean", na.rm = FALSE) {

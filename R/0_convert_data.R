@@ -1,32 +1,39 @@
-
 #' @importFrom data.table ":=" "data.table" "setcolorder" "as.data.table"
 #' @importFrom data.table "setattr" "setnames" "rbindlist" "tstrsplit" "copy"
 #' @importFrom data.table "dcast" "melt" "setkey" "setkeyv" "setorder"
 NULL
 
+
 # Make sure data.table knows we know we're using it
 .datatable.aware <- TRUE
 
 
-# utility function to find POSIXct range (for coding only)
-# find_range <- function(by = "1 month") {
-#   ser <- seq(
-#     from = as.POSIXct("1900-01-01"),
-#     to = as.POSIXct("2020-01-01"),
-#     by = by
-#   )
-#   range(diff(as.numeric(as.POSIXct(ser))))
-# }
-# find_range("1 hour")
+#' Utility Function to Find POSIXct Range (Coding Only)
+#'
+#' @noRd
+#' @examples
+#' find_range("1 hour")
+#' # 365.2425  # Gregorian Year
+find_range <- function(by = "1 month") {
+  ser <- seq(
+    from = as.POSIXct("1900-01-01"),
+    to = as.POSIXct("2020-01-01"),
+    by = by
+  )
+  range(diff(as.numeric(as.POSIXct(ser))))
+}
 
-# 365.2425  # Gregorian Year
 
+#' Retrieve Meta Inforamtion
+#' @noRd
 meta_freq <- function() {
   meta_freq_data[]
 }
 
 
-# utility to detect regular frequencies
+#' Utility to Detect Regular Frequencies
+#' @param x Date, or POSIXct
+#' @noRd
 frequency_table <- function(x) {
 
   N <- freq <- share <- string <- NULL

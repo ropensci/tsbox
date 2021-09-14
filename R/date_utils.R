@@ -1,36 +1,39 @@
-# Shift Time Stamps
-#
-# `time_shift` adds seconds, minutes, hours, days, weeks, months, quarters or
-# years to dates.
-#
-# If `by` is character, the time stamp is shifted by a specific amount of time.
-# This can be one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
-# `"month"`, `"quarter" or `"year", or an abbreviation, optionally preceded by
-# a (positive or negative) integer and a space, or followed by plural "s". This
-# is passed to [base::seq.Date()]. This does not require the series to be
-# regular.
-#
-# @param x `Date` or `POSIXct`. If `POSIXct`, it is converted into `Date`.
-# @param by integer or character, either the number of shifting periods
-#   (integer), or an absolute amount of time (character). See details.
-#
-# @return an object of class `Date`
-#
-# @examples
-# ap.time <- ts_df(AirPassengers)$time
-#
-# head(time_shift(ap.time, 14))
-# head(time_shift(ap.time, "7 week"))
-# head(time_shift(ap.time, "-1 month"))
-#
-# time_shift(ts_summary(mdeaths)$end, 1)
-# time_shift(ts_summary(mdeaths)$end, "-14 sec")
-# time_shift(ts_summary(mdeaths)$end, "-1 year")
-# ts_span(
-#   ts_c(mdeaths, fdeaths),
-#   start = time_shift(ts_summary(mdeaths)$end, -1)
-# )
-#
+#' Shift Time Stamps
+#'
+#' `time_shift` adds seconds, minutes, hours, days, weeks, months, quarters or
+#' years to dates.
+#'
+#' If `by` is character, the time stamp is shifted by a specific amount of time.
+#' This can be one of `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`,
+#' `"month"`, `"quarter" or `"year", or an abbreviation, optionally preceded by
+#' a (positive or negative) integer and a space, or followed by plural "s". This
+#' is passed to [base::seq.Date()]. This does not require the series to be
+#' regular.
+#'
+#' @param x `Date` or `POSIXct`. If `POSIXct`, it is converted into `Date`.
+#' @param by integer or character, either the number of shifting periods
+#'   (integer), or an absolute amount of time (character). See details.
+#'
+#' @return an object of class `Date`
+#'
+#' @examples
+#' ap.time <- ts_df(AirPassengers)$time
+#'
+#' head(time_shift(ap.time, 14))
+#' head(time_shift(ap.time, "7 week"))
+#' head(time_shift(ap.time, "-1 month"))
+#'
+#' time_shift(ts_summary(mdeaths)$end, 1)
+#' time_shift(ts_summary(mdeaths)$end, "-14 sec")
+#' time_shift(ts_summary(mdeaths)$end, "-1 year")
+#' ts_span(
+#'   ts_c(mdeaths, fdeaths),
+#'   start = time_shift(ts_summary(mdeaths)$end, -1)
+#' )
+#'
+#' @srrstats {G2.3b} *Either: use `tolower()` or equivalent to ensure input of character parameters is not case dependent; or explicitly document that parameters are strictly case-sensitive.*
+#'   `by` string can be entered, e.g., as `1 Month`.
+#' @noRd
 time_shift <- function(x, by = NULL) {
 
   freq <- NULL
