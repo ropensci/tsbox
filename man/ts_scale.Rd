@@ -2,7 +2,7 @@
 % Please edit documentation in R/ts_scale.R
 \name{ts_scale}
 \alias{ts_scale}
-\title{Normalized Time Series}
+\title{Scale and Center Time Series}
 \usage{
 ts_scale(x, center = TRUE, scale = TRUE)
 }
@@ -21,7 +21,8 @@ class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \
 \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
-Subtract mean and divide by standard deviation. Based on \code{\link[base:scale]{base::scale()}}.
+Subtract mean (\emph{sum(x)/n}) and divide by standard deviation
+(\emph{sqrt(sum(x^2)/(n-1))}). Based on \code{\link[base:scale]{base::scale()}}.
 }
 \examples{
 \donttest{

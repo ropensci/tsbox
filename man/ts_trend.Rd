@@ -36,3 +36,6 @@ ts_plot(
 )
 }
 }
+\references{
+Cleveland, William S., Eric Grosse, and William M. Shyu. "Local regression models." Statistical models in S. Routledge, 2017. 309-376.
+}

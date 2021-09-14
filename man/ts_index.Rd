@@ -18,7 +18,7 @@ ts_index(x, base = NULL)
 given a decimal fraction}
 
 \item{base}{base date, character string, \code{Date} or \code{POSIXct}, at which the
-index is set to 1. If two dates are provided, the average with the range is
+index is set to 1. If two dates are provided, the mean in the range is
 set equal to 1 (see examples).}
 }
 \value{
@@ -44,7 +44,7 @@ ts_plot(
   title = "A Very Manual Forecast"
 )
 
-# average of 1974 = 1
+# mean of 1974 = 1
 ts_index(mdeaths, c("1974-01-01", "1974-12-31"))
 }
 }

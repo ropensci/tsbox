@@ -25,6 +25,19 @@ use the same tsbox-command for any time series class.
 
 The best way to start is to check out the package
 \href{https://www.tsbox.help}{website}.
+
+In the \emph{ropensci} classification, this package is *An improvement on other
+implementations of similar algorithms in \strong{R}. Many time series packages,
+e.g., \href{https://CRAN.R-project.org/package=zoo}{zoo} or
+\href{https://CRAN.R-project.org/package=tsibble}{tsibble} contain converter
+functions from one class to another, ofter from their newly introduced class
+to a \code{ts}-object.
+
+In most cases, tsbox transfroms an object into an augmented \code{data.table}. And
+uses the \code{data.table} infrastucture for efficient joining and reshping. After
+computation, it restores the original input class. This restoring feature is
+was also used in the `xts::reclass() function of the
+\href{https://CRAN.R-project.org/package=xts}{xts} package.
 }
 \author{
 Christoph Sax \email{christoph.sax@gmail.com}
