@@ -32,11 +32,12 @@ ts_bind <- function(...) {
 #'
 #' Enables ts_bind() to work on scalars and vectors, too
 #'
-#' @param a ts-boxable object, or numeric
+#' @param a ts-boxable object, or numeric, or one-dimensional input of any class
 #' @param b ts-boxable object
 #' @param backwards logical, should `b` be appended to `a`?
 #'
 #' @noRd
+#' @srrstats {G2.6} *Software which accepts one-dimensional input should ensure values are appropriately pre-processed regardless of class structures.*
 bind_numeric <- function(a, b, backwards = FALSE) {
   .SD <- NULL
 
@@ -69,7 +70,7 @@ bind_numeric <- function(a, b, backwards = FALSE) {
 
     new.x <- data.table(
       time = new.time.stamps,
-      value = b
+      value = as.numeric(b)
     )
 
     z <- rbind(x, new.x)

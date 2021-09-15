@@ -132,7 +132,8 @@ desired_class <- function(ll) {
 copy_class <- function(x, template,
                        preserve.mode = TRUE,
                        preserve.names = FALSE,
-                       preserve.time = FALSE) {
+                       preserve.time = FALSE,
+                       preserve.attr = TRUE) {
   if (!ts_boxable(x)) {
     if (inherits(template, "ts")) {
       x <- ts(x)
@@ -178,6 +179,11 @@ copy_class <- function(x, template,
 
     if (preserve.time) {
       ans[[tn]] <- template[[tn]]
+    }
+
+    if (preserve.attr) {
+      vn <- guess_value(ans)
+      attributes(ans[[vn]]) <- attributes(template[[vn]])
     }
 
     if (preserve.names) {

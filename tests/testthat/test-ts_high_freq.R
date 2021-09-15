@@ -1,3 +1,5 @@
+library(dplyr)
+
 from_date <- as.POSIXct("2000-01-01")
 
 test_that("no NA when converting second data ", {

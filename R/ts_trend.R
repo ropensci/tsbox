@@ -28,14 +28,13 @@ ts_trend <- function(x, ...) {
   predict_loess <- function(.SD, ...) {
     z <- copy(.SD)
     value_loess <- predict(loess(
-      value ~ as.numeric(as.POSIXct(time)),
+      as.numeric(value) ~ as.numeric(as.POSIXct(time)),
       ...,
-      data = .SD
+      data = z
     ))
     z[, value := value_loess]
     z
   }
-
   z <- ts_apply_dts(z, predict_loess, ...)
   copy_class(z, x)
 }

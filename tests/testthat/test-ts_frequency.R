@@ -1,3 +1,5 @@
+library(dplyr)
+
 test_that("ts_frequency survives freq conversion", {
   expect_equal(
     ts_frequency(EuStockMarkets, 1),

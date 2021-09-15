@@ -17,7 +17,7 @@
 ts_pc <- function(x) {
   ts_apply(ts_regular(x), function(x) {
     value <- NULL
-    x[, list(time, value = 100 * (value / c(NA, value[-length(value)]) - 1))]
+    x[, list(time, value = 100 * (as.numeric(value) / c(NA_real_, as.numeric(value)[-length(value)]) - 1))]
   })
 }
 
@@ -27,7 +27,7 @@ ts_pc <- function(x) {
 ts_diff <- function(x) {
   ts_apply(ts_regular(x), function(x) {
     value <- NULL
-    x[, list(time, value = value - c(NA, value[-length(value)]))]
+    x[, list(time, value = as.numeric(value) - c(NA_real_, as.numeric(value)[-length(value)]))]
   })
 }
 
@@ -40,7 +40,7 @@ ts_pca <- function(x) {
     value <- NULL
     x[
       ,
-      list(time, value = 100 * ((value / c(NA, value[-length(value)]))^fr - 1))
+      list(time, value = 100 * ((as.numeric(value) / c(NA_real_, as.numeric(value)[-length(value)]))^fr - 1))
     ]
   })
 }

@@ -82,3 +82,17 @@ test_that("ts_bind works with short series and scalars (#197)", {
   ans <- ts_bind(ts_tbl(mdeaths)[1:1, ], 1)
   expect_s3_class(ans, "tbl_df")
 })
+
+#' @srrstats {G2.6} *Software which accepts one-dimensional input should ensure values are appropriately pre-processed regardless of class structures.*
+test_that("ensure values are appropriately pre-processed regardless of class structures.", {
+  x <- c(2, 2)
+  class(x) <- "myclass"
+  ans <- ts_bind(mdeaths, x)
+  expect_s3_class(ans, "ts")
+})
+
+
+
+
+
+

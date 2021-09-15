@@ -32,6 +32,7 @@
 #' @export
 #' @srrstats {G2.3a} *Use `match.arg()` or equivalent where applicable to only permit expected values.*
 #'   Used here.
+#' @srrstats {G2.4a} *explicit conversion to `integer` via `as.integer()`*
 ts_frequency <- function(x, to = c(
                            "year", "quarter", "month", "week", "day",
                            "hour", "min", "sec"
@@ -40,7 +41,8 @@ ts_frequency <- function(x, to = c(
   stopifnot(ts_boxable(x))
 
   if (is.numeric(to)) {
-    numeric.period <- c(month = 12, quarter = 4, year = 1)
+    to <- as.integer(to)
+    numeric.period <- c(month = 12L, quarter = 4L, year = 1L)
     stopifnot(to %in% numeric.period)
     to <- names(numeric.period)[numeric.period == to]
   }

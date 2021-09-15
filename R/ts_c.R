@@ -203,6 +203,8 @@ make_ids_unique <- function(ll, cid) {
 #' @param new data.table, with unique ids, in any order
 #'
 #' @noRd
+#' @srrstats {G2.4d} *explicit conversion to factor via `as.factor()`*
+#' @srrstats {G2.4e} *explicit conversion from factor via `as...()` functions*
 set_levels_dt <- function(dt, old, new) {
   stopifnot(identical(dim(new), dim(old)))
   stopifnot(identical(names(new), names(old)))

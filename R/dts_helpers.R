@@ -135,7 +135,7 @@ combine_id_cols <- function(x, sep = "_") {
     return(x)
   }
   cname <- dts_cname(x)
-  z <- combine_cols_data.table(x, dts_cname(x)$id, sep = sep)
+  z <- combine_cols_data.table(copy(x), dts_cname(x)$id, sep = sep)
   cname$id <- "id"
   setattr(z, "cname", cname)
   z

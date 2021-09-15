@@ -2,9 +2,13 @@
 #'   given a decimal fraction
 #' @name ts_index
 #' @export
-ts_compound <- function(x, denominator = 100L) {
+#' @srrstats {G2.4b} *explicit conversion to continuous via `as.numeric()`*
+ts_compound <- function(x, denominator = 100) {
+
   not_in_data <- NULL
   value <- NULL
+
+  denominator <- as.numeric(denominator)
   stopifnot(denominator > 0)
   stopifnot(length(denominator) == 1)
   z <- ts_dts(x)

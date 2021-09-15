@@ -25,6 +25,7 @@ Suggests:
     tsibbledata,
     tibbletime,
     tseries,
+    units,
     zoo,
     tis,
     timeSeries,
