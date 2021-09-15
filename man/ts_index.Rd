@@ -5,7 +5,7 @@
 \alias{ts_compound}
 \title{Indices from Levels or Percentage Rates}
 \usage{
-ts_compound(x, denominator = 100L)
+ts_compound(x, denominator = 100)
 
 ts_index(x, base = NULL)
 }

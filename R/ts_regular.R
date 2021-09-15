@@ -22,7 +22,7 @@
 #' ts_regular(ts_na_omit(ts_dts(ts_c(f, m))))
 #' @export
 ts_regular <- function(x, fill = NA) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   fill <- as.numeric(fill)
   if (inherits(x, "ts")) { # to save time
     if (!is.na(fill)) {

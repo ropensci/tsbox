@@ -9,7 +9,8 @@ copy_class(
   template,
   preserve.mode = TRUE,
   preserve.names = FALSE,
-  preserve.time = FALSE
+  preserve.time = FALSE,
+  preserve.attr = TRUE
 )
 }
 \arguments{

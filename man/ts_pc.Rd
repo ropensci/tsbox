@@ -36,9 +36,11 @@ the percentage change rate compared to the same period of the previous year.
 previous period.
 }
 \examples{
-ts_diff(ts_c(fdeaths, mdeaths))
-ts_pc(ts_c(fdeaths, mdeaths))
-ts_pca(ts_c(fdeaths, mdeaths))
-ts_pcy(ts_c(fdeaths, mdeaths))
-ts_diffy(ts_c(fdeaths, mdeaths))
+
+x <- ts_c(fdeaths, mdeaths)
+ts_diff(x)
+ts_pc(x)
+ts_pca(x)
+ts_pcy(x)
+ts_diffy(x)
 }

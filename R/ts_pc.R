@@ -8,11 +8,13 @@
 #'
 #' @inherit ts_default
 #' @examples
-#' ts_diff(ts_c(fdeaths, mdeaths))
-#' ts_pc(ts_c(fdeaths, mdeaths))
-#' ts_pca(ts_c(fdeaths, mdeaths))
-#' ts_pcy(ts_c(fdeaths, mdeaths))
-#' ts_diffy(ts_c(fdeaths, mdeaths))
+#'
+#' x <- ts_c(fdeaths, mdeaths)
+#' ts_diff(x)
+#' ts_pc(x)
+#' ts_pca(x)
+#' ts_pcy(x)
+#' ts_diffy(x)
 #' @export
 ts_pc <- function(x) {
   ts_apply(ts_regular(x), function(x) {

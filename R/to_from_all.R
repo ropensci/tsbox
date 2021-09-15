@@ -64,6 +64,22 @@ ts_boxable <- function(x) {
 }
 
 
+#' Test if an Object is ts-Boxable
+#'
+#' Mainly used internally.
+#'
+#' @noRd
+check_ts_boxable <- function(x) {
+  if (!ts_boxable(x)) {
+    stop(
+      "'x' of the non-ts-boxable class(es) ",
+      paste(paste0("'", class(x), "'"), collapse = ", "),
+      call. = FALSE
+    )
+  }
+}
+
+
 #' Universal Converter Function
 #'
 #' @param x time series object, either `ts`, `xts`, `data.frame` or `data.table`.
