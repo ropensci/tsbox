@@ -1,8 +1,6 @@
 library(testthat)
 library(tsbox)
 
-context("nyc fligths")
-
 test_that("minimal example works", {
   skip_if_not_installed("nycflights13")
 
@@ -12,6 +10,6 @@ test_that("minimal example works", {
     select(origin, time = time_hour, temp, humid, precip) %>%
     ts_long()
 
-  expect_is(dta, "tbl_df")
-  expect_is(ts_ts(ts_pc(dta)), "ts")
+  expect_s3_class(dta, "tbl_df")
+  expect_s3_class(ts_ts(ts_pc(dta)), "ts")
 })

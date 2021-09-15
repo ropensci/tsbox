@@ -1,10 +1,7 @@
-library(testthat)
-library(tsbox)
-
-context("ts_index")
-
 # skip_on_appveyor()  # it works on my windows machine not clear what's wrong
 skip_on_cran()
+
+library(dplyr)
 
 test_that("ts_index series have same pc rates", {
   expect_equal(

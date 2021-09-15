@@ -1,11 +1,3 @@
-library(testthat)
-library(data.table)
-library(tsbox)
-library(dplyr)
-library(tsbox)
-
-context("data time conversion")
-
 test_that("two way date time conversion (non heuristic)", {
   expect_equal(
     tsbox:::POSIXct_to_tsp(tsbox:::ts_to_POSIXct(AirPassengers)),

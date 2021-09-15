@@ -1,9 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_lag")
-
-
 test_that("integer and character shifting works the same", {
   expect_equal(ts_lag(mdeaths), ts_lag(mdeaths, "month"))
   expect_equal(ts_lag(austres), ts_lag(austres, "quarter"))

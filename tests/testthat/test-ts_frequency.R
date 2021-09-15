@@ -1,7 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_frequency")
 test_that("ts_frequency survives freq conversion", {
   expect_equal(
     ts_frequency(EuStockMarkets, 1),
@@ -29,17 +25,17 @@ test_that("ts_frequency works with fancier frequencies", {
   z <- ts_frequency(EuStockMarkets, to = "week", aggregate = "mean", na.rm = TRUE)
   expect_equal(tail(z, 1)[1], 5414.375)
 
-  expect_is(
+  expect_s3_class(
     ts_frequency(mdeaths, to = "year", aggregate = "sum", na.rm = TRUE),
     "ts"
   )
 
-  expect_is(
+  expect_s3_class(
     ts_frequency(mdeaths, to = "month", aggregate = "sum", na.rm = TRUE),
     "ts"
   )
 
-  expect_is(
+  expect_s3_class(
     ts_frequency(mdeaths, to = "quarter", aggregate = "sum", na.rm = TRUE),
     "ts"
   )
@@ -52,12 +48,12 @@ test_that("ts_frequency works with POSIXct", {
     value = 1
   )
 
-  expect_is(
+  expect_s3_class(
     ts_frequency(x, to = "min", aggregate = "sum", na.rm = TRUE),
     "tbl_df"
   )
 
-  expect_is(
+  expect_s3_class(
     ts_frequency(x, to = "hour", aggregate = "sum", na.rm = TRUE),
     "tbl_df"
   )

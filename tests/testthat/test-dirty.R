@@ -1,19 +1,18 @@
 library(testthat)
 library(tsbox)
 
-context("dirty situations")
 
 test_that("works with df with improper col classes", {
   library(dplyr)
   x.chr <- ts_tbl(mdeaths) %>%
     mutate(time = as.character(time))
 
-  expect_is(ts_ts(x.chr), "ts")
+  expect_s3_class(ts_ts(x.chr), "ts")
 
   x.fct <- ts_tbl(mdeaths) %>%
     mutate(time = as.factor(as.character(time)))
 
-  expect_is(ts_ts(x.fct), "ts")
+  expect_s3_class(ts_ts(x.fct), "ts")
 })
 
 
@@ -25,7 +24,7 @@ test_that("time column of daily data is treated as Date (#114)", {
   )
 
   z <- ts_dts(ts_ts(x))
-  expect_is(z$time, "Date")
+  expect_s3_class(z$time, "Date")
 })
 
 

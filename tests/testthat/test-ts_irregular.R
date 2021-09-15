@@ -1,8 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("true irregular series")
-
 test_that("deals with true irregular series", {
   x <- data.frame(
     time = as.POSIXct(c(
@@ -36,8 +31,8 @@ test_that("universal functions work with irregular series", {
   )
   expect_error(ts_ts(x))
 
-  expect_is(ts_c(x, ts_trend(x)), "data.frame")
-  expect_is(ts_c(x, ts_index(x, base = "2007-03-03")), "data.frame")
+  expect_s3_class(ts_c(x, ts_trend(x)), "data.frame")
+  expect_s3_class(ts_c(x, ts_index(x, base = "2007-03-03")), "data.frame")
 
-  expect_is(ts_c(x, ts_scale(x)), "data.frame")
+  expect_s3_class(ts_c(x, ts_scale(x)), "data.frame")
 })

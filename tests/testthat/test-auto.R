@@ -1,12 +1,8 @@
-library(testthat)
-library(tsbox)
+# automated tests for all supported classes
 
 # install.packages(
 #   c("tsibble", "xts", "timeSeries", "zoo", "tibbletime", "tseries")
 # )
-
-context("automated tests for all supported classes")
-
 
 test_that("two way conversion", {
   skip_if_not_installed("tibbletime")

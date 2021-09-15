@@ -1,10 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("tricky stuff")
-
-ts_dygraphs(AirPassengers)
-
 test_that("Latest tricky stuff works.", {
   expect_equal(
     mdeaths,
@@ -19,7 +12,7 @@ test_that("Latest tricky stuff works.", {
   expect_true(length(unique(a[["id"]])) == 2)
 
   # ts_c for ts objects
-  expect_is(ts_c(ts_c(fdeaths, mdeaths), AirPassengers), "ts")
+  expect_s3_class(ts_c(ts_c(fdeaths, mdeaths), AirPassengers), "ts")
 })
 
 

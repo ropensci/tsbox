@@ -1,9 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_pc")
-
-
 test_that("colname guessing works as expected", {
 
   # 3 cols
@@ -68,11 +62,11 @@ test_that("ts_compound, ts_index and ts_pc are consistent", {
 test_that("pc and ts_index works with NA", {
   x0 <- mdeaths
   x0[5:10] <- NA
-  expect_is(ts_index(ts_pc(x0)), "ts")
+  expect_s3_class(ts_index(ts_pc(x0)), "ts")
 
   x1 <- EuStockMarkets
   x1[5:10, ] <- NA
-  expect_is(ts_index(ts_pc(x1)), "ts")
+  expect_s3_class(ts_index(ts_pc(x1)), "ts")
 })
 
 

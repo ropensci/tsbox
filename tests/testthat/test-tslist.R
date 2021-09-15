@@ -1,9 +1,5 @@
-library(testthat)
-library(tsbox)
-
-context("tslist")
 test_that("tslist works on single series", {
-  expect_is(ts_tslist(AirPassengers), "tslist")
+  expect_s3_class(ts_tslist(AirPassengers), "tslist")
 })
 
 

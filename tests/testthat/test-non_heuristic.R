@@ -2,8 +2,6 @@ library(testthat)
 library(tsbox)
 
 
-context("non heuristic series")
-
 test_that("regular non standard series work with NA", {
   x0 <- EuStockMarkets
   x0[5:10, ] <- NA

@@ -1,8 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_span")
-
 test_that("ts_span does the same as base window", {
   ts_win2 <- ts_(window)
   expect_equal(

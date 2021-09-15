@@ -1,9 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_")
-
-
 test_that("ts_ works with more exotic options", {
   skip_if_not_installed("dygraphs")
 

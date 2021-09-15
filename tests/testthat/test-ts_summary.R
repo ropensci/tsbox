@@ -1,7 +1,7 @@
 
 library(testthat)
 library(tsbox)
-
+library(dplyr)
 
 test_that("ts_summary works with irregular series", {
   skip_on_cran()
@@ -21,14 +21,14 @@ test_that("ts_summary works with irregular series", {
 
 
 test_that("ts_summary works with single series", {
-  expect_is(ts_summary(AirPassengers), "data.frame")
-  expect_is(ts_summary(AirPassengers, spark = TRUE), "data.frame")
+  expect_s3_class(ts_summary(AirPassengers), "data.frame")
+  expect_s3_class(ts_summary(AirPassengers, spark = TRUE), "data.frame")
 })
 
 
 test_that("ts_summary works with single observations", {
-  expect_is(ts_summary(ts_span(mdeaths, -1)), "data.frame")
-  expect_is(ts_summary(ts_span(mdeaths, -1), spark = TRUE), "data.frame")
+  expect_s3_class(ts_summary(ts_span(mdeaths, -1)), "data.frame")
+  expect_s3_class(ts_summary(ts_span(mdeaths, -1), spark = TRUE), "data.frame")
 })
 
 test_that("ts_summary works with irregular observations", {
@@ -39,6 +39,6 @@ test_that("ts_summary works with irregular observations", {
   ) %>%
     mutate(time = as.Date(time))
 
-  expect_is(ts_summary(series_irreg), "data.frame")
-  expect_is(ts_summary(series_irreg, spark = TRUE), "data.frame")
+  expect_s3_class(ts_summary(series_irreg), "data.frame")
+  expect_s3_class(ts_summary(series_irreg, spark = TRUE), "data.frame")
 })

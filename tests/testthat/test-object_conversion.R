@@ -2,8 +2,6 @@ library(testthat)
 library(tsbox)
 
 
-context("basic conversion handling")
-
 test_that("conversion produces right classes", {
   skip_on_cran()
 
@@ -152,7 +150,7 @@ test_that("conversion between objects works as expected: EuStockMarkets", {
 test_that("some trickier situations work properly", {
   skip_on_cran()
   skip_if_not_installed("forecast")
-  expect_is(
+  expect_s3_class(
     ts_bind(
       ts_c(AirPassengers, mdeaths),
       ts_forecast(ts_c(AirPassengers, mdeaths))
@@ -160,7 +158,7 @@ test_that("some trickier situations work properly", {
     "ts"
   )
 
-  expect_is(ts_bind(AirPassengers, mdeaths), "ts")
+  expect_s3_class(ts_bind(AirPassengers, mdeaths), "ts")
 })
 
 

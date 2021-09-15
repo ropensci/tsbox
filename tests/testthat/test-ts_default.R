@@ -1,8 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_default")
-
 test_that("ts_default works", {
   df0 <- ts_df(ts_c(mdeaths, fdeaths))
   # non-default colnames

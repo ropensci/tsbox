@@ -1,8 +1,6 @@
 library(testthat)
 library(tsbox)
-
-context("date utils")
-
+library(dplyr)
 
 test_that("time_shift is working", {
   x <- ts_tbl(ts_c(mdeaths, fdeaths))
@@ -16,13 +14,12 @@ test_that("time_shift is working", {
 })
 
 
-
 test_that("non heuristic reguarization works for Date", {
   x <- as.Date(c(
     "2001-01-02", "2001-01-04", "2001-01-06", "2001-01-08",
     "2001-01-10", "2001-01-14"
   ))
-  expect_is(regularize_non_heuristic(x), "Date")
+  expect_s3_class(regularize_non_heuristic(x), "Date")
 })
 
 test_that("time shift works in special situations", {
@@ -33,7 +30,7 @@ test_that("time shift works in special situations", {
     ),
     by = "hour"
   )
-  expect_is(z, "POSIXct")
+  expect_s3_class(z, "POSIXct")
 })
 
 

@@ -1,8 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("high frequency data")
-
 from_date <- as.POSIXct("2000-01-01")
 
 test_that("no NA when converting second data ", {
@@ -21,19 +16,19 @@ test_that("heuristic high frequency data works", {
     time = seq(from = from_date, length.out = 10, by = "1 sec"),
     value = 1:10
   ))
-  expect_is(x, "ts")
+  expect_s3_class(x, "ts")
 
   x <- ts_ts(data.frame(
     time = seq(from = from_date, length.out = 10, by = "4 hour"),
     value = 1:10
   ))
-  expect_is(x, "ts")
+  expect_s3_class(x, "ts")
 
   x <- ts_ts(data.frame(
     time = seq(from = from_date, length.out = 10, by = "1 day"),
     value = 1:10
   ))
-  expect_is(x, "ts")
+  expect_s3_class(x, "ts")
 
 
   x <- data.frame(

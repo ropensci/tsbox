@@ -1,8 +1,6 @@
 library(testthat)
 library(tsbox)
 
-context("non standard cnames")
-
 test_that("main functions work with non standard cnames", {
   x <- ts_tbl(ts_c(mdeaths, AirPassengers))
   x2 <- ts_tbl(ts_c(fdeaths, mdeaths))
@@ -10,17 +8,17 @@ test_that("main functions work with non standard cnames", {
   names(x) <- c("hey", "heyhey", "Hey")
   names(x2) <- c("hey", "heyhey2", "Hey2")
 
-  expect_is(ts_span(x, start = 1958), "tbl_df")
-  expect_is(ts_c(x, x2), "tbl_df")
-  expect_is(ts_bind(x, x2), "tbl_df")
-  expect_is(ts_scale(x), "tbl_df")
-  expect_is(ts_frequency(x, "year"), "tbl_df")
-  expect_is(ts_index(x2), "tbl_df")
-  expect_is(ts_lag(x), "tbl_df")
-  expect_is(ts_pick(x, "mdeaths"), "tbl_df")
+  expect_s3_class(ts_span(x, start = 1958), "tbl_df")
+  expect_s3_class(ts_c(x, x2), "tbl_df")
+  expect_s3_class(ts_bind(x, x2), "tbl_df")
+  expect_s3_class(ts_scale(x), "tbl_df")
+  expect_s3_class(ts_frequency(x, "year"), "tbl_df")
+  expect_s3_class(ts_index(x2), "tbl_df")
+  expect_s3_class(ts_lag(x), "tbl_df")
+  expect_s3_class(ts_pick(x, "mdeaths"), "tbl_df")
 
   skip_on_cran()
-  expect_is(ts_plot(x), "call")
+  expect_type(ts_plot(x), "language")
 })
 
 test_that("first object determines col order and col names (#166)", {
@@ -48,17 +46,17 @@ test_that("invalid colnames are handled correctly", {
   names(x) <- c("Ö oe", "ha ha", "h h~dfsd")
   names(x2) <- c("Ö oe", "ha ha", "h h~dfsd")
 
-  expect_is(ts_span(x, start = 1958), "tbl_df")
-  expect_is(ts_c(x, x2), "tbl_df")
-  expect_is(ts_bind(x, x2), "tbl_df")
-  expect_is(ts_scale(x), "tbl_df")
-  expect_is(ts_frequency(x, "year"), "tbl_df")
-  expect_is(ts_index(x2), "tbl_df")
-  expect_is(ts_lag(x), "tbl_df")
-  expect_is(ts_pick(x, "mdeaths"), "tbl_df")
+  expect_s3_class(ts_span(x, start = 1958), "tbl_df")
+  expect_s3_class(ts_c(x, x2), "tbl_df")
+  expect_s3_class(ts_bind(x, x2), "tbl_df")
+  expect_s3_class(ts_scale(x), "tbl_df")
+  expect_s3_class(ts_frequency(x, "year"), "tbl_df")
+  expect_s3_class(ts_index(x2), "tbl_df")
+  expect_s3_class(ts_lag(x), "tbl_df")
+  expect_s3_class(ts_pick(x, "mdeaths"), "tbl_df")
 
   skip_on_cran()
-  expect_is(ts_plot(x), "call")
+  expect_type(ts_plot(x), "language")
 })
 
 

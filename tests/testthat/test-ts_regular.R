@@ -1,9 +1,3 @@
-library(testthat)
-library(tsbox)
-
-
-context("ts_regular")
-
 test_that("conversion produces right classes", {
   x0 <- AirPassengers
   x0[c(10, 15)] <- NA

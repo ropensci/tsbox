@@ -1,8 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_pick")
-
 test_that("ts_pick works", {
   # Programming use
   to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")

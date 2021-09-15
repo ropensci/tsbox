@@ -1,10 +1,3 @@
-library(testthat)
-library(tsbox)
-
-
-
-context("low frequency data, special cases")
-
 test_that("regular low frequency data works with POSIXct", {
 
   # fails on some systems, time zones
@@ -24,5 +17,5 @@ test_that("regular low frequency data works with POSIXct", {
     ts_df() %>%
     ts_regular()
 
-  expect_is(x, "data.frame")
+  expect_s3_class(x, "data.frame")
 })
