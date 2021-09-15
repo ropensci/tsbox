@@ -92,7 +92,6 @@ ts_summary <- function(x, spark = FALSE) {
 
 # inspired by the sparklines in skimr
 # https://github.com/ropensci/skimr/blob/master/R/stats.R
-
 # intToUtf8(braille.map)
 braille.map <- setNames(
   c(
@@ -106,6 +105,17 @@ braille.map <- setNames(
     "1 ", "2 ", "3 ", "4 ", "  "
   )
 )
+
+
+#' Console Representation for Time Series (Unicode)
+#'
+#' @param x numeric vector
+#'
+#' @returns character, representing time series in unicode
+#' @examples
+#' spark_unicode(mdeaths)
+#'
+#' @noRd
 spark_unicode <- function(x, spark.width = 15) {
   cat.y <- cut(
     seq(0, 1, length.out = length(x)),
@@ -125,8 +135,20 @@ spark_unicode <- function(x, spark.width = 15) {
   intToUtf8(braille.map[cat.scaled.grouped])
 }
 
-# unicode does not (yet?) work in R data.frames()
+
 ascii.map <- setNames(c("_", ".", "-", "\"", " "), c("1", "2", "3", "4", " "))
+
+#' Console Representation for Time Series (ASCII)
+#'
+#' unicode does not (yet?) work in R data.frame in Windows?
+#'
+#' @param x numeric vector
+#'
+#' @returns character, representing time series in ASCII
+#' @examples
+#' spark_ascii(mdeaths)
+#'
+#' @noRd
 spark_ascii <- function(x, spark.width = 15) {
   cat.y <- cut(
     seq(0, 1, length.out = length(x)),

@@ -1,4 +1,3 @@
-
 #' @param denominator positive number. Set equal to 1 if percentage change rate is
 #'   given a decimal fraction
 #' @name ts_index
@@ -28,7 +27,6 @@ ts_compound <- function(x, denominator = 100L) {
   z <- dts_restore(z, d)
   ts_na_omit(copy_class(z, x))
 }
-
 
 
 #' Indices from Levels or Percentage Rates

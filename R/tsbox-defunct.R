@@ -2,16 +2,16 @@
 #'
 #' @inherit ts_default
 #' @export
-#' @name tsbox-deprecated
+#' @name tsbox-defunct
 ts_start <- function(x) {
-  .Deprecated("ts_summary")
+  .Defunct("ts_summary")
   x.dts <- ts_dts(x)
   range(x.dts[[dts_cname(x.dts)$time]])[1]
 }
 
 
 #' @export
-#' @name tsbox-deprecated
+#' @name tsbox-defunct
 ts_end <- function(x) {
   .Deprecated("ts_summary")
   x.dts <- ts_dts(x)

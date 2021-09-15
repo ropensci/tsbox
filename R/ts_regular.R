@@ -40,7 +40,14 @@ ts_regular <- function(x, fill = NA) {
   copy_class(z, x)
 }
 
-# A basic test for regularity. Fast, but misses some regular series
+
+#' Basic Test for Regularity
+#'
+#' Fast, but misses some regular series
+#'
+#' @param x Date or POSIXct
+#'
+#' @noRd
 is_regular_one_basic <- function(x) {
   if (length(x) == 1) {
     return(TRUE)
@@ -49,6 +56,14 @@ is_regular_one_basic <- function(x) {
   (rng[2] - rng[1]) < 1
 }
 
+
+#' Enforce Regularity
+#'
+#' Core function that works on dts, called by ts_regular()
+#'
+#' @param x data.table
+#'
+#' @noRd
 regular_core <- function(x) {
   stopifnot(inherits(x, "dts"))
 

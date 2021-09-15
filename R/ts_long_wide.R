@@ -23,8 +23,14 @@ ts_long <- function(x) {
   copy_class(z, x, preserve.names = FALSE)
 }
 
-# a version of long_core that deals with multi id. less robust and not used
-# by ts_dts.ts and ts_dts.xts
+
+#' Make Wide data.table Long
+#'
+#' Core function that works on data.table, called by ts_long()
+#'
+#' @param x data.table
+#'
+#' @noRd
 long_core_multi_id <- function(x) {
   stopifnot(inherits(x, "data.table"))
   time.name <- guess_time(x)
@@ -55,6 +61,7 @@ long_core_multi_id <- function(x) {
   ts_dts(z)
 }
 
+
 #' @export
 #' @name ts_long
 ts_wide <- function(x) {
@@ -71,6 +78,14 @@ ts_wide <- function(x) {
   as_class(z)
 }
 
+
+#' Make Wide dts a Long data.table
+#'
+#' Core function that works on dts and data.table, called by ts_wide()
+#'
+#' @param x dts
+#'
+#' @noRd
 wide_core <- function(x) {
   stopifnot(inherits(x, "dts"))
   if (ncol(x) == 2) {

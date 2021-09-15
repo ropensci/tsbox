@@ -199,8 +199,15 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   z
 }
 
-# x <- ts_dts(ts_c(fdeaths, mdeaths))
-# x <- ts_dts(EuStockMarkets)
+
+#' Get Shift String from dts
+#'
+#' @param x a 'dts' object
+#'
+#' @examples
+#' get_shift_string(ts_dts(ts_c(fdeaths, mdeaths)))
+#' get_shift_string(ts_dts(EuStockMarkets))
+#' @noRd
 get_shift_string <- function(x) {
   freq <- NULL
   x <- copy(ts_dts(x))
@@ -212,27 +219,30 @@ get_shift_string <- function(x) {
   as.data.frame(z)
 }
 
-# determine frequency of a single series
-# returns list, with components freq, string
 
-# x1 <- as.POSIXct(c("2000-01-01", "2001-01-01", "2005-03-03", "2007-03-03"))
-# x2 <- ts_tbl(AirPassengers)$time
-# x3 <- ts_na_omit(ts_tbl(ts_bind(austres, AirPassengers)))$time
-# frequency_one(x1)
-# frequency_one(x2)
-# frequency_one(x3)
-empty_fm <- function() {
-  data.frame(
+#' Determine Frequency of a Single Series
+#'
+#' @param x Date or POSIXct
+#'
+#' @returns list, with components freq, string
+#' @examples
+#' x1 <- as.POSIXct(c("2000-01-01", "2001-01-01", "2005-03-03", "2007-03-03"))
+#' x2 <- ts_tbl(AirPassengers)$time
+#' x3 <- ts_na_omit(ts_tbl(ts_bind(austres, AirPassengers)))$time
+#' frequency_one(x1)
+#' frequency_one(x2)
+#' frequency_one(x3)
+#' @noRd
+frequency_one <- function(x) {
+  empty_fm <- data.frame(
     string = NA_character_,
     N = NA_integer_,
     freq = NA_real_,
     share = NA_real_,
     stringsAsFactors = FALSE
   )
-}
-frequency_one <- function(x) {
   if (length(x) == 1L) {
-    return(empty_fm())
+    return(empty_fm)
   }
   freq <- NULL
   diffdt <- frequency_table(x)
@@ -242,7 +252,7 @@ frequency_one <- function(x) {
     udiff <- unique(diff(as.numeric(x)))
     # all.equal(max(udiff), min(udiff)) # should be 'numerically' unique
     if (max(udiff) - min(udiff) > 1e5) {
-      return(empty_fm())
+      return(empty_fm)
     }
     udiff <- mean(udiff)
     # unit <- "day"

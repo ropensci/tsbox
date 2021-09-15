@@ -247,7 +247,11 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 }
 
 
-
+#' Get Last Plot Call
+#'
+#' Last plot call is written to special enviroment by ts_plot()
+#'
+#' @noRd
 ts_lastplot_call <- function() {
   get("ts_lastplot_call", envir = .ts_lastplot_env)
 }

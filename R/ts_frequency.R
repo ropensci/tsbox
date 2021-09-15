@@ -51,8 +51,16 @@ ts_frequency <- function(x, to = c(
   copy_class(z, x, preserve.mode = FALSE)
 }
 
+
+#' Change Frequency (core function)
+#'
+#' @inherit ts_frequency
+#'
+#' @noRd
 frequency_core <- function(x, to, aggregate, na.rm) {
   stopifnot(inherits(x, "dts"))
+
+  value <- NULL
 
   # make sure incomplete periods result in NA
   if (na.rm == FALSE) {
@@ -90,8 +98,6 @@ frequency_core <- function(x, to, aggregate, na.rm) {
     )
   }
 
-  value <- NULL
-
   cname <- dts_cname(x)
 
   if (length(cname$id) > 0) {
@@ -115,6 +121,14 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   z[]
 }
 
+
+#' Low Frequency Time Stamps
+#'
+#' @param time Date or POSIXct
+#' @param to desired frequency, either a character string (`"year"`,
+#'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
+#'
+#' @noRd
 lf_time <- function(time, to) {
   if (to == "week") {
     # https://github.com/christophsax/tsbox/issues/183

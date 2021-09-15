@@ -21,16 +21,30 @@ ts_chain <- function(...) {
 }
 
 
+#' Position of first TRUE Value
+#'
+#' @noRd
 first_true <- function(x) {
   which(cumsum(as.integer(x)) == 1L)[1]
 }
 
+
+#' Position of last TRUE Value
+#'
+#' @noRd
 last_true <- function(x) {
   which(cumsum(as.integer(x)) == sum(as.integer(x)))[1]
 }
 
 
-
+#' Chain 2 Time Series
+#'
+#' Successively called by ts_chain()
+#'
+#' @param a ts-boxable object
+#' @param b ts-boxable object
+#'
+#' @noRd
 chain_two <- function(a, b) {
   b <- ts_dts(b)
   a <- ts_dts(a)
