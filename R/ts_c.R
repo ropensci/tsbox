@@ -127,6 +127,15 @@ ts_c <- function(...) {
 }
 
 
+#' Unify Time Classes in multiple data.tables
+#'
+#' Date + Date = Date
+#' Date + POSIXct = POSIXct
+#' POSIXct + POSIXct = POSIXct
+#'
+#' @param ll list containing list of `data.tables`
+#'
+#' @noRd
 unify_time_class <- function(ll) {
   cl <- vapply(ll, function(e) dts_tattr(e)$class, "")
   if (length(unique(cl)) > 1) {
@@ -145,34 +154,64 @@ unify_time_class <- function(ll) {
 }
 
 
-# makes ids in list of data tables unique
+#' Makes Ids in a List of data.tables Unique
+#'
+#' - Collect all Ids from multiple columns
+#' - Combine them to single Id
+#' - Apply make.unique() to single Id
+#' - Split again to multiple Id colums
+#'
+#' @param ll list containing list of `data.tables`
+#' @param cid character, Id column names
+#'
+#' @noRd
 make_ids_unique <- function(ll, cid) {
   id <- NULL
   .element <- NULL
+
+  # Collect all Ids from multiple columns
   old.id <- unname(lapply(ll, function(e) unique(e[, cid, with = FALSE])))
   old.id.tab <- rbindlist(old.id, idcol = ".element")
+
+  # Combine them to single Id
   if (length(cid) > 1) {
     old.id.tab <- combine_cols_data.table(old.id.tab, cid, sep = "__cut_here__")
   } else {
     setnames(old.id.tab, cid, "id")
   }
+
+  # Apply make.unique() to single Id
   old.id.tab[, id := make.unique(id)]
+
+  # Split again to multiple Id colums
   z0 <- setNames(tstrsplit(old.id.tab$id, split = "__cut_here__"), cid)
   z <- as.data.table(c(z0, list(.element = old.id.tab[, .element])))
   new.id <- unname(split(z[, cid, with = FALSE], z$.element))
+
+  # Apply new IDs without reordering data
   Map(set_levels_dt, ll, old.id, new.id)
 }
 
-# new names must have the same order as the old names
-set_levels <- function(x, names) {
-  as.character(`levels<-`(as.factor(x), sort(names)))
-}
 
+#' Set Level in data.table
+#'
+#' Apply new IDs without reordering data.
+#' Ensures that new Ids have the same order as the old Ids
+#'
+#' @param dt data.table, with data
+#' @param old data.table, with unique ids, in any order
+#' @param new data.table, with unique ids, in any order
+#'
+#' @noRd
 set_levels_dt <- function(dt, old, new) {
   stopifnot(identical(dim(new), dim(old)))
   stopifnot(identical(names(new), names(old)))
   if (isTRUE(all.equal(new, old, check.attributes = FALSE))) {
     return(dt)
+  }
+
+  set_levels <- function(x, names) {
+    as.character(`levels<-`(as.factor(x), sort(names)))
   }
 
   for (cid.i in names(new)) {

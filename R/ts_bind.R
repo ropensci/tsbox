@@ -28,6 +28,15 @@ ts_bind <- function(...) {
 }
 
 
+#' Bind 2 Time Series or Numeric Values
+#'
+#' Enables ts_bind() to work on scalars and vectors, too
+#'
+#' @param a ts-boxable object, or numeric
+#' @param b ts-boxable object
+#' @param backwards logical, should `b` be appended to `a`?
+#'
+#' @noRd
 bind_numeric <- function(a, b, backwards = FALSE) {
   .SD <- NULL
 
@@ -86,8 +95,14 @@ bind_numeric <- function(a, b, backwards = FALSE) {
 }
 
 
-
-# Bind two dts objects
+#' Bind 2 Time Series
+#'
+#' Successively called by ts_bind()
+#'
+#' @param a ts-boxable object
+#' @param b ts-boxable object
+#'
+#' @noRd
 bind_two <- function(a, b) {
   value <- NULL
   value_b <- NULL

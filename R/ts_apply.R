@@ -4,6 +4,10 @@
 # fun can rely on time and value colum beeing called 'time' and 'value'
 
 #' Convert to Class
+#'
+#' @param x ts-boxable object
+#' @param fun function to apply
+#'
 #' @noRd
 ts_apply_dts <- function(x, fun, ...) {
   .SD <- NULL

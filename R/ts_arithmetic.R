@@ -1,3 +1,12 @@
+#' Arithmetic Operators for ts-boxable objects
+#'
+#' Users will call the infix operators
+#'
+#' @param e1 ts-boxable object
+#' @param e2 ts-boxable object
+#' @param fun funcion to apply
+#'
+#' @noRd
 ts_arithmetic <- function(e1, e2, fun = `-`) {
   value <- value2 <- .id <- NULL
   z1 <- copy(ts_dts(e1))
