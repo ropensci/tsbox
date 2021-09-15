@@ -39,7 +39,8 @@ ts_index(ts_df(ts_c(fdeaths, mdeaths)), "1974-02-01")
 ts_plot(
   `My Expert Knowledge` = ts_chain(
     mdeaths,
-    ts_compound(ts_bind(ts_pc(mdeaths), 15, 23, 33))),
+    ts_compound(ts_bind(ts_pc(mdeaths), 15, 23, 33))
+  ),
   `So Far` = mdeaths,
   title = "A Very Manual Forecast"
 )

@@ -29,10 +29,10 @@ Trend estimation that uses \code{\link[stats:loess]{stats::loess()}}.
 \examples{
 \donttest{
 ts_plot(
-   `Raw series` = fdeaths,
-   `Loess trend` = ts_trend(fdeaths),
-   title = "Deaths from Lung Diseases",
-   subtitle = "per month"
+  `Raw series` = fdeaths,
+  `Loess trend` = ts_trend(fdeaths),
+  title = "Deaths from Lung Diseases",
+  subtitle = "per month"
 )
 }
 }

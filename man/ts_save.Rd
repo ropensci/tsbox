@@ -31,10 +31,10 @@ Save Previous Plot
 }
 \examples{
 \donttest{
-  ts_plot(AirPassengers)
-  tf <- tempfile(fileext = ".pdf")
-  ts_save(tf)
-  unlink(tf)
+ts_plot(AirPassengers)
+tf <- tempfile(fileext = ".pdf")
+ts_save(tf)
+unlink(tf)
 }
 
 }

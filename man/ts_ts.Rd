@@ -127,5 +127,4 @@ multi.id.df <- rbind(a, b)
 
 ts_ts(multi.id.df)
 ts_plot(multi.id.df)
-
 }

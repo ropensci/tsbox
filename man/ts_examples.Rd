@@ -57,9 +57,10 @@ ts_plot(
 
 ts_plot(ts_c(
   male = mdeaths, female = fdeaths,
-  ts_forecast(ts_c(`male (fct)` = mdeaths,  `female (fct)` = fdeaths))),
-  title = "Deaths from lung diseases",
-  subtitle = "Exponential smoothing forecast"
+  ts_forecast(ts_c(`male (fct)` = mdeaths, `female (fct)` = fdeaths))
+),
+title = "Deaths from lung diseases",
+subtitle = "Exponential smoothing forecast"
 )
 
 ts_plot(

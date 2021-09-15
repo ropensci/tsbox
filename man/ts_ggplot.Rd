@@ -67,12 +67,12 @@ ggplot(df, aes(x = time, y = value)) +
 library(dataseries)
 dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
 ts_ggplot(ts_scale(ts_span(
-    ts_c(
-      `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
-      `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']
-    ),
-    start = "1995-01-01"
-  ))) +
+  ts_c(
+    `GDP Growth` = ts_pc(dta[, "GDP.PBRTT.A.R"]),
+    `Consumer Sentiment Index` = dta[, "CCI.CCIIR"]
+  ),
+  start = "1995-01-01"
+))) +
   ggplot2::ggtitle("GDP and Consumer Sentiment", subtitle = "normalized") +
   theme_tsbox() +
   scale_color_tsbox()

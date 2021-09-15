@@ -27,6 +27,6 @@ Subtract mean (\emph{sum(x)/n}) and divide by standard deviation
 \examples{
 \donttest{
 ts_plot(ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries))))
-ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
+ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, "DAX"])))
 }
 }
