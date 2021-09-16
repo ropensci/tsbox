@@ -80,10 +80,9 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
     }
 
     if (length(unique(df[[cname$id]])) > 29) {
-      stop(
+      stop0(
         length(unique(df[[cname$id]])),
-        " time series supplied. Maximum is 29.",
-        call. = FALSE
+        " time series supplied. Maximum is 29."
       )
     }
     p <- ggplot2::ggplot(

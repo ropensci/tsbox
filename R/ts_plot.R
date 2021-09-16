@@ -63,7 +63,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   x <- ts_dts(ts_c(...))
 
-  if (nrow(ts_na_omit(x)) == 0L) stop("no data values to plot")
+  if (nrow(ts_na_omit(x)) == 0L) stop0("no data values to plot")
 
 
   # only a single id col
@@ -296,7 +296,7 @@ ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
 
   cl <- ts_lastplot_call()
   if (is.null(cl) || !inherits(cl, "call")) {
-    stop("ts_plot must be called first.")
+    stop0("ts_plot() must be called first.")
   }
 
   if (device == "pdf") {
@@ -322,7 +322,7 @@ ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
       res = 150
     )
   } else {
-    stop("device not supported: ", device, call. = FALSE)
+    stop0("device not supported: ", device)
   }
 
   eval(cl, envir = parent.frame())

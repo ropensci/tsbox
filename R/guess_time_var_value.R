@@ -94,10 +94,9 @@ guess_time <- function(x, value.name = "value") {
   }
 
   if (is.na(z)) {
-    stop(
+    stop0(
       "No [time] column detected. ",
       " To be explict, name time column as 'time'.",
-      call. = FALSE
     )
   }
 
@@ -130,10 +129,9 @@ guess_value <- function(x) {
     }
   }
   if (is.na(z)) {
-    stop(
+    stop0(
       "No [value] column detected. ",
-      "To be explict, name value column as 'value'.",
-      call. = FALSE
+      "To be explict, name value column as 'value'."
     )
   }
   z

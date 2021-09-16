@@ -33,7 +33,7 @@ ts_regular <- function(x, fill = NA) {
   # standard routine
   z <- regular_core(ts_dts(x))
   if (!is.na(fill)) {
-    if (length(fill) != 1) stop("'fill' must be of length 1", call. = FALSE)
+    if (length(fill) != 1) stop0("'fill' must be of length 1")
     cvalue <- dts_cname(z)$value
     z[[cvalue]][is.na(z[[cvalue]])] <- fill
   }
@@ -80,7 +80,7 @@ regular_core <- function(x) {
 
   regular_core_one <- function(x) {
     if (any(is.na(x$time))) {
-      stop("Time column contains missing values.", call. = FALSE)
+      stop0("Time column contains missing values.")
     }
 
     if (is_regular_one_basic(x$time)) {
@@ -88,7 +88,7 @@ regular_core <- function(x) {
     }
     reg.time <- regularize_date(x$time)
     if (is.null(reg.time)) {
-      stop("series has no regular pattern", call. = FALSE)
+      stop0("series has no regular pattern")
     }
     merge_time_date(
       data.table(time = reg.time),

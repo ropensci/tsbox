@@ -21,7 +21,7 @@ ts_ts_dts <- function(x, frequency = NULL) {
         by.x = "time", by.y = "time"
       )
     } else {
-      stop("series has no regular pattern", call. = FALSE)
+      stop0("series has no regular pattern")
     }
     tsp <- date_time_to_tsp(wx[[1]])
   } else {

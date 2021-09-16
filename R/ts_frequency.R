@@ -80,9 +80,8 @@ frequency_core <- function(x, to, aggregate, na.rm) {
 
   if (is.character(aggregate)) {
     if (!aggregate %in% c("mean", "sum", "first", "last")) {
-      stop(
-        "'aggregate' must be one of: 'mean', 'sum', 'first', 'last'",
-        call. = FALSE
+      stop0(
+        "'aggregate' must be one of: 'mean', 'sum', 'first', 'last'"
       )
     }
     aggregate <- switch(aggregate,
@@ -94,9 +93,8 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   }
 
   if (!is.function(aggregate)) {
-    stop(
-      "'aggregate' must be of class 'character' or 'function'",
-      call. = FALSE
+    stop0(
+      "'aggregate' must be of class 'character' or 'function'"
     )
   }
 

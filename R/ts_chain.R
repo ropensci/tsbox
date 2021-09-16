@@ -50,7 +50,7 @@ chain_two <- function(a, b) {
   a <- ts_dts(a)
 
   if ((number_of_series(b) > 1) || (number_of_series(a) > 1)) {
-    stop("only single series can be chained")
+    stop0("only single series can be chain-linked")
   }
 
   stopifnot(inherits(b, "dts"), inherits(a, "dts"))

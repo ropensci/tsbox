@@ -64,10 +64,10 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   .SD <- NULL
 
   if (!length(start) <= 1) {
-    stop("'start' must be of length 1", call. = FALSE)
+    stop0("'start' must be of length 1")
   }
   if (!length(end) <= 1) {
-    stop("'end' must be of length 1", call. = FALSE)
+    stop0("'end' must be of length 1")
   }
   x.dts <- ts_dts(x)
   if (nrow(x.dts) == 0L) {
@@ -84,18 +84,16 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   # specification by period: create shift_string
   if (is.numeric(start) && start < 999) {
     if (length(start) > 1) {
-      stop(
-        "mixed frequencies: 'start' cannot be specified as integer",
-        call. = FALSE
+      stop0(
+        "mixed frequencies: 'start' cannot be specified as integer"
       )
     }
     start <- paste(start * as.numeric(spl.sstr[1]), spl.sstr[2])
   }
   if (is.numeric(end) && end < 999) {
     if (length(end) > 1) {
-      stop(
-        "mixed frequencies: 'end' cannot be specified as integer",
-        call. = FALSE
+      stop0(
+        "mixed frequencies: 'end' cannot be specified as integer"
       )
     }
     end <- paste(end * as.numeric(spl.sstr[1]), spl.sstr[2])
@@ -115,7 +113,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   if_num_char <- function(x) {
     if (inherits(x, "numeric")) {
       if (length(x) > 1) {
-        stop("numeric date input must be of length 1", call. = FALSE)
+        stop0("numeric date input must be of length 1")
       }
       return(as.character(x))
     }
@@ -156,7 +154,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
       if (is.null(start)) start <- mystart
       if (is.null(end)) end <- myend
       if (start > end) {
-        stop("'start' cannot be at or after 'end'", call. = FALSE)
+        check_start_end(start, end)
       }
       by_str <- frequency_one(df$time)$string
       # target sequence must be aligned with dates of series, not with start and date
@@ -180,16 +178,15 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
     x.dts <- x.dts[time >= start]
   }
   if (!is.null(end)) {
-    if (!is.null(start) && start > end) {
-      stop("'start' cannot be at or after 'end'", call. = FALSE)
+    if (!is.null(start)) {
+      check_start_end(start, end)
     }
     x.dts <- x.dts[time <= end]
   }
 
   if (nrow(x.dts) == 0) {
-    stop(
-      "span contains no data; select different 'start' or 'end'",
-      call. = FALSE
+    stop0(
+      "span contains no data; select different 'start' or 'end'"
     )
   }
 

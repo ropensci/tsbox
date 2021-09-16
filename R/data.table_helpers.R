@@ -52,7 +52,9 @@ merge_time_date <- function(x, y, by.x = "time", by.y = "time") {
   y0[, time := time - 0.1] # for robustness
   rj <- y0[x0, roll = 1, on = "time"]
 
-  if (!all(x0$`__time_seq` %in% rj$`__time_seq`)) (stop("incomplete merge"))
+  if (!all(x0$`__time_seq` %in% rj$`__time_seq`)) {
+    stop("incomplete merge - this should not occur")
+  }
 
   rj[, time := NULL]
 

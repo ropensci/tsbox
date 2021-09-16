@@ -57,10 +57,9 @@ ts_pick <- function(x, ...) {
 
   missing.in.data <- !(.id %in% z[[cname$id]])
   if (any(missing.in.data)) {
-    stop(
+    stop0(
       "values missing in data: ",
-      paste(.id[missing.in.data], collapse = ", "),
-      call. = FALSE
+      paste(.id[missing.in.data], collapse = ", ")
     )
   }
 

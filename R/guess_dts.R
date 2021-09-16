@@ -14,7 +14,7 @@ guess_tattr <- function(x) {
   x.time <- x[[dts_cname(x)$time]]
   class <- class(x.time)[1]
   if (!(class %in% c("Date", "POSIXct"))) {
-    stop("[time] col is not of class 'Date' or 'POSIXct'", call. = FALSE)
+    stop0("[time] col is not of class 'Date' or 'POSIXct'")
   }
   if (identical(class, "POSIXct")) {
     tz <- attr(x.time, "tzone")
@@ -58,10 +58,10 @@ guess_cname <- function(x) {
       value.cols <- vapply(x[, cols.r.of.time, with = FALSE], is_value, TRUE)
       if (sum(value.cols) > 1) {
         message(
-          "More than one value column detected after the time colum, using the",
+          "More than one value column detected after the 'time' column, using the",
           "outermost.\n",
           "Are you using a wide data frame? ",
-          "To convert, use 'ts_long'.\n"
+          "To convert, use 'ts_long()'.\n"
         )
       }
     }

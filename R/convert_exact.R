@@ -94,7 +94,7 @@ POSIXct_to_tsp <- function(x) {
   stopifnot(inherits(x, "POSIXct"))
   dd <- diff(as.numeric(x))
   if ((max(dd) - min(dd)) > 1) {
-    stop("some dates are not equally spaced.", call. = FALSE)
+    stop0("some dates are not equally spaced.")
   }
   start <- POSIXct_to_dectime(x[1])
   end <- POSIXct_to_dectime(x[length(x)])

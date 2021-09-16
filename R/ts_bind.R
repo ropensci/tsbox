@@ -42,7 +42,7 @@ bind_numeric <- function(a, b, backwards = FALSE) {
   .SD <- NULL
 
   if (!ts_boxable(a)) {
-    stop("at least one object must be ts-boxable")
+    stop0("at least one object must be ts-boxable")
   }
 
   a <- ts_dts(copy(a))
@@ -138,7 +138,7 @@ bind_two <- function(a, b) {
   setnames(b, cname_b$value, "value_b")
 
   if (!identical(cname$id, dts_cname(b)$id)) {
-    stop(
+    stop0(
       "Series do not have the same ids: ",
       paste(cname$id, collapse = ", "),
       "and",

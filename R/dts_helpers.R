@@ -14,7 +14,7 @@ dts_init <- function(x) {
 
   is_list_col <- vapply(x, function(e) "list" %in% class(e), TRUE)
   if (any(is_list_col)) {
-    stop("'x' contains list columns, which are not yet supported.", call. = FALSE)
+    stop0("'x' contains list columns, which are not yet supported.")
   }
 
   setattr(x, "class", c("dts", attr(x, "class")))
@@ -28,21 +28,19 @@ dts_init <- function(x) {
     paste_ <- function(...) paste(..., sep = "_")
     dups <- do.call(paste_, as.list(z))
     if (length(dups) > 0) {
-      stop(
+      stop0(
         "Object contains series with duplicated information: ",
-        paste(dups, collapse = ", "),
-        call. = FALSE
+        paste(dups, collapse = ", ")
       )
     } else {
-      stop(
+      stop0(
         "Series contains duplicated values in time column: ",
-        unique(x[[cname$time]][duplicated(x[[cname$time]])]),
-        call. = FALSE
+        unique(x[[cname$time]][duplicated(x[[cname$time]])])
       )
     }
   }
   if (!is.numeric(x[[cname$value]])) {
-    stop("'value' column [", cname$value, "] is not numeric.", call. = FALSE)
+    stop0("'value' column [", cname$value, "] is not numeric.")
   }
 
   # new

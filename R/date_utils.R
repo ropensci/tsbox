@@ -57,9 +57,10 @@ time_shift <- function(x, by = NULL) {
   # this is the correct, perhaps not the fastest regularity test
   # also understands monthly, quarterly etc.
   diffdt <- frequency_table(x)
-  fm <- diffdt[which.max(freq)]
 
-  if (is_near(fm$freq, -1)) {
+  fm_na <- diffdt[is_near(freq, -1)]
+  fm <- diffdt[which.max(freq)]
+  if (nrow(fm_na) == 1L && fm_na$share > 0.9) {
     return(time_shift_non_heuristic(x = x, by = by))
   }
 
@@ -76,12 +77,7 @@ time_shift <- function(x, by = NULL) {
     return(z)
   }
 
-  if (is.numeric(by)) {
-    stop(
-      "by cannot be integer when used with irregular sequence",
-      call. = FALSE
-    )
-  }
+  check_numeric_by(by)
 
   if (inherits(x, "Date")) {
     # only do on unique values (which is faster in some cases)
@@ -144,15 +140,11 @@ time_shift_non_heuristic <- function(x, by) {
     return(z)
   }
 
-  # non regular, by as string
-  if (!is.numeric(by)) {
-    # shift each time stamp separately (slow)
-    add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
-    z <- (do.call(c, lapply(x, add_to_one)))
-  } else {
-    # non regular, by as numeric (fail)
-    stop("irregular series can not be shifted by period")
-  }
+  check_numeric_by(by)
+
+  # shift each time stamp separately (slow)
+  add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
+  z <- (do.call(c, lapply(x, add_to_one)))
 
   z
 }

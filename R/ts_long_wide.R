@@ -41,10 +41,7 @@ long_core_multi_id <- function(x) {
   id.names <- setdiff(all.names[1:time.pos], time.name)
   value.names <- setdiff(all.names[time.pos:length(all.names)], time.name)
   if (length(value.names) == 0L) {
-    stop(
-      "no [value] columns detected (columns right of [time] column)",
-      call. = FALSE
-    )
+    stop0("no [value] columns detected (columns right of [time] column)")
   }
   if (length(id.names) > 0) {
     message(
@@ -101,7 +98,7 @@ wide_core <- function(x) {
 
   n.non.unique <- nrow(x) - nrow(unique(x, by = c(cname$id, cname$time)))
   if (n.non.unique > 0) {
-    stop("contains ", n.non.unique, " duplicate entries", call. = FALSE)
+    stop0("contains ", n.non.unique, " duplicate entries")
   }
 
   # dcast is confused by factors

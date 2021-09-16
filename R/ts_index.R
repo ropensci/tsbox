@@ -106,7 +106,7 @@ ts_index <- function(x, base = NULL) {
       by = eval(.by)
     ]
   } else {
-    stop("'base' must be of length 1 or 2, or NULL.")
+    stop0("'base' must be of length 1 or 2, or NULL.")
   }
 
   if (length(cid) > 0) {

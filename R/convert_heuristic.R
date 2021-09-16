@@ -94,9 +94,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
   freq <- NULL
 
   if (is.null(frequency)) {
-    if (length(x) <= 1) {
-      stop("time series too short for frequency detection", call. = FALSE)
-    }
+    check_frequency_detection(x)
     frequency <- unique(frequency_table(x)$freq)
     stopifnot(length(frequency) == 1L)
   }
@@ -116,9 +114,8 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     if (is_near(frequency, 4)) start <- c(y, ((m - 1) / 3) + 1)
     if (is_near(frequency, 12)) start <- c(y, m)
     if (d != 1L) {
-      stop(
-        "time column needs to be specified as the first date of the period",
-        call. = FALSE
+      stop0(
+        "time column needs to be specified as the first date of the period"
       )
     }
     z <- tsp(ts(x, frequency = frequency, start = start)) # a bit inefficient
