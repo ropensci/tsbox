@@ -11,6 +11,12 @@ dts_init <- function(x) {
   stopifnot(inherits(x, "data.frame"))
   x <- as.data.table(x)
   stopifnot(inherits(x, "data.table"))
+
+  is_list_col <- vapply(x, function(e) "list" %in% class(e), TRUE)
+  if (any(is_list_col)) {
+    stop("'x' contains list columns, which are not yet supported.", call. = FALSE)
+  }
+
   setattr(x, "class", c("dts", attr(x, "class")))
   stopifnot(inherits(x, "dts"))
   cname <- dts_cname(x)
