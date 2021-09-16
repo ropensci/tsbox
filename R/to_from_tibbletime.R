@@ -32,7 +32,7 @@ ts_dts.tbl_time <- function(x) {
 
   # simplified, single id melt, instead of ts_long,from ts_ts, ts_xts
   # could be factrored out.
-  if (ncol(z) == 2) {
+  if (ncol(z) == 2L) {
     names(z)[2] <- "value"
     setcolorder(z, c(time, "value"))
     id <- character(0)

@@ -70,7 +70,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
     stop("'end' must be of length 1", call. = FALSE)
   }
   x.dts <- ts_dts(x)
-  if (nrow(x.dts) == 0) {
+  if (nrow(x.dts) == 0L) {
     return(x)
   }
   cname <- dts_cname(x.dts)
@@ -248,7 +248,7 @@ frequency_one <- function(x) {
   diffdt <- frequency_table(x)
   if (is.na(diffdt$freq[1])) diffdt$freq[1] <- -1
   fm <- diffdt[which.max(freq)]
-  if (diffdt$freq[1] == -1) { # if -1 is most common value
+  if (is_near(diffdt$freq[1], -1)) { # if -1 is most common value
     udiff <- unique(diff(as.numeric(x)))
     # all.equal(max(udiff), min(udiff)) # should be 'numerically' unique
     if (max(udiff) - min(udiff) > 1e5) {

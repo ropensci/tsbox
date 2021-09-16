@@ -36,7 +36,7 @@ ts_pick <- function(x, ...) {
   names(.id)[names(.id) == ""] <- .id[names(.id) == ""]
 
   x.dts <- ts_dts(x)
-  if (ncol(x.dts) == 2) {
+  if (ncol(x.dts) == 2L) {
     return(x)
   } # do nothing with singel time series
 

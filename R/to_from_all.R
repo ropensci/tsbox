@@ -107,7 +107,7 @@ as_class <- function(x) {
 #' @noRd
 desired_class <- function(ll) {
   z <- unique(vapply(ll, relevant_class, ""))
-  if (length(z) == 1) {
+  if (length(z) == 1L) {
     if (z == "ts") {
       # no "ts" if mixed high frequecies
       uf <- unique(vapply(ll, frequency, 1))

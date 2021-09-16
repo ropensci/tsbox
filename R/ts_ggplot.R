@@ -66,8 +66,8 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
   df <- df[!is.na(df[, cname$value]), ]
 
   n <- NCOL(df)
-  stopifnot(n > 1)
-  if (n == 2) {
+  stopifnot(n > 1L)
+  if (n == 2L) {
     p <- ggplot2::ggplot(
       df,
       ggplot2::aes_string(x = cname$time, y = cname$value)

@@ -31,7 +31,7 @@
 #' ts_lag(x, "-1 day")
 #' @export
 ts_lag <- function(x, by = 1) {
-  stopifnot(length(by) == 1)
+  stopifnot(length(by) == 1L)
 
   value <- NULL
   .SD <- NULL
@@ -50,7 +50,7 @@ ts_lag <- function(x, by = 1) {
 
   lag_one <- function(x) {
     check_frequency_detection(x)
-    if (nrow(x) == 0) return(x)
+    if (nrow(x) == 0L) return(x)
     x[, list(time = time_shift(time, by = by), value)]
   }
   .by <- by_expr(cname$id)

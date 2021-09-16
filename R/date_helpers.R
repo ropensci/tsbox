@@ -36,12 +36,12 @@ regularize_date <- function(x) {
   diffdt <- frequency_table(x)
   fm <- diffdt[which.max(freq)]
 
-  if (fm$freq == -1) {
+  if (is_near(fm$freq, -1)) {
     return(regularize_non_heuristic(x))
   }
 
   # regular, exit
-  if (fm$share == 1) {
+  if (is_near(fm$share, 1)) {
     return(x)
   }
 
@@ -86,7 +86,7 @@ regularize_non_heuristic <- function(x) {
   x.num <- as.numeric(x)
   dd <- unique(round(diff(x.num), 5))
 
-  if (length(dd) == 1) {
+  if (length(dd) == 1L) {
     return(x)
   } # already regular
 

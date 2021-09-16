@@ -44,7 +44,7 @@ ts_frequency <- function(x, to = c(
     to <- as.integer(to)
     numeric.period <- c(month = 12L, quarter = 4L, year = 1L)
     stopifnot(to %in% numeric.period)
-    to <- names(numeric.period)[numeric.period == to]
+    to <- names(numeric.period)[numeric.period == as.integer(to)]
   }
 
   to <- match.arg(to)
@@ -140,7 +140,7 @@ lf_time <- function(time, to) {
     first_days <- NULL
     rng <- range(as.Date(time), na.rm = TRUE)
     all_days <- data.table(time = seq(rng[1] - 7, rng[2], by = "day"))
-    all_days[data.table::wday(time) == 1, first_days := time]
+    all_days[data.table::wday(time) == 1L, first_days := time]
     all_days[, first_days := data.table::nafill(first_days, type = "locf")]
     all_days_first_days <- all_days[!is.na(first_days)]
 
@@ -163,17 +163,17 @@ lf_time <- function(time, to) {
   y <- data.table::year(time)
 
   if (to == "month") {
-    d <- 1
+    d <- 1L
   }
 
   if (to == "quarter") {
-    d <- 1
-    m <- (data.table::quarter(time) - 1) * 3 + 1
+    d <- 1L
+    m <- (data.table::quarter(time) - 1L) * 3L + 1L
   }
 
   if (to == "year") {
-    d <- 1
-    m <- 1
+    d <- 1L
+    m <- 1L
   }
 
   if (to %in% c("month", "quarter", "year")) {
@@ -187,12 +187,12 @@ lf_time <- function(time, to) {
   sec <- data.table::second(time)
 
   if (to == "min") {
-    sec <- 0
+    sec <- 0L
   }
 
   if (to == "hour") {
-    sec <- 0
-    min <- 0
+    sec <- 0L
+    min <- 0L
   }
 
   if (to %in% c("hour", "min", "sec")) {

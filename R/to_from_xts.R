@@ -34,7 +34,7 @@ ts_dts.xts <- function(x) {
   }
 
   dta <- data.table(time = time, dta)
-  if (NCOL(dta) == 2) {
+  if (NCOL(dta) == 2L) {
     setnames(dta, c("time", "value"))
   } else {
     dta <- melt(

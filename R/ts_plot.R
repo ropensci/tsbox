@@ -63,7 +63,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   x <- ts_dts(ts_c(...))
 
-  if (nrow(ts_na_omit(x)) == 0) stop("no data values to plot")
+  if (nrow(ts_na_omit(x)) == 0L) stop("no data values to plot")
 
 
   # only a single id col
@@ -152,7 +152,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   ctime <- dts_cname(x)$time
   cvalue <- dts_cname(x)$value
 
-  if (length(cid) == 0) {
+  if (length(cid) == 0L) {
     x$id <- "dummy"
     cid <- "id"
     setcolorder(x, c("id", ctime, cvalue))
@@ -176,7 +176,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   # Lines
   ids <- as.character(unique(x[, id]))
-  if ((length(ids)) > 20) {
+  if ((length(ids)) > 20L) {
     message("too many series. Only showing the first 20.")
     ids <- ids[1:20]
   }

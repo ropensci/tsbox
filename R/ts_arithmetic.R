@@ -16,7 +16,7 @@ ts_arithmetic <- function(e1, e2, fun = `-`) {
   }
 
   # 'recycling', if a scalar is provided
-  if (length(e2) == 1 && is.numeric(e2)) {
+  if (length(e2) == 1L && is.numeric(e2)) {
     z2 <- copy(z1)
     z2[[dts_cname(z2)$value]] <- e2
   } else {

@@ -16,7 +16,7 @@ guess_tattr <- function(x) {
   if (!(class %in% c("Date", "POSIXct"))) {
     stop("[time] col is not of class 'Date' or 'POSIXct'", call. = FALSE)
   }
-  if (class == "POSIXct") {
+  if (identical(class, "POSIXct")) {
     tz <- attr(x.time, "tzone")
   } else {
     tz <- ""

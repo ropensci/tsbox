@@ -10,7 +10,7 @@ ts_compound <- function(x, denominator = 100) {
 
   denominator <- as.numeric(denominator)
   stopifnot(denominator > 0)
-  stopifnot(length(denominator) == 1)
+  stopifnot(length(denominator) == 1L)
   z <- ts_dts(x)
   d <- dts_default(z)
   z <- d$x
@@ -71,7 +71,7 @@ ts_index <- function(x, base = NULL) {
   . <- NULL
 
   z <- ts_dts(x)
-  if (nrow(z) == 0) return(x)
+  if (nrow(z) == 0L) return(x)
   d <- dts_default(z)
   z <- d$x
 
@@ -88,16 +88,16 @@ ts_index <- function(x, base = NULL) {
       by = eval(.by)
     ]
     base <- max(dt_min_time$min.time)
-    z.base <- z[time == base, .(base_value = mean(value)), by = eval(.by)]
+    z.base <- z[is_near(time, base), .(base_value = mean(value)), by = eval(.by)]
 
     # single date specification
-  } else if (length(base) == 1) {
+  } else if (length(base) == 1L) {
     # let ts_span parse base and make sure it exists in data
     base <- range(ts_span(z, start = base)$time)[1]
-    z.base <- z[time == base, .(base_value = mean(value)), by = eval(.by)]
+    z.base <- z[is_near(time, base), .(base_value = mean(value)), by = eval(.by)]
 
     # range of dates specification (use averages)
-  } else if (length(base) == 2) {
+  } else if (length(base) == 2L) {
     # let ts_span parse base and make sure it exists in data
     base <- range(ts_span(z, start = base[1], end = base[2])$time)
     z.base <- z[

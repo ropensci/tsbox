@@ -40,7 +40,7 @@ long_core_multi_id <- function(x) {
   time.pos <- which(all.names == time.name)
   id.names <- setdiff(all.names[1:time.pos], time.name)
   value.names <- setdiff(all.names[time.pos:length(all.names)], time.name)
-  if (length(value.names) == 0) {
+  if (length(value.names) == 0L) {
     stop(
       "no [value] columns detected (columns right of [time] column)",
       call. = FALSE
@@ -89,11 +89,11 @@ ts_wide <- function(x) {
 #' @noRd
 wide_core <- function(x) {
   stopifnot(inherits(x, "dts"))
-  if (ncol(x) == 2) {
+  if (ncol(x) == 2L) {
     return(x)
   } # nothing to do
   # no multi id
-  stopifnot(ncol(x) == 3)
+  stopifnot(ncol(x) == 3L)
 
   cname <- dts_cname(x)
 

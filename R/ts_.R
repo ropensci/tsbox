@@ -108,7 +108,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
 
 
   # another repetition if no packages are needed
-  if (length(pkg) == 0) {
+  if (length(pkg) == 0L) {
     if (reclass) {
       if (vectorize) {
         z <- substitute(function(x, ...) {

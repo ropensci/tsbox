@@ -33,7 +33,7 @@
 ts_c <- function(...) {
   ll <- list(...)
 
-  if (length(ll) == 1) {
+  if (length(ll) == 1L) {
     return(ll[[1]])
   }
 
@@ -49,8 +49,8 @@ ts_c <- function(...) {
   # special treatment for same frequency ts for speed and accuracy gain
   if (identical(unique(desired.class), "ts")) {
     # same frequency?
-    if (length(unique(vapply(ll, frequency, 1))) == 1) {
-      is.unnamed <- vapply(ll, function(e) length(colnames(e)) <= 1, TRUE)
+    if (length(unique(vapply(ll, frequency, 1))) == 1L) {
+      is.unnamed <- vapply(ll, function(e) length(colnames(e)) <= 1L, TRUE)
       names.for.unnamed <- call.names[is.unnamed]
       ll.names <- ll
       ll.names[is.unnamed] <- names.for.unnamed
@@ -66,12 +66,12 @@ ts_c <- function(...) {
 
   cid <- dts_cname(ll.dts[[1]])$id
   # In case first element is unnamed series
-  if (length(cid) == 0) {
+  if (length(cid) == 0L) {
     cid <- "id"
   }
 
   # add names from call for single series
-  is.unnamed <- vapply(ll.dts, function(e) ncol(e) == 2, FALSE)
+  is.unnamed <- vapply(ll.dts, function(e) ncol(e) == 2L, FALSE)
   names.for.unnamed <- call.names[is.unnamed]
   # name unnamed
   ll.dts[is.unnamed] <- Map(

@@ -30,7 +30,7 @@ ts_summary <- function(x, spark = FALSE) {
   x.dts <- ts_na_omit(ts_dts(ts_default(x)))
   # support multi id
   cid <- dts_cname(x.dts)$id
-  if (length(cid) == 0) {
+  if (length(cid) == 0L) {
     x.dts$id <- deparse(substitute(x))
     setcolorder(x.dts, c("id", "time", "value"))
     cid <- "id"

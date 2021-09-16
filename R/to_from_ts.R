@@ -29,7 +29,7 @@ ts_ts_dts <- function(x, frequency = NULL) {
   }
   # tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
-  if (NCOL(cdta) == 1) {
+  if (NCOL(cdta) == 1L) {
     cdta <- as.numeric(cdta[[1]])
   } else {
     cdta <- as.matrix(cdta)
@@ -49,7 +49,7 @@ ts_dts.ts <- function(x) {
   m <- as.matrix(x)
   dta <- data.table(m)
   dta[, time := timec]
-  if (ncol(m) == 1) {
+  if (ncol(m) == 1L) {
     names(dta)[1] <- "value"
     # needs the ts_dts.data.table
     setcolorder(dta, c("time", "value"))

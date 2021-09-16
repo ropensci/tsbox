@@ -37,7 +37,7 @@ seconds_at_start_of_year <- function(year, tz) {
 #' dectime_to_POSIXct(1990.5)
 #' @noRd
 dectime_to_POSIXct <- function(x) {
-  stopifnot(length(x) == 1)
+  stopifnot(length(x) == 1L)
   year <- floor(x)
   intra <- x - year
   seconds_since_70 <-
@@ -56,7 +56,7 @@ dectime_to_POSIXct <- function(x) {
 POSIXct_to_dectime <- function(x) {
   tz <- attributes(x)$tzone
   if (is.null(tz)) tz <- ""
-  stopifnot(length(x) == 1)
+  stopifnot(length(x) == 1L)
   year <- as.POSIXlt(x)$year + 1900L
   intra <- (as.numeric(x) -
     seconds_at_start_of_year(year, tz)) /

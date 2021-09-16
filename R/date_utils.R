@@ -50,7 +50,7 @@ time_shift <- function(x, by = NULL) {
 
   add_to_one <- function(x) seq(x, length.out = 2, by = by)[2]
 
-  if (length(x) == 1) {
+  if (length(x) == 1L) {
     return(add_to_one(x))
   }
 
@@ -59,14 +59,14 @@ time_shift <- function(x, by = NULL) {
   diffdt <- frequency_table(x)
   fm <- diffdt[which.max(freq)]
 
-  if (fm$freq == -1) {
+  if (is_near(fm$freq, -1)) {
     return(time_shift_non_heuristic(x = x, by = by))
   }
 
   # if series is regular, take shortcut
   # do not for "-1 day" etc. strings
   is.neg.chr.by <- is.character(by) && grepl("^\\-", by)
-  if (fm$share == 1 && !is.neg.chr.by) {
+  if (is_near(fm$share, 1) && !is.neg.chr.by) {
     if (is.numeric(by)) {
       spl <- strsplit(diffdt$string, split = " ")[[1]]
       str <- paste(by * as.numeric(spl[1]), spl[2])
@@ -117,7 +117,7 @@ time_shift_non_heuristic <- function(x, by) {
   if (!is.null(xreg)) {
     xreg.num <- as.numeric(xreg)
     dff <- unique(round(diff(xreg.num), 5))
-    stopifnot(length(dff) == 1)
+    stopifnot(length(dff) == 1L)
 
     if (is.numeric(by)) {
       # regular, by as period

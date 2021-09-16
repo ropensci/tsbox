@@ -14,7 +14,7 @@ ts_apply_dts <- function(x, fun, ...) {
   stopifnot(inherits(x, "dts"))
   d <- dts_default(x)
   x <- d$x
-  if (number_of_series(x) == 1) {
+  if (number_of_series(x) == 1L) {
     z <- fun(x, ...)
     # ensure id columns are preserved
     missing.cid <- setdiff(colnames(x), colnames(z))

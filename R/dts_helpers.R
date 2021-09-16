@@ -122,7 +122,7 @@ dts_tattr <- function(x) {
 number_of_series <- function(x) {
   stopifnot(inherits(x, "dts"))
   cid <- dts_cname(x)$id
-  if ((length(cid)) == 0) {
+  if ((length(cid)) == 0L) {
     1
   } else {
     dt.id <- x[, cid, with = FALSE]

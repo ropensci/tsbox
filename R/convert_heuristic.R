@@ -23,14 +23,14 @@ ts_to_date_time <- function(x) {
   # offset <- division - round(division)
   # stopifnot(abs(offset) < 1e-3)
 
-  md <- meta_freq()[freq == fr]
+  md <- meta_freq()[is_near(freq, fr)]
 
   # non heuristic conversion for non-heuristics
-  if (nrow(md) == 0) {
+  if (nrow(md) == 0L) {
     z <- ts_to_POSIXct(x)
 
     # heuristic high freq > 12
-  } else if (md$freq == 365.2425) {
+  } else if (is_near(md$freq, 365.2425)) {
     # to improve accuracy for daily data, treat them separately
     # (also seedate_time_to_tsp)
 
@@ -98,10 +98,10 @@ date_time_to_tsp <- function(x, frequency = NULL) {
       stop("time series too short for frequency detection", call. = FALSE)
     }
     frequency <- unique(frequency_table(x)$freq)
-    stopifnot(length(frequency) == 1)
+    stopifnot(length(frequency) == 1L)
   }
   # Non heuristic conversion
-  if (frequency == -1) {
+  if (is_near(frequency, -1)) {
     z <- POSIXct_to_tsp(as.POSIXct(x))
     # Low frequency conversion
   } else if (frequency <= 12) {
@@ -113,19 +113,19 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     m <- st$mon + 1L
     d <- st$mday
     start <- y
-    if (frequency == 4) start <- c(y, ((m - 1) / 3) + 1)
-    if (frequency == 12) start <- c(y, m)
-    if (d != 1) {
+    if (is_near(frequency, 4)) start <- c(y, ((m - 1) / 3) + 1)
+    if (is_near(frequency, 12)) start <- c(y, m)
+    if (d != 1L) {
       stop(
         "time column needs to be specified as the first date of the period",
         call. = FALSE
       )
     }
     z <- tsp(ts(x, frequency = frequency, start = start)) # a bit inefficient
-  } else if (frequency == 365.2425) {
+  } else if (is_near(frequency, 365.2425)) {
     # to improve accuracy for daily data, do not use non heuristic conversion
 
-    md <- meta_freq()[freq == frequency]
+    md <- meta_freq()[is_near(freq, frequency)]
     str <- md$str
 
     start.time <- date_year(x[1])
@@ -141,7 +141,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
   } else {
 
     # non heuristic converson
-    md <- meta_freq()[freq == frequency]
+    md <- meta_freq()[is_near(freq, frequency)]
     z <- tsp(
       ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency)
     )

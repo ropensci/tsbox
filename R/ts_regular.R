@@ -49,10 +49,10 @@ ts_regular <- function(x, fill = NA) {
 #'
 #' @noRd
 is_regular_one_basic <- function(x) {
-  if (length(x) == 0) {
+  if (length(x) == 0L) {
     return(TRUE)
   }
-  if (length(x) == 1) {
+  if (length(x) == 1L) {
     return(TRUE)
   }
   rng <- range(diff(as.numeric(x)))
@@ -98,7 +98,7 @@ regular_core <- function(x) {
     )
   }
 
-  if (length(cid) == 0) {
+  if (length(cid) == 0L) {
     z <- regular_core_one(x)
   } else {
     .by <- by_expr(cid)
