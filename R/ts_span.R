@@ -83,7 +83,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
 
   # specification by period: create shift_string
   if (is.numeric(start) && start < 999) {
-    if (length(start) > 1) {
+    if (length(sstr) > 1) {
       stop0(
         "mixed frequencies: 'start' cannot be specified as integer"
       )
@@ -91,7 +91,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
     start <- paste(start * as.numeric(spl.sstr[1]), spl.sstr[2])
   }
   if (is.numeric(end) && end < 999) {
-    if (length(end) > 1) {
+    if (length(sstr) > 1) {
       stop0(
         "mixed frequencies: 'end' cannot be specified as integer"
       )
@@ -112,9 +112,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   # Outfactor in universal anytime wrapper?
   if_num_char <- function(x) {
     if (inherits(x, "numeric")) {
-      if (length(x) > 1) {
-        stop0("numeric date input must be of length 1")
-      }
+      stopifnot(length(x) == 1)
       return(as.character(x))
     }
     x

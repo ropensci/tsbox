@@ -14,15 +14,13 @@ ts_ts_dts <- function(x, frequency = NULL) {
     # try to regularize common time axis
     # this is needed if there are uncovered parts among several series
     reg.time <- regularize_date(wx[[1]])
-    if (!is.null(reg.time)) {
-      setnames(wx, 1, "time") # time col may have a different name
-      wx <- merge_time_date(
-        data.table::data.table(time = reg.time), wx,
-        by.x = "time", by.y = "time"
-      )
-    } else {
-      stop0("series has no regular pattern")
-    }
+    check_regular_pattern(reg.time)
+    setnames(wx, 1, "time") # time col may have a different name
+    wx <- merge_time_date(
+      data.table::data.table(time = reg.time), wx,
+      by.x = "time", by.y = "time"
+    )
+
     tsp <- date_time_to_tsp(wx[[1]])
   } else {
     tsp <- date_time_to_tsp(wx[[1]], frequency = frequency)

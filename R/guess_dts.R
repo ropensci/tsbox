@@ -14,7 +14,7 @@ guess_tattr <- function(x) {
   x.time <- x[[dts_cname(x)$time]]
   class <- class(x.time)[1]
   if (!(class %in% c("Date", "POSIXct"))) {
-    stop0("[time] col is not of class 'Date' or 'POSIXct'")
+    stop0("[time] column is not of class 'Date' or 'POSIXct'")
   }
   if (identical(class, "POSIXct")) {
     tz <- attr(x.time, "tzone")
@@ -53,15 +53,13 @@ guess_cname <- function(x) {
     # check if data frame is incidentally wide
     cnames <- colnames(x)
     idx.time <- which(cnames == time.name)
-    if ((idx.time - length(cnames)) > 1) {
+    if ((length(cnames) - idx.time) > 1) {
       cols.r.of.time <- cnames[(idx.time + 1):length(cnames)]
       value.cols <- vapply(x[, cols.r.of.time, with = FALSE], is_value, TRUE)
       if (sum(value.cols) > 1) {
         message(
-          "More than one value column detected after the 'time' column, using the",
-          "outermost.\n",
-          "Are you using a wide data frame? ",
-          "To convert, use 'ts_long()'.\n"
+          "More than one 'value' column detected after 'time', using the outermost.\n",
+          "Are you using a wide data frame? To convert, use 'ts_long()'.\n"
         )
       }
     }

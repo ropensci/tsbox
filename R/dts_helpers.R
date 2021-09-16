@@ -29,12 +29,12 @@ dts_init <- function(x) {
     dups <- do.call(paste_, as.list(z))
     if (length(dups) > 0) {
       stop0(
-        "Object contains series with duplicated information: ",
+        "object contains series with duplicated information: ",
         paste(dups, collapse = ", ")
       )
     } else {
       stop0(
-        "Series contains duplicated values in time column: ",
+        "series contains duplicated values in time column: ",
         unique(x[[cname$time]][duplicated(x[[cname$time]])])
       )
     }
@@ -52,6 +52,8 @@ dts_init <- function(x) {
   .by <- by_expr(dts_cname(x)$id)
   x <- x[, setorder(.SD, time), by = eval(.by)]
   setcolorder(x, colorder)
+
+  check_missing_time(x$time)
 
   setnames(x, "time", cname$time)
   setattr(x, "cname", cname)

@@ -45,17 +45,19 @@ long_core_multi_id <- function(x) {
   }
   if (length(id.names) > 0) {
     message(
-      "[id] (columns left of [time] column): ",
+      "[id] columns left of [time] column: ",
       paste(paste0("'", id.names, "'"), collapse = ", ")
     )
     id.vars <- c(id.names, time.name)
   } else {
     id.vars <- time.name
   }
+
+  new.id.name <- tail(make.unique(c(id.vars, "id")), 1)
   z <- suppressWarnings(
-    melt(x, id.vars = id.vars, variable.name = "id", variable.factor = FALSE)
+    melt(x, id.vars = id.vars, variable.name = new.id.name, variable.factor = FALSE)
   )
-  setcolorder(z, c(id.names, "id", time.name, "value"))
+  setcolorder(z, c(id.names, new.id.name, time.name, "value"))
   ts_dts(z)
 }
 
@@ -98,7 +100,7 @@ wide_core <- function(x) {
 
   n.non.unique <- nrow(x) - nrow(unique(x, by = c(cname$id, cname$time)))
   if (n.non.unique > 0) {
-    stop0("contains ", n.non.unique, " duplicate entries")
+    stop("contains duplicate entries (this error should not occur.")
   }
 
   # dcast is confused by factors

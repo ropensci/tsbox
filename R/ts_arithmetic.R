@@ -27,9 +27,7 @@ ts_arithmetic <- function(e1, e2, fun = `-`) {
   cname2 <- dts_cname(z2)
   cid <- cname$id
 
-  if (!identical(cname$id, cname2$id)) {
-    stop0("id columns are not identical")
-  }
+  check_identical_ids(cname$id, cname2$id)
 
   setnames(z1, cname$value, "value")
   setnames(z2, cname2$value, "value2")

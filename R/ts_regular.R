@@ -24,6 +24,8 @@
 ts_regular <- function(x, fill = NA) {
   check_ts_boxable(x)
   fill <- as.numeric(fill)
+  if (length(fill) != 1) stop0("'fill' must be of length 1")
+
   if (inherits(x, "ts")) { # to save time
     if (!is.na(fill)) {
       x[is.na(x)] <- fill
@@ -33,7 +35,6 @@ ts_regular <- function(x, fill = NA) {
   # standard routine
   z <- regular_core(ts_dts(x))
   if (!is.na(fill)) {
-    if (length(fill) != 1) stop0("'fill' must be of length 1")
     cvalue <- dts_cname(z)$value
     z[[cvalue]][is.na(z[[cvalue]])] <- fill
   }
@@ -79,17 +80,12 @@ regular_core <- function(x) {
   setnames(x, ctime, "time")
 
   regular_core_one <- function(x) {
-    if (any(is.na(x$time))) {
-      stop0("Time column contains missing values.")
-    }
-
+    check_missing_time(x$time)
     if (is_regular_one_basic(x$time)) {
       return(x)
     }
     reg.time <- regularize_date(x$time)
-    if (is.null(reg.time)) {
-      stop0("series has no regular pattern")
-    }
+    check_regular_pattern(reg.time)
     merge_time_date(
       data.table(time = reg.time),
       x,

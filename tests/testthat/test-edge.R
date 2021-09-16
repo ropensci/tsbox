@@ -124,6 +124,11 @@ test_that("Processing of badly shaped data works as expected", {
   x <- rename(x, value2 = value)
   x$one_more <- 1
 
+  expect_message(
+    z <- ts_dts(x) ,
+   "More than one 'value' column detected"
+  )
+
   expect_error(ts_first_of_period(x), "at least two observations")
   # expect_warning(ts_na_interpolation(x), "imputeTS: No imputation performed")
   expect_error(ts_forecast(x), "at least two observations")

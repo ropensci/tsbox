@@ -137,14 +137,7 @@ bind_two <- function(a, b) {
   setnames(a, cname$value, "value")
   setnames(b, cname_b$value, "value_b")
 
-  if (!identical(cname$id, dts_cname(b)$id)) {
-    stop0(
-      "Series do not have the same ids: ",
-      paste(cname$id, collapse = ", "),
-      "and",
-      paste(dts_cname(b)$id, collapse = ", ")
-    )
-  }
+  check_identical_ids(cname$id, dts_cname(b)$id)
 
   z <- merge(a, b, by = c(cname$id, "time"), all = TRUE)
   # remove key added by merge

@@ -54,3 +54,43 @@ check_start_end <- function(start, end) {
     )
   }
 }
+
+#' @param a character
+#' @param b character
+#'
+#' @noRd
+check_identical_ids <- function(a, b) {
+  a <- sort(a)
+  b <- sort(b)
+  if (!identical(a, b)) {
+    stop0(
+      "[id] columns are not identical: ",
+      paste(a, collapse = ", "),
+      " (1); ",
+      paste(b, collapse = ", "),
+      " (2)"
+    )
+  }
+}
+
+#' @param x Date or POSIXct
+#'
+#' @noRd
+check_missing_time <- function(x) {
+  if (any(is.na(x))) {
+    stop0("[time] column contains missing values")
+  }
+}
+
+#' @param reg.time return value from regularize_date
+#'
+#' Fail if regularize_date() returns NULL
+#'
+#' @noRd
+check_regular_pattern <- function(reg.time) {
+  if (is.null(reg.time)) {
+    stop0("series has no regular pattern")
+  }
+}
+
+
