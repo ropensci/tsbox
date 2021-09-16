@@ -48,6 +48,8 @@ ts_lag <- function(x, by = 1) {
   setnames(z, cname$value, "value")
 
   lag_one <- function(x) {
+    check_frequency_detection(x)
+    if (nrow(x) == 0) return(x)
     x[, list(time = time_shift(time, by = by), value)]
   }
   .by <- by_expr(cname$id)

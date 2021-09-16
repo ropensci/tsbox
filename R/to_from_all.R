@@ -72,8 +72,9 @@ ts_boxable <- function(x) {
 check_ts_boxable <- function(x) {
   if (!ts_boxable(x)) {
     stop(
-      "'x' of the non-ts-boxable class(es) ",
+      "object is of non-ts-boxable class(es) ",
       paste(paste0("'", class(x), "'"), collapse = ", "),
+      ". See `?ts_ts`.",
       call. = FALSE
     )
   }

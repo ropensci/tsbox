@@ -38,13 +38,7 @@ frequency_table <- function(x) {
   N <- freq <- share <- string <- NULL
 
   stopifnot(class(x)[1] %in% c("Date", "POSIXct"))
-
-  if (length(x) < 2) {
-    stop(
-      "Need at least two timestamps to detect frequency.",
-      call. = FALSE
-    )
-  }
+  check_frequency_detection(x)
 
   # table with unique differences
   diffdt <- data.table(table(diff(as.numeric(as.POSIXct(sort(x))))))

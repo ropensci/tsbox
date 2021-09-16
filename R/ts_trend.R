@@ -27,6 +27,14 @@ ts_trend <- function(x, ...) {
 
   predict_loess <- function(.SD, ...) {
     z <- copy(.SD)
+
+    if (nrow(z) < 7) {
+      message(
+        "No trend estimation for series with less than 7 obs. ",
+        "Return input series."
+      )
+      return(z)
+    }
     value_loess <- predict(loess(
       as.numeric(value) ~ as.numeric(as.POSIXct(time)),
       ...,

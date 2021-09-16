@@ -49,6 +49,9 @@ ts_regular <- function(x, fill = NA) {
 #'
 #' @noRd
 is_regular_one_basic <- function(x) {
+  if (length(x) == 0) {
+    return(TRUE)
+  }
   if (length(x) == 1) {
     return(TRUE)
   }

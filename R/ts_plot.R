@@ -63,7 +63,8 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   x <- ts_dts(ts_c(...))
 
-  if (nrow(x) == 0) stop("data is empty")
+  if (nrow(ts_na_omit(x)) == 0) stop("no data values to plot")
+
 
   # only a single id col
   x <- combine_id_cols(x)

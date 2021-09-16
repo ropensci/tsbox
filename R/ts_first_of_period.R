@@ -37,14 +37,15 @@ ts_first_of_period <- function(x) {
 #'
 #' @noRd
 dts_first_of_period <- function(x) {
+  check_frequency_detection(x)
+
   value <- NULL
   has.value <- NULL
-
   smry <- ts_summary(x)
   start <- date_year(smry$start)
   end <- as.Date(paste(data.table::year(smry$end) + 1, "1", "1", sep = "-"))
 
-  if (smry$freq < 1) { # e.g., decades
+  if (isTRUE(smry$freq < 1)) { # e.g., decades
     start <- as.Date(paste(data.table::year(smry$start) %/% 10 * 10, "1", "1", sep = "-"))
     end <- as.Date(paste(data.table::year(smry$end) %/% 10 * 10 + 10, "1", "1", sep = "-"))
   }

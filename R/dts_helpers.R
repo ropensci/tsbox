@@ -41,6 +41,9 @@ dts_init <- function(x) {
       )
     }
   }
+  if (!is.numeric(x[[cname$value]])) {
+    stop("'value' column [", cname$value, "] is not numeric.", call. = FALSE)
+  }
 
   # new
   setnames(x, cname$time, "time")

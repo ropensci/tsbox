@@ -69,13 +69,16 @@ ts_index <- function(x, base = NULL) {
   . <- NULL
 
   z <- ts_dts(x)
+  if (nrow(z) == 0) return(x)
   d <- dts_default(z)
   z <- d$x
 
   cid <- dts_cname(z)$id
   .by <- by_expr(cid)
 
-  # use latest non na start point as base candidtate
+  if (all(is.na(d$x$value))) return(x)
+
+  # use latest non na start point as base candidate
   if (is.null(base)) {
     dt_min_time <- z[
       !is.na(value),

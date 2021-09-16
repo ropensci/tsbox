@@ -45,7 +45,7 @@ test_that("Functions work with missing values", {
 })
 
 
-#' @srrstatsTODO {G2.16} *All functions should also provide options to handle
+#' @srrstats {G2.16} *All functions should also provide options to handle
 #'  undefined values (e.g., `NaN`, `Inf` and `-Inf`), including potentially
 #'  ignoring or removing such values.*
 test_that("Functions keep NaN values", {

@@ -3,6 +3,7 @@
 #' @inherit ts_default
 #' @export
 ts_dts <- function(x) {
+  check_ts_boxable(x)
   UseMethod("ts_dts")
 }
 
