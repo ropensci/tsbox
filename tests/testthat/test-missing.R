@@ -45,6 +45,48 @@ test_that("Functions work with missing values", {
 })
 
 
+#' @srrstatsTODO {G2.16} *All functions should also provide options to handle
+#'  undefined values (e.g., `NaN`, `Inf` and `-Inf`), including potentially
+#'  ignoring or removing such values.*
+test_that("Functions keep NaN values", {
+
+  x <- fdeaths
+  x[5] <- NaN
+
+  # functions that keep NA
+  fl <- lst(
+    ts_bind,
+    ts_c,
+    ts_chain,
+    ts_default,
+    ts_diff,
+    ts_diffy,
+    ts_first_of_period,
+    # ts_forecast,         #
+    ts_index,
+    ts_lag,
+    # ts_na_interpolation,
+    ts_pc,
+    ts_pca,
+    ts_regular,
+    # ts_seas,
+    ts_span
+  )
+
+  for (i in seq(fl)){
+    message(names(fl)[i])
+    z <- fl[[i]](x)
+    expect_identical(z[5], NaN)
+  }
+
+  # functions that remvoe NA
+  expect_false(is.na(ts_na_interpolation(x)[5]))
+
+})
+
+
+
+
 
 
 #' @srrstats {TS2.0} *Time Series Software which presumes or requires

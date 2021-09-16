@@ -49,31 +49,21 @@
 #'   Usage of the 'units' package is tested
 #' @srrstats {G2.12} *Software should ensure that `data.frame`-like tabular objects which have list columns should ensure that those columns are appropriately pre-processed either through being removed, converted to equivalent vector columns where appropriate, or some other appropriate treatment such as an informative error. This behaviour should be tested.*
 #'   For now, gives an appropriate error. A planned feature will allow for nested dfs everywhere.
-
-
-# TODO Missing Values
-
-
 #' @srrstats {G2.14c} *replace missing data with appropriately imputed values*
 #'   Use `ts_na_interpolation()` to replace missing by various algorithms. See
 #'   ?imputeTS::na_interpolation
-
-
 #' @srrstats {G2.15} *Functions should never assume non-missingness, and should never pass data with potential missing values to any base routines with default `na.rm = FALSE`-type parameters (such as [`mean()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/mean.html), [`sd()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/sd.html) or [`cor()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cor.html)).*
-#'
-
-#' @srrstatsTODO {G2.16} *All functions should also provide options to handle
-#'  undefined values (e.g., `NaN`, `Inf` and `-Inf`), including potentially
-#'  ignoring or removing such values.*
-
+#'   Functions do not assume non-missingness, which is tested.
+#' @srrstats {G2.16} *All functions should also provide options to handle undefined values (e.g., `NaN`, `Inf` and `-Inf`), including potentially ignoring or removing such values.*
+#'   NaN, Inf, and -Inf are kept as such. Tt is tested that NaN values preserve
+#'   and can be omitted an interpolated the same way as NA. Inf and -Inf will be
+#'   treated as finite numbers.
 
 #' @srrstats {TS2.0} *Time Series Software which presumes or requires regular data should only allow **explicit** missing values, and should issue appropriate diagnostic messages, potentially including errors, in response to any **implicit** missing values.*
 #'   In data.frame-like structures, tsbox allows explicit and implicit NA values
 #'   on purpose. ts_regular() can be used to make all NAs explicit, ts_na_omit()
 #'   omits them. It is tested that implicit and explicit NAs are treated the
 #'   same.
-
-
 
 # TODO Remove Floating comparisons
 #' @srrstatsTODO {G3.0} *Statistical software should never compare floating point numbers for equality. All numeric equality comparisons should either ensure that they are made between integers, or use appropriate tolerances for approximate equality.*
@@ -105,10 +95,6 @@
 #' @srrstatsTODO {G5.9a} *Adding trivial noise (for example, at the scale of `.Machine$double.eps`) to data does not meaningfully change results*
 
 #' @srrstats {G5.9b} *Running under different random seeds or initial conditions does not meaningfully change results*
-
-#' @srrstatsTODO {G5.10} *Extended tests should included and run under a common framework with other tests but be switched on by flags such as as a `<MYPKG>_EXTENDED_TESTS=1` environment variable.*
-
-
 
 #' @srrstats {TS1.0} *Time Series Software should use and rely on explicit class systems developed for representing time series data, and should not permit generic, non-time-series input*
 #'   This is the core of tsbox.
@@ -212,6 +198,8 @@ NULL
 #'   No covariance calculations are performed.
 #' @srrstatsNA {G3.1a} *The ability to use arbitrarily specified covariance methods should be documented (typically in examples or vignettes).*
 #'   No covariance calculations are performed.
+#' @srrstatsNA {G5.10} *Extended tests should included and run under a common framework with other tests but be switched on by flags such as as a `<MYPKG>_EXTENDED_TESTS=1` environment variable.*
+#'   No extended tests are used. >600 tests run in 10s in parallel, wich is fine.
 #' @srrstatsNA {TS2.6} *Where applicable, covariance matrices should also include specification of appropriate units.*
 
 #' @srrstatsNA {G5.1} *Data sets created within, and used to test, a package should be exported (or otherwise made generally available) so that users can confirm tests and run examples.*
@@ -236,6 +224,7 @@ NULL
 #' @srrstatsNA {TS2.1b} *warn or ignore missing data, and proceed to analyse irregular data, ensuring that results from function calls with regular yet missing data return identical values to submitting equivalent irregular data with no missing values; or*
 #'   see explanation on {G2.13}
 #' @srrstatsNA {TS2.1c} *replace missing data with appropriately imputed values.*
+
 
 
 
