@@ -42,7 +42,8 @@ ts_plot(AirPassengers, ts_lag(AirPassengers), title = "The need for glasses")
 }
 ts_lag(fdeaths, "1 month")
 ts_lag(fdeaths, "1 year")
-ts_lag(ts_df(fdeaths), "2 day")
-ts_lag(ts_df(fdeaths), "2 min")
-ts_lag(ts_df(fdeaths), "-1 day")
+x <- ts_df(fdeaths)
+ts_lag(x, "2 day")
+ts_lag(x, "2 min")
+ts_lag(x, "-1 day")
 }

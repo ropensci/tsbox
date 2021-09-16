@@ -6,10 +6,7 @@
 #' Replace date or time values by the first of the period. tsbox usually relies
 #' on timestamps being the first value of a period.
 #'
-#' @param x ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
-#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
-#'   `timeSeries`.
-#' @return A ts-boxable object of the same class as the input.
+#' @inherit ts_default
 #'
 #' @examples
 #' x <- ts_c(

@@ -30,6 +30,9 @@ copy_class(
 
 \item{preserve.time}{should the values time column be preserved
 (data frame only)}
+
+\item{preserve.attr}{should the attributes of the value column be preserved
+(data frame only)}
 }
 \value{
 a ts-boxable object of the same class as \code{template},

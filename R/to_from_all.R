@@ -41,7 +41,8 @@ supported_classes <- function() {
 #' @return character, the relevant class of ts-boxable object
 #' @examples
 #' relevant_class(AirPassengers)
-#' relevant_class(ts_df(AirPassengers))
+#' x <- ts_df(AirPassengers)
+#' relevant_class(x)
 #' @export
 relevant_class <- function(x) {
   stopifnot(ts_boxable(x))
@@ -138,6 +139,8 @@ desired_class <- function(ll) {
 #' @param preserve.names should the name of the time column be preserved
 #'   (data frame only)
 #' @param preserve.time should the values time column be preserved
+#'   (data frame only)
+#' @param preserve.attr should the attributes of the value column be preserved
 #'   (data frame only)
 #' @return a ts-boxable object of the same class as `template`,
 #'   i.e., an object of class `ts`, `xts`, `zoo`,

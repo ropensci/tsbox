@@ -10,7 +10,8 @@
 #'
 #' @inherit ts_default return
 #' @examples
-#' df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
+#' x <- ts_df(ts_c(mdeaths, fdeaths))
+#' df.wide <- ts_wide(x)
 #' df.wide
 #' ts_long(df.wide)
 #' @export

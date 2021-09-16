@@ -33,8 +33,10 @@ range.
 and compounding the rates.
 }
 \examples{
-ts_compound(ts_pc(ts_c(fdeaths, mdeaths)))
-ts_index(ts_df(ts_c(fdeaths, mdeaths)), "1974-02-01")
+x <- ts_pc(ts_c(fdeaths, mdeaths))
+ts_compound(x)
+y <- ts_df(ts_c(fdeaths, mdeaths))
+ts_index(y, "1974-02-01")
 \donttest{
 ts_plot(
   `My Expert Knowledge` = ts_chain(

@@ -25,7 +25,8 @@ format data frames are not. \code{ts_long} automatically identifies a \strong{ti
 column, and uses columns on the left as id columns.
 }
 \examples{
-df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
+x <- ts_df(ts_c(mdeaths, fdeaths))
+df.wide <- ts_wide(x)
 df.wide
 ts_long(df.wide)
 }

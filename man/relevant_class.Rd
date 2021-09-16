@@ -19,5 +19,6 @@ Mainly used internally.
 }
 \examples{
 relevant_class(AirPassengers)
-relevant_class(ts_df(AirPassengers))
+x <- ts_df(AirPassengers)
+relevant_class(x)
 }

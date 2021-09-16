@@ -27,10 +27,11 @@ the column names to the defaults (\code{time}, \code{value}), so that auto-detec
 can be avoided in future operations.
 }
 \examples{
-
+\donttest{
 df <- ts_df(ts_c(mdeaths, fdeaths))
 # non-default colnames
 colnames(df) <- c("id", "date", "count")
 # switch back to default colnames
 ts_default(df)
+}
 }
