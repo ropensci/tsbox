@@ -11,9 +11,6 @@ dts_init <- function(x) {
   stopifnot(inherits(x, "data.frame"))
   x <- as.data.table(x)
   stopifnot(inherits(x, "data.table"))
-
-  # TODO
-  # x <- unnest_if_needed(x)
   setattr(x, "class", c("dts", attr(x, "class")))
   stopifnot(inherits(x, "dts"))
   cname <- dts_cname(x)
@@ -53,24 +50,6 @@ dts_init <- function(x) {
   setattr(x, "cname", cname)
 
   x
-}
-
-
-
-unnest_if_needed <- function(x) {
-  is_list_col <- vapply(x, function(e) "list" %in% class(e), TRUE)
-  if (!any(is_list_col)) {
-    return(x)
-  }
-  list_col <- names(is_list_col)[is_list_col]
-  if (length(list_col) > 1) {
-    stop("More than one list column. Can handle one list column only.",
-         call. = FALSE)
-  }
-  setnames(x, list_col, "list_col")
-  z <- x[, list_col[[1]], by = id]
-  setattr(z, "nested_time_value", TRUE)
-  z
 }
 
 
