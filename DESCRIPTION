@@ -1,7 +1,7 @@
 Package: tsbox
 Type: Package
 Title: Class-Agnostic Time Series
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7192-7044"))
 Description: Time series toolkit with identical behavior for all
   time series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
