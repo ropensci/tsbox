@@ -37,6 +37,10 @@ test_that("errors work as expected", {
     ts_span(mdeaths, start = 1979, end = 1975),
     "'start' cannot be at or after 'end'"
   )
+  expect_error(
+    ts_span(mdeaths, start = 1979, end = 1975, extend = TRUE),
+    "'start' cannot be at or after 'end'"
+  )
 
   a <- ts_tbl(ts_c(mdeaths, fdeaths))
   b <- rename(a, id2 = id)
@@ -200,6 +204,11 @@ test_that("errors work as expected", {
 
   expect_error(
     ts_span(mdeaths, start = 1:2),
+    "must be of length 1"
+  )
+
+  expect_error(
+    ts_span(mdeaths, end = 1:2),
     "must be of length 1"
   )
 

@@ -34,6 +34,12 @@ test_that("time shift works in special situations", {
 })
 
 
+test_that("find_range() utility works", {
+  expect_type(find_range("month"), "double")
+})
+
+
+
 # test_that("time zones are not removed", {
 #   x <- ts_tbl(EuStockMarkets)
 #   attr(x$time, "tzone") <- "UTC"
