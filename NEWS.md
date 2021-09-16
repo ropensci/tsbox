@@ -1,3 +1,10 @@
+# tsbox 0.3.1 (2021-09-16)
+
+## Bug fixes
+
+- Fix CRAN issues on Mac
+
+
 # tsbox 0.3.0 (2021-07-26)
 
 ## Features
