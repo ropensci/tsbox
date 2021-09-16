@@ -96,7 +96,9 @@ date_time_to_tsp <- function(x, frequency = NULL) {
   if (is.null(frequency)) {
     check_frequency_detection(x)
     frequency <- unique(frequency_table(x)$freq)
-    stopifnot(length(frequency) == 1L)
+    if (length(frequency) != 1L) {
+      stop0("sequence is not regular. Use ts_regular().")
+    }
   }
   # Non heuristic conversion
   if (is_near(frequency, -1)) {
@@ -115,7 +117,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     if (is_near(frequency, 12)) start <- c(y, m)
     if (d != 1L) {
       stop0(
-        "time column needs to be specified as the first date of the period"
+        "time column must be specified as the first date of the period"
       )
     }
     z <- tsp(ts(x, frequency = frequency, start = start)) # a bit inefficient

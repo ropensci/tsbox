@@ -15,6 +15,19 @@ test_that("errors work as expected", {
   )
   expect_error(time_shift(irreg1$time, 1), "cannot be integer")
 
+  expect_error(
+    date_time_to_tsp(as.Date(c("2000-01-10", "2001-02-10", "2005-03-10"))),
+   "some dates are not equally spaced"
+  )
+
+  expect_error(
+    date_time_to_tsp(as.Date(c("2000-01-10", "2001-02-10", "2001-03-10"))),
+   "sequence is not regular"
+  )
+
+  expect_error(
+    date_time_to_tsp(as.Date(c("2001-01-10", "2001-02-10", "2001-03-10"))),
+   "time column must be specified as the first date"
+  )
+
 })
-
-
