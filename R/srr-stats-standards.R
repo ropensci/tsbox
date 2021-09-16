@@ -52,13 +52,27 @@
 
 
 # TODO Missing Values
-#' @srrstatsTODO {G2.13} *Statistical Software should implement appropriate checks for missing data as part of initial pre-processing prior to passing data to analytic algorithms.*
-#' @srrstatsTODO {G2.14} *Where possible, all functions should provide options for users to specify how to handle missing (`NA`) data, with options minimally including:*
-#' @srrstatsTODO {G2.14a} *error on missing data*
-#' @srrstatsTODO {G2.14b} *ignore missing data with default warnings or messages issued*
-#' @srrstatsTODO {G2.14c} *replace missing data with appropriately imputed values*
-#' @srrstatsTODO {G2.15} *Functions should never assume non-missingness, and should never pass data with potential missing values to any base routines with default `na.rm = FALSE`-type parameters (such as [`mean()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/mean.html), [`sd()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/sd.html) or [`cor()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cor.html)).*
-#' @srrstatsTODO {G2.16} *All functions should also provide options to handle undefined values (e.g., `NaN`, `Inf` and `-Inf`), including potentially ignoring or removing such values.*
+
+
+#' @srrstats {G2.14c} *replace missing data with appropriately imputed values*
+#'   Use `ts_na_interpolation()` to replace missing by various algorithms. See
+#'   ?imputeTS::na_interpolation
+
+
+#' @srrstats {G2.15} *Functions should never assume non-missingness, and should never pass data with potential missing values to any base routines with default `na.rm = FALSE`-type parameters (such as [`mean()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/mean.html), [`sd()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/sd.html) or [`cor()`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cor.html)).*
+#'
+
+#' @srrstatsTODO {G2.16} *All functions should also provide options to handle
+#'  undefined values (e.g., `NaN`, `Inf` and `-Inf`), including potentially
+#'  ignoring or removing such values.*
+
+
+#' @srrstats {TS2.0} *Time Series Software which presumes or requires regular data should only allow **explicit** missing values, and should issue appropriate diagnostic messages, potentially including errors, in response to any **implicit** missing values.*
+#'   In data.frame-like structures, tsbox allows explicit and implicit NA values
+#'   on purpose. ts_regular() can be used to make all NAs explicit, ts_na_omit()
+#'   omits them. It is tested that implicit and explicit NAs are treated the
+#'   same.
+
 
 
 # TODO Remove Floating comparisons
@@ -112,13 +126,6 @@
 #'   Units definied via the `units` package, stay alive as long as one works with data frame like objects (data table, tibble). ts objects currently loose the unit, as they are not supported by `units`.
 
 #' @srrstatsTODO {TS1.8} *Where time intervals or periods may be days or months, be explicit about the system used to represent such, particularly regarding whether a calendar system is used, or whether a year is presumed to have 365 days, 365.2422 days, or some other value.*
-
-# TODO Handling of NA in ts_regular
-#' @srrstatsTODO {TS2.0} *Time Series Software which presumes or requires regular data should only allow **explicit** missing values, and should issue appropriate diagnostic messages, potentially including errors, in response to any **implicit** missing values.*
-#' @srrstatsTODO {TS2.1} *Where possible, all functions should provide options for users to specify how to handle missing data, with options minimally including:*
-#' @srrstatsTODO {TS2.1a} *error on missing data; or.
-#' @srrstatsTODO {TS2.1b} *warn or ignore missing data, and proceed to analyse irregular data, ensuring that results from function calls with regular yet missing data return identical values to submitting equivalent irregular data with no missing values; or*
-#' @srrstatsTODO {TS2.1c} *replace missing data with appropriately imputed values.*
 
 #' @srrstats {TS2.5} *Incorporate a system to ensure that both row and column orders follow the same ordering as the underlying time series data. This may, for example, be done by including the `index` attribute of the time series data as an attribute of the covariance matrix.*
 #'   All output keeps column order. Row order is re-arranged by time if needed, in line with {TS1.5}. ts_default() reorders columns to id columns, `time` and `value`.
@@ -186,7 +193,6 @@ NULL
 #' @srrstatsNA {G5.12} *Any conditions necessary to run extended tests such as platform requirements, memory, expected runtime, and artefacts produced that may need manual inspection, should be described in developer documentation such as a `CONTRIBUTING.md` or `tests/README.md` file.*
 #'   No conditions apply.
 #'
-#' Stationarity
 #' @srrstatsNA {TS2.2} *Consider stationarity of all relevant moments - typically first (mean) and second (variance) order, or otherwise document why such consideration may be restricted to lower orders only.*
 #'   Validity of tsbox transformations generally does not depend on stationarity, so no such checks are performed.
 #' @srrstatsNA {TS2.3} *Explicitly document all assumptions and/or requirements of stationarity*
@@ -199,7 +205,6 @@ NULL
 #' @srrstatsNA {TS4.0b} *Be in a unique, preferably class-defined, format.*
 #'   Alternative {TS4.0a} is used.
 
-
 #' @srrstatsNA {G2.5} *Where inputs are expected to be of `factor` type, secondary documentation should explicitly state whether these should be `ordered` or not, and those inputs should provide appropriate error or other routines to ensure inputs follow these expectations.*
 #'   No inputs are expected to be of `factor` type
 
@@ -209,10 +214,28 @@ NULL
 #'   No covariance calculations are performed.
 #' @srrstatsNA {TS2.6} *Where applicable, covariance matrices should also include specification of appropriate units.*
 
-
-
 #' @srrstatsNA {G5.1} *Data sets created within, and used to test, a package should be exported (or otherwise made generally available) so that users can confirm tests and run examples.*
 #'   No specific test data set is used.
+
+#' @srrstatsNA {G2.13} *Statistical Software should implement appropriate checks for missing data as part of initial pre-processing prior to passing data to analytic algorithms.*
+#'   Missing values are allowed and are processed in all ts-boxable classes. In
+#'   data.frame-like classes, they are used to ensure regularity (which can be
+#'   enforced by `ts_regular`). In data.frame-like classes, they can be omitted,
+#'   usually withouth a loss of information (`ts_na_omit()`). In regular time
+#'   series classes, such as `ts`, NAs will be kept.
+#' @srrstatsNA {G2.14} *Where possible, all functions should provide options for users to specify how to handle missing (`NA`) data, with options minimally including:*
+#'   see explanation on {G2.13}
+#' @srrstatsNA {G2.14a} *error on missing data*
+#'   see explanation on {G2.13}
+#' @srrstatsNA {G2.14b} *ignore missing data with default warnings or messages issued*
+#'   see explanation on {G2.13}
+#' @srrstatsNA {TS2.1} *Where possible, all functions should provide options for users to specify how to handle missing data, with options minimally including:*
+#'   see explanation on {G2.13}
+#' @srrstatsNA {TS2.1a} *error on missing data; or.
+#'   see explanation on {G2.13}
+#' @srrstatsNA {TS2.1b} *warn or ignore missing data, and proceed to analyse irregular data, ensuring that results from function calls with regular yet missing data return identical values to submitting equivalent irregular data with no missing values; or*
+#'   see explanation on {G2.13}
+#' @srrstatsNA {TS2.1c} *replace missing data with appropriately imputed values.*
 
 
 

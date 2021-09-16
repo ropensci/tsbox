@@ -40,7 +40,6 @@ dts_first_of_period <- function(x) {
   value <- NULL
   has.value <- NULL
 
-  x <- ts_na_omit(x)
   smry <- ts_summary(x)
   start <- date_year(smry$start)
   end <- as.Date(paste(data.table::year(smry$end) + 1, "1", "1", sep = "-"))
@@ -56,7 +55,7 @@ dts_first_of_period <- function(x) {
   time.tmpl <- data.table(time = time_adj)
   x1 <- x[, list(time, value)]
   x1[, has.value := TRUE]
-  z <- x1[time.tmpl, roll = -Inf, on = "time"][has.value == TRUE]
+  z <- x1[time.tmpl, roll = -1, on = "time"][has.value == TRUE]
   z[, has.value := NULL]
   z
 }
