@@ -25,9 +25,11 @@ x <- ts_c(
 )
 ts_first_of_period(x)
 ts_first_of_period(ts_lag(ts_df(austres), "14 days"))
+\donttest{
 x <- ts_lag(data.frame(
   time = seq(anytime::anytime(1970), length.out = 10, by = "10 sec"),
   value = rnorm(10)
 ), "3 sec")
 ts_first_of_period(x)
+}
 }

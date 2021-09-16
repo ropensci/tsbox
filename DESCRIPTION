@@ -1,7 +1,7 @@
 Package: tsbox
 Type: Package
 Title: Class-Agnostic Time Series
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7192-7044"))
 Description: Time series toolkit with identical behavior for all
   time series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
@@ -36,7 +36,7 @@ Encoding: UTF-8
 URL: https://www.tsbox.help, https://github.com/christophsax/tsbox
 BugReports: https://github.com/christophsax/tsbox/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
