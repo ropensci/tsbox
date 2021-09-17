@@ -13,6 +13,7 @@ Suggests:
     testthat,
     dplyr,
     tibble,
+    tidyr,
     forecast,
     seasonal,
     dygraphs,

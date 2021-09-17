@@ -12,8 +12,8 @@
 register_class <- function(tsbox.class, actual.class = tsbox.class) {
   class <- setNames(actual.class, tsbox.class)
   classes <- c(class, .tsbox_registry$class)
-  # to keep names
-  classes <- classes[classes == unique(classes)]
+  # unique() that keep names
+  classes <- classes[unique(names(classes))]
   assign("class", classes, envir = .tsbox_registry)
 }
 

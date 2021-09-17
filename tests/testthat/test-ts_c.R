@@ -1,5 +1,7 @@
 test_that("combining ids with same name works and keeps order", {
-  library(tidyverse)
+  library(dplyr)
+  library(tidyr)
+
   a <-
     tibble(id1 = c("m", "f"), id2 = "A") |>
     crossing(time = 2000:2003) |>

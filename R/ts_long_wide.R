@@ -53,7 +53,9 @@ long_core_multi_id <- function(x) {
     id.vars <- time.name
   }
 
-  new.id.name <- tail(make.unique(c(id.vars, "id")), 1)
+  un <- make.unique(c(id.vars, "id"))
+  new.id.name <- un[length(un)]
+
   z <- suppressWarnings(
     melt(x, id.vars = id.vars, variable.name = new.id.name, variable.factor = FALSE)
   )
