@@ -11,19 +11,17 @@
 #' `"month"`, `"quarter" or `"year", or an abbreviation. If the series are of
 #' the same frequency, the shift can be specified in periods. See examples.
 #'
-#' @inherit ts_dts
-#' @param start start date, character string, `Date` or `POSIXct`
-#' @param end end date, character string, `Date` or `POSIXct`.
+#' @inherit ts_default
+#' @param start start date, character string of length 1, `Date` or `POSIXct`
+#' @param end end date, character string of length 1, `Date` or `POSIXct`.
 #' @param template ts-boxable time series, an object of class `ts`, `xts`,
 #'   `data.frame`, `data.table`, or `tibble`. If provided, `from` and `to`
 #'   will be extracted from the object.
 #' @param extend logical. If true, the start and end values are allowed to
 #'   extend the series (by adding `NA` values).
-#' @return a ts-boxable time series, with the same class as the input.
 #' @export
 #' @examples
 #'
-#' \donttest{
 #' # use 'anytime' shortcuts
 #' ts_span(mdeaths, start = "1979")       # shortcut for 1979-01-01
 #' ts_span(mdeaths, start = "1979-4")     # shortcut for 1979-04-01
@@ -39,6 +37,7 @@
 #' ts_span(mdeaths, start = -1)           # last single value
 #' ts_span(mdeaths, end = "1e4 hours")    # first 10000 hours
 #'
+#' \donttest{
 #' ts_plot(
 #'   ts_span(mdeaths, start = "-3 years"),
 #'   title = "Three years ago",
@@ -50,24 +49,30 @@
 #'   title = "28 weeks later",
 #'   subtitle = "The first 28 weeks of available data"
 #' ) + theme_tsbox() + scale_color_tsbox()
-#'}
+#' }
 #'
 #' # Limit span of 'discoveries' to the same span as 'AirPassengers'
 #' ts_span(discoveries, template = AirPassengers)
 #' ts_span(mdeaths, end = "19801201", extend = TRUE)
+#' @srrstats {G2.2} *Appropriately prohibit or restrict submission of multivariate input to parameters expected to be univariate.*
+#'   Done here.
+#' @srrstats {G2.0a} Provide explicit secondary documentation of any expectations on lengths of inputs
+#'   Done here.
+#' @srrstats {G2.0} *Implement assertions on lengths of inputs, particularly through asserting that inputs expected to be single- or multi-valued are indeed so.*
 ts_span <- function(x, start = NULL, end = NULL, template = NULL,
                     extend = FALSE) {
-
   .SD <- NULL
 
   if (!length(start) <= 1) {
-    stop("'start' must be of length 1", call. = FALSE)
+    stop0("'start' must be of length 1")
   }
   if (!length(end) <= 1) {
-    stop("'end' must be of length 1", call. = FALSE)
+    stop0("'end' must be of length 1")
   }
   x.dts <- ts_dts(x)
-  if (nrow(x.dts) == 0) return(x)
+  if (nrow(x.dts) == 0L) {
+    return(x)
+  }
   cname <- dts_cname(x.dts)
   sstr <- unique(get_shift_string(x.dts)$string)
   spl.sstr <- strsplit(sstr, split = " ")[[1]]
@@ -77,41 +82,37 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   setnames(x.dts, cname$time, "time")
 
   # specification by period: create shift_string
-  if (is.numeric(start) && start < 999){
-    if (length(start) > 1){
-      stop(
-        "mixed frequencies: 'start' cannot be specified as integer",
-        call. = FALSE
+  if (is.numeric(start) && start < 999) {
+    if (length(sstr) > 1) {
+      stop0(
+        "mixed frequencies: 'start' cannot be specified as integer"
       )
     }
     start <- paste(start * as.numeric(spl.sstr[1]), spl.sstr[2])
   }
-  if (is.numeric(end) && end < 999){
-    if (length(end) > 1){
-      stop(
-        "mixed frequencies: 'end' cannot be specified as integer",
-        call. = FALSE
+  if (is.numeric(end) && end < 999) {
+    if (length(sstr) > 1) {
+      stop0(
+        "mixed frequencies: 'end' cannot be specified as integer"
       )
     }
     end <- paste(end * as.numeric(spl.sstr[1]), spl.sstr[2])
   }
 
   # specification by shift string: create date
-  if (!is.null(start) && grepl("[a-z]", start)){
+  if (!is.null(start) && grepl("[a-zA-Z]", start)) {
     start <- time_shift(time_shift(max(x.dts$time), sstr), start)
   }
-  if (!is.null(end) && grepl("[a-z]", end)){
+  if (!is.null(end) && grepl("[a-zA-Z]", end)) {
     end <- time_shift(time_shift(min(x.dts$time), paste0("-", sstr)), end)
   }
 
   # specification by date: apply anytime
 
   # Outfactor in universal anytime wrapper?
-  if_num_char <- function(x){
+  if_num_char <- function(x) {
     if (inherits(x, "numeric")) {
-      if (length(x) > 1) {
-        stop("numeric date input must be of length 1", call. = FALSE)
-      }
+      stopifnot(length(x) == 1)
       return(as.character(x))
     }
     x
@@ -125,15 +126,16 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
     tolerance <- 0
   }
 
-  if (!is.null(start)){
+  if (!is.null(start)) {
     start <- anyfun(start) - tolerance
   }
-  if (!is.null(end)){
+  if (!is.null(end)) {
     end <- anyfun(end) + tolerance
   }
 
   # specification by template: get start and end from template
-  if (!is.null(template)){
+  if (!is.null(template)) {
+    stopifnot(ts_boxable(template))
     stopifnot(is.null(start), is.null(end))
     t.dts <- ts_dts(template)
     rng <- range(t.dts[[dts_cname(t.dts)$time]])
@@ -150,12 +152,16 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
       if (is.null(start)) start <- mystart
       if (is.null(end)) end <- myend
       if (start > end) {
-        stop("'start' cannot be at or after 'end'", call. = FALSE)
+        check_start_end(start, end)
       }
       by_str <- frequency_one(df$time)$string
-      # target sequence must be aligned dates of sereis, not with start and date
+      # target sequence must be aligned with dates of series, not with start and date
       sq <- c(
-        seq(mystart, start, by = paste0("-", by_str)),
+        if (mystart > start) {
+          seq(mystart, start, by = paste0("-", by_str))
+        } else {
+          mystart
+        },
         seq(mystart, end, by = by_str)[-1]
       )
       full <- data.table(time = sq)
@@ -170,16 +176,15 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
     x.dts <- x.dts[time >= start]
   }
   if (!is.null(end)) {
-    if (!is.null(start) && start > end) {
-      stop("'start' cannot be at or after 'end'", call. = FALSE)
+    if (!is.null(start)) {
+      check_start_end(start, end)
     }
     x.dts <- x.dts[time <= end]
   }
 
-  if (nrow(x.dts) == 0){
-    stop(
-      "span contains no data; select different 'start' or 'end'",
-      call. = FALSE
+  if (nrow(x.dts) == 0) {
+    stop0(
+      "span contains no data; select different 'start' or 'end'"
     )
   }
 
@@ -189,9 +194,16 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
   z
 }
 
-# x <- ts_dts(ts_c(fdeaths, mdeaths))
-# x <- ts_dts(EuStockMarkets)
-get_shift_string <- function(x){
+
+#' Get Shift String from dts
+#'
+#' @param x a 'dts' object
+#'
+#' @examples
+#' get_shift_string(ts_dts(ts_c(fdeaths, mdeaths)))
+#' get_shift_string(ts_dts(EuStockMarkets))
+#' @noRd
+get_shift_string <- function(x) {
   freq <- NULL
   x <- copy(ts_dts(x))
   stopifnot(inherits(x, "dts"))
@@ -202,42 +214,45 @@ get_shift_string <- function(x){
   as.data.frame(z)
 }
 
-# determine frequency of a single series
-# returns list, with components freq, string
 
-# x1 <- as.POSIXct(c("2000-01-01", "2001-01-01", "2005-03-03", "2007-03-03"))
-# x2 <- ts_tbl(AirPassengers)$time
-# x3 <- ts_na_omit(ts_tbl(ts_bind(austres, AirPassengers)))$time
-# frequency_one(x1)
-# frequency_one(x2)
-# frequency_one(x3)
-empty_fm <- function() {
-  data.frame(
+#' Determine Frequency of a Single Series
+#'
+#' @param x Date or POSIXct
+#'
+#' @returns list, with components freq, string
+#' @examples
+#' x1 <- as.POSIXct(c("2000-01-01", "2001-01-01", "2005-03-03", "2007-03-03"))
+#' x2 <- ts_tbl(AirPassengers)$time
+#' x3 <- ts_na_omit(ts_tbl(ts_bind(austres, AirPassengers)))$time
+#' frequency_one(x1)
+#' frequency_one(x2)
+#' frequency_one(x3)
+#' @noRd
+frequency_one <- function(x) {
+  empty_fm <- data.frame(
     string = NA_character_,
     N = NA_integer_,
     freq = NA_real_,
     share = NA_real_,
     stringsAsFactors = FALSE
   )
-}
-frequency_one <- function(x) {
   if (length(x) == 1L) {
-    return(empty_fm())
+    return(empty_fm)
   }
   freq <- NULL
   diffdt <- frequency_table(x)
   if (is.na(diffdt$freq[1])) diffdt$freq[1] <- -1
   fm <- diffdt[which.max(freq)]
-  if (diffdt$freq[1] == -1) {  # if -1 is most common value
+  if (is_near(diffdt$freq[1], -1)) { # if -1 is most common value
     udiff <- unique(diff(as.numeric(x)))
     # all.equal(max(udiff), min(udiff)) # should be 'numerically' unique
     if (max(udiff) - min(udiff) > 1e5) {
-      return(empty_fm())
+      return(empty_fm)
     }
     udiff <- mean(udiff)
     # unit <- "day"
-    unit <- if(inherits(x, "POSIXct")) "sec" else "day"
-    nominator <- if(inherits(x, "POSIXct")) 31556952 else 365.2425
+    unit <- if (inherits(x, "POSIXct")) "sec" else "day"
+    nominator <- if (inherits(x, "POSIXct")) 31556952 else 365.2425
     fm$string <- paste(udiff, unit)
     fm$freq <- nominator / udiff
   }

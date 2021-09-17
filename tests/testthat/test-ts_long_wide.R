@@ -1,8 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("long wide")
-
 test_that("ts_long returns correct class.", {
   a <- ts_df(ts_c(ts_dt(AirPassengers), mdeaths, fdeaths))
   expect_equal(class(ts_long(ts_wide(a)))[1], "data.frame")
@@ -27,6 +22,5 @@ test_that("ts_wide works has correct time stamps.", {
 test_that("economics dataset can be converted to long format", {
   library(ggplot2)
   library(tsbox)
-  expect_is(ts_long(economics), "tbl_df")
+  expect_s3_class(ts_long(economics), "tbl_df")
 })
-

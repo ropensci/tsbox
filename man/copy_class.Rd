@@ -9,7 +9,8 @@ copy_class(
   template,
   preserve.mode = TRUE,
   preserve.names = FALSE,
-  preserve.time = FALSE
+  preserve.time = FALSE,
+  preserve.attr = TRUE
 )
 }
 \arguments{
@@ -29,6 +30,15 @@ copy_class(
 
 \item{preserve.time}{should the values time column be preserved
 (data frame only)}
+
+\item{preserve.attr}{should the attributes of the value column be preserved
+(data frame only)}
+}
+\value{
+a ts-boxable object of the same class as \code{template},
+i.e., an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.
 }
 \description{
 Copies class attributes from an existing ts-boxable series. Mainly used
@@ -36,4 +46,7 @@ internally.
 }
 \details{
 Inspired by \code{xts::reclass}, which does something similar.
+}
+\examples{
+copy_class(mdeaths, ts_tbl(fdeaths))
 }

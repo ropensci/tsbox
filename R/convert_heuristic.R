@@ -1,5 +1,10 @@
+#' Extract Date or POSIXct from ts Object
+#'
+#' @param x ts object
+#' @examples
+#' ts_to_date_time(mdeaths)
+#' @noRd
 ts_to_date_time <- function(x) {
-
   freq <- NULL
 
   stopifnot(inherits(x, "ts"))
@@ -18,15 +23,14 @@ ts_to_date_time <- function(x) {
   # offset <- division - round(division)
   # stopifnot(abs(offset) < 1e-3)
 
-  md <- meta_freq()[freq == fr]
-
+  md <- meta_freq()[is_near(freq, fr)]
 
   # non heuristic conversion for non-heuristics
-  if (nrow(md) == 0 ) {
+  if (nrow(md) == 0L) {
     z <- ts_to_POSIXct(x)
 
-  # heuristic high freq > 12
-  } else if (md$freq == 365.2425) {
+    # heuristic high freq > 12
+  } else if (is_near(md$freq, 365.2425)) {
     # to improve accuracy for daily data, treat them separately
     # (also seedate_time_to_tsp)
 
@@ -46,9 +50,7 @@ ts_to_date_time <- function(x) {
       by = "1 day",
       length.out = length(x)
     )
-
   } else if (md$freq > 12) {
-
     stopifnot(inherits(x, "ts"))
     if (NCOL(x) > 1) x <- x[, 1]
     start <- dectime_to_POSIXct(tsp(x)[1])
@@ -67,7 +69,7 @@ ts_to_date_time <- function(x) {
       length.out = length(x)
     )
 
-  # heuristic low freq <= 12
+    # heuristic low freq <= 12
   } else {
     month.per.unit <- 12 / fr
     first.month <- round((first.subperiod * fr) * month.per.unit + 1)
@@ -81,28 +83,29 @@ ts_to_date_time <- function(x) {
   }
 
   z
-
 }
 
-
-
+#' Extract Start, End and Frequency from Date or POSIXct
+#'
+#' @param x ts object
+#' @param frequency if missing it is detected from x
+#' @noRd
 date_time_to_tsp <- function(x, frequency = NULL) {
-
   freq <- NULL
 
-  if (is.null(frequency)){
-    if (length(x) <= 1) {
-      stop("time series too short for frequency detection", call. = FALSE)
-    }
+  if (is.null(frequency)) {
+    check_frequency_detection(x)
     frequency <- unique(frequency_table(x)$freq)
-    stopifnot(length(frequency) == 1)
+    if (length(frequency) != 1L) {
+      stop0("sequence is not regular. Use ts_regular().")
+    }
   }
   # Non heuristic conversion
-  if (frequency == -1){
+  if (is_near(frequency, -1)) {
     z <- POSIXct_to_tsp(as.POSIXct(x))
-  # Low frequency conversion
-  } else if (frequency <= 12){
-    if (inherits(x, "POSIXct")){
+    # Low frequency conversion
+  } else if (frequency <= 12) {
+    if (inherits(x, "POSIXct")) {
       x <- as.Date(x)
     }
     st <- as.POSIXlt(x[1])
@@ -110,19 +113,18 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     m <- st$mon + 1L
     d <- st$mday
     start <- y
-    if (frequency == 4) start <- c(y, ((m - 1) / 3) + 1)
-    if (frequency == 12) start <- c(y, m)
-    if (d != 1) {
-      stop(
-        "time column needs to be specified as the first date of the period",
-        call. = FALSE
+    if (is_near(frequency, 4)) start <- c(y, ((m - 1) / 3) + 1)
+    if (is_near(frequency, 12)) start <- c(y, m)
+    if (d != 1L) {
+      stop0(
+        "time column must be specified as the first date of the period"
       )
     }
     z <- tsp(ts(x, frequency = frequency, start = start)) # a bit inefficient
-  } else if (frequency == 365.2425){
+  } else if (is_near(frequency, 365.2425)) {
     # to improve accuracy for daily data, do not use non heuristic conversion
 
-    md <- meta_freq()[freq == frequency]
+    md <- meta_freq()[is_near(freq, frequency)]
     str <- md$str
 
     start.time <- date_year(x[1])
@@ -138,7 +140,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
   } else {
 
     # non heuristic converson
-    md <- meta_freq()[freq == frequency]
+    md <- meta_freq()[is_near(freq, frequency)]
     z <- tsp(
       ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency)
     )

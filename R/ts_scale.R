@@ -1,20 +1,22 @@
 # A blueprint for new functions? If possible, functions should work on dts, not
 # on other objects. Faster and keeps time stamp intact.
 
-#' Normalized Time Series
+#' Scale and Center Time Series
 #'
-#' Subtract mean and divide by standard deviation. Based on [base::scale()].
+#' Subtract mean (*sum(x)/n*) and divide by standard deviation
+#' (*sqrt(sum(x^2)/(n-1))*). Based on [base::scale()].
 #'
-#' @param x ts_boxable time series
+#' @inherit ts_default
 #' @param center logical
 #' @param scale logical
 #' @export
 #' @examples
 #' \donttest{
 #' ts_plot(ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries))))
-#' ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
+#' ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, "DAX"])))
 #' }
-ts_scale <- function (x, center = TRUE, scale = TRUE){
+#' @srrstats {G1.3} *All statistical terminology should be clarified and unambiguously defined.*
+ts_scale <- function(x, center = TRUE, scale = TRUE) {
   value <- NULL
   z <- ts_dts(x)
 

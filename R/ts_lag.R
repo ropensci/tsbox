@@ -15,26 +15,23 @@
 #' negative) integer and a space, or followed by plural "s". This is passed to
 #' [base::seq.Date()]. This does not require the series to be regular.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param by integer or character, either the number of shifting periods
 #'   (integer), or an absolute amount of time (character). See details.
-#'
-#' @return a ts-boxable time series, with the same class as the input. If time
-#'  stamp shifting causes the object to be irregular, a data frame is returned.
 #'
 #' @examples
 #' \donttest{
 #' ts_plot(AirPassengers, ts_lag(AirPassengers), title = "The need for glasses")
 #' }
-#' head(ts_lag(fdeaths, "1 month"))
-#' head(ts_lag(fdeaths, "1 year"))
-#' head(ts_lag(ts_df(fdeaths), "2 day"))
-#' head(ts_lag(ts_df(fdeaths), "2 min"))
-#' head(ts_lag(ts_df(fdeaths), "-1 day"))
+#' ts_lag(fdeaths, "1 month")
+#' ts_lag(fdeaths, "1 year")
+#' x <- ts_df(fdeaths)
+#' ts_lag(x, "2 day")
+#' ts_lag(x, "2 min")
+#' ts_lag(x, "-1 day")
 #' @export
 ts_lag <- function(x, by = 1) {
-
-  stopifnot(length(by) == 1)
+  stopifnot(length(by) == 1L)
 
   value <- NULL
   .SD <- NULL
@@ -43,7 +40,7 @@ ts_lag <- function(x, by = 1) {
   z <- copy(ts_dts(x))
 
   # numeric by only with regular series
-  if (is.numeric(by)){
+  if (is.numeric(by)) {
     z <- ts_regular(z)
   }
 
@@ -51,7 +48,9 @@ ts_lag <- function(x, by = 1) {
   setnames(z, cname$time, "time")
   setnames(z, cname$value, "value")
 
-  lag_one <- function(x){
+  lag_one <- function(x) {
+    check_frequency_detection(x)
+    if (nrow(x) == 0L) return(x)
     x[, list(time = time_shift(time, by = by), value)]
   }
   .by <- by_expr(cname$id)
@@ -66,4 +65,3 @@ ts_lag <- function(x, by = 1) {
   setattr(z, "cname", cname)
   copy_class(z, x)
 }
-

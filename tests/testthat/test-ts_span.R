@@ -1,8 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_span")
-
 test_that("ts_span does the same as base window", {
   ts_win2 <- ts_(window)
   expect_equal(
@@ -32,8 +27,7 @@ test_that("ts_span does the same as base window", {
   x <- ts_df(austres)
 
   expect_equal(x[1, 1], ts_summary(austres)$start)
-  expect_equal(x[nrow(x), 1],  ts_summary(austres)$end)
-
+  expect_equal(x[nrow(x), 1], ts_summary(austres)$end)
 })
 
 test_that("'by' strings are accepted (#106)", {
@@ -62,7 +56,6 @@ test_that("works with non-heuristic frequencies (#106)", {
     time(ts_span(EuStockMarkets, end = 1))[1],
     time(EuStockMarkets)[1]
   )
-
 })
 
 
@@ -77,7 +70,6 @@ test_that("extending by NA works", {
     ts_span(mdeaths, start = "1973", extend = TRUE),
     window(mdeaths, start = 1973, extend = TRUE)
   )
-
 })
 
 test_that("extending by NA works for different frequencies", {
@@ -89,6 +81,9 @@ test_that("extending by NA works for different frequencies", {
 })
 
 
-
-
-
+test_that("extending by template works", {
+  target <-
+    ts_span(ts_span(discoveries, template = AirPassengers, extend = FALSE), template = AirPassengers, extend = TRUE)
+  actual <- ts_span(ts_span(discoveries, template = AirPassengers, extend = TRUE))
+  expect_equal(target, actual)
+})

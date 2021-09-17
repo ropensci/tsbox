@@ -1,3 +1,7 @@
+#' Default Column Names for 'dts'
+#'
+#' @param x a 'dts'
+#' @noRd
 dts_default <- function(x) {
   stopifnot(inherits(x, "dts"))
   cname <- dts_cname(x)
@@ -19,6 +23,13 @@ dts_default <- function(x) {
   )
 }
 
+
+#' Default Column Names for 'dts'
+#'
+#' @param x 'data.table', or 'dts'
+#' @param d Attributes to apply on a 'dts'
+#'
+#' @noRd
 dts_restore <- function(x, d) {
   x <- dts_init_minimal(x)
   setnames(x, "time", d$cname$time)
@@ -28,7 +39,14 @@ dts_restore <- function(x, d) {
   x
 }
 
-dts_init_minimal <- function(x){
+
+#' Minimal 'dts' Initialization
+#'
+#' Adds 'dts' class attribute to a 'data.table'
+#'
+#' @param x 'data.table', or 'dts'
+#' @noRd
+dts_init_minimal <- function(x) {
   stopifnot(inherits(x, "data.table"))
   if (!inherits(x, "dts")) setattr(x, "class", c("dts", attr(x, "class")))
   x

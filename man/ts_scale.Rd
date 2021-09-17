@@ -2,23 +2,31 @@
 % Please edit documentation in R/ts_scale.R
 \name{ts_scale}
 \alias{ts_scale}
-\title{Normalized Time Series}
+\title{Scale and Center Time Series}
 \usage{
 ts_scale(x, center = TRUE, scale = TRUE)
 }
 \arguments{
-\item{x}{ts_boxable time series}
+\item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
+\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
+\code{timeSeries}.}
 
 \item{center}{logical}
 
 \item{scale}{logical}
 }
+\value{
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
+}
 \description{
-Subtract mean and divide by standard deviation. Based on \code{\link[base:scale]{base::scale()}}.
+Subtract mean (\emph{sum(x)/n}) and divide by standard deviation
+(\emph{sqrt(sum(x^2)/(n-1))}). Based on \code{\link[base:scale]{base::scale()}}.
 }
 \examples{
 \donttest{
 ts_plot(ts_scale((ts_c(airmiles, co2, JohnsonJohnson, discoveries))))
-ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, 'DAX'])))
+ts_plot(ts_scale(ts_c(AirPassengers, DAX = EuStockMarkets[, "DAX"])))
 }
 }

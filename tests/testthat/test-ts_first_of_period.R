@@ -1,7 +1,6 @@
 skip_on_cran()
 
 test_that("ts_first_of_period works", {
-
   x <- ts_c(
     a = ts_lag(ts_df(mdeaths), "14 days"),
     b = ts_lag(ts_df(mdeaths), "-2 days")
@@ -19,6 +18,4 @@ test_that("ts_first_of_period works", {
   ans <- ts_first_of_period(x)
 
   expect_true(all(as.integer(ans$time) %% 10 == 0))
-
 })
-

@@ -14,15 +14,17 @@ ts_index(x, base = NULL)
 \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
 \code{timeSeries}.}
 
-\item{denominator}{numeric, set equal to one if percentage change rate is
+\item{denominator}{positive number. Set equal to 1 if percentage change rate is
 given a decimal fraction}
 
 \item{base}{base date, character string, \code{Date} or \code{POSIXct}, at which the
-index is set to 1. If two dates are provided, the average with the range is
+index is set to 1. If two dates are provided, the mean in the range is
 set equal to 1 (see examples).}
 }
 \value{
-a ts-boxable time series, with the same class as the input.
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 \code{ts_index} returns an indexed series, with value of 1 at the \code{base} date or
@@ -31,18 +33,21 @@ range.
 and compounding the rates.
 }
 \examples{
-head(ts_compound(ts_pc(ts_c(fdeaths, mdeaths))))
-head(ts_index(ts_df(ts_c(fdeaths, mdeaths)), "1974-02-01"))
+x <- ts_pc(ts_c(fdeaths, mdeaths))
+ts_compound(x)
+y <- ts_df(ts_c(fdeaths, mdeaths))
+ts_index(y, "1974-02-01")
 \donttest{
 ts_plot(
   `My Expert Knowledge` = ts_chain(
     mdeaths,
-    ts_compound(ts_bind(ts_pc(mdeaths), 15, 23, 33))),
+    ts_compound(ts_bind(ts_pc(mdeaths), 15, 23, 33))
+  ),
   `So Far` = mdeaths,
   title = "A Very Manual Forecast"
 )
 
-# average of 1974 = 1
+# mean of 1974 = 1
 ts_index(mdeaths, c("1974-01-01", "1974-12-31"))
 }
 }

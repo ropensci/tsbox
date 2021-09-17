@@ -1,7 +1,4 @@
-library(testthat)
-library(tsbox)
-
-context("fixed defects shuld not appear again")
+# fixed defects shuld not appear again
 
 test_that("concatenation when using data.frame format #166 (1)", {
   with_id <- wo_id <- ts_df(mdeaths)
@@ -20,6 +17,5 @@ test_that("ts to df conversion works with offset #186", {
   a <- ts(c(1, 2, 3), start = 2015, frequency = 12)
   attr(a, "tsp")[1] <- attr(a, "tsp")[1] - 1e-11
   ans <- ts_df(a)
-  expect_is(ans, "data.frame")
+  expect_s3_class(ans, "data.frame")
 })
-

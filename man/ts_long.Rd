@@ -14,7 +14,9 @@ ts_wide(x)
 \code{data.table}, or \code{tibble}.}
 }
 \value{
-object with the same class as input
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Functions to reshape multiple time series from 'wide' to 'long' and vice
@@ -23,7 +25,8 @@ format data frames are not. \code{ts_long} automatically identifies a \strong{ti
 column, and uses columns on the left as id columns.
 }
 \examples{
-df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
-head(df.wide)
-head(ts_long(df.wide))
+x <- ts_df(ts_c(mdeaths, fdeaths))
+df.wide <- ts_wide(x)
+df.wide
+ts_long(df.wide)
 }

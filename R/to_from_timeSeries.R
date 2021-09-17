@@ -2,6 +2,8 @@ register_class("timeSeries")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_timeSeries_dts <- function(x) {
   stopifnot(requireNamespace("timeSeries"))
   stopifnot(requireNamespace("xts"))
@@ -23,7 +25,7 @@ ts_dts.timeSeries <- function(x) {
 
   dta <- timeSeries::series(x)
 
-  if (!grepl("%H", x@format)){
+  if (!grepl("%H", x@format)) {
     time <- as.Date(rownames(dta), format = x@format)
   } else {
     time <- as.POSIXct(rownames(dta), format = x@format, tz = x@FinCenter)
@@ -39,6 +41,8 @@ ts_dts.timeSeries <- function(x) {
 #' @export
 ts_timeSeries <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "timeSeries") return(x)
+  if (relevant_class(x) == "timeSeries") {
+    return(x)
+  }
   ts_timeSeries_dts(ts_dts(x))
 }

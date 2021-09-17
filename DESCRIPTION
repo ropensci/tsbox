@@ -13,6 +13,7 @@ Suggests:
     testthat,
     dplyr,
     tibble,
+    tidyr,
     forecast,
     seasonal,
     dygraphs,
@@ -25,6 +26,7 @@ Suggests:
     tsibbledata,
     tibbletime,
     tseries,
+    units,
     zoo,
     tis,
     timeSeries,
@@ -35,9 +37,11 @@ License: GPL-3
 Encoding: UTF-8
 URL: https://www.tsbox.help, https://github.com/christophsax/tsbox
 BugReports: https://github.com/christophsax/tsbox/issues
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE, roclets = c ("namespace", "rd", "srr::srr_stats_roclet"))
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
+Config/testthat/parallel: true
+Config/testthat/edition: 3
 Language: en-US

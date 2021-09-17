@@ -12,9 +12,11 @@ ts_c(...)
 \code{timeSeries}.}
 }
 \value{
-a ts-boxable object of the same class as the input.
-If series of different classes are combined, the class of the first series is
-used (if possible).
+a ts-boxable object of the same class as the input, i.e., an object
+of class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
+If series of different classes are combined, the class of the first series
+is used (if possible).
 }
 \description{
 Collect time series as multiple time series.
@@ -24,14 +26,17 @@ In data frame objects, multiple time series are stored in a long data frame.
 In \code{ts} and \code{xts} objects, time series are combined horizontally.
 }
 \examples{
-head(ts_c(ts_df(EuStockMarkets), AirPassengers))
+ts_c(mdeaths, fdeaths)
+\donttest{
+ts_c(ts_df(EuStockMarkets), AirPassengers)
 
 # labeling
-x <- ts_c(
+x1 <- ts_c(
   `International Airline Passengers` = ts_xts(AirPassengers),
   `Deaths from Lung Diseases` = ldeaths
 )
-head(x)
+head(x1)
+}
 
 }
 \seealso{

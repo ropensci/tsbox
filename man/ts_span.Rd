@@ -11,9 +11,9 @@ ts_span(x, start = NULL, end = NULL, template = NULL, extend = FALSE)
 \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
 \code{timeSeries}.}
 
-\item{start}{start date, character string, \code{Date} or \code{POSIXct}}
+\item{start}{start date, character string of length 1, \code{Date} or \code{POSIXct}}
 
-\item{end}{end date, character string, \code{Date} or \code{POSIXct}.}
+\item{end}{end date, character string of length 1, \code{Date} or \code{POSIXct}.}
 
 \item{template}{ts-boxable time series, an object of class \code{ts}, \code{xts},
 \code{data.frame}, \code{data.table}, or \code{tibble}. If provided, \code{from} and \code{to}
@@ -23,7 +23,9 @@ will be extracted from the object.}
 extend the series (by adding \code{NA} values).}
 }
 \value{
-a ts-boxable time series, with the same class as the input.
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Filter time series for a time span.
@@ -40,7 +42,6 @@ the same frequency, the shift can be specified in periods. See examples.
 }
 \examples{
 
-\donttest{
 # use 'anytime' shortcuts
 ts_span(mdeaths, start = "1979")       # shortcut for 1979-01-01
 ts_span(mdeaths, start = "1979-4")     # shortcut for 1979-04-01
@@ -56,6 +57,7 @@ ts_span(mdeaths, start = -7)           # last 7 periods
 ts_span(mdeaths, start = -1)           # last single value
 ts_span(mdeaths, end = "1e4 hours")    # first 10000 hours
 
+\donttest{
 ts_plot(
   ts_span(mdeaths, start = "-3 years"),
   title = "Three years ago",

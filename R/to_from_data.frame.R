@@ -2,6 +2,8 @@ register_class("data.frame")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_data.frame_dts <- function(x) {
   as.data.frame(ts_data.table(x))
 }
@@ -22,7 +24,9 @@ ts_dts.data.frame <- function(x) {
 #' @export
 ts_data.frame <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "data.frame") return(x)
+  if (relevant_class(x) == "data.frame") {
+    return(x)
+  }
   ts_data.frame_dts(ts_dts(x))
 }
 
@@ -31,4 +35,3 @@ ts_data.frame <- function(x) {
 ts_df <- function(x) {
   ts_data.frame(x)
 }
-

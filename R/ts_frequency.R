@@ -8,7 +8,7 @@
 #' has support for ts-boxable objects. See
 #' `vignette("hf-disagg", package = "tempdisagg")`.
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param to desired frequency, either a character string (`"year"`,
 #'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
 #' @param aggregate character string, or function. Either `"mean"`, `"sum"`,
@@ -30,15 +30,21 @@
 #' ts_frequency(EuStockMarkets, "year", na.rm = TRUE)
 #' }
 #' @export
-ts_frequency <- function(x, to = c("year", "quarter", "month", "week", "day",
-  "hour", "min", "sec"),
-   aggregate = "mean", na.rm = FALSE) {
+#' @srrstats {G2.3a} *Use `match.arg()` or equivalent where applicable to only permit expected values.*
+#'   Used here.
+#' @srrstats {G2.4a} *explicit conversion to `integer` via `as.integer()`*
+ts_frequency <- function(x, to = c(
+                           "year", "quarter", "month", "week", "day",
+                           "hour", "min", "sec"
+                         ),
+                         aggregate = "mean", na.rm = FALSE) {
   stopifnot(ts_boxable(x))
 
   if (is.numeric(to)) {
-    numeric.period <- c(month = 12, quarter = 4, year = 1)
+    to <- as.integer(to)
+    numeric.period <- c(month = 12L, quarter = 4L, year = 1L)
     stopifnot(to %in% numeric.period)
-    to <- names(numeric.period)[numeric.period == to]
+    to <- names(numeric.period)[numeric.period == as.integer(to)]
   }
 
   to <- match.arg(to)
@@ -47,33 +53,37 @@ ts_frequency <- function(x, to = c("year", "quarter", "month", "week", "day",
   copy_class(z, x, preserve.mode = FALSE)
 }
 
+
+#' Change Frequency (core function)
+#'
+#' @inherit ts_frequency
+#'
+#' @noRd
 frequency_core <- function(x, to, aggregate, na.rm) {
   stopifnot(inherits(x, "dts"))
 
+  value <- NULL
+
   # make sure incomplete periods result in NA
-  if (na.rm == FALSE){
-    try.x <- try(ts_regular(ts_na_omit(x)))
-    if (inherits(x, "try-error")){
+  if (na.rm == FALSE) {
+    try.x <- try(ts_regular(ts_na_omit(x)), silent = TRUE)
+    if (inherits(try.x, "try-error")) {
       message(
-        "series is not regular, 'na.rm' set to TRUE. ",
+        "series is not regular, 'na.rm' is set to TRUE. ",
         "Aggregation may be based on incomplete periods"
       )
       na.rm <- TRUE
     } else {
       x <- ts_bind(NA, try.x, NA)
     }
-
   }
-
   if (is.character(aggregate)) {
     if (!aggregate %in% c("mean", "sum", "first", "last")) {
-      stop(
-        "'aggregate' must be one of: 'mean', 'sum', 'first', 'last'",
-        call. = FALSE
+      stop0(
+        "'aggregate' must be one of: 'mean', 'sum', 'first', 'last'"
       )
     }
-    aggregate <- switch(
-      aggregate,
+    aggregate <- switch(aggregate,
       mean = function(x) mean(x, na.rm = na.rm),
       sum = function(x) sum(x, na.rm = na.rm),
       first = data.table::first,
@@ -82,13 +92,10 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   }
 
   if (!is.function(aggregate)) {
-    stop(
-      "'aggregate' must be of class 'character' or 'function'",
-      call. = FALSE
+    stop0(
+      "'aggregate' must be of class 'character' or 'function'"
     )
   }
-
-  value <- NULL
 
   cname <- dts_cname(x)
 
@@ -99,7 +106,7 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   }
 
   x0 <- copy(x)
-  data.table::setnames(x0, cname$value,  "value")
+  data.table::setnames(x0, cname$value, "value")
   data.table::setnames(x0, cname$time, "time")
 
   x0$time <- lf_time(x0$time, to = to)
@@ -113,17 +120,24 @@ frequency_core <- function(x, to, aggregate, na.rm) {
   z[]
 }
 
-lf_time <- function(time, to) {
 
+#' Low Frequency Time Stamps
+#'
+#' @param time Date or POSIXct
+#' @param to desired frequency, either a character string (`"year"`,
+#'  `"quarter"`, `"month"`) or an integer (`1`, `4`, `12`).
+#'
+#' @noRd
+lf_time <- function(time, to) {
   if (to == "week") {
     # https://github.com/christophsax/tsbox/issues/183
-    by = "7 days"
+    by <- "7 days"
     # time <- min(as.Date(time)) - 7
 
     first_days <- NULL
     rng <- range(as.Date(time), na.rm = TRUE)
     all_days <- data.table(time = seq(rng[1] - 7, rng[2], by = "day"))
-    all_days[data.table::wday(time) == 1, first_days := time]
+    all_days[data.table::wday(time) == 1L, first_days := time]
     all_days[, first_days := data.table::nafill(first_days, type = "locf")]
     all_days_first_days <- all_days[!is.na(first_days)]
 
@@ -146,17 +160,17 @@ lf_time <- function(time, to) {
   y <- data.table::year(time)
 
   if (to == "month") {
-    d <- 1
+    d <- 1L
   }
 
   if (to == "quarter") {
-    d <- 1
-    m <- (data.table::quarter(time) - 1) * 3 + 1
+    d <- 1L
+    m <- (data.table::quarter(time) - 1L) * 3L + 1L
   }
 
   if (to == "year") {
-    d <- 1
-    m <- 1
+    d <- 1L
+    m <- 1L
   }
 
   if (to %in% c("month", "quarter", "year")) {
@@ -170,17 +184,16 @@ lf_time <- function(time, to) {
   sec <- data.table::second(time)
 
   if (to == "min") {
-    sec <- 0
+    sec <- 0L
   }
 
   if (to == "hour") {
-    sec <- 0
-    min <- 0
+    sec <- 0L
+    min <- 0L
   }
 
   if (to %in% c("hour", "min", "sec")) {
     z <- as.POSIXct(paste0(y, "-", m, "-", d, " ", h, ":", min, ":", sec))
     return(z)
   }
-
 }

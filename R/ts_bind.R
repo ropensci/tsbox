@@ -5,12 +5,7 @@
 #' rates.
 #'
 #' @seealso [ts_c] to collect multiple time series
-#' @param ... ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
-#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
-#'   `timeSeries`.
-#' @return A ts-boxable object of the same class as the input.
-#' If series of different classes are combined, the class of the first series is
-#' used (if possible).
+#' @inherit ts_c
 #'
 #' @examples
 #' ts_bind(ts_span(mdeaths, end = "1975-12-01"), fdeaths)
@@ -20,7 +15,6 @@
 #'
 #' # numeric vectors
 #' ts_bind(12, AirPassengers, c(2, 3))
-#'
 #' @export
 ts_bind <- function(...) {
   ll <- list(...)
@@ -34,11 +28,22 @@ ts_bind <- function(...) {
 }
 
 
+#' Bind 2 Time Series or Numeric Values
+#'
+#' Enables ts_bind() to work on scalars and vectors, too
+#'
+#' @param a ts-boxable object, or numeric, or one-dimensional input of any class
+#' @param b ts-boxable object
+#' @param backwards logical, should `b` be appended to `a`?
+#'
+#' @noRd
+#' @srrstats {G2.6} *Software which accepts one-dimensional input should ensure values are appropriately pre-processed regardless of class structures.*
 bind_numeric <- function(a, b, backwards = FALSE) {
-
   .SD <- NULL
 
-  if (!ts_boxable(a)) {stop("at least one object must be ts-boxable")}
+  if (!ts_boxable(a)) {
+    stop0("at least one object must be ts-boxable")
+  }
 
   a <- ts_dts(copy(a))
   cname <- dts_cname(a)
@@ -52,7 +57,7 @@ bind_numeric <- function(a, b, backwards = FALSE) {
   add_scalar_one <- function(x) {
     per.to.add <- length(b)
 
-    if (!backwards){
+    if (!backwards) {
       # having at least 5 obs allows time_shift to detect frequency
       shft <- time_shift(
         x$time[max(length(x$time) - per.to.add - 5, 1):length(x$time)], per.to.add
@@ -65,12 +70,12 @@ bind_numeric <- function(a, b, backwards = FALSE) {
 
     new.x <- data.table(
       time = new.time.stamps,
-      value = b
+      value = as.numeric(b)
     )
 
     z <- rbind(x, new.x)
 
-    if (backwards){
+    if (backwards) {
       setorder(z, time)
     }
     z
@@ -91,8 +96,14 @@ bind_numeric <- function(a, b, backwards = FALSE) {
 }
 
 
-
-# Bind two dts objects
+#' Bind 2 Time Series
+#'
+#' Successively called by ts_bind()
+#'
+#' @param a ts-boxable object
+#' @param b ts-boxable object
+#'
+#' @noRd
 bind_two <- function(a, b) {
   value <- NULL
   value_b <- NULL
@@ -126,14 +137,7 @@ bind_two <- function(a, b) {
   setnames(a, cname$value, "value")
   setnames(b, cname_b$value, "value_b")
 
-  if (!identical(cname$id, dts_cname(b)$id)) {
-    stop(
-      "Series do not have the same ids: ",
-      paste(cname$id, collapse = ", "),
-      "and",
-      paste(dts_cname(b)$id, collapse = ", ")
-    )
-  }
+  check_identical_ids(cname$id, dts_cname(b)$id)
 
   z <- merge(a, b, by = c(cname$id, "time"), all = TRUE)
   # remove key added by merge

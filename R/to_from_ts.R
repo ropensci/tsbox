@@ -2,32 +2,32 @@ register_class("ts")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_ts_dts <- function(x, frequency = NULL) {
   stopifnot(inherits(x, "dts"))
 
   wx <- wide_core(combine_id_cols(ts_regular(x)))
 
-  if (is.null(frequency)){
+  if (is.null(frequency)) {
 
     # try to regularize common time axis
     # this is needed if there are uncovered parts among several series
     reg.time <- regularize_date(wx[[1]])
-    if (!is.null(reg.time)) {
-      setnames(wx, 1, "time") # time col may have a different name
-      wx <- merge_time_date(
-        data.table::data.table(time = reg.time), wx,
-        by.x = "time", by.y = "time"
-      )
-    } else {
-      stop("series has no regular pattern", call. = FALSE)
-    }
+    check_regular_pattern(reg.time)
+    setnames(wx, 1, "time") # time col may have a different name
+    wx <- merge_time_date(
+      data.table::data.table(time = reg.time), wx,
+      by.x = "time", by.y = "time"
+    )
+
     tsp <- date_time_to_tsp(wx[[1]])
   } else {
     tsp <- date_time_to_tsp(wx[[1]], frequency = frequency)
   }
   # tsp <- date_time_to_tsp(wx[[1]])
   cdta <- wx[, -1]
-  if (NCOL(cdta) == 1) {
+  if (NCOL(cdta) == 1L) {
     cdta <- as.numeric(cdta[[1]])
   } else {
     cdta <- as.matrix(cdta)
@@ -47,7 +47,7 @@ ts_dts.ts <- function(x) {
   m <- as.matrix(x)
   dta <- data.table(m)
   dta[, time := timec]
-  if (ncol(m) == 1) {
+  if (ncol(m) == 1L) {
     names(dta)[1] <- "value"
     # needs the ts_dts.data.table
     setcolorder(dta, c("time", "value"))
@@ -105,7 +105,7 @@ ts_dts.ts <- function(x) {
 #' time conversion**. The year is divided into 260 equally long units, and time
 #' stamp of a period will be a point in time (of class `"POSIXct"`).
 #'
-#' @inherit ts_dts
+#' @inherit ts_default
 #'
 #' @return ts-boxable time series of the desired class, an object of class `ts`,
 #' `xts`, `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
@@ -114,34 +114,35 @@ ts_dts.ts <- function(x) {
 #' @examples
 #'
 #' x.ts <- ts_c(mdeaths, fdeaths)
-#' head(x.ts)
-#' head(ts_df(x.ts))
+#' x.ts
+#' ts_df(x.ts)
 #'
 #' suppressMessages(library(dplyr))
-#' head(ts_tbl(x.ts))
+#' ts_tbl(x.ts)
 #'
 #' suppressMessages(library(data.table))
-#' head(ts_dt(x.ts))
+#' ts_dt(x.ts)
 #'
 #' suppressMessages(library(xts))
-#' head(ts_xts(x.ts))
+#' ts_xts(x.ts)
 #'
 #' # heuristic time conversion
 #' # 1 month: approx. 1/12 year
-#' head(ts_df(AirPassengers))
+#' ts_df(AirPassengers)
 #'
 #' # exact time conversion
 #' # 1 trading day: exactly 1/260 year
-#' head(ts_df(EuStockMarkets))
+#' ts_df(EuStockMarkets)
 #'
-#' # multiple id
-#' multi.id.df <- rbind(
-#'   within(ts_df(ts_c(fdeaths, mdeaths)), type <- "level"),
-#'   within(ts_pc(ts_df(ts_c(fdeaths, mdeaths))), type <- "pc")
-#' )
-#' head(ts_ts(multi.id.df))
+#' # multiple ids
+#' a <- ts_df(ts_c(fdeaths, mdeaths))
+#' a$type <- "level"
+#' b <- ts_pc(a)
+#' b$type <- "pc"
+#' multi.id.df <- rbind(a, b)
+#'
+#' ts_ts(multi.id.df)
 #' ts_plot(multi.id.df)
-#'
 #' @export
 #' @importFrom anytime anydate anytime
 #' @importFrom stats setNames as.ts frequency loess na.omit optimize predict
@@ -149,6 +150,8 @@ ts_dts.ts <- function(x) {
 #' @importFrom utils getFromNamespace browseURL relist
 ts_ts <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "ts") return(x)
+  if (relevant_class(x) == "ts") {
+    return(x)
+  }
   ts_ts_dts(ts_dts(x))
 }

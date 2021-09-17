@@ -42,12 +42,12 @@
 #' library(dataseries)
 #' dta <- ds(c("GDP.PBRTT.A.R", "CCI.CCIIR"), "xts")
 #' ts_ggplot(ts_scale(ts_span(
-#'     ts_c(
-#'       `GDP Growth` = ts_pc(dta[, 'GDP.PBRTT.A.R']),
-#'       `Consumer Sentiment Index` = dta[, 'CCI.CCIIR']
-#'     ),
-#'     start = "1995-01-01"
-#'   ))) +
+#'   ts_c(
+#'     `GDP Growth` = ts_pc(dta[, "GDP.PBRTT.A.R"]),
+#'     `Consumer Sentiment Index` = dta[, "CCI.CCIIR"]
+#'   ),
+#'   start = "1995-01-01"
+#' ))) +
 #'   ggplot2::ggtitle("GDP and Consumer Sentiment", subtitle = "normalized") +
 #'   theme_tsbox() +
 #'   scale_color_tsbox()
@@ -66,8 +66,8 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
   df <- df[!is.na(df[, cname$value]), ]
 
   n <- NCOL(df)
-  stopifnot(n > 1)
-  if (n == 2) {
+  stopifnot(n > 1L)
+  if (n == 2L) {
     p <- ggplot2::ggplot(
       df,
       ggplot2::aes_string(x = cname$time, y = cname$value)
@@ -80,10 +80,9 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
     }
 
     if (length(unique(df[[cname$id]])) > 29) {
-      stop(
+      stop0(
         length(unique(df[[cname$id]])),
-        " time series supplied. Maximum is 29.",
-        call. = FALSE
+        " time series supplied. Maximum is 29."
       )
     }
     p <- ggplot2::ggplot(
@@ -97,7 +96,7 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
   p <- p + ggplot2::ylab(ylab)
   if (!missing("title")) {
     if (missing("subtitle")) subtitle <- NULL
-    p <- p +  ggplot2::ggtitle(label = title, subtitle = subtitle)
+    p <- p + ggplot2::ggtitle(label = title, subtitle = subtitle)
   }
 
   p
@@ -108,11 +107,9 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
 #' @name ts_ggplot
 theme_tsbox <- function(base_family = getOption("ts_font", ""),
                         base_size = 12) {
-
   half_line <- base_size / 2
   ggplot2::theme_minimal(base_family = base_family, base_size = base_size) +
     ggplot2::theme(
-
       axis.title.x = ggplot2::element_blank(),
       axis.title.y = ggplot2::element_text(
         size = ggplot2::rel(0.9), color = "grey10",
@@ -135,9 +132,7 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""),
         margin = ggplot2::margin(t = 0, b = half_line * 1.2),
         size = ggplot2::rel(0.8)
       ),
-
       panel.grid = ggplot2::element_line(size = 0.2),
-
       axis.text = ggplot2::element_text(
         color = "grey10",
         size = ggplot2::rel(0.7)
@@ -194,7 +189,3 @@ scale_fill_tsbox <- function(...) {
     ...
   )
 }
-
-
-
-

@@ -2,15 +2,15 @@
 library(testthat)
 library(tsbox)
 
-
+#' @srrstats {G5.9b} *Running under different random seeds or initial conditions does not meaningfully change results*
+#'   Test that operations do not depend on time zone
 test_that("operations do not depend on time zone", {
-
   skip_on_cran()
 
   # temp set tz
   old.tz <- Sys.getenv("TZ")
   on.exit(Sys.setenv(TZ = old.tz))
-  Sys.setenv(TZ="America/Los_Angeles")
+  Sys.setenv(TZ = "America/Los_Angeles")
 
 
   expect_equal(
@@ -22,7 +22,7 @@ test_that("operations do not depend on time zone", {
   )
 
   # fails in some time zones and some systems. needs more investigation
-  
+
   # x <- data.frame(
   #   time = seq(from = as.POSIXct("2000-01-01"), length.out = 10,
   #   by = "1 day"), value = 1:10
@@ -31,5 +31,4 @@ test_that("operations do not depend on time zone", {
 
   # revert to system time zone
   Sys.setenv(TZ = old.tz)
-
 })

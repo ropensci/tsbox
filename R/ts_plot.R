@@ -51,11 +51,16 @@
 #'   "Female" = fdeaths,
 #'   "Male" = mdeaths
 #' )
-#' options(op)  # restore defaults
+#' options(op) # restore defaults
 #' }
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
+#'
+#' @srrstats {TS5.0} *Implement default `plot` methods for any implemented class system.*
+#'   `ts_plot()` works for any of the supported classes. Since there are defaul `plot` methods for many of the supported classes, it must be a nwe function. `ts_ggplot()` is an alternative.
+#' @srrstats{TS5.2} *Default to placing the "time" (or equivalent) variable on the horizontal axis.*
+#'   Done.
 ts_plot <- function(..., title, subtitle, ylab = "",
                     family = getOption("ts_font", "sans")) {
   value <- NULL
@@ -63,7 +68,8 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   x <- ts_dts(ts_c(...))
 
-  if (nrow(x) == 0) stop("data is empty")
+  if (nrow(ts_na_omit(x)) == 0L) stop0("no data values to plot")
+
 
   # only a single id col
   x <- combine_id_cols(x)
@@ -151,7 +157,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   ctime <- dts_cname(x)$time
   cvalue <- dts_cname(x)$value
 
-  if (length(cid) == 0) {
+  if (length(cid) == 0L) {
     x$id <- "dummy"
     cid <- "id"
     setcolorder(x, c("id", ctime, cvalue))
@@ -175,7 +181,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
   # Lines
   ids <- as.character(unique(x[, id]))
-  if ((length(ids)) > 20) {
+  if ((length(ids)) > 20L) {
     message("too many series. Only showing the first 20.")
     ids <- ids[1:20]
   }
@@ -185,7 +191,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   lty <- getOption("tsbox.lty", "solid")
   lwd <- getOption("tsbox.lwd", 1.5)
 
-  recycle_par <- function(x){
+  recycle_par <- function(x) {
     x0 <- x[1:(min(length(x), length(ids)))]
     cbind(ids, x0)[, 2]
   }
@@ -216,7 +222,8 @@ ts_plot <- function(..., title, subtitle, ylab = "",
   )
 
   axis(
-    2, at = axTicks(2), labels = sprintf("%s", axTicks(2)),
+    2,
+    at = axTicks(2), labels = sprintf("%s", axTicks(2)),
     las = 1, cex.axis = 0.8, col = NA, line = -0.5, col.axis = axis.text.col
   )
 
@@ -246,7 +253,11 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 }
 
 
-
+#' Get Last Plot Call
+#'
+#' Last plot call is written to special enviroment by ts_plot()
+#'
+#' @noRd
 ts_lastplot_call <- function() {
   get("ts_lastplot_call", envir = .ts_lastplot_env)
 }
@@ -259,11 +270,28 @@ ts_lastplot_call <- function() {
 #' @param height height
 #' @param device device
 #' @param open logical, should the saved plot be opened?
+#' @return invisible `TRUE`, if successful
 #' @export
+#' @examples
+#' \donttest{
+#' ts_plot(AirPassengers)
+#' tf <- tempfile(fileext = ".pdf")
+#' ts_save(tf)
+#' unlink(tf)
+#' }
+#'
+#' @srrstats {G4.0} *Statistical Software which enables outputs to be written
+#' to local files should parse parameters specifying file names to ensure
+#' appropriate file suffices are automatically generated where not provided.*
 ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
                     height = 5, device = NULL, open = TRUE) {
 
-  if (is.null(device)){
+  # if no file suffix is provided use .pdf
+  if (!grepl("\\.[a-z]+$", filename) && is.null(device)) {
+    filename <- paste0(filename, ".pdf")
+  }
+
+  if (is.null(device)) {
     device <- gsub(".*\\.([a-z]+)$", "\\1", tolower(filename))
   } else {
     filename <- gsub("\\.[a-z]+$", paste0(".", device), tolower(filename))
@@ -273,7 +301,7 @@ ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
 
   cl <- ts_lastplot_call()
   if (is.null(cl) || !inherits(cl, "call")) {
-    stop("ts_plot must be called first.")
+    stop0("ts_plot() must be called first.")
   }
 
   if (device == "pdf") {
@@ -299,11 +327,13 @@ ts_save <- function(filename = tempfile(fileext = ".pdf"), width = 10,
       res = 150
     )
   } else {
-    stop("device not supported: ", device, call. = FALSE)
+    stop0("device not supported: ", device)
   }
 
   eval(cl, envir = parent.frame())
   dev.off()
 
   if (open) browseURL(filename)
+
+  invisible(TRUE)
 }

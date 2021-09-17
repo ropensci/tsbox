@@ -1,8 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_chain")
-
 test_that("retropolation gives the correct results", {
   short.ts <- ts_span(mdeaths, start = "1976-01")
   retro <- ts_chain(short.ts, fdeaths)
@@ -22,6 +17,4 @@ test_that("retropolation gives the correct results", {
     ts_span(ts_pc(retro), start = 1976.2),
     ts_span(ts_pc(mdeaths), start = 1976.2)
   )
-
 })
-

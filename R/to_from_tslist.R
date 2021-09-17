@@ -2,10 +2,12 @@ register_class("tslist")
 
 # to ---------------------------------------------------------------------------
 
+#' Convert to Class
+#' @noRd
 ts_tslist_dts <- function(x) {
   stopifnot(inherits(x, "dts"))
   x <- combine_id_cols(x)
-  if (number_of_series(x) == 1) {
+  if (number_of_series(x) == 1L) {
     z <- list(ts_ts(x))
     # if a single series has an id, use to name element
     cid <- dts_cname(x)$id
@@ -44,6 +46,8 @@ ts_dts.tslist <- function(x) {
 #' @export
 ts_tslist <- function(x) {
   stopifnot(ts_boxable(x))
-  if (relevant_class(x) == "tslist") return(x)
+  if (relevant_class(x) == "tslist") {
+    return(x)
+  }
   ts_tslist_dts(ts_dts(x))
 }

@@ -23,6 +23,18 @@ ts_save(
 
 \item{open}{logical, should the saved plot be opened?}
 }
+\value{
+invisible \code{TRUE}, if successful
+}
 \description{
 Save Previous Plot
+}
+\examples{
+\donttest{
+ts_plot(AirPassengers)
+tf <- tempfile(fileext = ".pdf")
+ts_save(tf)
+unlink(tf)
+}
+
 }

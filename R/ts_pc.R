@@ -6,19 +6,21 @@
 #' `ts_pca` calculates annualized percentage change rates compared to the
 #' previous period.
 #'
-#' @inherit ts_dts
-#' @return a ts-boxable time series, with the same class as the input.
+#' @inherit ts_default
 #' @examples
-#' tail(ts_diff(ts_c(fdeaths, mdeaths)))
-#' tail(ts_pc(ts_c(fdeaths, mdeaths)))
-#' tail(ts_pca(ts_c(fdeaths, mdeaths)))
-#' tail(ts_pcy(ts_c(fdeaths, mdeaths)))
-#' tail(ts_diffy(ts_c(fdeaths, mdeaths)))
+#'
+#' x <- ts_c(fdeaths, mdeaths)
+#' ts_diff(x)
+#' ts_pc(x)
+#' ts_pca(x)
+#' ts_pcy(x)
+#' ts_diffy(x)
 #' @export
 ts_pc <- function(x) {
   ts_apply(ts_regular(x), function(x) {
+    check_frequency_detection(x)
     value <- NULL
-    x[, list(time, value = 100 * (value / c(NA, value[-length(value)]) - 1))]
+    x[, list(time, value = 100 * (as.numeric(value) / c(NA_real_, as.numeric(value)[-length(value)]) - 1))]
   })
 }
 
@@ -27,8 +29,9 @@ ts_pc <- function(x) {
 #' @export
 ts_diff <- function(x) {
   ts_apply(ts_regular(x), function(x) {
+    check_frequency_detection(x)
     value <- NULL
-    x[, list(time, value = value - c(NA, value[-length(value)]))]
+    x[, list(time, value = as.numeric(value) - c(NA_real_, as.numeric(value)[-length(value)]))]
   })
 }
 
@@ -37,11 +40,12 @@ ts_diff <- function(x) {
 #' @export
 ts_pca <- function(x) {
   ts_apply(ts_regular(x), function(x) {
+    check_frequency_detection(x)
     fr <- frequency_one(x$time)$freq
     value <- NULL
     x[
       ,
-      list(time, value = 100 * ((value / c(NA, value[-length(value)]))^fr - 1))
+      list(time, value = 100 * ((as.numeric(value) / c(NA_real_, as.numeric(value)[-length(value)]))^fr - 1))
     ]
   })
 }
@@ -51,6 +55,7 @@ ts_pca <- function(x) {
 #' @export
 ts_pcy <- function(x) {
   ts_apply(ts_regular(x), function(x) {
+    check_frequency_detection(x)
     value <- NULL
     value_lag <- NULL
     xlag <- data.table(time = time_shift(x$time, "1 year"), value_lag = x$value)
@@ -62,10 +67,10 @@ ts_pcy <- function(x) {
 #' @export
 ts_diffy <- function(x) {
   ts_apply(ts_regular(x), function(x) {
+    check_frequency_detection(x)
     value <- NULL
     value_lag <- NULL
     xlag <- data.table(time = time_shift(x$time, "1 year"), value_lag = x$value)
     xlag[x, on = "time"][, list(time, value = value - value_lag)]
   })
 }
-

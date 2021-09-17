@@ -12,7 +12,9 @@ ts_first_of_period(x)
 \code{timeSeries}.}
 }
 \value{
-A ts-boxable object of the same class as the input.
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Replace date or time values by the first of the period. tsbox usually relies
@@ -27,7 +29,7 @@ ts_first_of_period(x)
 ts_first_of_period(ts_lag(ts_df(austres), "14 days"))
 \donttest{
 x <- ts_lag(data.frame(
-  time = seq(anytime::anytime(1970), length.out = 10, by = "10 sec"),
+  time = seq(as.POSIXct("1970-01-01"), length.out = 10, by = "10 sec"),
   value = rnorm(10)
 ), "3 sec")
 ts_first_of_period(x)

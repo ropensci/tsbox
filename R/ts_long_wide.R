@@ -8,21 +8,30 @@
 #' @param x a ts-boxable time series, or a wide `data.frame`,
 #' `data.table`, or `tibble`.
 #'
-#' @return object with the same class as input
+#' @inherit ts_default return
 #' @examples
-#' df.wide <- ts_wide(ts_df(ts_c(mdeaths, fdeaths)))
-#' head(df.wide)
-#' head(ts_long(df.wide))
+#' x <- ts_df(ts_c(mdeaths, fdeaths))
+#' df.wide <- ts_wide(x)
+#' df.wide
+#' ts_long(df.wide)
 #' @export
 ts_long <- function(x) {
   rc <- relevant_class(x)
-  if (rc %in% c("xts", "ts")) return(x)
+  if (rc %in% c("xts", "ts")) {
+    return(x)
+  }
   z <- long_core_multi_id(as.data.table(x))
   copy_class(z, x, preserve.names = FALSE)
 }
 
-# a version of long_core that deals with multi id. less robust and not used
-# by ts_dts.ts and ts_dts.xts
+
+#' Make Wide data.table Long
+#'
+#' Core function that works on data.table, called by ts_long()
+#'
+#' @param x data.table
+#'
+#' @noRd
 long_core_multi_id <- function(x) {
   stopifnot(inherits(x, "data.table"))
   time.name <- guess_time(x)
@@ -31,34 +40,38 @@ long_core_multi_id <- function(x) {
   time.pos <- which(all.names == time.name)
   id.names <- setdiff(all.names[1:time.pos], time.name)
   value.names <- setdiff(all.names[time.pos:length(all.names)], time.name)
-  if (length(value.names) == 0) {
-    stop(
-      "no [value] columns detected (columns right of [time] column)",
-      call. = FALSE
-    )
+  if (length(value.names) == 0L) {
+    stop0("no [value] columns detected (columns right of [time] column)")
   }
-  if (length(id.names) > 0){
+  if (length(id.names) > 0) {
     message(
-      "[id] (columns left of [time] column): ",
+      "[id] columns left of [time] column: ",
       paste(paste0("'", id.names, "'"), collapse = ", ")
     )
     id.vars <- c(id.names, time.name)
   } else {
     id.vars <- time.name
   }
+
+  un <- make.unique(c(id.vars, "id"))
+  new.id.name <- un[length(un)]
+
   z <- suppressWarnings(
-    melt(x, id.vars = id.vars, variable.name = "id", variable.factor = FALSE)
+    melt(x, id.vars = id.vars, variable.name = new.id.name, variable.factor = FALSE)
   )
-  setcolorder(z, c(id.names, "id", time.name, "value"))
+  setcolorder(z, c(id.names, new.id.name, time.name, "value"))
   ts_dts(z)
 }
+
 
 #' @export
 #' @name ts_long
 ts_wide <- function(x) {
   stopifnot(ts_boxable(x))
   rc <- relevant_class(x)
-  if (rc %in% c("ts", "xts", "tbl_time", "tbl_ts", "tis")) return(x)
+  if (rc %in% c("ts", "xts", "tbl_time", "tbl_ts", "tis")) {
+    return(x)
+  }
   x.dts <- combine_id_cols(ts_dts(x))
   z <- wide_core(x.dts)
   # reclass
@@ -67,11 +80,21 @@ ts_wide <- function(x) {
   as_class(z)
 }
 
+
+#' Make Wide dts a Long data.table
+#'
+#' Core function that works on dts and data.table, called by ts_wide()
+#'
+#' @param x dts
+#'
+#' @noRd
 wide_core <- function(x) {
   stopifnot(inherits(x, "dts"))
-  if (ncol(x) == 2) return(x) # nothing to do
+  if (ncol(x) == 2L) {
+    return(x)
+  } # nothing to do
   # no multi id
-  stopifnot(ncol(x) == 3)
+  stopifnot(ncol(x) == 3L)
 
   cname <- dts_cname(x)
 
@@ -79,7 +102,7 @@ wide_core <- function(x) {
 
   n.non.unique <- nrow(x) - nrow(unique(x, by = c(cname$id, cname$time)))
   if (n.non.unique > 0) {
-    stop("contains ", n.non.unique, " duplicate entries", call. = FALSE)
+    stop("contains duplicate entries (this error should not occur.")
   }
 
   # dcast is confused by factors

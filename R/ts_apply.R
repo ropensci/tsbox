@@ -3,11 +3,18 @@
 
 # fun can rely on time and value colum beeing called 'time' and 'value'
 
+#' Convert to Class
+#'
+#' @param x ts-boxable object
+#' @param fun function to apply
+#'
+#' @noRd
 ts_apply_dts <- function(x, fun, ...) {
   .SD <- NULL
   stopifnot(inherits(x, "dts"))
-  d <- dts_default(x); x <- d$x
-  if (number_of_series(x) == 1) {
+  d <- dts_default(x)
+  x <- d$x
+  if (number_of_series(x) == 1L) {
     z <- fun(x, ...)
     # ensure id columns are preserved
     missing.cid <- setdiff(colnames(x), colnames(z))
@@ -29,7 +36,7 @@ ts_apply_dts <- function(x, fun, ...) {
 
 # ts_apply(ts_c(mdeaths, fdeaths), ts_diff)
 #' @export
-#' @inherit ts_dts
+#' @inherit ts_default
 #' @param ... arguments passed to subfunction
 #' @name ts_
 ts_apply <- function(x, fun, ...) {
@@ -37,4 +44,3 @@ ts_apply <- function(x, fun, ...) {
   z <- ts_apply_dts(ts_dts(x), fun, ...)
   copy_class(z, x)
 }
-

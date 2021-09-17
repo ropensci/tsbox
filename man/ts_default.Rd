@@ -12,7 +12,9 @@ ts_default(x)
 \code{timeSeries}.}
 }
 \value{
-a ts-boxable time series, with the same class as the input.
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 In data frame objects (\code{data.frame}, \code{tibble}, \code{data.table}), tsbox
@@ -21,10 +23,11 @@ the column names to the defaults (\code{time}, \code{value}), so that auto-detec
 can be avoided in future operations.
 }
 \examples{
-
+\donttest{
 df <- ts_df(ts_c(mdeaths, fdeaths))
 # non-default colnames
 colnames(df) <- c("id", "date", "count")
 # switch back to default colnames
-head(ts_default(df))
+ts_default(df)
+}
 }

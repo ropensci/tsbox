@@ -1,12 +1,6 @@
-
-context("README.md")
-
-
-
 test_that("examples from README.md work properly", {
-
   skip_on_cran()
-  
+
   x.ts <- ts_c(mdeaths, fdeaths)
   x.xts <- ts_xts(x.ts)
   x.df <- ts_df(x.xts)
@@ -65,7 +59,7 @@ test_that("examples from README.md work properly", {
     vectorize = TRUE
   )
 
-  ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
+  ans <- ts_dygraphs(ts_c(mdeaths, EuStockMarkets))
   ts_forecast(ts_c(mdeaths, fdeaths))
   ts_seas(ts_c(mdeaths, fdeaths))
 
@@ -73,11 +67,9 @@ test_that("examples from README.md work properly", {
   library(tsbox)
 
   ts_tbl(ts_c(mdeaths, fdeaths)) %>%
-    ts_seas() %>%
-    ts_plot()
-
+    ts_seas()
 
 
   dta <- ts_df(ts_c(mdeaths, fdeaths))
-  expect_is(dta, "data.frame")
+  expect_s3_class(dta, "data.frame")
 })

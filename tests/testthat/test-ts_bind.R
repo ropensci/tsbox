@@ -1,9 +1,3 @@
-library(testthat)
-library(tsbox)
-
-
-context("ts_bind")
-
 test_that("ts_bind works as it should.", {
   expect_equal(
     AirPassengers,
@@ -34,7 +28,7 @@ test_that("ts_bind works as it should.", {
     )
   )
 
-  expect_is(ts_bind(ts_dt(mdeaths), AirPassengers), "data.table")
+  expect_s3_class(ts_bind(ts_dt(mdeaths), AirPassengers), "data.table")
 
   expect_equal(
     c(ts_span(ts_bind(mdeaths, 1:10), start = "1980-09-01")),
@@ -80,15 +74,25 @@ test_that("ts_chain gives correct results", {
 test_that("ts_bind works with scalars", {
   expect_equal(as.numeric(window(ts_bind(mdeaths, 1), start = 1980)), 1)
   twoseries <- ts_bind(ts_c(mdeaths, fdeaths), 1)
-  expect_equal(as.numeric(window(twoseries, start = 1980)[,'mdeaths']), 1)
-  expect_is(ts_bind(EuStockMarkets, 1), "ts")
-
-
-
+  expect_equal(as.numeric(window(twoseries, start = 1980)[, "mdeaths"]), 1)
+  expect_s3_class(ts_bind(EuStockMarkets, 1), "ts")
 })
 
 test_that("ts_bind works with short series and scalars (#197)", {
-  ans <- ts_bind(ts_tbl(mdeaths)[1:1,], 1)
-  expect_is(ans, "tbl_df")
+  ans <- ts_bind(ts_tbl(mdeaths)[1:1, ], 1)
+  expect_s3_class(ans, "tbl_df")
 })
+
+#' @srrstats {G2.6} *Software which accepts one-dimensional input should ensure values are appropriately pre-processed regardless of class structures.*
+test_that("ensure values are appropriately pre-processed regardless of class structures.", {
+  x <- c(2, 2)
+  class(x) <- "myclass"
+  ans <- ts_bind(mdeaths, x)
+  expect_s3_class(ans, "ts")
+})
+
+
+
+
+
 

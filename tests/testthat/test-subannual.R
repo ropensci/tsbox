@@ -1,8 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("irregular conversion handling")
-
 test_that("conversion produces right classes for monthly series", {
   monthly_series <- window(AirPassengers, start = c(1949, 5))
   expect_s3_class(ts_xts(monthly_series), "xts")

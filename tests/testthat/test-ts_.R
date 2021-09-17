@@ -1,9 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("ts_")
-
-
 test_that("ts_ works with more exotic options", {
   skip_if_not_installed("dygraphs")
 
@@ -22,28 +16,27 @@ test_that("ts_ works with more exotic options", {
 
 
 test_that("ts_ based functions pass arguments in seasonal", {
-
   skip_on_cran()
   skip_if_not_installed("seasonal")
 
   # copied from x13binary::supportedPlatform
-  supportedPlatform <- function () {
+  supportedPlatform <- function() {
+    z <- FALSE
+    if (.Platform$OS.type == "windows") {
+      z <- TRUE
+    }
+    if (Sys.info()["sysname"] %in% c("Linux")) {
+      z <- TRUE
+    }
+    if (Sys.info()["sysname"] %in% c("Darwin")) {
+      z <- compareVersion(Sys.info()["release"], "11.0.0") >=
+        0
+    }
+    if ((.Platform$OS.type == "unix") && !(Sys.info()["sysname"] %in%
+      c("Darwin", "Linux"))) {
       z <- FALSE
-      if (.Platform$OS.type == "windows") {
-          z <- TRUE
-      }
-      if (Sys.info()["sysname"] %in% c("Linux")) {
-          z <- TRUE
-      }
-      if (Sys.info()["sysname"] %in% c("Darwin")) {
-          z <- compareVersion(Sys.info()["release"], "11.0.0") >=
-              0
-      }
-      if ((.Platform$OS.type == "unix") && !(Sys.info()["sysname"] %in%
-          c("Darwin", "Linux"))) {
-          z <- FALSE
-      }
-      z
+    }
+    z
   }
 
   if (!supportedPlatform()) {
@@ -52,12 +45,11 @@ test_that("ts_ based functions pass arguments in seasonal", {
 
   sa <- ts_seas(ts_c(mdeaths, fdeaths), x11 = "")
   expect_equal(
-    ts_pick(sa, 'mdeaths'),
+    ts_pick(sa, "mdeaths"),
     predict(seasonal::seas(mdeaths, x11 = ""))
   )
   expect_equal(
-    ts_pick(sa, 'fdeaths'),
+    ts_pick(sa, "fdeaths"),
     predict(seasonal::seas(fdeaths, x11 = ""))
   )
-
 })

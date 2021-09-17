@@ -15,7 +15,9 @@ ts_pick(x, ...)
 with positions. If arguments are named, the series will be renamed.}
 }
 \value{
-a ts-boxable time series, with the same class as the input.
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Pick (and optionally rename) series from multiple time series.
@@ -28,11 +30,12 @@ ts_plot(ts_pick(
   `My Dax` = "DAX",
   `My Smi` = "SMI"
 ))
-head(ts_pick(EuStockMarkets, c(1, 2)))
-head(ts_pick(EuStockMarkets, `My Dax` = 'DAX', `My Smi` = 'SMI'))
-}
+ts_pick(EuStockMarkets, c(1, 2))
+ts_pick(EuStockMarkets, `My Dax` = "DAX", `My Smi` = "SMI")
 
 # Programming use
 to.be.picked.and.renamed <- c(`My Dax` = "DAX", `My Smi` = "SMI")
-head(ts_pick(EuStockMarkets, to.be.picked.and.renamed))
+ts_pick(EuStockMarkets, to.be.picked.and.renamed)
+}
+
 }

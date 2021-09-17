@@ -60,7 +60,7 @@ ts_plot(
   "Female" = fdeaths,
   "Male" = mdeaths
 )
-options(op)  # restore defaults
+options(op) # restore defaults
 }
 }
 \seealso{

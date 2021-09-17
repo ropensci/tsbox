@@ -24,7 +24,9 @@ ts_diffy(x)
 \code{timeSeries}.}
 }
 \value{
-a ts-boxable time series, with the same class as the input.
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 \code{ts_pcy} and \code{ts_diffy} calculate the percentage change rate and the
@@ -34,9 +36,11 @@ the percentage change rate compared to the same period of the previous year.
 previous period.
 }
 \examples{
-tail(ts_diff(ts_c(fdeaths, mdeaths)))
-tail(ts_pc(ts_c(fdeaths, mdeaths)))
-tail(ts_pca(ts_c(fdeaths, mdeaths)))
-tail(ts_pcy(ts_c(fdeaths, mdeaths)))
-tail(ts_diffy(ts_c(fdeaths, mdeaths)))
+
+x <- ts_c(fdeaths, mdeaths)
+ts_diff(x)
+ts_pc(x)
+ts_pca(x)
+ts_pcy(x)
+ts_diffy(x)
 }

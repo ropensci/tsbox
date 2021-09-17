@@ -15,8 +15,9 @@ ts_lag(x, by = 1)
 (integer), or an absolute amount of time (character). See details.}
 }
 \value{
-a ts-boxable time series, with the same class as the input. If time
-stamp shifting causes the object to be irregular, a data frame is returned.
+a ts-boxable object of the same class as \code{x}, i.e., an object of
+class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
+\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Shift time stamps in ts-boxable time series, either by a number of periods or
@@ -39,9 +40,10 @@ negative) integer and a space, or followed by plural "s". This is passed to
 \donttest{
 ts_plot(AirPassengers, ts_lag(AirPassengers), title = "The need for glasses")
 }
-head(ts_lag(fdeaths, "1 month"))
-head(ts_lag(fdeaths, "1 year"))
-head(ts_lag(ts_df(fdeaths), "2 day"))
-head(ts_lag(ts_df(fdeaths), "2 min"))
-head(ts_lag(ts_df(fdeaths), "-1 day"))
+ts_lag(fdeaths, "1 month")
+ts_lag(fdeaths, "1 year")
+x <- ts_df(fdeaths)
+ts_lag(x, "2 day")
+ts_lag(x, "2 min")
+ts_lag(x, "-1 day")
 }

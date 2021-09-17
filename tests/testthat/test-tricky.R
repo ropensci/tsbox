@@ -1,10 +1,3 @@
-library(testthat)
-library(tsbox)
-
-context("tricky stuff")
-
-ts_dygraphs(AirPassengers)
-
 test_that("Latest tricky stuff works.", {
   expect_equal(
     mdeaths,
@@ -19,7 +12,7 @@ test_that("Latest tricky stuff works.", {
   expect_true(length(unique(a[["id"]])) == 2)
 
   # ts_c for ts objects
-  expect_is(ts_c(ts_c(fdeaths, mdeaths), AirPassengers), "ts")
+  expect_s3_class(ts_c(ts_c(fdeaths, mdeaths), AirPassengers), "ts")
 })
 
 
@@ -72,7 +65,6 @@ test_that("Unordered time works", {
 
 
 test_that("Non unique colnames work fine", {
-
   expect_equal(
     ts_ts(ts_c(mdeaths, fdeaths, ts_df(ts_c(mdeaths, fdeaths)))),
     ts_c(mdeaths, fdeaths, ts_c(mdeaths, fdeaths))
@@ -87,7 +79,6 @@ test_that("Non unique colnames work fine", {
     ts_ts(ts_c(mdeaths, mdeaths = ts_df(ts_c(mdeaths)))),
     ts_c(mdeaths, mdeaths = ts_c(mdeaths))
   )
-
 })
 
 
@@ -123,10 +114,9 @@ test_that("No duplicated series are allowed", {
   expect_error(ts_ts(dta))
   # mutliple ids
   dta <-
-  bind_rows(
-    tibble(rr = "a", id = "reihe_1", time = 2011:2018, value = 2:9),
-    tibble(rr = "a", id = "reihe_1", time = 2011:2018, value = 1:8)
-  )
+    bind_rows(
+      tibble(rr = "a", id = "reihe_1", time = 2011:2018, value = 2:9),
+      tibble(rr = "a", id = "reihe_1", time = 2011:2018, value = 1:8)
+    )
   expect_error(ts_ts(dta))
-
 })

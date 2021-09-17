@@ -4,12 +4,12 @@ load_suggested <- function(pkg) {
   rns <- vapply(pkg, function(x) requireNamespace(x, quietly = TRUE), TRUE)
   if (any(!rns)) {
     pkgv <- dput(pkg[!rns])
-    stop("Additional packages needed. To install, use:",
-      "\n\n  install.packages(\"", pkgv, "\")",
-      call. = FALSE
+    stop0("Additional packages needed. To install, use:",
+      "\n\n  install.packages(\"", pkgv, "\")"
     )
   }
 }
+
 
 #' Constructing ts-Functions
 #'
@@ -94,7 +94,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
     # this mainly repeats the stuff from above
     if (!reclass) {
       if (vectorize) {
-        stop("cannot vectorize if 'reclass = FALSE'", call. = FALSE)
+        check_vectorize()
       } else {
         z <- substitute(function(x, ...) {
           load_suggested(pkg)
@@ -107,7 +107,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
 
 
   # another repetition if no packages are needed
-  if (length(pkg) == 0) {
+  if (length(pkg) == 0L) {
     if (reclass) {
       if (vectorize) {
         z <- substitute(function(x, ...) {
@@ -130,7 +130,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
     # this mainly repeats the stuff from above
     if (!reclass) {
       if (vectorize) {
-        stop("cannot vectorize if 'reclass = FALSE'", call. = FALSE)
+        check_vectorize()
       } else {
         z <- substitute(function(x, ...) {
           stopifnot(ts_boxable(x))
@@ -140,10 +140,13 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
     }
   }
 
-
   f <- eval(z, parent.frame())
   attr(f, "srcref") <- NULL # fix so prints correctly (from dtplyr)
   f
 }
 
-
+#' Error Helper
+#' @noRd
+check_vectorize <- function() {
+  stop0("cannot vectorize if 'reclass = FALSE'")
+}

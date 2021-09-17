@@ -1,6 +1,14 @@
-# function for easier access to data.table
+# Function for easier access to data.table
 
-combine_cols_data.table <- function(dt, cols, sep = '_') {
+#' Combine Columns in a data.table
+#'
+#' @param dt `data.table`, or `dts`
+#' @param cols character vector, columns to combine
+#' @param sep character, separate columns by
+#' @examples
+#' combine_cols_data.table(data.table(cars), c("speed", "dist"))
+#' @noRd
+combine_cols_data.table <- function(dt, cols, sep = "_") {
   paste_sep <- function(...) paste(..., sep = sep)
   id <- NULL
   qq <- as.call(c(quote(paste_sep), lapply(cols, as.name)))
@@ -11,10 +19,14 @@ combine_cols_data.table <- function(dt, cols, sep = '_') {
 }
 
 
-# merging dts over time col, using rolling joins
-#
-merge_time_date <- function(x, y, by.x = "time", by.y = "time"){
-
+#' Merging dts by Time Column, Using Rolling Joins
+#'
+#' @param x `data.table`, or `dts`
+#' @param y `data.table`, or `dts`
+#' @param by.x character, column by which to merge
+#' @param by.y character, column by which to merge
+#' @noRd
+merge_time_date <- function(x, y, by.x = "time", by.y = "time") {
   `__time_seq` <- time.x <- time.y <- NULL
 
   x0 <- copy(x)
@@ -37,10 +49,12 @@ merge_time_date <- function(x, y, by.x = "time", by.y = "time"){
   x0[, `__time_seq` := seq_along(time)]
   x0[, time.x := time]
   y0[, time.y := time]
-  y0[, time := time - 0.1]  # for robustness
+  y0[, time := time - 0.1] # for robustness
   rj <- y0[x0, roll = 1, on = "time"]
 
-  if (!all(x0$`__time_seq` %in% rj$`__time_seq`)) (stop("incomplete merge"))
+  if (!all(x0$`__time_seq` %in% rj$`__time_seq`)) {
+    stop("incomplete merge - this should not occur")
+  }
 
   rj[, time := NULL]
 
@@ -51,4 +65,3 @@ merge_time_date <- function(x, y, by.x = "time", by.y = "time"){
 
   z
 }
-

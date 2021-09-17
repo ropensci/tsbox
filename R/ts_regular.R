@@ -4,8 +4,9 @@
 #' `NA`s into explicit `NA`s. In `ts` objects, regularity is automatically
 #' enforced.
 #'
-#' @inherit ts_dts
-#' @param fill instead of `NA`, an alternative value can be specified
+#' @inherit ts_default
+#' @param fill numeric, instead of `NA`, an alternative value can be specified.
+#'   E.g., 0, -99.
 #' @examples
 #' x0 <- AirPassengers
 #' x0[c(10, 15)] <- NA
@@ -21,8 +22,11 @@
 #' ts_regular(ts_na_omit(ts_dts(ts_c(f, m))))
 #' @export
 ts_regular <- function(x, fill = NA) {
-  stopifnot(ts_boxable(x))
-  if (inherits(x, "ts")) {  # to save time
+  check_ts_boxable(x)
+  fill <- as.numeric(fill)
+  if (length(fill) != 1) stop0("'fill' must be of length 1")
+
+  if (inherits(x, "ts")) { # to save time
     if (!is.na(fill)) {
       x[is.na(x)] <- fill
     }
@@ -31,20 +35,39 @@ ts_regular <- function(x, fill = NA) {
   # standard routine
   z <- regular_core(ts_dts(x))
   if (!is.na(fill)) {
-    if (length(fill) != 1) stop("'fill' must be of length 1", call. = FALSE)
     cvalue <- dts_cname(z)$value
     z[[cvalue]][is.na(z[[cvalue]])] <- fill
   }
   copy_class(z, x)
 }
 
-# A basic test for regularity. Fast, but misses some regular series
+
+#' Basic Test for Regularity
+#'
+#' Fast, but misses some regular series
+#'
+#' @param x Date or POSIXct
+#'
+#' @noRd
 is_regular_one_basic <- function(x) {
-  if (length(x) == 1) return(TRUE)
+  if (length(x) == 0L) {
+    return(TRUE)
+  }
+  if (length(x) == 1L) {
+    return(TRUE)
+  }
   rng <- range(diff(as.numeric(x)))
   (rng[2] - rng[1]) < 1
 }
 
+
+#' Enforce Regularity
+#'
+#' Core function that works on dts, called by ts_regular()
+#'
+#' @param x data.table
+#'
+#' @noRd
 regular_core <- function(x) {
   stopifnot(inherits(x, "dts"))
 
@@ -57,15 +80,12 @@ regular_core <- function(x) {
   setnames(x, ctime, "time")
 
   regular_core_one <- function(x) {
-    if (any(is.na(x$time))) {
-      stop("Time column contains missing values.", call. = FALSE)
+    check_missing_time(x$time)
+    if (is_regular_one_basic(x$time)) {
+      return(x)
     }
-
-    if (is_regular_one_basic(x$time)) return(x)
     reg.time <- regularize_date(x$time)
-    if (is.null(reg.time)) {
-      stop("series has no regular pattern", call. = FALSE)
-    }
+    check_regular_pattern(reg.time)
     merge_time_date(
       data.table(time = reg.time),
       x,
@@ -74,7 +94,7 @@ regular_core <- function(x) {
     )
   }
 
-  if (length(cid) == 0) {
+  if (length(cid) == 0L) {
     z <- regular_core_one(x)
   } else {
     .by <- by_expr(cid)
