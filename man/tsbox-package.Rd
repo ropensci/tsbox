@@ -21,7 +21,7 @@ user to combine multiple non-standard and irregular frequencies. Because
 coercion works reliably, it is easy to write functions that work identically
 for all classes. So whether we want to smooth, scale, differentiate,
 chain-link, forecast, regularize or seasonally adjust a time series, we can
-use the same tsbox-command for any time series class.
+use the same tsbox-command for any time series classes.
 
 The best way to start is to check out the package
 \href{https://www.tsbox.help}{website}.
