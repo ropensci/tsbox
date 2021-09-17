@@ -115,9 +115,9 @@
 #' @srrstats {TS1.6} *Any violations of ordering should be caught in the pre-processing stages of all functions.*
 #' @srrstats {TS1.7} *Accept inputs defined via the [`units` package](https://github.com/r-quantities/units/) for attributing SI units to R vectors.*
 #'   Units definied via the `units` package, stay alive as long as one works with data frame like objects (data table, tibble). ts objects currently loose the unit, as they are not supported by `units`.
-
-#' @srrstatsTODO {TS1.8} *Where time intervals or periods may be days or months, be explicit about the system used to represent such, particularly regarding whether a calendar system is used, or whether a year is presumed to have 365 days, 365.2422 days, or some other value.*
-
+#' @srrstats {TS1.8} *Where time intervals or periods may be days or months, be explicit about the system used to represent such, particularly regarding whether a calendar system is used, or whether a year is presumed to have 365 days, 365.2422 days, or some other value.*
+#'   A vignette documents the time conversion and lists the applied period
+#'   lenght (`vignette(package = "tsbox", "convert")`)
 #' @srrstats {TS2.5} *Incorporate a system to ensure that both row and column orders follow the same ordering as the underlying time series data. This may, for example, be done by including the `index` attribute of the time series data as an attribute of the covariance matrix.*
 #'   All output keeps column order. Row order is re-arranged by time if needed, in line with {TS1.5}. ts_default() reorders columns to id columns, `time` and `value`.
 #' @srrstats {TS4.0} *Return values should either:*
