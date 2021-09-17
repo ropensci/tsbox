@@ -20,7 +20,7 @@
 #' [website](https://www.tsbox.help).
 #'
 #' In the *ropensci* classification, this package is *An improvement on other
-#' implementations of similar algorithms in **R**. Many time series packages,
+#' implementations of similar algorithms in **R***. Many time series packages,
 #' e.g., [zoo](https://CRAN.R-project.org/package=zoo) or
 #' [tsibble](https://CRAN.R-project.org/package=tsibble) contain converter
 #' functions from one class to another. They often convert from their class
@@ -29,7 +29,7 @@
 #' In most cases, tsbox transforms an object into an augmented `data.table`. And
 #' uses the `data.table` infrastructure for efficient joining and reshaping. After
 #' computation, it restores the original input class. This restoring feature is
-#' was also used in the `xts::reclass() function of the
+#' was also used in the `xts::reclass()` function of the
 #' [xts](https://CRAN.R-project.org/package=xts) package.
 #'
 #' @srrstats {G1.1} *Statistical Software should document whether the algorithm(s) it implements are:* - *The first implementation of a novel algorithm*; or - *The first implementation within **R** of an algorithm which has previously been implemented in other languages or contexts*; or - *An improvement on other implementations of similar algorithms in **R***.
