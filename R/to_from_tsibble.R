@@ -39,12 +39,12 @@ ts_dts.tbl_ts <- function(x) {
     z$time <- as.Date(z$time)
   }
 
-  # Ignoring non-numeric measure vars
+  # Ignoring non-numeric measure columns
   is.non.num <- vapply(z[, measures, with = FALSE], is.numeric, TRUE)
   measures.non.num <- measures[!is.non.num]
   if (length(measures.non.num) > 0) {
     message(
-      "Ignoring non-numeric measure vars (",
+      "ignoring non-numeric measure vars (",
       paste(measures.non.num, collapse = ", "),
       ")."
     )

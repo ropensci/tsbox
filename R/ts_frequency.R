@@ -66,10 +66,10 @@ frequency_core <- function(x, to, aggregate, na.rm) {
 
   # make sure incomplete periods result in NA
   if (na.rm == FALSE) {
-    try.x <- try(ts_regular(ts_na_omit(x)))
-    if (inherits(x, "try-error")) {
+    try.x <- try(ts_regular(ts_na_omit(x)), silent = TRUE)
+    if (inherits(try.x, "try-error")) {
       message(
-        "series is not regular, 'na.rm' set to TRUE. ",
+        "series is not regular, 'na.rm' is set to TRUE. ",
         "Aggregation may be based on incomplete periods"
       )
       na.rm <- TRUE
@@ -77,7 +77,6 @@ frequency_core <- function(x, to, aggregate, na.rm) {
       x <- ts_bind(NA, try.x, NA)
     }
   }
-
   if (is.character(aggregate)) {
     if (!aggregate %in% c("mean", "sum", "first", "last")) {
       stop0(

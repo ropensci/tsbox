@@ -114,6 +114,7 @@ ts_c <- function(...) {
 
   if (inherits(z, "try-error")) {
     z <- ts_df(z0)
+    # this probably should not occur
     message(
       "cannot convert output to class '",
       desired.class,

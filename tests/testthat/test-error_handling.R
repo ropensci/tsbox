@@ -1,18 +1,16 @@
 library(dplyr)
 
+#' @srrstats {G5.2} *Appropriate error and warning behaviour of all functions should be explicitly demonstrated through tests. In particular,*
+#' @srrstats {G5.2a} *Every message produced within R code by `stop()`, `warning()`, `message()`, or equivalent should be unique*
+#' @srrstats {G5.2b} *Explicit tests should demonstrate conditions which trigger every one of those messages, and should compare the result with expected values.*
 
-# TODO Error Handling
-#' @srrstatsTODO {G5.2} *Appropriate error and warning behaviour of all functions should be explicitly demonstrated through tests. In particular,*
-#' @srrstatsTODO {G5.2a} *Every message produced within R code by `stop()`, `warning()`, `message()`, or equivalent should be unique*
-#' @srrstatsTODO {G5.2b} *Explicit tests should demonstrate conditions which trigger every one of those messages, and should compare the result with expected values.*
-
-  irreg1 <- data.frame(
-    time = as.POSIXct(c(
-      "2000-01-01", "2001-02-01", "2005-03-01", "2007-03-03", "2007-03-05",
-      "2007-03-09", "2007-05-03", "2007-09-03"
-    )),
-    value = 1:8
-  )
+irreg1 <- data.frame(
+  time = as.POSIXct(c(
+    "2000-01-01", "2001-02-01", "2005-03-01", "2007-03-03", "2007-03-05",
+    "2007-03-09", "2007-05-03", "2007-09-03"
+  )),
+  value = 1:8
+)
 
 
 test_that("errors work as expected", {
@@ -183,14 +181,7 @@ test_that("errors work as expected", {
     "no \\[value\\] columns detected"
   )
 
-  wl <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) %>%
-    tidyr::crossing(id = c("A", "B")) %>%
-    relocate(id, 1) %>%
-    arrange(id, time)
-  expect_message(
-    ts_long(wl),
-    "\\[id\\] columns left of \\[time\\] column"
-  )
+
 
   expect_error(
     ts_pick(ts_c(mdeaths, fdeaths), "ttt"),
@@ -228,3 +219,49 @@ test_that("errors work as expected", {
   )
 
 })
+
+
+test_that("messages work as expected", {
+  # in order of search for 'message(''
+
+  x <- ts_tbl(mdeaths)
+  x <- rename(x, value2 = value)
+  x$one_more <- 1
+
+  expect_message(
+    z <- ts_dts(x) ,
+    "more than one \\[value\\] column"
+  )
+
+  skip_if_not_installed("tsibble")
+  skip_on_cran()
+  expect_message(
+    ts_tbl(tsibbledata::nyc_bikes),
+    "ignoring non-numeric measure"
+  )
+
+  # Cannot produce the message in ts_c()
+  # "cannot convert output to class '"
+
+  expect_message(
+    ts_frequency(irreg1),
+    "series is not regular, 'na.rm' is set to TRUE."
+  )
+
+  wl <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) %>%
+    tidyr::crossing(id = c("A", "B")) %>%
+    relocate(id, 1) %>%
+    arrange(id, time)
+  expect_message(
+    ts_long(wl),
+    "\\[id\\] columns left of \\[time\\] column"
+  )
+
+  expect_message(
+    ts_trend(irreg1[1:4,]),
+    "o trend estimation for series with less than 7 obs."
+  )
+
+})
+
+

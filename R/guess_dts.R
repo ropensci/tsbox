@@ -58,7 +58,7 @@ guess_cname <- function(x) {
       value.cols <- vapply(x[, cols.r.of.time, with = FALSE], is_value, TRUE)
       if (sum(value.cols) > 1) {
         message(
-          "More than one 'value' column detected after 'time', using the outermost.\n",
+          "more than one [value] column detected after [time] - using the outermost.\n",
           "Are you using a wide data frame? To convert, use 'ts_long()'.\n"
         )
       }

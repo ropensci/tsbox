@@ -30,8 +30,8 @@ ts_trend <- function(x, ...) {
 
     if (nrow(z) < 7) {
       message(
-        "No trend estimation for series with less than 7 obs. ",
-        "Return input series."
+        "no trend estimation for series with less than 7 obs. ",
+        "Return input series"
       )
       return(z)
     }

@@ -126,7 +126,7 @@ test_that("Processing of badly shaped data works as expected", {
 
   expect_message(
     z <- ts_dts(x) ,
-   "More than one 'value' column detected"
+   "more than one"
   )
 
   expect_error(ts_first_of_period(x), "at least two observations")
