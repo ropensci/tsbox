@@ -14,7 +14,7 @@
 #' coercion works reliably, it is easy to write functions that work identically
 #' for all classes. So whether we want to smooth, scale, differentiate,
 #' chain-link, forecast, regularize or seasonally adjust a time series, we can
-#' use the same tsbox-command for any time series class.
+#' use the same tsbox-command for any time series classes.
 #'
 #' The best way to start is to check out the package
 #' [website](https://www.tsbox.help).
@@ -23,11 +23,11 @@
 #' implementations of similar algorithms in **R**. Many time series packages,
 #' e.g., [zoo](https://CRAN.R-project.org/package=zoo) or
 #' [tsibble](https://CRAN.R-project.org/package=tsibble) contain converter
-#' functions from one class to another, ofter from their newly introduced class
-#' to a `ts`-object.
+#' functions from one class to another. They often convert from their class
+#' to `ts` objects and back, but lack converters to other time series class.
 #'
-#' In most cases, tsbox transfroms an object into an augmented `data.table`. And
-#' uses the `data.table` infrastucture for efficient joining and reshping. After
+#' In most cases, tsbox transforms an object into an augmented `data.table`. And
+#' uses the `data.table` infrastructure for efficient joining and reshaping. After
 #' computation, it restores the original input class. This restoring feature is
 #' was also used in the `xts::reclass() function of the
 #' [xts](https://CRAN.R-project.org/package=xts) package.
