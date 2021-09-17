@@ -80,6 +80,7 @@
 #' @srrstats {G5.3} *For functions which are expected to return objects containing no missing (`NA`) or undefined (`NaN`, `Inf`) values, the absence of any such values in return objects should be explicitly tested.*
 #'   They are tested.
 
+
 # TODO Correctness Tests
 #' @srrstatsTODO {G5.4} **Correctness tests** *to test that statistical algorithms produce expected results to some fixed test data sets (potentially through comparisons using binding frameworks such as [RStata](https://github.com/lbraglia/RStata)).*
 #' @srrstatsTODO {G5.4a} *For new methods, it can be difficult to separate out correctness of the method from the correctness of the implementation, as there may not be reference for comparison. In this case, testing may be implemented against simple, trivial cases or against multiple implementations such as an initial R implementation compared with results from a C/C++ implementation.*
@@ -93,7 +94,6 @@
 #' @srrstatsTODO {G5.6b} *Parameter recovery tests should be run with multiple random seeds when either data simulation or the algorithm contains a random component. (When long-running, such tests may be part of an extended, rather than regular, test suite; see G4.10-4.12, below).*
 
 #' @srrstatsTODO {G5.7} **Algorithm performance tests** *to test that implementation performs as expected as properties of data change. For instance, a test may show that parameters approach correct estimates within tolerance as data size increases, or that convergence times decrease for higher convergence thresholds.*
-
 
 # Edge conditions
 #' @srrstats {G5.8} **Edge condition tests** *to test that these conditions produce expected behaviour such as clear warnings or errors when confronted with data with extreme properties including but not limited to:*
@@ -135,40 +135,6 @@
 #'   Done throughout the package and ensured by autotest
 #' @srrstats {TS4.3} *Return values should explicitly include all appropriate units and/or time scales*
 #'   Units definied via the `units` package stay alive as long as one works with data frame like objects (data table, tibble). ts objects currently loose the unit, as they are not supported by `units`.
-
-# TODO Apply Forecast Standards in ts_forecast?
-#' @srrstatsTODO {TS3.0} *Provide tests to demonstrate at least one case in which errors widen appropriately with forecast horizon.*
-#' @srrstatsTODO {TS3.1} *If possible, provide at least one test which violates TS3.0*
-#' @srrstatsTODO {TS3.2} *Document the general drivers of forecast errors or horizons, as demonstrated via the particular cases of TS3.0 and TS3.1*
-#' @srrstatsTODO {TS3.3} *Either:*
-#' @srrstatsTODO {TS3.3a} *Document, preferable via an example, how to trim forecast values based on a specified error margin or equivalent; or*
-#' @srrstatsTODO {TS3.3b} *Provide an explicit mechanism to trim forecast values to a specified error margin, either via an explicit post-processing function, or via an input parameter to a primary analytic function.*
-#'
-#' @srrstatsTODO {TS4.4} *Document the effect of any such transformations on forecast data, including potential effects on both first- and second-order estimates.*
-#' @srrstatsTODO {TS4.5} *In decreasing order of preference, either:*
-#' @srrstatsTODO {TS4.5a} *Provide explicit routines or options to back-transform data commensurate with original, non-stationary input data*
-#' @srrstatsTODO {TS4.5b} *Demonstrate how data may be back-transformed to a form commensurate with original, non-stationary input data.*
-#' @srrstatsTODO {TS4.5c} *Document associated limitations on forecast values*
-#' @srrstatsTODO {TS4.6} *Time Series Software which implements or otherwise enables forecasting should return either:*
-#' @srrstatsTODO {TS4.6a} *A distribution object, for example via one of the many packages described in the CRAN Task View on [Probability Distributions](https://cran.r-project.org/web/views/Distributions.html) (or the new [`distributional` package](https://pkg.mitchelloharawild.com/distributional/) as used in the [`fable` package](https://fable.tidyverts.org) for time-series forecasting).*
-#' @srrstatsTODO {TS4.6b} *For each variable to be forecast, predicted values equivalent to first- and second-order moments (for example, mean and standard error values).*
-#' @srrstatsTODO {TS4.6c} *Some more general indication of error associated with forecast estimates.*
-#' @srrstatsTODO {TS4.7} *Ensure that forecast (modelled) values are clearly distinguished from observed (model or input) values, either (in this case in no order of preference) by*
-#' @srrstatsTODO {TS4.7a} *Returning forecast values alone*
-#' @srrstatsTODO {TS4.7b} *Returning distinct list items for model and forecast values*
-#' @srrstatsTODO {TS4.7c} *Combining model and forecast values into a single return object with an appropriate additional column clearly distinguishing the two kinds of data.*
-
-# TODO Apply Plot Standards to ts_plot
-#' @srrstatsTODO {TS5.0} *Implement default `plot` methods for any implemented class system.*
-#' @srrstatsTODO {TS5.1} *When representing results in temporal domain(s), ensure that one axis is clearly labelled "time" (or equivalent), with continuous units.*
-#' @srrstatsTODO {TS5.2} *Default to placing the "time" (or equivalent) variable on the horizontal axis.*
-#' @srrstatsTODO {TS5.3} *Ensure that units of the time, frequency, or index variable are printed by default on the axis.*
-#' @srrstatsTODO {TS5.4} *For frequency visualization, abscissa spanning $[-\pi, \pi]$ should be avoided in favour of positive units of $[0, 2\pi]$ or $[0, 0.5]$, in all cases with appropriate additional explanation of units.*
-#' @srrstatsTODO {TS5.5} *Provide options to determine whether plots of data with missing values should generate continuous or broken lines.*
-#' @srrstatsTODO {TS5.6} *By default indicate distributional limits of forecast on plot*
-#' @srrstatsTODO {TS5.7} *By default include model (input) values in plot, as well as forecast (output) values*
-#' @srrstatsTODO {TS5.8} *By default provide clear visual distinction between model (input) values and forecast (output) values.*
-
 #' @noRd
 NULL
 
@@ -236,7 +202,49 @@ NULL
 #'   see explanation on {G2.13}
 #' @srrstatsNA {TS2.1c} *replace missing data with appropriately imputed values.*
 
+#' @srrstatsNA {TS3.0} *Provide tests to demonstrate at least one case in which errors widen appropriately with forecast horizon.*
+#'   tsbox contains `ts_forecast()` mainly to showcase how function from other
+#'   packages can be wrapped as a ts-boxable function. `ts_forecast()` is meant
+#'   to give a quick forecast of time series, without going into the details.
+#'   Adding foreacast errors would make it less useful for this purpose.
+#' @srrstatsNA {TS3.1} *If possible, provide at least one test which violates TS3.0*
+#' @srrstatsNA {TS3.2} *Document the general drivers of forecast errors or horizons, as demonstrated via the particular cases of TS3.0 and TS3.1*
+#' @srrstatsNA {TS3.3} *Either:*
+#' @srrstatsNA {TS3.3a} *Document, preferable via an example, how to trim forecast values based on a specified error margin or equivalent; or*
+#' @srrstatsNA {TS3.3b} *Provide an explicit mechanism to trim forecast values to a specified error margin, either via an explicit post-processing function, or via an input parameter to a primary analytic function.*
+#' @srrstatsNA {TS4.4} *Document the effect of any such transformations on forecast data, including potential effects on both first- and second-order estimates.*
+#' @srrstatsNA {TS4.5} *In decreasing order of preference, either:*
+#' @srrstatsNA {TS4.5a} *Provide explicit routines or options to back-transform data commensurate with original, non-stationary input data*
+#' @srrstatsNA {TS4.5b} *Demonstrate how data may be back-transformed to a form commensurate with original, non-stationary input data.*
+#' @srrstatsNA {TS4.5c} *Document associated limitations on forecast values*
+#' @srrstatsNA {TS4.6} *Time Series Software which implements or otherwise enables forecasting should return either:*
+#' @srrstatsNA {TS4.6a} *A distribution object, for example via one of the many packages described in the CRAN Task View on [Probability Distributions](https://cran.r-project.org/web/views/Distributions.html) (or the new [`distributional` package](https://pkg.mitchelloharawild.com/distributional/) as used in the [`fable` package](https://fable.tidyverts.org) for time-series forecasting).*
+#' @srrstatsNA {TS4.6b} *For each variable to be forecast, predicted values equivalent to first- and second-order moments (for example, mean and standard error values).*
+#' @srrstatsNA {TS4.6c} *Some more general indication of error associated with forecast estimates.*
+#' @srrstatsNA {TS4.7} *Ensure that forecast (modelled) values are clearly distinguished from observed (model or input) values, either (in this case in no order of preference) by*
+#' @srrstatsNA {TS4.7a} *Returning forecast values alone*
+#' @srrstatsNA {TS4.7b} *Returning distinct list items for model and forecast values*
+#' @srrstatsNA {TS4.7c} *Combining model and forecast values into a single return object with an appropriate additional column clearly distinguishing the two kinds of data.*
+#'   See {TS3.0}
 
+#' @srrstatsNA {TS5.1} *When representing results in temporal domain(s), ensure that one axis is clearly labelled "time" (or equivalent), with continuous units.*
+#'   This could be done, but it seems an unnessecary waste of scree space. Many
+#'   newspaper outlets, such as Economist or Financial Times, don't do it.
+#'   I think this standard should be weakened.
+#' @srrstatsNA {TS5.3} *Ensure that units of the time, frequency, or index variable are printed by default on the axis.*
+#'   `ts_plot()` is meant to provide a quick glimpse at any time series. In
+#'   principle, support for the `units` package is possible, but there are
+#'   considerable challenges to deal with different units among series, so I
+#'   would rather not doing it at the moment.
+#' @srrstatsNA {TS5.4} *For frequency visualization, abscissa spanning $[-\pi, \pi]$ should be avoided in favour of positive units of $[0, 2\pi]$ or $[0, 0.5]$, in all cases with appropriate additional explanation of units.*
+#'   No frequency visualization.
+#' @srrstatsNA {TS5.5} *Provide options to determine whether plots of data with missing values should generate continuous or broken lines.*
+#' @srrstatsNA {TS5.6} *By default indicate distributional limits of forecast on plot*
+#'   No particular forecast plot.
+#' @srrstatsNA {TS5.7} *By default include model (input) values in plot, as well as forecast (output) values*
+#'   No particular forecast plot.
+#' @srrstatsNA {TS5.8} *By default provide clear visual distinction between model (input) values and forecast (output) values.*
+#'   No particular forecast plot.
 
 
 #' @noRd

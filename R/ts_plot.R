@@ -56,6 +56,11 @@
 #' @export
 #' @importFrom graphics abline axis axTicks legend lines mtext par plot
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
+#'
+#' @srrstats {TS5.0} *Implement default `plot` methods for any implemented class system.*
+#'   `ts_plot()` works for any of the supported classes. Since there are defaul `plot` methods for many of the supported classes, it must be a nwe function. `ts_ggplot()` is an alternative.
+#' @srrstats{TS5.2} *Default to placing the "time" (or equivalent) variable on the horizontal axis.*
+#'   Done.
 ts_plot <- function(..., title, subtitle, ylab = "",
                     family = getOption("ts_font", "sans")) {
   value <- NULL
