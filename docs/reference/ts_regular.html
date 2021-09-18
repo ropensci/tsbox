@@ -84,7 +84,7 @@ enforced." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -159,10 +159,16 @@ enforced.</p>
     </tr>
     <tr>
       <th>fill</th>
-      <td><p>instead of <code>NA</code>, an alternative value can be specified</p></td>
+      <td><p>numeric, instead of <code>NA</code>, an alternative value can be specified.
+E.g., 0, -99.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a ts-boxable object of the same class as <code>x</code>, i.e., an object of
+class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>,
+<code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x0</span> <span class='op'>&lt;-</span> <span class='va'>AirPassengers</span>

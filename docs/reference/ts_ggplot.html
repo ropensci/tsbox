@@ -85,7 +85,7 @@ of ts_ggplot has a similar look and feel." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -222,12 +222,12 @@ etc., use standard ggplot (see examples).</p>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>dataseries</span><span class='op'>)</span>
 <span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'>ds</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GDP.PBRTT.A.R"</span>, <span class='st'>"CCI.CCIIR"</span><span class='op'>)</span>, <span class='st'>"xts"</span><span class='op'>)</span>
 <span class='fu'>ts_ggplot</span><span class='op'>(</span><span class='fu'><a href='ts_scale.html'>ts_scale</a></span><span class='op'>(</span><span class='fu'><a href='ts_span.html'>ts_span</a></span><span class='op'>(</span>
-    <span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span>
-      `GDP Growth` <span class='op'>=</span> <span class='fu'><a href='ts_pc.html'>ts_pc</a></span><span class='op'>(</span><span class='va'>dta</span><span class='op'>[</span>, <span class='st'>'GDP.PBRTT.A.R'</span><span class='op'>]</span><span class='op'>)</span>,
-      `Consumer Sentiment Index` <span class='op'>=</span> <span class='va'>dta</span><span class='op'>[</span>, <span class='st'>'CCI.CCIIR'</span><span class='op'>]</span>
-    <span class='op'>)</span>,
-    start <span class='op'>=</span> <span class='st'>"1995-01-01"</span>
-  <span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span>
+    `GDP Growth` <span class='op'>=</span> <span class='fu'><a href='ts_pc.html'>ts_pc</a></span><span class='op'>(</span><span class='va'>dta</span><span class='op'>[</span>, <span class='st'>"GDP.PBRTT.A.R"</span><span class='op'>]</span><span class='op'>)</span>,
+    `Consumer Sentiment Index` <span class='op'>=</span> <span class='va'>dta</span><span class='op'>[</span>, <span class='st'>"CCI.CCIIR"</span><span class='op'>]</span>
+  <span class='op'>)</span>,
+  start <span class='op'>=</span> <span class='st'>"1995-01-01"</span>
+<span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ggtitle</a></span><span class='op'>(</span><span class='st'>"GDP and Consumer Sentiment"</span>, subtitle <span class='op'>=</span> <span class='st'>"normalized"</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>theme_tsbox</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>scale_color_tsbox</span><span class='op'>(</span><span class='op'>)</span>

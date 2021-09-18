@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reshaping Multiple Time Series — ts_long • tsbox</title>
+<title>Start and end of time series — tsbox-defunct • tsbox</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,11 @@
 
 
 
-<meta property="og:title" content="Reshaping Multiple Time Series — ts_long" />
-<meta property="og:description" content="Functions to reshape multiple time series from 'wide' to 'long' and vice
-versa. Note that long format data frames are ts-boxable objects, where wide
-format data frames are not. ts_long automatically identifies a time
-column, and uses columns on the left as id columns." />
+<meta property="og:title" content="Start and end of time series — tsbox-defunct" />
+<meta property="og:description" content="In data frame objects (data.frame, tibble, data.table), tsbox
+automatically detects the time and the value column. This function changes
+the column names to the defaults (time, value), so that auto-detection
+can be avoided in future operations." />
 
 
 
@@ -136,29 +136,30 @@ column, and uses columns on the left as id columns." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reshaping Multiple Time Series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/christophsax/tsbox/blob/master/R/ts_long_wide.R'><code>R/ts_long_wide.R</code></a></small>
-    <div class="hidden name"><code>ts_long.Rd</code></div>
+    <h1>Start and end of time series</h1>
+    <small class="dont-index">Source: <a href='https://github.com/christophsax/tsbox/blob/master/R/tsbox-defunct.R'><code>R/tsbox-defunct.R</code></a></small>
+    <div class="hidden name"><code>tsbox-defunct.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Functions to reshape multiple time series from 'wide' to 'long' and vice
-versa. Note that long format data frames are ts-boxable objects, where wide
-format data frames are not. <code>ts_long</code> automatically identifies a <strong>time</strong>
-column, and uses columns on the left as id columns.</p>
+    <p>In data frame objects (<code>data.frame</code>, <code>tibble</code>, <code>data.table</code>), tsbox
+automatically detects the time and the value column. This function changes
+the column names to the defaults (<code>time</code>, <code>value</code>), so that auto-detection
+can be avoided in future operations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ts_long</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>ts_start</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>ts_wide</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='fu'>ts_end</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a ts-boxable time series, or a wide <code>data.frame</code>,
-<code>data.table</code>, or <code>tibble</code>.</p></td>
+      <td><p>ts-boxable time series, an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>,
+<code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or
+<code>timeSeries</code>.</p></td>
     </tr>
     </table>
 
@@ -169,83 +170,13 @@ class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</cod
 <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ts_ts.html'>ts_df</a></span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>df.wide</span> <span class='op'>&lt;-</span> <span class='fu'>ts_wide</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-<span class='va'>df.wide</span>
-</div><div class='output co'>#&gt;          time mdeaths fdeaths
-#&gt; 1  1974-01-01    2134     901
-#&gt; 2  1974-02-01    1863     689
-#&gt; 3  1974-03-01    1877     827
-#&gt; 4  1974-04-01    1877     677
-#&gt; 5  1974-05-01    1492     522
-#&gt; 6  1974-06-01    1249     406
-#&gt; 7  1974-07-01    1280     441
-#&gt; 8  1974-08-01    1131     393
-#&gt; 9  1974-09-01    1209     387
-#&gt; 10 1974-10-01    1492     582
-#&gt; 11 1974-11-01    1621     578
-#&gt; 12 1974-12-01    1846     666
-#&gt; 13 1975-01-01    2103     830
-#&gt; 14 1975-02-01    2137     752
-#&gt; 15 1975-03-01    2153     785
-#&gt; 16 1975-04-01    1833     664
-#&gt; 17 1975-05-01    1403     467
-#&gt; 18 1975-06-01    1288     438
-#&gt; 19 1975-07-01    1186     421
-#&gt; 20 1975-08-01    1133     412
-#&gt; 21 1975-09-01    1053     343
-#&gt; 22 1975-10-01    1347     440
-#&gt; 23 1975-11-01    1545     531
-#&gt; 24 1975-12-01    2066     771
-#&gt; 25 1976-01-01    2020     767
-#&gt; 26 1976-02-01    2750    1141
-#&gt; 27 1976-03-01    2283     896
-#&gt; 28 1976-04-01    1479     532
-#&gt; 29 1976-05-01    1189     447
-#&gt; 30 1976-06-01    1160     420
-#&gt; 31 1976-07-01    1113     376
-#&gt; 32 1976-08-01     970     330
-#&gt; 33 1976-09-01     999     357
-#&gt; 34 1976-10-01    1208     445
-#&gt; 35 1976-11-01    1467     546
-#&gt; 36 1976-12-01    2059     764
-#&gt; 37 1977-01-01    2240     862
-#&gt; 38 1977-02-01    1634     660
-#&gt; 39 1977-03-01    1722     663
-#&gt; 40 1977-04-01    1801     643
-#&gt; 41 1977-05-01    1246     502
-#&gt; 42 1977-06-01    1162     392
-#&gt; 43 1977-07-01    1087     411
-#&gt; 44 1977-08-01    1013     348
-#&gt; 45 1977-09-01     959     387
-#&gt; 46 1977-10-01    1179     385
-#&gt; 47 1977-11-01    1229     411
-#&gt; 48 1977-12-01    1655     638
-#&gt; 49 1978-01-01    2019     796
-#&gt; 50 1978-02-01    2284     853
-#&gt; 51 1978-03-01    1942     737
-#&gt; 52 1978-04-01    1423     546
-#&gt; 53 1978-05-01    1340     530
-#&gt; 54 1978-06-01    1187     446
-#&gt; 55 1978-07-01    1098     431
-#&gt; 56 1978-08-01    1004     362
-#&gt; 57 1978-09-01     970     387
-#&gt; 58 1978-10-01    1140     430
-#&gt; 59 1978-11-01    1110     425
-#&gt; 60 1978-12-01    1812     679
-#&gt; 61 1979-01-01    2263     821
-#&gt; 62 1979-02-01    1820     785
-#&gt; 63 1979-03-01    1846     727
-#&gt; 64 1979-04-01    1531     612
-#&gt; 65 1979-05-01    1215     478
-#&gt; 66 1979-06-01    1075     429
-#&gt; 67 1979-07-01    1056     405
-#&gt; 68 1979-08-01     975     379
-#&gt; 69 1979-09-01     940     393
-#&gt; 70 1979-10-01    1081     411
-#&gt; 71 1979-11-01    1294     487
-#&gt; 72 1979-12-01    1341     574</div><div class='input'><span class='fu'>ts_long</span><span class='op'>(</span><span class='va'>df.wide</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;          id       time value
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ts_ts.html'>ts_df</a></span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'># non-default colnames</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"id"</span>, <span class='st'>"date"</span>, <span class='st'>"count"</span><span class='op'>)</span>
+<span class='co'># switch back to default colnames</span>
+<span class='fu'><a href='ts_default.html'>ts_default</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>[time]: 'date' [value]: 'count' </span></div><div class='output co'>#&gt;          id       time value
 #&gt; 1   mdeaths 1974-01-01  2134
 #&gt; 2   mdeaths 1974-02-01  1863
 #&gt; 3   mdeaths 1974-03-01  1877
@@ -389,7 +320,8 @@ class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</cod
 #&gt; 141 fdeaths 1979-09-01   393
 #&gt; 142 fdeaths 1979-10-01   411
 #&gt; 143 fdeaths 1979-11-01   487
-#&gt; 144 fdeaths 1979-12-01   574</div></pre>
+#&gt; 144 fdeaths 1979-12-01   574</div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

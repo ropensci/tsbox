@@ -88,7 +88,7 @@ data frames, facilitating the use with tools that assume rectangular data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -164,9 +164,20 @@ user to combine multiple non-standard and irregular frequencies. Because
 coercion works reliably, it is easy to write functions that work identically
 for all classes. So whether we want to smooth, scale, differentiate,
 chain-link, forecast, regularize or seasonally adjust a time series, we can
-use the same tsbox-command for any time series class.</p>
+use the same tsbox-command for any time series classes.</p>
 <p>The best way to start is to check out the package
 <a href='https://www.tsbox.help'>website</a>.</p>
+<p>In the <em>ropensci</em> classification, this package is *An improvement on other
+implementations of similar algorithms in <strong>R</strong>. Many time series packages,
+e.g., <a href='https://CRAN.R-project.org/package=zoo'>zoo</a> or
+<a href='https://CRAN.R-project.org/package=tsibble'>tsibble</a> contain converter
+functions from one class to another. They often convert from their class
+to <code>ts</code> objects and back, but lack converters to other time series class.</p>
+<p>In most cases, tsbox transforms an object into an augmented <code>data.table</code>. And
+uses the <code>data.table</code> infrastructure for efficient joining and reshaping. After
+computation, it restores the original input class. This restoring feature is
+was also used in the `xts::reclass() function of the
+<a href='https://CRAN.R-project.org/package=xts'>xts</a> package.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Christoph Sax <a href='mailto:christoph.sax@gmail.com'>christoph.sax@gmail.com</a></p>

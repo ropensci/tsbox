@@ -84,7 +84,7 @@ rates." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -163,9 +163,15 @@ rates.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A ts-boxable object of the same class as the input.
-If series of different classes are combined, the class of the first series is
-used (if possible).</p>
+    <p>a ts-boxable object of the same class as the input, i.e., an object
+of class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>,
+<code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.
+If series of different classes are combined, the class of the first series
+is used (if possible).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>In data frame objects, multiple time series are stored in a long data frame.
+In <code>ts</code> and <code>xts</code> objects, time series are combined horizontally.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='ts_c.html'>ts_c</a> to collect multiple time series</p></div>
@@ -223,8 +229,7 @@ used (if possible).</p>
 #&gt; 1958 340 318 362 348 363 435 491 505 404 359 310 337
 #&gt; 1959 360 342 406 396 420 472 548 559 463 407 362 405
 #&gt; 1960 417 391 419 461 472 535 622 606 508 461 390 432
-#&gt; 1961   2   3                                        </div><div class='input'>
-<span class='fu'>ts_chain</span><span class='op'>(</span><span class='fu'><a href='ts_span.html'>ts_span</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, end <span class='op'>=</span> <span class='st'>"1975-12-01"</span><span class='op'>)</span>, <span class='va'>fdeaths</span><span class='op'>)</span>
+#&gt; 1961   2   3                                        </div><div class='input'><span class='fu'>ts_chain</span><span class='op'>(</span><span class='fu'><a href='ts_span.html'>ts_span</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, end <span class='op'>=</span> <span class='st'>"1975-12-01"</span><span class='op'>)</span>, <span class='va'>fdeaths</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            Jan       Feb       Mar       Apr       May       Jun       Jul
 #&gt; 1974 2134.0000 1863.0000 1877.0000 1877.0000 1492.0000 1249.0000 1280.0000
 #&gt; 1975 2103.0000 2137.0000 2153.0000 1833.0000 1403.0000 1288.0000 1186.0000

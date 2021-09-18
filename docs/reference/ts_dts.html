@@ -40,7 +40,10 @@
 
 
 <meta property="og:title" content="Internal Time Series Class — ts_dts" />
-<meta property="og:description" content="Internal Time Series Class" />
+<meta property="og:description" content="In data frame objects (data.frame, tibble, data.table), tsbox
+automatically detects the time and the value column. This function changes
+the column names to the defaults (time, value), so that auto-detection
+can be avoided in future operations." />
 
 
 
@@ -82,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -139,7 +142,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Internal Time Series Class</p>
+    <p>In data frame objects (<code>data.frame</code>, <code>tibble</code>, <code>data.table</code>), tsbox
+automatically detects the time and the value column. This function changes
+the column names to the defaults (<code>time</code>, <code>value</code>), so that auto-detection
+can be avoided in future operations.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ts_dts</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
@@ -155,7 +161,165 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>a ts-boxable object of the same class as <code>x</code>, i.e., an object of
+class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>,
+<code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ts_ts.html'>ts_df</a></span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'># non-default colnames</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"id"</span>, <span class='st'>"date"</span>, <span class='st'>"count"</span><span class='op'>)</span>
+<span class='co'># switch back to default colnames</span>
+<span class='fu'><a href='ts_default.html'>ts_default</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>[time]: 'date' [value]: 'count' </span></div><div class='output co'>#&gt;          id       time value
+#&gt; 1   mdeaths 1974-01-01  2134
+#&gt; 2   mdeaths 1974-02-01  1863
+#&gt; 3   mdeaths 1974-03-01  1877
+#&gt; 4   mdeaths 1974-04-01  1877
+#&gt; 5   mdeaths 1974-05-01  1492
+#&gt; 6   mdeaths 1974-06-01  1249
+#&gt; 7   mdeaths 1974-07-01  1280
+#&gt; 8   mdeaths 1974-08-01  1131
+#&gt; 9   mdeaths 1974-09-01  1209
+#&gt; 10  mdeaths 1974-10-01  1492
+#&gt; 11  mdeaths 1974-11-01  1621
+#&gt; 12  mdeaths 1974-12-01  1846
+#&gt; 13  mdeaths 1975-01-01  2103
+#&gt; 14  mdeaths 1975-02-01  2137
+#&gt; 15  mdeaths 1975-03-01  2153
+#&gt; 16  mdeaths 1975-04-01  1833
+#&gt; 17  mdeaths 1975-05-01  1403
+#&gt; 18  mdeaths 1975-06-01  1288
+#&gt; 19  mdeaths 1975-07-01  1186
+#&gt; 20  mdeaths 1975-08-01  1133
+#&gt; 21  mdeaths 1975-09-01  1053
+#&gt; 22  mdeaths 1975-10-01  1347
+#&gt; 23  mdeaths 1975-11-01  1545
+#&gt; 24  mdeaths 1975-12-01  2066
+#&gt; 25  mdeaths 1976-01-01  2020
+#&gt; 26  mdeaths 1976-02-01  2750
+#&gt; 27  mdeaths 1976-03-01  2283
+#&gt; 28  mdeaths 1976-04-01  1479
+#&gt; 29  mdeaths 1976-05-01  1189
+#&gt; 30  mdeaths 1976-06-01  1160
+#&gt; 31  mdeaths 1976-07-01  1113
+#&gt; 32  mdeaths 1976-08-01   970
+#&gt; 33  mdeaths 1976-09-01   999
+#&gt; 34  mdeaths 1976-10-01  1208
+#&gt; 35  mdeaths 1976-11-01  1467
+#&gt; 36  mdeaths 1976-12-01  2059
+#&gt; 37  mdeaths 1977-01-01  2240
+#&gt; 38  mdeaths 1977-02-01  1634
+#&gt; 39  mdeaths 1977-03-01  1722
+#&gt; 40  mdeaths 1977-04-01  1801
+#&gt; 41  mdeaths 1977-05-01  1246
+#&gt; 42  mdeaths 1977-06-01  1162
+#&gt; 43  mdeaths 1977-07-01  1087
+#&gt; 44  mdeaths 1977-08-01  1013
+#&gt; 45  mdeaths 1977-09-01   959
+#&gt; 46  mdeaths 1977-10-01  1179
+#&gt; 47  mdeaths 1977-11-01  1229
+#&gt; 48  mdeaths 1977-12-01  1655
+#&gt; 49  mdeaths 1978-01-01  2019
+#&gt; 50  mdeaths 1978-02-01  2284
+#&gt; 51  mdeaths 1978-03-01  1942
+#&gt; 52  mdeaths 1978-04-01  1423
+#&gt; 53  mdeaths 1978-05-01  1340
+#&gt; 54  mdeaths 1978-06-01  1187
+#&gt; 55  mdeaths 1978-07-01  1098
+#&gt; 56  mdeaths 1978-08-01  1004
+#&gt; 57  mdeaths 1978-09-01   970
+#&gt; 58  mdeaths 1978-10-01  1140
+#&gt; 59  mdeaths 1978-11-01  1110
+#&gt; 60  mdeaths 1978-12-01  1812
+#&gt; 61  mdeaths 1979-01-01  2263
+#&gt; 62  mdeaths 1979-02-01  1820
+#&gt; 63  mdeaths 1979-03-01  1846
+#&gt; 64  mdeaths 1979-04-01  1531
+#&gt; 65  mdeaths 1979-05-01  1215
+#&gt; 66  mdeaths 1979-06-01  1075
+#&gt; 67  mdeaths 1979-07-01  1056
+#&gt; 68  mdeaths 1979-08-01   975
+#&gt; 69  mdeaths 1979-09-01   940
+#&gt; 70  mdeaths 1979-10-01  1081
+#&gt; 71  mdeaths 1979-11-01  1294
+#&gt; 72  mdeaths 1979-12-01  1341
+#&gt; 73  fdeaths 1974-01-01   901
+#&gt; 74  fdeaths 1974-02-01   689
+#&gt; 75  fdeaths 1974-03-01   827
+#&gt; 76  fdeaths 1974-04-01   677
+#&gt; 77  fdeaths 1974-05-01   522
+#&gt; 78  fdeaths 1974-06-01   406
+#&gt; 79  fdeaths 1974-07-01   441
+#&gt; 80  fdeaths 1974-08-01   393
+#&gt; 81  fdeaths 1974-09-01   387
+#&gt; 82  fdeaths 1974-10-01   582
+#&gt; 83  fdeaths 1974-11-01   578
+#&gt; 84  fdeaths 1974-12-01   666
+#&gt; 85  fdeaths 1975-01-01   830
+#&gt; 86  fdeaths 1975-02-01   752
+#&gt; 87  fdeaths 1975-03-01   785
+#&gt; 88  fdeaths 1975-04-01   664
+#&gt; 89  fdeaths 1975-05-01   467
+#&gt; 90  fdeaths 1975-06-01   438
+#&gt; 91  fdeaths 1975-07-01   421
+#&gt; 92  fdeaths 1975-08-01   412
+#&gt; 93  fdeaths 1975-09-01   343
+#&gt; 94  fdeaths 1975-10-01   440
+#&gt; 95  fdeaths 1975-11-01   531
+#&gt; 96  fdeaths 1975-12-01   771
+#&gt; 97  fdeaths 1976-01-01   767
+#&gt; 98  fdeaths 1976-02-01  1141
+#&gt; 99  fdeaths 1976-03-01   896
+#&gt; 100 fdeaths 1976-04-01   532
+#&gt; 101 fdeaths 1976-05-01   447
+#&gt; 102 fdeaths 1976-06-01   420
+#&gt; 103 fdeaths 1976-07-01   376
+#&gt; 104 fdeaths 1976-08-01   330
+#&gt; 105 fdeaths 1976-09-01   357
+#&gt; 106 fdeaths 1976-10-01   445
+#&gt; 107 fdeaths 1976-11-01   546
+#&gt; 108 fdeaths 1976-12-01   764
+#&gt; 109 fdeaths 1977-01-01   862
+#&gt; 110 fdeaths 1977-02-01   660
+#&gt; 111 fdeaths 1977-03-01   663
+#&gt; 112 fdeaths 1977-04-01   643
+#&gt; 113 fdeaths 1977-05-01   502
+#&gt; 114 fdeaths 1977-06-01   392
+#&gt; 115 fdeaths 1977-07-01   411
+#&gt; 116 fdeaths 1977-08-01   348
+#&gt; 117 fdeaths 1977-09-01   387
+#&gt; 118 fdeaths 1977-10-01   385
+#&gt; 119 fdeaths 1977-11-01   411
+#&gt; 120 fdeaths 1977-12-01   638
+#&gt; 121 fdeaths 1978-01-01   796
+#&gt; 122 fdeaths 1978-02-01   853
+#&gt; 123 fdeaths 1978-03-01   737
+#&gt; 124 fdeaths 1978-04-01   546
+#&gt; 125 fdeaths 1978-05-01   530
+#&gt; 126 fdeaths 1978-06-01   446
+#&gt; 127 fdeaths 1978-07-01   431
+#&gt; 128 fdeaths 1978-08-01   362
+#&gt; 129 fdeaths 1978-09-01   387
+#&gt; 130 fdeaths 1978-10-01   430
+#&gt; 131 fdeaths 1978-11-01   425
+#&gt; 132 fdeaths 1978-12-01   679
+#&gt; 133 fdeaths 1979-01-01   821
+#&gt; 134 fdeaths 1979-02-01   785
+#&gt; 135 fdeaths 1979-03-01   727
+#&gt; 136 fdeaths 1979-04-01   612
+#&gt; 137 fdeaths 1979-05-01   478
+#&gt; 138 fdeaths 1979-06-01   429
+#&gt; 139 fdeaths 1979-07-01   405
+#&gt; 140 fdeaths 1979-08-01   379
+#&gt; 141 fdeaths 1979-09-01   393
+#&gt; 142 fdeaths 1979-10-01   411
+#&gt; 143 fdeaths 1979-11-01   487
+#&gt; 144 fdeaths 1979-12-01   574</div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

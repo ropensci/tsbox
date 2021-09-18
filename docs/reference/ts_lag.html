@@ -83,7 +83,7 @@ by a fixed amount of time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -164,8 +164,9 @@ by a fixed amount of time.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a ts-boxable time series, with the same class as the input. If time
-stamp shifting causes the object to be irregular, a data frame is returned.</p>
+    <p>a ts-boxable object of the same class as <code>x</code>, i.e., an object of
+class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>,
+<code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The lag order, <code>by</code>, is defined the opposite way as in R base. Thus, -1 is a
@@ -182,32 +183,242 @@ negative) integer and a space, or followed by plural "s". This is passed to
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='fu'><a href='ts_plot.html'>ts_plot</a></span><span class='op'>(</span><span class='va'>AirPassengers</span>, <span class='fu'>ts_lag</span><span class='op'>(</span><span class='va'>AirPassengers</span><span class='op'>)</span>, title <span class='op'>=</span> <span class='st'>"The need for glasses"</span><span class='op'>)</span>
 </div><div class='img'><img src='ts_lag-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_lag</span><span class='op'>(</span><span class='va'>fdeaths</span>, <span class='st'>"1 month"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      Feb Mar Apr May Jun Jul
-#&gt; 1974 901 689 827 677 522 406</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_lag</span><span class='op'>(</span><span class='va'>fdeaths</span>, <span class='st'>"1 year"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      Jan Feb Mar Apr May Jun
-#&gt; 1975 901 689 827 677 522 406</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_lag</span><span class='op'>(</span><span class='fu'><a href='ts_ts.html'>ts_df</a></span><span class='op'>(</span><span class='va'>fdeaths</span><span class='op'>)</span>, <span class='st'>"2 day"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         time value
-#&gt; 1 1974-01-03   901
-#&gt; 2 1974-02-03   689
-#&gt; 3 1974-03-03   827
-#&gt; 4 1974-04-03   677
-#&gt; 5 1974-05-03   522
-#&gt; 6 1974-06-03   406</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_lag</span><span class='op'>(</span><span class='fu'><a href='ts_ts.html'>ts_df</a></span><span class='op'>(</span><span class='va'>fdeaths</span><span class='op'>)</span>, <span class='st'>"2 min"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                  time value
-#&gt; 1 1974-01-01 01:02:00   901
-#&gt; 2 1974-02-01 01:02:00   689
-#&gt; 3 1974-03-01 01:02:00   827
-#&gt; 4 1974-04-01 01:02:00   677
-#&gt; 5 1974-05-01 01:02:00   522
-#&gt; 6 1974-06-01 01:02:00   406</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_lag</span><span class='op'>(</span><span class='fu'><a href='ts_ts.html'>ts_df</a></span><span class='op'>(</span><span class='va'>fdeaths</span><span class='op'>)</span>, <span class='st'>"-1 day"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         time value
-#&gt; 1 1973-12-31   901
-#&gt; 2 1974-01-31   689
-#&gt; 3 1974-02-28   827
-#&gt; 4 1974-03-31   677
-#&gt; 5 1974-04-30   522
-#&gt; 6 1974-05-31   406</div></pre>
+<span class='fu'>ts_lag</span><span class='op'>(</span><span class='va'>fdeaths</span>, <span class='st'>"1 month"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1974       901  689  827  677  522  406  441  393  387  582  578
+#&gt; 1975  666  830  752  785  664  467  438  421  412  343  440  531
+#&gt; 1976  771  767 1141  896  532  447  420  376  330  357  445  546
+#&gt; 1977  764  862  660  663  643  502  392  411  348  387  385  411
+#&gt; 1978  638  796  853  737  546  530  446  431  362  387  430  425
+#&gt; 1979  679  821  785  727  612  478  429  405  379  393  411  487
+#&gt; 1980  574                                                       </div><div class='input'><span class='fu'>ts_lag</span><span class='op'>(</span><span class='va'>fdeaths</span>, <span class='st'>"1 year"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+#&gt; 1975  901  689  827  677  522  406  441  393  387  582  578  666
+#&gt; 1976  830  752  785  664  467  438  421  412  343  440  531  771
+#&gt; 1977  767 1141  896  532  447  420  376  330  357  445  546  764
+#&gt; 1978  862  660  663  643  502  392  411  348  387  385  411  638
+#&gt; 1979  796  853  737  546  530  446  431  362  387  430  425  679
+#&gt; 1980  821  785  727  612  478  429  405  379  393  411  487  574</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ts_ts.html'>ts_df</a></span><span class='op'>(</span><span class='va'>fdeaths</span><span class='op'>)</span>
+<span class='fu'>ts_lag</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"2 day"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          time value
+#&gt; 1  1974-01-03   901
+#&gt; 2  1974-02-03   689
+#&gt; 3  1974-03-03   827
+#&gt; 4  1974-04-03   677
+#&gt; 5  1974-05-03   522
+#&gt; 6  1974-06-03   406
+#&gt; 7  1974-07-03   441
+#&gt; 8  1974-08-03   393
+#&gt; 9  1974-09-03   387
+#&gt; 10 1974-10-03   582
+#&gt; 11 1974-11-03   578
+#&gt; 12 1974-12-03   666
+#&gt; 13 1975-01-03   830
+#&gt; 14 1975-02-03   752
+#&gt; 15 1975-03-03   785
+#&gt; 16 1975-04-03   664
+#&gt; 17 1975-05-03   467
+#&gt; 18 1975-06-03   438
+#&gt; 19 1975-07-03   421
+#&gt; 20 1975-08-03   412
+#&gt; 21 1975-09-03   343
+#&gt; 22 1975-10-03   440
+#&gt; 23 1975-11-03   531
+#&gt; 24 1975-12-03   771
+#&gt; 25 1976-01-03   767
+#&gt; 26 1976-02-03  1141
+#&gt; 27 1976-03-03   896
+#&gt; 28 1976-04-03   532
+#&gt; 29 1976-05-03   447
+#&gt; 30 1976-06-03   420
+#&gt; 31 1976-07-03   376
+#&gt; 32 1976-08-03   330
+#&gt; 33 1976-09-03   357
+#&gt; 34 1976-10-03   445
+#&gt; 35 1976-11-03   546
+#&gt; 36 1976-12-03   764
+#&gt; 37 1977-01-03   862
+#&gt; 38 1977-02-03   660
+#&gt; 39 1977-03-03   663
+#&gt; 40 1977-04-03   643
+#&gt; 41 1977-05-03   502
+#&gt; 42 1977-06-03   392
+#&gt; 43 1977-07-03   411
+#&gt; 44 1977-08-03   348
+#&gt; 45 1977-09-03   387
+#&gt; 46 1977-10-03   385
+#&gt; 47 1977-11-03   411
+#&gt; 48 1977-12-03   638
+#&gt; 49 1978-01-03   796
+#&gt; 50 1978-02-03   853
+#&gt; 51 1978-03-03   737
+#&gt; 52 1978-04-03   546
+#&gt; 53 1978-05-03   530
+#&gt; 54 1978-06-03   446
+#&gt; 55 1978-07-03   431
+#&gt; 56 1978-08-03   362
+#&gt; 57 1978-09-03   387
+#&gt; 58 1978-10-03   430
+#&gt; 59 1978-11-03   425
+#&gt; 60 1978-12-03   679
+#&gt; 61 1979-01-03   821
+#&gt; 62 1979-02-03   785
+#&gt; 63 1979-03-03   727
+#&gt; 64 1979-04-03   612
+#&gt; 65 1979-05-03   478
+#&gt; 66 1979-06-03   429
+#&gt; 67 1979-07-03   405
+#&gt; 68 1979-08-03   379
+#&gt; 69 1979-09-03   393
+#&gt; 70 1979-10-03   411
+#&gt; 71 1979-11-03   487
+#&gt; 72 1979-12-03   574</div><div class='input'><span class='fu'>ts_lag</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"2 min"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                   time value
+#&gt; 1  1974-01-01 01:02:00   901
+#&gt; 2  1974-02-01 01:02:00   689
+#&gt; 3  1974-03-01 01:02:00   827
+#&gt; 4  1974-04-01 01:02:00   677
+#&gt; 5  1974-05-01 01:02:00   522
+#&gt; 6  1974-06-01 01:02:00   406
+#&gt; 7  1974-07-01 01:02:00   441
+#&gt; 8  1974-08-01 01:02:00   393
+#&gt; 9  1974-09-01 01:02:00   387
+#&gt; 10 1974-10-01 01:02:00   582
+#&gt; 11 1974-11-01 01:02:00   578
+#&gt; 12 1974-12-01 01:02:00   666
+#&gt; 13 1975-01-01 01:02:00   830
+#&gt; 14 1975-02-01 01:02:00   752
+#&gt; 15 1975-03-01 01:02:00   785
+#&gt; 16 1975-04-01 01:02:00   664
+#&gt; 17 1975-05-01 01:02:00   467
+#&gt; 18 1975-06-01 01:02:00   438
+#&gt; 19 1975-07-01 01:02:00   421
+#&gt; 20 1975-08-01 01:02:00   412
+#&gt; 21 1975-09-01 01:02:00   343
+#&gt; 22 1975-10-01 01:02:00   440
+#&gt; 23 1975-11-01 01:02:00   531
+#&gt; 24 1975-12-01 01:02:00   771
+#&gt; 25 1976-01-01 01:02:00   767
+#&gt; 26 1976-02-01 01:02:00  1141
+#&gt; 27 1976-03-01 01:02:00   896
+#&gt; 28 1976-04-01 01:02:00   532
+#&gt; 29 1976-05-01 01:02:00   447
+#&gt; 30 1976-06-01 01:02:00   420
+#&gt; 31 1976-07-01 01:02:00   376
+#&gt; 32 1976-08-01 01:02:00   330
+#&gt; 33 1976-09-01 01:02:00   357
+#&gt; 34 1976-10-01 01:02:00   445
+#&gt; 35 1976-11-01 01:02:00   546
+#&gt; 36 1976-12-01 01:02:00   764
+#&gt; 37 1977-01-01 01:02:00   862
+#&gt; 38 1977-02-01 01:02:00   660
+#&gt; 39 1977-03-01 01:02:00   663
+#&gt; 40 1977-04-01 01:02:00   643
+#&gt; 41 1977-05-01 01:02:00   502
+#&gt; 42 1977-06-01 01:02:00   392
+#&gt; 43 1977-07-01 01:02:00   411
+#&gt; 44 1977-08-01 01:02:00   348
+#&gt; 45 1977-09-01 01:02:00   387
+#&gt; 46 1977-10-01 01:02:00   385
+#&gt; 47 1977-11-01 01:02:00   411
+#&gt; 48 1977-12-01 01:02:00   638
+#&gt; 49 1978-01-01 01:02:00   796
+#&gt; 50 1978-02-01 01:02:00   853
+#&gt; 51 1978-03-01 01:02:00   737
+#&gt; 52 1978-04-01 01:02:00   546
+#&gt; 53 1978-05-01 01:02:00   530
+#&gt; 54 1978-06-01 01:02:00   446
+#&gt; 55 1978-07-01 01:02:00   431
+#&gt; 56 1978-08-01 01:02:00   362
+#&gt; 57 1978-09-01 01:02:00   387
+#&gt; 58 1978-10-01 01:02:00   430
+#&gt; 59 1978-11-01 01:02:00   425
+#&gt; 60 1978-12-01 01:02:00   679
+#&gt; 61 1979-01-01 01:02:00   821
+#&gt; 62 1979-02-01 01:02:00   785
+#&gt; 63 1979-03-01 01:02:00   727
+#&gt; 64 1979-04-01 01:02:00   612
+#&gt; 65 1979-05-01 01:02:00   478
+#&gt; 66 1979-06-01 01:02:00   429
+#&gt; 67 1979-07-01 01:02:00   405
+#&gt; 68 1979-08-01 01:02:00   379
+#&gt; 69 1979-09-01 01:02:00   393
+#&gt; 70 1979-10-01 01:02:00   411
+#&gt; 71 1979-11-01 01:02:00   487
+#&gt; 72 1979-12-01 01:02:00   574</div><div class='input'><span class='fu'>ts_lag</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"-1 day"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          time value
+#&gt; 1  1973-12-31   901
+#&gt; 2  1974-01-31   689
+#&gt; 3  1974-02-28   827
+#&gt; 4  1974-03-31   677
+#&gt; 5  1974-04-30   522
+#&gt; 6  1974-05-31   406
+#&gt; 7  1974-06-30   441
+#&gt; 8  1974-07-31   393
+#&gt; 9  1974-08-31   387
+#&gt; 10 1974-09-30   582
+#&gt; 11 1974-10-31   578
+#&gt; 12 1974-11-30   666
+#&gt; 13 1974-12-31   830
+#&gt; 14 1975-01-31   752
+#&gt; 15 1975-02-28   785
+#&gt; 16 1975-03-31   664
+#&gt; 17 1975-04-30   467
+#&gt; 18 1975-05-31   438
+#&gt; 19 1975-06-30   421
+#&gt; 20 1975-07-31   412
+#&gt; 21 1975-08-31   343
+#&gt; 22 1975-09-30   440
+#&gt; 23 1975-10-31   531
+#&gt; 24 1975-11-30   771
+#&gt; 25 1975-12-31   767
+#&gt; 26 1976-01-31  1141
+#&gt; 27 1976-02-29   896
+#&gt; 28 1976-03-31   532
+#&gt; 29 1976-04-30   447
+#&gt; 30 1976-05-31   420
+#&gt; 31 1976-06-30   376
+#&gt; 32 1976-07-31   330
+#&gt; 33 1976-08-31   357
+#&gt; 34 1976-09-30   445
+#&gt; 35 1976-10-31   546
+#&gt; 36 1976-11-30   764
+#&gt; 37 1976-12-31   862
+#&gt; 38 1977-01-31   660
+#&gt; 39 1977-02-28   663
+#&gt; 40 1977-03-31   643
+#&gt; 41 1977-04-30   502
+#&gt; 42 1977-05-31   392
+#&gt; 43 1977-06-30   411
+#&gt; 44 1977-07-31   348
+#&gt; 45 1977-08-31   387
+#&gt; 46 1977-09-30   385
+#&gt; 47 1977-10-31   411
+#&gt; 48 1977-11-30   638
+#&gt; 49 1977-12-31   796
+#&gt; 50 1978-01-31   853
+#&gt; 51 1978-02-28   737
+#&gt; 52 1978-03-31   546
+#&gt; 53 1978-04-30   530
+#&gt; 54 1978-05-31   446
+#&gt; 55 1978-06-30   431
+#&gt; 56 1978-07-31   362
+#&gt; 57 1978-08-31   387
+#&gt; 58 1978-09-30   430
+#&gt; 59 1978-10-31   425
+#&gt; 60 1978-11-30   679
+#&gt; 61 1978-12-31   821
+#&gt; 62 1979-01-31   785
+#&gt; 63 1979-02-28   727
+#&gt; 64 1979-03-31   612
+#&gt; 65 1979-04-30   478
+#&gt; 66 1979-05-31   429
+#&gt; 67 1979-06-30   405
+#&gt; 68 1979-07-31   379
+#&gt; 69 1979-08-31   393
+#&gt; 70 1979-09-30   411
+#&gt; 71 1979-10-31   487
+#&gt; 72 1979-11-30   574</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

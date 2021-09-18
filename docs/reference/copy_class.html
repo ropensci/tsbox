@@ -83,7 +83,7 @@ internally." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -149,7 +149,8 @@ internally.</p>
   <span class='va'>template</span>,
   preserve.mode <span class='op'>=</span> <span class='cn'>TRUE</span>,
   preserve.names <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  preserve.time <span class='op'>=</span> <span class='cn'>FALSE</span>
+  preserve.time <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  preserve.attr <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -182,12 +183,39 @@ internally.</p>
       <td><p>should the values time column be preserved
 (data frame only)</p></td>
     </tr>
+    <tr>
+      <th>preserve.attr</th>
+      <td><p>should the attributes of the value column be preserved
+(data frame only)</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a ts-boxable object of the same class as <code>template</code>,
+i.e., an object of class <code>ts</code>, <code>xts</code>, <code>zoo</code>,
+<code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>, <code>tbl_time</code>, <code>tis</code>, <code>irts</code> or
+<code>timeSeries</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Inspired by <code><a href='https://rdrr.io/pkg/xts/man/as.xts.html'>xts::reclass</a></code>, which does something similar.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>copy_class</span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='fu'><a href='ts_ts.html'>ts_tbl</a></span><span class='op'>(</span><span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 72 × 2</span>
+#&gt;    time       value
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 1974-01-01  <span style='text-decoration: underline;'>2</span>134
+#&gt; <span style='color: #BCBCBC;'> 2</span> 1974-02-01  <span style='text-decoration: underline;'>1</span>863
+#&gt; <span style='color: #BCBCBC;'> 3</span> 1974-03-01  <span style='text-decoration: underline;'>1</span>877
+#&gt; <span style='color: #BCBCBC;'> 4</span> 1974-04-01  <span style='text-decoration: underline;'>1</span>877
+#&gt; <span style='color: #BCBCBC;'> 5</span> 1974-05-01  <span style='text-decoration: underline;'>1</span>492
+#&gt; <span style='color: #BCBCBC;'> 6</span> 1974-06-01  <span style='text-decoration: underline;'>1</span>249
+#&gt; <span style='color: #BCBCBC;'> 7</span> 1974-07-01  <span style='text-decoration: underline;'>1</span>280
+#&gt; <span style='color: #BCBCBC;'> 8</span> 1974-08-01  <span style='text-decoration: underline;'>1</span>131
+#&gt; <span style='color: #BCBCBC;'> 9</span> 1974-09-01  <span style='text-decoration: underline;'>1</span>209
+#&gt; <span style='color: #BCBCBC;'>10</span> 1974-10-01  <span style='text-decoration: underline;'>1</span>492
+#&gt; <span style='color: #949494;'># … with 62 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

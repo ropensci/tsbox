@@ -86,7 +86,7 @@ missing values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -178,8 +178,9 @@ consider these functions, e.g., <a href='https://rdrr.io/r/stats/prcomp.html'>st
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Usually, a ts-boxable time series, with the same class as the input.
-<code>ts_dygraphs</code> draws a plot.</p>
+    <p>a ts-boxable object of the same class as <code>x</code>, i.e., an object of
+class <code>ts</code>, <code>xts</code>, <code>zoo</code>, <code>data.frame</code>, <code>data.table</code>, <code>tbl</code>, <code>tbl_ts</code>,
+<code>tbl_time</code>, <code>tis</code>, <code>irts</code> or <code>timeSeries</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>With the exception of <code>ts_prcomp</code>, these functions depend on external
@@ -203,9 +204,10 @@ to make arbitrary functions ts-boxable.</p></div>
 </div><div class='img'><img src='ts_examples-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ts_plot.html'>ts_plot</a></span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span>
   male <span class='op'>=</span> <span class='va'>mdeaths</span>, female <span class='op'>=</span> <span class='va'>fdeaths</span>,
-  <span class='fu'>ts_forecast</span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span>`male (fct)` <span class='op'>=</span> <span class='va'>mdeaths</span>,  `female (fct)` <span class='op'>=</span> <span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
-  title <span class='op'>=</span> <span class='st'>"Deaths from lung diseases"</span>,
-  subtitle <span class='op'>=</span> <span class='st'>"Exponential smoothing forecast"</span>
+  <span class='fu'>ts_forecast</span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span>`male (fct)` <span class='op'>=</span> <span class='va'>mdeaths</span>, `female (fct)` <span class='op'>=</span> <span class='va'>fdeaths</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>,
+title <span class='op'>=</span> <span class='st'>"Deaths from lung diseases"</span>,
+subtitle <span class='op'>=</span> <span class='st'>"Exponential smoothing forecast"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
 #&gt; <span class='message'>  method            from</span>
@@ -222,9 +224,13 @@ to make arbitrary functions ts-boxable.</p></div>
 <span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>fdeaths</span><span class='op'>)</span>
 <span class='va'>dta</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ts_na_interpolation</span><span class='op'>(</span><span class='va'>dta</span>, option <span class='op'>=</span> <span class='st'>"spline"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; "imputeTS"</div><div class='output co'>#&gt; <span class='error'>Error: Additional packages needed. To install, use:</span>
-#&gt; <span class='error'></span>
-#&gt; <span class='error'>  install.packages("imputeTS")</span></div><div class='input'>
+</div><div class='output co'>#&gt;           mdeaths  fdeaths
+#&gt; Jan 1974 1863.000 689.0000
+#&gt; Feb 1974 1863.000 689.0000
+#&gt; Mar 1974 1886.884 680.7926
+#&gt; Apr 1974 1877.000 677.0000
+#&gt; May 1974 1492.000 522.0000
+#&gt; Jun 1974 1249.000 406.0000</div><div class='input'>
 <span class='fu'>ts_dygraphs</span><span class='op'>(</span><span class='fu'><a href='ts_c.html'>ts_c</a></span><span class='op'>(</span><span class='va'>mdeaths</span>, <span class='va'>EuStockMarkets</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># }</span>
 </div></pre>

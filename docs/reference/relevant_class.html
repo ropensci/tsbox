@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
       </span>
     </div>
 
@@ -155,10 +155,14 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>character, the relevant class of ts-boxable object</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>relevant_class</span><span class='op'>(</span><span class='va'>AirPassengers</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "ts"</div><div class='input'><span class='fu'>relevant_class</span><span class='op'>(</span><span class='fu'><a href='ts_ts.html'>ts_df</a></span><span class='op'>(</span><span class='va'>AirPassengers</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "ts"</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ts_ts.html'>ts_df</a></span><span class='op'>(</span><span class='va'>AirPassengers</span><span class='op'>)</span>
+<span class='fu'>relevant_class</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "data.frame"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
