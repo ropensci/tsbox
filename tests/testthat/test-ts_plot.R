@@ -1,7 +1,12 @@
 test_that("ts_plot works", {
   skip_on_cran()
 
-  # ts_plot(AirPassengers, title = "AirPassengers", subtitle = "Heyhey")
+  tf <- tempfile(fileext = ".pdf")
+  pdf(file = tf)
+  ts_plot(AirPassengers, title = "AirPassengers", subtitle = "Heyhey")
+  dev.off()
+  unlink(tf)
+
   # tf <- tempfile(fileext = ".pdf")
   # ts_save(tf, open = FALSE)
   # expect_true(file.size(tf) > 3000)
