@@ -7,7 +7,32 @@ register_class("ts")
 ts_ts_dts <- function(x, frequency = NULL) {
   stopifnot(inherits(x, "dts"))
 
-  wx <- wide_core(combine_id_cols(ts_regular(x)))
+
+  cx <- combine_id_cols(x)
+
+  # fast check for common regularity (since ts_regular() is slow)
+  # (should we do this in ts_regular())
+  if (inherits(cx$time, "Date")) {
+    if ("id" %in% colnames(cx)) {
+      udays <- unique(cx[, .(d = diff(time)), by = id]$d)
+    } else {
+      udays <- unique(cx[, .(d = diff(time))]$d)
+    }
+
+    is_regular <-  (
+      all(udays %in% c(28:31)) |
+      all(udays %in% c(90:92)) |
+      all(udays %in% c(365:366))
+    )
+  } else {
+    is_regular <- FALSE
+  }
+
+  if (is_regular) {
+    wx <- wide_core(cx)
+  } else {
+    wx <- wide_core(ts_regular(cx))
+  }
 
   if (is.null(frequency)) {
 
