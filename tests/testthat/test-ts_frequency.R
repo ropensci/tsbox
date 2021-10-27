@@ -27,7 +27,13 @@ test_that("ts_frequency works with fancier frequencies", {
 
   skip_on_cran()
 
-  z <- ts_frequency(EuStockMarkets, to = "week", aggregate = "mean", na.rm = TRUE)
+  z <- ts_frequency(
+    EuStockMarkets,
+    to = "week",
+    aggregate = "mean",
+    na.rm = TRUE
+  )
+
   expect_equal(tail(z, 1)[1], 5414.375)
 
   expect_s3_class(
