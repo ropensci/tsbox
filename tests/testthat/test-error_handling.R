@@ -230,7 +230,7 @@ test_that("messages work as expected", {
 
   expect_message(
     z <- ts_dts(x) ,
-    "more than one \\[value\\] column"
+    "Are you using a wide data frame?"
   )
 
   skip_if_not_installed("tsibble")
