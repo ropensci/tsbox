@@ -41,7 +41,7 @@ long_core_multi_id <- function(x) {
   id.names <- setdiff(all.names[1:time.pos], time.name)
   value.names <- setdiff(all.names[time.pos:length(all.names)], time.name)
   if (length(value.names) == 0L) {
-    stop0("no [value] columns detected (columns right of [time] column)")
+    stop0("no [value] columns detected. \n[value] columns must be right of the [time] column.")
   }
   if (length(id.names) > 0) {
     message(

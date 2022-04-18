@@ -258,6 +258,11 @@ test_that("messages work as expected", {
   )
 
   expect_message(
+    ts_dts(wl[, c(1, 3, 4, 2)]),
+    "Are you using a wide data frame?"
+  )
+
+  expect_message(
     ts_trend(irreg1[1:4,]),
     "o trend estimation for series with less than 7 obs."
   )
