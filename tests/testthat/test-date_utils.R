@@ -6,7 +6,7 @@ test_that("time_shift is working", {
   x <- ts_tbl(ts_c(mdeaths, fdeaths))
   expect_equal(x$time, tsbox:::time_shift(x$time))
 
-  x1 <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
+  x1 <- ts_tbl(ts_c(mdeaths, fdeaths)) |>
     mutate(time = tsbox:::time_shift(time, by = "month"))
   xlag <- ts_lag(x)
 

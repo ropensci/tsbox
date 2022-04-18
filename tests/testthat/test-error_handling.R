@@ -79,7 +79,7 @@ test_that("errors work as expected", {
   )
 
 
-  x <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
+  x <- ts_tbl(ts_c(mdeaths, fdeaths)) |>
     tidyr::nest(data = c(time, value))
   expect_error(
     ts_dts(x),
@@ -174,7 +174,7 @@ test_that("errors work as expected", {
     "'base' must be of length 1 or 2, or NULL"
   )
 
-  w <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) %>%
+  w <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) |>
     select(mdeaths, fdeaths, time)
   expect_error(
     ts_long(w),
@@ -248,9 +248,9 @@ test_that("messages work as expected", {
     "series is not regular, 'na.rm' is set to TRUE."
   )
 
-  wl <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) %>%
-    tidyr::crossing(id = c("A", "B")) %>%
-    relocate(id, 1) %>%
+  wl <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) |>
+    tidyr::crossing(id = c("A", "B")) |>
+    relocate(id, 1) |>
     arrange(id, time)
   expect_message(
     ts_long(wl),
