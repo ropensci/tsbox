@@ -208,6 +208,110 @@ columns points to a time series.
 `time` and `value`. If explicit names are used, the column order will be
 ignored. If column are detected automatically, a message is returned.
 
+For example, the following data frame has the standard structure is understood by
+tsbox:
+
+```r
+dta <-
+  dplyr::tribble(
+    ~series_name, ~time,        ~value,
+    "ser1",       "2001-01-01",  1,
+    "ser1",       "2002-01-01",  2,
+    "ser2",       "2001-01-01",  10,
+    "ser2",       "2002-01-01",  20,
+  )
+ts_ts(dta)
+# Time Series:
+# Start = 2001
+# End = 2002
+# Frequency = 1
+#      ser1 ser2
+# 2001    1   10
+# 2002    2   20
+```
+
+If time and value columns have different names than `time` and `value`, it still
+works but returns a message:
+
+```r
+dta |>
+  dplyr::rename(
+    mytime = time,
+    myvalue = value
+  ) |>
+  ts_ts()
+# [time]: 'mytime' [value]: 'myvalue'
+# Time Series:
+# Start = 2001
+# End = 2002
+# Frequency = 1
+#      ser1 ser2
+# 2001    1   10
+# 2002    2   20
+```
+
+We can also use multiple id columns.
+When converted into a `ts` object, multiple columns are combined into a single value:
+
+```r
+dta_multi_id <-
+  dplyr::tribble(
+    ~series_name, ~series_attribute,  ~time,        ~value,
+    "ser1",       "A",                  "2001-01-01",  1.5,
+    "ser1",       "A",                  "2002-01-01",  2.5,
+    "ser2",       "A",                  "2001-01-01",  10.5,
+    "ser2",       "A",                  "2002-01-01",  20.5,
+    "ser1",       "B",                  "2001-01-01",  1,
+    "ser1",       "B",                  "2002-01-01",  2,
+    "ser2",       "B",                  "2001-01-01",  10,
+    "ser2",       "B",                  "2002-01-01",  20
+  )
+ts_ts(dta_multi_id)
+# Time Series:
+# Start = 2001
+# End = 2002
+# Frequency = 1
+#      ser1_A ser2_A ser1_B ser2_B
+# 2001    1.5   10.5      1     10
+# 2002    2.5   20.5      2     20
+```
+
+Data frames must be in a long format, with a single value columns
+only.
+
+```r
+dta_wide <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths)))
+# # A tibble: 72 × 3
+#    time       mdeaths fdeaths
+#    <date>       <dbl>   <dbl>
+#  1 1974-01-01    2134     901
+#  2 1974-02-01    1863     689
+#  3 1974-03-01    1877     827
+#  4 1974-04-01    1877     677
+#  5 1974-05-01    1492     522
+#  6 1974-06-01    1249     406
+#  7 1974-07-01    1280     441
+#  8 1974-08-01    1131     393
+#  9 1974-09-01    1209     387
+# 10 1974-10-01    1492     582
+# # … with 62 more rows
+```
+
+tsbox tries to detect wide structures and warns if they occur:
+
+```r
+ts_ts(dta_wide)
+# Using numeric [id] columns: 'mdeaths'.
+# Are you using a wide data frame? To convert, use 'ts_long()'.
+# Convert columns to character or factor to silence this message.
+```
+
+If data frames are in a wide format, `ts_long()` can be used for
+conversion.
+
+```r
+ts_long(dta_wide)
+```
 
 ## Using tsbox in a dplyr / pipe workflow
 
