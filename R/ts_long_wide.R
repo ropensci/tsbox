@@ -45,7 +45,7 @@ long_core_multi_id <- function(x) {
   }
   if (length(id.names) > 0) {
     message(
-      "[id] columns left of [time] column: ",
+      "found additional [id] columns left of [time] column: ",
       paste(paste0("'", id.names, "'"), collapse = ", ")
     )
     id.vars <- c(id.names, time.name)
