@@ -22,7 +22,7 @@ tsbox is built around a set of converters, which convert time series stored as
 **ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**, **tsibble**, **tibbletime** or **timeSeries** to each other.
 Because this works reliably, we can easily write
 functions that work for all classes. So whether we want to smooth, scale,
-differentiate, chain, forecast, regularize or seasonally adjust a time series,
+differentiate, chain, forecast, regularize, or seasonally adjust a time series,
 we can use the same commands to whatever time series class at hand. And, most
 conveniently, we get a time series plot function that works for all classes and
 frequencies.
@@ -58,15 +58,15 @@ x.timeSeries <- ts_timeSeries(x.tibbletime)
 all.equal(ts_ts(x.timeSeries), x.ts)  # TRUE
 ```
 
-## Use same functions for all time series classes
+## Use the same functions for all time series classes
 
 tsbox provides a basic toolkit for handling time series. These functions start
-with `ts_`, so you use them with auto complete (press Tab). These functions work
+with `ts_`, so you use them with auto-complete (press Tab). These functions work
 with any *ts-boxable* time series, ts, xts, data.frame, data.table tibble, zoo, tsibble or timeSeries and **return the class of their inputs**.
 
 For example, the `ts_scale` function performs *normalization* - it subtracts the
 mean and divides by the standard deviation of series. Like almost all ts-
-functions, it can be used with on any ts-boxable object, with single or multiple
+functions, it can be used on any ts-boxable object, with single or multiple
 time series. Because `ts_scale` normalizes time series, it is useful to make
 different time series comparable. All of the following operations perform the
 same task, but return the same object class as the input:
@@ -89,7 +89,7 @@ indices, both from levels and percentage change rates: `ts_index` and
 ## Combine multiple time series
 
 A set of helper functions makes it easy to combine multiple time series, even if
-their classes are different. The basic workhorse is `ts_c`, which simply collect
+their classes are different. The basic workhorse is `ts_c`, which collects
 time series. Again, this works with single or multiple series of any ts-boxable
 class:
 
@@ -104,7 +104,7 @@ If you want to choose a different name for single series, name the arguments:
 ts_c(ts_dt(EuStockMarkets), `Airline Passengers` = AirPassengers)
 ```
 
-Multiple series can be also combined to a single series:
+Multiple series can also be combined into a single series:
 
 ```r
 ts_bind(ts_xts(mdeaths), AirPassengers)
@@ -137,7 +137,7 @@ ts_frequency(ts_c(AirPassengers, austres), "year", sum)
 ```
 
 We already met `ts_span`, which can be used to limit the time span of a
-series. `ts_regular` makes irregular time series regular, by turning implicit
+series. `ts_regular` makes irregular time series regular by turning implicit
 missing values into explicit `NA`s.
 
 ## And plot just about everything
@@ -183,8 +183,7 @@ ts_summary(ts_c(mdeaths, austres, AirPassengers))
 ## Time series in data frames
 
 Thanks to packages such as `data.table` and `dplyr`, data frames have become the
-dominant data structure in R, and storing time series in a data frame is a
-natural consequence from this. And even if you don't intend to keep your time
+dominant data structure in R, and storing time series in a data frame is the natural consequence. And even if you don't intend to keep your time
 series in data frames, this is the format in which you import and export the
 data.
 
@@ -196,17 +195,17 @@ done in the following order:
 1. Starting **on the right**, the first first `numeric` or `integer` column is
 used as **value column**.
 
-1. Using the remaining columns, and starting on the right again, the first
+1. Using the remaining columns and starting on the right again, the first
 `Date`, `POSIXct`, `numeric` or `character` column is used as **time column**.
 `character` strings are parsed by `anytime::anytime()`.
-The time stamp, `time`, indicates the beginning of a period.
+The timestamp, `time`, indicates the beginning of a period.
 
 1. **All remaining** columns are **id columns**. Each unique combination of id
 columns points to a time series.
 
 **Alternatively**, the time column and the value column to be **explicitly named** as
 `time` and `value`. If explicit names are used, the column order will be
-ignored. If column are detected automatically, a message is returned.
+ignored. If columns are detected automatically, a message is returned.
 
 For example, the following data frame has the standard structure is understood by
 tsbox:
@@ -329,6 +328,5 @@ dta %>%
   filter(id == "temp") %>%
   ts_trend() %>%
   ts_plot()
-
 ```
 
