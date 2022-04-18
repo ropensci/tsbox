@@ -30,6 +30,7 @@
 ts_na_omit <- function(x) {
   value <- NULL
   z <- ts_dts(x)
+  if (inherits(x, "dts")) z <- copy(z)
   cname <- dts_cname(z)
   cvalue <- cname$value
   setnames(z, cvalue, "value")
