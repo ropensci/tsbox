@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1.9002</span>
       </span>
     </div>
 
@@ -50,7 +52,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Advanced
      
     <span class="caret"></span>
@@ -70,7 +72,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/christophsax/tsbox">
+  <a href="https://github.com/christophsax/tsbox" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -85,22 +87,22 @@
 
       
 
-      </header><script src="ts-functions_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>User defined ts-functions</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/christophsax/tsbox/blob/master/vignettes/ts-functions.Rmd"><code>vignettes/ts-functions.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/christophsax/tsbox/blob/HEAD/vignettes/ts-functions.Rmd" class="external-link"><code>vignettes/ts-functions.Rmd</code></a></small>
       <div class="hidden name"><code>ts-functions.Rmd</code></div>
 
     </div>
 
     
     
-<div id="writing-ts-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#writing-ts-functions" class="anchor"></a>Writing ts-functions</h2>
+<div class="section level2">
+<h2 id="writing-ts-functions">Writing ts-functions<a class="anchor" aria-label="anchor" href="#writing-ts-functions"></a>
+</h2>
 <p>It is straightforward to turn existing functions into functions that can deal with any ts-boxable object.</p>
 <p>The <code>ts_</code> function is a constructor function for tsbox time series functions. It can be used to wrap any function that works with time series. The default is set to R base <code>"ts"</code> class, so wrapping functions for <code>"ts"</code> time series (or vectors or matrices) is as simple as:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -120,23 +122,23 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ts_rowsums</span><span class="op">(</span><span class="fu"><a href="../reference/ts_c.html">ts_c</a></span><span class="op">(</span><span class="va">mdeaths</span>, <span class="va">fdeaths</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="functions-from-external-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#functions-from-external-packages" class="anchor"></a>Functions from external packages</h2>
+<div class="section level2">
+<h2 id="functions-from-external-packages">Functions from external packages<a class="anchor" aria-label="anchor" href="#functions-from-external-packages"></a>
+</h2>
 <p>Here is a slightly more complex example, which uses a post processing function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ts_prcomp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_.html">ts_</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">x</span>, scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">ts_prcomp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_.html">ts_</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html" class="external-link">prcomp</a></span><span class="op">(</span><span class="va">x</span>, scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ts_examples.html">ts_prcomp</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_c.html">ts_c</a></span><span class="op">(</span><span class="va">mdeaths</span>, <span class="va">fdeaths</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>It is easy to make functions from external packages ts-boxable, by wrapping them into <code>ts_</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ts_dygraphs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_.html">ts_</a></span><span class="op">(</span><span class="fu">dygraphs</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/dygraphs/man/dygraph.html">dygraph</a></span>, class <span class="op">=</span> <span class="st">"xts"</span><span class="op">)</span>
-<span class="va">ts_forecast</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_.html">ts_</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/forecast.html">forecast</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">$</span><span class="va">mean</span>, vectorize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">ts_seas</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_.html">ts_</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="fu">seasonal</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/seasonal/man/final.html">final</a></span><span class="op">(</span><span class="fu">seasonal</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/seasonal/man/seas.html">seas</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span>, vectorize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">ts_dygraphs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_.html">ts_</a></span><span class="op">(</span><span class="fu">dygraphs</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/dygraphs/man/dygraph.html" class="external-link">dygraph</a></span>, class <span class="op">=</span> <span class="st">"xts"</span><span class="op">)</span>
+<span class="va">ts_forecast</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_.html">ts_</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/forecast.html" class="external-link">forecast</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">$</span><span class="va">mean</span>, vectorize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">ts_seas</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_.html">ts_</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="fu">seasonal</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/seasonal/man/final.html" class="external-link">final</a></span><span class="op">(</span><span class="fu">seasonal</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/seasonal/man/seas.html" class="external-link">seas</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span>, vectorize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/ts_examples.html">ts_dygraphs</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_c.html">ts_c</a></span><span class="op">(</span><span class="va">mdeaths</span>, <span class="va">EuStockMarkets</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ts_examples.html">ts_forecast</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_c.html">ts_c</a></span><span class="op">(</span><span class="va">mdeaths</span>, <span class="va">fdeaths</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ts_examples.html">ts_seas</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_c.html">ts_c</a></span><span class="op">(</span><span class="va">mdeaths</span>, <span class="va">fdeaths</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>If you are explicit about the namespace (e.g., <code><a href="https://rdrr.io/pkg/dygraphs/man/dygraph.html">dygraphs::dygraph</a></code>), <code>ts_</code> recognized the package in use and delivers a meaningful message if the package is not installed.</p>
+<p>If you are explicit about the namespace (e.g., <code><a href="https://rdrr.io/pkg/dygraphs/man/dygraph.html" class="external-link">dygraphs::dygraph</a></code>), <code>ts_</code> recognized the package in use and delivers a meaningful message if the package is not installed.</p>
 <p>Note that the <code>ts_</code> function deals with the conversion stuff, ‘vectorizes’ the function so that it can be used with multiple time series.</p>
 <p>Let’ have another look at <code>ts_forecast</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -167,11 +169,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Christoph Sax.</p>
+  <p></p>
+<p>Developed by Christoph Sax.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -179,6 +183,8 @@
 
   
 
+
+  
 
   </body>
 </html>

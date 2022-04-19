@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tsbox</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1.9002</span>
       </span>
     </div>
 
@@ -50,7 +52,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Advanced
      
     <span class="caret"></span>
@@ -70,7 +72,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/christophsax/tsbox">
+  <a href="https://github.com/christophsax/tsbox" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -85,13 +87,13 @@
 
       
 
-      </header><script src="convert_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Time conversion and regularization</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/christophsax/tsbox/blob/master/vignettes/convert.Rmd"><code>vignettes/convert.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/christophsax/tsbox/blob/HEAD/vignettes/convert.Rmd" class="external-link"><code>vignettes/convert.Rmd</code></a></small>
       <div class="hidden name"><code>convert.Rmd</code></div>
 
     </div>
@@ -101,9 +103,9 @@
 <p>tsbox relies on a set of converters to convert time series stored as <strong>ts</strong>, <strong>xts</strong>, <strong>data.frame</strong>, <strong>data.table</strong>, <strong>tibble</strong>, <strong>zoo</strong>, <strong>tsibble</strong>, <strong>tibbletime</strong> or <strong>timeSeries</strong> to each other. This vignette describes some background on two particular challenges, the conversion of <em>equispaced points in time</em> to <em>actual dates or times</em>, and the <em>regularization of irregular time sequences</em>.</p>
 <p>The classic way of storing time series in R in <code>"ts"</code> objects. These are simple vectors with an attribute that describes the beginning of the series, the (redundant) end, and the frequency. Thus, a monthly series, e.g., <code>AirPassengers</code>, is defined as a numeric vector that starts in 1949, with frequency 1. Thus, months are thought of as equispaced periods with a length of exactly 1/12 of a year.</p>
 <p>For most time series, this is not what is meant. The second period of <code>AirPassengers</code>, February 1949, is actually shorter than the first one, but this is not reflected in the <code>"ts"</code> object. When converting to classes with actual time stamps, tsbox tries to correct it by using <strong>heuristic</strong>, rather than <strong>exact</strong> time conversion if possible.</p>
-<div id="heuristic-time-conversion" class="section level2">
-<h2 class="hasAnchor">
-<a href="#heuristic-time-conversion" class="anchor"></a>Heuristic time conversion</h2>
+<div class="section level2">
+<h2 id="heuristic-time-conversion">Heuristic time conversion<a class="anchor" aria-label="anchor" href="#heuristic-time-conversion"></a>
+</h2>
 <p>Whenever possible, tsbox relies on <strong>heuristic time conversion</strong>. When a monthly <code>"ts"</code> time series, e.g., <code>AirPassengers</code>, is converted to a data frame, each time stamp (of class <code>"Date"</code>) indicates the first day of the month. Heuristic conversion is done for the following frequencies:</p>
 <table class="table">
 <thead><tr class="header">
@@ -164,7 +166,7 @@
 </table>
 <p>For example, converting <code>AirPassengers</code> to a data frame returns:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_df</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_df</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;         time value</span>
 <span class="co">#&gt; 1 1949-01-01   112</span>
 <span class="co">#&gt; 2 1949-02-01   118</span>
@@ -174,15 +176,15 @@
 <span class="co">#&gt; 6 1949-06-01   135</span></code></pre></div>
 <p>Heuristic conversion works both ways, so we can get back to the original <code>"ts"</code> object:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/all.equal.data.table.html">all.equal</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_ts</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_df</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span>, <span class="va">AirPassengers</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/all.equal.data.table.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_ts</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_df</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span>, <span class="va">AirPassengers</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
-<div id="exact-time-conversion" class="section level2">
-<h2 class="hasAnchor">
-<a href="#exact-time-conversion" class="anchor"></a>Exact time conversion</h2>
+<div class="section level2">
+<h2 id="exact-time-conversion">Exact time conversion<a class="anchor" aria-label="anchor" href="#exact-time-conversion"></a>
+</h2>
 <p>For non standard frequencies, e.g. 260, of <code>EuStockMarkets</code>, tsbox uses <strong>exact time conversion</strong>. The year is divided into 260 equispaced units, each somewhat longer than a day. The time stamp of a period will be an exact point in time (of class <code>"POSIXct"</code>).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_df</a></span><span class="op">(</span><span class="va">EuStockMarkets</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_df</a></span><span class="op">(</span><span class="va">EuStockMarkets</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;    id                time   value</span>
 <span class="co">#&gt; 1 DAX 1991-07-01 03:18:27 1628.75</span>
 <span class="co">#&gt; 2 DAX 1991-07-02 13:01:32 1613.63</span>
@@ -193,20 +195,20 @@
 <p>Higher frequencies, such as days, hours, minutes or seconds, are naturally equispaced, and exact time conversion is used as well.</p>
 <p>Exact time conversion is generally reversible:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/all.equal.data.table.html">all.equal</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_ts</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_df</a></span><span class="op">(</span><span class="va">EuStockMarkets</span><span class="op">)</span><span class="op">)</span>, <span class="va">EuStockMarkets</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/all.equal.data.table.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_ts</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_ts.html">ts_df</a></span><span class="op">(</span><span class="va">EuStockMarkets</span><span class="op">)</span><span class="op">)</span>, <span class="va">EuStockMarkets</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>However, for high frequencies, rounding errors can lead to unavoidable small differences when going from data frame to <code>"ts"</code> and back.</p>
 <p>Conversion does not work reliably if the frequency higher than one second. For these ultra high frequencies, tsbox is not tested and may not work as expected.</p>
 </div>
-<div id="regularization" class="section level2">
-<h2 class="hasAnchor">
-<a href="#regularization" class="anchor"></a>Regularization</h2>
+<div class="section level2">
+<h2 id="regularization">Regularization<a class="anchor" aria-label="anchor" href="#regularization"></a>
+</h2>
 <p>In data frames or <code>"xts"</code> objects, missing values are generally omitted. These omitted missing values are called implicit, as opposite to explicit <code>NA</code> values. The function <code>ts_regular</code> allows the user to <em>regularize</em> a series, by making implicit missing values explicit.</p>
 <p>When regularizing, <code>ts_regular</code> analyzes the differences in the time stamp for known frequencies. If it detects any, it builds a regular sequence based on the highest known frequency, and tries to match the time stamps to the regular series. The result is a data frame or <code>"xts"</code> object with explicit missing values. Regularization is automatically done when an object is converted to a <code>"ts"</code> object.</p>
 <p>For example, the following time series contains an implicit <code>NA</code> value in February 1974:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ts_ts.html">ts_df</a></span><span class="op">(</span><span class="va">fdeaths</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">2</span>,<span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="co">#&gt;         time value</span>
 <span class="co">#&gt; 1 1974-01-01   901</span>
 <span class="co">#&gt; 3 1974-03-01   827</span>
@@ -216,7 +218,7 @@
 <span class="co">#&gt; 7 1974-07-01   441</span></code></pre></div>
 <p><code>ts_regular</code> can be used to turn it into a explicit <code>NA</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_regular.html">ts_regular</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ts_regular.html">ts_regular</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;         time value</span>
 <span class="co">#&gt; 1 1974-01-01   901</span>
 <span class="co">#&gt; 2 1974-02-01    NA</span>
@@ -332,11 +334,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Christoph Sax.</p>
+  <p></p>
+<p>Developed by Christoph Sax.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -344,6 +348,8 @@
 
   
 
+
+  
 
   </body>
 </html>
