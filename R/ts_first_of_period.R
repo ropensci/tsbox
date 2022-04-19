@@ -45,7 +45,11 @@ dts_first_of_period <- function(x) {
       )
   }
 
-  if (inherits(start, "POSIXct")) end <- as.POSIXct(end)
+  if (inherits(start, "POSIXct")) {
+    end <- as.POSIXct(end)
+    # make sure time is covered even if UTC start is in previous year
+    start <- start - 3600 * 24
+  }
   time <- seq(start, end, by = smry$diff)
   time_ad <- time[(max(which(time <= smry$start)):min(which(time >= smry$end)))]
   time.tmpl <- data.table(time = time_ad)

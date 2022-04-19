@@ -21,3 +21,12 @@ test_that("ts_first_of_period works", {
 
   expect_true(all(as.integer(ans$time) %% 10 == 0))
 })
+
+
+test_that("ts_first_of_period works with POSIXct #210", {
+  x <- ts_lag(data.frame(
+    time = seq(as.POSIXct("1970-01-01"), length.out = 10, by = "10 sec"),
+    value = rnorm(10)
+  ), "3 sec")
+  expect_true(nrow(ts_first_of_period(x)) == 10)
+})
