@@ -1,6 +1,6 @@
 #' @importFrom data.table ":=" "data.table" "setcolorder" "as.data.table"
 #' @importFrom data.table "setattr" "setnames" "rbindlist" "tstrsplit" "copy"
-#' @importFrom data.table "dcast" "melt" "setkey" "setkeyv" "setorder"
+#' @importFrom data.table "dcast" "melt" "setkey" "setkeyv" "setorder" "shift"
 NULL
 
 

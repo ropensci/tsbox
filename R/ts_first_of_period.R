@@ -51,7 +51,16 @@ dts_first_of_period <- function(x) {
   time.tmpl <- data.table(time = time_ad)
   x1 <- x[, list(time, value)]
   x1[, has.value := TRUE]
-  z <- x1[time.tmpl, roll = -Inf, on = "time"][has.value == TRUE]
+  x1[, time.orig := time]
+
+  # next observation carried backward (NOCB)
+  z <- x1[time.tmpl, roll = -Inf, on = "time"]
+
+  # remove observations that are carried backward more than 1 times
+  z <- z[time.orig < shift(time, n = -1)][has.value == TRUE]
+
   z[, has.value := NULL]
+  z[, time.orig := NULL]
+
   z
 }
