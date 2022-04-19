@@ -40,12 +40,28 @@ long_core_multi_id <- function(x) {
   time.pos <- which(all.names == time.name)
   id.names <- setdiff(all.names[1:time.pos], time.name)
   value.names <- setdiff(all.names[time.pos:length(all.names)], time.name)
+
+  # character cols or factors should be considered ids, with message
+  value.classes <- vapply(x[, value.names, with = FALSE], class, "")
+  value.names.that.are.ids <- names(value.classes)[value.classes %in% c("character", "factor")]
+
+  if (length(value.names.that.are.ids) > 0) {
+    message(
+      "found columns right to the [time] column that will be treated as [id] ",
+      "columns (character or factor): ",
+      paste_quoted(value.names.that.are.ids),
+      "."
+    )
+    value.names <- setdiff(value.names, value.names.that.are.ids)
+    id.names <- union(id.names, value.names.that.are.ids)
+  }
+
   if (length(value.names) == 0L) {
     stop0("no [value] columns detected. \n[value] columns must be right of the [time] column.")
   }
   if (length(id.names) > 0) {
     message(
-      "found additional [id] columns left of [time] column: ",
+      "Additional [id] columns: ",
       paste(paste0("'", id.names, "'"), collapse = ", ")
     )
     id.vars <- c(id.names, time.name)

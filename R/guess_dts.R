@@ -55,7 +55,7 @@ guess_cname <- function(x) {
     numeric.id.cols <- sapply(x[, non_value_cols, with = FALSE], is.numeric)
     if (sum(numeric.id.cols) > 0) {
       message(
-        "Using numeric [id] columns: ",
+        "Found numeric [id] columns: ",
         paste_quoted(names(numeric.id.cols)[numeric.id.cols]),
         ".\nAre you using a wide data frame? To convert, use 'ts_long()'.",
         "\nConvert columns to character or factor to silence this message.\n"
