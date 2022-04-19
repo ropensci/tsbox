@@ -9,6 +9,7 @@
 
 - ts_long() works with on a wider set of data frames
 - ts_plot() works better when applied on non-standard data frame
+- ts_first_of_period works with POSIXct fix #210
 
 ## Documentation
 
