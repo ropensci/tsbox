@@ -57,11 +57,11 @@ long_core_multi_id <- function(x) {
   }
 
   if (length(value.names) == 0L) {
-    stop0("no [value] columns detected. \n[value] columns must be right of the [time] column.")
+    stop0("no [value] column(s) detected. \n[value] column(s) must be right of the [time] column.")
   }
   if (length(id.names) > 0) {
     message(
-      "Additional [id] columns: ",
+      "Additional [id] column(s): ",
       paste(paste0("'", id.names, "'"), collapse = ", ")
     )
     id.vars <- c(id.names, time.name)

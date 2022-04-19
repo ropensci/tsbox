@@ -254,7 +254,7 @@ test_that("messages work as expected", {
     arrange(id, time)
   expect_message(
     ts_long(wl),
-    "\\[id\\] columns left of \\[time\\] column"
+    "Additional \\[id\\] column"
   )
 
   expect_message(
