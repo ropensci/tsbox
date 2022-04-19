@@ -45,13 +45,26 @@ dts_first_of_period <- function(x) {
       )
   }
 
-  if (inherits(start, "POSIXct")) end <- as.POSIXct(end)
+  if (inherits(start, "POSIXct")) {
+    end <- as.POSIXct(end)
+    # make sure time is covered even if UTC start is in previous year
+    start <- start - 3600 * 24
+  }
   time <- seq(start, end, by = smry$diff)
   time_ad <- time[(max(which(time <= smry$start)):min(which(time >= smry$end)))]
   time.tmpl <- data.table(time = time_ad)
   x1 <- x[, list(time, value)]
   x1[, has.value := TRUE]
-  z <- x1[time.tmpl, roll = -1, on = "time"][has.value == TRUE]
+  x1[, time.orig := time]
+
+  # next observation carried backward (NOCB)
+  z <- x1[time.tmpl, roll = -Inf, on = "time"]
+
+  # remove observations that are carried backward more than 1 times
+  z <- z[time.orig < shift(time, n = -1)][has.value == TRUE]
+
   z[, has.value := NULL]
+  z[, time.orig := NULL]
+
   z
 }

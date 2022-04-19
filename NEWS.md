@@ -1,6 +1,19 @@
-# tsbox 0.3.1.9001
+# tsbox 0.3.1.9002
+
+## Features
 
 - Comply with rOpenSci Standards
+- Better test coverage
+
+## Bug fixes
+
+- ts_long() works with on a wider set of data frames
+- ts_plot() works better when applied on non-standard data frame
+- ts_first_of_period works with POSIXct fix #210
+
+## Documentation
+
+- better error messages when data is non-standard
 
 
 # tsbox 0.3.1 (2021-09-16)

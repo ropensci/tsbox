@@ -79,7 +79,7 @@ test_that("errors work as expected", {
   )
 
 
-  x <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
+  x <- ts_tbl(ts_c(mdeaths, fdeaths)) |>
     tidyr::nest(data = c(time, value))
   expect_error(
     ts_dts(x),
@@ -174,11 +174,11 @@ test_that("errors work as expected", {
     "'base' must be of length 1 or 2, or NULL"
   )
 
-  w <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) %>%
+  w <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) |>
     select(mdeaths, fdeaths, time)
   expect_error(
     ts_long(w),
-    "no \\[value\\] columns detected"
+    "no \\[value\\] column"
   )
 
 
@@ -230,7 +230,7 @@ test_that("messages work as expected", {
 
   expect_message(
     z <- ts_dts(x) ,
-    "more than one \\[value\\] column"
+    "Are you using a wide data frame?"
   )
 
   skip_if_not_installed("tsibble")
@@ -248,13 +248,18 @@ test_that("messages work as expected", {
     "series is not regular, 'na.rm' is set to TRUE."
   )
 
-  wl <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) %>%
-    tidyr::crossing(id = c("A", "B")) %>%
-    relocate(id, 1) %>%
+  wl <- ts_wide(ts_tbl(ts_c(mdeaths, fdeaths))) |>
+    tidyr::crossing(id = c("A", "B")) |>
+    relocate(id, 1) |>
     arrange(id, time)
   expect_message(
     ts_long(wl),
-    "\\[id\\] columns left of \\[time\\] column"
+    "Additional \\[id\\] column"
+  )
+
+  expect_message(
+    ts_dts(wl[, c(1, 3, 4, 2)]),
+    "Are you using a wide data frame?"
   )
 
   expect_message(

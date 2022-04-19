@@ -10,7 +10,7 @@ library(units)
 test_that("tsbox works with units", {
 
   x <-
-    ts_tbl(ts_c(mdeaths, fdeaths)) %>%
+    ts_tbl(ts_c(mdeaths, fdeaths)) |>
     mutate(value = set_units(value, m))
 
   z <- ts_pick(x, "fdeaths")

@@ -50,18 +50,16 @@ guess_cname <- function(x) {
   }
   if (value.name != "value") {
     msg <- paste0(msg, "[value]: '", value.name, "' ")
-    # check if data frame is incidentally wide
-    cnames <- colnames(x)
-    idx.time <- which(cnames == time.name)
-    if ((length(cnames) - idx.time) > 1) {
-      cols.r.of.time <- cnames[(idx.time + 1):length(cnames)]
-      value.cols <- vapply(x[, cols.r.of.time, with = FALSE], is_value, TRUE)
-      if (sum(value.cols) > 1) {
-        message(
-          "more than one [value] column detected after [time] - using the outermost.\n",
-          "Are you using a wide data frame? To convert, use 'ts_long()'.\n"
-        )
-      }
+    # check if data frame is incidentally wide (numeric id columns)
+    non_value_cols <- setdiff(colnames(x), value.name)
+    numeric.id.cols <- sapply(x[, non_value_cols, with = FALSE], is.numeric)
+    if (sum(numeric.id.cols) > 0) {
+      message(
+        "Found numeric [id] column(s): ",
+        paste_quoted(names(numeric.id.cols)[numeric.id.cols]),
+        ".\nAre you using a wide data frame? To convert, use 'ts_long()'.",
+        "\nConvert column(s) to character or factor to silence this message.\n"
+      )
     }
   }
 

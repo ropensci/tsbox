@@ -126,7 +126,7 @@ test_that("Processing of badly shaped data works as expected", {
 
   expect_message(
     z <- ts_dts(x) ,
-   "more than one"
+   "Are you using a wide data frame?"
   )
 
   expect_error(ts_first_of_period(x), "at least two observations")

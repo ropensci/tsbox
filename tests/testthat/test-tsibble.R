@@ -30,10 +30,10 @@ test_that("tsibble back-conversion works properly", {
   skip_if_not_installed("tsibble")
   library(tsibble)
 
-  weather <- nycflights13::weather %>%
+  weather <- nycflights13::weather |>
     select(origin, time_hour, temp, humid, precip)
   weather_tsbl <- as_tsibble(weather, key = origin, index = time_hour)
-  ans <- weather_tsbl %>%
+  ans <- weather_tsbl |>
     ts_default()
   expect_s3_class(ans, "tbl_ts")
 })

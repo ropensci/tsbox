@@ -3,6 +3,11 @@ stop0 <- function(...) {
   stop(..., call. = FALSE)
 }
 
+paste_quoted <- function(x) {
+  paste(paste0("'", x,  "'"), collapse = ", ")
+}
+
+
 
 #' Error Check Functions
 #'
