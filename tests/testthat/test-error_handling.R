@@ -178,7 +178,7 @@ test_that("errors work as expected", {
     select(mdeaths, fdeaths, time)
   expect_error(
     ts_long(w),
-    "no \\[value\\] columns detected"
+    "no \\[value\\] column"
   )
 
 
