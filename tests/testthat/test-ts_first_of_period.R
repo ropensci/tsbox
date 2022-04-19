@@ -7,6 +7,7 @@ test_that("ts_first_of_period works", {
   )
   ans <- ts_first_of_period(x)
   expect_true(all(data.table::mday(ans$time) == 1))
+  expect_identical(nrow(ans), nrow(x))
 
   ans <- ts_first_of_period(ts_lag(ts_df(austres), "14 days"))
   expect_true(all(data.table::mday(ans$time) == 1))
@@ -16,6 +17,7 @@ test_that("ts_first_of_period works", {
     value = rnorm(10)
   ), "3 sec")
   ans <- ts_first_of_period(x)
+  expect_identical(nrow(ans), nrow(x))
 
   expect_true(all(as.integer(ans$time) %% 10 == 0))
 })

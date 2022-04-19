@@ -51,7 +51,7 @@ dts_first_of_period <- function(x) {
   time.tmpl <- data.table(time = time_ad)
   x1 <- x[, list(time, value)]
   x1[, has.value := TRUE]
-  z <- x1[time.tmpl, roll = -1, on = "time"][has.value == TRUE]
+  z <- x1[time.tmpl, roll = -Inf, on = "time"][has.value == TRUE]
   z[, has.value := NULL]
   z
 }
