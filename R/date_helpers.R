@@ -24,7 +24,7 @@ as_time_or_date <- function(x) {
 #' @param x Date or POSIXct
 #' @noRd
 regularize_date <- function(x) {
-  stopifnot(class(x)[1] %in% c("POSIXct", "Date"))
+  stopifnot(inherits(x,c("POSIXct", "Date")))
 
   N <- NULL
   freq <- NULL
@@ -81,7 +81,7 @@ regularize_date <- function(x) {
 #' @param x Date or POSIXct
 #' @noRd
 regularize_non_heuristic <- function(x) {
-  stopifnot(class(x)[1] %in% c("POSIXct", "Date"))
+  stopifnot(inherits(x,c("POSIXct", "Date")))
 
   x.num <- as.numeric(x)
   dd <- unique(round(diff(x.num), 5))
