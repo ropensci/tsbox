@@ -6,8 +6,8 @@ test_that("minimal example works", {
 
   library(dplyr)
   library(nycflights13)
-  dta <- weather |>
-    select(origin, time = time_hour, temp, humid, precip) |>
+  dta <- weather %>%
+    select(origin, time = time_hour, temp, humid, precip) %>%
     ts_long()
 
   expect_s3_class(dta, "tbl_df")

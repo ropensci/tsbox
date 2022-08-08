@@ -26,8 +26,8 @@ test_that("ts_index works with multi ids", {
   x <- bind_rows(
     mutate(ts_tbl(ts_c(fdeaths, mdeaths)), id2 = "one"),
     mutate(ts_tbl(ts_c(fdeaths, mdeaths)), id2 = "two")
-  ) |>
-    ts_df() |>
+  ) %>%
+    ts_df() %>%
     ts_tbl()
 
   expect_equal(

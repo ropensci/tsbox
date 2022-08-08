@@ -66,7 +66,7 @@ test_that("examples from README.md work properly", {
   library(dplyr)
   library(tsbox)
 
-  ts_tbl(ts_c(mdeaths, fdeaths)) |>
+  ts_tbl(ts_c(mdeaths, fdeaths)) %>%
     ts_seas()
 
 

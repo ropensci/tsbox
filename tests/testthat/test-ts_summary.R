@@ -36,7 +36,7 @@ test_that("ts_summary works with irregular observations", {
     ~time,        ~value,
     "1988-01-01", 1,
     "2015-11-01", 2
-  ) |>
+  ) %>%
     mutate(time = as.Date(time))
 
   expect_s3_class(ts_summary(series_irreg), "data.frame")

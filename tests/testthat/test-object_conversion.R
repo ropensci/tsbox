@@ -179,7 +179,7 @@ test_that("colname guessing works as expected", {
 
   # 3 cols
   library(dplyr)
-  x.df <- ts_tbl(ts_c(mdeaths, fdeaths)) |>
+  x.df <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
     setNames(c("Haha", "Hoho", "Hihi"))
 
   x.dt <- as.data.table(x.df)
@@ -187,7 +187,7 @@ test_that("colname guessing works as expected", {
   expect_equal(mdeaths, ts_ts(ts_df(ts_xts(ts_ts(x.dt))))[, "mdeaths"])
 
   # 2 cols
-  x.df <- ts_tbl(AirPassengers) |>
+  x.df <- ts_tbl(AirPassengers) %>%
     setNames(c("Haha", "Hoho"))
 
   x.dt <- as.data.table(x.df)
@@ -201,7 +201,7 @@ test_that("conversions work with multiple ids", {
   x <- bind_rows(
     mutate(ts_tbl(ts_c(fdeaths, mdeaths)), id2 = "one"),
     mutate(ts_tbl(ts_c(fdeaths, mdeaths)), id2 = "two")
-  ) |>
+  ) %>%
     ts_df()
 
   expect_equal(ts_ts(x)[, "fdeaths_two"], fdeaths)

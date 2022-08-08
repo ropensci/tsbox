@@ -2,7 +2,7 @@ test_that("colname guessing works as expected", {
 
   # 3 cols
   library(dplyr)
-  x.df <- ts_tbl(ts_c(mdeaths, fdeaths)) |>
+  x.df <- ts_tbl(ts_c(mdeaths, fdeaths)) %>%
     setNames(c("Haha", "Hoho", "Hihi"))
 
   expect_equal(
@@ -23,7 +23,7 @@ test_that("colname guessing works as expected", {
   )
 
   # 2 cols
-  x.df <- ts_tbl(AirPassengers) |>
+  x.df <- ts_tbl(AirPassengers) %>%
     setNames(c("Haha", "Hoho"))
 
   expect_equal(ts_pc(AirPassengers), ts_ts(ts_xts(ts_df(ts_pc(x.df)))))

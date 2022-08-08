@@ -42,7 +42,7 @@ test_that("Irregular regular series work.", {
         seq.Date(as.Date("2010-03-01"), by = "day", length.out = 10)
       ),
       value = rnorm(30)
-    ) |>
+    ) %>%
       ts_ts(),
     "ts"
   )

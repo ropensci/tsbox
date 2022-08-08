@@ -233,11 +233,12 @@ If time and value columns have different names than `time` and `value`, it still
 works but returns a message:
 
 ```r
-dta |>
+library(dplyr)
+dta %>%
   dplyr::rename(
     mytime = time,
     myvalue = value
-  ) |>
+  ) %>%
   ts_ts()
 # [time]: 'mytime' [value]: 'myvalue'
 # Time Series:
@@ -318,15 +319,15 @@ tsbox works well with tibbles and with the pipe (`|>` or `%>%`), so it can be ni
 into a dplyr workflow:
 
 ```r
-library(dplyr)
 library(nycflights13)
-dta <- weather |>
-  select(origin, time = time_hour, temp, humid, precip) |>
+library(dplyr)
+dta <- weather %>%
+  select(origin, time = time_hour, temp, humid, precip) %>%
   ts_long()
 
-dta |>
-  filter(id == "temp") |>
-  ts_trend() |>
+dta %>%
+  filter(id == "temp") %>%
+  ts_trend() %>%
   ts_plot()
 ```
 
