@@ -22,6 +22,16 @@ test_that("ts_first_of_period works", {
   expect_true(all(as.integer(ans$time) %% 10 == 0))
 })
 
+test_that("ts_first_of_period works in western time zones", {
+  x <- ts_lag(data.table(
+    time = seq(anytime::anytime(1970, tz = "America/Los_Angeles"), length.out = 10, by = "10 sec"),
+    value = rnorm(10)
+  ), "3 sec")
+  ans <- ts_first_of_period(x)
+  expect_identical(nrow(ans), nrow(x))
+})
+
+
 
 test_that("ts_first_of_period works with POSIXct #210", {
   x <- ts_lag(data.frame(
