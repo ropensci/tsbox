@@ -38,7 +38,7 @@ ts_frequency <- function(x, to = c(
                            "hour", "min", "sec"
                          ),
                          aggregate = "mean", na.rm = FALSE) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
 
   if (is.numeric(to)) {
     to <- as.integer(to)

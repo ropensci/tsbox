@@ -40,7 +40,7 @@ ts_dts.timeSeries <- function(x) {
 #' @name ts_ts
 #' @export
 ts_timeSeries <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   if (relevant_class(x) == "timeSeries") {
     return(x)
   }

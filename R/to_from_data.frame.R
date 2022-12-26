@@ -23,7 +23,7 @@ ts_dts.data.frame <- function(x) {
 #' @name ts_ts
 #' @export
 ts_data.frame <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   if (relevant_class(x) == "data.frame") {
     return(x)
   }

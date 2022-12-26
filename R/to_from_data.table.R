@@ -23,7 +23,7 @@ ts_dts.data.table <- function(x) {
 #' @name ts_ts
 #' @export
 ts_data.table <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   if (relevant_class(x) == "data.table") {
     return(x)
   }

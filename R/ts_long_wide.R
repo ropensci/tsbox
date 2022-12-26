@@ -83,7 +83,7 @@ long_core_multi_id <- function(x) {
 #' @export
 #' @name ts_long
 ts_wide <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   rc <- relevant_class(x)
   if (rc %in% c("ts", "xts", "tbl_time", "tbl_ts", "tis")) {
     return(x)

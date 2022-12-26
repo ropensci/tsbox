@@ -45,7 +45,7 @@ supported_classes <- function() {
 #' relevant_class(x)
 #' @export
 relevant_class <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   intersect(class(x), supported_classes())[1]
 }
 

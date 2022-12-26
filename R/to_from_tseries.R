@@ -32,7 +32,7 @@ ts_dts.irts <- function(x) {
 #' @name ts_ts
 #' @export
 ts_irts <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   if (relevant_class(x) == "irts") {
     return(x)
   }
