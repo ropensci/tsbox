@@ -41,7 +41,7 @@ Encoding: UTF-8
 URL: https://www.tsbox.help, https://github.com/christophsax/tsbox
 BugReports: https://github.com/christophsax/tsbox/issues
 Roxygen: list(markdown = TRUE, roclets = c ("namespace", "rd", "srr::srr_stats_roclet"))
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)

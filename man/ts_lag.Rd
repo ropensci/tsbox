@@ -8,16 +8,16 @@ ts_lag(x, by = 1)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
-\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
-\code{timeSeries}.}
+\code{zooreg}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis},
+\code{irts} or \code{timeSeries}.}
 
 \item{by}{integer or character, either the number of shifting periods
 (integer), or an absolute amount of time (character). See details.}
 }
 \value{
 a ts-boxable object of the same class as \code{x}, i.e., an object of
-class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
-\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
+class \code{ts}, \code{xts}, \code{zoo}, \code{zooreg}, \code{data.frame}, \code{data.table}, \code{tbl},
+\code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Shift time stamps in ts-boxable time series, either by a number of periods or

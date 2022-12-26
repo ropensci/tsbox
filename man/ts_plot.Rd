@@ -8,8 +8,8 @@ ts_plot(..., title, subtitle, ylab = "", family = getOption("ts_font", "sans"))
 }
 \arguments{
 \item{...}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
-\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
-\code{timeSeries}.}
+\code{zooreg}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis},
+\code{irts} or \code{timeSeries}.}
 
 \item{title}{title (optional)}
 
