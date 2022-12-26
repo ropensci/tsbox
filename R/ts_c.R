@@ -6,11 +6,11 @@
 #' In `ts` and `xts` objects, time series are combined horizontally.
 #'
 #' @param ... ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
-#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
-#'   `timeSeries`.
+#'   `zooreg`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
+#'   `irts` or `timeSeries`.
 #' @return a ts-boxable object of the same class as the input, i.e., an object
-#'   of class `ts`, `xts`, `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`,
-#'   `tbl_time`, `tis`, `irts` or `timeSeries`.
+#'   of class `ts`, `xts`, `zoo`, `zooreg`, `data.frame`, `data.table`, `tbl`,
+#'   `tbl_ts`, `tbl_time`, `tis`, `irts` or `timeSeries`.
 #'   If series of different classes are combined, the class of the first series
 #'   is used (if possible).
 #'

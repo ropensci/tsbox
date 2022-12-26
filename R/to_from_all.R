@@ -115,8 +115,8 @@ desired_class <- function(ll) {
 #'
 #' @inherit ts_default
 #' @param template ts-boxable time series, an object of class `ts`, `xts`,
-#'   `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
-#'   `irts` or `timeSeries`.
+#'   `zoo`, `zooreg`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`,
+#'   `tis`, `irts` or `timeSeries`.
 #' @param preserve.mode should the mode the time column be preserved
 #'   (data frame only)
 #' @param preserve.names should the name of the time column be preserved

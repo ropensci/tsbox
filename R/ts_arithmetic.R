@@ -83,11 +83,11 @@ ts_arithmetic <- function(e1, e2, fun = `-`) {
 #' Arithmetic Operators for ts-boxable objects
 #'
 #' @param e1 ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
-#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
-#'   `timeSeries`.
+#'   `zooreg`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
+#'   `irts` or `timeSeries`.
 #' @param e2 ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
-#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
-#'   `timeSeries`.
+#'   `zooreg`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
+#'   `irts` or `timeSeries`.
 #' @return a ts-boxable time series, with the same class as the left input.
 #' @examples
 #' head(fdeaths - mdeaths)
