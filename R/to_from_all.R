@@ -55,13 +55,30 @@ relevant_class <- function(x) {
 #' Mainly used internally.
 #'
 #' @inherit ts_default
-#' @return logical, either `TRUE` or `FALSE`
+#' @return logical, either `TRUE` or `FALSE`. `check_ts_boxable()` fails if not
+#'   `TRUE`
 #' @examples
 #' ts_boxable(AirPassengers)
 #' ts_boxable(lm)
 #' @export
 ts_boxable <- function(x) {
   any(supported_classes() %in% class(x))
+}
+
+#' Error Check Functions
+#'
+#' @inherit ts_default
+#'
+#' @name ts_boxable
+#' @export
+check_ts_boxable <- function(x) {
+  if (!ts_boxable(x)) {
+    stop0(
+      "object is of non-ts-boxable class(es) ",
+      paste(paste0("'", class(x), "'"), collapse = ", "),
+      ". See `?ts_ts`."
+    )
+  }
 }
 
 
