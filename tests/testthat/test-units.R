@@ -5,8 +5,7 @@ library(units)
 #'  objects which have columns which do not themselves have standard class
 #'  attributes (typically, `vector`) are appropriately processed, and do not
 #'  error without reason. This behaviour should be tested. Again, columns
-#'  created by the [`units` package]
-#'  (https://github.com/r-quantities/units/) provide a good test case.*
+#'  created by the `units` package provide a good test case.*
 test_that("tsbox works with units", {
 
   x <-

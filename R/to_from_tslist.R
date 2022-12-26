@@ -45,7 +45,7 @@ ts_dts.tslist <- function(x) {
 #' @name ts_ts
 #' @export
 ts_tslist <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   if (relevant_class(x) == "tslist") {
     return(x)
   }

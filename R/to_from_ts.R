@@ -70,8 +70,8 @@ ts_dts.ts <- function(x) {
 #' Convert Everything to Everything
 #'
 #' tsbox is built around a set of converters, which convert time series
-#' stored as `ts`, `xts`, `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`,
-#' `tbl_time`, `tis`, `irts` or `timeSeries` to each other.
+#' stored as `ts`, `xts`, `zoo`, `zooreg`, `data.frame`, `data.table`, `tbl`,
+#' `tbl_ts`, `tbl_time`, `tis`, `irts` or `timeSeries` to each other.
 #'
 #' In data frames, multiple time series will be stored in a 'long' format. tsbox
 #' detects a *value*, a *time* and zero to several *id* columns. Column
@@ -107,9 +107,9 @@ ts_dts.ts <- function(x) {
 #'
 #' @inherit ts_default
 #'
-#' @return ts-boxable time series of the desired class, an object of class `ts`,
-#' `xts`, `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
-#' `irts` or `timeSeries`.
+#' @return ts-boxable time series of the desired class, i.e., an object of
+#'   class `ts`, `xts`, `zoo`, `zooreg`, `data.frame`, `data.table`, `tbl`,
+#'   `tbl_ts`, `tbl_time`, `tis`, `irts` or `timeSeries`.
 #'
 #' @examples
 #'
@@ -149,7 +149,7 @@ ts_dts.ts <- function(x) {
 #' @importFrom stats resid time ts tsp as.formula var prcomp start tsp<- window
 #' @importFrom utils getFromNamespace browseURL relist
 ts_ts <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   if (relevant_class(x) == "ts") {
     return(x)
   }

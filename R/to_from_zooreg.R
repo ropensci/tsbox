@@ -1,24 +1,22 @@
-register_class("tis")
+register_class("zooreg")
 
 # to ---------------------------------------------------------------------------
 
 #' Convert to Class
 #' @noRd
-ts_tis_dts <- function(x) {
-  stopifnot(requireNamespace("tis"))
-  x.ts <- ts_ts(x)
-  x.tis <- tis::as.tis(x.ts)
-  colnames(x.tis) <- colnames(x.ts)
-  x.tis
+ts_zooreg_dts <- function(x) {
+  stopifnot(requireNamespace("zoo"))
+  zoo::as.zoo(ts_ts(x))
 }
 
 
 # from -------------------------------------------------------------------------
 
 #' @export
-#' @method ts_dts tis
-ts_dts.tis <- function(x) {
-  stopifnot(requireNamespace("tis"))
+#' @method ts_dts zoo
+ts_dts.zooreg <- function(x) {
+  stopifnot(requireNamespace("zoo"))
+  stopifnot(requireNamespace("xts"))
   ts_dts(as.ts(x))
 }
 
@@ -27,10 +25,10 @@ ts_dts.tis <- function(x) {
 
 #' @name ts_ts
 #' @export
-ts_tis <- function(x) {
+ts_zooreg <- function(x) {
   check_ts_boxable(x)
-  if (relevant_class(x) == "tis") {
+  if (relevant_class(x) == "zooreg") {
     return(x)
   }
-  ts_tis_dts(ts_dts(x))
+  ts_zooreg_dts(ts_dts(x))
 }

@@ -8,8 +8,8 @@ ts_span(x, start = NULL, end = NULL, template = NULL, extend = FALSE)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
-\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
-\code{timeSeries}.}
+\code{zooreg}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis},
+\code{irts} or \code{timeSeries}.}
 
 \item{start}{start date, character string of length 1, \code{Date} or \code{POSIXct}}
 
@@ -24,8 +24,8 @@ extend the series (by adding \code{NA} values).}
 }
 \value{
 a ts-boxable object of the same class as \code{x}, i.e., an object of
-class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
-\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
+class \code{ts}, \code{xts}, \code{zoo}, \code{zooreg}, \code{data.frame}, \code{data.table}, \code{tbl},
+\code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Filter time series for a time span.

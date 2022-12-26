@@ -51,8 +51,8 @@ guess_cname <- function(x) {
   if (value.name != "value") {
     msg <- paste0(msg, "[value]: '", value.name, "' ")
     # check if data frame is incidentally wide (numeric id columns)
-    non_value_cols <- setdiff(colnames(x), value.name)
-    numeric.id.cols <- sapply(x[, non_value_cols, with = FALSE], is.numeric)
+    non_value <- setdiff(colnames(x), value.name)
+    numeric.id.cols <- vapply(x[, non_value, with = FALSE], is.numeric, TRUE)
     if (sum(numeric.id.cols) > 0) {
       message(
         "Found numeric [id] column(s): ",

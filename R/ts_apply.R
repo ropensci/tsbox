@@ -40,7 +40,7 @@ ts_apply_dts <- function(x, fun, ...) {
 #' @param ... arguments passed to subfunction
 #' @name ts_
 ts_apply <- function(x, fun, ...) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   z <- ts_apply_dts(ts_dts(x), fun, ...)
   copy_class(z, x)
 }

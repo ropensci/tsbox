@@ -8,16 +8,16 @@ ts_regular(x, fill = NA)
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
-\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
-\code{timeSeries}.}
+\code{zooreg}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis},
+\code{irts} or \code{timeSeries}.}
 
 \item{fill}{numeric, instead of \code{NA}, an alternative value can be specified.
 E.g., 0, -99.}
 }
 \value{
 a ts-boxable object of the same class as \code{x}, i.e., an object of
-class \code{ts}, \code{xts}, \code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts},
-\code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
+class \code{ts}, \code{xts}, \code{zoo}, \code{zooreg}, \code{data.frame}, \code{data.table}, \code{tbl},
+\code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or \code{timeSeries}.
 }
 \description{
 Enforces regularity in data frame and \code{xts} objects, by turning implicit

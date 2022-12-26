@@ -24,7 +24,7 @@
 ts_summary <- function(x, spark = FALSE) {
   freq <- NULL
   value <- NULL
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
 
   # implicit NAs for most operations
   x.dts <- ts_na_omit(ts_dts(ts_default(x)))

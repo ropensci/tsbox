@@ -6,11 +6,11 @@
 #' can be avoided in future operations.
 #'
 #' @param x ts-boxable time series, an object of class `ts`, `xts`, `zoo`,
-#'   `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
-#'   `timeSeries`.
+#'   `zooreg`, `data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`,
+#'   `irts` or `timeSeries`.
 #' @return a ts-boxable object of the same class as `x`, i.e., an object of
-#'   class `ts`, `xts`, `zoo`, `data.frame`, `data.table`, `tbl`, `tbl_ts`,
-#'   `tbl_time`, `tis`, `irts` or `timeSeries`.
+#'   class `ts`, `xts`, `zoo`, `zooreg`, `data.frame`, `data.table`, `tbl`,
+#'   `tbl_ts`, `tbl_time`, `tis`, `irts` or `timeSeries`.
 #' @examples
 #' \donttest{
 #' df <- ts_df(ts_c(mdeaths, fdeaths))

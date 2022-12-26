@@ -36,7 +36,7 @@ ts_lag <- function(x, by = 1) {
   value <- NULL
   .SD <- NULL
 
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   z <- copy(ts_dts(x))
 
   # numeric by only with regular series

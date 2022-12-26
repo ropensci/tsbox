@@ -8,23 +8,6 @@ paste_quoted <- function(x) {
 }
 
 
-
-#' Error Check Functions
-#'
-#' @param x 'dts'
-#'
-#' @noRd
-check_ts_boxable <- function(x) {
-  if (!ts_boxable(x)) {
-    stop0(
-      "object is of non-ts-boxable class(es) ",
-      paste(paste0("'", class(x), "'"), collapse = ", "),
-      ". See `?ts_ts`."
-    )
-  }
-}
-
-
 #' @param x 'dts'
 #'
 #' @noRd

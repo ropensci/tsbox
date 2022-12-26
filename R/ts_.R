@@ -75,7 +75,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
         z <- substitute(function(x, ...) {
           load_suggested(pkg)
           ff <- function(x, ...) {
-            stopifnot(ts_boxable(x))
+            check_ts_boxable(x)
             z <- fun(ts_to_class(x), ...)
             copy_class(z, x)
           }
@@ -84,7 +84,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
       } else {
         z <- substitute(function(x, ...) {
           load_suggested(pkg)
-          stopifnot(ts_boxable(x))
+          check_ts_boxable(x)
           z <- fun(ts_to_class(x), ...)
           copy_class(z, x)
         })
@@ -98,7 +98,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
       } else {
         z <- substitute(function(x, ...) {
           load_suggested(pkg)
-          stopifnot(ts_boxable(x))
+          check_ts_boxable(x)
           fun(ts_to_class(x), ...)
         })
       }
@@ -112,7 +112,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
       if (vectorize) {
         z <- substitute(function(x, ...) {
           ff <- function(x, ...) {
-            stopifnot(ts_boxable(x))
+            check_ts_boxable(x)
             z <- fun(ts_to_class(x), ...)
             copy_class(z, x)
           }
@@ -120,7 +120,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
         })
       } else {
         z <- substitute(function(x, ...) {
-          stopifnot(ts_boxable(x))
+          check_ts_boxable(x)
           z <- fun(ts_to_class(x), ...)
           copy_class(z, x)
         })
@@ -133,7 +133,7 @@ ts_ <- function(fun, class = "ts", vectorize = FALSE, reclass = TRUE) {
         check_vectorize()
       } else {
         z <- substitute(function(x, ...) {
-          stopifnot(ts_boxable(x))
+          check_ts_boxable(x)
           fun(ts_to_class(x), ...)
         })
       }

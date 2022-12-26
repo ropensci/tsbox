@@ -83,7 +83,7 @@ ts_dts.tbl_ts <- function(x) {
 #' @name ts_ts
 #' @export
 ts_tsibble <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   if (relevant_class(x) == "tsibble") {
     return(x)
   }

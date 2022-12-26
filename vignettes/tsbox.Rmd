@@ -18,8 +18,9 @@ data frames, thus making it easy to deal with time series in a
 [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
-tsbox is built around a set of converters, which convert time series stored as
-**ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**, **tsibble**, **tibbletime** or **timeSeries** to each other.
+tsbox is built around a set of converters, which convert time series
+stored as `ts`, `xts`, `zoo`, `zooreg`, `data.frame`, `data.table`, `tbl`,
+`tbl_ts`, `tbl_time`, `tis`, `irts` or `timeSeries` to each other.
 Because this works reliably, we can easily write
 functions that work for all classes. So whether we want to smooth, scale,
 differentiate, chain, forecast, regularize, or seasonally adjust a time series,
@@ -40,9 +41,9 @@ remotes::install_github("christophsax/tsbox")
 
 ## Convert everything to everything
 
-tsbox can convert time series stored as **ts**, **xts**, **data.frame**, **data.table**, **tibble**, **zoo**,
-**tsibble**,  **tibbletime** or **timeSeries** to each
-other:
+tsbox can convert time series stored as `ts`, `xts`, `zoo`, `zooreg`,
+`data.frame`, `data.table`, `tbl`, `tbl_ts`, `tbl_time`, `tis`, `irts` or
+`timeSeries` to each other:
 
 ```r
 library(tsbox)
@@ -170,7 +171,12 @@ With `theme_tsbox()` and `scale_color_tsbox()`, the output of `ts_ggplot` is
 very similar to `ts_plot`.
 
 ```r
-ts_ggplot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
+ts_ggplot(ts_scale(ts_c(
+  mdeaths,
+  austres,
+  AirPassengers,
+  DAX = EuStockMarkets[ ,'DAX']
+)))
 ```
 
 Finally, `ts_summary` returns a data frame with frequently used time series
@@ -203,9 +209,10 @@ The timestamp, `time`, indicates the beginning of a period.
 1. **All remaining** columns are **id columns**. Each unique combination of id
 columns points to a time series.
 
-**Alternatively**, the time column and the value column to be **explicitly named** as
-`time` and `value`. If explicit names are used, the column order will be
-ignored. If columns are detected automatically, a message is returned.
+**Alternatively**, the time column and the value column to be
+**explicitly named** as `time` and `value`. If explicit names are used, the
+column order will be ignored. If columns are detected automatically, a message
+is returned.
 
 For example, the following data frame has the standard structure is understood by
 tsbox:
@@ -315,8 +322,8 @@ ts_long(dta_wide)
 
 ## Using tsbox in a dplyr / pipe workflow
 
-tsbox works well with tibbles and with the pipe (`|>` or `%>%`), so it can be nicely integrated
-into a dplyr workflow:
+tsbox works well with tibbles and with the pipe (`|>` or `%>%`), so it can be
+nicely integrated into a dplyr workflow:
 
 ```r
 library(nycflights13)
@@ -331,3 +338,12 @@ dta %>%
   ts_plot()
 ```
 
+## Related packages
+
+The *tsibble* package provides infrastructure for 'tidy' temporal data, and
+offers some converters between time series classes.
+
+The *timetk* package offers converters and tools for data visualization and
+wrangling of time series data.
+
+*zoo* and *xts* provide converters between some time series classes.

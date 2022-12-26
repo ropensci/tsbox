@@ -59,7 +59,7 @@ ts_dts.tbl_time <- function(x) {
 #' @name ts_ts
 #' @export
 ts_tibbletime <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   if (relevant_class(x) == "tibbletime") {
     return(x)
   }

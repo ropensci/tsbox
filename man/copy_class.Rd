@@ -15,12 +15,12 @@ copy_class(
 }
 \arguments{
 \item{x}{ts-boxable time series, an object of class \code{ts}, \code{xts}, \code{zoo},
-\code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis}, \code{irts} or
-\code{timeSeries}.}
+\code{zooreg}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis},
+\code{irts} or \code{timeSeries}.}
 
 \item{template}{ts-boxable time series, an object of class \code{ts}, \code{xts},
-\code{zoo}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time}, \code{tis},
-\code{irts} or \code{timeSeries}.}
+\code{zoo}, \code{zooreg}, \code{data.frame}, \code{data.table}, \code{tbl}, \code{tbl_ts}, \code{tbl_time},
+\code{tis}, \code{irts} or \code{timeSeries}.}
 
 \item{preserve.mode}{should the mode the time column be preserved
 (data frame only)}

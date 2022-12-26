@@ -52,7 +52,7 @@ ts_dts.xts <- function(x) {
 #' @name ts_ts
 #' @export
 ts_xts <- function(x) {
-  stopifnot(ts_boxable(x))
+  check_ts_boxable(x)
   if (relevant_class(x) == "xts") {
     return(x)
   }

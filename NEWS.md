@@ -1,3 +1,14 @@
+# tsbox 0.3.1.9005
+
+## Features
+
+- Support for 'zooreg' time series
+
+## Documentation
+
+- better error messages when input is not ts-boxable
+
+
 # tsbox 0.3.1.9004
 
 ## Features
