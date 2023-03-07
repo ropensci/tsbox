@@ -1,4 +1,4 @@
-# tsbox 0.3.1.9005
+# tsbox 0.3.1.9006
 
 ## Features
 
@@ -7,6 +7,8 @@
 ## Documentation
 
 - better error messages when input is not ts-boxable
+- New repository: https://github.com/ropensci
+- New documentation website: https://docs.ropensci.org/tsbox
 
 
 # tsbox 0.3.1.9004
