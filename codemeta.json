@@ -1,26 +1,20 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "tsbox",
-  "description": "Time series toolkit with identical behavior for all\n  time series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',\n  'timeSeries', 'tsibble', 'tis' or 'irts'. Also converts reliably between these classes.",
+  "description": "Time series toolkit with identical behavior for all time series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo', 'timeSeries', 'tsibble', 'tis' or 'irts'. Also converts reliably between these classes.",
   "name": "tsbox: Class-Agnostic Time Series",
-  "codeRepository": "https://github.com/christophsax/tsbox",
-  "relatedLink": [
-    "https://www.tsbox.help",
-    "https://CRAN.R-project.org/package=tsbox"
-  ],
-  "issueTracker": "https://github.com/christophsax/tsbox/issues",
+  "relatedLink": "https://docs.ropensci.org/tsbox",
+  "codeRepository": "https://github.com/ropensci/tsbox",
+  "issueTracker": "https://github.com/ropensci/tsbox/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.2.1.9000",
+  "version": "0.3.1.9005",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.0 (2021-05-18)",
+  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -36,9 +30,6 @@
       "@id": "https://orcid.org/0000-0002-7192-7044"
     }
   ],
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
@@ -84,6 +75,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
     {
       "@type": "SoftwareApplication",
@@ -232,6 +235,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "units",
+      "name": "units",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=units"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "zoo",
       "name": "zoo",
       "provider": {
@@ -277,10 +292,34 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=nycflights13"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "imputeTS",
+      "name": "imputeTS",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=imputeTS"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "spelling",
+      "name": "spelling",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=spelling"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
@@ -293,7 +332,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=data.table"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "anytime",
       "name": "anytime",
@@ -305,22 +344,15 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=anytime"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 2.10"
-    }
-  ],
-  "releaseNotes": "https://github.com/christophsax/tsbox/blob/master/NEWS.md",
-  "readme": "https://github.com/christophsax/tsbox/blob/master/README.md",
-  "fileSize": "478.228KB",
-  "contIntegration": ["https://travis-ci.org/christophsax/tsbox", "https://ci.appveyor.com/project/christophsax/tsbox", "https://codecov.io/github/christophsax/tsbox"],
-  "keywords": [
-    "r",
-    "time-series",
-    "graphics"
-  ],
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "557.419KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -337,5 +369,10 @@
       "url": "https://www.tsbox.help",
       "description": "{R package}"
     }
-  ]
+  ],
+  "releaseNotes": "https://github.com/ropensci/tsbox/blob/master/NEWS.md",
+  "readme": "https://github.com/ropensci/tsbox/blob/main/README.md",
+  "contIntegration": "https://github.com/ropensci/tsbox/actions",
+  "developmentStatus": "https://www.repostatus.org/#active",
+  "keywords": ["r", "time-series", "graphics"]
 }
