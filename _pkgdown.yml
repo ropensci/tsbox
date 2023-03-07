@@ -1,3 +1,14 @@
+url: https://docs.ropensci.org/tsbox/dev
+
+template:
+  bootstrap: 5
+  package: rotemplate
+
+development:
+  mode: auto
+  version_label: default
+  version_tooltip: "Version"
+
 reference:
 - title: Convert
   desc: >
