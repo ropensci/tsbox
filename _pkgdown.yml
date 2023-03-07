@@ -7,7 +7,7 @@ template:
   # strip_header: true
   # links:
   # - text: Learn more
-  #   href: https://github.com/christophsax/tsbox
+  #   href: https://github.com/ropensci/tsbox
 
 reference:
 - title: Convert
@@ -115,4 +115,4 @@ navbar:
     href: news/index.html
   right:
   - icon: fa-github fa-lg
-    href: https://github.com/christophsax/tsbox
+    href: https://github.com/ropensci/tsbox

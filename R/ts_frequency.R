@@ -130,7 +130,7 @@ frequency_core <- function(x, to, aggregate, na.rm) {
 #' @noRd
 lf_time <- function(time, to) {
   if (to == "week") {
-    # https://github.com/christophsax/tsbox/issues/183
+    # https://github.com/ropensci/tsbox/issues/183
     by <- "7 days"
     # time <- min(as.Date(time)) - 7
 

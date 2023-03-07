@@ -36,7 +36,7 @@ install.packages("tsbox")
 To install the development version:
 ```r
 # install.packages("remotes")
-remotes::install_github("christophsax/tsbox")
+remotes::install_github("ropensci/tsbox")
 ```
 
 ## Convert everything to everything

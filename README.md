@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/christophsax/tsbox/workflows/R-CMD-check/badge.svg)](https://github.com/christophsax/tsbox/actions)
+[![R-CMD-check](https://github.com/ropensci/tsbox/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci/tsbox/actions)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -34,7 +34,7 @@ To install the development version:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("christophsax/tsbox")
+remotes::install_github("ropensci/tsbox")
 ```
 
 ### Convert everything to everything
@@ -99,7 +99,7 @@ be. And we finally get a legend!
 
     ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 
-![](https://raw.githubusercontent.com/christophsax/tsbox/master/vignettes/fig/myfig.png)
+![](https://raw.githubusercontent.com/ropensci/tsbox/master/vignettes/fig/myfig.png)
 
 ### Cheatsheet
 
