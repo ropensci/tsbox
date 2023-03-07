@@ -38,7 +38,7 @@ Suggests:
     spelling
 License: GPL-3
 Encoding: UTF-8
-URL: https://www.tsbox.help, https://github.com/ropensci/tsbox
+URL: https://docs.ropensci.org/tsbox, https://github.com/ropensci/tsbox
 BugReports: https://github.com/ropensci/tsbox/issues
 Roxygen: list(markdown = TRUE, roclets = c ("namespace", "rd", "srr::srr_stats_roclet"))
 RoxygenNote: 7.2.3
