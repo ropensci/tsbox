@@ -41,6 +41,7 @@ To install the development version:
 ```r
 # install.packages("remotes")
 remotes::install_github("ropensci/tsbox")
+install.packages("ropensci/tsbox", repos = "https://ropensci.r-universe.dev")
 ```
 
 ### Convert everything to everything
