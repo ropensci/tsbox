@@ -9,6 +9,8 @@
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Codecov test
+coverage](https://codecov.io/gh/ropensci/tsbox/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ropensci/tsbox?branch=main)
 <!-- badges: end -->
 
 The R ecosystem knows a [vast
@@ -21,8 +23,8 @@ it easy to deal with time series in a
 [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
-See [tsbox.help](https://docs.ropensci.org/tsbox/) for the full documentation of
-the package.
+See [tsbox.help](https://docs.ropensci.org/tsbox/) for the full
+documentation of the package.
 
 To install the stable version from CRAN:
 

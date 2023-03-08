@@ -12,3 +12,4 @@ cran-comments.md
 ^\.github$
 contributing.md
 ^README\.Rmd$
+^codecov\.yml$
