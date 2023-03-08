@@ -17,7 +17,7 @@
 #' use the same tsbox-command for any time series classes.
 #'
 #' The best way to start is to check out the package
-#' [website](https://www.tsbox.help).
+#' [website](https://docs.ropensci.org/tsbox/).
 #'
 #' In the *ropensci* classification, this package is *An improvement on other
 #' implementations of similar algorithms in **R***. Many time series packages,

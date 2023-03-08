@@ -24,7 +24,7 @@ chain-link, forecast, regularize or seasonally adjust a time series, we can
 use the same tsbox-command for any time series classes.
 
 The best way to start is to check out the package
-\href{https://www.tsbox.help}{website}.
+\href{https://docs.ropensci.org/tsbox/}{website}.
 
 In the \emph{ropensci} classification, this package is \emph{An improvement on other
 implementations of similar algorithms in \strong{R}}. Many time series packages,

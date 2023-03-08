@@ -21,7 +21,7 @@ it easy to deal with time series in a
 [dplyr](https://CRAN.R-project.org/package=dplyr) or
 [data.table](https://CRAN.R-project.org/package=data.table) workflow.
 
-See [tsbox.help](https://www.tsbox.help/) for the full documentation of
+See [tsbox.help](https://docs.ropensci.org/tsbox/) for the full documentation of
 the package.
 
 To install the stable version from CRAN:

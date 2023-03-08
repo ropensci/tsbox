@@ -352,7 +352,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "557.419KB",
+  "fileSize": "557.561KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -366,7 +366,7 @@
         }
       ],
       "name": "tsbox: Class-Agnostic Time Series in in {R}",
-      "url": "https://www.tsbox.help",
+      "url": "https://docs.ropensci.org/tsbox",
       "description": "{R package}"
     }
   ],

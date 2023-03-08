@@ -107,7 +107,7 @@
 #'   Done for all functions.
 #' @srrstats {TS1.2} *Time Series Software should implement validation routines to confirm that inputs are of acceptable classes (or represented in otherwise appropriate ways for software which does not use class systems).*
 #'   Done for all functions.
-#' @srrstats {TS1.3} *Time Series Software should implement a single pre-processing routine to validate input data, and to appropriately transform it to a single uniform type to be passed to all subsequent data-processing functions (the [`tsbox` package](https://www.tsbox.help/) provides one convenient approach for this).*
+#' @srrstats {TS1.3} *Time Series Software should implement a single pre-processing routine to validate input data, and to appropriately transform it to a single uniform type to be passed to all subsequent data-processing functions (the [`tsbox` package](https://docs.ropensci.org/tsbox/) provides one convenient approach for this).*
 #'   This is at the core of tsbox: Everything is converted to a 'dts' object, operations are performed on theser, then they are converted back.
 #' @srrstats {TS1.4} *The pre-processing function described above should maintain all time- or date-based components or attributes of input data.*
 #'   All ts-boxable classes as well as 'dts' objects keep this information intact.
@@ -121,7 +121,7 @@
 #' @srrstats {TS2.5} *Incorporate a system to ensure that both row and column orders follow the same ordering as the underlying time series data. This may, for example, be done by including the `index` attribute of the time series data as an attribute of the covariance matrix.*
 #'   All output keeps column order. Row order is re-arranged by time if needed, in line with {TS1.5}. ts_default() reorders columns to id columns, `time` and `value`.
 #' @srrstats {TS4.0} *Return values should either:*
-#' @srrstats {TS4.0a} *Be in same class as input data, for example by using the [`tsbox` package](https://www.tsbox.help/) to re-convert from standard internal format (see 1.4, above); or*
+#' @srrstats {TS4.0a} *Be in same class as input data, for example by using the [`tsbox` package](https://docs.ropensci.org/tsbox/) to re-convert from standard internal format (see 1.4, above); or*
 #'   The core of this package.
 #' @srrstats {TS4.1} *Any units included as attributes of input data should also be included within return values.*
 #'   Units definied via the `units` package stay alive as long as one works with data frame like objects (data table, tibble). ts objects currently loose the unit, as they are not supported by `units`.
