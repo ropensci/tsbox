@@ -5,7 +5,7 @@ bibentry(
                           family = "Sax",
                           email = "christoph.sax@gmail.com")),
   note         = "{R package}",
-  url          = "https://docs.ropensci.org/tsbox",
+  url          = "https://docs.ropensci.org/tsbox/",
   year         = 2021,
 
   header       = "To cite tsbox in publications use:"
