@@ -1,22 +1,17 @@
-# tsbox 0.3.1.9006
-
-## Features
-
-- Support for 'zooreg' time series
-
-## Documentation
-
-- better error messages when input is not ts-boxable
-- New repository: https://github.com/ropensci
-- New documentation website: https://docs.ropensci.org/tsbox
-
-
-# tsbox 0.3.1.9004
+# tsbox 0.4  (2023-03-08)
 
 ## Features
 
 - Comply with rOpenSci Standards
 - Better test coverage
+- Support for 'zooreg' time series
+
+## Documentation
+
+- better error messages when input is not ts-boxable
+- better error messages when data is non-standard
+- New repository: https://github.com/ropensci
+- New documentation website: https://docs.ropensci.org/tsbox
 
 ## Bug fixes
 
@@ -24,10 +19,6 @@
 - ts_plot() works better when applied on non-standard data frame
 - ts_first_of_period works with POSIXct #210
 - avoid date classes not getting respected by stopifnot, #213
-
-## Documentation
-
-- better error messages when data is non-standard
 
 
 # tsbox 0.3.1 (2021-09-16)
