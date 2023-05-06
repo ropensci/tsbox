@@ -5,7 +5,6 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/ropensci/tsbox/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci/tsbox/actions)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -13,6 +12,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 coverage](https://codecov.io/gh/ropensci/tsbox/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ropensci/tsbox?branch=main)
 [![Status at rOpenSci Software Peer
 Review](https://badges.ropensci.org/464_status.svg)](https://github.com/ropensci/software-review/issues/464)
+[![R-CMD-check](https://github.com/ropensci/tsbox/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci/tsbox/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The R ecosystem knows a [vast
