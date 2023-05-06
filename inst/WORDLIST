@@ -1,9 +1,11 @@
 Boxable
 CMD
 Cheatsheet
+Codecov
 Dygraphs
 Grosse
 Loess
+POSIXct
 Routledge
 Shyu
 boxable
@@ -19,6 +21,7 @@ prcomp
 rOpenSci
 retransform
 ropensci
+stopifnot
 subfunction
 subfunctions
 td
@@ -28,6 +31,7 @@ tibble
 tibbles
 tibbletime
 timeSeries
+timetk
 tis
 tseries
 tsibble
@@ -37,3 +41,4 @@ vectorized
 vectorizes
 xts
 ylab
+zooreg

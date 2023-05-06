@@ -1,3 +1,10 @@
+# tsbox 0.4.1  (2023-05-06)
+
+## Bug fixes
+
+- Fix an issue with a test
+
+
 # tsbox 0.4  (2023-03-08)
 
 ## Features

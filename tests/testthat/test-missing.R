@@ -60,7 +60,7 @@ test_that("Functions keep NaN values", {
     ts_chain,
     ts_default,
     ts_diff,
-    ts_diffy,
+    # ts_diffy,
     ts_first_of_period,
     # ts_forecast,         #
     ts_index,
@@ -78,6 +78,8 @@ test_that("Functions keep NaN values", {
     z <- fl[[i]](x)
     expect_identical(z[5], NaN)
   }
+
+  expect_identical(ts_diffy(x)[5 + 12], NaN)
 
   # functions that remvoe NA
   expect_false(is.na(ts_na_interpolation(x)[5]))
