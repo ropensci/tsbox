@@ -70,7 +70,7 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
   if (n == 2L) {
     p <- ggplot2::ggplot(
       df,
-      ggplot2::aes_string(x = cname$time, y = cname$value)
+      ggplot2::aes(x = !! cname$time, y = !! cname$value)
     )
   } else if (n > 2) {
 
@@ -87,7 +87,7 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
     }
     p <- ggplot2::ggplot(
       df,
-      ggplot2::aes_string(x = cname$time, y = cname$value, color = cname$id)
+      ggplot2::aes(x = !! cname$time, y = !! cname$value, color = cname$id)
     )
   }
   p <- p + ggplot2::geom_line()
@@ -132,7 +132,7 @@ theme_tsbox <- function(base_family = getOption("ts_font", ""),
         margin = ggplot2::margin(t = 0, b = half_line * 1.2),
         size = ggplot2::rel(0.8)
       ),
-      panel.grid = ggplot2::element_line(size = 0.2),
+      panel.grid = ggplot2::element_line(linewidth = 0.2),
       axis.text = ggplot2::element_text(
         color = "grey10",
         size = ggplot2::rel(0.7)
