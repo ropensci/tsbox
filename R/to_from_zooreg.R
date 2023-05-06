@@ -13,7 +13,7 @@ ts_zooreg_dts <- function(x) {
 # from -------------------------------------------------------------------------
 
 #' @export
-#' @method ts_dts zoo
+#' @method ts_dts zooreg
 ts_dts.zooreg <- function(x) {
   stopifnot(requireNamespace("zoo"))
   stopifnot(requireNamespace("xts"))
