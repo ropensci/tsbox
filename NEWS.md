@@ -1,3 +1,8 @@
+# tsbox 0.4.1.9001
+
+- ts_ggplot: pass symbols, not strings (fix #223)
+
+
 # tsbox 0.4.1  (2023-05-06)
 
 ## Bug fixes

@@ -67,10 +67,13 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
 
   n <- NCOL(df)
   stopifnot(n > 1L)
+  stime <- as.name(cname$time)
+  svalue <- as.name(cname$value)
+
   if (n == 2L) {
     p <- ggplot2::ggplot(
       df,
-      ggplot2::aes(x = !! cname$time, y = !! cname$value)
+      ggplot2::aes(x = !! stime, y = !! svalue)
     )
   } else if (n > 2) {
 
@@ -87,7 +90,7 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
     }
     p <- ggplot2::ggplot(
       df,
-      ggplot2::aes(x = !! cname$time, y = !! cname$value, color = cname$id)
+      ggplot2::aes(x = !! stime, y = !! svalue)
     )
   }
   p <- p + ggplot2::geom_line()
