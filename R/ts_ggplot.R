@@ -88,9 +88,11 @@ ts_ggplot <- function(..., title, subtitle, ylab = "") {
         " time series supplied. Maximum is 29."
       )
     }
+
+    sid <- as.name(cname$id)
     p <- ggplot2::ggplot(
       df,
-      ggplot2::aes(x = !! stime, y = !! svalue)
+      ggplot2::aes(x = !! stime, y = !! svalue, color = !! sid)
     )
   }
   p <- p + ggplot2::geom_line()
