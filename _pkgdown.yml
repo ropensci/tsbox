@@ -1,4 +1,4 @@
-url: https://docs.ropensci.org/tsbox/dev
+url: https://docs.ropensci.org/tsbox/
 
 template:
   bootstrap: 5
@@ -101,23 +101,3 @@ reference:
   contents:
   - tsbox-defunct
   - tsbox-package
-
-navbar:
-  title: ~
-  type: default
-  left:
-  - text: Intro
-    href: articles/tsbox.html
-  - text: Reference
-    href: reference/index.html
-  - text: Advanced
-    menu:
-    - text: User Defined ts-Functions
-      href: articles/ts-functions.html
-    - text: Time Conversion and Reguarization
-      href: articles/convert.html
-  - text: News
-    href: news/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/ropensci/tsbox
