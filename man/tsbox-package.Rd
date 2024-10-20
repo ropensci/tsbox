@@ -39,6 +39,15 @@ computation, it restores the original input class. This restoring feature is
 was also used in the \code{xts::reclass()} function of the
 \href{https://CRAN.R-project.org/package=xts}{xts} package.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/tsbox/}
+  \item \url{https://github.com/ropensci/tsbox}
+  \item Report bugs at \url{https://github.com/ropensci/tsbox/issues}
+}
+
+}
 \author{
 Christoph Sax \email{christoph.sax@gmail.com}
 }
