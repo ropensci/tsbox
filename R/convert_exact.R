@@ -26,7 +26,10 @@ seconds_in_year <- function(year, tz) {
 #' @srrstats {G2.4c} *explicit conversion to character via `as.character()` (and not `paste` or `paste0`)*
 #' @noRd
 seconds_at_start_of_year <- function(year, tz) {
-  as.numeric(as.POSIXct(paste0(as.character(year), "-01-01"), tz = tz))
+  diff(c(
+    as.numeric(as.POSIXct("1970-01-01", tz = tz)),
+    as.numeric(as.POSIXct(paste0(as.character(year), "-01-01"), tz = tz))
+  ))
 }
 
 
@@ -43,6 +46,7 @@ dectime_to_POSIXct <- function(x) {
   seconds_since_70 <-
     seconds_at_start_of_year(year, tz = "") +
     seconds_in_year(year, tz = "") * intra
+  seconds_since_70 <- round(seconds_since_70, 4)
   as.POSIXct(seconds_since_70, origin = "1970-01-01", tz = "")
 }
 
