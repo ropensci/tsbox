@@ -176,9 +176,8 @@ colors_tsbox <- function() {
 scale_color_tsbox <- function(...) {
   stopifnot(requireNamespace("ggplot2"))
   ggplot2::discrete_scale(
-    "colour",
-    "ds",
-    scales::manual_pal(colors_tsbox()),
+    aesthetics = "colour",
+    palette = scales::manual_pal(colors_tsbox()),
     ...
   )
 }
@@ -188,9 +187,8 @@ scale_color_tsbox <- function(...) {
 scale_fill_tsbox <- function(...) {
   stopifnot(requireNamespace("ggplot2"))
   ggplot2::discrete_scale(
-    "fill",
-    "ds",
-    scales::manual_pal(colors_tsbox()),
+    aesthetics = "fill",
+    palette = scales::manual_pal(colors_tsbox()),
     ...
   )
 }
