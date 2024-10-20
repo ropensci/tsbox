@@ -108,4 +108,4 @@ be. And we finally get a legend!
 
 ### Cheatsheet
 
-<a href="https://www.cynkra.com/blog/2019-04-10-tsbox-01/tsbox-cheatsheet.pdf"><img style="max-width:50%;" src="https://www.cynkra.com/blog/2019-04-10-tsbox-01/tsbox-cheatsheet-small.jpg"></a>
+<a href="https://blog.cynkra.com/posts/2019-04-10-tsbox-01/tsbox-cheatsheet.pdf"><img style="max-width:50%;" src="https://blog.cynkra.com/posts/2019-04-10-tsbox-01/tsbox-cheatsheet-small.jpg"></a>
