@@ -1,53 +1,57 @@
-Package: tsbox
 Type: Package
+Package: tsbox
 Title: Class-Agnostic Time Series
 Version: 0.4.2
 Authors@R: c(
-    person("Christoph", "Sax", email = "christoph.sax@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7192-7044")),
-    person("Cathy", "Chamberlin", role = c("rev")),
-    person("Nunes", "Matt", role = c("rev"))
-    )
-Description: Time series toolkit with identical behavior for all
-  time series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble', 'zoo',
-  'timeSeries', 'tsibble', 'tis' or 'irts'. Also converts reliably between these classes.
-Imports:
-    data.table (>= 1.10.0),
-    anytime,
-    lifecycle
-Suggests:
-    testthat,
-    dplyr,
-    tibble,
-    tidyr,
-    forecast,
-    seasonal,
-    dygraphs,
-    xts,
-    ggplot2,
-    scales,
-    knitr,
-    rmarkdown,
-    tsibble (>= 0.8.2),
-    tsibbledata,
-    tibbletime,
-    tseries,
-    units,
-    zoo,
-    tis,
-    timeSeries,
-    nycflights13,
-    imputeTS,
-    spelling,
-    covr
+    person("Christoph", "Sax", , "christoph.sax@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7192-7044")),
+    person("Cathy", "Chamberlin", role = "rev"),
+    person("Nunes", "Matt", role = "rev")
+  )
+Description: Time series toolkit with identical behavior for all time
+    series classes: 'ts','xts', 'data.frame', 'data.table', 'tibble',
+    'zoo', 'timeSeries', 'tsibble', 'tis' or 'irts'. Also converts
+    reliably between these classes.
 License: GPL-3
-Encoding: UTF-8
 URL: https://docs.ropensci.org/tsbox/, https://github.com/ropensci/tsbox
 BugReports: https://github.com/ropensci/tsbox/issues
-Roxygen: list(markdown = TRUE, roclets = c ("namespace", "rd", "srr::srr_stats_roclet"))
-RoxygenNote: 7.3.2
-VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
-Config/testthat/parallel: true
+Imports:
+    anytime,
+    data.table (>= 1.10.0),
+    lifecycle
+Suggests:
+    covr,
+    dplyr,
+    dygraphs,
+    forecast,
+    ggplot2,
+    imputeTS,
+    knitr,
+    nycflights13,
+    rmarkdown,
+    scales,
+    seasonal,
+    spelling,
+    testthat,
+    tibble,
+    tibbletime,
+    tidyr,
+    timeSeries,
+    tis,
+    tseries,
+    tsibble (>= 0.8.2),
+    tsibbledata,
+    units,
+    xts,
+    zoo
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
+Config/testthat/parallel: true
+Encoding: UTF-8
 Language: en-US
+Roxygen: list(markdown = TRUE, roclets = c ("namespace", "rd",
+    "srr::srr_stats_roclet"))
+RoxygenNote: 7.3.2
