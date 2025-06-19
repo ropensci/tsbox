@@ -12,7 +12,8 @@ Description: Time series toolkit with identical behavior for all
   'timeSeries', 'tsibble', 'tis' or 'irts'. Also converts reliably between these classes.
 Imports:
     data.table (>= 1.10.0),
-    anytime
+    anytime,
+    lifecycle
 Suggests:
     testthat,
     dplyr,
