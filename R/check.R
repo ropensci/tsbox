@@ -1,6 +1,5 @@
-
-stop0 <- function(...) {
-  stop(..., call. = FALSE)
+stop0 <- function(..., call = NULL) {
+  cli::cli_abort(paste0(...), call = call)
 }
 
 paste_quoted <- function(x) {

@@ -12,8 +12,13 @@ ts_start <- function(x) {
 
 #' @export
 #' @name tsbox-defunct
+#' `r lifecycle::badge('deprecated')`
 ts_end <- function(x) {
-  .Deprecated("ts_summary")
+  lifecycle::deprecate_warn(
+    "0.1.0",
+    "tsbox::ts_end(x)",
+    "tsbox::ts_summary(x)$end"
+  )
   x.dts <- ts_dts(x)
   range(x.dts[[dts_cname(x.dts)$time]])[2]
 }

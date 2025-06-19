@@ -1,4 +1,3 @@
-# skip_on_appveyor()  # it works on my windows machine not clear what's wrong
 skip_on_cran()
 
 library(dplyr)

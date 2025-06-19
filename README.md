@@ -34,12 +34,17 @@ To install the stable version from CRAN:
 install.packages("tsbox")
 ```
 
-To install the development version:
+To install the development version from R-universe:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("ropensci/tsbox")
 install.packages("ropensci/tsbox", repos = "https://ropensci.r-universe.dev")
+```
+
+Or the the development version from GitHub:
+
+``` r
+# install.packages("pak")
+pak::pak("ropensci/tsbox")
 ```
 
 ### Convert everything to everything
@@ -104,8 +109,16 @@ be. And we finally get a legend!
 
     ts_plot(ts_scale(ts_c(mdeaths, austres, AirPassengers, DAX = EuStockMarkets[ ,'DAX'])))
 
-![](https://raw.githubusercontent.com/ropensci/tsbox/master/vignettes/fig/myfig.png)
+<figure>
+<img
+src="https://raw.githubusercontent.com/ropensci/tsbox/master/vignettes/fig/myfig.png"
+alt="Line plot showing multiple time series with different frequencies and classes, demonstrating the tsbox package’s ability to combine and visualize diverse time series data in R. The plot includes a legend identifying each series." />
+<figcaption aria-hidden="true">Line plot showing multiple time series
+with different frequencies and classes, demonstrating the tsbox
+package’s ability to combine and visualize diverse time series data in
+R. The plot includes a legend identifying each series.</figcaption>
+</figure>
 
 ### Cheatsheet
 
-<a href="https://blog.cynkra.com/posts/2019-04-10-tsbox-01/tsbox-cheatsheet.pdf"><img style="max-width:50%;" src="https://blog.cynkra.com/posts/2019-04-10-tsbox-01/tsbox-cheatsheet-small.jpg"></a>
+<a href="https://blog.cynkra.com/posts/2019-04-10-tsbox-01/tsbox-cheatsheet.pdf"><img alt="Line plot showing multiple time series with different frequencies and classes, demonstrating the tsbox package's ability to combine and visualize diverse time series data in R. The plot includes a legend identifying each series." style="max-width:50%;" src="https://blog.cynkra.com/posts/2019-04-10-tsbox-01/tsbox-cheatsheet-small.jpg"></a>
