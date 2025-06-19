@@ -118,7 +118,7 @@ wide_core <- function(x) {
 
   n.non.unique <- nrow(x) - nrow(unique(x, by = c(cname$id, cname$time)))
   if (n.non.unique > 0) {
-    stop("contains duplicate entries (this error should not occur.")
+    cli::cli_abort("contains duplicate entries (this error should not occur).")
   }
 
   # dcast is confused by factors
