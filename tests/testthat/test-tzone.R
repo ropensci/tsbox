@@ -32,3 +32,15 @@ test_that("operations do not depend on time zone", {
   # revert to system time zone
   Sys.setenv(TZ = old.tz)
 })
+
+test_that("xts and zoo conversion keeps the time zone", {
+  skip_if_not_installed("xts")
+  tm <- as.POSIXct(
+    c("2020-01-01 10:00", "2020-01-01 11:00", "2020-01-01 12:00"),
+    tz = "America/New_York"
+  )
+  x <- data.frame(time = tm, value = 1:3)
+  expect_identical(attr(ts_dts(xts::xts(1:3, order.by = tm))$time, "tzone"), "America/New_York")
+  expect_equal(ts_df(ts_xts(x)), x)
+  expect_equal(ts_df(ts_zoo(x)), x)
+})
