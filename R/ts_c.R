@@ -157,7 +157,7 @@ unify_time_class <- function(ll) {
 #' - Collect all Ids from multiple columns
 #' - Combine them to single Id
 #' - Apply make.unique() to single Id
-#' - Split again to multiple Id colums
+#' - Split again to multiple Id columns
 #'
 #' @param ll list containing list of `data.tables`
 #' @param cid character, Id column names
@@ -181,7 +181,7 @@ make_ids_unique <- function(ll, cid) {
   # Apply make.unique() to single Id
   old.id.tab[, id := make.unique(id)]
 
-  # Split again to multiple Id colums
+  # Split again to multiple Id columns
   z0 <- setNames(tstrsplit(old.id.tab$id, split = "__cut_here__"), cid)
   z <- as.data.table(c(z0, list(.element = old.id.tab[, .element])))
   new.id <- unname(split(z[, cid, with = FALSE], z$.element))

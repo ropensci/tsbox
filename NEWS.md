@@ -2,9 +2,9 @@
 
 ## Bug fixes
 
-- ts_ggplot: pass symbols, not strings (fix #223)
-- scale_color_tsbox / scale_fill_tsbox: deprecated ds argument
-- dectime_to_POSIXct(): fix calc and rounding of seconds (#228) Thanks Miguel!
+- `ts_ggplot()`: pass symbols, not strings (fix #223)
+- `scale_color_tsbox()` / `scale_fill_tsbox()`: deprecated `ds` argument
+- `dectime_to_POSIXct()`: fix calculation and rounding of seconds (#228) Thanks Miguel!
 
 
 # tsbox 0.4.1  (2023-05-06)

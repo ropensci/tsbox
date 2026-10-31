@@ -54,7 +54,7 @@ ts_dts.tbl_ts <- function(x) {
   cvalue <- setdiff(names(z), c("time", cid))
 
 
-  # get rid of tsibble specifc classes, like yearweek
+  # get rid of tsibble specific classes, like yearweek
   if (inherits(z$time, "Date")) {
     z$time <- as.Date(z$time)
   }

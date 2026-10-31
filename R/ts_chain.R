@@ -65,7 +65,7 @@ chain_two <- function(a, b) {
     a[[cname$time]] <- as.POSIXct(a[[cname$time]])
   }
 
-  # b is longer than a into the future: extraploation
+  # b is longer than a into the future: extrapolation
   if (max(b[[cname2$time]]) > max(a[[cname$time]])) {
     where.in.b <- last_true(b[[cname2$time]] %in% a[[cname$time]])
     where.in.a <- a[[cname$time]] %in% b[[cname2$time]][where.in.b]

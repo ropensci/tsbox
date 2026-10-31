@@ -139,7 +139,7 @@ date_time_to_tsp <- function(x, frequency = NULL) {
     z <- tsp(ts(x, start = start, frequency = frequency))
   } else {
 
-    # non heuristic converson
+    # non heuristic conversion
     md <- meta_freq()[is_near(freq, frequency)]
     z <- tsp(
       ts(0, start = POSIXct_to_dectime(as.POSIXct(x[1])), frequency = frequency)

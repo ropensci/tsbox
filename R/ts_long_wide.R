@@ -35,7 +35,7 @@ ts_long <- function(x) {
 long_core_multi_id <- function(x) {
   stopifnot(inherits(x, "data.table"))
   time.name <- guess_time(x)
-  # guess id: ids on the left of time colum
+  # guess id: ids on the left of time column
   all.names <- names(x)
   time.pos <- which(all.names == time.name)
   id.names <- setdiff(all.names[1:time.pos], time.name)

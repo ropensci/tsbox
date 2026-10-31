@@ -24,7 +24,7 @@ find_range <- function(by = "1 month") {
 }
 
 
-#' Retrieve Meta Inforamtion
+#' Retrieve Meta Information
 #' @noRd
 meta_freq <- function() {
   meta_freq_data[]
