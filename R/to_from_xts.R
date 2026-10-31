@@ -21,13 +21,14 @@ ts_dts.xts <- function(x) {
 
   idx <- attr(x, "index")
   tclass <- attr(idx, "tclass")
+  tzone <- attr(idx, "tzone")
   attributes(idx) <- NULL
 
   dta <- as.data.frame(x, row.names = FALSE)
   if (tclass[1] == "Date") {
     time <- as.Date(as.POSIXct(idx, origin = "1970-01-01"))
   } else if (tclass[1] == "POSIXct") {
-    time <- as.POSIXct(idx, origin = "1970-01-01")
+    time <- as.POSIXct(idx, origin = "1970-01-01", tz = tzone)
   } else {
     # if regular, use as.ts to convert to ts
     return(ts_dts(as.ts(zoo::as.zoo(x))))
