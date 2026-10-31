@@ -18,7 +18,7 @@ as_time_or_date <- function(x) {
 
 #' Regularize Dates
 #'
-#' If `x` is regular, it is as fast as possilbe, and checks reliably for
+#' If `x` is regular, it is as fast as possible, and checks reliably for
 #' regularity.
 #'
 #' @param x Date or POSIXct
@@ -50,7 +50,7 @@ regularize_date <- function(x) {
 
   if (inherits(x, "POSIXct")) {
 
-    # for some reason, POSIXct is not precise for quartals
+    # for some reason, POSIXct is not precise for quarters
     if (fm$freq <= 12 && fm$freq > -1) {
       z <- as.POSIXct(
         seq(from = as.Date(from), to = as.Date(to), by = fm$string),

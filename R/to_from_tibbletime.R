@@ -31,7 +31,7 @@ ts_dts.tbl_time <- function(x) {
   setattr(z, "index_time_zone", NULL)
 
   # simplified, single id melt, instead of ts_long,from ts_ts, ts_xts
-  # could be factrored out.
+  # could be factored out.
   if (ncol(z) == 2L) {
     names(z)[2] <- "value"
     setcolorder(z, c(time, "value"))

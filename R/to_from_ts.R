@@ -60,7 +60,7 @@ ts_dts.ts <- function(x) {
     )
     setcolorder(dta, c("id", "time", "value"))
   }
-  # implicit NAs by default, use ts_regular to get explict NAs
+  # implicit NAs by default, use ts_regular to get explicit NAs
   dts_init(dta)
 }
 

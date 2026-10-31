@@ -4,7 +4,7 @@
 #'
 #' @param e1 ts-boxable object
 #' @param e2 ts-boxable object
-#' @param fun funcion to apply
+#' @param fun function to apply
 #'
 #' @noRd
 ts_arithmetic <- function(e1, e2, fun = `-`) {

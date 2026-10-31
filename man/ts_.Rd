@@ -52,7 +52,7 @@ ts_(function(x) predict(prcomp(x)))(ts_c(mdeaths, fdeaths))
 ts_(function(x) predict(prcomp(x, scale = TRUE)))(ts_c(mdeaths, fdeaths))
 ts_(dygraphs::dygraph, class = "xts")
 
-# attach series to serach path
+# attach series to search path
 ts_attach <- ts_(attach, class = "tslist", reclass = FALSE)
 ts_attach(EuStockMarkets)
 ts_plot(DAX, SMI)

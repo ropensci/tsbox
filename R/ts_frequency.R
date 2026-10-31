@@ -25,7 +25,7 @@
 #'
 #' ts_frequency(AirPassengers, 4, "sum")
 #'
-#' # Note that incomplete years are omited by default
+#' # Note that incomplete years are omitted by default
 #' ts_frequency(EuStockMarkets, "year")
 #' ts_frequency(EuStockMarkets, "year", na.rm = TRUE)
 #' }

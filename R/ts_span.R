@@ -109,7 +109,7 @@ ts_span <- function(x, start = NULL, end = NULL, template = NULL,
 
   # specification by date: apply anytime
 
-  # Outfactor in universal anytime wrapper?
+  # Factor out into universal anytime wrapper?
   if_num_char <- function(x) {
     if (inherits(x, "numeric")) {
       stopifnot(length(x) == 1)

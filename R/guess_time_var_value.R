@@ -1,4 +1,4 @@
-# to determine id, time, value, when coverting from data frame likes
+# to determine id, time, value, when converting from data frame likes
 
 # 3 times faster if we store .years
 .years <- as.character(1600:2200)

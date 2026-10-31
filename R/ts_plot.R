@@ -57,7 +57,7 @@
 #' @importFrom grDevices dev.off pdf bmp jpeg png tiff
 #'
 #' @srrstats {TS5.0} *Implement default `plot` methods for any implemented class system.*
-#'   `ts_plot()` works for any of the supported classes. Since there are defaul `plot` methods for many of the supported classes, it must be a nwe function. `ts_ggplot()` is an alternative.
+#'   `ts_plot()` works for any of the supported classes. Since there are default `plot` methods for many of the supported classes, it must be a new function. `ts_ggplot()` is an alternative.
 #' @srrstats{TS5.2} *Default to placing the "time" (or equivalent) variable on the horizontal axis.*
 #'   Done.
 ts_plot <- function(..., title, subtitle, ylab = "",
@@ -254,7 +254,7 @@ ts_plot <- function(..., title, subtitle, ylab = "",
 
 #' Get Last Plot Call
 #'
-#' Last plot call is written to special enviroment by ts_plot()
+#' Last plot call is written to special environment by ts_plot()
 #'
 #' @noRd
 ts_lastplot_call <- function() {

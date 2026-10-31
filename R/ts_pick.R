@@ -38,7 +38,7 @@ ts_pick <- function(x, ...) {
   x.dts <- ts_dts(x)
   if (ncol(x.dts) == 2L) {
     return(x)
-  } # do nothing with singel time series
+  } # do nothing with single time series
 
   z <- combine_id_cols(x.dts)
 

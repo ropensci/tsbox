@@ -1,7 +1,7 @@
 # ts_apply works on dts, so it may cause quite a bit of overhead if applied,
 # e.g. on a ts object.
 
-# fun can rely on time and value colum beeing called 'time' and 'value'
+# fun can rely on time and value column being called 'time' and 'value'
 
 #' Convert to Class
 #'
@@ -25,7 +25,7 @@ ts_apply_dts <- function(x, fun, ...) {
     }
   } else {
     .by <- by_expr(dts_cname(x)$id)
-    # modifiy cname, to reflect single series character of .SD
+    # modify cname, to reflect single series character of .SD
     cname.sd <- dts_cname(x)
     cname.sd$id <- character(0)
     setattr(x, "cname", cname.sd)
